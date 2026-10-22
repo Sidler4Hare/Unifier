@@ -1,0 +1,192 @@
+[
+  {
+    "marker": "MLSTARTUP-phase-cold",
+    "command": [
+      "/usr/bin/python3",
+      "/home/omg/文档/多兼容linux机/tools/trace_startup_entry.py",
+      "--project",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project",
+      "--output",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/phases/cold/podman-spans.json",
+      "app",
+      "open",
+      "startup-editor-debian13",
+      "--",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-phase-cold.txt"
+    ],
+    "started_ns": 107316795730640,
+    "window": {
+      "event": "added",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-phase-cold.txt - Mousepad",
+      "window_id": "{a1764efb-cfbd-4f37-9623-73ca7765e99e}",
+      "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "pid": 1046931,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 107317672723015,
+      "sent_wall_ms": 1792666548556
+    },
+    "wayland": {
+      "surface_id": "33",
+      "first_attach_received_ns": 107317671254659,
+      "first_commit_received_ns": 107317671355138,
+      "first_frame_callback_received_ns": 107317690115809
+    },
+    "removed": {
+      "event": "removed",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-phase-cold.txt - Mousepad",
+      "window_id": "{a1764efb-cfbd-4f37-9623-73ca7765e99e}",
+      "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "pid": 1046931,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 107317887221515,
+      "sent_wall_ms": 1792666548767
+    },
+    "close_requested_ns": 107317824930057,
+    "launcher_exit_ns": 107326242853875,
+    "returncode": 0,
+    "launch_to_window_ms": 876.992,
+    "launch_to_buffer_commit_ms": 875.624,
+    "launch_to_ready_ms": 876.992,
+    "launch_to_frame_callback_ms": 894.385,
+    "close_to_window_removed_ms": 62.291,
+    "close_to_launcher_exit_ms": 8417.924,
+    "note_unchanged": true,
+    "target": "debian13",
+    "mode": "cold",
+    "observed_at": "2026-10-22T18:55:57+08:00",
+    "instrumented": true,
+    "excluded_from_latency_cohort": true,
+    "completed_before_ready": {
+      "count": 11,
+      "by_action": {
+        "info": 1,
+        "inspect": 8,
+        "start": 1,
+        "exec": 1
+      },
+      "duration_ms_by_action": {
+        "info": 98.665,
+        "inspect": 208.012,
+        "start": 100.575,
+        "exec": 136.948
+      }
+    },
+    "product_import_ms": 1.873,
+    "passed": true
+  },
+  {
+    "marker": "MLSTARTUP-phase-warm",
+    "command": [
+      "/usr/bin/python3",
+      "/home/omg/文档/多兼容linux机/tools/trace_startup_entry.py",
+      "--project",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project",
+      "--output",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/phases/warm/podman-spans.json",
+      "app",
+      "open",
+      "startup-editor-debian13",
+      "--",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-phase-warm.txt"
+    ],
+    "started_ns": 107327117518127,
+    "window": {
+      "event": "added",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-phase-warm.txt - Mousepad",
+      "window_id": "{879fb9e6-4b0a-48a4-9695-08106c42ccf3}",
+      "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "pid": 1047598,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 107327806677351,
+      "sent_wall_ms": 1792666558689
+    },
+    "wayland": {
+      "surface_id": "33",
+      "first_attach_received_ns": 107327802731494,
+      "first_commit_received_ns": 107327802803402,
+      "first_frame_callback_received_ns": 107327819753879
+    },
+    "removed": {
+      "event": "removed",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-phase-warm.txt - Mousepad",
+      "window_id": "{879fb9e6-4b0a-48a4-9695-08106c42ccf3}",
+      "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "pid": 1047598,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 107328009187358,
+      "sent_wall_ms": 1792666558889
+    },
+    "close_requested_ns": 107327959217316,
+    "launcher_exit_ns": 107328091435975,
+    "returncode": 0,
+    "launch_to_window_ms": 689.159,
+    "launch_to_buffer_commit_ms": 685.285,
+    "launch_to_ready_ms": 689.159,
+    "launch_to_frame_callback_ms": 702.236,
+    "close_to_window_removed_ms": 49.97,
+    "close_to_launcher_exit_ms": 132.219,
+    "note_unchanged": true,
+    "target": "debian13",
+    "mode": "warm",
+    "observed_at": "2026-10-22T18:55:58+08:00",
+    "instrumented": true,
+    "excluded_from_latency_cohort": true,
+    "completed_before_ready": {
+      "count": 7,
+      "by_action": {
+        "info": 1,
+        "inspect": 6
+      },
+      "duration_ms_by_action": {
+        "info": 98.584,
+        "inspect": 275.364
+      }
+    },
+    "product_import_ms": 2.339,
+    "passed": true
+  }
+]

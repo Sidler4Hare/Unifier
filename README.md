@@ -249,3 +249,11 @@ python3 /home/omg/.local/share/multilinux/apps/wemeet/tools/ml.py app open wemee
 GPU 路径实际完成 DMA-BUF → EGLImage → GLES/FBO → `glReadPixels`，宿主与 Debian 私有 GBM 自检各有 7747/7747 RGB 像素匹配。读回核验明确 `zero_copy=false`。当前现场只覆盖单 plane、linear modifier 与本机 Intel GPU；其它 modifier、GPU、长期预览/编码界面和跨宿主仍待验证。
 
 代码回归 102 项，98 通过，4 项旧现场测试默认跳过；新采集由现场工具实际执行。实验环境停止、租约和代理回收，宿主包与桌面入口清单前后相同。详见[报告](evidence/screencast-2026-10-22T155700+0800/report.md)、[机器核验](evidence/screencast-2026-10-22T155700+0800/validation.json)与[接手入口](HANDOFF.md)。
+
+## GUI 拉起与生命周期性能
+
+2026-10-22 晚对独立 Debian/Fedora/Arch 原生 Mousepad 各测 30 次冷启动、30 次热启动。窗口加实际 Wayland buffer commit 的就绪 p50 分别为：冷启动 **0.871 / 0.969 / 0.891 秒**，热启动 **0.592 / 0.672 / 0.586 秒**。冷启动指容器和代理停止后重开，保留文件缓存；热组人为保留环境，每次启动新的应用进程。未测物理呈现，也不是腾讯会议的启动基准。
+
+正常并发共用通过，但敏捷启停仍有三项现场问题：完整停止约 **8.36 秒**，停止期间快速重开约 **8.94–9.10 秒**；PID 1 不回收孤儿子进程，Arch 连续热组打开后发现 **155 个僵尸子进程**；强杀启动器后自动启停所有权丢失，后续正常启动也不能恢复。问题均保留证据，本轮没有修改生产启停逻辑。
+
+180 个正式样本和 15 个生命周期场景执行完成，另保留一次已修正的测量探针时序失败。105 项回归中 101 通过、4 跳过；机器证据有效，产品结论为 **需要修复生命周期**。测试环境、窗口、代理和临时 KWin 脚本已回收，原部署保持原状态。详见[完整报告](evidence/startup-2026-10-22T182400+0800/report.md)、[机器核验](evidence/startup-2026-10-22T182400+0800/validation.json)和[接手入口](HANDOFF.md)。

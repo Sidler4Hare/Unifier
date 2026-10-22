@@ -1,0 +1,2758 @@
+[
+  {
+    "target": "debian13",
+    "scenario": "reopen-0",
+    "started_at": "2026-10-22T18:47:18+08:00",
+    "execution_passed": true,
+    "first_close_requested_ns": 106808250180415,
+    "first_launcher_exit": {
+      "observed_ns": 106816609414157
+    },
+    "state_before_reopen": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1028305,
+        "ConmonPid": 1028302,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:47:18.523629176+08:00",
+        "FinishedAt": "2026-10-22T18:35:40.326870379+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "15aa8bb7490d48ccabdc540df15edb91": {
+            "pid": 1028215,
+            "stamp": 24344031,
+            "app_id": "startup-editor-debian13"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1028256,
+          "stamp": 24344050,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+        },
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "reopen_delay_ms": 183.211915,
+    "second_launch_to_ready_ms": 8961.784552,
+    "close_to_second_ready_ms": 9144.996467,
+    "second": {
+      "marker": "MLSTARTUP-debian13-reopen-0-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-debian13",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-0-second.txt"
+      ],
+      "started_ns": 106808433392330,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-0-second.txt - Mousepad",
+        "window_id": "{6412e2ad-478f-4aae-8519-d576b5d0831c}",
+        "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "pid": 1028864,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 106817395176882,
+        "sent_wall_ms": 1792666048278
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 106817391627221,
+        "first_commit_received_ns": 106817391736865,
+        "first_frame_callback_received_ns": 106817440577022
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-0-second.txt - Mousepad",
+        "window_id": "{6412e2ad-478f-4aae-8519-d576b5d0831c}",
+        "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "pid": 1028864,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 106817445610768,
+        "sent_wall_ms": 1792666048328
+      },
+      "close_requested_ns": 106817395241063,
+      "launcher_exit_ns": 106825746482911,
+      "returncode": 0,
+      "launch_to_window_ms": 8961.785,
+      "launch_to_buffer_commit_ms": 8958.345,
+      "launch_to_ready_ms": 8961.785,
+      "launch_to_frame_callback_ms": 9007.185,
+      "close_to_window_removed_ms": 50.37,
+      "close_to_launcher_exit_ms": 8351.242,
+      "note_unchanged": true
+    },
+    "state_after": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:47:27.769252588+08:00",
+        "FinishedAt": "2026-10-22T18:47:36.499247828+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "finished_at": "2026-10-22T18:47:36+08:00"
+  },
+  {
+    "target": "debian13",
+    "scenario": "reopen-1",
+    "started_at": "2026-10-22T18:47:36+08:00",
+    "execution_passed": true,
+    "first_close_requested_ns": 106826957995191,
+    "first_launcher_exit": {
+      "observed_ns": 106835327809349
+    },
+    "state_before_reopen": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1029204,
+        "ConmonPid": 1029201,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:47:37.336481887+08:00",
+        "FinishedAt": "2026-10-22T18:47:36.499247828+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "036af7a878064f1fa7f8df9c6ec60286": {
+            "pid": 1029114,
+            "stamp": 24345913,
+            "app_id": "startup-editor-debian13"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1029155,
+          "stamp": 24345931,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+        },
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "reopen_delay_ms": 192.285158,
+    "second_launch_to_ready_ms": 8956.819823,
+    "close_to_second_ready_ms": 9149.104981,
+    "second": {
+      "marker": "MLSTARTUP-debian13-reopen-1-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-debian13",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-1-second.txt"
+      ],
+      "started_ns": 106827150280349,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-1-second.txt - Mousepad",
+        "window_id": "{31f8d777-470b-4fd0-8300-7f664fc36a52}",
+        "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "pid": 1029778,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 106836107100172,
+        "sent_wall_ms": 1792666066992
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 106836105470151,
+        "first_commit_received_ns": 106836105538655,
+        "first_frame_callback_received_ns": 106836155665855
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-1-second.txt - Mousepad",
+        "window_id": "{31f8d777-470b-4fd0-8300-7f664fc36a52}",
+        "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "pid": 1029778,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 106836158348486,
+        "sent_wall_ms": 1792666067042
+      },
+      "close_requested_ns": 106836107157328,
+      "launcher_exit_ns": 106844456994245,
+      "returncode": 0,
+      "launch_to_window_ms": 8956.82,
+      "launch_to_buffer_commit_ms": 8955.258,
+      "launch_to_ready_ms": 8956.82,
+      "launch_to_frame_callback_ms": 9005.386,
+      "close_to_window_removed_ms": 51.191,
+      "close_to_launcher_exit_ms": 8349.837,
+      "note_unchanged": true
+    },
+    "state_after": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:47:46.487988027+08:00",
+        "FinishedAt": "2026-10-22T18:47:55.207180773+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "finished_at": "2026-10-22T18:47:55+08:00"
+  },
+  {
+    "target": "debian13",
+    "scenario": "reopen-2",
+    "started_at": "2026-10-22T18:47:55+08:00",
+    "execution_passed": true,
+    "first_close_requested_ns": 106845640366416,
+    "first_launcher_exit": {
+      "observed_ns": 106854017586398
+    },
+    "state_before_reopen": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1030155,
+        "ConmonPid": 1030152,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:47:56.025300715+08:00",
+        "FinishedAt": "2026-10-22T18:47:55.207180773+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "f31bccebf5bf4f0d965890e82a319a2c": {
+            "pid": 1030067,
+            "stamp": 24347781,
+            "app_id": "startup-editor-debian13"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1030107,
+          "stamp": 24347800,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+        },
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "reopen_delay_ms": 195.467369,
+    "second_launch_to_ready_ms": 8941.834961,
+    "close_to_second_ready_ms": 9137.30233,
+    "second": {
+      "marker": "MLSTARTUP-debian13-reopen-2-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-debian13",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-2-second.txt"
+      ],
+      "started_ns": 106845835833785,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-2-second.txt - Mousepad",
+        "window_id": "{4469f147-5a88-48cf-89c4-988ccb93427c}",
+        "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "pid": 1030693,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 106854777668746,
+        "sent_wall_ms": 1792666085663
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 106854776576736,
+        "first_commit_received_ns": 106854776649119,
+        "first_frame_callback_received_ns": 106854783605438
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-2-second.txt - Mousepad",
+        "window_id": "{4469f147-5a88-48cf-89c4-988ccb93427c}",
+        "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+        "pid": 1030693,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 106854833338775,
+        "sent_wall_ms": 1792666085716
+      },
+      "close_requested_ns": 106854777709927,
+      "launcher_exit_ns": 106863135567702,
+      "returncode": 0,
+      "launch_to_window_ms": 8941.835,
+      "launch_to_buffer_commit_ms": 8940.815,
+      "launch_to_ready_ms": 8941.835,
+      "launch_to_frame_callback_ms": 8947.772,
+      "close_to_window_removed_ms": 55.629,
+      "close_to_launcher_exit_ms": 8357.858,
+      "note_unchanged": true
+    },
+    "state_after": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:48:05.172979473+08:00",
+        "FinishedAt": "2026-10-22T18:48:13.885113825+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "finished_at": "2026-10-22T18:48:14+08:00"
+  },
+  {
+    "target": "debian13",
+    "scenario": "concurrent",
+    "started_at": "2026-10-22T18:48:14+08:00",
+    "execution_passed": false,
+    "error": "RuntimeError: compositor window has no positive buffer geometry",
+    "finished_at": "2026-10-22T18:48:15+08:00"
+  },
+  {
+    "target": "debian13",
+    "scenario": "concurrent",
+    "started_at": "2026-10-22T18:51:25+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "shared_lifetime_passed": true,
+    "with_two_apps": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1033130,
+        "ConmonPid": 1033127,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:51:26.025660295+08:00",
+        "FinishedAt": "2026-10-22T18:48:24.126077118+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "82afe780bc4a4f95a37be61dc8ec0a2b": {
+            "pid": 1033044,
+            "stamp": 24368780,
+            "app_id": "startup-editor-debian13"
+          },
+          "f38c2829f5d148e29b6e96c310c8cc77": {
+            "pid": 1033297,
+            "stamp": 24368880,
+            "app_id": "startup-editor-debian13"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1033083,
+          "stamp": 24368800,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+        },
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "after_first_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1033130,
+        "ConmonPid": 1033127,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:51:26.025660295+08:00",
+        "FinishedAt": "2026-10-22T18:48:24.126077118+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "f38c2829f5d148e29b6e96c310c8cc77": {
+            "pid": 1033297,
+            "stamp": 24368880,
+            "app_id": "startup-editor-debian13"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1033083,
+          "stamp": 24368800,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+        },
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "after_final_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:51:26.025660295+08:00",
+        "FinishedAt": "2026-10-22T18:51:35.670806489+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "first": {
+      "marker": "MLSTARTUP-debian13-concurrent-first",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-debian13",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-first.txt"
+      ],
+      "started_ns": 107054777490943,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-first.txt - Mousepad",
+        "window_id": "{e1bfa60f-b5b5-418f-a645-9d398930e8cf}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1033272,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107055770823103,
+        "sent_wall_ms": 1792666286653
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107055766063022,
+        "first_commit_received_ns": 107055766131292,
+        "first_frame_callback_received_ns": 107055782436535
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-first.txt - Mousepad",
+        "window_id": "{e1bfa60f-b5b5-418f-a645-9d398930e8cf}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1033272,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107056502878966,
+        "sent_wall_ms": 1792666287385
+      },
+      "close_requested_ns": 107056458026188,
+      "launcher_exit_ns": 107056548943937,
+      "returncode": 0,
+      "launch_to_window_ms": 993.332,
+      "launch_to_buffer_commit_ms": 988.64,
+      "launch_to_ready_ms": 993.332,
+      "launch_to_frame_callback_ms": 1004.946,
+      "close_to_window_removed_ms": 44.853,
+      "close_to_launcher_exit_ms": 90.918,
+      "note_unchanged": true
+    },
+    "second": {
+      "marker": "MLSTARTUP-debian13-concurrent-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-debian13",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-second.txt"
+      ],
+      "started_ns": 107055771411707,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-second.txt - Mousepad",
+        "window_id": "{6f2a6250-d1e4-4e1d-b14a-09baf61cf736}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1033425,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 479.99999999999994
+        },
+        "ready_for_painting": null,
+        "received_ns": 107056428868595,
+        "sent_wall_ms": 1792666287294,
+        "added_received_ns": 107056409154185,
+        "geometry_verified": true
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107056407527124,
+        "first_commit_received_ns": 107056407634571,
+        "first_frame_callback_received_ns": 107056430717227
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-second.txt - Mousepad",
+        "window_id": "{6f2a6250-d1e4-4e1d-b14a-09baf61cf736}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1033425,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": null
+        },
+        "ready_for_painting": null,
+        "received_ns": 107056621874570,
+        "sent_wall_ms": 1792666287503
+      },
+      "close_requested_ns": 107056577727579,
+      "launcher_exit_ns": 107064913934123,
+      "returncode": 0,
+      "launch_to_window_ms": 657.457,
+      "launch_to_buffer_commit_ms": 636.223,
+      "launch_to_ready_ms": 657.457,
+      "launch_to_frame_callback_ms": 659.306,
+      "close_to_window_removed_ms": 44.147,
+      "close_to_launcher_exit_ms": 8336.207,
+      "note_unchanged": true
+    },
+    "finished_at": "2026-10-22T18:51:35+08:00"
+  },
+  {
+    "target": "debian13",
+    "scenario": "killed-launcher",
+    "started_at": "2026-10-22T18:51:35+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "killed_ns": 107066192064911,
+    "observation_seconds": 2,
+    "state_before_kill": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1033823,
+        "ConmonPid": 1033820,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:51:36.508688404+08:00",
+        "FinishedAt": "2026-10-22T18:51:35.670806489+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "44179f876447424f8bcdf7a4d1b226c3": {
+            "pid": 1033736,
+            "stamp": 24369829,
+            "app_id": "startup-editor-debian13"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1033776,
+          "stamp": 24369848,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+        },
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "state_after_kill": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1033823,
+        "ConmonPid": 1033820,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:51:36.508688404+08:00",
+        "FinishedAt": "2026-10-22T18:51:35.670806489+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "44179f876447424f8bcdf7a4d1b226c3": {
+            "pid": 1033736,
+            "stamp": 24369829,
+            "app_id": "startup-editor-debian13"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1033776,
+          "stamp": 24369848,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+        },
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "state_after_orphan_window_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1033823,
+        "ConmonPid": 1033820,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:51:36.508688404+08:00",
+        "FinishedAt": "2026-10-22T18:51:35.670806489+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "44179f876447424f8bcdf7a4d1b226c3": {
+            "pid": 1033736,
+            "stamp": 24369829,
+            "app_id": "startup-editor-debian13"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1033776,
+          "stamp": 24369848,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+        },
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "state_after_following_managed_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1033823,
+        "ConmonPid": 1033820,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:51:36.508688404+08:00",
+        "FinishedAt": "2026-10-22T18:51:35.670806489+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": false,
+        "bridge": {
+          "pid": 1033776,
+          "stamp": 24369848,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+        },
+        "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+      }
+    },
+    "automatic_recovery_after_window_close": false,
+    "following_managed_launch_restores_auto_stop": false,
+    "following": {
+      "marker": "MLSTARTUP-debian13-killed-launcher-following",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-debian13",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-killed-launcher-following.txt"
+      ],
+      "started_ns": 107068464804549,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-killed-launcher-following.txt - Mousepad",
+        "window_id": "{e041ab5c-9153-4026-8581-e7d1a21997b9}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1034207,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107069047854726,
+        "sent_wall_ms": 1792666299932
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107069045602199,
+        "first_commit_received_ns": 107069045662799,
+        "first_frame_callback_received_ns": 107069092520185
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-killed-launcher-following.txt - Mousepad",
+        "window_id": "{e041ab5c-9153-4026-8581-e7d1a21997b9}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1034207,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107069098231016,
+        "sent_wall_ms": 1792666299979
+      },
+      "close_requested_ns": 107069047906674,
+      "launcher_exit_ns": 107069175069772,
+      "returncode": 0,
+      "launch_to_window_ms": 583.05,
+      "launch_to_buffer_commit_ms": 580.858,
+      "launch_to_ready_ms": 583.05,
+      "launch_to_frame_callback_ms": 627.716,
+      "close_to_window_removed_ms": 50.324,
+      "close_to_launcher_exit_ms": 127.163,
+      "note_unchanged": true
+    },
+    "finished_at": "2026-10-22T18:51:40+08:00"
+  },
+  {
+    "target": "fedora44",
+    "scenario": "reopen-0",
+    "started_at": "2026-10-22T18:51:58+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "first_close_requested_ns": 107088780987554,
+    "first_launcher_exit": {
+      "observed_ns": 107097123964679
+    },
+    "state_before_reopen": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1035247,
+        "ConmonPid": 1035244,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:51:58.879297582+08:00",
+        "FinishedAt": "2026-10-22T18:41:31.23789073+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "1a324b41c34a4346bafedfbe8c7cdd53": {
+            "pid": 1035158,
+            "stamp": 24372068,
+            "app_id": "startup-editor-fedora44"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1035198,
+          "stamp": 24372086,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-fedora44/bus"
+        },
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "reopen_delay_ms": 186.227647,
+    "second_launch_to_ready_ms": 9019.982326,
+    "close_to_second_ready_ms": 9206.209973,
+    "second": {
+      "marker": "MLSTARTUP-fedora44-reopen-0-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-fedora44",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-0-second.txt"
+      ],
+      "started_ns": 107088967215201,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-0-second.txt - Mousepad",
+        "window_id": "{8546eedf-5da6-4542-bd22-51ed6b401b23}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1035861,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107097987197527,
+        "sent_wall_ms": 1792666328870
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107097984221533,
+        "first_commit_received_ns": 107097984297800,
+        "first_frame_callback_received_ns": null
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-0-second.txt - Mousepad",
+        "window_id": "{8546eedf-5da6-4542-bd22-51ed6b401b23}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1035861,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107098032898001,
+        "sent_wall_ms": 1792666328917
+      },
+      "close_requested_ns": 107097987260856,
+      "launcher_exit_ns": 107106391022143,
+      "returncode": 0,
+      "launch_to_window_ms": 9019.982,
+      "launch_to_buffer_commit_ms": 9017.083,
+      "launch_to_ready_ms": 9019.982,
+      "launch_to_frame_callback_ms": null,
+      "close_to_window_removed_ms": 45.637,
+      "close_to_launcher_exit_ms": 8403.761,
+      "note_unchanged": true
+    },
+    "state_after": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:52:08.287166773+08:00",
+        "FinishedAt": "2026-10-22T18:52:17.143071639+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "finished_at": "2026-10-22T18:52:17+08:00"
+  },
+  {
+    "target": "fedora44",
+    "scenario": "reopen-1",
+    "started_at": "2026-10-22T18:52:17+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "first_close_requested_ns": 107107711304899,
+    "first_launcher_exit": {
+      "observed_ns": 107116079037093
+    },
+    "state_before_reopen": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1036274,
+        "ConmonPid": 1036271,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:52:17.987382312+08:00",
+        "FinishedAt": "2026-10-22T18:52:17.143071639+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "4dcb3cd7444b42e0b54caa48a1f2ee58": {
+            "pid": 1036186,
+            "stamp": 24373976,
+            "app_id": "startup-editor-fedora44"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1036226,
+          "stamp": 24373996,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-fedora44/bus"
+        },
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "reopen_delay_ms": 190.865556,
+    "second_launch_to_ready_ms": 9100.916591,
+    "close_to_second_ready_ms": 9291.782147,
+    "second": {
+      "marker": "MLSTARTUP-fedora44-reopen-1-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-fedora44",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-1-second.txt"
+      ],
+      "started_ns": 107107902170455,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-1-second.txt - Mousepad",
+        "window_id": "{82c5f134-40db-44f0-9fdc-ee44717908ff}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1036892,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107117003087046,
+        "sent_wall_ms": 1792666347884
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107116997643637,
+        "first_commit_received_ns": 107116997972769,
+        "first_frame_callback_received_ns": 107117012482155
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-1-second.txt - Mousepad",
+        "window_id": "{82c5f134-40db-44f0-9fdc-ee44717908ff}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1036892,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107117053182088,
+        "sent_wall_ms": 1792666347935
+      },
+      "close_requested_ns": 107117003135496,
+      "launcher_exit_ns": 107125352846799,
+      "returncode": 0,
+      "launch_to_window_ms": 9100.917,
+      "launch_to_buffer_commit_ms": 9095.802,
+      "launch_to_ready_ms": 9100.917,
+      "launch_to_frame_callback_ms": 9110.312,
+      "close_to_window_removed_ms": 50.047,
+      "close_to_launcher_exit_ms": 8349.711,
+      "note_unchanged": true
+    },
+    "state_after": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:52:27.233460452+08:00",
+        "FinishedAt": "2026-10-22T18:52:36.102735691+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "finished_at": "2026-10-22T18:52:36+08:00"
+  },
+  {
+    "target": "fedora44",
+    "scenario": "reopen-2",
+    "started_at": "2026-10-22T18:52:36+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "first_close_requested_ns": 107126641461319,
+    "first_launcher_exit": {
+      "observed_ns": 107135026380277
+    },
+    "state_before_reopen": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1037291,
+        "ConmonPid": 1037288,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:52:36.932518554+08:00",
+        "FinishedAt": "2026-10-22T18:52:36.102735691+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "335073dcbd7043c78f1c943a05ecf2fd": {
+            "pid": 1037203,
+            "stamp": 24375873,
+            "app_id": "startup-editor-fedora44"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1037243,
+          "stamp": 24375891,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-fedora44/bus"
+        },
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "reopen_delay_ms": 189.104587,
+    "second_launch_to_ready_ms": 9059.503069,
+    "close_to_second_ready_ms": 9248.607656,
+    "second": {
+      "marker": "MLSTARTUP-fedora44-reopen-2-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-fedora44",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-2-second.txt"
+      ],
+      "started_ns": 107126830565906,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-2-second.txt - Mousepad",
+        "window_id": "{c807ba48-a105-448a-adb9-dc237a4875ce}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1037913,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107135890068975,
+        "sent_wall_ms": 1792666366774
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107135888106157,
+        "first_commit_received_ns": 107135888198464,
+        "first_frame_callback_received_ns": 107135897715723
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-2-second.txt - Mousepad",
+        "window_id": "{c807ba48-a105-448a-adb9-dc237a4875ce}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1037913,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107135947343997,
+        "sent_wall_ms": 1792666366829
+      },
+      "close_requested_ns": 107135890133582,
+      "launcher_exit_ns": 107144247909985,
+      "returncode": 0,
+      "launch_to_window_ms": 9059.503,
+      "launch_to_buffer_commit_ms": 9057.633,
+      "launch_to_ready_ms": 9059.503,
+      "launch_to_frame_callback_ms": 9067.15,
+      "close_to_window_removed_ms": 57.21,
+      "close_to_launcher_exit_ms": 8357.776,
+      "note_unchanged": true
+    },
+    "state_after": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:52:46.184851103+08:00",
+        "FinishedAt": "2026-10-22T18:52:54.998400877+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "finished_at": "2026-10-22T18:52:55+08:00"
+  },
+  {
+    "target": "fedora44",
+    "scenario": "concurrent",
+    "started_at": "2026-10-22T18:52:55+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "shared_lifetime_passed": true,
+    "with_two_apps": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1038341,
+        "ConmonPid": 1038338,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:52:55.81634996+08:00",
+        "FinishedAt": "2026-10-22T18:52:54.998400877+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "c553e9cdd98c48f296ffd68df1931976": {
+            "pid": 1038253,
+            "stamp": 24377761,
+            "app_id": "startup-editor-fedora44"
+          },
+          "07337f8ea31840eab82ac14e466e8e2f": {
+            "pid": 1038548,
+            "stamp": 24377855,
+            "app_id": "startup-editor-fedora44"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1038293,
+          "stamp": 24377780,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-fedora44/bus"
+        },
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "after_first_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1038341,
+        "ConmonPid": 1038338,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:52:55.81634996+08:00",
+        "FinishedAt": "2026-10-22T18:52:54.998400877+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "07337f8ea31840eab82ac14e466e8e2f": {
+            "pid": 1038548,
+            "stamp": 24377855,
+            "app_id": "startup-editor-fedora44"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1038293,
+          "stamp": 24377780,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-fedora44/bus"
+        },
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "after_final_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:52:55.81634996+08:00",
+        "FinishedAt": "2026-10-22T18:53:05.442215823+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "first": {
+      "marker": "MLSTARTUP-fedora44-concurrent-first",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-fedora44",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-concurrent-first.txt"
+      ],
+      "started_ns": 107144580492452,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-concurrent-first.txt - Mousepad",
+        "window_id": "{c3aa2874-bec0-4a4e-8d9f-3220b9d7cb54}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1038477,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107145522361954,
+        "sent_wall_ms": 1792666376405
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107145518435455,
+        "first_commit_received_ns": 107145518521105,
+        "first_frame_callback_received_ns": 107145534086689
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-concurrent-first.txt - Mousepad",
+        "window_id": "{c3aa2874-bec0-4a4e-8d9f-3220b9d7cb54}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1038477,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107146269343996,
+        "sent_wall_ms": 1792666377150
+      },
+      "close_requested_ns": 107146218368119,
+      "launcher_exit_ns": 107146315450817,
+      "returncode": 0,
+      "launch_to_window_ms": 941.87,
+      "launch_to_buffer_commit_ms": 938.029,
+      "launch_to_ready_ms": 941.87,
+      "launch_to_frame_callback_ms": 953.594,
+      "close_to_window_removed_ms": 50.976,
+      "close_to_launcher_exit_ms": 97.083,
+      "note_unchanged": true
+    },
+    "second": {
+      "marker": "MLSTARTUP-fedora44-concurrent-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-fedora44",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-concurrent-second.txt"
+      ],
+      "started_ns": 107145522738560,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-concurrent-second.txt - Mousepad",
+        "window_id": "{9face038-2fb6-4a65-9999-a530b1893047}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1038684,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 479.99999999999994
+        },
+        "ready_for_painting": null,
+        "received_ns": 107146185613101,
+        "sent_wall_ms": 1792666377054,
+        "added_received_ns": 107146169556719,
+        "geometry_verified": true
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107146168182913,
+        "first_commit_received_ns": 107146168258532,
+        "first_frame_callback_received_ns": 107146184279244
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-concurrent-second.txt - Mousepad",
+        "window_id": "{9face038-2fb6-4a65-9999-a530b1893047}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1038684,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": null
+        },
+        "ready_for_painting": null,
+        "received_ns": 107146386484765,
+        "sent_wall_ms": 1792666377268
+      },
+      "close_requested_ns": 107146342273766,
+      "launcher_exit_ns": 107154704680109,
+      "returncode": 0,
+      "launch_to_window_ms": 662.875,
+      "launch_to_buffer_commit_ms": 645.52,
+      "launch_to_ready_ms": 662.875,
+      "launch_to_frame_callback_ms": 661.541,
+      "close_to_window_removed_ms": 44.211,
+      "close_to_launcher_exit_ms": 8362.406,
+      "note_unchanged": true
+    },
+    "finished_at": "2026-10-22T18:53:05+08:00"
+  },
+  {
+    "target": "fedora44",
+    "scenario": "killed-launcher",
+    "started_at": "2026-10-22T18:53:05+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "killed_ns": 107156042990032,
+    "observation_seconds": 2,
+    "state_before_kill": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1039152,
+        "ConmonPid": 1039149,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:53:06.296506353+08:00",
+        "FinishedAt": "2026-10-22T18:53:05.442215823+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "7c9d4a2a81c64a59aa91685821914e31": {
+            "pid": 1039064,
+            "stamp": 24378809,
+            "app_id": "startup-editor-fedora44"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1039104,
+          "stamp": 24378827,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-fedora44/bus"
+        },
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "state_after_kill": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1039152,
+        "ConmonPid": 1039149,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:53:06.296506353+08:00",
+        "FinishedAt": "2026-10-22T18:53:05.442215823+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "7c9d4a2a81c64a59aa91685821914e31": {
+            "pid": 1039064,
+            "stamp": 24378809,
+            "app_id": "startup-editor-fedora44"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1039104,
+          "stamp": 24378827,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-fedora44/bus"
+        },
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "state_after_orphan_window_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1039152,
+        "ConmonPid": 1039149,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:53:06.296506353+08:00",
+        "FinishedAt": "2026-10-22T18:53:05.442215823+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "7c9d4a2a81c64a59aa91685821914e31": {
+            "pid": 1039064,
+            "stamp": 24378809,
+            "app_id": "startup-editor-fedora44"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1039104,
+          "stamp": 24378827,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-fedora44/bus"
+        },
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "state_after_following_managed_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1039152,
+        "ConmonPid": 1039149,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:53:06.296506353+08:00",
+        "FinishedAt": "2026-10-22T18:53:05.442215823+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": false,
+        "bridge": {
+          "pid": 1039104,
+          "stamp": 24378827,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-fedora44/bus"
+        },
+        "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+      }
+    },
+    "automatic_recovery_after_window_close": false,
+    "following_managed_launch_restores_auto_stop": false,
+    "following": {
+      "marker": "MLSTARTUP-fedora44-killed-launcher-following",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-fedora44",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-killed-launcher-following.txt"
+      ],
+      "started_ns": 107158306047241,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-killed-launcher-following.txt - Mousepad",
+        "window_id": "{acd7e4a4-74d4-4fbf-9be0-b283578c0050}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1039583,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107158940813025,
+        "sent_wall_ms": 1792666389824
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107158937748739,
+        "first_commit_received_ns": 107158937820632,
+        "first_frame_callback_received_ns": null
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-killed-launcher-following.txt - Mousepad",
+        "window_id": "{acd7e4a4-74d4-4fbf-9be0-b283578c0050}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1039583,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107158985832714,
+        "sent_wall_ms": 1792666389869
+      },
+      "close_requested_ns": 107158940877023,
+      "launcher_exit_ns": 107159067785484,
+      "returncode": 0,
+      "launch_to_window_ms": 634.766,
+      "launch_to_buffer_commit_ms": 631.773,
+      "launch_to_ready_ms": 634.766,
+      "launch_to_frame_callback_ms": null,
+      "close_to_window_removed_ms": 44.956,
+      "close_to_launcher_exit_ms": 126.908,
+      "note_unchanged": true
+    },
+    "finished_at": "2026-10-22T18:53:09+08:00"
+  },
+  {
+    "target": "arch",
+    "scenario": "reopen-0",
+    "started_at": "2026-10-22T18:53:28+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "first_close_requested_ns": 107178672971293,
+    "first_launcher_exit": {
+      "observed_ns": 107187058861125
+    },
+    "state_before_reopen": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1040733,
+        "ConmonPid": 1040730,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:53:28.877348969+08:00",
+        "FinishedAt": "2026-10-22T18:47:17.1453172+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "793b429f9b114efaa184089c390079b6": {
+            "pid": 1040645,
+            "stamp": 24381068,
+            "app_id": "startup-editor-arch"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1040685,
+          "stamp": 24381086,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-arch/bus"
+        },
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "reopen_delay_ms": 190.520376,
+    "second_launch_to_ready_ms": 8989.667672,
+    "close_to_second_ready_ms": 9180.188048,
+    "second": {
+      "marker": "MLSTARTUP-arch-reopen-0-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-arch",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-reopen-0-second.txt"
+      ],
+      "started_ns": 107178863491669,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-reopen-0-second.txt - Mousepad",
+        "window_id": "{8276e53e-4d80-47e8-b7ee-32c4b9c9f0ef}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1041321,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107187853159341,
+        "sent_wall_ms": 1792666418735
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107187849087181,
+        "first_commit_received_ns": 107187849161181,
+        "first_frame_callback_received_ns": null
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-reopen-0-second.txt - Mousepad",
+        "window_id": "{8276e53e-4d80-47e8-b7ee-32c4b9c9f0ef}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1041321,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107187899120074,
+        "sent_wall_ms": 1792666418779
+      },
+      "close_requested_ns": 107187853273903,
+      "launcher_exit_ns": 107196205500270,
+      "returncode": 0,
+      "launch_to_window_ms": 8989.668,
+      "launch_to_buffer_commit_ms": 8985.67,
+      "launch_to_ready_ms": 8989.668,
+      "launch_to_frame_callback_ms": null,
+      "close_to_window_removed_ms": 45.846,
+      "close_to_launcher_exit_ms": 8352.226,
+      "note_unchanged": true
+    },
+    "state_after": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:53:38.225327792+08:00",
+        "FinishedAt": "2026-10-22T18:53:46.94848037+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "finished_at": "2026-10-22T18:53:47+08:00"
+  },
+  {
+    "target": "arch",
+    "scenario": "reopen-1",
+    "started_at": "2026-10-22T18:53:47+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "first_close_requested_ns": 107197409741966,
+    "first_launcher_exit": {
+      "observed_ns": 107205786033656
+    },
+    "state_before_reopen": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1041690,
+        "ConmonPid": 1041687,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:53:47.798713869+08:00",
+        "FinishedAt": "2026-10-22T18:53:46.94848037+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "375e3de8ab88418a89ef17bb89f2ed72": {
+            "pid": 1041602,
+            "stamp": 24382958,
+            "app_id": "startup-editor-arch"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1041642,
+          "stamp": 24382977,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-arch/bus"
+        },
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "reopen_delay_ms": 187.755734,
+    "second_launch_to_ready_ms": 8976.183665,
+    "close_to_second_ready_ms": 9163.939399,
+    "second": {
+      "marker": "MLSTARTUP-arch-reopen-1-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-arch",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-reopen-1-second.txt"
+      ],
+      "started_ns": 107197597497700,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-reopen-1-second.txt - Mousepad",
+        "window_id": "{8e00931a-c4ef-4773-b9c2-fbadd63e198f}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1042274,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107206573681365,
+        "sent_wall_ms": 1792666437458
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107206571882576,
+        "first_commit_received_ns": 107206571945891,
+        "first_frame_callback_received_ns": null
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-reopen-1-second.txt - Mousepad",
+        "window_id": "{8e00931a-c4ef-4773-b9c2-fbadd63e198f}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1042274,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107206620250170,
+        "sent_wall_ms": 1792666437504
+      },
+      "close_requested_ns": 107206573841217,
+      "launcher_exit_ns": 107214948074733,
+      "returncode": 0,
+      "launch_to_window_ms": 8976.184,
+      "launch_to_buffer_commit_ms": 8974.448,
+      "launch_to_ready_ms": 8976.184,
+      "launch_to_frame_callback_ms": null,
+      "close_to_window_removed_ms": 46.409,
+      "close_to_launcher_exit_ms": 8374.234,
+      "note_unchanged": true
+    },
+    "state_after": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:53:56.955719909+08:00",
+        "FinishedAt": "2026-10-22T18:54:05.691148267+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "finished_at": "2026-10-22T18:54:05+08:00"
+  },
+  {
+    "target": "arch",
+    "scenario": "reopen-2",
+    "started_at": "2026-10-22T18:54:06+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "first_close_requested_ns": 107216153849077,
+    "first_launcher_exit": {
+      "observed_ns": 107224526693419
+    },
+    "state_before_reopen": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1042653,
+        "ConmonPid": 1042650,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:54:06.531512923+08:00",
+        "FinishedAt": "2026-10-22T18:54:05.691148267+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "446b9712db894e65b749940ceb8580ef": {
+            "pid": 1042564,
+            "stamp": 24384832,
+            "app_id": "startup-editor-arch"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1042605,
+          "stamp": 24384851,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-arch/bus"
+        },
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "reopen_delay_ms": 196.384931,
+    "second_launch_to_ready_ms": 8947.4131,
+    "close_to_second_ready_ms": 9143.798031,
+    "second": {
+      "marker": "MLSTARTUP-arch-reopen-2-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-arch",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-reopen-2-second.txt"
+      ],
+      "started_ns": 107216350234008,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-reopen-2-second.txt - Mousepad",
+        "window_id": "{7bf40348-117f-42a0-9e7f-3980aab9b255}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1043245,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107225297647108,
+        "sent_wall_ms": 1792666456182
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107225295835681,
+        "first_commit_received_ns": 107225295896786,
+        "first_frame_callback_received_ns": null
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-reopen-2-second.txt - Mousepad",
+        "window_id": "{7bf40348-117f-42a0-9e7f-3980aab9b255}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1043245,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107225344429670,
+        "sent_wall_ms": 1792666456227
+      },
+      "close_requested_ns": 107225297722457,
+      "launcher_exit_ns": 107233656724568,
+      "returncode": 0,
+      "launch_to_window_ms": 8947.413,
+      "launch_to_buffer_commit_ms": 8945.663,
+      "launch_to_ready_ms": 8947.413,
+      "launch_to_frame_callback_ms": null,
+      "close_to_window_removed_ms": 46.707,
+      "close_to_launcher_exit_ms": 8359.002,
+      "note_unchanged": true
+    },
+    "state_after": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:54:15.693045086+08:00",
+        "FinishedAt": "2026-10-22T18:54:24.393816873+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "finished_at": "2026-10-22T18:54:24+08:00"
+  },
+  {
+    "target": "arch",
+    "scenario": "concurrent",
+    "started_at": "2026-10-22T18:54:24+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "shared_lifetime_passed": true,
+    "with_two_apps": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1043636,
+        "ConmonPid": 1043633,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:54:25.235518211+08:00",
+        "FinishedAt": "2026-10-22T18:54:24.393816873+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "297c9fcae7fd4f9c9bdf7ec55745554e": {
+            "pid": 1043546,
+            "stamp": 24386702,
+            "app_id": "startup-editor-arch"
+          },
+          "1e968ad5157c482f8ba62a2f25a49e1b": {
+            "pid": 1043805,
+            "stamp": 24386787,
+            "app_id": "startup-editor-arch"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1043587,
+          "stamp": 24386720,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-arch/bus"
+        },
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "after_first_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1043636,
+        "ConmonPid": 1043633,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:54:25.235518211+08:00",
+        "FinishedAt": "2026-10-22T18:54:24.393816873+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "1e968ad5157c482f8ba62a2f25a49e1b": {
+            "pid": 1043805,
+            "stamp": 24386787,
+            "app_id": "startup-editor-arch"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1043587,
+          "stamp": 24386720,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-arch/bus"
+        },
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "after_final_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 137,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:54:25.235518211+08:00",
+        "FinishedAt": "2026-10-22T18:54:34.689634441+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "first": {
+      "marker": "MLSTARTUP-arch-concurrent-first",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-arch",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-concurrent-first.txt"
+      ],
+      "started_ns": 107233992626558,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-concurrent-first.txt - Mousepad",
+        "window_id": "{98aaf1dc-310c-481c-86dc-71c62f2a5f9c}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1043774,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107234842842058,
+        "sent_wall_ms": 1792666465725
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107234838817303,
+        "first_commit_received_ns": 107234838919974,
+        "first_frame_callback_received_ns": 107234856581902
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-concurrent-first.txt - Mousepad",
+        "window_id": "{98aaf1dc-310c-481c-86dc-71c62f2a5f9c}",
+        "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+        "pid": 1043774,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107235511370864,
+        "sent_wall_ms": 1792666466392
+      },
+      "close_requested_ns": 107235462286676,
+      "launcher_exit_ns": 107235567785117,
+      "returncode": 0,
+      "launch_to_window_ms": 850.216,
+      "launch_to_buffer_commit_ms": 846.293,
+      "launch_to_ready_ms": 850.216,
+      "launch_to_frame_callback_ms": 863.955,
+      "close_to_window_removed_ms": 49.084,
+      "close_to_launcher_exit_ms": 105.498,
+      "note_unchanged": true
+    },
+    "second": {
+      "marker": "MLSTARTUP-arch-concurrent-second",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-arch",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-concurrent-second.txt"
+      ],
+      "started_ns": 107234843500375,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-concurrent-second.txt - Mousepad",
+        "window_id": "{676d83c2-16ea-4905-9329-03a0836ab65d}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1043945,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 479.99999999999994
+        },
+        "ready_for_painting": null,
+        "received_ns": 107235437417977,
+        "sent_wall_ms": 1792666466297,
+        "added_received_ns": 107235414650957,
+        "geometry_verified": true
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107235410539913,
+        "first_commit_received_ns": 107235410596509,
+        "first_frame_callback_received_ns": 107235420502164
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-concurrent-second.txt - Mousepad",
+        "window_id": "{676d83c2-16ea-4905-9329-03a0836ab65d}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1043945,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": null
+        },
+        "ready_for_painting": null,
+        "received_ns": 107235638437305,
+        "sent_wall_ms": 1792666466521
+      },
+      "close_requested_ns": 107235593407456,
+      "launcher_exit_ns": 107243943731605,
+      "returncode": 0,
+      "launch_to_window_ms": 593.918,
+      "launch_to_buffer_commit_ms": 567.096,
+      "launch_to_ready_ms": 593.918,
+      "launch_to_frame_callback_ms": 577.002,
+      "close_to_window_removed_ms": 45.03,
+      "close_to_launcher_exit_ms": 8350.324,
+      "note_unchanged": true
+    },
+    "finished_at": "2026-10-22T18:54:34+08:00"
+  },
+  {
+    "target": "arch",
+    "scenario": "killed-launcher",
+    "started_at": "2026-10-22T18:54:35+08:00",
+    "source_snapshot": "diagnostic-source/107054489241061",
+    "execution_passed": true,
+    "killed_ns": 107245233455299,
+    "observation_seconds": 2,
+    "state_before_kill": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1044386,
+        "ConmonPid": 1044383,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:54:35.537797801+08:00",
+        "FinishedAt": "2026-10-22T18:54:34.689634441+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "e182fbd7fc2147fc9defc509e8e6c91b": {
+            "pid": 1044298,
+            "stamp": 24387732,
+            "app_id": "startup-editor-arch"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1044338,
+          "stamp": 24387752,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-arch/bus"
+        },
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "state_after_kill": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1044386,
+        "ConmonPid": 1044383,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:54:35.537797801+08:00",
+        "FinishedAt": "2026-10-22T18:54:34.689634441+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "e182fbd7fc2147fc9defc509e8e6c91b": {
+            "pid": 1044298,
+            "stamp": 24387732,
+            "app_id": "startup-editor-arch"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1044338,
+          "stamp": 24387752,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-arch/bus"
+        },
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "state_after_orphan_window_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1044386,
+        "ConmonPid": 1044383,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:54:35.537797801+08:00",
+        "FinishedAt": "2026-10-22T18:54:34.689634441+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {
+          "e182fbd7fc2147fc9defc509e8e6c91b": {
+            "pid": 1044298,
+            "stamp": 24387732,
+            "app_id": "startup-editor-arch"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 1044338,
+          "stamp": 24387752,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-arch/bus"
+        },
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "state_after_following_managed_close": {
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 1044386,
+        "ConmonPid": 1044383,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-22T18:54:35.537797801+08:00",
+        "FinishedAt": "2026-10-22T18:54:34.689634441+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "lease_file": {
+        "leases": {},
+        "auto_stop": false,
+        "bridge": {
+          "pid": 1044338,
+          "stamp": 24387752,
+          "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-arch/bus"
+        },
+        "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+      }
+    },
+    "automatic_recovery_after_window_close": false,
+    "following_managed_launch_restores_auto_stop": false,
+    "following": {
+      "marker": "MLSTARTUP-arch-killed-launcher-following",
+      "command": [
+        "/usr/bin/python3",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+        "app",
+        "open",
+        "startup-editor-arch",
+        "--",
+        "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-killed-launcher-following.txt"
+      ],
+      "started_ns": 107247501392929,
+      "window": {
+        "event": "added",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-killed-launcher-following.txt - Mousepad",
+        "window_id": "{8f3a3c4b-ec1f-4dba-8a59-b014ab6e57ae}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1044781,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107248080916157,
+        "sent_wall_ms": 1792666478964
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 107248077705711,
+        "first_commit_received_ns": 107248077765821,
+        "first_frame_callback_received_ns": null
+      },
+      "removed": {
+        "event": "removed",
+        "marker": "MLSTARTUP-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-killed-launcher-following.txt - Mousepad",
+        "window_id": "{8f3a3c4b-ec1f-4dba-8a59-b014ab6e57ae}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+        "pid": 1044781,
+        "resource_class": "org.xfce.mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 107248126631089,
+        "sent_wall_ms": 1792666479007
+      },
+      "close_requested_ns": 107248080987387,
+      "launcher_exit_ns": 107248208793539,
+      "returncode": 0,
+      "launch_to_window_ms": 579.523,
+      "launch_to_buffer_commit_ms": 576.373,
+      "launch_to_ready_ms": 579.523,
+      "launch_to_frame_callback_ms": null,
+      "close_to_window_removed_ms": 45.644,
+      "close_to_launcher_exit_ms": 127.806,
+      "note_unchanged": true
+    },
+    "finished_at": "2026-10-22T18:54:39+08:00"
+  }
+]

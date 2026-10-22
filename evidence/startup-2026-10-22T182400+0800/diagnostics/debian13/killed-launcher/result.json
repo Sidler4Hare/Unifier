@@ -1,0 +1,221 @@
+{
+  "target": "debian13",
+  "scenario": "killed-launcher",
+  "started_at": "2026-10-22T18:51:35+08:00",
+  "source_snapshot": "diagnostic-source/107054489241061",
+  "execution_passed": true,
+  "killed_ns": 107066192064911,
+  "observation_seconds": 2,
+  "state_before_kill": {
+    "state": {
+      "OciVersion": "1.2.1",
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1033823,
+      "ConmonPid": 1033820,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-22T18:51:36.508688404+08:00",
+      "FinishedAt": "2026-10-22T18:51:35.670806489+08:00",
+      "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+      "CheckpointedAt": "0001-01-01T00:00:00Z",
+      "RestoredAt": "0001-01-01T00:00:00Z"
+    },
+    "lease_file": {
+      "leases": {
+        "44179f876447424f8bcdf7a4d1b226c3": {
+          "pid": 1033736,
+          "stamp": 24369829,
+          "app_id": "startup-editor-debian13"
+        }
+      },
+      "auto_stop": true,
+      "bridge": {
+        "pid": 1033776,
+        "stamp": 24369848,
+        "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+      },
+      "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+    }
+  },
+  "state_after_kill": {
+    "state": {
+      "OciVersion": "1.2.1",
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1033823,
+      "ConmonPid": 1033820,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-22T18:51:36.508688404+08:00",
+      "FinishedAt": "2026-10-22T18:51:35.670806489+08:00",
+      "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+      "CheckpointedAt": "0001-01-01T00:00:00Z",
+      "RestoredAt": "0001-01-01T00:00:00Z"
+    },
+    "lease_file": {
+      "leases": {
+        "44179f876447424f8bcdf7a4d1b226c3": {
+          "pid": 1033736,
+          "stamp": 24369829,
+          "app_id": "startup-editor-debian13"
+        }
+      },
+      "auto_stop": true,
+      "bridge": {
+        "pid": 1033776,
+        "stamp": 24369848,
+        "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+      },
+      "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+    }
+  },
+  "state_after_orphan_window_close": {
+    "state": {
+      "OciVersion": "1.2.1",
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1033823,
+      "ConmonPid": 1033820,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-22T18:51:36.508688404+08:00",
+      "FinishedAt": "2026-10-22T18:51:35.670806489+08:00",
+      "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+      "CheckpointedAt": "0001-01-01T00:00:00Z",
+      "RestoredAt": "0001-01-01T00:00:00Z"
+    },
+    "lease_file": {
+      "leases": {
+        "44179f876447424f8bcdf7a4d1b226c3": {
+          "pid": 1033736,
+          "stamp": 24369829,
+          "app_id": "startup-editor-debian13"
+        }
+      },
+      "auto_stop": true,
+      "bridge": {
+        "pid": 1033776,
+        "stamp": 24369848,
+        "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+      },
+      "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+    }
+  },
+  "state_after_following_managed_close": {
+    "state": {
+      "OciVersion": "1.2.1",
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1033823,
+      "ConmonPid": 1033820,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-22T18:51:36.508688404+08:00",
+      "FinishedAt": "2026-10-22T18:51:35.670806489+08:00",
+      "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+      "CheckpointedAt": "0001-01-01T00:00:00Z",
+      "RestoredAt": "0001-01-01T00:00:00Z"
+    },
+    "lease_file": {
+      "leases": {},
+      "auto_stop": false,
+      "bridge": {
+        "pid": 1033776,
+        "stamp": 24369848,
+        "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+      },
+      "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+    }
+  },
+  "automatic_recovery_after_window_close": false,
+  "following_managed_launch_restores_auto_stop": false,
+  "following": {
+    "marker": "MLSTARTUP-debian13-killed-launcher-following",
+    "command": [
+      "/usr/bin/python3",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+      "app",
+      "open",
+      "startup-editor-debian13",
+      "--",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-killed-launcher-following.txt"
+    ],
+    "started_ns": 107068464804549,
+    "window": {
+      "event": "added",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-killed-launcher-following.txt - Mousepad",
+      "window_id": "{e041ab5c-9153-4026-8581-e7d1a21997b9}",
+      "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "pid": 1034207,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 107069047854726,
+      "sent_wall_ms": 1792666299932
+    },
+    "wayland": {
+      "surface_id": "33",
+      "first_attach_received_ns": 107069045602199,
+      "first_commit_received_ns": 107069045662799,
+      "first_frame_callback_received_ns": 107069092520185
+    },
+    "removed": {
+      "event": "removed",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-killed-launcher-following.txt - Mousepad",
+      "window_id": "{e041ab5c-9153-4026-8581-e7d1a21997b9}",
+      "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "pid": 1034207,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 107069098231016,
+      "sent_wall_ms": 1792666299979
+    },
+    "close_requested_ns": 107069047906674,
+    "launcher_exit_ns": 107069175069772,
+    "returncode": 0,
+    "launch_to_window_ms": 583.05,
+    "launch_to_buffer_commit_ms": 580.858,
+    "launch_to_ready_ms": 583.05,
+    "launch_to_frame_callback_ms": 627.716,
+    "close_to_window_removed_ms": 50.324,
+    "close_to_launcher_exit_ms": 127.163,
+    "note_unchanged": true
+  },
+  "finished_at": "2026-10-22T18:51:40+08:00"
+}

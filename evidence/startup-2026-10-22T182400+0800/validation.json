@@ -1,0 +1,316 @@
+{
+  "schema": "multilinux.startup.validation.v1",
+  "measurement_valid": true,
+  "product_verdict": "needs-lifecycle-fixes",
+  "physical_presentation_measured": false,
+  "measurement_count": 180,
+  "diagnostic_case_count": 15,
+  "checks": [
+    {
+      "name": "debian13/cold/30_valid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/cold/timing_and_window_evidence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/cold/normal_lifecycle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/cold/percentiles",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/warm/30_valid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/warm/timing_and_window_evidence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/warm/normal_lifecycle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/warm/percentiles",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/cold/30_valid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/cold/timing_and_window_evidence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/cold/normal_lifecycle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/cold/percentiles",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/warm/30_valid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/warm/timing_and_window_evidence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/warm/normal_lifecycle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/warm/percentiles",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/cold/30_valid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/cold/timing_and_window_evidence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/cold/normal_lifecycle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/cold/percentiles",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/warm/30_valid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/warm/timing_and_window_evidence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/warm/normal_lifecycle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/warm/percentiles",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "distinct_new_windows",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "frozen_source/tools/probe_startup.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "frozen_source/tools/startup_observer.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "frozen_source/src/multilinux/on_demand.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/reopen-0/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/reopen-1/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/reopen-2/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/concurrent/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/killed-launcher/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13/concurrent_lease_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/reopen-0/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/reopen-1/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/reopen-2/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/concurrent/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/killed-launcher/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fedora44/concurrent_lease_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/reopen-0/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/reopen-1/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/reopen-2/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/concurrent/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/killed-launcher/execution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "arch/concurrent_lease_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "warm_tail_snapshot_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "host_packages_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "host_desktop_entries_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source_environments_still_stopped",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_probe_environments_released",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "kwin_scripts_unloaded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test_windows_removed",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "findings": [
+    {
+      "id": "slow-stop-and-reopen",
+      "observed": true,
+      "normal_close_p50_ms": {
+        "debian13/cold": 8372.062,
+        "fedora44/cold": 8358.368,
+        "arch/cold": 8376.318
+      },
+      "rapid_reopen_ready_ms": [
+        8961.784552,
+        8956.819823,
+        8941.834961,
+        9019.982326,
+        9100.916591,
+        9059.503069,
+        8989.667672,
+        8976.183665,
+        8947.4131
+      ],
+      "evidence": "stop-process-diagnostic.json; stop-events-diagnostic.json; diagnostics/*/reopen-*/result.json",
+      "explanation": "PID 1 sleep has no signal handlers; timed stop holds the environment lease lock."
+    },
+    {
+      "id": "unreaped-children",
+      "observed": true,
+      "target": "arch",
+      "zombie_count": 155,
+      "evidence": "warm-tail-processes.json"
+    },
+    {
+      "id": "killed-launcher-ownership-loss",
+      "observed": true,
+      "targets": [
+        "debian13",
+        "fedora44",
+        "arch"
+      ],
+      "evidence": "diagnostics/*/killed-launcher/result.json"
+    }
+  ]
+}

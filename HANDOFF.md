@@ -4,6 +4,22 @@
 
 用户已确认腾讯会议应用轮实测通过。本轮继续共享桌面前端、GPU DMA-BUF 与 CPU MemFd 的协议连接。M5 跨宿主尚未开始。
 
+## 最近一次测试：启动性能与回收（2026-10-22 晚）
+
+用户随后要求开始测性能。最新证据是 `evidence/startup-2026-10-22T182400+0800/report.md`，不是前面的 ScreenCast 功能报告。
+
+- Debian/Fedora/Arch 的原生 Mousepad 冷、热启动各 30 次，共 180 个正式样本。冷启动 p50 约 0.871/0.969/0.891 秒，热启动约 0.592/0.672/0.586 秒；采用窗口加实际 buffer commit 的界面就绪口径，未测物理呈现。
+- 正常并发租约通过，但完整回收约 8.36 秒，快速重开约 8.94–9.10 秒；PID 1 sleep 没有信号处理器，停止事件退出码 137。
+- Arch 31 次连续热组打开后累计 155 个僵尸子进程。已随本轮环境停止清除。
+- 三套环境强杀启动器后都丢失自动回收所有权，下一次正常受管启动也不会恢复 auto_stop。
+- 机器证据有效，产品结论为 `needs-lifecycle-fixes`；105 项代码回归中 101 通过、4 跳过，不代表上述实际缺陷已经修好。
+- 本轮只修改测量工具，没有修改 `src/multilinux/`。下一步先修 PID 1 的信号与回收职责、异常租约所有权，再处理重复 Podman 调用，以相同场景复验。
+- 新测试环境、代理、窗口和临时 KWin 脚本均已回收；镜像和停止的实验环境保留用于复现。原腾讯会议及原始 GUI 环境保持原状态。
+
+本轮 DSH 通道：`session-a36617c6-89f3-4e8d-82ce-8981dc67b5dd`，仍为 Command Code 的 `deepseek/deepseek-v4.1-flash`。启动器和两份任务交接在 `.lab/agents/startup-20261022T182400/`，可提交副本位于新证据目录的 `agents/`。
+
+离线复核：`python3 tools/verify_startup_evidence.py --run-dir evidence/startup-2026-10-22T182400+0800`。全新重测使用 `tools/prepare_startup.py` 创建新证据目录；不要覆写本轮样本。旧 ScreenCast 的哈希清单对应 `8482968` 时的文件，后续 README/HANDOFF 更新属于文档漂移。
+
 ## 已有修复和部署
 
 - Gemini 修复记录：`/home/omg/.gemini/antigravity/brain/f1790762-eb63-403a-b01c-1864b54fd49e/walkthrough.md`。

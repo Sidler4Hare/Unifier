@@ -1,0 +1,147 @@
+{
+  "target": "fedora44",
+  "scenario": "reopen-1",
+  "started_at": "2026-10-22T18:52:17+08:00",
+  "source_snapshot": "diagnostic-source/107054489241061",
+  "execution_passed": true,
+  "first_close_requested_ns": 107107711304899,
+  "first_launcher_exit": {
+    "observed_ns": 107116079037093
+  },
+  "state_before_reopen": {
+    "state": {
+      "OciVersion": "1.2.1",
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1036274,
+      "ConmonPid": 1036271,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-22T18:52:17.987382312+08:00",
+      "FinishedAt": "2026-10-22T18:52:17.143071639+08:00",
+      "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope",
+      "CheckpointedAt": "0001-01-01T00:00:00Z",
+      "RestoredAt": "0001-01-01T00:00:00Z"
+    },
+    "lease_file": {
+      "leases": {
+        "4dcb3cd7444b42e0b54caa48a1f2ee58": {
+          "pid": 1036186,
+          "stamp": 24373976,
+          "app_id": "startup-editor-fedora44"
+        }
+      },
+      "auto_stop": true,
+      "bridge": {
+        "pid": 1036226,
+        "stamp": 24373996,
+        "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-fedora44/bus"
+      },
+      "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+    }
+  },
+  "reopen_delay_ms": 190.865556,
+  "second_launch_to_ready_ms": 9100.916591,
+  "close_to_second_ready_ms": 9291.782147,
+  "second": {
+    "marker": "MLSTARTUP-fedora44-reopen-1-second",
+    "command": [
+      "/usr/bin/python3",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+      "app",
+      "open",
+      "startup-editor-fedora44",
+      "--",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-1-second.txt"
+    ],
+    "started_ns": 107107902170455,
+    "window": {
+      "event": "added",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-1-second.txt - Mousepad",
+      "window_id": "{82c5f134-40db-44f0-9fdc-ee44717908ff}",
+      "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "pid": 1036892,
+      "resource_class": "org.xfce.mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 107117003087046,
+      "sent_wall_ms": 1792666347884
+    },
+    "wayland": {
+      "surface_id": "33",
+      "first_attach_received_ns": 107116997643637,
+      "first_commit_received_ns": 107116997972769,
+      "first_frame_callback_received_ns": 107117012482155
+    },
+    "removed": {
+      "event": "removed",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-reopen-1-second.txt - Mousepad",
+      "window_id": "{82c5f134-40db-44f0-9fdc-ee44717908ff}",
+      "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "pid": 1036892,
+      "resource_class": "org.xfce.mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 107117053182088,
+      "sent_wall_ms": 1792666347935
+    },
+    "close_requested_ns": 107117003135496,
+    "launcher_exit_ns": 107125352846799,
+    "returncode": 0,
+    "launch_to_window_ms": 9100.917,
+    "launch_to_buffer_commit_ms": 9095.802,
+    "launch_to_ready_ms": 9100.917,
+    "launch_to_frame_callback_ms": 9110.312,
+    "close_to_window_removed_ms": 50.047,
+    "close_to_launcher_exit_ms": 8349.711,
+    "note_unchanged": true
+  },
+  "state_after": {
+    "state": {
+      "OciVersion": "1.2.1",
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 137,
+      "Error": "",
+      "StartedAt": "2026-10-22T18:52:27.233460452+08:00",
+      "FinishedAt": "2026-10-22T18:52:36.102735691+08:00",
+      "CheckpointedAt": "0001-01-01T00:00:00Z",
+      "RestoredAt": "0001-01-01T00:00:00Z",
+      "StoppedByUser": true
+    },
+    "lease_file": {
+      "leases": {},
+      "auto_stop": true,
+      "bridge": null,
+      "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+    }
+  },
+  "finished_at": "2026-10-22T18:52:36+08:00"
+}

@@ -48,6 +48,7 @@ for (const w of workspace.windowList()) {{
                     wayland: typeof w.waylandClient === 'boolean' ? w.waylandClient : null,
                     x11: typeof w.x11Client === 'boolean' ? w.x11Client : null,
                     width: w.frameGeometry.width, height: w.frameGeometry.height,
+                    bufferWidth: w.bufferGeometry.width, bufferHeight: w.bufferGeometry.height,
                     internalId: String(w.internalId), active: workspace.activeWindow === w}});
     }}
 }}

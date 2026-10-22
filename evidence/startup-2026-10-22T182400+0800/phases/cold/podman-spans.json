@@ -1,0 +1,155 @@
+{
+  "elapsed_ms": 9406.303,
+  "exception": null,
+  "finished_ns": 107326228898953,
+  "podman_call_count": 17,
+  "podman_spans": [
+    {
+      "action": "info",
+      "duration_ms": 98.665,
+      "finished_ns": 107316957364645,
+      "returncode": 0,
+      "started_ns": 107316858699568,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 24.043,
+      "finished_ns": 107316981513700,
+      "returncode": 0,
+      "started_ns": 107316957470676,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 24.502,
+      "finished_ns": 107317027300782,
+      "returncode": 0,
+      "started_ns": 107317002799097,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 25.106,
+      "finished_ns": 107317052599882,
+      "returncode": 0,
+      "started_ns": 107317027494361,
+      "subaction": null
+    },
+    {
+      "action": "start",
+      "duration_ms": 100.575,
+      "finished_ns": 107317153371978,
+      "returncode": 0,
+      "started_ns": 107317052796936,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 25.879,
+      "finished_ns": 107317179300120,
+      "returncode": 0,
+      "started_ns": 107317153420787,
+      "subaction": null
+    },
+    {
+      "action": "exec",
+      "duration_ms": 136.948,
+      "finished_ns": 107317316438339,
+      "returncode": 0,
+      "started_ns": 107317179490567,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 28.668,
+      "finished_ns": 107317348594180,
+      "returncode": 0,
+      "started_ns": 107317319925932,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 27.069,
+      "finished_ns": 107317379517206,
+      "returncode": 0,
+      "started_ns": 107317352447799,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 26.884,
+      "finished_ns": 107317406751519,
+      "returncode": 0,
+      "started_ns": 107317379868004,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 25.861,
+      "finished_ns": 107317433080203,
+      "returncode": 0,
+      "started_ns": 107317407219412,
+      "subaction": null
+    },
+    {
+      "action": "exec",
+      "duration_ms": 493.689,
+      "finished_ns": 107317927041146,
+      "returncode": 0,
+      "started_ns": 107317433352064,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 40.88,
+      "finished_ns": 107317968354698,
+      "returncode": 0,
+      "started_ns": 107317927474480,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 31.524,
+      "finished_ns": 107318000285843,
+      "returncode": 0,
+      "started_ns": 107317968761589,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 36.485,
+      "finished_ns": 107318036949739,
+      "returncode": 0,
+      "started_ns": 107318000464748,
+      "subaction": null
+    },
+    {
+      "action": "stop",
+      "duration_ms": 8156.965,
+      "finished_ns": 107326194168195,
+      "returncode": 0,
+      "started_ns": 107318037203567,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 27.301,
+      "finished_ns": 107326225038189,
+      "returncode": 0,
+      "started_ns": 107326197737201,
+      "subaction": null
+    }
+  ],
+  "podman_total_ms": 9331.044,
+  "product_cli_file": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/src/multilinux/cli.py",
+  "product_import_finished_ns": 107316824728605,
+  "product_import_ms": 1.873,
+  "product_import_started_ns": 107316822856092,
+  "project_root": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project",
+  "returncode": 0,
+  "schema_version": 1,
+  "started_ns": 107316822595467,
+  "wrapper_file": "/home/omg/文档/多兼容linux机/tools/trace_startup_entry.py",
+  "wrapper_sha256": "e0c7174780cd0c43d2266f88c140fccd5c6430d9a3337df312abbc5b922bd683"
+}

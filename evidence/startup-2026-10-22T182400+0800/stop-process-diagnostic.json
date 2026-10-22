@@ -1,0 +1,30 @@
+{
+  "container": "ml-a2413ecd-startup-debian13",
+  "state": {
+    "OciVersion": "1.2.1",
+    "Status": "stopping",
+    "Running": false,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 960858,
+    "ConmonPid": 960855,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-10-22T18:32:11.893588875+08:00",
+    "FinishedAt": "2026-10-22T18:32:11.113359635+08:00",
+    "CheckpointedAt": "0001-01-01T00:00:00Z",
+    "RestoredAt": "0001-01-01T00:00:00Z",
+    "StoppedByUser": true
+  },
+  "entrypoint": [
+    "/usr/bin/sleep"
+  ],
+  "init_status": {
+    "Name": "sleep",
+    "NSpid": "960858\t1",
+    "SigIgn": "0000000000000000",
+    "SigCgt": "0000000000000000"
+  }
+}

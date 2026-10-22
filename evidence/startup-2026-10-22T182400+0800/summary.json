@@ -1,0 +1,338 @@
+{
+  "schema": "multilinux.startup.summary.v1",
+  "observed_at": "2026-10-22T18:47:17+08:00",
+  "endpoint": "native compositor window plus first associated non-null buffer commit",
+  "physical_presentation_measured": false,
+  "cases": {
+    "debian13/cold": {
+      "attempts": 30,
+      "valid": 30,
+      "failures": 0,
+      "metrics": {
+        "launch_to_ready_ms": {
+          "count": 30,
+          "min": 836.074,
+          "p50": 870.991,
+          "p95": 910.639,
+          "max": 938.965,
+          "mean": 873.913
+        },
+        "launch_to_window_ms": {
+          "count": 30,
+          "min": 836.074,
+          "p50": 870.991,
+          "p95": 910.639,
+          "max": 938.965,
+          "mean": 873.913
+        },
+        "launch_to_buffer_commit_ms": {
+          "count": 30,
+          "min": 833.707,
+          "p50": 867.572,
+          "p95": 906.448,
+          "max": 918.216,
+          "mean": 870.35
+        },
+        "launch_to_frame_callback_ms": {
+          "count": 30,
+          "min": 839.332,
+          "p50": 882.393,
+          "p95": 921.444,
+          "max": 986.878,
+          "mean": 884.973
+        },
+        "close_to_window_removed_ms": {
+          "count": 30,
+          "min": 45.206,
+          "p50": 50.577,
+          "p95": 59.6,
+          "max": 61.053,
+          "mean": 52.406
+        },
+        "close_to_launcher_exit_ms": {
+          "count": 30,
+          "min": 8352.797,
+          "p50": 8372.062,
+          "p95": 8513.172,
+          "max": 8544.225,
+          "mean": 8385.542
+        }
+      }
+    },
+    "debian13/warm": {
+      "attempts": 30,
+      "valid": 30,
+      "failures": 0,
+      "metrics": {
+        "launch_to_ready_ms": {
+          "count": 30,
+          "min": 542.907,
+          "p50": 592.486,
+          "p95": 708.194,
+          "max": 715.149,
+          "mean": 619.951
+        },
+        "launch_to_window_ms": {
+          "count": 30,
+          "min": 542.907,
+          "p50": 592.486,
+          "p95": 708.194,
+          "max": 715.149,
+          "mean": 619.951
+        },
+        "launch_to_buffer_commit_ms": {
+          "count": 30,
+          "min": 540.191,
+          "p50": 590.907,
+          "p95": 705.539,
+          "max": 712.921,
+          "mean": 617.214
+        },
+        "launch_to_frame_callback_ms": {
+          "count": 30,
+          "min": 557.057,
+          "p50": 604.815,
+          "p95": 722.03,
+          "max": 730.434,
+          "mean": 629.564
+        },
+        "close_to_window_removed_ms": {
+          "count": 30,
+          "min": 44.372,
+          "p50": 50.668,
+          "p95": 62.622,
+          "max": 64.045,
+          "mean": 52.254
+        },
+        "close_to_launcher_exit_ms": {
+          "count": 30,
+          "min": 121.45,
+          "p50": 143.929,
+          "p95": 187.907,
+          "max": 209.317,
+          "mean": 148.629
+        }
+      }
+    },
+    "fedora44/cold": {
+      "attempts": 30,
+      "valid": 30,
+      "failures": 0,
+      "metrics": {
+        "launch_to_ready_ms": {
+          "count": 30,
+          "min": 944.587,
+          "p50": 969.139,
+          "p95": 995.804,
+          "max": 1030.401,
+          "mean": 972.184
+        },
+        "launch_to_window_ms": {
+          "count": 30,
+          "min": 944.587,
+          "p50": 969.139,
+          "p95": 995.804,
+          "max": 1030.401,
+          "mean": 972.184
+        },
+        "launch_to_buffer_commit_ms": {
+          "count": 30,
+          "min": 940.641,
+          "p50": 966.601,
+          "p95": 993.346,
+          "max": 1028.868,
+          "mean": 969.466
+        },
+        "launch_to_frame_callback_ms": {
+          "count": 30,
+          "min": 947.259,
+          "p50": 980.891,
+          "p95": 1007.005,
+          "max": 1048.012,
+          "mean": 982.14
+        },
+        "close_to_window_removed_ms": {
+          "count": 30,
+          "min": 41.362,
+          "p50": 47.038,
+          "p95": 56.904,
+          "max": 56.927,
+          "mean": 48.346
+        },
+        "close_to_launcher_exit_ms": {
+          "count": 30,
+          "min": 8342.468,
+          "p50": 8358.368,
+          "p95": 8421.949,
+          "max": 8503.753,
+          "mean": 8368.649
+        }
+      }
+    },
+    "fedora44/warm": {
+      "attempts": 30,
+      "valid": 30,
+      "failures": 0,
+      "metrics": {
+        "launch_to_ready_ms": {
+          "count": 30,
+          "min": 625.357,
+          "p50": 672.099,
+          "p95": 953.855,
+          "max": 1045.541,
+          "mean": 723.665
+        },
+        "launch_to_window_ms": {
+          "count": 30,
+          "min": 625.357,
+          "p50": 672.099,
+          "p95": 953.855,
+          "max": 1045.541,
+          "mean": 723.554
+        },
+        "launch_to_buffer_commit_ms": {
+          "count": 30,
+          "min": 622.217,
+          "p50": 668.323,
+          "p95": 950.296,
+          "max": 1044.621,
+          "mean": 720.867
+        },
+        "launch_to_frame_callback_ms": {
+          "count": 30,
+          "min": 627.38,
+          "p50": 681.514,
+          "p95": 963.469,
+          "max": 1064.084,
+          "mean": 734.296
+        },
+        "close_to_window_removed_ms": {
+          "count": 30,
+          "min": 44.0,
+          "p50": 49.675,
+          "p95": 75.642,
+          "max": 95.145,
+          "mean": 53.368
+        },
+        "close_to_launcher_exit_ms": {
+          "count": 30,
+          "min": 121.889,
+          "p50": 136.624,
+          "p95": 193.368,
+          "max": 215.22,
+          "mean": 148.651
+        }
+      }
+    },
+    "arch/cold": {
+      "attempts": 30,
+      "valid": 30,
+      "failures": 0,
+      "metrics": {
+        "launch_to_ready_ms": {
+          "count": 30,
+          "min": 854.164,
+          "p50": 891.305,
+          "p95": 943.294,
+          "max": 949.849,
+          "mean": 891.194
+        },
+        "launch_to_window_ms": {
+          "count": 30,
+          "min": 854.164,
+          "p50": 891.305,
+          "p95": 943.294,
+          "max": 949.849,
+          "mean": 891.194
+        },
+        "launch_to_buffer_commit_ms": {
+          "count": 30,
+          "min": 851.677,
+          "p50": 889.32,
+          "p95": 939.749,
+          "max": 946.616,
+          "mean": 887.955
+        },
+        "launch_to_frame_callback_ms": {
+          "count": 30,
+          "min": 857.612,
+          "p50": 899.904,
+          "p95": 951.803,
+          "max": 954.316,
+          "mean": 900.239
+        },
+        "close_to_window_removed_ms": {
+          "count": 30,
+          "min": 39.385,
+          "p50": 46.882,
+          "p95": 61.968,
+          "max": 70.703,
+          "mean": 48.847
+        },
+        "close_to_launcher_exit_ms": {
+          "count": 30,
+          "min": 8345.653,
+          "p50": 8376.318,
+          "p95": 8461.964,
+          "max": 8483.971,
+          "mean": 8385.839
+        }
+      }
+    },
+    "arch/warm": {
+      "attempts": 30,
+      "valid": 30,
+      "failures": 0,
+      "metrics": {
+        "launch_to_ready_ms": {
+          "count": 30,
+          "min": 554.851,
+          "p50": 586.401,
+          "p95": 710.646,
+          "max": 758.174,
+          "mean": 616.396
+        },
+        "launch_to_window_ms": {
+          "count": 30,
+          "min": 554.851,
+          "p50": 586.401,
+          "p95": 710.646,
+          "max": 758.174,
+          "mean": 616.396
+        },
+        "launch_to_buffer_commit_ms": {
+          "count": 30,
+          "min": 551.267,
+          "p50": 584.086,
+          "p95": 709.557,
+          "max": 756.78,
+          "mean": 613.613
+        },
+        "launch_to_frame_callback_ms": {
+          "count": 30,
+          "min": 558.923,
+          "p50": 598.845,
+          "p95": 721.551,
+          "max": 769.876,
+          "mean": 625.952
+        },
+        "close_to_window_removed_ms": {
+          "count": 30,
+          "min": 39.192,
+          "p50": 45.658,
+          "p95": 69.46,
+          "max": 73.66,
+          "mean": 47.733
+        },
+        "close_to_launcher_exit_ms": {
+          "count": 30,
+          "min": 116.984,
+          "p50": 132.008,
+          "p95": 189.349,
+          "max": 192.368,
+          "mean": 139.43
+        }
+      }
+    }
+  }
+}

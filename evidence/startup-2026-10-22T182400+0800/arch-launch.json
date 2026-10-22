@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "startup-editor-arch",
+  "environment_id": "startup-arch",
+  "executable": "/usr/bin/dbus-run-session",
+  "argv": [
+    "/usr/bin/dbus-run-session",
+    "--",
+    "/usr/bin/mousepad",
+    "--disable-server"
+  ],
+  "workdir": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch",
+  "env": {
+    "WAYLAND_DISPLAY": "wayland-0",
+    "XDG_RUNTIME_DIR": "/run/user/1000",
+    "DISPLAY": ":0",
+    "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+    "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+    "PIPEWIRE_REMOTE": "pipewire-0",
+    "XDG_SESSION_TYPE": "wayland",
+    "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus",
+    "GDK_BACKEND": "wayland",
+    "GSETTINGS_BACKEND": "memory",
+    "WAYLAND_DEBUG": "client",
+    "LC_ALL": "C.UTF-8",
+    "XDG_CURRENT_DESKTOP": "KDE",
+    "HOME": "/home/multilinux-1000",
+    "USER": "omg",
+    "LOGNAME": "omg"
+  },
+  "user": "1000:1000",
+  "on_demand": true,
+  "package_origin": null,
+  "mounts": [
+    {
+      "host": "/run/user/1000/wayland-0",
+      "container": "/run/user/1000/wayland-0",
+      "options": ""
+    },
+    {
+      "host": "/tmp/.X11-unix/X0",
+      "container": "/tmp/.X11-unix/X0",
+      "options": ""
+    },
+    {
+      "host": "/run/user/1000/pulse/native",
+      "container": "/run/user/1000/pulse/native",
+      "options": ""
+    },
+    {
+      "host": "/run/user/1000/pipewire-0",
+      "container": "/run/user/1000/pipewire-0",
+      "options": ""
+    },
+    {
+      "host": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-arch",
+      "container": "/run/multilinux-portal",
+      "options": ""
+    }
+  ],
+  "export": null,
+  "created_at": "2026-10-22T18:27:28+08:00",
+  "updated_at": "2026-10-22T18:27:28+08:00"
+}

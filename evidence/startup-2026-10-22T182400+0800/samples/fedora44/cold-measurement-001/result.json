@@ -1,0 +1,210 @@
+{
+  "target": "fedora44",
+  "mode": "cold",
+  "number": 1,
+  "label": "measurement",
+  "started_at": "2026-10-22T18:36:00+08:00",
+  "passed": true,
+  "directory": "samples/fedora44/cold-measurement-001",
+  "host_before": {
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 180408320,
+      "MemAvailable_bytes": 2449031168,
+      "Cached_bytes": 3014946816,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 16757268480,
+      "Shmem_bytes": 651771904
+    },
+    "pressure": {
+      "cpu": {
+        "some": {
+          "avg10": 0.78,
+          "avg60": 1.9,
+          "avg300": 1.24,
+          "total_us": 3301034037
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "memory": {
+        "some": {
+          "avg10": 0.0,
+          "avg60": 0.01,
+          "avg300": 0.09,
+          "total_us": 1096720753
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.01,
+          "avg300": 0.08,
+          "total_us": 948818834
+        }
+      },
+      "io": {
+        "some": {
+          "avg10": 0.19,
+          "avg60": 0.41,
+          "avg300": 0.28,
+          "total_us": 464121294
+        },
+        "full": {
+          "avg10": 0.15,
+          "avg60": 0.27,
+          "avg300": 0.19,
+          "total_us": 308264459
+        }
+      }
+    },
+    "load_average": [
+      1.58,
+      1.23,
+      1.05
+    ],
+    "cpu": {
+      "sample_count": 8,
+      "min_khz": 400208,
+      "max_khz": 3746950,
+      "khz": [
+        400208,
+        3447806,
+        400579,
+        3695394,
+        400419,
+        3746950,
+        1432889,
+        2743508
+      ],
+      "errors": []
+    },
+    "thermal": {
+      "zones": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "millicelsius": 32000,
+          "celsius": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "millicelsius": 20000,
+          "celsius": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "millicelsius": 55050,
+          "celsius": 55.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "millicelsius": 64050,
+          "celsius": 64.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "millicelsius": 43050,
+          "celsius": 43.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "millicelsius": 64000,
+          "celsius": 64.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "millicelsius": 36000,
+          "celsius": 36.0
+        }
+      ],
+      "package_c": 64.0,
+      "errors": []
+    }
+  },
+  "marker": "MLSTARTUP-fedora44-cold-measurement-001",
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+    "app",
+    "open",
+    "startup-editor-fedora44",
+    "--",
+    "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-cold-measurement-001.txt"
+  ],
+  "started_ns": 106129458469558,
+  "window": {
+    "event": "added",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-cold-measurement-001.txt - Mousepad",
+    "window_id": "{9e086fa8-8f45-4290-89e6-107838d140dc}",
+    "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "pid": 978640,
+    "resource_class": "org.xfce.mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106130403056275,
+    "sent_wall_ms": 1792665361286
+  },
+  "wayland": {
+    "surface_id": "33",
+    "first_attach_received_ns": 106130399238412,
+    "first_commit_received_ns": 106130399314876,
+    "first_frame_callback_received_ns": 106130405728867
+  },
+  "removed": {
+    "event": "removed",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44/MLSTARTUP-fedora44-cold-measurement-001.txt - Mousepad",
+    "window_id": "{9e086fa8-8f45-4290-89e6-107838d140dc}",
+    "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "pid": 978640,
+    "resource_class": "org.xfce.mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106130602657776,
+    "sent_wall_ms": 1792665361487
+  },
+  "close_requested_ns": 106130555619832,
+  "launcher_exit_ns": 106138948816326,
+  "returncode": 0,
+  "launch_to_window_ms": 944.587,
+  "launch_to_buffer_commit_ms": 940.845,
+  "launch_to_ready_ms": 944.587,
+  "launch_to_frame_callback_ms": 947.259,
+  "close_to_window_removed_ms": 47.038,
+  "close_to_launcher_exit_ms": 8393.196,
+  "note_unchanged": true,
+  "environment_after": "stopped",
+  "lease_after": {
+    "leases": {},
+    "auto_stop": true,
+    "bridge": null,
+    "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b"
+  },
+  "finished_at": "2026-10-22T18:36:09+08:00"
+}

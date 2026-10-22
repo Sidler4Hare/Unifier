@@ -1,0 +1,210 @@
+{
+  "target": "arch",
+  "mode": "cold",
+  "number": 3,
+  "label": "measurement",
+  "started_at": "2026-10-22T18:42:10+08:00",
+  "passed": true,
+  "directory": "samples/arch/cold-measurement-003",
+  "host_before": {
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 304283648,
+      "MemAvailable_bytes": 2295042048,
+      "Cached_bytes": 2758856704,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 16813608960,
+      "Shmem_bytes": 629895168
+    },
+    "pressure": {
+      "cpu": {
+        "some": {
+          "avg10": 0.63,
+          "avg60": 1.63,
+          "avg300": 1.32,
+          "total_us": 3307447026
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "memory": {
+        "some": {
+          "avg10": 0.11,
+          "avg60": 0.4,
+          "avg300": 0.14,
+          "total_us": 1097424880
+        },
+        "full": {
+          "avg10": 0.1,
+          "avg60": 0.39,
+          "avg300": 0.13,
+          "total_us": 949500936
+        }
+      },
+      "io": {
+        "some": {
+          "avg10": 0.24,
+          "avg60": 0.46,
+          "avg300": 0.34,
+          "total_us": 466487821
+        },
+        "full": {
+          "avg10": 0.14,
+          "avg60": 0.29,
+          "avg300": 0.24,
+          "total_us": 310278722
+        }
+      }
+    },
+    "load_average": [
+      2.23,
+      1.67,
+      1.28
+    ],
+    "cpu": {
+      "sample_count": 8,
+      "min_khz": 697194,
+      "max_khz": 3694133,
+      "khz": [
+        3324988,
+        697194,
+        1007281,
+        3694133,
+        3553418,
+        848616,
+        1019795,
+        3415198
+      ],
+      "errors": []
+    },
+    "thermal": {
+      "zones": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "millicelsius": 32000,
+          "celsius": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "millicelsius": 20000,
+          "celsius": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "millicelsius": 52050,
+          "celsius": 52.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "millicelsius": 65050,
+          "celsius": 65.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "millicelsius": 42050,
+          "celsius": 42.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "millicelsius": 64000,
+          "celsius": 64.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "millicelsius": 38000,
+          "celsius": 38.0
+        }
+      ],
+      "package_c": 64.0,
+      "errors": []
+    }
+  },
+  "marker": "MLSTARTUP-arch-cold-measurement-003",
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+    "app",
+    "open",
+    "startup-editor-arch",
+    "--",
+    "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-cold-measurement-003.txt"
+  ],
+  "started_ns": 106500016857778,
+  "window": {
+    "event": "added",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-cold-measurement-003.txt - Mousepad",
+    "window_id": "{18105ad8-fa93-4efe-b3db-a6d0661db837}",
+    "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "pid": 1006031,
+    "resource_class": "org.xfce.mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106500908162320,
+    "sent_wall_ms": 1792665731792
+  },
+  "wayland": {
+    "surface_id": "33",
+    "first_attach_received_ns": 106500906090655,
+    "first_commit_received_ns": 106500906177563,
+    "first_frame_callback_received_ns": 106500920437715
+  },
+  "removed": {
+    "event": "removed",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/arch/MLSTARTUP-arch-cold-measurement-003.txt - Mousepad",
+    "window_id": "{18105ad8-fa93-4efe-b3db-a6d0661db837}",
+    "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "pid": 1006031,
+    "resource_class": "org.xfce.mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106501105510147,
+    "sent_wall_ms": 1792665731988
+  },
+  "close_requested_ns": 106501060661151,
+  "launcher_exit_ns": 106509426176741,
+  "returncode": 0,
+  "launch_to_window_ms": 891.305,
+  "launch_to_buffer_commit_ms": 889.32,
+  "launch_to_ready_ms": 891.305,
+  "launch_to_frame_callback_ms": 903.58,
+  "close_to_window_removed_ms": 44.849,
+  "close_to_launcher_exit_ms": 8365.516,
+  "note_unchanged": true,
+  "environment_after": "stopped",
+  "lease_after": {
+    "leases": {},
+    "auto_stop": true,
+    "bridge": null,
+    "container_id": "4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948"
+  },
+  "finished_at": "2026-10-22T18:42:20+08:00"
+}

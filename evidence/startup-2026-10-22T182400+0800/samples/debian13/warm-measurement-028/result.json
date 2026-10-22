@@ -1,0 +1,214 @@
+{
+  "target": "debian13",
+  "mode": "warm",
+  "number": 28,
+  "label": "measurement",
+  "started_at": "2026-10-22T18:35:29+08:00",
+  "passed": true,
+  "directory": "samples/debian13/warm-measurement-028",
+  "host_before": {
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 196841472,
+      "MemAvailable_bytes": 2369212416,
+      "Cached_bytes": 2922147840,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 16755458048,
+      "Shmem_bytes": 659505152
+    },
+    "pressure": {
+      "cpu": {
+        "some": {
+          "avg10": 4.6,
+          "avg60": 2.62,
+          "avg300": 1.27,
+          "total_us": 3300604009
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "memory": {
+        "some": {
+          "avg10": 0.0,
+          "avg60": 0.02,
+          "avg300": 0.1,
+          "total_us": 1096704783
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.02,
+          "avg300": 0.1,
+          "total_us": 948803009
+        }
+      },
+      "io": {
+        "some": {
+          "avg10": 0.86,
+          "avg60": 0.51,
+          "avg300": 0.29,
+          "total_us": 463946338
+        },
+        "full": {
+          "avg10": 0.39,
+          "avg60": 0.33,
+          "avg300": 0.19,
+          "total_us": 308112872
+        }
+      }
+    },
+    "load_average": [
+      1.48,
+      1.17,
+      1.03
+    ],
+    "cpu": {
+      "sample_count": 8,
+      "min_khz": 2511659,
+      "max_khz": 2800637,
+      "khz": [
+        2800000,
+        2800000,
+        2511659,
+        2800000,
+        2799883,
+        2665122,
+        2800000,
+        2800637
+      ],
+      "errors": []
+    },
+    "thermal": {
+      "zones": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "millicelsius": 32000,
+          "celsius": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "millicelsius": 20000,
+          "celsius": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "millicelsius": 72050,
+          "celsius": 72.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "millicelsius": 71050,
+          "celsius": 71.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "millicelsius": 45050,
+          "celsius": 45.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "millicelsius": 71000,
+          "celsius": 71.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "millicelsius": 38000,
+          "celsius": 38.0
+        }
+      ],
+      "package_c": 71.0,
+      "errors": []
+    }
+  },
+  "marker": "MLSTARTUP-debian13-warm-measurement-028",
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+    "app",
+    "open",
+    "startup-editor-debian13",
+    "--",
+    "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-warm-measurement-028.txt"
+  ],
+  "started_ns": 106098966067032,
+  "window": {
+    "event": "added",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-warm-measurement-028.txt - Mousepad",
+    "window_id": "{71f72b53-cde3-40e4-ab03-b6bfeeb2ea41}",
+    "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "pid": 976830,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106099606215317,
+    "sent_wall_ms": 1792665330489
+  },
+  "wayland": {
+    "surface_id": "33",
+    "first_attach_received_ns": 106099603069505,
+    "first_commit_received_ns": 106099603186828,
+    "first_frame_callback_received_ns": 106099618792407
+  },
+  "removed": {
+    "event": "removed",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-warm-measurement-028.txt - Mousepad",
+    "window_id": "{71f72b53-cde3-40e4-ab03-b6bfeeb2ea41}",
+    "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "pid": 976830,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106099821087865,
+    "sent_wall_ms": 1792665330704
+  },
+  "close_requested_ns": 106099759285506,
+  "launcher_exit_ns": 106099940830549,
+  "returncode": 0,
+  "launch_to_window_ms": 640.148,
+  "launch_to_buffer_commit_ms": 637.12,
+  "launch_to_ready_ms": 640.148,
+  "launch_to_frame_callback_ms": 652.725,
+  "close_to_window_removed_ms": 61.802,
+  "close_to_launcher_exit_ms": 181.545,
+  "note_unchanged": true,
+  "environment_after": "running",
+  "lease_after": {
+    "leases": {},
+    "auto_stop": false,
+    "bridge": {
+      "pid": 969962,
+      "stamp": 24269967,
+      "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+    },
+    "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+  },
+  "finished_at": "2026-10-22T18:35:30+08:00"
+}

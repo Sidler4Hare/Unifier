@@ -1,0 +1,91 @@
+{
+  "elapsed_ms": 930.342,
+  "exception": null,
+  "finished_ns": 107328076683234,
+  "podman_call_count": 9,
+  "podman_spans": [
+    {
+      "action": "info",
+      "duration_ms": 98.584,
+      "finished_ns": 107327285078221,
+      "returncode": 0,
+      "started_ns": 107327186494341,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 22.328,
+      "finished_ns": 107327307506520,
+      "returncode": 0,
+      "started_ns": 107327285178979,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 29.804,
+      "finished_ns": 107327358525595,
+      "returncode": 0,
+      "started_ns": 107327328721350,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 62.406,
+      "finished_ns": 107327421393130,
+      "returncode": 0,
+      "started_ns": 107327358987545,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 64.615,
+      "finished_ns": 107327492065831,
+      "returncode": 0,
+      "started_ns": 107327427450528,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 51.489,
+      "finished_ns": 107327544018565,
+      "returncode": 0,
+      "started_ns": 107327492529896,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 44.722,
+      "finished_ns": 107327589266178,
+      "returncode": 0,
+      "started_ns": 107327544544039,
+      "subaction": null
+    },
+    {
+      "action": "exec",
+      "duration_ms": 451.582,
+      "finished_ns": 107328041092380,
+      "returncode": 0,
+      "started_ns": 107327589510121,
+      "subaction": null
+    },
+    {
+      "action": "inspect",
+      "duration_ms": 31.661,
+      "finished_ns": 107328073102722,
+      "returncode": 0,
+      "started_ns": 107328041442163,
+      "subaction": null
+    }
+  ],
+  "podman_total_ms": 857.19,
+  "product_cli_file": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/src/multilinux/cli.py",
+  "product_import_finished_ns": 107327148901926,
+  "product_import_ms": 2.339,
+  "product_import_started_ns": 107327146562620,
+  "project_root": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project",
+  "returncode": 0,
+  "schema_version": 1,
+  "started_ns": 107327146340900,
+  "wrapper_file": "/home/omg/文档/多兼容linux机/tools/trace_startup_entry.py",
+  "wrapper_sha256": "e0c7174780cd0c43d2266f88c140fccd5c6430d9a3337df312abbc5b922bd683"
+}

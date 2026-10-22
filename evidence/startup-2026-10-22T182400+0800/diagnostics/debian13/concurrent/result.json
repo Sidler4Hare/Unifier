@@ -1,0 +1,255 @@
+{
+  "target": "debian13",
+  "scenario": "concurrent",
+  "started_at": "2026-10-22T18:51:25+08:00",
+  "source_snapshot": "diagnostic-source/107054489241061",
+  "execution_passed": true,
+  "shared_lifetime_passed": true,
+  "with_two_apps": {
+    "state": {
+      "OciVersion": "1.2.1",
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1033130,
+      "ConmonPid": 1033127,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-22T18:51:26.025660295+08:00",
+      "FinishedAt": "2026-10-22T18:48:24.126077118+08:00",
+      "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+      "CheckpointedAt": "0001-01-01T00:00:00Z",
+      "RestoredAt": "0001-01-01T00:00:00Z"
+    },
+    "lease_file": {
+      "leases": {
+        "82afe780bc4a4f95a37be61dc8ec0a2b": {
+          "pid": 1033044,
+          "stamp": 24368780,
+          "app_id": "startup-editor-debian13"
+        },
+        "f38c2829f5d148e29b6e96c310c8cc77": {
+          "pid": 1033297,
+          "stamp": 24368880,
+          "app_id": "startup-editor-debian13"
+        }
+      },
+      "auto_stop": true,
+      "bridge": {
+        "pid": 1033083,
+        "stamp": 24368800,
+        "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+      },
+      "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+    }
+  },
+  "after_first_close": {
+    "state": {
+      "OciVersion": "1.2.1",
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 1033130,
+      "ConmonPid": 1033127,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-22T18:51:26.025660295+08:00",
+      "FinishedAt": "2026-10-22T18:48:24.126077118+08:00",
+      "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef.scope",
+      "CheckpointedAt": "0001-01-01T00:00:00Z",
+      "RestoredAt": "0001-01-01T00:00:00Z"
+    },
+    "lease_file": {
+      "leases": {
+        "f38c2829f5d148e29b6e96c310c8cc77": {
+          "pid": 1033297,
+          "stamp": 24368880,
+          "app_id": "startup-editor-debian13"
+        }
+      },
+      "auto_stop": true,
+      "bridge": {
+        "pid": 1033083,
+        "stamp": 24368800,
+        "socket": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/.lab/desktop/startup-debian13/bus"
+      },
+      "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+    }
+  },
+  "after_final_close": {
+    "state": {
+      "OciVersion": "1.2.1",
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 137,
+      "Error": "",
+      "StartedAt": "2026-10-22T18:51:26.025660295+08:00",
+      "FinishedAt": "2026-10-22T18:51:35.670806489+08:00",
+      "CheckpointedAt": "0001-01-01T00:00:00Z",
+      "RestoredAt": "0001-01-01T00:00:00Z",
+      "StoppedByUser": true
+    },
+    "lease_file": {
+      "leases": {},
+      "auto_stop": true,
+      "bridge": null,
+      "container_id": "6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef"
+    }
+  },
+  "first": {
+    "marker": "MLSTARTUP-debian13-concurrent-first",
+    "command": [
+      "/usr/bin/python3",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+      "app",
+      "open",
+      "startup-editor-debian13",
+      "--",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-first.txt"
+    ],
+    "started_ns": 107054777490943,
+    "window": {
+      "event": "added",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-first.txt - Mousepad",
+      "window_id": "{e1bfa60f-b5b5-418f-a645-9d398930e8cf}",
+      "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+      "pid": 1033272,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 107055770823103,
+      "sent_wall_ms": 1792666286653
+    },
+    "wayland": {
+      "surface_id": "33",
+      "first_attach_received_ns": 107055766063022,
+      "first_commit_received_ns": 107055766131292,
+      "first_frame_callback_received_ns": 107055782436535
+    },
+    "removed": {
+      "event": "removed",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-first.txt - Mousepad",
+      "window_id": "{e1bfa60f-b5b5-418f-a645-9d398930e8cf}",
+      "type": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca8841f350)",
+      "pid": 1033272,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 107056502878966,
+      "sent_wall_ms": 1792666287385
+    },
+    "close_requested_ns": 107056458026188,
+    "launcher_exit_ns": 107056548943937,
+    "returncode": 0,
+    "launch_to_window_ms": 993.332,
+    "launch_to_buffer_commit_ms": 988.64,
+    "launch_to_ready_ms": 993.332,
+    "launch_to_frame_callback_ms": 1004.946,
+    "close_to_window_removed_ms": 44.853,
+    "close_to_launcher_exit_ms": 90.918,
+    "note_unchanged": true
+  },
+  "second": {
+    "marker": "MLSTARTUP-debian13-concurrent-second",
+    "command": [
+      "/usr/bin/python3",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/tools/ml.py",
+      "app",
+      "open",
+      "startup-editor-debian13",
+      "--",
+      "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-second.txt"
+    ],
+    "started_ns": 107055771411707,
+    "window": {
+      "event": "added",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-second.txt - Mousepad",
+      "window_id": "{6f2a6250-d1e4-4e1d-b14a-09baf61cf736}",
+      "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "pid": 1033425,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": null
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 479.99999999999994
+      },
+      "ready_for_painting": null,
+      "received_ns": 107056428868595,
+      "sent_wall_ms": 1792666287294,
+      "added_received_ns": 107056409154185,
+      "geometry_verified": true
+    },
+    "wayland": {
+      "surface_id": "33",
+      "first_attach_received_ns": 107056407527124,
+      "first_commit_received_ns": 107056407634571,
+      "first_frame_callback_received_ns": 107056430717227
+    },
+    "removed": {
+      "event": "removed",
+      "marker": "MLSTARTUP-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-second.txt - Mousepad",
+      "window_id": "{6f2a6250-d1e4-4e1d-b14a-09baf61cf736}",
+      "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+      "pid": 1033425,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": null
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": null
+      },
+      "ready_for_painting": null,
+      "received_ns": 107056621874570,
+      "sent_wall_ms": 1792666287503
+    },
+    "close_requested_ns": 107056577727579,
+    "launcher_exit_ns": 107064913934123,
+    "returncode": 0,
+    "launch_to_window_ms": 657.457,
+    "launch_to_buffer_commit_ms": 636.223,
+    "launch_to_ready_ms": 657.457,
+    "launch_to_frame_callback_ms": 659.306,
+    "close_to_window_removed_ms": 44.147,
+    "close_to_launcher_exit_ms": 8336.207,
+    "note_unchanged": true
+  },
+  "finished_at": "2026-10-22T18:51:35+08:00"
+}

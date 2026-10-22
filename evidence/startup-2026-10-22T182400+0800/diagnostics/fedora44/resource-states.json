@@ -1,0 +1,901 @@
+{
+  "fresh_running_idle": {
+    "collected_at": "2026-10-22T18:53:18+08:00",
+    "environment_id": "startup-fedora44",
+    "target": "fedora44",
+    "runtime_state": "running",
+    "content_revision": 1,
+    "package_inventory_sha256": "74cff549c2c89cc8f17b930601c9cb42e865e38f9c2bf806951ec82c3584984e",
+    "image_digest": "sha256:a3000db6a361f5f841505a2ea6df5b54f3a2768d7043863be5aef4ae672febfc",
+    "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b",
+    "kernel_matches_current_host": true,
+    "pid": 1039967,
+    "conmon_pid": 1039964,
+    "cgroup": {
+      "path": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope/container",
+      "errors": {},
+      "memory_current_bytes": 303104,
+      "memory_peak_bytes": 962560,
+      "memory_swap_current_bytes": 0,
+      "pids_current": 1,
+      "pids_peak": 3,
+      "memory_high": "max",
+      "memory_max": "max",
+      "cpu_max": "max 100000",
+      "memory_stat": {
+        "anon": 98304,
+        "file": 0,
+        "kernel": 204800,
+        "kernel_stack": 0,
+        "pagetables": 45056,
+        "sec_pagetables": 0,
+        "percpu": 520,
+        "sock": 0,
+        "vmalloc": 12288,
+        "shmem": 0,
+        "zswap": 0,
+        "zswapped": 0,
+        "zswap_incomp": 0,
+        "file_mapped": 0,
+        "file_dirty": 0,
+        "file_writeback": 0,
+        "swapcached": 0,
+        "anon_thp": 0,
+        "file_thp": 0,
+        "shmem_thp": 0,
+        "inactive_anon": 0,
+        "active_anon": 98304,
+        "inactive_file": 0,
+        "active_file": 0,
+        "unevictable": 0,
+        "slab_reclaimable": 92920,
+        "slab_unreclaimable": 42400,
+        "slab": 135320,
+        "hugetlb": 0,
+        "workingset_refault_anon": 0,
+        "workingset_refault_file": 0,
+        "workingset_activate_anon": 0,
+        "workingset_activate_file": 0,
+        "workingset_restore_anon": 0,
+        "workingset_restore_file": 0,
+        "workingset_nodereclaim": 0,
+        "pgdemote_kswapd": 0,
+        "pgdemote_direct": 0,
+        "pgdemote_khugepaged": 0,
+        "pgdemote_proactive": 0,
+        "pgsteal_kswapd": 0,
+        "pgsteal_direct": 0,
+        "pgsteal_khugepaged": 0,
+        "pgsteal_proactive": 0,
+        "pgscan_kswapd": 0,
+        "pgscan_direct": 0,
+        "pgscan_khugepaged": 0,
+        "pgscan_proactive": 0,
+        "pgrefill": 0,
+        "pgpromote_success": 0,
+        "pgscan": 0,
+        "pgsteal": 0,
+        "pswpin": 0,
+        "pswpout": 0,
+        "pgfault": 232,
+        "pgmajfault": 0,
+        "pgactivate": 0,
+        "pgdeactivate": 0,
+        "pglazyfree": 0,
+        "pglazyfreed": 0,
+        "swpin_zero": 0,
+        "swpout_zero": 0,
+        "zswpin": 0,
+        "zswpout": 0,
+        "zswpwb": 0,
+        "thp_fault_alloc": 0,
+        "thp_collapse_alloc": 0,
+        "thp_swpout": 0,
+        "thp_swpout_fallback": 0,
+        "numa_pages_migrated": 0,
+        "numa_pte_updates": 0,
+        "numa_hint_faults": 0
+      },
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "cpu_stat": {
+        "usage_usec": 7041,
+        "user_usec": 1175,
+        "system_usec": 5865,
+        "nice_usec": 0,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "memory_pressure": {
+        "some": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "cpu_pressure": {
+        "some": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 35
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 35
+        }
+      },
+      "io_pressure": {
+        "some": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "container_id_matches": true
+    },
+    "processes": {
+      "process_count": 1,
+      "expected_process_count": 1,
+      "complete": true,
+      "pss_bytes": 1691648,
+      "rss_bytes": 1699840,
+      "pss_partial_bytes": 1691648,
+      "details": [
+        {
+          "pid": 1039967,
+          "comm": "sleep",
+          "rss_bytes": 1699840,
+          "pss_bytes": 1691648,
+          "pss_anon_bytes": 98304,
+          "pss_file_bytes": 1593344,
+          "pss_shmem_bytes": 0,
+          "shared_clean_bytes": 8192,
+          "shared_dirty_bytes": 0,
+          "private_clean_bytes": 1593344,
+          "private_dirty_bytes": 98304,
+          "referenced_bytes": 1699840,
+          "anonymous_bytes": 98304,
+          "swap_bytes": 0,
+          "swap_pss_bytes": 0
+        }
+      ],
+      "errors": []
+    },
+    "runtime_processes": {
+      "process_count": 1,
+      "expected_process_count": 1,
+      "complete": true,
+      "pss_bytes": 496640,
+      "rss_bytes": 2310144,
+      "pss_partial_bytes": 496640,
+      "details": [
+        {
+          "pid": 1039964,
+          "comm": "conmon",
+          "rss_bytes": 2310144,
+          "pss_bytes": 496640,
+          "pss_anon_bytes": 258048,
+          "pss_file_bytes": 238592,
+          "pss_shmem_bytes": 0,
+          "shared_clean_bytes": 1867776,
+          "shared_dirty_bytes": 0,
+          "private_clean_bytes": 184320,
+          "private_dirty_bytes": 258048,
+          "referenced_bytes": 2310144,
+          "anonymous_bytes": 258048,
+          "swap_bytes": 0,
+          "swap_pss_bytes": 0
+        }
+      ],
+      "errors": [],
+      "source": "conmon_pid"
+    },
+    "errors": [],
+    "host": {
+      "meminfo": {
+        "MemTotal_bytes": 7982043136,
+        "MemFree_bytes": 308183040,
+        "MemAvailable_bytes": 2542571520,
+        "Cached_bytes": 2931990528,
+        "SwapTotal_bytes": 22405963776,
+        "SwapFree_bytes": 17524023296,
+        "Shmem_bytes": 601989120
+      },
+      "pressure": {
+        "cpu": {
+          "some": {
+            "avg10": 0.72,
+            "avg60": 0.73,
+            "avg300": 0.78,
+            "total_us": 3316951227
+          },
+          "full": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.0,
+            "total_us": 0
+          }
+        },
+        "memory": {
+          "some": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.0,
+            "total_us": 1098007003
+          },
+          "full": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.0,
+            "total_us": 950059662
+          }
+        },
+        "io": {
+          "some": {
+            "avg10": 0.16,
+            "avg60": 0.18,
+            "avg300": 0.16,
+            "total_us": 469660941
+          },
+          "full": {
+            "avg10": 0.08,
+            "avg60": 0.14,
+            "avg300": 0.12,
+            "total_us": 313006492
+          }
+        }
+      },
+      "load_average": [
+        1.84,
+        1.59,
+        1.41
+      ],
+      "cpu": {
+        "sample_count": 8,
+        "min_khz": 399818,
+        "max_khz": 3800000,
+        "khz": [
+          756970,
+          1141150,
+          3799961,
+          760117,
+          399818,
+          3388950,
+          3800000,
+          725604
+        ],
+        "errors": []
+      },
+      "thermal": {
+        "zones": [
+          {
+            "zone": "thermal_zone0",
+            "type": "acpitz",
+            "millicelsius": 32000,
+            "celsius": 32.0
+          },
+          {
+            "zone": "thermal_zone1",
+            "type": "INT3400 Thermal",
+            "millicelsius": 20000,
+            "celsius": 20.0
+          },
+          {
+            "zone": "thermal_zone2",
+            "type": "SEN1",
+            "millicelsius": 64050,
+            "celsius": 64.05
+          },
+          {
+            "zone": "thermal_zone3",
+            "type": "TCPU",
+            "millicelsius": 66050,
+            "celsius": 66.05
+          },
+          {
+            "zone": "thermal_zone4",
+            "type": "SEN2",
+            "millicelsius": 40050,
+            "celsius": 40.05
+          },
+          {
+            "zone": "thermal_zone5",
+            "type": "x86_pkg_temp",
+            "millicelsius": 66000,
+            "celsius": 66.0
+          },
+          {
+            "zone": "thermal_zone6",
+            "type": "iwlwifi_1",
+            "millicelsius": 37000,
+            "celsius": 37.0
+          }
+        ],
+        "package_c": 66.0,
+        "errors": []
+      }
+    },
+    "disk": {
+      "image": {
+        "reference": "localhost/multilinux/startup-fedora44@sha256:a3000db6a361f5f841505a2ea6df5b54f3a2768d7043863be5aef4ae672febfc",
+        "id": "5cf3102482ef1edd675892b112aac0564726ed7bbb78ed09ea89c44f884288b7",
+        "digest": "sha256:a3000db6a361f5f841505a2ea6df5b54f3a2768d7043863be5aef4ae672febfc",
+        "size_bytes": 1899373319
+      },
+      "container": {
+        "size_rw_bytes": 113814,
+        "size_root_fs_bytes": 1899487133
+      },
+      "shared_mounts": [
+        {
+          "path": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44",
+          "total_bytes": 509332160512,
+          "free_bytes": 392302616576,
+          "used_bytes": 117029543936,
+          "note": "Filesystem-wide values, not this environment's exclusive use."
+        }
+      ],
+      "note": "SizeRootFs includes lower layers shared with other containers; sizes are not exclusive and must not be added across environments."
+    }
+  },
+  "idle_after_gui_close": {
+    "collected_at": "2026-10-22T18:53:19+08:00",
+    "environment_id": "startup-fedora44",
+    "target": "fedora44",
+    "runtime_state": "running",
+    "content_revision": 1,
+    "package_inventory_sha256": "74cff549c2c89cc8f17b930601c9cb42e865e38f9c2bf806951ec82c3584984e",
+    "image_digest": "sha256:a3000db6a361f5f841505a2ea6df5b54f3a2768d7043863be5aef4ae672febfc",
+    "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b",
+    "kernel_matches_current_host": true,
+    "pid": 1039967,
+    "conmon_pid": 1039964,
+    "cgroup": {
+      "path": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b.scope/container",
+      "errors": {},
+      "memory_current_bytes": 6393856,
+      "memory_peak_bytes": 43081728,
+      "memory_swap_current_bytes": 0,
+      "pids_current": 11,
+      "pids_peak": 42,
+      "memory_high": "max",
+      "memory_max": "max",
+      "cpu_max": "max 100000",
+      "memory_stat": {
+        "anon": 98304,
+        "file": 4984832,
+        "kernel": 1277952,
+        "kernel_stack": 0,
+        "pagetables": 45056,
+        "sec_pagetables": 0,
+        "percpu": 520,
+        "sock": 0,
+        "vmalloc": 12288,
+        "shmem": 4915200,
+        "zswap": 0,
+        "zswapped": 0,
+        "zswap_incomp": 0,
+        "file_mapped": 4915200,
+        "file_dirty": 0,
+        "file_writeback": 0,
+        "swapcached": 0,
+        "anon_thp": 0,
+        "file_thp": 0,
+        "shmem_thp": 0,
+        "inactive_anon": 0,
+        "active_anon": 5013504,
+        "inactive_file": 69632,
+        "active_file": 0,
+        "unevictable": 0,
+        "slab_reclaimable": 908960,
+        "slab_unreclaimable": 300808,
+        "slab": 1209768,
+        "hugetlb": 0,
+        "workingset_refault_anon": 0,
+        "workingset_refault_file": 0,
+        "workingset_activate_anon": 0,
+        "workingset_activate_file": 0,
+        "workingset_restore_anon": 0,
+        "workingset_restore_file": 0,
+        "workingset_nodereclaim": 0,
+        "pgdemote_kswapd": 0,
+        "pgdemote_direct": 0,
+        "pgdemote_khugepaged": 0,
+        "pgdemote_proactive": 0,
+        "pgsteal_kswapd": 0,
+        "pgsteal_direct": 0,
+        "pgsteal_khugepaged": 0,
+        "pgsteal_proactive": 0,
+        "pgscan_kswapd": 0,
+        "pgscan_direct": 0,
+        "pgscan_khugepaged": 0,
+        "pgscan_proactive": 0,
+        "pgrefill": 0,
+        "pgpromote_success": 0,
+        "pgscan": 0,
+        "pgsteal": 0,
+        "pswpin": 0,
+        "pswpout": 0,
+        "pgfault": 17615,
+        "pgmajfault": 0,
+        "pgactivate": 0,
+        "pgdeactivate": 0,
+        "pglazyfree": 0,
+        "pglazyfreed": 0,
+        "swpin_zero": 0,
+        "swpout_zero": 0,
+        "zswpin": 0,
+        "zswpout": 0,
+        "zswpwb": 0,
+        "thp_fault_alloc": 0,
+        "thp_collapse_alloc": 0,
+        "thp_swpout": 0,
+        "thp_swpout_fallback": 0,
+        "numa_pages_migrated": 0,
+        "numa_pte_updates": 0,
+        "numa_hint_faults": 0
+      },
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "cpu_stat": {
+        "usage_usec": 327236,
+        "user_usec": 241721,
+        "system_usec": 85514,
+        "nice_usec": 0,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "memory_pressure": {
+        "some": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "cpu_pressure": {
+        "some": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 1779
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 1324
+        }
+      },
+      "io_pressure": {
+        "some": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 977
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 977
+        }
+      },
+      "container_id_matches": true
+    },
+    "processes": {
+      "process_count": 1,
+      "expected_process_count": 1,
+      "complete": true,
+      "pss_bytes": 1691648,
+      "rss_bytes": 1699840,
+      "pss_partial_bytes": 1691648,
+      "details": [
+        {
+          "pid": 1039967,
+          "comm": "sleep",
+          "rss_bytes": 1699840,
+          "pss_bytes": 1691648,
+          "pss_anon_bytes": 98304,
+          "pss_file_bytes": 1593344,
+          "pss_shmem_bytes": 0,
+          "shared_clean_bytes": 8192,
+          "shared_dirty_bytes": 0,
+          "private_clean_bytes": 1593344,
+          "private_dirty_bytes": 98304,
+          "referenced_bytes": 1699840,
+          "anonymous_bytes": 98304,
+          "swap_bytes": 0,
+          "swap_pss_bytes": 0
+        }
+      ],
+      "errors": []
+    },
+    "runtime_processes": {
+      "process_count": 1,
+      "expected_process_count": 1,
+      "complete": true,
+      "pss_bytes": 478208,
+      "rss_bytes": 2310144,
+      "pss_partial_bytes": 478208,
+      "details": [
+        {
+          "pid": 1039964,
+          "comm": "conmon",
+          "rss_bytes": 2310144,
+          "pss_bytes": 478208,
+          "pss_anon_bytes": 258048,
+          "pss_file_bytes": 220160,
+          "pss_shmem_bytes": 0,
+          "shared_clean_bytes": 1880064,
+          "shared_dirty_bytes": 0,
+          "private_clean_bytes": 172032,
+          "private_dirty_bytes": 258048,
+          "referenced_bytes": 2310144,
+          "anonymous_bytes": 258048,
+          "swap_bytes": 0,
+          "swap_pss_bytes": 0
+        }
+      ],
+      "errors": [],
+      "source": "conmon_pid"
+    },
+    "errors": [],
+    "host": {
+      "meminfo": {
+        "MemTotal_bytes": 7982043136,
+        "MemFree_bytes": 256192512,
+        "MemAvailable_bytes": 2421202944,
+        "Cached_bytes": 2952437760,
+        "SwapTotal_bytes": 22405963776,
+        "SwapFree_bytes": 17524068352,
+        "Shmem_bytes": 621051904
+      },
+      "pressure": {
+        "cpu": {
+          "some": {
+            "avg10": 0.72,
+            "avg60": 0.73,
+            "avg300": 0.78,
+            "total_us": 3316975059
+          },
+          "full": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.0,
+            "total_us": 0
+          }
+        },
+        "memory": {
+          "some": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.0,
+            "total_us": 1098007004
+          },
+          "full": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.0,
+            "total_us": 950059663
+          }
+        },
+        "io": {
+          "some": {
+            "avg10": 0.16,
+            "avg60": 0.18,
+            "avg300": 0.16,
+            "total_us": 469671331
+          },
+          "full": {
+            "avg10": 0.08,
+            "avg60": 0.14,
+            "avg300": 0.12,
+            "total_us": 313015106
+          }
+        }
+      },
+      "load_average": [
+        1.84,
+        1.59,
+        1.41
+      ],
+      "cpu": {
+        "sample_count": 8,
+        "min_khz": 1330665,
+        "max_khz": 3800000,
+        "khz": [
+          1826426,
+          3751724,
+          2493194,
+          3396944,
+          1711348,
+          3702047,
+          1330665,
+          3800000
+        ],
+        "errors": []
+      },
+      "thermal": {
+        "zones": [
+          {
+            "zone": "thermal_zone0",
+            "type": "acpitz",
+            "millicelsius": 32000,
+            "celsius": 32.0
+          },
+          {
+            "zone": "thermal_zone1",
+            "type": "INT3400 Thermal",
+            "millicelsius": 20000,
+            "celsius": 20.0
+          },
+          {
+            "zone": "thermal_zone2",
+            "type": "SEN1",
+            "millicelsius": 71050,
+            "celsius": 71.05
+          },
+          {
+            "zone": "thermal_zone3",
+            "type": "TCPU",
+            "millicelsius": 67050,
+            "celsius": 67.05
+          },
+          {
+            "zone": "thermal_zone4",
+            "type": "SEN2",
+            "millicelsius": 39050,
+            "celsius": 39.05
+          },
+          {
+            "zone": "thermal_zone5",
+            "type": "x86_pkg_temp",
+            "millicelsius": 67000,
+            "celsius": 67.0
+          },
+          {
+            "zone": "thermal_zone6",
+            "type": "iwlwifi_1",
+            "millicelsius": 37000,
+            "celsius": 37.0
+          }
+        ],
+        "package_c": 67.0,
+        "errors": []
+      }
+    },
+    "disk": {
+      "image": {
+        "reference": "localhost/multilinux/startup-fedora44@sha256:a3000db6a361f5f841505a2ea6df5b54f3a2768d7043863be5aef4ae672febfc",
+        "id": "5cf3102482ef1edd675892b112aac0564726ed7bbb78ed09ea89c44f884288b7",
+        "digest": "sha256:a3000db6a361f5f841505a2ea6df5b54f3a2768d7043863be5aef4ae672febfc",
+        "size_bytes": 1899373319
+      },
+      "container": {
+        "size_rw_bytes": 114631,
+        "size_root_fs_bytes": 1899487950
+      },
+      "shared_mounts": [
+        {
+          "path": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44",
+          "total_bytes": 509332160512,
+          "free_bytes": 392302616576,
+          "used_bytes": 117029543936,
+          "note": "Filesystem-wide values, not this environment's exclusive use."
+        }
+      ],
+      "note": "SizeRootFs includes lower layers shared with other containers; sizes are not exclusive and must not be added across environments."
+    }
+  },
+  "stopped": {
+    "collected_at": "2026-10-22T18:53:28+08:00",
+    "environment_id": "startup-fedora44",
+    "target": "fedora44",
+    "runtime_state": "stopped",
+    "content_revision": 1,
+    "package_inventory_sha256": "74cff549c2c89cc8f17b930601c9cb42e865e38f9c2bf806951ec82c3584984e",
+    "image_digest": "sha256:a3000db6a361f5f841505a2ea6df5b54f3a2768d7043863be5aef4ae672febfc",
+    "container_id": "b913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b",
+    "kernel_matches_current_host": true,
+    "pid": null,
+    "conmon_pid": null,
+    "cgroup": null,
+    "processes": null,
+    "runtime_processes": null,
+    "errors": [
+      "environment is stopped; cgroup metrics are unavailable"
+    ],
+    "host": {
+      "meminfo": {
+        "MemTotal_bytes": 7982043136,
+        "MemFree_bytes": 330162176,
+        "MemAvailable_bytes": 2572898304,
+        "Cached_bytes": 2940461056,
+        "SwapTotal_bytes": 22405963776,
+        "SwapFree_bytes": 17524854784,
+        "Shmem_bytes": 602120192
+      },
+      "pressure": {
+        "cpu": {
+          "some": {
+            "avg10": 0.75,
+            "avg60": 0.74,
+            "avg300": 0.78,
+            "total_us": 3317066257
+          },
+          "full": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.0,
+            "total_us": 0
+          }
+        },
+        "memory": {
+          "some": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.0,
+            "total_us": 1098008465
+          },
+          "full": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.0,
+            "total_us": 950061122
+          }
+        },
+        "io": {
+          "some": {
+            "avg10": 0.17,
+            "avg60": 0.19,
+            "avg300": 0.16,
+            "total_us": 469694482
+          },
+          "full": {
+            "avg10": 0.13,
+            "avg60": 0.15,
+            "avg300": 0.12,
+            "total_us": 313035754
+          }
+        }
+      },
+      "load_average": [
+        1.63,
+        1.55,
+        1.4
+      ],
+      "cpu": {
+        "sample_count": 8,
+        "min_khz": 2770589,
+        "max_khz": 3694988,
+        "khz": [
+          3147387,
+          3637752,
+          2858608,
+          2957564,
+          3009707,
+          3694988,
+          3513445,
+          2770589
+        ],
+        "errors": []
+      },
+      "thermal": {
+        "zones": [
+          {
+            "zone": "thermal_zone0",
+            "type": "acpitz",
+            "millicelsius": 32000,
+            "celsius": 32.0
+          },
+          {
+            "zone": "thermal_zone1",
+            "type": "INT3400 Thermal",
+            "millicelsius": 20000,
+            "celsius": 20.0
+          },
+          {
+            "zone": "thermal_zone2",
+            "type": "SEN1",
+            "millicelsius": 52050,
+            "celsius": 52.05
+          },
+          {
+            "zone": "thermal_zone3",
+            "type": "TCPU",
+            "millicelsius": 62050,
+            "celsius": 62.05
+          },
+          {
+            "zone": "thermal_zone4",
+            "type": "SEN2",
+            "millicelsius": 40050,
+            "celsius": 40.05
+          },
+          {
+            "zone": "thermal_zone5",
+            "type": "x86_pkg_temp",
+            "millicelsius": 62000,
+            "celsius": 62.0
+          },
+          {
+            "zone": "thermal_zone6",
+            "type": "iwlwifi_1",
+            "millicelsius": 35000,
+            "celsius": 35.0
+          }
+        ],
+        "package_c": 62.0,
+        "errors": []
+      }
+    },
+    "disk": {
+      "image": {
+        "reference": "localhost/multilinux/startup-fedora44@sha256:a3000db6a361f5f841505a2ea6df5b54f3a2768d7043863be5aef4ae672febfc",
+        "id": "5cf3102482ef1edd675892b112aac0564726ed7bbb78ed09ea89c44f884288b7",
+        "digest": "sha256:a3000db6a361f5f841505a2ea6df5b54f3a2768d7043863be5aef4ae672febfc",
+        "size_bytes": 1899373319
+      },
+      "container": {
+        "size_rw_bytes": 114631,
+        "size_root_fs_bytes": 1899487950
+      },
+      "shared_mounts": [
+        {
+          "path": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/fedora44",
+          "total_bytes": 509332160512,
+          "free_bytes": 392302526464,
+          "used_bytes": 117029634048,
+          "note": "Filesystem-wide values, not this environment's exclusive use."
+        }
+      ],
+      "note": "SizeRootFs includes lower layers shared with other containers; sizes are not exclusive and must not be added across environments."
+    }
+  }
+}

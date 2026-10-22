@@ -1,0 +1,527 @@
+[
+  {
+    "event": "ready",
+    "marker": "MLSTARTUP-",
+    "caption": null,
+    "window_id": null,
+    "type": null,
+    "objectType": null,
+    "pid": null,
+    "resource_class": null,
+    "geometry": {
+      "width": null,
+      "height": null
+    },
+    "buffer_geometry": {
+      "width": null,
+      "height": null
+    },
+    "ready_for_painting": null,
+    "received_ns": 106807127483242,
+    "sent_wall_ms": 1792666038011
+  },
+  {
+    "event": "added",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-0-first.txt - Mousepad",
+    "window_id": "{5357ff01-1d52-4163-9da9-bdc2dbade99d}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1028444,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106808250126773,
+    "sent_wall_ms": 1792666039132
+  },
+  {
+    "event": "close_requested",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-0-first.txt - Mousepad",
+    "window_id": "{5357ff01-1d52-4163-9da9-bdc2dbade99d}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1028444,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106808254076109,
+    "sent_wall_ms": 1792666039139
+  },
+  {
+    "event": "removed",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-0-first.txt - Mousepad",
+    "window_id": "{5357ff01-1d52-4163-9da9-bdc2dbade99d}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1028444,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106808300967136,
+    "sent_wall_ms": 1792666039185
+  },
+  {
+    "event": "added",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-0-second.txt - Mousepad",
+    "window_id": "{6412e2ad-478f-4aae-8519-d576b5d0831c}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1028864,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106817395176882,
+    "sent_wall_ms": 1792666048278
+  },
+  {
+    "event": "close_requested",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-0-second.txt - Mousepad",
+    "window_id": "{6412e2ad-478f-4aae-8519-d576b5d0831c}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1028864,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106817398850075,
+    "sent_wall_ms": 1792666048284
+  },
+  {
+    "event": "removed",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-0-second.txt - Mousepad",
+    "window_id": "{6412e2ad-478f-4aae-8519-d576b5d0831c}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1028864,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106817445610768,
+    "sent_wall_ms": 1792666048328
+  },
+  {
+    "event": "added",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-1-first.txt - Mousepad",
+    "window_id": "{49843d79-d4dd-4fe5-9fc7-722446df61fc}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1029342,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106826957946934,
+    "sent_wall_ms": 1792666057842
+  },
+  {
+    "event": "close_requested",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-1-first.txt - Mousepad",
+    "window_id": "{49843d79-d4dd-4fe5-9fc7-722446df61fc}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1029342,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106826966431244,
+    "sent_wall_ms": 1792666057851
+  },
+  {
+    "event": "removed",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-1-first.txt - Mousepad",
+    "window_id": "{49843d79-d4dd-4fe5-9fc7-722446df61fc}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1029342,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106827013633729,
+    "sent_wall_ms": 1792666057897
+  },
+  {
+    "event": "added",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-1-second.txt - Mousepad",
+    "window_id": "{31f8d777-470b-4fd0-8300-7f664fc36a52}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1029778,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106836107100172,
+    "sent_wall_ms": 1792666066992
+  },
+  {
+    "event": "close_requested",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-1-second.txt - Mousepad",
+    "window_id": "{31f8d777-470b-4fd0-8300-7f664fc36a52}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1029778,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106836111444896,
+    "sent_wall_ms": 1792666066996
+  },
+  {
+    "event": "removed",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-1-second.txt - Mousepad",
+    "window_id": "{31f8d777-470b-4fd0-8300-7f664fc36a52}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1029778,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106836158348486,
+    "sent_wall_ms": 1792666067042
+  },
+  {
+    "event": "added",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-2-first.txt - Mousepad",
+    "window_id": "{916eb690-bcff-4919-adb7-53a90ac8678b}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1030293,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106845640319040,
+    "sent_wall_ms": 1792666076523
+  },
+  {
+    "event": "close_requested",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-2-first.txt - Mousepad",
+    "window_id": "{916eb690-bcff-4919-adb7-53a90ac8678b}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1030293,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106845645308420,
+    "sent_wall_ms": 1792666076530
+  },
+  {
+    "event": "removed",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-2-first.txt - Mousepad",
+    "window_id": "{916eb690-bcff-4919-adb7-53a90ac8678b}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1030293,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106845696254224,
+    "sent_wall_ms": 1792666076579
+  },
+  {
+    "event": "added",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-2-second.txt - Mousepad",
+    "window_id": "{4469f147-5a88-48cf-89c4-988ccb93427c}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1030693,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106854777668746,
+    "sent_wall_ms": 1792666085663
+  },
+  {
+    "event": "close_requested",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-2-second.txt - Mousepad",
+    "window_id": "{4469f147-5a88-48cf-89c4-988ccb93427c}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1030693,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106854786314170,
+    "sent_wall_ms": 1792666085671
+  },
+  {
+    "event": "removed",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-reopen-2-second.txt - Mousepad",
+    "window_id": "{4469f147-5a88-48cf-89c4-988ccb93427c}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1030693,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106854833338775,
+    "sent_wall_ms": 1792666085716
+  },
+  {
+    "event": "added",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-first.txt - Mousepad",
+    "window_id": "{aaffd31f-179d-4c69-825a-92b138caf143}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1031214,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106864347506166,
+    "sent_wall_ms": 1792666095231
+  },
+  {
+    "event": "added",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-second.txt - Mousepad",
+    "window_id": "{ce716832-941f-49dd-8367-30ccedaa1c80}",
+    "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "pid": 1031370,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": null
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": null
+    },
+    "ready_for_painting": null,
+    "received_ns": 106864903228685,
+    "sent_wall_ms": 1792666095787
+  },
+  {
+    "event": "close_requested",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-first.txt - Mousepad",
+    "window_id": "{aaffd31f-179d-4c69-825a-92b138caf143}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1031214,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106864910071923,
+    "sent_wall_ms": 1792666095795
+  },
+  {
+    "event": "removed",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-first.txt - Mousepad",
+    "window_id": "{aaffd31f-179d-4c69-825a-92b138caf143}",
+    "type": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca881fbee0)",
+    "pid": 1031214,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 106864959357538,
+    "sent_wall_ms": 1792666095844
+  },
+  {
+    "event": "close_requested",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-second.txt - Mousepad",
+    "window_id": "{ce716832-941f-49dd-8367-30ccedaa1c80}",
+    "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "pid": 1031370,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": null
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": null
+    },
+    "ready_for_painting": null,
+    "received_ns": 106865018750715,
+    "sent_wall_ms": 1792666095904
+  },
+  {
+    "event": "removed",
+    "marker": "MLSTARTUP-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/work/debian13/MLSTARTUP-debian13-concurrent-second.txt - Mousepad",
+    "window_id": "{ce716832-941f-49dd-8367-30ccedaa1c80}",
+    "type": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca87e73b50)",
+    "pid": 1031370,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": null
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": null
+    },
+    "ready_for_painting": null,
+    "received_ns": 106865060739913,
+    "sent_wall_ms": 1792666095943
+  }
+]
