@@ -121,7 +121,7 @@ class DesktopAndRouting(unittest.TestCase):
             service, _runtime = desktop_service(Path(temporary))
             with self.assertRaisesRegex(MultilinuxError, 'require --desktop'):
                 service.create('debian13', None, [], desktop=False, gpu=True)
-            record = service.create('debian13', 'desk-gpu', [], desktop=True, session=SESSION, gpu=True)
+            record = service.create('debian13', None, [], desktop=True, session=SESSION, gpu=True)
             self.assertEqual(record['runtime']['ipc'], 'host')
 
 
