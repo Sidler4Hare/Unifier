@@ -1,0 +1,3 @@
+/home/omg/文档/多兼容linux机/fixtures/share_target.py:25: DeprecationWarning: Gtk.Widget.override_background_color is deprecated
+  box.add(label);box.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(*[int(color[j:j+2],16)/255 for j in (1,3,5)],1))
+Gtk-Message: 16:37:29.759: Failed to load module "appmenu-gtk-module"

@@ -1,0 +1,412 @@
+{
+  "schema": "multilinux.screencast.probe.v1",
+  "created_at": "2026-10-22T16:44:12+08:00",
+  "finished_at": "2026-10-22T16:44:15+08:00",
+  "request": {
+    "consumer": "/home/omg/文档/多兼容linux机/evidence/screencast-2026-10-22T155700+0800/work/artifacts/debian13/screencast-consumer",
+    "output": "/home/omg/文档/多兼容linux机/evidence/screencast-2026-10-22T155700+0800/work/capture-memfd-164410/capture.json",
+    "mode": "memfd",
+    "frames": 60,
+    "timeout_seconds": 20.0,
+    "selection_timeout_seconds": 300.0,
+    "source": "window",
+    "parent_window": "",
+    "expect_pattern": true,
+    "render_node": "/dev/dri/renderD128",
+    "bus": "session",
+    "bus_address": null,
+    "persist_mode": 0
+  },
+  "selection": {
+    "source": "window",
+    "types": 2,
+    "multiple": false,
+    "persist_mode": 0
+  },
+  "portal": {
+    "version": 5,
+    "session_opened": true,
+    "session_handle": "/org/freedesktop/portal/desktop/session/1_12572/ml_screencast_7b9c929a95d7cca346035524568c34dc",
+    "events": [
+      {
+        "phase": "portal",
+        "status": "version",
+        "at": 1792658653.019,
+        "version": 5
+      },
+      {
+        "phase": "portal_request",
+        "status": "started",
+        "at": 1792658653.019,
+        "method": "CreateSession",
+        "handle_token": "ml_screencast_cc126616fc1fd7f9912fa1179ed1f44b"
+      },
+      {
+        "phase": "portal_request",
+        "status": "subscribed",
+        "at": 1792658653.019,
+        "method": "CreateSession",
+        "expected_handle": "/org/freedesktop/portal/desktop/request/1_12572/ml_screencast_cc126616fc1fd7f9912fa1179ed1f44b"
+      },
+      {
+        "phase": "portal_request",
+        "status": "called",
+        "at": 1792658653.025,
+        "method": "CreateSession",
+        "actual_handle": "/org/freedesktop/portal/desktop/request/1_12572/ml_screencast_cc126616fc1fd7f9912fa1179ed1f44b"
+      },
+      {
+        "phase": "portal_request",
+        "status": "completed",
+        "at": 1792658653.035,
+        "method": "CreateSession",
+        "actual_handle": "/org/freedesktop/portal/desktop/request/1_12572/ml_screencast_cc126616fc1fd7f9912fa1179ed1f44b",
+        "response": 0
+      },
+      {
+        "phase": "session",
+        "status": "created",
+        "at": 1792658653.035,
+        "session_handle": "/org/freedesktop/portal/desktop/session/1_12572/ml_screencast_7b9c929a95d7cca346035524568c34dc",
+        "version": 5
+      },
+      {
+        "phase": "portal_request",
+        "status": "started",
+        "at": 1792658653.036,
+        "method": "SelectSources",
+        "handle_token": "ml_screencast_6c571724099450eef225d9cf18d24c67"
+      },
+      {
+        "phase": "portal_request",
+        "status": "subscribed",
+        "at": 1792658653.036,
+        "method": "SelectSources",
+        "expected_handle": "/org/freedesktop/portal/desktop/request/1_12572/ml_screencast_6c571724099450eef225d9cf18d24c67"
+      },
+      {
+        "phase": "portal_request",
+        "status": "called",
+        "at": 1792658653.038,
+        "method": "SelectSources",
+        "actual_handle": "/org/freedesktop/portal/desktop/request/1_12572/ml_screencast_6c571724099450eef225d9cf18d24c67"
+      },
+      {
+        "phase": "portal_request",
+        "status": "completed",
+        "at": 1792658653.048,
+        "method": "SelectSources",
+        "actual_handle": "/org/freedesktop/portal/desktop/request/1_12572/ml_screencast_6c571724099450eef225d9cf18d24c67",
+        "response": 0
+      },
+      {
+        "phase": "selection",
+        "status": "selected",
+        "at": 1792658653.048,
+        "source": "window",
+        "types": 2,
+        "multiple": false,
+        "persist_mode": 0
+      },
+      {
+        "phase": "portal_request",
+        "status": "started",
+        "at": 1792658653.049,
+        "method": "Start",
+        "handle_token": "ml_screencast_66b64db2c18ce8db8e45cc2803ae641c"
+      },
+      {
+        "phase": "portal_request",
+        "status": "subscribed",
+        "at": 1792658653.049,
+        "method": "Start",
+        "expected_handle": "/org/freedesktop/portal/desktop/request/1_12572/ml_screencast_66b64db2c18ce8db8e45cc2803ae641c"
+      },
+      {
+        "phase": "portal_request",
+        "status": "called",
+        "at": 1792658653.051,
+        "method": "Start",
+        "actual_handle": "/org/freedesktop/portal/desktop/request/1_12572/ml_screencast_66b64db2c18ce8db8e45cc2803ae641c"
+      },
+      {
+        "phase": "portal_request",
+        "status": "completed",
+        "at": 1792658655.396,
+        "method": "Start",
+        "actual_handle": "/org/freedesktop/portal/desktop/request/1_12572/ml_screencast_66b64db2c18ce8db8e45cc2803ae641c",
+        "response": 0
+      },
+      {
+        "phase": "session",
+        "status": "started",
+        "at": 1792658655.396,
+        "streams": [
+          {
+            "node_id": 89,
+            "pipewire_serial": null,
+            "properties": {
+              "source_type": 2
+            }
+          }
+        ],
+        "restore_token_present": false
+      },
+      {
+        "phase": "pipewire_remote",
+        "status": "opening",
+        "at": 1792658655.397
+      },
+      {
+        "phase": "pipewire_remote",
+        "status": "opened",
+        "at": 1792658655.405,
+        "fd": 7
+      },
+      {
+        "phase": "pipewire_remote",
+        "status": "closed",
+        "at": 1792658655.417,
+        "fd": 7
+      },
+      {
+        "phase": "session",
+        "status": "closed",
+        "at": 1792658655.427,
+        "session_handle": "/org/freedesktop/portal/desktop/session/1_12572/ml_screencast_7b9c929a95d7cca346035524568c34dc"
+      },
+      {
+        "phase": "client",
+        "status": "closed",
+        "at": 1792658655.427
+      }
+    ],
+    "warnings": []
+  },
+  "sources": [
+    {
+      "node_id": 89,
+      "pipewire_serial": null,
+      "properties": {
+        "source_type": 2
+      }
+    }
+  ],
+  "phases": [
+    {
+      "phase": "portal_connect",
+      "status": "started",
+      "at": "2026-10-22T16:44:12+08:00",
+      "bus": "session"
+    },
+    {
+      "phase": "portal_connect",
+      "status": "completed",
+      "at": "2026-10-22T16:44:13+08:00",
+      "version": null
+    },
+    {
+      "phase": "session_start",
+      "status": "started",
+      "at": "2026-10-22T16:44:13+08:00",
+      "source": "window",
+      "parent_window": ""
+    },
+    {
+      "phase": "session_start",
+      "status": "completed",
+      "at": "2026-10-22T16:44:15+08:00",
+      "source_count": 1,
+      "persist_mode": 0
+    },
+    {
+      "phase": "open_pipewire_remote:memfd",
+      "status": "started",
+      "at": "2026-10-22T16:44:15+08:00"
+    },
+    {
+      "phase": "open_pipewire_remote:memfd",
+      "status": "completed",
+      "at": "2026-10-22T16:44:15+08:00"
+    },
+    {
+      "phase": "consumer:memfd",
+      "status": "started",
+      "at": "2026-10-22T16:44:15+08:00",
+      "node_id": 89,
+      "pipewire_serial": null
+    },
+    {
+      "phase": "consumer:memfd",
+      "status": "failed",
+      "at": "2026-10-22T16:44:15+08:00",
+      "returncode": 3,
+      "errors": [
+        "consumer exited with return code 3",
+        "consumer summary did not report passed=true",
+        "consumer captured 0 frame(s), requested 60",
+        "consumer reported buffer_type None, expected 'memfd'",
+        "consumer did not confirm CPU readback of real pixels",
+        "consumer summary has no pixel hashes",
+        "consumer summary has no color counts",
+        "consumer emitted 1 error event(s)"
+      ]
+    },
+    {
+      "phase": "close_pipewire_remote:memfd",
+      "status": "completed",
+      "at": "2026-10-22T16:44:15+08:00",
+      "closed": true
+    },
+    {
+      "phase": "cleanup",
+      "status": "completed",
+      "at": "2026-10-22T16:44:15+08:00",
+      "client_closed": true,
+      "session_closed": true,
+      "remote_fds_closed": true
+    }
+  ],
+  "attempts": [
+    {
+      "index": 0,
+      "mode": "memfd",
+      "requested_mode": "memfd",
+      "remote_fd_opened": true,
+      "fd_closed": true,
+      "ok": false,
+      "errors": [
+        "consumer exited with return code 3",
+        "consumer summary did not report passed=true",
+        "consumer captured 0 frame(s), requested 60",
+        "consumer reported buffer_type None, expected 'memfd'",
+        "consumer did not confirm CPU readback of real pixels",
+        "consumer summary has no pixel hashes",
+        "consumer summary has no color counts",
+        "consumer emitted 1 error event(s)"
+      ],
+      "child": {
+        "argv": [
+          "/home/omg/文档/多兼容linux机/evidence/screencast-2026-10-22T155700+0800/work/artifacts/debian13/screencast-consumer",
+          "--fd",
+          "7",
+          "--node",
+          "89",
+          "--mode",
+          "memfd",
+          "--frames",
+          "60",
+          "--timeout-ms",
+          "20000",
+          "--expect-pattern"
+        ],
+        "returncode": 3,
+        "timed_out": false,
+        "timeout_ms": 20000,
+        "duration_ms": 10,
+        "events": [
+          {
+            "type": "error",
+            "code": "pipewire_connect",
+            "message": "pw_context_new failed"
+          },
+          {
+            "type": "summary",
+            "passed": false,
+            "frames": 0,
+            "requested_frames": 60,
+            "buffers_seen": 0,
+            "skipped_uniform": 0,
+            "skipped_pattern": 0,
+            "mode": "memfd",
+            "buffer_type": null,
+            "format": null,
+            "modifier": null,
+            "gpu_import": false,
+            "cpu_readback": false,
+            "zero_copy": false,
+            "hash_changes": 0,
+            "hashes_first": [],
+            "hashes_last": [],
+            "top_colors": [],
+            "pattern": null,
+            "expect_pattern": true,
+            "target_by_serial": false,
+            "node": 89,
+            "render_node": null,
+            "error": {
+              "code": "pipewire_connect",
+              "message": "pw_context_new failed"
+            }
+          }
+        ],
+        "summary": {
+          "type": "summary",
+          "passed": false,
+          "frames": 0,
+          "requested_frames": 60,
+          "buffers_seen": 0,
+          "skipped_uniform": 0,
+          "skipped_pattern": 0,
+          "mode": "memfd",
+          "buffer_type": null,
+          "format": null,
+          "modifier": null,
+          "gpu_import": false,
+          "cpu_readback": false,
+          "zero_copy": false,
+          "hash_changes": 0,
+          "hashes_first": [],
+          "hashes_last": [],
+          "top_colors": [],
+          "pattern": null,
+          "expect_pattern": true,
+          "target_by_serial": false,
+          "node": 89,
+          "render_node": null,
+          "error": {
+            "code": "pipewire_connect",
+            "message": "pw_context_new failed"
+          }
+        },
+        "malformed_events": 0,
+        "oversized_events": 0,
+        "frames_observed": 0,
+        "stderr_tail": "[W][08:44:15.415298] pw.conf      | [          conf.c: 1182 try_load_conf()] can't load config client.conf: No such file or directory\n[E][08:44:15.415343] pw.conf      | [          conf.c: 1215 pw_conf_load_conf_for_context()] can't load config client.conf: No such file or directory\n"
+      }
+    }
+  ],
+  "fallback": null,
+  "errors": [
+    "memfd: consumer exited with return code 3",
+    "memfd: consumer summary did not report passed=true",
+    "memfd: consumer captured 0 frame(s), requested 60",
+    "memfd: consumer reported buffer_type None, expected 'memfd'",
+    "memfd: consumer did not confirm CPU readback of real pixels",
+    "memfd: consumer summary has no pixel hashes",
+    "memfd: consumer summary has no color counts",
+    "memfd: consumer emitted 1 error event(s)"
+  ],
+  "warnings": [],
+  "cleanup": {
+    "client_closed": true,
+    "session_closed": true,
+    "remote_fds_closed": true,
+    "open_remote_fds": []
+  },
+  "result": {
+    "passed": false,
+    "mode_requested": "memfd",
+    "mode_used": null,
+    "attempt": null,
+    "format": null,
+    "frames": 0,
+    "buffer_type": null,
+    "width": null,
+    "height": null,
+    "gpu_import": null,
+    "cpu_readback": null,
+    "pixel_hashes": [],
+    "color_counts": {}
+  }
+}

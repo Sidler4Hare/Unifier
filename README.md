@@ -230,14 +230,22 @@ python3 evidence/gui-apps-2026-10-22T081145+0800/project/tools/ml.py env stop gu
 
 用户提供的 `TencentMeeting_0300000000_3.26.10.401_x86_64_default.publish.officialwebsite.deb` 已用原生 APT/dpkg 安装到独立 Debian 环境，并连续两次启动到完整登录界面，其中第二次是在停止整个环境后重开。修复内容包括缺失运行库、中文 locale、安装辅助工具、普通 UID/GID、账户主目录，以及独立 D-Bus 和软件渲染配置。产品新增 `--userns keep-id` 与 `--as-host-user`，对应新建环境的身份/权限现场契约通过。
 
-腾讯会议按原始厂商启动器使用 **XWayland**，不是本轮三套 Mousepad 的原生 Wayland 结果。未登录或接受协议，也未验证真实会议、麦克风、摄像头、视频和屏幕共享。GPU 硬件直通、人工鼠标键盘及跨宿主仍未验收。
+腾讯会议按原始厂商启动器使用 **XWayland**。早间报告的验收边界止于登录界面；其后的摄像头黑屏、卡顿和 CPU 占用修复已由用户实测确认通过，并合入 `main`。旧失败记录保留作历史诊断，不再作为当前未完成项。修复涉及 GPU 设备与 IPC、`QT_X11_NO_MITSHM=1` 和 Mesa 硬件渲染。当前工作转入通用 ScreenCast、DMA-BUF 与 MemFd 协议验证，接手信息见 [HANDOFF.md](HANDOFF.md)。跨宿主 M5 仍未验收。
 
 全部测试环境已保留并停止，旧环境未启动；宿主包、桌面入口、MIME 及主项目状态保持不变。62 项代码回归中 58 项通过、4 项旧现场测试默认跳过。本轮新流程由独立工具实际执行。证据见[完整报告](evidence/wayland-media-2026-10-22T082942+0800/report.md)、[机器核验](evidence/wayland-media-2026-10-22T082942+0800/validation.json)和[总记录](evidence/wayland-media-2026-10-22T082942+0800/manifest.json)。
 
-打开已安装的腾讯会议：
+打开后续修复并保留登录状态的腾讯会议部署：
 
 ```bash
-python3 evidence/wayland-media-2026-10-22T082942+0800/user-project/tools/ml.py app open meeting-wemeet-dbus-soft --
+python3 /home/omg/.local/share/multilinux/apps/wemeet/tools/ml.py app open wemeet --
 ```
 
-结束后用同一快照 CLI 执行 `env stop meeting-debian13`。新登录会话可能需要重新创建带当前认证挂载的环境。
+该启动配置使用按需生命周期。手动启动并保留的环境需用同一部署 CLI 执行 `env stop meeting`；关闭前确认其中没有正在进行的会议。新登录会话可能需要更新认证挂载。
+
+## ScreenCast、GPU 与 CPU 协议连接
+
+2026-10-22 后续完成独立 Debian 13 原生消费端的通用窗口采集：系统 Portal 选择合成窗口，取得受限 PipeWire FD，经现有过滤 D-Bus 代理传入容器。MemFd 与 DMA-BUF 均实际收到 60 帧 BGRx、900×598，色块及变化的帧哈希通过。不存在的 GPU 设备会明确失败，再重新取得 Portal FD、自动改用 MemFd 取得 60 帧。
+
+GPU 路径实际完成 DMA-BUF → EGLImage → GLES/FBO → `glReadPixels`，宿主与 Debian 私有 GBM 自检各有 7747/7747 RGB 像素匹配。读回核验明确 `zero_copy=false`。当前现场只覆盖单 plane、linear modifier 与本机 Intel GPU；其它 modifier、GPU、长期预览/编码界面和跨宿主仍待验证。
+
+代码回归 102 项，98 通过，4 项旧现场测试默认跳过；新采集由现场工具实际执行。实验环境停止、租约和代理回收，宿主包与桌面入口清单前后相同。详见[报告](evidence/screencast-2026-10-22T155700+0800/report.md)、[机器核验](evidence/screencast-2026-10-22T155700+0800/validation.json)与[接手入口](HANDOFF.md)。

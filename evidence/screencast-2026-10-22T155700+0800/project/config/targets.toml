@@ -1,0 +1,32 @@
+schema_version = 1
+platform = "linux/amd64"
+runtime = "podman"
+
+[targets.debian13]
+display_name = "Debian 13"
+source = "docker.io/library/debian:13-slim"
+expected_id = "debian"
+expected_version_id = "13"
+package_manager = "apt-get"
+package_database = "dpkg"
+update_policy = "versioned-release"
+documentation = "https://hub.docker.com/_/debian"
+
+[targets.fedora44]
+display_name = "Fedora 44"
+source = "registry.fedoraproject.org/fedora:44"
+expected_id = "fedora"
+expected_version_id = "44"
+package_manager = "dnf"
+package_database = "rpm"
+update_policy = "versioned-release"
+documentation = "https://fedoraproject.org/"
+
+[targets.arch]
+display_name = "Arch Linux rolling"
+source = "docker.io/library/archlinux:latest"
+expected_id = "arch"
+package_manager = "pacman"
+package_database = "pacman"
+update_policy = "full-system-upgrade"
+documentation = "https://hub.docker.com/_/archlinux"

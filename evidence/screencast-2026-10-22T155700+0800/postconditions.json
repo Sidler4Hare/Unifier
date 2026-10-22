@@ -1,0 +1,45 @@
+{
+  "observed_at": "2026-10-22T18:05:30+08:00",
+  "probe_environment_state": "stopped",
+  "probe_lease": {
+    "leases": {},
+    "auto_stop": true,
+    "bridge": null,
+    "container_id": "01905f6582c013decc73fae3d58fb4d32af46c3b229ac1ba8ff35627dfe7f892"
+  },
+  "host_after": {
+    "packages": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "79dcbb15555c7c798e0c7e9e66bf96d06ad2f7b0cc6ef936337d7bdd5a5a3757",
+      "count": 2522,
+      "error": null
+    },
+    "entries": {
+      "directory": "/home/omg/.local/share/applications",
+      "names": [
+        "antigravity.desktop",
+        "cc-switch-handler.desktop",
+        "clash-verge-handler.desktop",
+        "claude-code-url-handler.desktop",
+        "kos-settings.desktop",
+        "org.gptniang.KDE.desktop",
+        "org.kos.Platform.desktop",
+        "org.quickshell.desktop",
+        "qwen-win.desktop",
+        "wemeetapp.desktop"
+      ]
+    }
+  },
+  "host_packages_unchanged": true,
+  "host_entry_names_unchanged": true,
+  "source_sha256": {
+    "src/multilinux/on_demand.py": "7c54074423187b92d7a07708004e1d9e6fb35cc6c1afe408650eb12c7a6f56dd",
+    "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+    "tools/probe_screencast.py": "bc7d2845bc939d3cd09d9ec9b25770d9dc639d6132bc6b632bf38b81b6751c5b",
+    "tools/probe_desktop_protocols.py": "a711b4b6c05db1f86cb01b6e082367f7f5e104ed549487a023a6732663c77ab6",
+    "fixtures/screencast_consumer.c": "3889097c92cef98057568de52f70e66b612ac74a298e083245d6e16e2fe0b73a",
+    "fixtures/dmabuf_roundtrip.c": "c44bf22e49ef500626f6ec68980f125ddf42624e5c5e03a4df43c26eb4624d06",
+    "fixtures/share_target.py": "9f3b7fa188d6388f38aab971dfdfb012a10b04c739cfdbbb74b6927764433d55"
+  }
+}

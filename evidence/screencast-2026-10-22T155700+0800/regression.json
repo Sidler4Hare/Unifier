@@ -1,0 +1,13 @@
+{
+  "tests": 102,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 4,
+  "passed": true,
+  "skips": [
+    "set MULTILINUX_INTEGRATION=1 to open a GUI application",
+    "set MULTILINUX_INTEGRATION=1 to use rootless Podman",
+    "set MULTILINUX_INTEGRATION=1 to install packages with rootless Podman",
+    "set MULTILINUX_INTEGRATION=1 to use rootless Podman"
+  ]
+}

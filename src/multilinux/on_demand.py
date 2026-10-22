@@ -62,13 +62,17 @@ def start_bridge(record, bridge=None):
         raise MultilinuxError('current host session has no DBUS_SESSION_BUS_ADDRESS')
     socket = directory / 'bus'
     socket.unlink(missing_ok=True)
-    command = [executable, address, str(socket), '--filter',
+    # bind(2) limits AF_UNIX names to 107 pathname bytes.  Project paths may
+    # contain long experiment names or multibyte characters; bind relative to
+    # the private mounted directory so the address remains just "bus".
+    command = [executable, address, socket.name, '--filter',
                '--talk=org.freedesktop.portal.Desktop',
                '--talk=org.freedesktop.portal.Documents',
                '--talk=org.kde.StatusNotifierWatcher',
                '--talk=org.freedesktop.Notifications',
                '--own=com.tencent.wemeet.*']
-    process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+    process = subprocess.Popen(command, cwd=directory,
+                               stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, start_new_session=True)
     deadline = time.monotonic() + 5
     while not socket.exists() and time.monotonic() < deadline and process.poll() is None:

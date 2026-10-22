@@ -1,0 +1,14 @@
+{
+  "baseline_commit": "0c1456475374fceb3b1f1224aaa6c4eb799387f3",
+  "built_at": "2026-10-22T17:58:20+08:00",
+  "tested_source_sha256": {
+    "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+    "tools/probe_screencast.py": "bc7d2845bc939d3cd09d9ec9b25770d9dc639d6132bc6b632bf38b81b6751c5b",
+    "fixtures/screencast_consumer.c": "3889097c92cef98057568de52f70e66b612ac74a298e083245d6e16e2fe0b73a",
+    "fixtures/share_target.py": "9f3b7fa188d6388f38aab971dfdfb012a10b04c739cfdbbb74b6927764433d55"
+  },
+  "tested_core_sha256": {
+    "src/multilinux/on_demand.py": "7c54074423187b92d7a07708004e1d9e6fb35cc6c1afe408650eb12c7a6f56dd"
+  },
+  "consumer_sha256": "87c40221691df469e6e1df917a7961f6063ce0092e9fb13091e5523a8e822931"
+}

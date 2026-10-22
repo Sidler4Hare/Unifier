@@ -1,0 +1,21 @@
+{
+  "command": [
+    "cc",
+    "-std=c11",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "fixtures/dmabuf_roundtrip.c",
+    "-o",
+    "evidence/screencast-2026-10-22T155700+0800/work/artifacts/host/dmabuf-roundtrip",
+    "-I/usr/include/libdrm",
+    "-lgbm",
+    "-lEGL",
+    "-lGLESv2",
+    "-ldrm"
+  ],
+  "returncode": 0,
+  "stderr": "",
+  "source_sha256": "b4ad8f86f4ab0e1a77e4d6d448df439d0eb5febdd2183d05d860c3e0cbb8e863"
+}

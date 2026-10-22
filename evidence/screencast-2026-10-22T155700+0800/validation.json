@@ -1,0 +1,158 @@
+{
+  "schema": "multilinux.screencast.validation.v1",
+  "observed_at": "2026-10-22T18:05:30+08:00",
+  "scope": "Fedora 44 KDE/KOS host; Debian 13 native consumer; portal-selected synthetic window; linear single-plane packed RGB; CPU readback validation.",
+  "passed": true,
+  "checks": [
+    {
+      "name": "memfd_frames_and_pattern",
+      "passed": true,
+      "detail": {
+        "frames": 60,
+        "hash_changes": 57,
+        "buffer_type": "MemFd"
+      }
+    },
+    {
+      "name": "memfd_cleanup",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "memfd_real_portal_v5",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "dmabuf_frames_and_pattern",
+      "passed": true,
+      "detail": {
+        "frames": 60,
+        "hash_changes": 56,
+        "buffer_type": "DmaBuf"
+      }
+    },
+    {
+      "name": "dmabuf_cleanup",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "dmabuf_real_portal_v5",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "auto_frames_and_pattern",
+      "passed": true,
+      "detail": {
+        "frames": 60,
+        "hash_changes": 48,
+        "buffer_type": "MemFd"
+      }
+    },
+    {
+      "name": "auto_cleanup",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "auto_real_portal_v5",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "gpu_capture_import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "auto_fresh_remote_and_cpu_fallback",
+      "passed": true,
+      "detail": {
+        "gpu_failure": {
+          "code": "egl_unsupported",
+          "message": "cannot open render node /nonexistent/multilinux-renderD999: No such file or directory"
+        },
+        "remote_open_count": 2
+      }
+    },
+    {
+      "name": "dmabuf_source_hashes_current",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "auto_source_hashes_current",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "host_private_gbm_roundtrip",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "debian13_private_gbm_roundtrip",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "code_regression",
+      "passed": true,
+      "detail": {
+        "tests": 102,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 4,
+        "passed": true,
+        "skips": [
+          "set MULTILINUX_INTEGRATION=1 to open a GUI application",
+          "set MULTILINUX_INTEGRATION=1 to use rootless Podman",
+          "set MULTILINUX_INTEGRATION=1 to install packages with rootless Podman",
+          "set MULTILINUX_INTEGRATION=1 to use rootless Podman"
+        ]
+      }
+    },
+    {
+      "name": "probe_environment_released",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "host_packages_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "host_entry_names_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "frozen_core_current",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "dsh_commandcode_three_agents",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "source_sha256": {
+    "src/multilinux/on_demand.py": "7c54074423187b92d7a07708004e1d9e6fb35cc6c1afe408650eb12c7a6f56dd",
+    "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+    "tools/probe_screencast.py": "bc7d2845bc939d3cd09d9ec9b25770d9dc639d6132bc6b632bf38b81b6751c5b",
+    "tools/probe_desktop_protocols.py": "a711b4b6c05db1f86cb01b6e082367f7f5e104ed549487a023a6732663c77ab6",
+    "fixtures/screencast_consumer.c": "3889097c92cef98057568de52f70e66b612ac74a298e083245d6e16e2fe0b73a",
+    "fixtures/dmabuf_roundtrip.c": "c44bf22e49ef500626f6ec68980f125ddf42624e5c5e03a4df43c26eb4624d06",
+    "fixtures/share_target.py": "9f3b7fa188d6388f38aab971dfdfb012a10b04c739cfdbbb74b6927764433d55"
+  },
+  "limits": [
+    "No end-to-end zero-copy or performance claim.",
+    "Non-linear modifiers, multi-plane, other GPUs, monitor selection, long-running captures, and M5 cross-host acceptance remain unverified.",
+    "Portal v6 serial path has injected tests only; live portal is v5.",
+    "The existing Tencent Meeting user acceptance is preserved; this probe does not re-test meetings."
+  ]
+}
