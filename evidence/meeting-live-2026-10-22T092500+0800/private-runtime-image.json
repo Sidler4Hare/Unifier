@@ -1,0 +1,12 @@
+{
+  "created_at": "2026-10-22T09:37:48.611549+08:00",
+  "source_container": "ml-6feb5a59-meeting-debian13",
+  "tag": "localhost/multilinux/wemeet-ready:20261022-0925",
+  "image_id": "04ea93424a1e320f604439c3b53f8836abdcf1e6c7480ca3bb50f3522b482e13",
+  "digest": "sha256:0d9ff9b1250ad23bcff1f67a94e475b894d3f52a956d3e4af54241c24840e1cd",
+  "locked_reference": "localhost/multilinux/wemeet-ready@sha256:0d9ff9b1250ad23bcff1f67a94e475b894d3f52a956d3e4af54241c24840e1cd",
+  "reference_exists": true,
+  "private_backup": "/home/omg/.local/state/multilinux/backups/meeting-20261022-0925",
+  "contains_private_app_state": true,
+  "publication": "local-only; do not publish this image"
+}

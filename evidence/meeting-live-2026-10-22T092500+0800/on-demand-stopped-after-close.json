@@ -1,0 +1,165 @@
+{
+  "collected_at": "2026-10-22T09:49:48+08:00",
+  "environment_id": "meeting",
+  "target": "debian13",
+  "runtime_state": "stopped",
+  "content_revision": 1,
+  "package_inventory_sha256": "5707b93546d829e9a6b04e629ea307e2df18fa0de54240a780f820129b6e7628",
+  "image_digest": "sha256:0d9ff9b1250ad23bcff1f67a94e475b894d3f52a956d3e4af54241c24840e1cd",
+  "container_id": "535c94c95ac2d08ab52f5efeec24e1060d5ed3e2f733dcc0354024528390bade",
+  "kernel_matches_current_host": true,
+  "pid": null,
+  "conmon_pid": null,
+  "cgroup": null,
+  "processes": null,
+  "runtime_processes": null,
+  "errors": [
+    "environment is stopped; cgroup metrics are unavailable"
+  ],
+  "host": {
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 297545728,
+      "MemAvailable_bytes": 1964658688,
+      "Cached_bytes": 2818392064,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 16462970880,
+      "Shmem_bytes": 844025856
+    },
+    "pressure": {
+      "cpu": {
+        "some": {
+          "avg10": 0.09,
+          "avg60": 1.87,
+          "avg300": 3.81,
+          "total_us": 2939859797
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "memory": {
+        "some": {
+          "avg10": 0.0,
+          "avg60": 0.02,
+          "avg300": 0.32,
+          "total_us": 996935852
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.02,
+          "avg300": 0.29,
+          "total_us": 855361789
+        }
+      },
+      "io": {
+        "some": {
+          "avg10": 0.0,
+          "avg60": 0.04,
+          "avg300": 0.12,
+          "total_us": 384476167
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.01,
+          "avg300": 0.03,
+          "total_us": 243759816
+        }
+      }
+    },
+    "load_average": [
+      1.79,
+      2.49,
+      2.33
+    ],
+    "cpu": {
+      "sample_count": 8,
+      "min_khz": 1299244,
+      "max_khz": 1500042,
+      "khz": [
+        1499937,
+        1500000,
+        1442563,
+        1500042,
+        1500000,
+        1499984,
+        1299244,
+        1500000
+      ],
+      "errors": []
+    },
+    "thermal": {
+      "zones": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "millicelsius": 32000,
+          "celsius": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "millicelsius": 20000,
+          "celsius": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "millicelsius": 52050,
+          "celsius": 52.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "millicelsius": 53050,
+          "celsius": 53.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "millicelsius": 48050,
+          "celsius": 48.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "millicelsius": 53000,
+          "celsius": 53.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "millicelsius": 38000,
+          "celsius": 38.0
+        }
+      ],
+      "package_c": 53.0,
+      "errors": []
+    }
+  },
+  "disk": {
+    "image": {
+      "reference": "localhost/multilinux/wemeet-ready@sha256:0d9ff9b1250ad23bcff1f67a94e475b894d3f52a956d3e4af54241c24840e1cd",
+      "id": "04ea93424a1e320f604439c3b53f8836abdcf1e6c7480ca3bb50f3522b482e13",
+      "digest": "sha256:0d9ff9b1250ad23bcff1f67a94e475b894d3f52a956d3e4af54241c24840e1cd",
+      "size_bytes": 3383412949
+    },
+    "container": {
+      "size_rw_bytes": 13235506,
+      "size_root_fs_bytes": 3396648455
+    },
+    "shared_mounts": [
+      {
+        "path": "/home/omg/.local/share/multilinux/documents/wemeet",
+        "total_bytes": 509332160512,
+        "free_bytes": 394819993600,
+        "used_bytes": 114512166912,
+        "note": "Filesystem-wide values, not this environment's exclusive use."
+      }
+    ],
+    "note": "SizeRootFs includes lower layers shared with other containers; sizes are not exclusive and must not be added across environments."
+  }
+}

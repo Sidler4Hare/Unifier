@@ -1,0 +1,4 @@
+{
+  "status": "withdrawn",
+  "reason": "Initial byte statistics were on compressed MJPEG, not decoded luma. Superseded by camera-decoded-diagnostic.json."
+}

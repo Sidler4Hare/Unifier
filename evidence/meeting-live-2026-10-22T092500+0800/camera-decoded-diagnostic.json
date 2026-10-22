@@ -1,0 +1,10 @@
+{
+  "v4l2_format": "Format Video Capture:\n\tWidth/Height      : 1280/720\n\tPixel Format      : 'MJPG' (Motion-JPEG)\n\tField             : None\n\tBytes per Line    : 0\n\tSize Image        : 1843200\n\tColorspace        : sRGB\n\tTransfer Function : Rec. 709\n\tYCbCr/HSV Encoding: ITU-R 601\n\tQuantization      : Default (maps to Full Range)\n\tFlags             : \n",
+  "capture_exit": 0,
+  "encoded_bytes": 512436,
+  "decode_exit": 0,
+  "gray_pixels": 921600,
+  "luma_mean": 139.6621484375,
+  "luma_stdev": 37.97963177378647,
+  "storage": "MJPEG decoded and summarized in memory only; no camera image saved"
+}

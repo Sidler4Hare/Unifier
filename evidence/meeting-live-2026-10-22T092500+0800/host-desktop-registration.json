@@ -1,0 +1,10 @@
+{
+  "desktop_path": "/home/omg/.local/share/applications/wemeetapp.desktop",
+  "name": "腾讯会议",
+  "commandline": "/usr/bin/python3 /home/omg/.local/share/multilinux/apps/wemeet/tools/ml.py app open wemeet --",
+  "icon": "<Gio.FileIcon object at 0x7f2e38f88440 (GFileIcon at 0x5649a1ba51b0)>",
+  "startup_wm_class": "wemeetapp",
+  "on_demand": true,
+  "mime_registration": "none",
+  "desktop_file_validation_exit": 0
+}

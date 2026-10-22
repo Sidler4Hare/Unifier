@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "requestId": "multilinux-launch-test-1",
+  "result": {
+    "pids": [
+      767410
+    ],
+    "started": true
+  },
+  "version": 1
+}

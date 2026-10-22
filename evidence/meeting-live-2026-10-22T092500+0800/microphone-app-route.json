@@ -1,0 +1,15 @@
+[
+  {
+    "stream_index": 12198,
+    "application": "Wemeet VoiceEngine",
+    "process_host": "6a3eace1e9ea",
+    "source_index": 8169,
+    "source_name": "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Mic1__source",
+    "description": "500 Series Chipset Family On-Package High Definition Audio (HD Audio) Digital Microphone",
+    "api": "alsa",
+    "corked": false,
+    "stream_muted": false,
+    "source_muted": false,
+    "sample_specification": "s16le 1ch 48000Hz"
+  }
+]

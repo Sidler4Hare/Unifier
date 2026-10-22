@@ -1,0 +1,10 @@
+{
+  "env": {
+    "LIBGL_ALWAYS_SOFTWARE": "1",
+    "QT_OPENGL": "software",
+    "QT_QUICK_BACKEND": "software",
+    "QTWEBENGINE_CHROMIUM_FLAGS": "--disable-gpu",
+    "QT_LINUX_ACCESSIBILITY_ALWAYS_ON": "1"
+  },
+  "result": "Microphone works; native camera receives MJPEG frames but displayed preview black/frozen per user."
+}

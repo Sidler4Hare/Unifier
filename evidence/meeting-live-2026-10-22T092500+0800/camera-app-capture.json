@@ -1,0 +1,7 @@
+{
+  "successful_dequeued_frames_observed": 206,
+  "device": "/dev/video0",
+  "process": "wemeetapp",
+  "render_validation": "failed as reported by user",
+  "scope": "ioctl metadata only; no camera image bytes persisted"
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "txneb0dedd67764",
+  "environment_id": "meeting-debian13",
+  "operation": "install",
+  "packages": [
+    "xdotool",
+    "python3-gi",
+    "python3-pyatspi",
+    "at-spi2-core",
+    "v4l-utils"
+  ],
+  "use_command": [],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c",
+    "content_revision": 4,
+    "package_inventory_sha256": "ce7da2ee6df757e19e17694d481d2a5ca8e8395dcd4a8d0fd8671ce5f27b5cf1"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\nReading package lists...\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "xdotool",
+        "python3-gi",
+        "python3-pyatspi",
+        "at-spi2-core",
+        "v4l-utils"
+      ],
+      "exit_code": 0,
+      "stdout_tail": ". 75%\r(Reading database ... 80%\r(Reading database ... 85%\r(Reading database ... 90%\r(Reading database ... 95%\r(Reading database ... 100%\r(Reading database ... 21541 files and directories currently installed.)\r\nPreparing to unpack .../00-python3_3.13.5-1_amd64.deb ...\r\nUnpacking python3 (3.13.5-1) ...\r\nSelecting previously unselected package gir1.2-glib-2.0:amd64.\r\nPreparing to unpack .../01-gir1.2-glib-2.0_2.84.4-3~deb13u5_amd64.deb ...\r\nUnpacking gir1.2-glib-2.0:amd64 (2.84.4-3~deb13u5) ...\r\nSelecting previously unselected package gir1.2-freedesktop:amd64.\r\nPreparing to unpack .../02-gir1.2-freedesktop_1.84.0-1_amd64.deb ...\r\nUnpacking gir1.2-freedesktop:amd64 (1.84.0-1) ...\r\nSelecting previously unselected package gir1.2-atspi-2.0:amd64.\r\nPreparing to unpack .../03-gir1.2-atspi-2.0_2.56.2-1+deb13u2_amd64.deb ...\r\nUnpacking gir1.2-atspi-2.0:amd64 (2.56.2-1+deb13u2) ...\r\nSelecting previously unselected package libgirepository-1.0-1:amd64.\r\nPreparing to unpack .../04-libgirepository-1.0-1_1.84.0-1_amd64.deb ...\r\nUnpacking libgirepository-1.0-1:amd64 (1.84.0-1) ...\r\nSelecting previously unselected package gir1.2-girepository-2.0:amd64.\r\nPreparing to unpack .../05-gir1.2-girepository-2.0_1.84.0-1_amd64.deb ...\r\nUnpacking gir1.2-girepository-2.0:amd64 (1.84.0-1) ...\r\nSelecting previously unselected package libatk-adaptor:amd64.\r\nPreparing to unpack .../06-libatk-adaptor_2.56.2-1+deb13u2_amd64.deb ...\r\nUnpacking libatk-adaptor:amd64 (2.56.2-1+deb13u2) ...\r\nSelecting previously unselected package libv4lconvert0t64:amd64.\r\nPreparing to unpack .../07-libv4lconvert0t64_1.30.1-1_amd64.deb ...\r\nUnpacking libv4lconvert0t64:amd64 (1.30.1-1) ...\r\nSelecting previously unselected package libv4l-0t64:amd64.\r\nPreparing to unpack .../08-libv4l-0t64_1.30.1-1_amd64.deb ...\r\nUnpacking libv4l-0t64:amd64 (1.30.1-1) ...\r\nSelecting previously unselected package libv4l2rds0t64:amd64.\r\nPreparing to unpack .../09-libv4l2rds0t64_1.30.1-1_amd64.deb ...\r\nUnpacking libv4l2rds0t64:amd64 (1.30.1-1) ...\r\nSelecting previously unselected package libxdo3:amd64.\r\nPreparing to unpack .../10-libxdo3_1%3a3.20160805.1-5.1_amd64.deb ...\r\nUnpacking libxdo3:amd64 (1:3.20160805.1-5.1) ...\r\nSelecting previously unselected package python3-gi.\r\nPreparing to unpack .../11-python3-gi_3.50.0-4+b1_amd64.deb ...\r\nUnpacking python3-gi (3.50.0-4+b1) ...\r\nSelecting previously unselected package python3-pyatspi.\r\nPreparing to unpack .../12-python3-pyatspi_2.46.1-1_all.deb ...\r\nUnpacking python3-pyatspi (2.46.1-1) ...\r\nSelecting previously unselected package v4l-utils.\r\nPreparing to unpack .../13-v4l-utils_1.30.1-1_amd64.deb ...\r\nUnpacking v4l-utils (1.30.1-1) ...\r\nSelecting previously unselected package xdotool.\r\nPreparing to unpack .../14-xdotool_1%3a3.20160805.1-5.1_amd64.deb ...\r\nUnpacking xdotool (1:3.20160805.1-5.1) ...\r\nSetting up media-types (13.0.0) ...\r\nSetting up libv4lconvert0t64:amd64 (1.30.1-1) ...\r\nSetting up libxdo3:amd64 (1:3.20160805.1-5.1) ...\r\nSetting up gir1.2-glib-2.0:amd64 (2.84.4-3~deb13u5) ...\r\nSetting up libv4l-0t64:amd64 (1.30.1-1) ...\r\nSetting up libv4l2rds0t64:amd64 (1.30.1-1) ...\r\nSetting up libgirepository-1.0-1:amd64 (1.84.0-1) ...\r\nSetting up readline-common (8.2-6) ...\r\nSetting up libatk-adaptor:amd64 (2.56.2-1+deb13u2) ...\r\nSetting up gir1.2-freedesktop:amd64 (1.84.0-1) ...\r\nSetting up xdotool (1:3.20160805.1-5.1) ...\r\nSetting up gir1.2-atspi-2.0:amd64 (2.56.2-1+deb13u2) ...\r\nSetting up v4l-utils (1.30.1-1) ...\r\nSetting up gir1.2-girepository-2.0:amd64 (1.84.0-1) ...\r\nSetting up libreadline8t64:amd64 (8.2-6) ...\r\nSetting up libpython3.13-stdlib:amd64 (3.13.5-2+deb13u5) ...\r\nSetting up libpython3-stdlib:amd64 (3.13.5-1) ...\r\nSetting up python3.13 (3.13.5-2+deb13u5) ...\r\nSetting up python3 (3.13.5-1) ...\r\nSetting up python3-gi (3.50.0-4+b1) ...\r\nSetting up python3-pyatspi (2.46.1-1) ...\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\nProcessing triggers for systemd (257.13-1~deb13u1) ...\r\nProcessing triggers for desktop-file-utils (0.28-1) ...\r\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": null,
+  "verification": {
+    "ok": true,
+    "packages": {
+      "xdotool": true,
+      "python3-gi": true,
+      "python3-pyatspi": true,
+      "at-spi2-core": true,
+      "v4l-utils": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c",
+    "content_revision": 5,
+    "package_inventory_sha256": "5707b93546d829e9a6b04e629ea307e2df18fa0de54240a780f820129b6e7628"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-22T09:28:33+08:00",
+  "finished_at": "2026-10-22T09:28:56+08:00"
+}
