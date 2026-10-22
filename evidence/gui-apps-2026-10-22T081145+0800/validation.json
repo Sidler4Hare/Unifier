@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-10-22T08:22:41+08:00",
+  "passed": true,
+  "checks": {
+    "all_three_targets_present": true,
+    "run_passed": true,
+    "host_and_original_state_isolation": true,
+    "source_snapshot_matches_current": true,
+    "debian13_all_workflow_checks": true,
+    "debian13_native_transaction": true,
+    "debian13_driver_snapshot": true,
+    "debian13_save_reopen_buffers": true,
+    "debian13_live_gui": true,
+    "debian13_document_bytes_and_sha": true,
+    "debian13_document_owner": true,
+    "debian13_saved_screenshot": true,
+    "debian13_reopened_screenshot": true,
+    "debian13_idle-before-open_readable": true,
+    "debian13_gui-saved_readable": true,
+    "debian13_gui-reopened_readable": true,
+    "debian13_idle-after-close_readable": true,
+    "debian13_stopped-between-opens": true,
+    "debian13_stopped-final": true,
+    "debian13_package_queries": true,
+    "fedora44_all_workflow_checks": true,
+    "fedora44_native_transaction": true,
+    "fedora44_driver_snapshot": true,
+    "fedora44_save_reopen_buffers": true,
+    "fedora44_live_gui": true,
+    "fedora44_document_bytes_and_sha": true,
+    "fedora44_document_owner": true,
+    "fedora44_saved_screenshot": true,
+    "fedora44_reopened_screenshot": true,
+    "fedora44_idle-before-open_readable": true,
+    "fedora44_gui-saved_readable": true,
+    "fedora44_gui-reopened_readable": true,
+    "fedora44_idle-after-close_readable": true,
+    "fedora44_stopped-between-opens": true,
+    "fedora44_stopped-final": true,
+    "fedora44_package_queries": true,
+    "arch_all_workflow_checks": true,
+    "arch_native_transaction": true,
+    "arch_driver_snapshot": true,
+    "arch_save_reopen_buffers": true,
+    "arch_live_gui": true,
+    "arch_document_bytes_and_sha": true,
+    "arch_document_owner": true,
+    "arch_saved_screenshot": true,
+    "arch_reopened_screenshot": true,
+    "arch_idle-before-open_readable": true,
+    "arch_gui-saved_readable": true,
+    "arch_gui-reopened_readable": true,
+    "arch_idle-after-close_readable": true,
+    "arch_stopped-between-opens": true,
+    "arch_stopped-final": true,
+    "arch_package_queries": true,
+    "snapshot_cli_list": true,
+    "all_retained_environments_stopped": true,
+    "regression_55_tests_4_skips": true,
+    "json_artifacts_valid": true,
+    "report_local_links_valid": true,
+    "updated_document_links_valid": true
+  },
+  "targets": {
+    "debian13": {
+      "versions": {
+        "vim-gtk3": "vim-gtk3\t2:9.1.1230-2",
+        "fonts-noto-cjk": "fonts-noto-cjk\t1:20240730+repack1-1"
+      },
+      "source_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "document_sha256": "d0817d9a0255b4dcc579a4f78afd3a7f736354fbde7eed1b81a5f7fb930b9495",
+      "artifact_directory": "debian13/attempt-1",
+      "visual_review": "Reopened window viewed; correct target label, readable Chinese text, quotes and all four lines."
+    },
+    "fedora44": {
+      "versions": {
+        "vim-X11": "vim-X11\t9.2.1202-1.fc44.x86_64",
+        "google-noto-sans-cjk-vf-fonts": "google-noto-sans-cjk-vf-fonts\t2.004-11.fc44.noarch"
+      },
+      "source_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "document_sha256": "9bbeb58cd82fb1b985c232e0a2e235e8720788c63d113456841ba9c71c37f885",
+      "artifact_directory": "fedora44/attempt-1",
+      "visual_review": "Reopened window viewed; correct target label, readable Chinese text, quotes and all four lines."
+    },
+    "arch": {
+      "versions": {
+        "gvim": "gvim 9.2.1178-1",
+        "noto-fonts-cjk": "noto-fonts-cjk 20240730-1"
+      },
+      "source_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "document_sha256": "e782321613a40b040f98b64dade00714ecbb6bac4f83f763497f6c6adba812b7",
+      "artifact_directory": "arch/attempt-1",
+      "visual_review": "Reopened window viewed; correct target label, readable Chinese text, quotes and all four lines."
+    }
+  },
+  "current_environment_list": [
+    {
+      "id": "gui-arch",
+      "target": "arch",
+      "distribution_id": "arch",
+      "version_track": "rolling",
+      "runtime_state": "stopped",
+      "writable_revision": "a83a73c4cae8d823d413375bca84d7ccc18669f0e478979035b6999db225be75",
+      "base_image_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "kernel_matches_current_host": true
+    },
+    {
+      "id": "gui-debian13",
+      "target": "debian13",
+      "distribution_id": "debian",
+      "version_track": "13",
+      "runtime_state": "stopped",
+      "writable_revision": "763ff5a7cc29f2b578612a7a5fb73344511972f646818b8cb5fa5da9c6d73f72",
+      "base_image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "kernel_matches_current_host": true
+    },
+    {
+      "id": "gui-fedora44",
+      "target": "fedora44",
+      "distribution_id": "fedora",
+      "version_track": "44",
+      "runtime_state": "stopped",
+      "writable_revision": "3abc1a7379b2d476899c1e3c2f0253c816d217b8c8cf85f7f4ec1a7d13d29ff6",
+      "base_image_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "kernel_matches_current_host": true
+    }
+  ],
+  "regression": {
+    "tests_run": 55,
+    "passed": 51,
+    "skipped": 4
+  },
+  "visual_review_method": "Local screenshots were opened and inspected for all three targets. No manual keyboard/mouse acceptance.",
+  "runtime": {
+    "python": "3.14.8",
+    "podman": "podman version 5.8.9"
+  }
+}

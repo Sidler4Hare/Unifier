@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tools/probe_tencent_meeting.py", line 126, in main
+    need(attempt['launched'], f'no application window; launcher exit={process.poll()}')
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/tools/probe_desktop_apps.py", line 67, in need
+    raise RuntimeError(message)
+RuntimeError: no application window; launcher exit=127

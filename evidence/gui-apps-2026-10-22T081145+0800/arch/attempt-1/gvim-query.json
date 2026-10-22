@@ -1,0 +1,7 @@
+{
+  "environment_id": "gui-arch",
+  "package": "gvim",
+  "present": true,
+  "exit_code": 0,
+  "detail": "gvim 9.2.1178-1"
+}

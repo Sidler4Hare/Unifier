@@ -1,0 +1,165 @@
+{
+  "collected_at": "2026-10-22T08:20:09+08:00",
+  "environment_id": "gui-arch",
+  "target": "arch",
+  "runtime_state": "stopped",
+  "content_revision": 2,
+  "package_inventory_sha256": "a5faa900bea14d74088facdd08d3a85a3124c927fb6bbf2075c1a29d60efa96c",
+  "image_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+  "container_id": "a83a73c4cae8d823d413375bca84d7ccc18669f0e478979035b6999db225be75",
+  "kernel_matches_current_host": true,
+  "pid": null,
+  "conmon_pid": null,
+  "cgroup": null,
+  "processes": null,
+  "runtime_processes": null,
+  "errors": [
+    "environment is stopped; cgroup metrics are unavailable"
+  ],
+  "host": {
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 333897728,
+      "MemAvailable_bytes": 2410684416,
+      "Cached_bytes": 3085533184,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 16064901120,
+      "Shmem_bytes": 721448960
+    },
+    "pressure": {
+      "cpu": {
+        "some": {
+          "avg10": 0.87,
+          "avg60": 1.06,
+          "avg300": 1.48,
+          "total_us": 2781540890
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "memory": {
+        "some": {
+          "avg10": 0.06,
+          "avg60": 0.16,
+          "avg300": 0.42,
+          "total_us": 940224769
+        },
+        "full": {
+          "avg10": 0.06,
+          "avg60": 0.15,
+          "avg300": 0.4,
+          "total_us": 802878669
+        }
+      },
+      "io": {
+        "some": {
+          "avg10": 0.35,
+          "avg60": 0.35,
+          "avg300": 0.53,
+          "total_us": 345521701
+        },
+        "full": {
+          "avg10": 0.21,
+          "avg60": 0.23,
+          "avg300": 0.41,
+          "total_us": 215824526
+        }
+      }
+    },
+    "load_average": [
+      1.65,
+      1.99,
+      1.6
+    ],
+    "cpu": {
+      "sample_count": 8,
+      "min_khz": 1468601,
+      "max_khz": 1576932,
+      "khz": [
+        1495744,
+        1526507,
+        1543522,
+        1468601,
+        1502209,
+        1576932,
+        1524386,
+        1499386
+      ],
+      "errors": []
+    },
+    "thermal": {
+      "zones": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "millicelsius": 32000,
+          "celsius": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "millicelsius": 20000,
+          "celsius": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "millicelsius": 53050,
+          "celsius": 53.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "millicelsius": 53050,
+          "celsius": 53.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "millicelsius": 47050,
+          "celsius": 47.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "millicelsius": 54000,
+          "celsius": 54.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "millicelsius": 36000,
+          "celsius": 36.0
+        }
+      ],
+      "package_c": 54.0,
+      "errors": []
+    }
+  },
+  "disk": {
+    "image": {
+      "reference": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "id": "5a30b4acc83ff841682eb21795e00f7ff030796f5e6fd2a127decd7a45ba7cef",
+      "digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "size_bytes": 410429135
+    },
+    "container": {
+      "size_rw_bytes": 1238633679,
+      "size_root_fs_bytes": 1649062814
+    },
+    "shared_mounts": [
+      {
+        "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/arch",
+        "total_bytes": 509332160512,
+        "free_bytes": 399804190720,
+        "used_bytes": 109527969792,
+        "note": "Filesystem-wide values, not this environment's exclusive use."
+      }
+    ],
+    "note": "SizeRootFs includes lower layers shared with other containers; sizes are not exclusive and must not be added across environments."
+  }
+}

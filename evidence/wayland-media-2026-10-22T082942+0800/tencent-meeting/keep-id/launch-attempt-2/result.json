@@ -1,0 +1,12 @@
+{
+  "started_at": "2026-10-22T09:05:13+08:00",
+  "package_sha256": "70f37b029209c0ef91be9813eebf6650c6cb9a00f7c718490158773e2fe6acaf",
+  "installed": true,
+  "launched": false,
+  "driver_sha256": "01f80cb743ecae34a53f13991cce339fb40639c12dae1b02d164cb00e18a8c40",
+  "errors": [
+    "RuntimeError: no application window; launcher exit=0"
+  ],
+  "scope": "Installation and initial application window only. No login, meeting, camera, microphone or screen-share acceptance.",
+  "finished_at": "2026-10-22T09:06:07+08:00"
+}

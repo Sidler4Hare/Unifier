@@ -1,0 +1,486 @@
+{
+  "collected_at": "2026-10-22T08:20:11+08:00",
+  "environment_id": "gui-arch",
+  "target": "arch",
+  "runtime_state": "running",
+  "content_revision": 2,
+  "package_inventory_sha256": "a5faa900bea14d74088facdd08d3a85a3124c927fb6bbf2075c1a29d60efa96c",
+  "image_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+  "container_id": "a83a73c4cae8d823d413375bca84d7ccc18669f0e478979035b6999db225be75",
+  "kernel_matches_current_host": true,
+  "pid": 665308,
+  "conmon_pid": 665304,
+  "cgroup": {
+    "path": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-a83a73c4cae8d823d413375bca84d7ccc18669f0e478979035b6999db225be75.scope/container",
+    "errors": {},
+    "memory_current_bytes": 18743296,
+    "memory_peak_bytes": 22360064,
+    "memory_swap_current_bytes": 0,
+    "pids_current": 23,
+    "pids_peak": 34,
+    "memory_high": "max",
+    "memory_max": "max",
+    "cpu_max": "max 100000",
+    "memory_stat": {
+      "anon": 15482880,
+      "file": 225280,
+      "kernel": 2949120,
+      "kernel_stack": 344064,
+      "pagetables": 884736,
+      "sec_pagetables": 0,
+      "percpu": 9520,
+      "sock": 0,
+      "vmalloc": 40960,
+      "shmem": 0,
+      "zswap": 0,
+      "zswapped": 0,
+      "zswap_incomp": 0,
+      "file_mapped": 180224,
+      "file_dirty": 0,
+      "file_writeback": 0,
+      "swapcached": 0,
+      "anon_thp": 0,
+      "file_thp": 0,
+      "shmem_thp": 0,
+      "inactive_anon": 0,
+      "active_anon": 15470592,
+      "inactive_file": 45056,
+      "active_file": 192512,
+      "unevictable": 0,
+      "slab_reclaimable": 600992,
+      "slab_unreclaimable": 1058032,
+      "slab": 1659024,
+      "hugetlb": 0,
+      "workingset_refault_anon": 0,
+      "workingset_refault_file": 66,
+      "workingset_activate_anon": 0,
+      "workingset_activate_file": 0,
+      "workingset_restore_anon": 0,
+      "workingset_restore_file": 0,
+      "workingset_nodereclaim": 0,
+      "pgdemote_kswapd": 0,
+      "pgdemote_direct": 0,
+      "pgdemote_khugepaged": 0,
+      "pgdemote_proactive": 0,
+      "pgsteal_kswapd": 41,
+      "pgsteal_direct": 0,
+      "pgsteal_khugepaged": 0,
+      "pgsteal_proactive": 0,
+      "pgscan_kswapd": 41,
+      "pgscan_direct": 0,
+      "pgscan_khugepaged": 0,
+      "pgscan_proactive": 0,
+      "pgrefill": 19,
+      "pgpromote_success": 0,
+      "pgscan": 41,
+      "pgsteal": 41,
+      "pswpin": 0,
+      "pswpout": 0,
+      "pgfault": 10367,
+      "pgmajfault": 8,
+      "pgactivate": 0,
+      "pgdeactivate": 0,
+      "pglazyfree": 0,
+      "pglazyfreed": 0,
+      "swpin_zero": 0,
+      "swpout_zero": 0,
+      "zswpin": 0,
+      "zswpout": 0,
+      "zswpwb": 0,
+      "thp_fault_alloc": 0,
+      "thp_collapse_alloc": 0,
+      "thp_swpout": 0,
+      "thp_swpout_fallback": 0,
+      "numa_pages_migrated": 0,
+      "numa_pte_updates": 0,
+      "numa_hint_faults": 0
+    },
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 567013,
+      "user_usec": 357169,
+      "system_usec": 209843,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "memory_pressure": {
+      "some": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 0
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 0
+      }
+    },
+    "cpu_pressure": {
+      "some": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 8126
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 4325
+      }
+    },
+    "io_pressure": {
+      "some": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 1045
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 1011
+      }
+    },
+    "container_id_matches": true
+  },
+  "processes": {
+    "process_count": 8,
+    "expected_process_count": 8,
+    "complete": true,
+    "pss_bytes": 68628480,
+    "rss_bytes": 93126656,
+    "pss_partial_bytes": 68628480,
+    "details": [
+      {
+        "pid": 665308,
+        "comm": "sleep",
+        "rss_bytes": 2314240,
+        "pss_bytes": 688128,
+        "pss_anon_bytes": 278528,
+        "pss_file_bytes": 409600,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 1994752,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 40960,
+        "private_dirty_bytes": 278528,
+        "referenced_bytes": 2031616,
+        "anonymous_bytes": 278528,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 665468,
+        "comm": "gvim",
+        "rss_bytes": 57524224,
+        "pss_bytes": 48083968,
+        "pss_anon_bytes": 12070912,
+        "pss_file_bytes": 36013056,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 16367616,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 29085696,
+        "private_dirty_bytes": 12070912,
+        "referenced_bytes": 46772224,
+        "anonymous_bytes": 12070912,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 665490,
+        "comm": "bwrap",
+        "rss_bytes": 2265088,
+        "pss_bytes": 450560,
+        "pss_anon_bytes": 90112,
+        "pss_file_bytes": 360448,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 2134016,
+        "shared_dirty_bytes": 81920,
+        "private_clean_bytes": 0,
+        "private_dirty_bytes": 49152,
+        "referenced_bytes": 2134016,
+        "anonymous_bytes": 131072,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 665491,
+        "comm": "bwrap",
+        "rss_bytes": 1273856,
+        "pss_bytes": 256000,
+        "pss_anon_bytes": 90112,
+        "pss_file_bytes": 165888,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 1142784,
+        "shared_dirty_bytes": 81920,
+        "private_clean_bytes": 0,
+        "private_dirty_bytes": 49152,
+        "referenced_bytes": 1142784,
+        "anonymous_bytes": 131072,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 665492,
+        "comm": "glycin-svg",
+        "rss_bytes": 18354176,
+        "pss_bytes": 12323840,
+        "pss_anon_bytes": 2256896,
+        "pss_file_bytes": 10066944,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 10526720,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 5570560,
+        "private_dirty_bytes": 2256896,
+        "referenced_bytes": 16187392,
+        "anonymous_bytes": 2256896,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 665553,
+        "comm": "bwrap",
+        "rss_bytes": 2113536,
+        "pss_bytes": 422912,
+        "pss_anon_bytes": 92160,
+        "pss_file_bytes": 330752,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 1978368,
+        "shared_dirty_bytes": 86016,
+        "private_clean_bytes": 0,
+        "private_dirty_bytes": 49152,
+        "referenced_bytes": 1978368,
+        "anonymous_bytes": 135168,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 665554,
+        "comm": "bwrap",
+        "rss_bytes": 1327104,
+        "pss_bytes": 268288,
+        "pss_anon_bytes": 92160,
+        "pss_file_bytes": 176128,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 1191936,
+        "shared_dirty_bytes": 86016,
+        "private_clean_bytes": 0,
+        "private_dirty_bytes": 49152,
+        "referenced_bytes": 1191936,
+        "anonymous_bytes": 135168,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 665555,
+        "comm": "glycin-image-rs",
+        "rss_bytes": 7954432,
+        "pss_bytes": 6134784,
+        "pss_anon_bytes": 512000,
+        "pss_file_bytes": 5622784,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 2260992,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 5181440,
+        "private_dirty_bytes": 512000,
+        "referenced_bytes": 7548928,
+        "anonymous_bytes": 512000,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      }
+    ],
+    "errors": []
+  },
+  "runtime_processes": {
+    "process_count": 1,
+    "expected_process_count": 1,
+    "complete": true,
+    "pss_bytes": 385024,
+    "rss_bytes": 2310144,
+    "pss_partial_bytes": 385024,
+    "details": [
+      {
+        "pid": 665304,
+        "comm": "conmon",
+        "rss_bytes": 2310144,
+        "pss_bytes": 385024,
+        "pss_anon_bytes": 258048,
+        "pss_file_bytes": 126976,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 2031616,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 20480,
+        "private_dirty_bytes": 258048,
+        "referenced_bytes": 2310144,
+        "anonymous_bytes": 258048,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      }
+    ],
+    "errors": [],
+    "source": "conmon_pid"
+  },
+  "errors": [],
+  "host": {
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 280170496,
+      "MemAvailable_bytes": 2403139584,
+      "Cached_bytes": 3107848192,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 16063893504,
+      "Shmem_bytes": 774889472
+    },
+    "pressure": {
+      "cpu": {
+        "some": {
+          "avg10": 1.07,
+          "avg60": 1.09,
+          "avg300": 1.49,
+          "total_us": 2781632448
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "memory": {
+        "some": {
+          "avg10": 0.05,
+          "avg60": 0.15,
+          "avg300": 0.42,
+          "total_us": 940239289
+        },
+        "full": {
+          "avg10": 0.05,
+          "avg60": 0.15,
+          "avg300": 0.39,
+          "total_us": 802890973
+        }
+      },
+      "io": {
+        "some": {
+          "avg10": 0.47,
+          "avg60": 0.37,
+          "avg300": 0.53,
+          "total_us": 345557444
+        },
+        "full": {
+          "avg10": 0.35,
+          "avg60": 0.26,
+          "avg300": 0.41,
+          "total_us": 215854548
+        }
+      }
+    },
+    "load_average": [
+      1.65,
+      1.99,
+      1.6
+    ],
+    "cpu": {
+      "sample_count": 8,
+      "min_khz": 399186,
+      "max_khz": 1600000,
+      "khz": [
+        399186,
+        644603,
+        1600000,
+        1301011,
+        425311,
+        633955,
+        1600000,
+        1542162
+      ],
+      "errors": []
+    },
+    "thermal": {
+      "zones": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "millicelsius": 32000,
+          "celsius": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "millicelsius": 20000,
+          "celsius": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "millicelsius": 54050,
+          "celsius": 54.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "millicelsius": 54050,
+          "celsius": 54.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "millicelsius": 47050,
+          "celsius": 47.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "millicelsius": 54000,
+          "celsius": 54.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "millicelsius": 35000,
+          "celsius": 35.0
+        }
+      ],
+      "package_c": 54.0,
+      "errors": []
+    }
+  },
+  "disk": {
+    "image": {
+      "reference": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "id": "5a30b4acc83ff841682eb21795e00f7ff030796f5e6fd2a127decd7a45ba7cef",
+      "digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "size_bytes": 410429135
+    },
+    "container": {
+      "size_rw_bytes": 1238635075,
+      "size_root_fs_bytes": 1649064210
+    },
+    "shared_mounts": [
+      {
+        "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/arch",
+        "total_bytes": 509332160512,
+        "free_bytes": 399804190720,
+        "used_bytes": 109527969792,
+        "note": "Filesystem-wide values, not this environment's exclusive use."
+      }
+    ],
+    "note": "SizeRootFs includes lower layers shared with other containers; sizes are not exclusive and must not be added across environments."
+  }
+}

@@ -1,0 +1,746 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-22T08:11:45+08:00",
+  "source_root": "/home/omg/文档/多兼容linux机",
+  "project_root": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/project",
+  "source_sha256": {
+    "src/multilinux/__init__.py": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+    "src/multilinux/__main__.py": "8fc1fcde2cd1a30a9c1271714cbe49efd1b7ef1597ad4b0f16e1f84dc96ae2b8",
+    "src/multilinux/cli.py": "251c03e82c0b9abe57fd9712a3261299e900656b50c712741d30930858859b52",
+    "src/multilinux/desktop.py": "e42ee323f03c82a068c73bb9541ce412190de6d2ebb9c557e2ecb063596a983b",
+    "src/multilinux/errors.py": "531a2ca4ce2056099a662eed98a6fa137013b99c7ea0a091fa3960279b92ca2a",
+    "src/multilinux/packages.py": "20e1b6eb2a67794a22cf2c9c9b3b9ed14168c1cd373237a7b65ca7925ebeabad",
+    "src/multilinux/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+    "src/multilinux/resources.py": "1269fc93c41febfc8932d57b805cd512b6fd6cbde109e5c6ca680725504ce4ec",
+    "src/multilinux/runtime.py": "d2b395c11e23d9405aede3f5c082e11ab1ef824191799faf982e11484e5f657c",
+    "src/multilinux/service.py": "ab7760ec5d82541cfc141132e5c9897461b3329b1020b4dd39b2ed09fc9922a2",
+    "src/multilinux/store.py": "f1885b957b7f94f2f351b5900b9d41cc81983e5ef25777e2efa482003696382e",
+    "tools/ml.py": "9ce24eece889ef5fc43ee203f83a96722280752cae1bbe25c96271eddd4e6c49",
+    "tools/lab.py": "75b0e20a452acc3b9168c8cc0bcdd96603d2721113e054515790a1db75f774f4",
+    "config/targets.toml": "74f16595197f5dbc82e2a62d9a71ba2138228afe3765cde00a74f449179db181",
+    "config/images.lock.json": "9effc95f32804154c3ccab113067f86846b41f2b7b6d77dd050e59b96755aada"
+  },
+  "host_before": {
+    "packages": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    },
+    "entries": {
+      "directory": "/home/omg/.local/share/applications",
+      "names": [
+        "antigravity.desktop",
+        "cc-switch-handler.desktop",
+        "clash-verge-handler.desktop",
+        "claude-code-url-handler.desktop",
+        "kos-settings.desktop",
+        "org.gptniang.KDE.desktop",
+        "org.kos.Platform.desktop",
+        "org.quickshell.desktop",
+        "qwen-win.desktop"
+      ]
+    }
+  },
+  "host_resources_before": {
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 737738752,
+      "MemAvailable_bytes": 2197540864,
+      "Cached_bytes": 2383564800,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 16648859648,
+      "Shmem_bytes": 772571136
+    },
+    "pressure": {
+      "cpu": {
+        "some": {
+          "avg10": 3.86,
+          "avg60": 2.2,
+          "avg300": 1.94,
+          "total_us": 2771049530
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "memory": {
+        "some": {
+          "avg10": 1.18,
+          "avg60": 0.49,
+          "avg300": 0.89,
+          "total_us": 936889870
+        },
+        "full": {
+          "avg10": 1.12,
+          "avg60": 0.45,
+          "avg300": 0.8,
+          "total_us": 799604097
+        }
+      },
+      "io": {
+        "some": {
+          "avg10": 0.04,
+          "avg60": 0.06,
+          "avg300": 0.08,
+          "total_us": 339263408
+        },
+        "full": {
+          "avg10": 0.04,
+          "avg60": 0.06,
+          "avg300": 0.03,
+          "total_us": 210572814
+        }
+      }
+    },
+    "load_average": [
+      2.02,
+      1.79,
+      1.23
+    ],
+    "cpu": {
+      "sample_count": 8,
+      "min_khz": 524030,
+      "max_khz": 1700000,
+      "khz": [
+        1699464,
+        1631358,
+        1527050,
+        1138366,
+        1700000,
+        1050983,
+        524030,
+        687980
+      ],
+      "errors": []
+    },
+    "thermal": {
+      "zones": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "millicelsius": 32000,
+          "celsius": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "millicelsius": 20000,
+          "celsius": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "millicelsius": 54050,
+          "celsius": 54.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "millicelsius": 53050,
+          "celsius": 53.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "millicelsius": 45050,
+          "celsius": 45.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "millicelsius": 53000,
+          "celsius": 53.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "millicelsius": 34000,
+          "celsius": 34.0
+        }
+      ],
+      "package_c": 53.0,
+      "errors": []
+    }
+  },
+  "original_project_state_before": {
+    ".lab/state/environments/m3debian.json": "e7f9c5b82530d8c912d66c08a17d51fcf533aa4759d4101781e0bdff786b199a",
+    ".lab/state/environments/m3debian.packages.txt": "7cdc13bc09723ab0ff2dc7ba60be33980fea989730df6000d22f43ddb12e5107",
+    ".lab/state/launches/m3note.json": "849cb3adbdfee99871677cb68c1d7d09bd4fb76b608cd6dc2c6e21982030c4f5"
+  },
+  "mime_before": {
+    "path": "/home/omg/.local/share/applications/mimeapps.list",
+    "exists": true,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "session": {
+    "selinux_label": "disable",
+    "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+    "env": {
+      "WAYLAND_DISPLAY": "wayland-0",
+      "XDG_RUNTIME_DIR": "/run/user/1000",
+      "DISPLAY": ":0",
+      "XAUTHORITY": "/tmp/ml-xauthority",
+      "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+      "PIPEWIRE_REMOTE": "pipewire-0",
+      "XDG_SESSION_TYPE": "wayland"
+    },
+    "mounts": [
+      {
+        "host": "/run/user/1000/wayland-0",
+        "container": "/run/user/1000/wayland-0",
+        "options": ""
+      },
+      {
+        "host": "/tmp/.X11-unix/X0",
+        "container": "/tmp/.X11-unix/X0",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/xauth_WtbESS",
+        "container": "/tmp/ml-xauthority",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/pulse/native",
+        "container": "/run/user/1000/pulse/native",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/pipewire-0",
+        "container": "/run/user/1000/pipewire-0",
+        "options": ""
+      }
+    ]
+  },
+  "targets": {
+    "debian13": {
+      "attempts": [
+        {
+          "started_at": "2026-10-22T08:11:47+08:00",
+          "target": "debian13",
+          "environment_id": "gui-debian13",
+          "application_id": "editor-debian13",
+          "server": "ML3223726DDEBIAN13",
+          "document": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/debian13/实测 note debian13.mlnote",
+          "packages": [
+            "vim-gtk3",
+            "fonts-noto-cjk"
+          ],
+          "passed": true,
+          "stage": "completed",
+          "driver_sha256": "16a6ce2f11b7c4eb62b4ecdb49c89de6517603d3b30f12d575c309f010abeb63",
+          "errors": [],
+          "checks": {
+            "native_install": true,
+            "live_gui_window": true,
+            "host_file_initial_read": true,
+            "buffer_modified_before_save": true,
+            "host_file_unchanged_before_save": true,
+            "exact_utf8_save": true,
+            "host_file_owner": true,
+            "first_clean_exit": true,
+            "environment_stopped_between_opens": true,
+            "reopened_buffer_matches": true,
+            "reopened_sha256_matches": true,
+            "second_clean_exit": true,
+            "installed_environment_retained_stopped": true
+          },
+          "install_transaction": "txn43e11ba028fc",
+          "package_inventory_sha256": "9ea3c3a62c43612071544743d1563990a063d6935ca50864a6823a646ccda065",
+          "version": "VIM - Vi IMproved 9.1 (2024 Jan 02, compiled May 23 2025 00:48:59)",
+          "font": "Noto Sans Mono CJK SC",
+          "first_open": {
+            "window_id": 33554436,
+            "pid": 6,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/debian13/实测 note debian13.mlnote",
+            "gui_running": 1,
+            "modified": 0,
+            "lines": [
+              "Original host document for debian13"
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "edited_before_save": {
+            "window_id": 33554436,
+            "pid": 6,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/debian13/实测 note debian13.mlnote",
+            "gui_running": 1,
+            "modified": 1,
+            "lines": [
+              "Multilinux GUI acceptance: debian13",
+              "中文编辑保存与重开验证：你好，Linux。",
+              "UTF-8, spaces and quotes: \"saved by the GUI\"",
+              "Reopened after stopping and starting the environment."
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "saved": {
+            "window_id": 33554436,
+            "pid": 6,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/debian13/实测 note debian13.mlnote",
+            "gui_running": 1,
+            "modified": 0,
+            "lines": [
+              "Multilinux GUI acceptance: debian13",
+              "中文编辑保存与重开验证：你好，Linux。",
+              "UTF-8, spaces and quotes: \"saved by the GUI\"",
+              "Reopened after stopping and starting the environment."
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "saved_sha256": "d0817d9a0255b4dcc579a4f78afd3a7f736354fbde7eed1b81a5f7fb930b9495",
+          "saved_owner": {
+            "uid": 1000,
+            "gid": 1000
+          },
+          "saved_screenshot": {
+            "path": "saved.png",
+            "sha256": "fca6f99c7b0d4e347eddfb57aef401d464e2e3f49222558edbec3b03e7decd47",
+            "bytes": 45361,
+            "window_id": 33554436,
+            "capture": "X11 application window only"
+          },
+          "reopened": {
+            "window_id": 33554436,
+            "pid": 3,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/debian13/实测 note debian13.mlnote",
+            "gui_running": 1,
+            "modified": 0,
+            "lines": [
+              "Multilinux GUI acceptance: debian13",
+              "中文编辑保存与重开验证：你好，Linux。",
+              "UTF-8, spaces and quotes: \"saved by the GUI\"",
+              "Reopened after stopping and starting the environment."
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "reopened_sha256": "d0817d9a0255b4dcc579a4f78afd3a7f736354fbde7eed1b81a5f7fb930b9495",
+          "reopened_screenshot": {
+            "path": "reopened.png",
+            "sha256": "0e110a7c06afe8cb7088108680167df94e3124fee994a897c976215138cedaca",
+            "bytes": 39445,
+            "window_id": 33554436,
+            "capture": "X11 application window only"
+          },
+          "finished_at": "2026-10-22T08:14:19+08:00",
+          "artifacts": "debian13/attempt-1"
+        }
+      ]
+    },
+    "fedora44": {
+      "attempts": [
+        {
+          "started_at": "2026-10-22T08:14:19+08:00",
+          "target": "fedora44",
+          "environment_id": "gui-fedora44",
+          "application_id": "editor-fedora44",
+          "server": "ML3223726DFEDORA44",
+          "document": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/fedora44/实测 note fedora44.mlnote",
+          "packages": [
+            "vim-X11",
+            "google-noto-sans-cjk-vf-fonts"
+          ],
+          "passed": true,
+          "stage": "completed",
+          "driver_sha256": "16a6ce2f11b7c4eb62b4ecdb49c89de6517603d3b30f12d575c309f010abeb63",
+          "errors": [],
+          "checks": {
+            "native_install": true,
+            "live_gui_window": true,
+            "host_file_initial_read": true,
+            "buffer_modified_before_save": true,
+            "host_file_unchanged_before_save": true,
+            "exact_utf8_save": true,
+            "host_file_owner": true,
+            "first_clean_exit": true,
+            "environment_stopped_between_opens": true,
+            "reopened_buffer_matches": true,
+            "reopened_sha256_matches": true,
+            "second_clean_exit": true,
+            "installed_environment_retained_stopped": true
+          },
+          "install_transaction": "txn0bd1c7300ee2",
+          "package_inventory_sha256": "a1de1f194efb3c63e660bf14bfc18d96a11fdee06c4a953a6b944cd161b1ba0a",
+          "version": "VIM - Vi IMproved 9.2 (2026 Feb 14, compiled Oct 16 2026 00:00:00)",
+          "font": "Noto Sans Mono CJK SC",
+          "first_open": {
+            "window_id": 33554436,
+            "pid": 6,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/fedora44/实测 note fedora44.mlnote",
+            "gui_running": 1,
+            "modified": 0,
+            "lines": [
+              "Original host document for fedora44"
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "edited_before_save": {
+            "window_id": 33554436,
+            "pid": 6,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/fedora44/实测 note fedora44.mlnote",
+            "gui_running": 1,
+            "modified": 1,
+            "lines": [
+              "Multilinux GUI acceptance: fedora44",
+              "中文编辑保存与重开验证：你好，Linux。",
+              "UTF-8, spaces and quotes: \"saved by the GUI\"",
+              "Reopened after stopping and starting the environment."
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "saved": {
+            "window_id": 33554436,
+            "pid": 6,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/fedora44/实测 note fedora44.mlnote",
+            "gui_running": 1,
+            "modified": 0,
+            "lines": [
+              "Multilinux GUI acceptance: fedora44",
+              "中文编辑保存与重开验证：你好，Linux。",
+              "UTF-8, spaces and quotes: \"saved by the GUI\"",
+              "Reopened after stopping and starting the environment."
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "saved_sha256": "9bbeb58cd82fb1b985c232e0a2e235e8720788c63d113456841ba9c71c37f885",
+          "saved_owner": {
+            "uid": 1000,
+            "gid": 1000
+          },
+          "saved_screenshot": {
+            "path": "saved.png",
+            "sha256": "9198131fb574d56b403fb99061616a819e04c1ff2748778133c100fc992e9ec9",
+            "bytes": 46087,
+            "window_id": 33554436,
+            "capture": "X11 application window only"
+          },
+          "reopened": {
+            "window_id": 33554436,
+            "pid": 4,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/fedora44/实测 note fedora44.mlnote",
+            "gui_running": 1,
+            "modified": 0,
+            "lines": [
+              "Multilinux GUI acceptance: fedora44",
+              "中文编辑保存与重开验证：你好，Linux。",
+              "UTF-8, spaces and quotes: \"saved by the GUI\"",
+              "Reopened after stopping and starting the environment."
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "reopened_sha256": "9bbeb58cd82fb1b985c232e0a2e235e8720788c63d113456841ba9c71c37f885",
+          "reopened_screenshot": {
+            "path": "reopened.png",
+            "sha256": "a06ff52031f128e7f2c43513fd0df09ff0d782b5fb331cfda442d350bde5709a",
+            "bytes": 40841,
+            "window_id": 33554436,
+            "capture": "X11 application window only"
+          },
+          "finished_at": "2026-10-22T08:17:16+08:00",
+          "artifacts": "fedora44/attempt-1"
+        }
+      ]
+    },
+    "arch": {
+      "attempts": [
+        {
+          "started_at": "2026-10-22T08:17:16+08:00",
+          "target": "arch",
+          "environment_id": "gui-arch",
+          "application_id": "editor-arch",
+          "server": "ML3223726DARCH",
+          "document": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/arch/实测 note arch.mlnote",
+          "packages": [
+            "gvim",
+            "noto-fonts-cjk"
+          ],
+          "passed": true,
+          "stage": "completed",
+          "driver_sha256": "16a6ce2f11b7c4eb62b4ecdb49c89de6517603d3b30f12d575c309f010abeb63",
+          "errors": [],
+          "checks": {
+            "native_install": true,
+            "live_gui_window": true,
+            "host_file_initial_read": true,
+            "buffer_modified_before_save": true,
+            "host_file_unchanged_before_save": true,
+            "exact_utf8_save": true,
+            "host_file_owner": true,
+            "first_clean_exit": true,
+            "environment_stopped_between_opens": true,
+            "reopened_buffer_matches": true,
+            "reopened_sha256_matches": true,
+            "second_clean_exit": true,
+            "installed_environment_retained_stopped": true
+          },
+          "install_transaction": "txn152cc3c90864",
+          "package_inventory_sha256": "a5faa900bea14d74088facdd08d3a85a3124c927fb6bbf2075c1a29d60efa96c",
+          "version": "VIM - Vi IMproved 9.2 (2026 Feb 14, compiled Oct 12 2026 22:01:04)",
+          "font": "Noto Sans Mono CJK KR",
+          "first_open": {
+            "window_id": 33554436,
+            "pid": 6,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/arch/实测 note arch.mlnote",
+            "gui_running": 1,
+            "modified": 0,
+            "lines": [
+              "Original host document for arch"
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "edited_before_save": {
+            "window_id": 33554436,
+            "pid": 6,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/arch/实测 note arch.mlnote",
+            "gui_running": 1,
+            "modified": 1,
+            "lines": [
+              "Multilinux GUI acceptance: arch",
+              "中文编辑保存与重开验证：你好，Linux。",
+              "UTF-8, spaces and quotes: \"saved by the GUI\"",
+              "Reopened after stopping and starting the environment."
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "saved": {
+            "window_id": 33554436,
+            "pid": 6,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/arch/实测 note arch.mlnote",
+            "gui_running": 1,
+            "modified": 0,
+            "lines": [
+              "Multilinux GUI acceptance: arch",
+              "中文编辑保存与重开验证：你好，Linux。",
+              "UTF-8, spaces and quotes: \"saved by the GUI\"",
+              "Reopened after stopping and starting the environment."
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "saved_sha256": "e782321613a40b040f98b64dade00714ecbb6bac4f83f763497f6c6adba812b7",
+          "saved_owner": {
+            "uid": 1000,
+            "gid": 1000
+          },
+          "saved_screenshot": {
+            "path": "saved.png",
+            "sha256": "abc377c5ceba55c7393d120226eb0eb44bf8cd314ec59cd75f236667cf558cad",
+            "bytes": 44600,
+            "window_id": 33554436,
+            "capture": "X11 application window only"
+          },
+          "reopened": {
+            "window_id": 33554436,
+            "pid": 4,
+            "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/arch/实测 note arch.mlnote",
+            "gui_running": 1,
+            "modified": 0,
+            "lines": [
+              "Multilinux GUI acceptance: arch",
+              "中文编辑保存与重开验证：你好，Linux。",
+              "UTF-8, spaces and quotes: \"saved by the GUI\"",
+              "Reopened after stopping and starting the environment."
+            ],
+            "fileencoding": "utf-8",
+            "encoding": "utf-8"
+          },
+          "reopened_sha256": "e782321613a40b040f98b64dade00714ecbb6bac4f83f763497f6c6adba812b7",
+          "reopened_screenshot": {
+            "path": "reopened.png",
+            "sha256": "11ef4c5e439fa7ff3e3da5b5a8a896514e109dc9c53a4b19790d729445c5aee2",
+            "bytes": 39823,
+            "window_id": 33554436,
+            "capture": "X11 application window only"
+          },
+          "finished_at": "2026-10-22T08:20:22+08:00",
+          "artifacts": "arch/attempt-1"
+        }
+      ]
+    }
+  },
+  "passed": true,
+  "scope": "Three native gVim packages on one Fedora host, GTK3/X11 on XWayland. Automated real-window edits, save and reopen after a full environment stop. No human mouse/keyboard, native Wayland GUI, clipboard, audio playback, GPU, service/init or cross-host acceptance is implied.",
+  "package_sources": {
+    "fedora44": "https://packages.fedoraproject.org/pkgs/vim/vim-X11/",
+    "arch": "https://archlinux.org/packages/extra/x86_64/gvim/"
+  },
+  "host_after": {
+    "packages": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    },
+    "entries": {
+      "directory": "/home/omg/.local/share/applications",
+      "names": [
+        "antigravity.desktop",
+        "cc-switch-handler.desktop",
+        "clash-verge-handler.desktop",
+        "claude-code-url-handler.desktop",
+        "kos-settings.desktop",
+        "org.gptniang.KDE.desktop",
+        "org.kos.Platform.desktop",
+        "org.quickshell.desktop",
+        "qwen-win.desktop"
+      ]
+    }
+  },
+  "host_resources_after": {
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 319406080,
+      "MemAvailable_bytes": 2375364608,
+      "Cached_bytes": 3086872576,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 16072781824,
+      "Shmem_bytes": 743739392
+    },
+    "pressure": {
+      "cpu": {
+        "some": {
+          "avg10": 1.04,
+          "avg60": 1.1,
+          "avg300": 1.47,
+          "total_us": 2781770429
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "memory": {
+        "some": {
+          "avg10": 0.01,
+          "avg60": 0.12,
+          "avg300": 0.4,
+          "total_us": 940239562
+        },
+        "full": {
+          "avg10": 0.01,
+          "avg60": 0.12,
+          "avg300": 0.38,
+          "total_us": 802891247
+        }
+      },
+      "io": {
+        "some": {
+          "avg10": 0.34,
+          "avg60": 0.38,
+          "avg300": 0.53,
+          "total_us": 345622011
+        },
+        "full": {
+          "avg10": 0.23,
+          "avg60": 0.26,
+          "avg300": 0.41,
+          "total_us": 215910947
+        }
+      }
+    },
+    "load_average": [
+      1.51,
+      1.94,
+      1.59
+    ],
+    "cpu": {
+      "sample_count": 8,
+      "min_khz": 806997,
+      "max_khz": 1694433,
+      "khz": [
+        1614648,
+        1614392,
+        1694433,
+        1650395,
+        1688412,
+        1688500,
+        1082627,
+        806997
+      ],
+      "errors": []
+    },
+    "thermal": {
+      "zones": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "millicelsius": 32000,
+          "celsius": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "millicelsius": 20000,
+          "celsius": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "millicelsius": 54050,
+          "celsius": 54.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "millicelsius": 54050,
+          "celsius": 54.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "millicelsius": 47050,
+          "celsius": 47.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "millicelsius": 54000,
+          "celsius": 54.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "millicelsius": 35000,
+          "celsius": 35.0
+        }
+      ],
+      "package_c": 54.0,
+      "errors": []
+    }
+  },
+  "original_project_state_after": {
+    ".lab/state/environments/m3debian.json": "e7f9c5b82530d8c912d66c08a17d51fcf533aa4759d4101781e0bdff786b199a",
+    ".lab/state/environments/m3debian.packages.txt": "7cdc13bc09723ab0ff2dc7ba60be33980fea989730df6000d22f43ddb12e5107",
+    ".lab/state/launches/m3note.json": "849cb3adbdfee99871677cb68c1d7d09bd4fb76b608cd6dc2c6e21982030c4f5"
+  },
+  "mime_after": {
+    "path": "/home/omg/.local/share/applications/mimeapps.list",
+    "exists": true,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "isolation": {
+    "host_packages_unchanged": true,
+    "desktop_entries_unchanged": true,
+    "mimeapps_unchanged": true,
+    "original_project_state_unchanged": true
+  },
+  "finished_at": "2026-10-22T08:20:23+08:00"
+}

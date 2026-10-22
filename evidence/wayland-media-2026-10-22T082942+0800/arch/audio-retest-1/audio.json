@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "frequency_hz": 784,
+  "tone_sha256": "db775dd4f6968b7ebcdd191dc141f267f3e952d369b6878e67d34fc725b98390",
+  "capture_sha256": "03d5414d2b0e5875f8262186c8a30a287304949fe415ee828c68da2cdca80098",
+  "capture_bytes": 131072,
+  "rate": 48000,
+  "nonzero_samples": 65405,
+  "rms": 1555.1626247137758,
+  "tone_energy_fraction": 0.9999813754237357,
+  "sink_input_index": 11621,
+  "sink_index": 11072,
+  "sink_description": "LinkBuds Open",
+  "device_api": "bluez5",
+  "sink_state": "RUNNING",
+  "sink_muted": false,
+  "sink_volume": {
+    "front-left": {
+      "value": 33026,
+      "value_percent": "50%",
+      "db": "-17.86 dB"
+    },
+    "front-right": {
+      "value": 33026,
+      "value_percent": "50%",
+      "db": "-17.86 dB"
+    }
+  },
+  "capture_scope": "own sink-input monitor only; no microphone or other application audio",
+  "physical_audibility": "not independently confirmed by human listening"
+}

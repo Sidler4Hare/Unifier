@@ -1,0 +1,7 @@
+{
+  "environment_id": "gui-arch",
+  "package": "noto-fonts-cjk",
+  "present": true,
+  "exit_code": 0,
+  "detail": "noto-fonts-cjk 20240730-1"
+}

@@ -1,0 +1,345 @@
+{
+  "collected_at": "2026-10-22T09:05:58+08:00",
+  "environment_id": "meeting-debian13",
+  "target": "debian13",
+  "runtime_state": "running",
+  "content_revision": 3,
+  "package_inventory_sha256": "ac79c9b32560457fff121133b969dfadca7c1ea76da22bcea76f91a11fcf395c",
+  "image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+  "container_id": "6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c",
+  "kernel_matches_current_host": true,
+  "pid": 726093,
+  "conmon_pid": 726090,
+  "cgroup": {
+    "path": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c.scope/container",
+    "errors": {},
+    "memory_current_bytes": 16207872,
+    "memory_peak_bytes": 516493312,
+    "memory_swap_current_bytes": 94208,
+    "pids_current": 3,
+    "pids_peak": 39,
+    "memory_high": "max",
+    "memory_max": "max",
+    "cpu_max": "max 100000",
+    "memory_stat": {
+      "anon": 8192,
+      "file": 14708736,
+      "kernel": 1490944,
+      "kernel_stack": 0,
+      "pagetables": 49152,
+      "sec_pagetables": 0,
+      "percpu": 520,
+      "sock": 0,
+      "vmalloc": 12288,
+      "shmem": 0,
+      "zswap": 0,
+      "zswapped": 0,
+      "zswap_incomp": 0,
+      "file_mapped": 0,
+      "file_dirty": 0,
+      "file_writeback": 0,
+      "swapcached": 0,
+      "anon_thp": 0,
+      "file_thp": 0,
+      "shmem_thp": 0,
+      "inactive_anon": 0,
+      "active_anon": 8192,
+      "inactive_file": 14708736,
+      "active_file": 0,
+      "unevictable": 0,
+      "slab_reclaimable": 1315504,
+      "slab_unreclaimable": 111376,
+      "slab": 1426880,
+      "hugetlb": 0,
+      "workingset_refault_anon": 0,
+      "workingset_refault_file": 5362,
+      "workingset_activate_anon": 0,
+      "workingset_activate_file": 0,
+      "workingset_restore_anon": 0,
+      "workingset_restore_file": 0,
+      "workingset_nodereclaim": 512,
+      "pgdemote_kswapd": 0,
+      "pgdemote_direct": 0,
+      "pgdemote_khugepaged": 0,
+      "pgdemote_proactive": 0,
+      "pgsteal_kswapd": 97350,
+      "pgsteal_direct": 8393,
+      "pgsteal_khugepaged": 0,
+      "pgsteal_proactive": 0,
+      "pgscan_kswapd": 97350,
+      "pgscan_direct": 8393,
+      "pgscan_khugepaged": 0,
+      "pgscan_proactive": 0,
+      "pgrefill": 432,
+      "pgpromote_success": 0,
+      "pgscan": 105743,
+      "pgsteal": 105743,
+      "pswpin": 0,
+      "pswpout": 23,
+      "pgfault": 24864,
+      "pgmajfault": 268,
+      "pgactivate": 0,
+      "pgdeactivate": 0,
+      "pglazyfree": 0,
+      "pglazyfreed": 0,
+      "swpin_zero": 0,
+      "swpout_zero": 0,
+      "zswpin": 0,
+      "zswpout": 0,
+      "zswpwb": 0,
+      "thp_fault_alloc": 0,
+      "thp_collapse_alloc": 0,
+      "thp_swpout": 0,
+      "thp_swpout_fallback": 0,
+      "numa_pages_migrated": 0,
+      "numa_pte_updates": 0,
+      "numa_hint_faults": 0
+    },
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 1401462,
+      "user_usec": 341396,
+      "system_usec": 1060066,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "memory_pressure": {
+      "some": {
+        "avg10": 0.01,
+        "avg60": 0.07,
+        "avg300": 0.02,
+        "total_us": 135190
+      },
+      "full": {
+        "avg10": 0.01,
+        "avg60": 0.07,
+        "avg300": 0.02,
+        "total_us": 135190
+      }
+    },
+    "cpu_pressure": {
+      "some": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 13713
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 12364
+      }
+    },
+    "io_pressure": {
+      "some": {
+        "avg10": 0.0,
+        "avg60": 0.02,
+        "avg300": 0.0,
+        "total_us": 51902
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.02,
+        "avg300": 0.0,
+        "total_us": 51888
+      }
+    },
+    "container_id_matches": true
+  },
+  "processes": {
+    "process_count": 1,
+    "expected_process_count": 1,
+    "complete": true,
+    "pss_bytes": 1671168,
+    "rss_bytes": 1679360,
+    "pss_partial_bytes": 1671168,
+    "details": [
+      {
+        "pid": 726093,
+        "comm": "sleep",
+        "rss_bytes": 1679360,
+        "pss_bytes": 1671168,
+        "pss_anon_bytes": 8192,
+        "pss_file_bytes": 1662976,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 8192,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 1662976,
+        "private_dirty_bytes": 8192,
+        "referenced_bytes": 700416,
+        "anonymous_bytes": 8192,
+        "swap_bytes": 94208,
+        "swap_pss_bytes": 94208
+      }
+    ],
+    "errors": []
+  },
+  "runtime_processes": {
+    "process_count": 1,
+    "expected_process_count": 1,
+    "complete": true,
+    "pss_bytes": 197632,
+    "rss_bytes": 2113536,
+    "pss_partial_bytes": 197632,
+    "details": [
+      {
+        "pid": 726090,
+        "comm": "conmon",
+        "rss_bytes": 2113536,
+        "pss_bytes": 197632,
+        "pss_anon_bytes": 126976,
+        "pss_file_bytes": 70656,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 1961984,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 24576,
+        "private_dirty_bytes": 126976,
+        "referenced_bytes": 1961984,
+        "anonymous_bytes": 126976,
+        "swap_bytes": 131072,
+        "swap_pss_bytes": 131072
+      }
+    ],
+    "errors": [],
+    "source": "conmon_pid"
+  },
+  "errors": [],
+  "host": {
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 376938496,
+      "MemAvailable_bytes": 1866362880,
+      "Cached_bytes": 2430554112,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 14267265024,
+      "Shmem_bytes": 786202624
+    },
+    "pressure": {
+      "cpu": {
+        "some": {
+          "avg10": 4.1,
+          "avg60": 5.24,
+          "avg300": 4.54,
+          "total_us": 2860760217
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "memory": {
+        "some": {
+          "avg10": 6.51,
+          "avg60": 5.42,
+          "avg300": 3.32,
+          "total_us": 969974412
+        },
+        "full": {
+          "avg10": 6.27,
+          "avg60": 4.96,
+          "avg300": 2.95,
+          "total_us": 829967555
+        }
+      },
+      "io": {
+        "some": {
+          "avg10": 0.58,
+          "avg60": 1.0,
+          "avg300": 1.02,
+          "total_us": 368160044
+        },
+        "full": {
+          "avg10": 0.41,
+          "avg60": 0.42,
+          "avg300": 0.48,
+          "total_us": 232350360
+        }
+      }
+    },
+    "load_average": [
+      3.63,
+      3.35,
+      2.65
+    ],
+    "cpu": {
+      "sample_count": 8,
+      "min_khz": 509797,
+      "max_khz": 1534084,
+      "khz": [
+        1461635,
+        1024068,
+        1424211,
+        1534084,
+        868926,
+        509797,
+        686433,
+        1512515
+      ],
+      "errors": []
+    },
+    "thermal": {
+      "zones": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "millicelsius": 32000,
+          "celsius": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "millicelsius": 20000,
+          "celsius": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "millicelsius": 60050,
+          "celsius": 60.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "millicelsius": 61050,
+          "celsius": 61.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "millicelsius": 53050,
+          "celsius": 53.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "millicelsius": 61000,
+          "celsius": 61.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "millicelsius": 37000,
+          "celsius": 37.0
+        }
+      ],
+      "package_c": 61.0,
+      "errors": []
+    }
+  }
+}

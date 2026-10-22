@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-19T15:27:10+08:00",
+  "host_kernel": "7.2.7-200.fc44.x86_64",
+  "host_uid": 1000,
+  "host_gid": 1000,
+  "targets": {
+    "m1debian": {
+      "target": "debian13",
+      "distribution_id": "debian",
+      "version_track": "13",
+      "package_inventory_count": 78,
+      "package_inventory_sha256": "fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4",
+      "writable_revision": "1f88d34c154a9810a327a8b527c73930793b6b719b535c4e1cd0d2cf197615e8",
+      "kernel": "7.2.7-200.fc44.x86_64",
+      "base_image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "exit_code_17": true,
+      "workdir": "/usr",
+      "sorted_inventory_matches_m0_smoke": true
+    },
+    "m1fedora": {
+      "target": "fedora44",
+      "distribution_id": "fedora",
+      "version_track": "44",
+      "package_inventory_count": 147,
+      "package_inventory_sha256": "4fbc88c890ab44ee974f34584be338afd98956bdb78224fc6c8c05b0bb722801",
+      "writable_revision": "b3f7d9a336e7dcfbf5298994b4b3fe6819ad984f74be29652a9b689ec96e56b3",
+      "kernel": "7.2.7-200.fc44.x86_64",
+      "base_image_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "exit_code_17": true,
+      "workdir": "/usr",
+      "sorted_inventory_matches_m0_smoke": true
+    },
+    "m1arch": {
+      "target": "arch",
+      "distribution_id": "arch",
+      "version_track": "rolling",
+      "package_inventory_count": 137,
+      "package_inventory_sha256": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+      "writable_revision": "9801507a245d37e96d624c52ce0392a278112e9a3d50ac2669e17cb7648c7a98",
+      "kernel": "7.2.7-200.fc44.x86_64",
+      "base_image_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "exit_code_17": true,
+      "workdir": "/usr",
+      "sorted_inventory_matches_m0_smoke": true
+    }
+  },
+  "passed": true,
+  "settings": {
+    "rootless": true,
+    "user_namespace": "rootless-default",
+    "network": "none",
+    "rootfs": "writable",
+    "full_init": false,
+    "inventory_checksum": "sha256 of the sorted package list"
+  },
+  "scope": "M1 lifecycle on the current host. Not package install, GUI, full init, or another host.",
+  "source_isolation": true,
+  "shared_file_owned_by_host_user": true,
+  "restart_after_stop": true,
+  "finished_at": "2026-10-19T15:28:04+08:00",
+  "containers_removed_after_acceptance": true
+}

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "id": "native-debian13",
+  "target": "debian13",
+  "distribution_id": "debian",
+  "version_track": "13",
+  "update_policy": "versioned-release",
+  "architecture": "amd64",
+  "base_image": {
+    "source": "docker.io/library/debian:13-slim",
+    "manifest_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+    "locked_reference": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+    "image_version_label": null
+  },
+  "writable_revision": "964f59f20224afd5b10595007d58f003eb3facfb1a5647deab0404f257d2bc23",
+  "content_revision": 2,
+  "runtime_state": "stopped",
+  "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+  "package_inventory_count": 372,
+  "package_inventory_path": ".lab/state/environments/native-debian13.packages.txt",
+  "shared_mounts": [
+    {
+      "host": "/home/omg/文档/多兼容linux机/evidence/wayland-media-2026-10-22T082942+0800/documents/debian13",
+      "container": "/home/omg/文档/多兼容linux机/evidence/wayland-media-2026-10-22T082942+0800/documents/debian13",
+      "options": "z"
+    }
+  ],
+  "desktop": {
+    "selinux_label": "disable",
+    "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+    "env": {
+      "WAYLAND_DISPLAY": "wayland-0",
+      "XDG_RUNTIME_DIR": "/run/user/1000",
+      "DISPLAY": ":0",
+      "XAUTHORITY": "/tmp/ml-xauthority",
+      "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+      "PIPEWIRE_REMOTE": "pipewire-0",
+      "XDG_SESSION_TYPE": "wayland"
+    },
+    "mounts": [
+      {
+        "host": "/run/user/1000/wayland-0",
+        "container": "/run/user/1000/wayland-0",
+        "options": ""
+      },
+      {
+        "host": "/tmp/.X11-unix/X0",
+        "container": "/tmp/.X11-unix/X0",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/xauth_WtbESS",
+        "container": "/tmp/ml-xauthority",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/pulse/native",
+        "container": "/run/user/1000/pulse/native",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/pipewire-0",
+        "container": "/run/user/1000/pipewire-0",
+        "options": ""
+      }
+    ]
+  },
+  "created_at": "2026-10-22T08:29:55+08:00",
+  "updated_at": "2026-10-22T08:31:52+08:00",
+  "arch": null,
+  "runtime": {
+    "backend": "podman",
+    "container_name": "ml-d749da40-native-debian13",
+    "container_id": "964f59f20224afd5b10595007d58f003eb3facfb1a5647deab0404f257d2bc23",
+    "project": "/home/omg/文档/多兼容linux机/evidence/wayland-media-2026-10-22T082942+0800/project",
+    "network": "pasta",
+    "selinux_label": "disable",
+    "full_init": false,
+    "user_namespace": "rootless-default",
+    "rootless": true
+  },
+  "observed": {
+    "os_release_id": "debian",
+    "os_release_version_id": "13",
+    "os_release_build_id": null,
+    "os_release_pretty_name": "Debian GNU/Linux 13 (trixie)",
+    "kernel": "7.2.11-200.fc44.x86_64",
+    "machine": "x86_64"
+  },
+  "created_by_uid": 1000,
+  "created_by_gid": 1000,
+  "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage.",
+  "resources": {
+    "status": "exited",
+    "pid": 0,
+    "conmon_pid": null,
+    "started_at": "2026-10-22T08:29:57.876457112+08:00",
+    "finished_at": "2026-10-22T08:31:52.488606292+08:00",
+    "oom_killed": false,
+    "exit_code": 137
+  },
+  "host_kernel": "7.2.11-200.fc44.x86_64",
+  "kernel_matches_current_host": true
+}

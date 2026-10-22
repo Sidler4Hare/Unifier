@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-10-21T08:32:58+08:00",
+  "ready_for_image_preparation": true,
+  "kernel": "7.2.11-200.fc44.x86_64",
+  "uid": 1000,
+  "gid": 1000,
+  "runtime": {
+    "rootless": true,
+    "cgroup_version": "v2",
+    "cgroup_manager": "systemd",
+    "oci_runtime": "crun",
+    "storage_driver": "overlay"
+  },
+  "checks": [
+    {
+      "name": "python",
+      "ok": true,
+      "detail": "3.14.8"
+    },
+    {
+      "name": "linux-amd64",
+      "ok": true,
+      "detail": "x86_64"
+    },
+    {
+      "name": "podman",
+      "ok": true
+    },
+    {
+      "name": "skopeo",
+      "ok": true
+    },
+    {
+      "name": "rootless-runtime",
+      "ok": true
+    },
+    {
+      "name": "cgroup-v2",
+      "ok": true
+    }
+  ],
+  "image_lock": "valid",
+  "scope": "Runtime preflight; does not prove any target application is compatible."
+}

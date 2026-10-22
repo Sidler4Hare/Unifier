@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "run_id": "a1d8dca64b09",
+  "started_at": "2026-10-22T08:02:16+08:00",
+  "lock_resolved_at": "2026-10-18T16:14:36+08:00",
+  "host_kernel": "7.2.11-200.fc44.x86_64",
+  "host_uid": 1000,
+  "host_gid": 1000,
+  "targets": {
+    "debian13": {
+      "passed": true,
+      "locked_reference": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "image_id": "567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c",
+      "probe": {
+        "ID": "debian",
+        "VERSION_ID": "13",
+        "BUILD_ID": "",
+        "PRETTY_NAME": "Debian GNU/Linux 13 (trixie)",
+        "UID": "1000",
+        "GID": "1000",
+        "KERNEL": "7.2.11-200.fc44.x86_64",
+        "ARCH": "x86_64",
+        "INPUT_SHA256": "f1845e11ea091e2880e0e38b8da668cbc9d5f25d6b9030094fb09a90e3f9909d"
+      },
+      "package_count": 78,
+      "package_inventory": "evidence/readiness-2026-10-22T080205+0800/base-smoke.packages/debian13.txt",
+      "package_inventory_sha256": "fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4",
+      "shared_file_host_owner_verified": true
+    },
+    "fedora44": {
+      "passed": true,
+      "locked_reference": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "image_id": "4b5d9a75c81b96b542ac08b19587efa516da72bf02581908c6178d39de4bb07b",
+      "probe": {
+        "ID": "fedora",
+        "VERSION_ID": "44",
+        "BUILD_ID": "",
+        "PRETTY_NAME": "Fedora Linux 44 (Container Image)",
+        "UID": "1000",
+        "GID": "1000",
+        "KERNEL": "7.2.11-200.fc44.x86_64",
+        "ARCH": "x86_64",
+        "INPUT_SHA256": "f1845e11ea091e2880e0e38b8da668cbc9d5f25d6b9030094fb09a90e3f9909d"
+      },
+      "package_count": 147,
+      "package_inventory": "evidence/readiness-2026-10-22T080205+0800/base-smoke.packages/fedora44.txt",
+      "package_inventory_sha256": "c889683352948b58599196b37fa05142eb1ac7c10d744863270b38aeac183295",
+      "shared_file_host_owner_verified": true
+    },
+    "arch": {
+      "passed": true,
+      "locked_reference": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "image_id": "5a30b4acc83ff841682eb21795e00f7ff030796f5e6fd2a127decd7a45ba7cef",
+      "probe": {
+        "ID": "arch",
+        "VERSION_ID": "20261011.0.609700",
+        "BUILD_ID": "rolling",
+        "PRETTY_NAME": "Arch Linux",
+        "UID": "1000",
+        "GID": "1000",
+        "KERNEL": "7.2.11-200.fc44.x86_64",
+        "ARCH": "x86_64",
+        "INPUT_SHA256": "f1845e11ea091e2880e0e38b8da668cbc9d5f25d6b9030094fb09a90e3f9909d"
+      },
+      "package_count": 137,
+      "package_inventory": "evidence/readiness-2026-10-22T080205+0800/base-smoke.packages/arch.txt",
+      "package_inventory_sha256": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+      "shared_file_host_owner_verified": true
+    }
+  },
+  "passed": true,
+  "scope": "Ephemeral CLI base-image probes; not package-install, GUI, service or cross-host acceptance.",
+  "settings": {
+    "rootless": true,
+    "user_namespace": "keep-id",
+    "network": "none",
+    "rootfs": "read-only",
+    "full_init": false,
+    "shared_path_mode": "same absolute host/container path",
+    "volume_label": "z"
+  },
+  "cross_environment_shared_file_verified": true,
+  "finished_at": "2026-10-22T08:02:17+08:00",
+  "probe_files_retained_under": ".lab/runs/a1d8dca64b09"
+}

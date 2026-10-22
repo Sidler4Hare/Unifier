@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "id": "txn721392119ffd",
+  "environment_id": "meeting-debian13",
+  "operation": "install-local",
+  "packages": [
+    "wemeet"
+  ],
+  "use_command": [
+    "test",
+    "-x",
+    "/opt/wemeet/wemeetapp.sh"
+  ],
+  "local_file": "/home/omg/下载/TencentMeeting_0300000000_3.26.10.401_x86_64_default.publish.officialwebsite.deb",
+  "revision_before": {
+    "writable_revision": "48d4ac0d7cdaa42606f0dabce0d7581b8ce2982e0d72e8a3ce3839fc45ce0c43",
+    "content_revision": 1,
+    "package_inventory_sha256": "fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Get:1 http://deb.debian.org/debian trixie InRelease [140 kB]\nGet:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]\nGet:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]\nGet:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]\nGet:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [4412 B]\nGet:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [269 kB]\nFetched 10.2 MB in 6s (1575 kB/s)\nReading package lists...\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "/tmp/ml-incoming/TencentMeeting_0300000000_3.26.10.401_x86_64_default.publish.officialwebsite.deb"
+      ],
+      "exit_code": 0,
+      "stdout_tail": ") ...\r\nSelecting previously unselected package libxcb1:amd64.\r\nPreparing to unpack .../23-libxcb1_1.17.0-2+b1_amd64.deb ...\r\nUnpacking libxcb1:amd64 (1.17.0-2+b1) ...\r\nSelecting previously unselected package libx11-data.\r\nPreparing to unpack .../24-libx11-data_2%3a1.8.12-1_all.deb ...\r\nUnpacking libx11-data (2:1.8.12-1) ...\r\nSelecting previously unselected package libx11-6:amd64.\r\nPreparing to unpack .../25-libx11-6_2%3a1.8.12-1_amd64.deb ...\r\nUnpacking libx11-6:amd64 (2:1.8.12-1) ...\r\nSelecting previously unselected package libx11-xcb1:amd64.\r\nPreparing to unpack .../26-libx11-xcb1_2%3a1.8.12-1_amd64.deb ...\r\nUnpacking libx11-xcb1:amd64 (2:1.8.12-1) ...\r\nSelecting previously unselected package libpulse0:amd64.\r\nPreparing to unpack .../27-libpulse0_17.0+dfsg1-2+b1_amd64.deb ...\r\nUnpacking libpulse0:amd64 (17.0+dfsg1-2+b1) ...\r\nSelecting previously unselected package libxml2:amd64.\r\nPreparing to unpack .../28-libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3_amd64.deb ...\r\nUnpacking libxml2:amd64 (2.12.7+dfsg+really2.9.14-2.1+deb13u3) ...\r\nSelecting previously unselected package shared-mime-info.\r\nPreparing to unpack .../29-shared-mime-info_2.4-5+b2_amd64.deb ...\r\nUnpacking shared-mime-info (2.4-5+b2) ...\r\nSelecting previously unselected package xdg-user-dirs.\r\nPreparing to unpack .../30-xdg-user-dirs_0.18-2_amd64.deb ...\r\nUnpacking xdg-user-dirs (0.18-2) ...\r\nSelecting previously unselected package wemeet.\r\nPreparing to unpack .../31-TencentMeeting_0300000000_3.26.10.401_x86_64_default.publish.officialwebsite.deb ...\r\nUnpacking wemeet (3.26.10.401) ...\r\nSetting up libexpat1:amd64 (2.9.0-1~deb13u1) ...\r\nSetting up libxau6:amd64 (1:1.0.11-1) ...\r\nSetting up libxdmcp6:amd64 (1:1.1.5-1) ...\r\nSetting up libapparmor1:amd64 (4.1.0-1) ...\r\nSetting up libxcb1:amd64 (1.17.0-2+b1) ...\r\nSetting up libogg0:amd64 (1.3.5-3+b2) ...\r\nSetting up libgpg-error0:amd64 (1.51-4) ...\r\nSetting up xdg-user-dirs (0.18-2) ...\r\nSetting up libgcrypt20:amd64 (1.11.0-7+deb13u1) ...\r\nSetting up libmpg123-0t64:amd64 (1.32.10-1+deb13u1) ...\r\nSetting up libglib2.0-data (2.84.4-3~deb13u5) ...\r\nSetting up libx11-data (2:1.8.12-1) ...\r\nSetting up libnspr4:amd64 (2:4.36-1) ...\r\nSetting up libdbus-1-3:amd64 (1.16.2-2) ...\r\nSetting up libopus0:amd64 (1.5.2-2) ...\r\nSetting up libatomic1:amd64 (14.2.0-19) ...\r\nSetting up libvorbis0a:amd64 (1.3.7-3) ...\r\nSetting up libflac14:amd64 (1.5.0+ds-2) ...\r\nSetting up libffi8:amd64 (3.4.8-2) ...\r\nSetting up libasyncns0:amd64 (0.8-6+b5) ...\r\nSetting up dbus-session-bus-common (1.16.2-2) ...\r\nSetting up libx11-6:amd64 (2:1.8.12-1) ...\r\nSetting up dbus-system-bus-common (1.16.2-2) ...\r\nSetting up libgpg-error-l10n (1.51-4) ...\r\nSetting up libxml2:amd64 (2.12.7+dfsg+really2.9.14-2.1+deb13u3) ...\r\nSetting up dbus-bin (1.16.2-2) ...\r\nSetting up libmp3lame0:amd64 (3.100-6+b3) ...\r\nSetting up libvorbisenc2:amd64 (1.3.7-3) ...\r\nSetting up libx11-xcb1:amd64 (2:1.8.12-1) ...\r\nSetting up libnss3:amd64 (2:3.110-1+deb13u4) ...\r\nSetting up dbus-daemon (1.16.2-2) ...\r\nSetting up libglib2.0-0t64:amd64 (2.84.4-3~deb13u5) ...\r\nNo schema files found: doing nothing.\r\nSetting up dbus (1.16.2-2) ...\r\ninvoke-rc.d: could not determine current runlevel\r\ninvoke-rc.d: policy-rc.d denied execution of start.\r\nSetting up shared-mime-info (2.4-5+b2) ...\r\nSetting up libsndfile1:amd64 (1.2.2-2+deb13u1) ...\r\nSetting up desktop-file-utils (0.28-1) ...\r\nSetting up libpulse0:amd64 (17.0+dfsg1-2+b1) ...\r\nSetting up wemeet (3.26.10.401) ...\r\n/var/lib/dpkg/info/wemeet.postinst: line 21: xdg-icon-resource: command not found\r\n/var/lib/dpkg/info/wemeet.postinst: line 21: xdg-icon-resource: command not found\r\n/var/lib/dpkg/info/wemeet.postinst: line 21: xdg-icon-resource: command not found\r\n/var/lib/dpkg/info/wemeet.postinst: line 21: xdg-icon-resource: command not found\r\n/var/lib/dpkg/info/wemeet.postinst: line 21: xdg-icon-resource: command not found\r\n/var/lib/dpkg/info/wemeet.postinst: line 28: pkill: command not found\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": null,
+  "verification": {
+    "ok": true,
+    "packages": {
+      "wemeet": true
+    },
+    "command": [
+      "test",
+      "-x",
+      "/opt/wemeet/wemeetapp.sh"
+    ],
+    "command_exit_code": 0,
+    "stdout_preview": "",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "native-arch": {
+      "before": "4cd0877ccc6a7269a90b18ef0352c27055ba4e80b713dd596c651287f0d3efcb",
+      "after": "4cd0877ccc6a7269a90b18ef0352c27055ba4e80b713dd596c651287f0d3efcb",
+      "probed_before": "4cd0877ccc6a7269a90b18ef0352c27055ba4e80b713dd596c651287f0d3efcb",
+      "probed_after": "4cd0877ccc6a7269a90b18ef0352c27055ba4e80b713dd596c651287f0d3efcb",
+      "unchanged": true,
+      "error": null
+    },
+    "native-debian13": {
+      "before": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "after": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "probed_before": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "probed_after": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "unchanged": true,
+      "error": null
+    },
+    "native-fedora44": {
+      "before": "74cff549c2c89cc8f17b930601c9cb42e865e38f9c2bf806951ec82c3584984e",
+      "after": "74cff549c2c89cc8f17b930601c9cb42e865e38f9c2bf806951ec82c3584984e",
+      "probed_before": "74cff549c2c89cc8f17b930601c9cb42e865e38f9c2bf806951ec82c3584984e",
+      "probed_after": "74cff549c2c89cc8f17b930601c9cb42e865e38f9c2bf806951ec82c3584984e",
+      "unchanged": true,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "48d4ac0d7cdaa42606f0dabce0d7581b8ce2982e0d72e8a3ce3839fc45ce0c43",
+    "content_revision": 2,
+    "package_inventory_sha256": "d36d796d564aa78b848510188f8f686e877feca4b4302147ae419bc7bfef59fd"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-22T08:44:50+08:00",
+  "finished_at": "2026-10-22T08:46:35+08:00"
+}

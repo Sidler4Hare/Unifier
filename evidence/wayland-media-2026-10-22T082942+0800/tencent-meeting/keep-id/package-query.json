@@ -1,0 +1,7 @@
+{
+  "environment_id": "meeting-debian13",
+  "package": "wemeet",
+  "present": true,
+  "exit_code": 0,
+  "detail": "wemeet\t3.26.10.401"
+}

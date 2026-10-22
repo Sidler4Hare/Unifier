@@ -1,0 +1,38 @@
+[
+  {
+    "path": "tools/probe_wayland_media.py",
+    "sha256": "d2410991723fca06e6af0280e946895ee38b1080a1ddf2e52d5c2cc5ae68b820"
+  },
+  {
+    "path": "tools/probe_tencent_meeting.py",
+    "sha256": "d1ca551f0488b327d3d6b8ad9c538a704dfc7be4cc44d2f389bb86661a6c1208"
+  },
+  {
+    "path": "tools/kwin_window_probe.py",
+    "sha256": "f2e8764f248a17081711dc5cd55ca419f921f32c9155578a15d1894619e98500"
+  },
+  {
+    "path": "tools/audio_route.py",
+    "sha256": "3b4ee5815bc0397ce05ee774117431ab4d7c112eaadac346adb41886fc227fd2"
+  },
+  {
+    "path": "fixtures/wayland_clipboard.py",
+    "sha256": "a7c5d997eb7d28f62ed6f391de6ee8b472c029f5f3afe1ba13b67a97fab62cb9"
+  },
+  {
+    "path": "fixtures/launch_mousepad.py",
+    "sha256": "c336c4fb1cbcc04df2faadd930bf3414be0489b84be4c6346d41cb00d86d7396"
+  },
+  {
+    "path": "fixtures/mousepad_control.py",
+    "sha256": "d08abd96b1e9e0f2b6dd842752a98bbd905cc86899d58a74281540e0cc38e15c"
+  },
+  {
+    "path": "tests/test_app_user.py",
+    "sha256": "ed53fb454d19021a455a87edad8a4d91b1092f2c9eafe6a592412b4a7f5c8aa0"
+  },
+  {
+    "path": "tests/test_audio_route.py",
+    "sha256": "e3cbc5e46c5f97b0f625aaace00ab8026d802f58c85990f69c29e8b2c69e2e4a"
+  }
+]

@@ -1,0 +1,418 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-10-22T09:20:00+08:00",
+  "passed": true,
+  "checks": {
+    "all_native_targets_passed": true,
+    "clipboard_restored_at_end_of_gui_test": true,
+    "host_packages_unchanged": true,
+    "host_desktop_entry_names_unchanged": true,
+    "host_mimeapps_unchanged": true,
+    "main_environment_and_launch_records_unchanged": true,
+    "original_native_source_snapshot_preserved": true,
+    "updated_user_source_snapshot_matches_current": true,
+    "previous_user_source_version_preserved": true,
+    "debian13_native_window_and_protocol": true,
+    "debian13_clipboard_roundtrip_and_reopened_buffer": true,
+    "debian13_document_sha_and_owner": true,
+    "debian13_native_transaction": true,
+    "debian13_native_driver_preserved": true,
+    "debian13_own_stream_pcm_and_hardware_route": true,
+    "debian13_audio_driver_preserved": true,
+    "fedora44_native_window_and_protocol": true,
+    "fedora44_clipboard_roundtrip_and_reopened_buffer": true,
+    "fedora44_document_sha_and_owner": true,
+    "fedora44_native_transaction": true,
+    "fedora44_native_driver_preserved": true,
+    "fedora44_own_stream_pcm_and_hardware_route": true,
+    "fedora44_audio_driver_preserved": true,
+    "arch_native_window_and_protocol": true,
+    "arch_clipboard_roundtrip_and_reopened_buffer": true,
+    "arch_document_sha_and_owner": true,
+    "arch_native_transaction": true,
+    "arch_native_driver_preserved": true,
+    "arch_own_stream_pcm_and_hardware_route": true,
+    "arch_audio_driver_preserved": true,
+    "tencent_two_stopped_environment_launches": true,
+    "tencent_capture_1_same_active_owned_window": true,
+    "tencent_capture_2_same_active_owned_window": true,
+    "tencent_original_native_deb_installed": true,
+    "tencent_original_deb_unchanged": true,
+    "tencent_main_runtime_libraries_resolved": true,
+    "tencent_locale_and_vendor_postinst_repaired": true,
+    "tencent_root_package_nonroot_app_and_audio_access": true,
+    "fresh_keep_id_creation_home_mapping_and_cleanup": true,
+    "human_heard_prompt_tones": true,
+    "all_retained_environments_stopped": true,
+    "regression_62_tests_with_4_live_skips": true,
+    "verification_sources_match_current": true,
+    "all_json_artifacts_parse": true,
+    "report_local_links_valid": true,
+    "updated_document_local_links_valid": true
+  },
+  "targets": {
+    "debian13": {
+      "mousepad": "mousepad\t0.6.3-1",
+      "gui_artifacts": "debian13/native-attempt-2",
+      "audio_artifacts": "debian13/native-attempt-2",
+      "document_sha256": "e4b0679fb99f8a427ad378f44115449ad3e6db3dc49a257a1fea2fb9c9fe3c1f",
+      "audio": {
+        "passed": true,
+        "frequency_hz": 523,
+        "tone_sha256": "14e7cfea9e550b732114b6131d23e649a15c0e0d1e2b54e402f9ddeb1caecfbf",
+        "capture_sha256": "a2a075571cb42cd91e19507f1af133519982dbc3c02aba2d54f3190d0ac0bad1",
+        "capture_bytes": 196608,
+        "rate": 48000,
+        "nonzero_samples": 98158,
+        "rms": 1554.8117455718857,
+        "tone_energy_fraction": 0.9999908312153784,
+        "sink_input_index": 11455,
+        "sink_index": 11072,
+        "sink_description": "LinkBuds Open",
+        "device_api": "bluez5",
+        "sink_state": "RUNNING",
+        "sink_muted": false,
+        "sink_volume": {
+          "front-left": {
+            "value": 33026,
+            "value_percent": "50%",
+            "db": "-17.86 dB"
+          },
+          "front-right": {
+            "value": 33026,
+            "value_percent": "50%",
+            "db": "-17.86 dB"
+          }
+        },
+        "capture_scope": "own sink-input monitor only; no microphone or other application audio",
+        "physical_audibility": "not independently confirmed by human listening"
+      },
+      "visual_review": "Reopened native window inspected: readable Chinese text and correct target."
+    },
+    "fedora44": {
+      "mousepad": "mousepad\t0.7.0-1.fc44.x86_64",
+      "gui_artifacts": "fedora44/native-attempt-1",
+      "audio_artifacts": "fedora44/audio-retest-2",
+      "document_sha256": "5cdf0164aae5e9bdd290f0f83b690229185c46b93a60123ca23da1c55d6aa6a5",
+      "audio": {
+        "passed": true,
+        "frequency_hz": 659,
+        "tone_sha256": "3e7fbc5b365ffda0aabc3071e0106743c28ae4dd9600b0b02f67856e8196dd79",
+        "capture_sha256": "7e41c0e72576f611c21552e6c08bb619a1f2ab2cb20bcdc539eb57c84352a9b6",
+        "capture_bytes": 131072,
+        "rate": 48000,
+        "nonzero_samples": 65441,
+        "rms": 1555.0488487936318,
+        "tone_energy_fraction": 0.99983340894922,
+        "sink_input_index": 11904,
+        "sink_index": 11072,
+        "sink_description": "LinkBuds Open",
+        "device_api": "bluez5",
+        "sink_state": "RUNNING",
+        "sink_muted": false,
+        "sink_volume": {
+          "front-left": {
+            "value": 33026,
+            "value_percent": "50%",
+            "db": "-17.86 dB"
+          },
+          "front-right": {
+            "value": 33026,
+            "value_percent": "50%",
+            "db": "-17.86 dB"
+          }
+        },
+        "capture_scope": "own sink-input monitor only; no microphone or other application audio",
+        "physical_audibility": "not independently confirmed by human listening"
+      },
+      "visual_review": "Reopened native window inspected: readable Chinese text and correct target."
+    },
+    "arch": {
+      "mousepad": "mousepad 0.7.0-1",
+      "gui_artifacts": "arch/native-attempt-1",
+      "audio_artifacts": "arch/audio-retest-1",
+      "document_sha256": "5ac15a9c58b71a5ae1e68dd076af4398b4b77c579c88c2f8623b8aad8b3f7753",
+      "audio": {
+        "passed": true,
+        "frequency_hz": 784,
+        "tone_sha256": "db775dd4f6968b7ebcdd191dc141f267f3e952d369b6878e67d34fc725b98390",
+        "capture_sha256": "03d5414d2b0e5875f8262186c8a30a287304949fe415ee828c68da2cdca80098",
+        "capture_bytes": 131072,
+        "rate": 48000,
+        "nonzero_samples": 65405,
+        "rms": 1555.1626247137758,
+        "tone_energy_fraction": 0.9999813754237357,
+        "sink_input_index": 11621,
+        "sink_index": 11072,
+        "sink_description": "LinkBuds Open",
+        "device_api": "bluez5",
+        "sink_state": "RUNNING",
+        "sink_muted": false,
+        "sink_volume": {
+          "front-left": {
+            "value": 33026,
+            "value_percent": "50%",
+            "db": "-17.86 dB"
+          },
+          "front-right": {
+            "value": 33026,
+            "value_percent": "50%",
+            "db": "-17.86 dB"
+          }
+        },
+        "capture_scope": "own sink-input monitor only; no microphone or other application audio",
+        "physical_audibility": "not independently confirmed by human listening"
+      },
+      "visual_review": "Reopened native window inspected: readable Chinese text and correct target."
+    }
+  },
+  "human_listening": {
+    "reported_at": "2026-10-22T08:40:45+08:00",
+    "user_response": "能听到",
+    "scope": "User confirmed hearing the short prompt tone(s) played at this point. Per-environment signal paths are verified separately by own-stream PCM capture."
+  },
+  "tencent_successful_launches": [
+    {
+      "started_at": "2026-10-22T09:13:37+08:00",
+      "package_sha256": "70f37b029209c0ef91be9813eebf6650c6cb9a00f7c718490158773e2fe6acaf",
+      "installed": true,
+      "application_id": "meeting-wemeet-dbus-soft",
+      "private_dbus": true,
+      "software_rendering": true,
+      "launched": true,
+      "driver_sha256": "d1ca551f0488b327d3d6b8ad9c538a704dfc7be4cc44d2f389bb86661a6c1208",
+      "errors": [],
+      "scope": "Installation and initial application window only. No login, meeting, camera, microphone or screen-share acceptance.",
+      "windows": [
+        {
+          "caption": "腾讯会议 <@6a3eace1e9ea>‎",
+          "resourceClass": "wemeetapp",
+          "pid": 741764,
+          "objectType": "KWin::X11Window(0x55ca878f4860)",
+          "wayland": null,
+          "x11": null,
+          "width": 376.79999999999995,
+          "height": 668.8,
+          "internalId": "{8c201ac3-5a27-41cc-9535-3ef69461ab9f}",
+          "active": true
+        }
+      ],
+      "screenshot": {
+        "before": {
+          "caption": "腾讯会议 <@6a3eace1e9ea>‎",
+          "resourceClass": "wemeetapp",
+          "pid": 741764,
+          "objectType": "KWin::X11Window(0x55ca878f4860)",
+          "wayland": null,
+          "x11": null,
+          "width": 376.79999999999995,
+          "height": 668.8,
+          "internalId": "{8c201ac3-5a27-41cc-9535-3ef69461ab9f}",
+          "active": true
+        },
+        "after": {
+          "caption": "腾讯会议 <@6a3eace1e9ea>‎",
+          "resourceClass": "wemeetapp",
+          "pid": 741764,
+          "objectType": "KWin::X11Window(0x55ca878f4860)",
+          "wayland": null,
+          "x11": null,
+          "width": 376.79999999999995,
+          "height": 668.8,
+          "internalId": "{8c201ac3-5a27-41cc-9535-3ef69461ab9f}",
+          "active": true
+        },
+        "path": "/home/omg/文档/多兼容linux机/evidence/wayland-media-2026-10-22T082942+0800/tencent-meeting/keep-id/launch-attempt-5/startup.png",
+        "capture": "active experiment window only"
+      },
+      "backend": "KWin::X11Window(0x55ca878f4860)",
+      "finished_at": "2026-10-22T09:13:56+08:00"
+    },
+    {
+      "started_at": "2026-10-22T09:14:33+08:00",
+      "package_sha256": "70f37b029209c0ef91be9813eebf6650c6cb9a00f7c718490158773e2fe6acaf",
+      "installed": true,
+      "application_id": "meeting-wemeet-dbus-soft",
+      "private_dbus": true,
+      "software_rendering": true,
+      "launched": true,
+      "driver_sha256": "d1ca551f0488b327d3d6b8ad9c538a704dfc7be4cc44d2f389bb86661a6c1208",
+      "errors": [],
+      "scope": "Installation and initial application window only. No login, meeting, camera, microphone or screen-share acceptance.",
+      "windows": [
+        {
+          "caption": "腾讯会议 <@6a3eace1e9ea>‎",
+          "resourceClass": "wemeetapp",
+          "pid": 743593,
+          "objectType": "KWin::X11Window(0x55ca87c93160)",
+          "wayland": null,
+          "x11": null,
+          "width": 376.79999999999995,
+          "height": 668.8,
+          "internalId": "{46e479c4-26a3-4134-8dfd-bcdfbd21dcdf}",
+          "active": true
+        }
+      ],
+      "screenshot": {
+        "before": {
+          "caption": "腾讯会议 <@6a3eace1e9ea>‎",
+          "resourceClass": "wemeetapp",
+          "pid": 743593,
+          "objectType": "KWin::X11Window(0x55ca87c93160)",
+          "wayland": null,
+          "x11": null,
+          "width": 376.79999999999995,
+          "height": 668.8,
+          "internalId": "{46e479c4-26a3-4134-8dfd-bcdfbd21dcdf}",
+          "active": true
+        },
+        "after": {
+          "caption": "腾讯会议 <@6a3eace1e9ea>‎",
+          "resourceClass": "wemeetapp",
+          "pid": 743593,
+          "objectType": "KWin::X11Window(0x55ca87c93160)",
+          "wayland": null,
+          "x11": null,
+          "width": 376.79999999999995,
+          "height": 668.8,
+          "internalId": "{46e479c4-26a3-4134-8dfd-bcdfbd21dcdf}",
+          "active": true
+        },
+        "path": "/home/omg/文档/多兼容linux机/evidence/wayland-media-2026-10-22T082942+0800/tencent-meeting/keep-id/launch-attempt-6/startup.png",
+        "capture": "active experiment window only"
+      },
+      "backend": "KWin::X11Window(0x55ca87c93160)",
+      "finished_at": "2026-10-22T09:14:49+08:00"
+    }
+  ],
+  "environment_states": {
+    "native_and_root_baseline": [
+      {
+        "id": "meeting-debian13",
+        "target": "debian13",
+        "distribution_id": "debian",
+        "version_track": "13",
+        "runtime_state": "stopped",
+        "writable_revision": "48d4ac0d7cdaa42606f0dabce0d7581b8ce2982e0d72e8a3ce3839fc45ce0c43",
+        "base_image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "kernel_matches_current_host": true
+      },
+      {
+        "id": "native-arch",
+        "target": "arch",
+        "distribution_id": "arch",
+        "version_track": "rolling",
+        "runtime_state": "stopped",
+        "writable_revision": "42e752d86ccdd026da7024f6b354b4e236caaf893140dc87822847b9d4e321b6",
+        "base_image_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+        "kernel_matches_current_host": true
+      },
+      {
+        "id": "native-debian13",
+        "target": "debian13",
+        "distribution_id": "debian",
+        "version_track": "13",
+        "runtime_state": "stopped",
+        "writable_revision": "964f59f20224afd5b10595007d58f003eb3facfb1a5647deab0404f257d2bc23",
+        "base_image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "kernel_matches_current_host": true
+      },
+      {
+        "id": "native-fedora44",
+        "target": "fedora44",
+        "distribution_id": "fedora",
+        "version_track": "44",
+        "runtime_state": "stopped",
+        "writable_revision": "81072086d468e1942dd1b2b95055a4cf2f0ef544b84bce77dfe7a7d1c01f47d8",
+        "base_image_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+        "kernel_matches_current_host": true
+      }
+    ],
+    "nonroot_tencent": [
+      {
+        "id": "meeting-debian13",
+        "target": "debian13",
+        "distribution_id": "debian",
+        "version_track": "13",
+        "runtime_state": "stopped",
+        "writable_revision": "6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c",
+        "base_image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "kernel_matches_current_host": true
+      }
+    ],
+    "previous_gvim": [
+      {
+        "id": "gui-arch",
+        "target": "arch",
+        "distribution_id": "arch",
+        "version_track": "rolling",
+        "runtime_state": "stopped",
+        "writable_revision": "a83a73c4cae8d823d413375bca84d7ccc18669f0e478979035b6999db225be75",
+        "base_image_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+        "kernel_matches_current_host": true
+      },
+      {
+        "id": "gui-debian13",
+        "target": "debian13",
+        "distribution_id": "debian",
+        "version_track": "13",
+        "runtime_state": "stopped",
+        "writable_revision": "763ff5a7cc29f2b578612a7a5fb73344511972f646818b8cb5fa5da9c6d73f72",
+        "base_image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "kernel_matches_current_host": true
+      },
+      {
+        "id": "gui-fedora44",
+        "target": "fedora44",
+        "distribution_id": "fedora",
+        "version_track": "44",
+        "runtime_state": "stopped",
+        "writable_revision": "3abc1a7379b2d476899c1e3c2f0253c816d217b8c8cf85f7f4ec1a7d13d29ff6",
+        "base_image_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+        "kernel_matches_current_host": true
+      }
+    ],
+    "main": [
+      {
+        "id": "m3debian",
+        "target": "debian13",
+        "distribution_id": "debian",
+        "version_track": "13",
+        "runtime_state": "stopped",
+        "writable_revision": "ab0e889741ceaf7916ec6bc7625132540a9113a81eef83c8a35b6ddc8f088dfc",
+        "base_image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "kernel_matches_current_host": false
+      }
+    ]
+  },
+  "host_after": {
+    "packages": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    },
+    "entries": {
+      "directory": "/home/omg/.local/share/applications",
+      "names": [
+        "antigravity.desktop",
+        "cc-switch-handler.desktop",
+        "clash-verge-handler.desktop",
+        "claude-code-url-handler.desktop",
+        "kos-settings.desktop",
+        "org.gptniang.KDE.desktop",
+        "org.kos.Platform.desktop",
+        "org.quickshell.desktop",
+        "qwen-win.desktop"
+      ]
+    }
+  },
+  "json_errors": [],
+  "regression": {
+    "run": 62,
+    "passed": 58,
+    "skipped": 4
+  },
+  "finalizer_sha256": "5b26fe4e447ea8066de3a4d8a5b9dbc816a8224ce802fbddc83bbb108f2f742a"
+}

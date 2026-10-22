@@ -1,0 +1,742 @@
+{
+  "schema_version": 1,
+  "kind": "update-peak",
+  "started_at": "2026-10-21T09:40:42+08:00",
+  "host": {
+    "captured_at": "2026-10-21T09:40:42+08:00",
+    "kernel": "7.2.11-200.fc44.x86_64",
+    "cpu_governors": [
+      "powersave"
+    ],
+    "host": {
+      "meminfo": {
+        "MemTotal_bytes": 7982043136,
+        "MemFree_bytes": 427458560,
+        "MemAvailable_bytes": 3572690944,
+        "Cached_bytes": 3998638080,
+        "SwapTotal_bytes": 22405963776,
+        "SwapFree_bytes": 19079647232,
+        "Shmem_bytes": 764329984
+      },
+      "pressure": {
+        "cpu": {
+          "some": {
+            "avg10": 0.27,
+            "avg60": 0.68,
+            "avg300": 2.85,
+            "total_us": 2414923050
+          },
+          "full": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.0,
+            "total_us": 0
+          }
+        },
+        "memory": {
+          "some": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.51,
+            "total_us": 809819034
+          },
+          "full": {
+            "avg10": 0.0,
+            "avg60": 0.0,
+            "avg300": 0.38,
+            "total_us": 685548110
+          }
+        },
+        "io": {
+          "some": {
+            "avg10": 0.0,
+            "avg60": 0.22,
+            "avg300": 0.4,
+            "total_us": 241509871
+          },
+          "full": {
+            "avg10": 0.0,
+            "avg60": 0.18,
+            "avg300": 0.25,
+            "total_us": 132437399
+          }
+        }
+      },
+      "load_average": [
+        1.52,
+        2.59,
+        6.18
+      ]
+    },
+    "podman": "podman version 5.8.9",
+    "python": "3.14.8"
+  },
+  "settings": {
+    "targets": [
+      "debian13",
+      "fedora44",
+      "arch"
+    ],
+    "package": "tree",
+    "network": "pasta",
+    "sample_interval_seconds": 0.5,
+    "disk_sample_every": 20,
+    "scope": "Serial install then update per target; memory and disk peaks are separate from PSS."
+  },
+  "targets": {
+    "debian13": {
+      "target": "debian13",
+      "environment_id": "m4upd-debian13",
+      "errors": [],
+      "phases": {
+        "install": {
+          "operation": "install",
+          "duration_seconds": 21.963,
+          "sample_count": 39,
+          "sampling_interval_seconds": 0.5,
+          "sampling_errors": [],
+          "peak_reset": {
+            "ok": false,
+            "before": "1196032",
+            "after": "1196032",
+            "changed": false,
+            "written": 2,
+            "error": "memory.peak did not decrease after writing 0; peak reset is not effective on this kernel or cgroup"
+          },
+          "memory_peak_bytes": 163692544,
+          "memory_current_max_bytes": 142299136,
+          "pss_max_bytes": 124326912,
+          "anon_max_bytes": 110665728,
+          "file_max_bytes": 31338496,
+          "kernel_max_bytes": 1740800,
+          "slab_max_bytes": 835888,
+          "memory_pressure_some_avg10_max": 0.0,
+          "cpu_pressure_some_avg10_max": 0.0,
+          "disk_rw_max_bytes": 22625265,
+          "disk_before": {
+            "size_rw_bytes": 12171,
+            "size_root_fs_bytes": 162532437
+          },
+          "disk_after": {
+            "size_rw_bytes": 22625265,
+            "size_root_fs_bytes": 185145531
+          },
+          "host_memory_available_min_bytes": 3385204736,
+          "transaction": {
+            "id": "txn9c0dd573b55c",
+            "operation": "install",
+            "packages": [
+              "tree"
+            ],
+            "phase": "completed",
+            "failure_phase": null,
+            "native_error": null,
+            "verification": {
+              "ok": true,
+              "packages": {
+                "tree": true
+              },
+              "command": [
+                "tree",
+                "--version"
+              ],
+              "command_exit_code": 0,
+              "stdout_preview": "tree v2.2.1 (c) 1996 - 2024 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro\n",
+              "stdout_sha256": "c6fc88e6176bec78d88a2669b255d09cb6cda604766c6afc370aff066ffa3c7a",
+              "problems": []
+            },
+            "revision_before": {
+              "writable_revision": "74330c6e533addf30615151c6f85fff3e8bb9246c9cf0e66dabb1b4faca81bbd",
+              "content_revision": 1,
+              "package_inventory_sha256": "fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4"
+            },
+            "revision_after": {
+              "writable_revision": "74330c6e533addf30615151c6f85fff3e8bb9246c9cf0e66dabb1b4faca81bbd",
+              "content_revision": 2,
+              "package_inventory_sha256": "27bed9dfc812b884573e21b1f46a733169e3b05ccf262fee1837d3add1b6995c"
+            },
+            "started_at": "2026-10-21T09:40:55+08:00",
+            "finished_at": "2026-10-21T09:41:17+08:00",
+            "native": [
+              {
+                "argv": [
+                  "apt-get",
+                  "update"
+                ],
+                "exit_code": 0,
+                "stdout_tail": "Get:1 http://deb.debian.org/debian trixie InRelease [140 kB]\nGet:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]\nGet:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]\nGet:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]\nGet:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [4412 B]\nGet:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [269 kB]\nFetched 10.2 MB in 11s (925 kB/s)\nReading package lists...\n",
+                "stderr_tail": ""
+              },
+              {
+                "argv": [
+                  "apt-get",
+                  "install",
+                  "-y",
+                  "tree"
+                ],
+                "exit_code": 0,
+                "stdout_tail": "graded.\nNeed to get 59.4 kB of archives.\nAfter this operation, 132 kB of additional disk space will be used.\nGet:1 http://deb.debian.org/debian trixie/main amd64 tree amd64 2.2.1-1 [59.4 kB]\nFetched 59.4 kB in 2s (36.0 kB/s)\nSelecting previously unselected package tree.\r\n(Reading database ... \r(Reading database ... 5%\r(Reading database ... 10%\r(Reading database ... 15%\r(Reading database ... 20%\r(Reading database ... 25%\r(Reading database ... 30%\r(Reading database ... 35%\r(Reading database ... 40%\r(Reading database ... 45%\r(Reading database ... 50%\r(Reading database ... 55%\r(Reading database ... 60%\r(Reading database ... 65%\r(Reading database ... 70%\r(Reading database ... 75%\r(Reading database ... 80%\r(Reading database ... 85%\r(Reading database ... 90%\r(Reading database ... 95%\r(Reading database ... 100%\r(Reading database ... 4951 files and directories currently installed.)\r\nPreparing to unpack .../tree_2.2.1-1_amd64.deb ...\r\nUnpacking tree (2.2.1-1) ...\r\nSetting up tree (2.2.1-1) ...\r\n",
+                "stderr_tail": ""
+              }
+            ]
+          },
+          "error": null
+        },
+        "update": {
+          "operation": "update",
+          "duration_seconds": 13.833,
+          "sample_count": 25,
+          "sampling_interval_seconds": 0.5,
+          "sampling_errors": [],
+          "peak_reset": {
+            "ok": false,
+            "before": "983040",
+            "after": "983040",
+            "changed": false,
+            "written": 2,
+            "error": "memory.peak did not decrease after writing 0; peak reset is not effective on this kernel or cgroup"
+          },
+          "memory_peak_bytes": 134131712,
+          "memory_current_max_bytes": 117542912,
+          "pss_max_bytes": 129239040,
+          "anon_max_bytes": 115286016,
+          "file_max_bytes": 643072,
+          "kernel_max_bytes": 1421312,
+          "slab_max_bytes": 673312,
+          "memory_pressure_some_avg10_max": 0.0,
+          "cpu_pressure_some_avg10_max": 0.0,
+          "disk_rw_max_bytes": 22853248,
+          "disk_before": {
+            "size_rw_bytes": 22625265,
+            "size_root_fs_bytes": 185145531
+          },
+          "disk_after": {
+            "size_rw_bytes": 22853248,
+            "size_root_fs_bytes": 185373514
+          },
+          "host_memory_available_min_bytes": 3286630400,
+          "transaction": {
+            "id": "txn1095b3d3ab97",
+            "operation": "update",
+            "packages": [],
+            "phase": "completed",
+            "failure_phase": null,
+            "native_error": null,
+            "verification": {
+              "ok": true,
+              "packages": {},
+              "command": [
+                "tree",
+                "--version"
+              ],
+              "command_exit_code": 0,
+              "stdout_preview": "tree v2.2.1 (c) 1996 - 2024 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro\n",
+              "stdout_sha256": "c6fc88e6176bec78d88a2669b255d09cb6cda604766c6afc370aff066ffa3c7a",
+              "problems": []
+            },
+            "revision_before": {
+              "writable_revision": "74330c6e533addf30615151c6f85fff3e8bb9246c9cf0e66dabb1b4faca81bbd",
+              "content_revision": 2,
+              "package_inventory_sha256": "27bed9dfc812b884573e21b1f46a733169e3b05ccf262fee1837d3add1b6995c"
+            },
+            "revision_after": {
+              "writable_revision": "74330c6e533addf30615151c6f85fff3e8bb9246c9cf0e66dabb1b4faca81bbd",
+              "content_revision": 3,
+              "package_inventory_sha256": "193dc2cb1977036389f8b21775b92b016e1b91e154291aa48f1affe94ab26434"
+            },
+            "started_at": "2026-10-21T09:41:27+08:00",
+            "finished_at": "2026-10-21T09:41:41+08:00",
+            "native": [
+              {
+                "argv": [
+                  "apt-get",
+                  "update"
+                ],
+                "exit_code": 0,
+                "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\nReading package lists...\n",
+                "stderr_tail": ""
+              },
+              {
+                "argv": [
+                  "apt-get",
+                  "upgrade",
+                  "-y"
+                ],
+                "exit_code": 0,
+                "stdout_tail": ".\nGet:1 http://deb.debian.org/debian-security trixie-security/main amd64 liblzma5 amd64 5.8.1-1+deb13u2 [310 kB]\nFetched 310 kB in 3s (119 kB/s)\n(Reading database ... \r(Reading database ... 5%\r(Reading database ... 10%\r(Reading database ... 15%\r(Reading database ... 20%\r(Reading database ... 25%\r(Reading database ... 30%\r(Reading database ... 35%\r(Reading database ... 40%\r(Reading database ... 45%\r(Reading database ... 50%\r(Reading database ... 55%\r(Reading database ... 60%\r(Reading database ... 65%\r(Reading database ... 70%\r(Reading database ... 75%\r(Reading database ... 80%\r(Reading database ... 85%\r(Reading database ... 90%\r(Reading database ... 95%\r(Reading database ... 100%\r(Reading database ... 4959 files and directories currently installed.)\r\nPreparing to unpack .../liblzma5_5.8.1-1+deb13u2_amd64.deb ...\r\nUnpacking liblzma5:amd64 (5.8.1-1+deb13u2) over (5.8.1-1+deb13u1) ...\r\nSetting up liblzma5:amd64 (5.8.1-1+deb13u2) ...\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\n",
+                "stderr_tail": ""
+              }
+            ]
+          },
+          "error": null
+        }
+      },
+      "checks": {
+        "install_completed": true,
+        "update_completed": true,
+        "install_samples": true,
+        "update_samples": true,
+        "sampling_clean": true,
+        "disk_positive": true
+      },
+      "passed": true,
+      "identity": {
+        "distribution_id": "debian",
+        "version_track": "13",
+        "image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "package_inventory_sha256": "fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4"
+      },
+      "phase_boundary": {
+        "restarted": true,
+        "note": "The environment was stopped and started between install and update so memory.peak belongs to a fresh cgroup; memory.peak reset itself is not effective on this kernel."
+      },
+      "final": {
+        "content_revision": 3,
+        "package_inventory_sha256": "193dc2cb1977036389f8b21775b92b016e1b91e154291aa48f1affe94ab26434",
+        "disk": {
+          "image": {
+            "reference": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+            "id": "567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c",
+            "digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+            "size_bytes": 162520266
+          },
+          "container": {
+            "size_rw_bytes": 22853248,
+            "size_root_fs_bytes": 185373514
+          },
+          "shared_mounts": [],
+          "note": "SizeRootFs includes lower layers shared with other containers; sizes are not exclusive and must not be added across environments."
+        }
+      },
+      "cleanup_errors": []
+    },
+    "fedora44": {
+      "target": "fedora44",
+      "environment_id": "m4upd-fedora44",
+      "errors": [],
+      "phases": {
+        "install": {
+          "operation": "install",
+          "duration_seconds": 58.707,
+          "sample_count": 103,
+          "sampling_interval_seconds": 0.5,
+          "sampling_errors": [],
+          "peak_reset": {
+            "ok": false,
+            "before": "794624",
+            "after": "794624",
+            "changed": false,
+            "written": 2,
+            "error": "memory.peak did not decrease after writing 0; peak reset is not effective on this kernel or cgroup"
+          },
+          "memory_peak_bytes": 422920192,
+          "memory_current_max_bytes": 398467072,
+          "pss_max_bytes": 266989568,
+          "anon_max_bytes": 233435136,
+          "file_max_bytes": 162181120,
+          "kernel_max_bytes": 1798144,
+          "slab_max_bytes": 1104784,
+          "memory_pressure_some_avg10_max": 0.0,
+          "cpu_pressure_some_avg10_max": 0.0,
+          "disk_rw_max_bytes": 118288638,
+          "disk_before": {
+            "size_rw_bytes": 44883,
+            "size_root_fs_bytes": 382127867
+          },
+          "disk_after": {
+            "size_rw_bytes": 118288638,
+            "size_root_fs_bytes": 500371622
+          },
+          "host_memory_available_min_bytes": 3341246464,
+          "transaction": {
+            "id": "txnceea2afc8278",
+            "operation": "install",
+            "packages": [
+              "tree"
+            ],
+            "phase": "completed",
+            "failure_phase": null,
+            "native_error": null,
+            "verification": {
+              "ok": true,
+              "packages": {
+                "tree": true
+              },
+              "command": [
+                "tree",
+                "--version"
+              ],
+              "command_exit_code": 0,
+              "stdout_preview": "tree v2.2.1 (c) 1996 - 2024 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro\n",
+              "stdout_sha256": "c6fc88e6176bec78d88a2669b255d09cb6cda604766c6afc370aff066ffa3c7a",
+              "problems": []
+            },
+            "revision_before": {
+              "writable_revision": "7a3fb9e1eee2c33499468a61bbe737a0820b4a2cd4f50a01a1e37aff52c68b1c",
+              "content_revision": 1,
+              "package_inventory_sha256": "4fbc88c890ab44ee974f34584be338afd98956bdb78224fc6c8c05b0bb722801"
+            },
+            "revision_after": {
+              "writable_revision": "7a3fb9e1eee2c33499468a61bbe737a0820b4a2cd4f50a01a1e37aff52c68b1c",
+              "content_revision": 2,
+              "package_inventory_sha256": "8b6e7664a521e4c8f9a123c8aa10551603b51d97ae6207a989ef2477c0b01f78"
+            },
+            "started_at": "2026-10-21T09:42:01+08:00",
+            "finished_at": "2026-10-21T09:43:00+08:00",
+            "native": [
+              {
+                "argv": [
+                  "dnf",
+                  "install",
+                  "-y",
+                  "tree"
+                ],
+                "exit_code": 0,
+                "stdout_tail": "Package Arch   Version        Repository      Size\nInstalling:\n tree   x86_64 0:2.2.1-4.fc44 fedora     120.0 KiB\n\nTransaction Summary:\n Installing:         1 package\n\n",
+                "stderr_tail": "dc34164a674bf65fa16927-comps-Everything.x86_64.xml.zst [TLS connect error: error:0A000126:SSL routines::unexpected eof while reading] - https://mirror.plusline.net/fedora/linux/releases/44/Everything/x86_64/os/repodata/6a37d36914955dc65cf6dc037c37dcf00c64ded464dc34164a674bf65fa16927-comps-Everything.x86_64.xml.zst\nRepositories loaded.\nTotal size of inbound packages is 63 KiB. Need to download 63 KiB.\nAfter this operation, 120 KiB extra will be used (install 120 KiB, remove 0 B).\n[1/1] tree-0:2.2.1-4.fc44.x86_64        100% |  22.5 KiB/s |  62.7 KiB |  00m03s\n--------------------------------------------------------------------------------\n[1/1] Total                             100% |  22.5 KiB/s |  62.7 KiB |  00m03s\nRunning transaction\n[1/3] Verify package files              100% |   0.0   B/s |   1.0   B |  00m00s\n[2/3] Prepare transaction               100% |  18.0   B/s |   1.0   B |  00m00s\n[3/3] Installing tree-0:2.2.1-4.fc44.x8 100% | 564.6 KiB/s | 121.4 KiB |  00m00s\nComplete!\n"
+              }
+            ]
+          },
+          "error": null
+        },
+        "update": {
+          "operation": "update",
+          "duration_seconds": 11.868,
+          "sample_count": 21,
+          "sampling_interval_seconds": 0.5,
+          "sampling_errors": [],
+          "peak_reset": {
+            "ok": false,
+            "before": "1265664",
+            "after": "1265664",
+            "changed": false,
+            "written": 2,
+            "error": "memory.peak did not decrease after writing 0; peak reset is not effective on this kernel or cgroup"
+          },
+          "memory_peak_bytes": 164790272,
+          "memory_current_max_bytes": 155582464,
+          "pss_max_bytes": 165388288,
+          "anon_max_bytes": 132112384,
+          "file_max_bytes": 23851008,
+          "kernel_max_bytes": 1183744,
+          "slab_max_bytes": 713552,
+          "memory_pressure_some_avg10_max": 0.0,
+          "cpu_pressure_some_avg10_max": 0.0,
+          "disk_rw_max_bytes": 121385367,
+          "disk_before": {
+            "size_rw_bytes": 118288638,
+            "size_root_fs_bytes": 500371622
+          },
+          "disk_after": {
+            "size_rw_bytes": 121385367,
+            "size_root_fs_bytes": 503468351
+          },
+          "host_memory_available_min_bytes": 3488071680,
+          "transaction": {
+            "id": "txnea1675d1a3ab",
+            "operation": "update",
+            "packages": [],
+            "phase": "completed",
+            "failure_phase": null,
+            "native_error": null,
+            "verification": {
+              "ok": true,
+              "packages": {},
+              "command": [
+                "tree",
+                "--version"
+              ],
+              "command_exit_code": 0,
+              "stdout_preview": "tree v2.2.1 (c) 1996 - 2024 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro\n",
+              "stdout_sha256": "c6fc88e6176bec78d88a2669b255d09cb6cda604766c6afc370aff066ffa3c7a",
+              "problems": []
+            },
+            "revision_before": {
+              "writable_revision": "7a3fb9e1eee2c33499468a61bbe737a0820b4a2cd4f50a01a1e37aff52c68b1c",
+              "content_revision": 2,
+              "package_inventory_sha256": "8b6e7664a521e4c8f9a123c8aa10551603b51d97ae6207a989ef2477c0b01f78"
+            },
+            "revision_after": {
+              "writable_revision": "7a3fb9e1eee2c33499468a61bbe737a0820b4a2cd4f50a01a1e37aff52c68b1c",
+              "content_revision": 3,
+              "package_inventory_sha256": "5760b84c6f45c95a935421925418c31705bd4b71370eadba452aa1a57a018e90"
+            },
+            "started_at": "2026-10-21T09:43:11+08:00",
+            "finished_at": "2026-10-21T09:43:23+08:00",
+            "native": [
+              {
+                "argv": [
+                  "dnf",
+                  "upgrade",
+                  "-y"
+                ],
+                "exit_code": 0,
+                "stdout_tail": "Package                                  Arch   Version         Repository                            Size\nUpgrading:\n systemd-libs                            x86_64 0:259.10-1.fc44 updates                            2.5 MiB\n   replacing systemd-libs                x86_64 0:259.9-1.fc44  81ef850fe6af4065b143db864d69ca6c   2.4 MiB\n systemd-standalone-sysusers             x86_64 0:259.10-1.fc44 updates                          305.7 KiB\n   replacing systemd-standalone-sysusers x86_64 0:259.9-1.fc44  81ef850fe6af4065b143db864d69ca6c 305.7 KiB\n\nTransaction Summary:\n Upgrading:          2 packages\n Replacing:          2 packages\n\n",
+                "stderr_tail": "sitories loaded.\nTotal size of inbound packages is 1 MiB. Need to download 1 MiB.\nAfter this operation, 4 KiB extra will be used (install 3 MiB, remove 3 MiB).\n[1/2] systemd-standalone-sysusers-0:259 100% |  63.5 KiB/s | 151.9 KiB |  00m02s\n[2/2] systemd-libs-0:259.10-1.fc44.x86_ 100% | 268.8 KiB/s | 869.7 KiB |  00m03s\n--------------------------------------------------------------------------------\n[2/2] Total                             100% | 177.3 KiB/s |   1.0 MiB |  00m06s\nRunning transaction\n[1/6] Verify package files              100% | 222.0   B/s |   2.0   B |  00m00s\n[2/6] Prepare transaction               100% | 142.0   B/s |   4.0   B |  00m00s\n[3/6] Upgrading systemd-standalone-sysu 100% |   7.0 MiB/s | 306.2 KiB |  00m00s\n[4/6] Upgrading systemd-libs-0:259.10-1 100% |  58.4 MiB/s |   2.5 MiB |  00m00s\n[5/6] Removing systemd-standalone-sysus 100% | 181.0   B/s |   4.0   B |  00m00s\n[6/6] Removing systemd-libs-0:259.9-1.f 100% | 220.0   B/s |  22.0   B |  00m00s\nComplete!\n"
+              }
+            ]
+          },
+          "error": null
+        }
+      },
+      "checks": {
+        "install_completed": true,
+        "update_completed": true,
+        "install_samples": true,
+        "update_samples": true,
+        "sampling_clean": true,
+        "disk_positive": true
+      },
+      "passed": true,
+      "identity": {
+        "distribution_id": "fedora",
+        "version_track": "44",
+        "image_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+        "package_inventory_sha256": "4fbc88c890ab44ee974f34584be338afd98956bdb78224fc6c8c05b0bb722801"
+      },
+      "phase_boundary": {
+        "restarted": true,
+        "note": "The environment was stopped and started between install and update so memory.peak belongs to a fresh cgroup; memory.peak reset itself is not effective on this kernel."
+      },
+      "final": {
+        "content_revision": 3,
+        "package_inventory_sha256": "5760b84c6f45c95a935421925418c31705bd4b71370eadba452aa1a57a018e90",
+        "disk": {
+          "image": {
+            "reference": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+            "id": "4b5d9a75c81b96b542ac08b19587efa516da72bf02581908c6178d39de4bb07b",
+            "digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+            "size_bytes": 382082984
+          },
+          "container": {
+            "size_rw_bytes": 121385367,
+            "size_root_fs_bytes": 503468351
+          },
+          "shared_mounts": [],
+          "note": "SizeRootFs includes lower layers shared with other containers; sizes are not exclusive and must not be added across environments."
+        }
+      },
+      "cleanup_errors": []
+    },
+    "arch": {
+      "target": "arch",
+      "environment_id": "m4upd-arch",
+      "errors": [],
+      "phases": {
+        "install": {
+          "operation": "install",
+          "duration_seconds": 73.382,
+          "sample_count": 129,
+          "sampling_interval_seconds": 0.5,
+          "sampling_errors": [],
+          "peak_reset": {
+            "ok": false,
+            "before": "1724416",
+            "after": "1724416",
+            "changed": false,
+            "written": 2,
+            "error": "memory.peak did not decrease after writing 0; peak reset is not effective on this kernel or cgroup"
+          },
+          "memory_peak_bytes": 286339072,
+          "memory_current_max_bytes": 257245184,
+          "pss_max_bytes": 96746496,
+          "anon_max_bytes": 78372864,
+          "file_max_bytes": 177942528,
+          "kernel_max_bytes": 10924032,
+          "slab_max_bytes": 10190888,
+          "memory_pressure_some_avg10_max": 0.0,
+          "cpu_pressure_some_avg10_max": 0.0,
+          "disk_rw_max_bytes": 121104769,
+          "disk_before": {
+            "size_rw_bytes": 12189,
+            "size_root_fs_bytes": 410441324
+          },
+          "disk_after": {
+            "size_rw_bytes": 121104769,
+            "size_root_fs_bytes": 531533904
+          },
+          "host_memory_available_min_bytes": 3285221376,
+          "transaction": {
+            "id": "txn1b06b659dbd8",
+            "operation": "install",
+            "packages": [
+              "tree"
+            ],
+            "phase": "completed",
+            "failure_phase": null,
+            "native_error": null,
+            "verification": {
+              "ok": true,
+              "packages": {
+                "tree": true
+              },
+              "command": [
+                "tree",
+                "--version"
+              ],
+              "command_exit_code": 0,
+              "stdout_preview": "tree v2.3.2 © 1996 - 2026 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro\n",
+              "stdout_sha256": "59d00bb9251590c992e64c83083d8169f425be10bc2abb7aab0d93c8da6690b0",
+              "problems": []
+            },
+            "revision_before": {
+              "writable_revision": "8bd6f54943ffa730af7f1ebbe201dbed0eeb09f625b641de3a94be109937d082",
+              "content_revision": 1,
+              "package_inventory_sha256": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7"
+            },
+            "revision_after": {
+              "writable_revision": "8bd6f54943ffa730af7f1ebbe201dbed0eeb09f625b641de3a94be109937d082",
+              "content_revision": 2,
+              "package_inventory_sha256": "ce1b2c7513c018f0ecd9d200d151b37e8feaf39129e4bd4624c2f9d7a509423b"
+            },
+            "started_at": "2026-10-21T09:43:43+08:00",
+            "finished_at": "2026-10-21T09:44:57+08:00",
+            "native": [
+              {
+                "argv": [
+                  "pacman-key",
+                  "--init"
+                ],
+                "exit_code": 0,
+                "stdout_tail": "==> Generating pacman master key. This may take some time.\n==> Updating trust database...\n",
+                "stderr_tail": "gpg: Generating pacman keyring master key...\ngpg: revocation certificate stored as '/etc/pacman.d/gnupg/openpgp-revocs.d/E53E910F187290C92150DEE1C84267EA524B172B.rev'\ngpg: Done\ngpg: Note: third-party key signatures using the SHA1 algorithm are rejected\ngpg: (use option \"--allow-weak-key-signatures\" to override)\ngpg: marginals needed: 3  completes needed: 1  trust model: pgp\ngpg: depth: 0  valid:   2  signed:   5  trust: 0-, 0q, 0n, 0m, 0f, 2u\ngpg: depth: 1  valid:   5  signed:  89  trust: 0-, 0q, 0n, 5m, 0f, 0u\ngpg: depth: 2  valid:  78  signed:  18  trust: 78-, 0q, 0n, 0m, 0f, 0u\ngpg: next trustdb check due at 2026-10-26\n"
+              },
+              {
+                "argv": [
+                  "pacman",
+                  "-Syu",
+                  "--noconfirm",
+                  "--needed",
+                  "tree"
+                ],
+                "exit_code": 0,
+                "stdout_tail": "ction hooks...\n( 1/12) Creating system user accounts...\nFailed to connect to audit log, ignoring: Invalid argument\n( 2/12) Creating temporary files...\n/usr/lib/tmpfiles.d/journal-nocow.conf:26: Failed to resolve specifier: uninitialized /etc/ detected, skipping.\nAll rules containing unresolvable specifiers will be skipped.\n( 3/12) Updating journal message catalog...\n( 4/12) Updating udev hardware database...\n( 5/12) Applying kernel sysctl settings...\n  Skipped: Current root is not booted.\n( 6/12) Reloading system manager configuration...\n  Skipped: Current root is not booted.\n( 7/12) Reloading user manager configuration...\n  Skipped: Current root is not booted.\n( 8/12) Enqueuing marked services...\n  Skipped: Current root is not booted.\n( 9/12) Reloading device manager configuration...\n  Skipped: Current root is not booted.\n(10/12) Arming ConditionNeedsUpdate...\n(11/12) Rebuilding certificate stores...\n(12/12) Reloading system bus configuration...\n  Skipped: Current root is not booted.\n",
+                "stderr_tail": ""
+              }
+            ]
+          },
+          "error": null
+        },
+        "update": {
+          "operation": "update",
+          "duration_seconds": 6.516,
+          "sample_count": 12,
+          "sampling_interval_seconds": 0.5,
+          "sampling_errors": [],
+          "peak_reset": {
+            "ok": false,
+            "before": "1204224",
+            "after": "1204224",
+            "changed": false,
+            "written": 2,
+            "error": "memory.peak did not decrease after writing 0; peak reset is not effective on this kernel or cgroup"
+          },
+          "memory_peak_bytes": 50073600,
+          "memory_current_max_bytes": 5705728,
+          "pss_max_bytes": 19621888,
+          "anon_max_bytes": 4182016,
+          "file_max_bytes": 1724416,
+          "kernel_max_bytes": 1011712,
+          "slab_max_bytes": 546440,
+          "memory_pressure_some_avg10_max": 0.0,
+          "cpu_pressure_some_avg10_max": 0.0,
+          "disk_rw_max_bytes": 121104968,
+          "disk_before": {
+            "size_rw_bytes": 121104769,
+            "size_root_fs_bytes": 531533904
+          },
+          "disk_after": {
+            "size_rw_bytes": 121104968,
+            "size_root_fs_bytes": 531534103
+          },
+          "host_memory_available_min_bytes": 3554070528,
+          "transaction": {
+            "id": "txna4d2cecdcd0e",
+            "operation": "update",
+            "packages": [],
+            "phase": "completed",
+            "failure_phase": null,
+            "native_error": null,
+            "verification": {
+              "ok": true,
+              "packages": {},
+              "command": [
+                "tree",
+                "--version"
+              ],
+              "command_exit_code": 0,
+              "stdout_preview": "tree v2.3.2 © 1996 - 2026 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro\n",
+              "stdout_sha256": "59d00bb9251590c992e64c83083d8169f425be10bc2abb7aab0d93c8da6690b0",
+              "problems": []
+            },
+            "revision_before": {
+              "writable_revision": "8bd6f54943ffa730af7f1ebbe201dbed0eeb09f625b641de3a94be109937d082",
+              "content_revision": 2,
+              "package_inventory_sha256": "ce1b2c7513c018f0ecd9d200d151b37e8feaf39129e4bd4624c2f9d7a509423b"
+            },
+            "revision_after": {
+              "writable_revision": "8bd6f54943ffa730af7f1ebbe201dbed0eeb09f625b641de3a94be109937d082",
+              "content_revision": 2,
+              "package_inventory_sha256": "ce1b2c7513c018f0ecd9d200d151b37e8feaf39129e4bd4624c2f9d7a509423b"
+            },
+            "started_at": "2026-10-21T09:45:07+08:00",
+            "finished_at": "2026-10-21T09:45:14+08:00",
+            "native": [
+              {
+                "argv": [
+                  "pacman",
+                  "-Syu",
+                  "--noconfirm"
+                ],
+                "exit_code": 0,
+                "stdout_tail": ":: Synchronizing package databases...\n core downloading...\n extra downloading...\n:: Starting full system upgrade...\n there is nothing to do\n",
+                "stderr_tail": ""
+              }
+            ]
+          },
+          "error": null
+        }
+      },
+      "checks": {
+        "install_completed": true,
+        "update_completed": true,
+        "install_samples": true,
+        "update_samples": true,
+        "sampling_clean": true,
+        "disk_positive": true
+      },
+      "passed": true,
+      "identity": {
+        "distribution_id": "arch",
+        "version_track": "rolling",
+        "image_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+        "package_inventory_sha256": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7"
+      },
+      "phase_boundary": {
+        "restarted": true,
+        "note": "The environment was stopped and started between install and update so memory.peak belongs to a fresh cgroup; memory.peak reset itself is not effective on this kernel."
+      },
+      "final": {
+        "content_revision": 2,
+        "package_inventory_sha256": "ce1b2c7513c018f0ecd9d200d151b37e8feaf39129e4bd4624c2f9d7a509423b",
+        "disk": {
+          "image": {
+            "reference": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+            "id": "5a30b4acc83ff841682eb21795e00f7ff030796f5e6fd2a127decd7a45ba7cef",
+            "digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+            "size_bytes": 410429135
+          },
+          "container": {
+            "size_rw_bytes": 121104968,
+            "size_root_fs_bytes": 531534103
+          },
+          "shared_mounts": [],
+          "note": "SizeRootFs includes lower layers shared with other containers; sizes are not exclusive and must not be added across environments."
+        }
+      },
+      "cleanup_errors": []
+    }
+  },
+  "passed": true,
+  "finished_at": "2026-10-21T09:45:23+08:00"
+}

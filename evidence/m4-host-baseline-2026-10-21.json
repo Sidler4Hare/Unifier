@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-10-21T09:16:36+08:00",
+  "scope": "Host baseline only; no container or cross-distribution performance test executed.",
+  "os_release": {
+    "NAME": "Fedora Linux",
+    "ID": "fedora",
+    "VERSION_ID": "44",
+    "PRETTY_NAME": "Fedora Linux 44 (KDE Plasma Desktop Edition)"
+  },
+  "kernel_release": "7.2.11-200.fc44.x86_64",
+  "architecture": "x86_64",
+  "cpu": {
+    "model": "11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz",
+    "logical_cpus": 8,
+    "governors": [
+      "powersave"
+    ]
+  },
+  "memory": {
+    "MemTotal_bytes": 7982043136,
+    "MemFree_bytes": 402739200,
+    "MemAvailable_bytes": 1435750400,
+    "Cached_bytes": 2245779456,
+    "SwapTotal_bytes": 22405963776,
+    "SwapFree_bytes": 12621279232,
+    "Shmem_bytes": 917417984,
+    "Slab_bytes": 439734272,
+    "SReclaimable_bytes": 120680448
+  },
+  "swap_devices": [
+    {
+      "backing": "disk_or_file",
+      "type": "file",
+      "size_bytes": 6442446848,
+      "used_bytes": 0,
+      "priority": -1
+    },
+    {
+      "backing": "zram",
+      "type": "partition",
+      "size_bytes": 15963516928,
+      "used_bytes": 9784672256,
+      "priority": 100
+    }
+  ],
+  "zram": [
+    {
+      "device": "zram0",
+      "logical_capacity_bytes": 15963521024,
+      "original_data_bytes": 9087315968,
+      "compressed_data_bytes": 2437562987,
+      "physical_memory_used_bytes": 2499162112
+    }
+  ],
+  "workspace_filesystem": {
+    "type": "btrfs",
+    "options": "rw,relatime,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/home",
+    "total_bytes": 509332160512,
+    "used_bytes": 106083520512,
+    "free_bytes": 401968099328,
+    "note": "Filesystem-wide values; not the project's or a container's disk use."
+  },
+  "cgroup": {
+    "v2": true,
+    "root_controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem"
+  },
+  "security": {
+    "selinux_mode": "Enforcing",
+    "apparmor_module_enabled": null
+  },
+  "namespace_policy": {
+    "max_user_namespaces": 30211,
+    "unprivileged_userns_clone": null,
+    "note": "Policy values do not prove that a namespace or container can actually start."
+  },
+  "kernel_config": {
+    "CONFIG_CGROUPS": "y",
+    "CONFIG_MEMCG": "y",
+    "CONFIG_NAMESPACES": "y",
+    "CONFIG_USER_NS": "y",
+    "CONFIG_PID_NS": "y",
+    "CONFIG_NET_NS": "y",
+    "CONFIG_BTRFS_FS": "y",
+    "CONFIG_OVERLAY_FS": "m"
+  },
+  "tools": {
+    "podman": {
+      "available": true,
+      "version": "podman version 5.8.9"
+    },
+    "docker": {
+      "available": false,
+      "version": null
+    },
+    "toolbox": {
+      "available": true,
+      "version": "toolbox version 0.3"
+    },
+    "distrobox": {
+      "available": false,
+      "version": null
+    },
+    "systemd-nspawn": {
+      "available": false,
+      "version": null
+    },
+    "bwrap": {
+      "available": true,
+      "version": "bubblewrap 0.12.0"
+    },
+    "unshare": {
+      "available": true,
+      "version": "unshare from util-linux 2.41.5"
+    },
+    "perf": {
+      "available": false,
+      "version": null
+    },
+    "hyperfine": {
+      "available": false,
+      "version": null
+    },
+    "fio": {
+      "available": false,
+      "version": null
+    },
+    "smem": {
+      "available": false,
+      "version": null
+    }
+  },
+  "pressure": {
+    "cpu": {
+      "some": {
+        "avg10": 50.06,
+        "avg60": 50.76,
+        "avg300": 42.57,
+        "total": 2201844858
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total": 0
+      }
+    },
+    "memory": {
+      "some": {
+        "avg10": 24.97,
+        "avg60": 27.72,
+        "avg300": 22.07,
+        "total": 756688915
+      },
+      "full": {
+        "avg10": 18.99,
+        "avg60": 19.65,
+        "avg300": 16.19,
+        "total": 642804403
+      }
+    },
+    "io": {
+      "some": {
+        "avg10": 2.47,
+        "avg60": 2.8,
+        "avg300": 2.08,
+        "total": 224984125
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total": 125721326
+      }
+    }
+  },
+  "limitations": [
+    "A live desktop snapshot contains unrelated application activity.",
+    "MemAvailable is an estimate, not a guaranteed allocation budget.",
+    "Swap use is logical swapped data; zram's physical use is reported separately.",
+    "No package installation, image pull, container start, or setting change is performed."
+  ],
+  "collection_seconds": 0.564
+}

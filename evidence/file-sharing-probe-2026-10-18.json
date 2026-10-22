@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-10-18T09:51:59+08:00",
+  "kernel_release": "7.2.7-200.fc44.x86_64",
+  "file_size_bytes": 8388608,
+  "page_size_bytes": 4096,
+  "cases": [
+    {
+      "mode": "hardlink",
+      "contents_equal": true,
+      "sha256": "5d6704cfe5203a8f198ff23be6cbe23c3805fdfdd174371cc96acc9a2e088a72",
+      "same_device_and_inode": true,
+      "extent_report_returncode": 0,
+      "extent_report": "     Total   Exclusive  Set shared  Filename\n   8388608     8388608           0  <scratch>/hardlink/source.bin\n   8388608     8388608           0  <scratch>/hardlink/target.bin\n",
+      "children_ready": [
+        {
+          "ready": true,
+          "page_sample_checksum": 262657
+        },
+        {
+          "ready": true,
+          "page_sample_checksum": 262657
+        }
+      ],
+      "mapping_stats": [
+        {
+          "Private_Dirty_bytes": 0,
+          "Private_Clean_bytes": 0,
+          "Swap_bytes": 0,
+          "Anonymous_bytes": 0,
+          "Rss_bytes": 8388608,
+          "Shared_Dirty_bytes": 0,
+          "Shared_Clean_bytes": 8388608,
+          "Pss_bytes": 4194304
+        },
+        {
+          "Private_Dirty_bytes": 0,
+          "Private_Clean_bytes": 0,
+          "Swap_bytes": 0,
+          "Anonymous_bytes": 0,
+          "Rss_bytes": 8388608,
+          "Shared_Dirty_bytes": 0,
+          "Shared_Clean_bytes": 8388608,
+          "Pss_bytes": 4194304
+        }
+      ],
+      "sum_mapping_pss_bytes": 8388608,
+      "sum_mapping_rss_bytes": 16777216
+    },
+    {
+      "mode": "ordinary_copy",
+      "contents_equal": true,
+      "sha256": "bbfc548b9809cdd38568896093016a53cd5cbbdcdd7c18508047683918001d27",
+      "same_device_and_inode": false,
+      "extent_report_returncode": 0,
+      "extent_report": "     Total   Exclusive  Set shared  Filename\n   8388608     8388608           0  <scratch>/ordinary_copy/source.bin\n   8388608     8388608           0  <scratch>/ordinary_copy/target.bin\n",
+      "children_ready": [
+        {
+          "ready": true,
+          "page_sample_checksum": 254483
+        },
+        {
+          "ready": true,
+          "page_sample_checksum": 254483
+        }
+      ],
+      "mapping_stats": [
+        {
+          "Private_Dirty_bytes": 0,
+          "Private_Clean_bytes": 8388608,
+          "Swap_bytes": 0,
+          "Anonymous_bytes": 0,
+          "Rss_bytes": 8388608,
+          "Shared_Dirty_bytes": 0,
+          "Shared_Clean_bytes": 0,
+          "Pss_bytes": 8388608
+        },
+        {
+          "Private_Dirty_bytes": 0,
+          "Private_Clean_bytes": 8388608,
+          "Swap_bytes": 0,
+          "Anonymous_bytes": 0,
+          "Rss_bytes": 8388608,
+          "Shared_Dirty_bytes": 0,
+          "Shared_Clean_bytes": 0,
+          "Pss_bytes": 8388608
+        }
+      ],
+      "sum_mapping_pss_bytes": 16777216,
+      "sum_mapping_rss_bytes": 16777216
+    },
+    {
+      "mode": "reflink",
+      "contents_equal": true,
+      "sha256": "c1e31598a23a9a86e9c0f11ba9d160d9b2b30c10a290c2f087c9145015ca07d6",
+      "same_device_and_inode": false,
+      "extent_report_returncode": 0,
+      "extent_report": "     Total   Exclusive  Set shared  Filename\n   8388608           0     8388608  <scratch>/reflink/source.bin\n   8388608           0     8388608  <scratch>/reflink/target.bin\n",
+      "children_ready": [
+        {
+          "ready": true,
+          "page_sample_checksum": 256383
+        },
+        {
+          "ready": true,
+          "page_sample_checksum": 256383
+        }
+      ],
+      "mapping_stats": [
+        {
+          "Private_Dirty_bytes": 0,
+          "Private_Clean_bytes": 8388608,
+          "Swap_bytes": 0,
+          "Anonymous_bytes": 0,
+          "Rss_bytes": 8388608,
+          "Shared_Dirty_bytes": 0,
+          "Shared_Clean_bytes": 0,
+          "Pss_bytes": 8388608
+        },
+        {
+          "Private_Dirty_bytes": 0,
+          "Private_Clean_bytes": 8388608,
+          "Swap_bytes": 0,
+          "Anonymous_bytes": 0,
+          "Rss_bytes": 8388608,
+          "Shared_Dirty_bytes": 0,
+          "Shared_Clean_bytes": 0,
+          "Pss_bytes": 8388608
+        }
+      ],
+      "sum_mapping_pss_bytes": 16777216,
+      "sum_mapping_rss_bytes": 16777216
+    }
+  ],
+  "limitations": [
+    "One controlled run per case; not a timing benchmark or a distro compatibility test.",
+    "PSS covers only the explicitly mapped test file, excluding Python heaps and kernel metadata.",
+    "Extent-sharing figures are not a full filesystem physical-space measurement.",
+    "Temporary files and child processes are removed after measurement."
+  ]
+}

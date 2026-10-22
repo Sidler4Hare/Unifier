@@ -1,0 +1,39 @@
+{
+  "started_at": "2026-10-22T08:42:05+08:00",
+  "passed": true,
+  "driver_sha256": "5ae8a25866788b1ba1bf0165eea072598a6b4475a1f73c5b2bbf8af788f4dac1",
+  "artifacts": "fedora44/audio-retest-1",
+  "errors": [],
+  "audio": {
+    "passed": true,
+    "frequency_hz": 659,
+    "tone_sha256": "3e7fbc5b365ffda0aabc3071e0106743c28ae4dd9600b0b02f67856e8196dd79",
+    "capture_sha256": "a59e454b917091ed0f10923fdc18839d561df96dcae720720911e02d65bcf201",
+    "capture_bytes": 131072,
+    "rate": 48000,
+    "nonzero_samples": 65441,
+    "rms": 1555.2123353877084,
+    "tone_energy_fraction": 1.0000437096666392,
+    "sink_input_index": 11575,
+    "sink_index": 11072,
+    "sink_description": "LinkBuds Open",
+    "device_api": "bluez5",
+    "sink_state": "RUNNING",
+    "sink_muted": false,
+    "sink_volume": {
+      "front-left": {
+        "value": 33026,
+        "value_percent": "50%",
+        "db": "-17.86 dB"
+      },
+      "front-right": {
+        "value": 33026,
+        "value_percent": "50%",
+        "db": "-17.86 dB"
+      }
+    },
+    "capture_scope": "own sink-input monitor only; no microphone or other application audio",
+    "physical_audibility": "not independently confirmed by human listening"
+  },
+  "finished_at": "2026-10-22T08:42:18+08:00"
+}

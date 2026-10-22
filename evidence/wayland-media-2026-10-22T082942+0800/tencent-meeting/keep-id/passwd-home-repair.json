@@ -1,0 +1,14 @@
+{
+  "home_before": "/",
+  "home_after": "/home/multilinux-1000",
+  "copy_result": {
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "verification": {
+    "returncode": 0,
+    "stdout": "omg:*:1000:1000:OMG:/home/multilinux-1000:/bin/sh\n",
+    "stderr": ""
+  }
+}

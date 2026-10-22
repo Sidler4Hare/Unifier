@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-10-22T08:04:14+08:00",
+  "conclusion": "Ready for serial real-application trials on this Fedora 44 host; broader compatibility remains unverified.",
+  "scope": "Readiness audit. Current live base-image and Debian resource checks; no new package or GUI acceptance, and no new performance benchmark.",
+  "milestones": {
+    "M0": "three base environments verified again today",
+    "M1": "historical lifecycle acceptance for three target environments",
+    "M2": "historical native package transactions for tree in three target environments",
+    "M3": "historical Debian gvim open/save/reopen, desktop export, Wayland handshake and audio-server query; Fedora/Arch GUI pending",
+    "M4": "two bounded single-host collections on 2026-10-21: states, same-binary and update peaks; recorded source hashes still match",
+    "M5": "not started"
+  },
+  "current_checks": {
+    "offline_unittest": {
+      "command": "python3 -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "tests_run": 55,
+      "passed": 51,
+      "skipped_live_integration": 4
+    },
+    "doctor": {
+      "command": "python3 tools/lab.py doctor",
+      "exit_code": 0,
+      "runtime_preflight_passed": true,
+      "image_lock": "valid"
+    },
+    "shell_syntax": {
+      "command": "sh -n fixtures/lab-smoke.sh",
+      "exit_code": 0
+    },
+    "base_smoke": {
+      "path": "base-smoke.json",
+      "passed": true,
+      "targets": {
+        "debian13": {
+          "locked_reference": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+          "package_count": 78,
+          "matches_original_lock": true,
+          "matches_original_package_inventory": true
+        },
+        "fedora44": {
+          "locked_reference": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+          "package_count": 147,
+          "matches_original_lock": true,
+          "matches_original_package_inventory": true
+        },
+        "arch": {
+          "locked_reference": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+          "package_count": 137,
+          "matches_original_lock": true,
+          "matches_original_package_inventory": true
+        }
+      }
+    },
+    "resources_integration": {
+      "command": "MULTILINUX_INTEGRATION=1 python3 -m unittest tests.test_resources_integration -v",
+      "exit_code": 0,
+      "passed": true,
+      "tests_run": 1,
+      "target": "debian13",
+      "log": "resource-sampling-unittest.txt"
+    }
+  },
+  "host_baseline": "host-baseline.json",
+  "host_kernel": "7.2.11-200.fc44.x86_64",
+  "host_available_memory_gib": 2.009,
+  "host_memory_psi_some_avg10": 0.0,
+  "historical_evidence": [
+    {
+      "path": "evidence/m1-lifecycle-2026-10-19.json",
+      "passed": true,
+      "started_at": "2026-10-19T15:27:10+08:00",
+      "finished_at": "2026-10-19T15:28:04+08:00",
+      "recorded_source_hashes_match": null
+    },
+    {
+      "path": "evidence/m2-packages-2026-10-19.json",
+      "passed": true,
+      "started_at": "2026-10-19T18:40:43+08:00",
+      "finished_at": "2026-10-19T18:51:07+08:00",
+      "recorded_source_hashes_match": null
+    },
+    {
+      "path": "evidence/m3-desktop-2026-10-19.json",
+      "passed": true,
+      "started_at": "2026-10-19T19:26:28+08:00",
+      "finished_at": "2026-10-19T19:28:18+08:00",
+      "recorded_source_hashes_match": null
+    },
+    {
+      "path": "evidence/m4-same-binary-2026-10-21T101057+0800.json",
+      "passed": true,
+      "started_at": "2026-10-21T10:14:17+08:00",
+      "finished_at": "2026-10-21T10:17:40+08:00",
+      "recorded_source_hashes_match": {
+        "src/multilinux/resources.py": true,
+        "src/multilinux/runtime.py": true,
+        "src/multilinux/service.py": true,
+        "src/multilinux/packages.py": true,
+        "tools/probe_resources.py": true,
+        "fixtures/resource_probe.c": true
+      }
+    },
+    {
+      "path": "evidence/m4-states-2026-10-21T101057+0800.json",
+      "passed": true,
+      "started_at": "2026-10-21T10:10:57+08:00",
+      "finished_at": "2026-10-21T10:14:17+08:00",
+      "recorded_source_hashes_match": {
+        "src/multilinux/resources.py": true,
+        "src/multilinux/runtime.py": true,
+        "src/multilinux/service.py": true,
+        "src/multilinux/packages.py": true,
+        "tools/probe_resources.py": true,
+        "fixtures/resource_probe.c": true
+      }
+    },
+    {
+      "path": "evidence/m4-update-peak-2026-10-21T101057+0800.json",
+      "passed": true,
+      "started_at": "2026-10-21T10:17:41+08:00",
+      "finished_at": "2026-10-21T10:20:41+08:00",
+      "recorded_source_hashes_match": {
+        "src/multilinux/resources.py": true,
+        "src/multilinux/runtime.py": true,
+        "src/multilinux/service.py": true,
+        "src/multilinux/packages.py": true,
+        "tools/probe_resources.py": true,
+        "fixtures/resource_probe.c": true
+      }
+    }
+  ],
+  "old_desktop_environment": {
+    "id": "m3debian",
+    "runtime_state": "stopped",
+    "missing_mount_sources": [
+      "/tmp/ml-m3-docs",
+      "/run/user/1000/xauth_yxySCh"
+    ],
+    "requires_new_current_session_environment": true
+  },
+  "current_session_mount_sources_present": true,
+  "environment_list_after_checks": [
+    {
+      "id": "m3debian",
+      "target": "debian13",
+      "distribution_id": "debian",
+      "version_track": "13",
+      "runtime_state": "stopped",
+      "writable_revision": "ab0e889741ceaf7916ec6bc7625132540a9113a81eef83c8a35b6ddc8f088dfc",
+      "base_image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "kernel_matches_current_host": false
+    }
+  ],
+  "project_containers_after_checks": {
+    "multilinux.lab": [],
+    "multilinux.project": [
+      "ml-6d50a6dc-m3debian exited"
+    ]
+  },
+  "remaining_work": [
+    "real target-application open/edit/save/reopen acceptance",
+    "Fedora and Arch GUI trials",
+    "clipboard and actual audio playback; GPU and video acceleration",
+    "I/O, concurrency and full-init/service support",
+    "controlled performance follow-up and CLI entry latency",
+    "Debian and Arch hosts for M5"
+  ],
+  "git_has_commits": false,
+  "changes_this_audit": "New readiness evidence and transient lab probe files only; existing environment retained; no image-lock refresh or package installation/update."
+}

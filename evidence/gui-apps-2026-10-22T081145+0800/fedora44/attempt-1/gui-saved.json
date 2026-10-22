@@ -1,0 +1,486 @@
+{
+  "collected_at": "2026-10-22T08:16:55+08:00",
+  "environment_id": "gui-fedora44",
+  "target": "fedora44",
+  "runtime_state": "running",
+  "content_revision": 2,
+  "package_inventory_sha256": "a1de1f194efb3c63e660bf14bfc18d96a11fdee06c4a953a6b944cd161b1ba0a",
+  "image_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+  "container_id": "3abc1a7379b2d476899c1e3c2f0253c816d217b8c8cf85f7f4ec1a7d13d29ff6",
+  "kernel_matches_current_host": true,
+  "pid": 656698,
+  "conmon_pid": 656696,
+  "cgroup": {
+    "path": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-3abc1a7379b2d476899c1e3c2f0253c816d217b8c8cf85f7f4ec1a7d13d29ff6.scope/container",
+    "errors": {},
+    "memory_current_bytes": 33763328,
+    "memory_peak_bytes": 37007360,
+    "memory_swap_current_bytes": 0,
+    "pids_current": 22,
+    "pids_peak": 34,
+    "memory_high": "max",
+    "memory_max": "max",
+    "cpu_max": "max 100000",
+    "memory_stat": {
+      "anon": 12087296,
+      "file": 18661376,
+      "kernel": 2969600,
+      "kernel_stack": 327680,
+      "pagetables": 880640,
+      "sec_pagetables": 0,
+      "percpu": 9520,
+      "sock": 0,
+      "vmalloc": 40960,
+      "shmem": 0,
+      "zswap": 0,
+      "zswapped": 0,
+      "zswap_incomp": 0,
+      "file_mapped": 12664832,
+      "file_dirty": 0,
+      "file_writeback": 0,
+      "swapcached": 0,
+      "anon_thp": 0,
+      "file_thp": 0,
+      "shmem_thp": 0,
+      "inactive_anon": 0,
+      "active_anon": 12075008,
+      "inactive_file": 18673664,
+      "active_file": 0,
+      "unevictable": 0,
+      "slab_reclaimable": 686272,
+      "slab_unreclaimable": 1011160,
+      "slab": 1697432,
+      "hugetlb": 0,
+      "workingset_refault_anon": 0,
+      "workingset_refault_file": 330,
+      "workingset_activate_anon": 0,
+      "workingset_activate_file": 0,
+      "workingset_restore_anon": 0,
+      "workingset_restore_file": 0,
+      "workingset_nodereclaim": 0,
+      "pgdemote_kswapd": 0,
+      "pgdemote_direct": 0,
+      "pgdemote_khugepaged": 0,
+      "pgdemote_proactive": 0,
+      "pgsteal_kswapd": 0,
+      "pgsteal_direct": 0,
+      "pgsteal_khugepaged": 0,
+      "pgsteal_proactive": 0,
+      "pgscan_kswapd": 0,
+      "pgscan_direct": 0,
+      "pgscan_khugepaged": 0,
+      "pgscan_proactive": 0,
+      "pgrefill": 0,
+      "pgpromote_success": 0,
+      "pgscan": 0,
+      "pgsteal": 0,
+      "pswpin": 0,
+      "pswpout": 0,
+      "pgfault": 16427,
+      "pgmajfault": 26,
+      "pgactivate": 0,
+      "pgdeactivate": 0,
+      "pglazyfree": 0,
+      "pglazyfreed": 0,
+      "swpin_zero": 0,
+      "swpout_zero": 0,
+      "zswpin": 0,
+      "zswpout": 0,
+      "zswpwb": 0,
+      "thp_fault_alloc": 0,
+      "thp_collapse_alloc": 0,
+      "thp_swpout": 0,
+      "thp_swpout_fallback": 0,
+      "numa_pages_migrated": 0,
+      "numa_pte_updates": 0,
+      "numa_hint_faults": 0
+    },
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 816418,
+      "user_usec": 478486,
+      "system_usec": 337931,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "memory_pressure": {
+      "some": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 0
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 0
+      }
+    },
+    "cpu_pressure": {
+      "some": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 18429
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 9859
+      }
+    },
+    "io_pressure": {
+      "some": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 9522
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 9502
+      }
+    },
+    "container_id_matches": true
+  },
+  "processes": {
+    "process_count": 8,
+    "expected_process_count": 8,
+    "complete": true,
+    "pss_bytes": 59699200,
+    "rss_bytes": 82665472,
+    "pss_partial_bytes": 59699200,
+    "details": [
+      {
+        "pid": 656698,
+        "comm": "sleep",
+        "rss_bytes": 1781760,
+        "pss_bytes": 381952,
+        "pss_anon_bytes": 102400,
+        "pss_file_bytes": 279552,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 1646592,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 32768,
+        "private_dirty_bytes": 102400,
+        "referenced_bytes": 1781760,
+        "anonymous_bytes": 102400,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 657095,
+        "comm": "gvim",
+        "rss_bytes": 48840704,
+        "pss_bytes": 41088000,
+        "pss_anon_bytes": 8814592,
+        "pss_file_bytes": 32273408,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 13828096,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 26198016,
+        "private_dirty_bytes": 8814592,
+        "referenced_bytes": 48840704,
+        "anonymous_bytes": 8814592,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 657142,
+        "comm": "bwrap",
+        "rss_bytes": 2433024,
+        "pss_bytes": 495616,
+        "pss_anon_bytes": 102400,
+        "pss_file_bytes": 393216,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 2277376,
+        "shared_dirty_bytes": 106496,
+        "private_clean_bytes": 0,
+        "private_dirty_bytes": 49152,
+        "referenced_bytes": 2433024,
+        "anonymous_bytes": 155648,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 657143,
+        "comm": "bwrap",
+        "rss_bytes": 1449984,
+        "pss_bytes": 330752,
+        "pss_anon_bytes": 143360,
+        "pss_file_bytes": 187392,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 1253376,
+        "shared_dirty_bytes": 106496,
+        "private_clean_bytes": 0,
+        "private_dirty_bytes": 90112,
+        "referenced_bytes": 1449984,
+        "anonymous_bytes": 196608,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 657144,
+        "comm": "glycin-svg",
+        "rss_bytes": 16859136,
+        "pss_bytes": 11123712,
+        "pss_anon_bytes": 2019328,
+        "pss_file_bytes": 9104384,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 9883648,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 4956160,
+        "private_dirty_bytes": 2019328,
+        "referenced_bytes": 16859136,
+        "anonymous_bytes": 2019328,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 657214,
+        "comm": "bwrap",
+        "rss_bytes": 2523136,
+        "pss_bytes": 519168,
+        "pss_anon_bytes": 102400,
+        "pss_file_bytes": 416768,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 2367488,
+        "shared_dirty_bytes": 106496,
+        "private_clean_bytes": 0,
+        "private_dirty_bytes": 49152,
+        "referenced_bytes": 2523136,
+        "anonymous_bytes": 155648,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 657215,
+        "comm": "bwrap",
+        "rss_bytes": 1527808,
+        "pss_bytes": 340992,
+        "pss_anon_bytes": 143360,
+        "pss_file_bytes": 197632,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 1331200,
+        "shared_dirty_bytes": 106496,
+        "private_clean_bytes": 0,
+        "private_dirty_bytes": 90112,
+        "referenced_bytes": 1527808,
+        "anonymous_bytes": 196608,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 657216,
+        "comm": "glycin-image-rs",
+        "rss_bytes": 7249920,
+        "pss_bytes": 5419008,
+        "pss_anon_bytes": 659456,
+        "pss_file_bytes": 4759552,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 2277376,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 4313088,
+        "private_dirty_bytes": 659456,
+        "referenced_bytes": 7249920,
+        "anonymous_bytes": 659456,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      }
+    ],
+    "errors": []
+  },
+  "runtime_processes": {
+    "process_count": 1,
+    "expected_process_count": 1,
+    "complete": true,
+    "pss_bytes": 367616,
+    "rss_bytes": 2199552,
+    "pss_partial_bytes": 367616,
+    "details": [
+      {
+        "pid": 656696,
+        "comm": "conmon",
+        "rss_bytes": 2199552,
+        "pss_bytes": 367616,
+        "pss_anon_bytes": 258048,
+        "pss_file_bytes": 109568,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 1941504,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 0,
+        "private_dirty_bytes": 258048,
+        "referenced_bytes": 2199552,
+        "anonymous_bytes": 258048,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      }
+    ],
+    "errors": [],
+    "source": "conmon_pid"
+  },
+  "errors": [],
+  "host": {
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 258093056,
+      "MemAvailable_bytes": 2317225984,
+      "Cached_bytes": 3034066944,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 16197140480,
+      "Shmem_bytes": 770224128
+    },
+    "pressure": {
+      "cpu": {
+        "some": {
+          "avg10": 1.92,
+          "avg60": 1.55,
+          "avg300": 1.79,
+          "total_us": 2778096187
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "memory": {
+        "some": {
+          "avg10": 0.2,
+          "avg60": 0.24,
+          "avg300": 0.64,
+          "total_us": 939498085
+        },
+        "full": {
+          "avg10": 0.2,
+          "avg60": 0.24,
+          "avg300": 0.6,
+          "total_us": 802164466
+        }
+      },
+      "io": {
+        "some": {
+          "avg10": 0.62,
+          "avg60": 1.0,
+          "avg300": 0.77,
+          "total_us": 344311816
+        },
+        "full": {
+          "avg10": 0.44,
+          "avg60": 0.76,
+          "avg300": 0.6,
+          "total_us": 214830875
+        }
+      }
+    },
+    "load_average": [
+      2.07,
+      2.05,
+      1.53
+    ],
+    "cpu": {
+      "sample_count": 8,
+      "min_khz": 1420353,
+      "max_khz": 1500123,
+      "khz": [
+        1500123,
+        1480054,
+        1439605,
+        1498691,
+        1500030,
+        1465319,
+        1420353,
+        1500015
+      ],
+      "errors": []
+    },
+    "thermal": {
+      "zones": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "millicelsius": 32000,
+          "celsius": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "millicelsius": 20000,
+          "celsius": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "millicelsius": 54050,
+          "celsius": 54.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "millicelsius": 55050,
+          "celsius": 55.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "millicelsius": 47050,
+          "celsius": 47.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "millicelsius": 54000,
+          "celsius": 54.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "millicelsius": 36000,
+          "celsius": 36.0
+        }
+      ],
+      "package_c": 54.0,
+      "errors": []
+    }
+  },
+  "disk": {
+    "image": {
+      "reference": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "id": "4b5d9a75c81b96b542ac08b19587efa516da72bf02581908c6178d39de4bb07b",
+      "digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "size_bytes": 382082984
+    },
+    "container": {
+      "size_rw_bytes": 869406935,
+      "size_root_fs_bytes": 1251489919
+    },
+    "shared_mounts": [
+      {
+        "path": "/home/omg/文档/多兼容linux机/evidence/gui-apps-2026-10-22T081145+0800/documents/fedora44",
+        "total_bytes": 509332160512,
+        "free_bytes": 400801935360,
+        "used_bytes": 108530225152,
+        "note": "Filesystem-wide values, not this environment's exclusive use."
+      }
+    ],
+    "note": "SizeRootFs includes lower layers shared with other containers; sizes are not exclusive and must not be added across environments."
+  }
+}

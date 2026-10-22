@@ -1,0 +1,21 @@
+{
+  "project_root": "/home/omg/文档/多兼容linux机/evidence/wayland-media-2026-10-22T082942+0800/user-project",
+  "created_at": "2026-10-22T08:59:48+08:00",
+  "source_sha256": {
+    "src/multilinux/__init__.py": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+    "src/multilinux/__main__.py": "8fc1fcde2cd1a30a9c1271714cbe49efd1b7ef1597ad4b0f16e1f84dc96ae2b8",
+    "src/multilinux/cli.py": "c5f181f92a27ceb4c7e3040f8727745e61ba608d90e8bd4444322e1685abf575",
+    "src/multilinux/desktop.py": "e42ee323f03c82a068c73bb9541ce412190de6d2ebb9c557e2ecb063596a983b",
+    "src/multilinux/errors.py": "531a2ca4ce2056099a662eed98a6fa137013b99c7ea0a091fa3960279b92ca2a",
+    "src/multilinux/packages.py": "20e1b6eb2a67794a22cf2c9c9b3b9ed14168c1cd373237a7b65ca7925ebeabad",
+    "src/multilinux/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+    "src/multilinux/resources.py": "1269fc93c41febfc8932d57b805cd512b6fd6cbde109e5c6ca680725504ce4ec",
+    "src/multilinux/runtime.py": "067dc2c6cf4c66495d331dc4bf41fbbffe0dbb1b6711c05d00eab8d6bf37ba6f",
+    "src/multilinux/service.py": "82988abb95336fb38735f589e99ffb0f0530f28c0dc9caac90edeeea5d57291b",
+    "src/multilinux/store.py": "f1885b957b7f94f2f351b5900b9d41cc81983e5ef25777e2efa482003696382e",
+    "tools/ml.py": "9ce24eece889ef5fc43ee203f83a96722280752cae1bbe25c96271eddd4e6c49",
+    "tools/lab.py": "75b0e20a452acc3b9168c8cc0bcdd96603d2721113e054515790a1db75f774f4",
+    "config/targets.toml": "74f16595197f5dbc82e2a62d9a71ba2138228afe3765cde00a74f449179db181",
+    "config/images.lock.json": "9effc95f32804154c3ccab113067f86846b41f2b7b6d77dd050e59b96755aada"
+  }
+}

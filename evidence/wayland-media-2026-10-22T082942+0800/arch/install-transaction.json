@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "id": "txn64b04727caf9",
+  "environment_id": "native-arch",
+  "operation": "install",
+  "packages": [
+    "mousepad",
+    "wl-clipboard",
+    "dbus",
+    "python-gobject",
+    "gtk3",
+    "libpulse",
+    "noto-fonts-cjk"
+  ],
+  "use_command": [
+    "mousepad",
+    "--version"
+  ],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "42e752d86ccdd026da7024f6b354b4e236caaf893140dc87822847b9d4e321b6",
+    "content_revision": 1,
+    "package_inventory_sha256": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7"
+  },
+  "native": [
+    {
+      "argv": [
+        "pacman-key",
+        "--init"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "==> Generating pacman master key. This may take some time.\n==> Updating trust database...\n",
+      "stderr_tail": "gpg: Generating pacman keyring master key...\ngpg: revocation certificate stored as '/etc/pacman.d/gnupg/openpgp-revocs.d/659A7542C73FF23FEF17E69D223E3D95549C80BA.rev'\ngpg: Done\ngpg: Note: third-party key signatures using the SHA1 algorithm are rejected\ngpg: (use option \"--allow-weak-key-signatures\" to override)\ngpg: marginals needed: 3  completes needed: 1  trust model: pgp\ngpg: depth: 0  valid:   2  signed:   5  trust: 0-, 0q, 0n, 0m, 0f, 2u\ngpg: depth: 1  valid:   5  signed:  89  trust: 0-, 0q, 0n, 5m, 0f, 0u\ngpg: depth: 2  valid:  78  signed:  18  trust: 78-, 0q, 0n, 0m, 0f, 0u\ngpg: next trustdb check due at 2026-10-26\n"
+    },
+    {
+      "argv": [
+        "pacman",
+        "-Syu",
+        "--noconfirm",
+        "--needed",
+        "mousepad",
+        "wl-clipboard",
+        "dbus",
+        "python-gobject",
+        "gtk3",
+        "libpulse",
+        "noto-fonts-cjk"
+      ],
+      "exit_code": 0,
+      "stdout_tail": " libepoxy...\ninstalling libxcomposite...\ninstalling libxcursor...\ninstalling libxdamage...\ninstalling libxinerama...\ninstalling xkeyboard-config...\ninstalling libxkbcommon...\nOptional dependencies for libxkbcommon\n    libxkbcommon-x11: xkbcli interactive-x11\n    wayland: xkbcli interactive-wayland [installed]\ninstalling libxrandr...\ninstalling json-glib...\ninstalling duktape...\ninstalling libproxy...\ninstalling glib-networking...\ninstalling libsoup3...\nOptional dependencies for libsoup3\n    samba: Windows Domain SSO\ninstalling libstemmer...\ninstalling tinysparql...\ninstalling gtk-update-icon-cache...\ninstalling gtk3...\nOptional dependencies for gtk3\n    papers: default print previewer\n    evince: legacy print previewer\ninstalling gtksourceview4...\ninstalling mousepad...\nOptional dependencies for mousepad\n    gspell: spell checking plugin\n    libxfce4ui: shortcuts editor plugin\ninstalling wl-clipboard...\nOptional dependencies for wl-clipboard\n    xdg-utils: for content type inference in wl-copy\n    mailcap: for type inference in wl-paste\ninstalling libgirepository...\ninstalling gobject-introspection-runtime...\ninstalling mpdecimal...\ninstalling python...\nOptional dependencies for python\n    python-setuptools: for building Python packages using tooling that is usually bundled with Python\n    python-pip: for installing Python packages using tooling that is usually bundled with Python\n    python-pipx: for installing Python software not packaged on Arch Linux\n    sqlite: for a default database integration [installed]\n    xz: for lzma [installed]\n    tk: for tkinter\ninstalling python-gobject...\nOptional dependencies for python-gobject\n    python-cairo: Cairo bindings\ninstalling libasyncns...\ninstalling libogg...\ninstalling flac...\ninstalling alsa-topology-conf...\ninstalling alsa-ucm-conf...\ninstalling alsa-lib...\ninstalling mpg123...\nOptional dependencies for mpg123\n    sdl2-compat: for sdl audio support\n    jack: for jack audio support\n    libpulse: for pulse audio support [pending]\n    perl: for conplay\ninstalling lame...\ninstalling libvorbis...\ninstalling opus...\ninstalling libsndfile...\nOptional dependencies for libsndfile\n    alsa-lib: for sndfile-play [installed]\ninstalling libpulse...\nOptional dependencies for libpulse\n    pulse-native-provider: PulseAudio backend\ninstalling noto-fonts-cjk...\nupgrading iproute2...\nupgrading libarchive...\nupgrading systemd...\nFailed to connect to audit log, ignoring: Invalid argument\nCreating group 'avahi' with GID 969.\nCreating user 'avahi' (Avahi mDNS/DNS-SD daemon) with UID 969 and GID 969.\nupgrading pacman...\nupgrading systemd-sysvcompat...\n:: Running post-transaction hooks...\n( 1/20) Creating system user accounts...\nFailed to connect to audit log, ignoring: Invalid argument\n( 2/20) Creating temporary files...\n/usr/lib/tmpfiles.d/journal-nocow.conf:26: Failed to resolve specifier: uninitialized /etc/ detected, skipping.\nAll rules containing unresolvable specifiers will be skipped.\n( 3/20) Updating journal message catalog...\n( 4/20) Updating udev hardware database...\n( 5/20) Applying kernel sysctl settings...\n  Skipped: Current root is not booted.\n( 6/20) Reloading system manager configuration...\n  Skipped: Current root is not booted.\n( 7/20) Reloading user manager configuration...\n  Skipped: Current root is not booted.\n( 8/20) Updating the MIME type database...\n( 9/20) Enqueuing marked services...\n  Skipped: Current root is not booted.\n(10/20) Reloading device manager configuration...\n  Skipped: Current root is not booted.\n(11/20) Arming ConditionNeedsUpdate...\n(12/20) Updating fontconfig configuration...\n(13/20) Rebuilding certificate stores...\n(14/20) Reloading system bus configuration...\n  Skipped: Current root is not booted.\n(15/20) Updating fontconfig cache...\n(16/20) Updating GIO module cache...\n(17/20) Compiling GSettings XML schema files...\n(18/20) Updating GTK 3 input method module cache...\n(19/20) Updating icon theme caches...\n(20/20) Updating the desktop file MIME type cache...\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": null,
+  "verification": {
+    "ok": true,
+    "packages": {
+      "mousepad": true,
+      "wl-clipboard": true,
+      "dbus": true,
+      "python-gobject": true,
+      "gtk3": true,
+      "libpulse": true,
+      "noto-fonts-cjk": true
+    },
+    "command": [
+      "mousepad",
+      "--version"
+    ],
+    "command_exit_code": 0,
+    "stdout_preview": "Mousepad 0.7.0\n\nCopyright (C) 2005-2026\n\tThe Mousepad developers. All rights reserved.\n\nPlease report bugs to <https://gitlab.xfce.org/apps/mousepad/-/issues>.\n",
+    "stdout_sha256": "eab4cb544ca2dd4b3926adb08d4e3401fe3a9ceefce5dda73a4b88fedd6704c9",
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "native-debian13": {
+      "before": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "after": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "probed_before": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "probed_after": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "unchanged": true,
+      "error": null
+    },
+    "native-fedora44": {
+      "before": "74cff549c2c89cc8f17b930601c9cb42e865e38f9c2bf806951ec82c3584984e",
+      "after": "74cff549c2c89cc8f17b930601c9cb42e865e38f9c2bf806951ec82c3584984e",
+      "probed_before": "74cff549c2c89cc8f17b930601c9cb42e865e38f9c2bf806951ec82c3584984e",
+      "probed_after": "74cff549c2c89cc8f17b930601c9cb42e865e38f9c2bf806951ec82c3584984e",
+      "unchanged": true,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "42e752d86ccdd026da7024f6b354b4e236caaf893140dc87822847b9d4e321b6",
+    "content_revision": 2,
+    "package_inventory_sha256": "4cd0877ccc6a7269a90b18ef0352c27055ba4e80b713dd596c651287f0d3efcb"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-22T08:34:25+08:00",
+  "finished_at": "2026-10-22T08:36:41+08:00"
+}

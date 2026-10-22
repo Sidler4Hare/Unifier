@@ -1,0 +1,234 @@
+{
+  "started_at": "2026-10-21T08:34:15+08:00",
+  "scope": "Metric access smoke only; serial fresh environments, single unsettled samples. Not an M4 benchmark.",
+  "targets": {
+    "debian13": {
+      "passed": true,
+      "errors": [],
+      "kernel": "7.2.11-200.fc44.x86_64",
+      "kernel_matches_current_host": true,
+      "image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "inventory_sha256": "fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4",
+      "container_id": "9fcd07a40388376e78d66e6e77150dc05a0c7bee8694ccfa4837b8e5c2b70d60",
+      "pid": 328838,
+      "collected_at": "2026-10-21T08:34:26+08:00",
+      "cgroup": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-9fcd07a40388376e78d66e6e77150dc05a0c7bee8694ccfa4837b8e5c2b70d60.scope/container",
+      "metrics": {
+        "memory.current": {
+          "value": "344064",
+          "error": null
+        },
+        "memory.peak": {
+          "value": "999424",
+          "error": null
+        },
+        "memory.stat": {
+          "value": "anon 102400\nfile 16384\nkernel 200704\nkernel_stack 0\npagetables 53248\nsec_pagetables 0\npercpu 520\nsock 0\nvmalloc 12288\nshmem 0\nzswap 0\nzswapped 0\nzswap_incomp 0\nfile_mapped 8192\nfile_dirty 0\nfile_writeback 0\nswapcached 0\nanon_thp 0\nfile_thp 0\nshmem_thp 0\ninactive_anon 0\nactive_anon 102400\ninactive_file 16384\nactive_file 0\nunevictable 0\nslab_reclaimable 84832\nslab_unreclaimable 41496\nslab 126328\nhugetlb 0\nworkingset_refault_anon 0\nworkingset_refault_file 3\nworkingset_activate_anon 0\nworkingset_activate_file 0\nworkingset_restore_anon 0\nworkingset_restore_file 0\nworkingset_nodereclaim 0\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgdemote_proactive 0\npgsteal_kswapd 0\npgsteal_direct 0\npgsteal_khugepaged 0\npgsteal_proactive 0\npgscan_kswapd 0\npgscan_direct 0\npgscan_khugepaged 0\npgscan_proactive 0\npgrefill 0\npgpromote_success 0\npgscan 0\npgsteal 0\npswpin 0\npswpout 0\npgfault 231\npgmajfault 2\npgactivate 0\npgdeactivate 0\npglazyfree 0\npglazyfreed 0\nswpin_zero 0\nswpout_zero 0\nzswpin 0\nzswpout 0\nzswpwb 0\nthp_fault_alloc 0\nthp_collapse_alloc 0\nthp_swpout 0\nthp_swpout_fallback 0\nnuma_pages_migrated 0\nnuma_pte_updates 0\nnuma_hint_faults 0",
+          "error": null
+        },
+        "memory.events": {
+          "value": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+          "error": null
+        },
+        "memory.swap.current": {
+          "value": "0",
+          "error": null
+        },
+        "memory.pressure": {
+          "value": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "error": null
+        },
+        "cpu.pressure": {
+          "value": "some avg10=0.00 avg60=0.00 avg300=0.00 total=364\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=364",
+          "error": null
+        },
+        "io.pressure": {
+          "value": "some avg10=0.00 avg60=0.00 avg300=0.00 total=353\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=353",
+          "error": null
+        },
+        "memory.high": {
+          "value": "max",
+          "error": null
+        },
+        "memory.max": {
+          "value": "max",
+          "error": null
+        },
+        "cpu.max": {
+          "value": "max 100000",
+          "error": null
+        },
+        "cpuset.cpus.effective": {
+          "value": null,
+          "error": "[Errno 2] No such file or directory: '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-9fcd07a40388376e78d66e6e77150dc05a0c7bee8694ccfa4837b8e5c2b70d60.scope/container/cpuset.cpus.effective'"
+        },
+        "pids.current": {
+          "value": "1",
+          "error": null
+        }
+      },
+      "smaps_rollup": {
+        "value": "55d2933e7000-7ffe953ec000 ---p 00000000 00:00 0                          [rollup]\nRss:                1628 kB\nPss:                1620 kB\nPss_Dirty:           100 kB\nPss_Anon:            100 kB\nPss_File:           1520 kB\nPss_Shmem:             0 kB\nShared_Clean:          8 kB\nShared_Dirty:          0 kB\nPrivate_Clean:      1520 kB\nPrivate_Dirty:       100 kB\nReferenced:         1628 kB\nAnonymous:           100 kB\nKSM:                   0 kB\nLazyFree:              0 kB\nAnonHugePages:         0 kB\nShmemPmdMapped:        0 kB\nFilePmdMapped:         0 kB\nShared_Hugetlb:        0 kB\nPrivate_Hugetlb:       0 kB\nSwap:                  0 kB\nSwapPss:               0 kB\nLocked:                0 kB",
+        "error": null
+      },
+      "required_cgroup_readable": true,
+      "pss_readable": true,
+      "exec_exit_code": 0,
+      "stopped": true,
+      "container_removed": true
+    },
+    "fedora44": {
+      "passed": true,
+      "errors": [],
+      "kernel": "7.2.11-200.fc44.x86_64",
+      "kernel_matches_current_host": true,
+      "image": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "inventory_sha256": "4fbc88c890ab44ee974f34584be338afd98956bdb78224fc6c8c05b0bb722801",
+      "container_id": "8ae0c0a758cfd614057a0c198fd95cab9a2c76d47e9458f952ba0eafc5755c40",
+      "pid": 329548,
+      "collected_at": "2026-10-21T08:34:46+08:00",
+      "cgroup": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-8ae0c0a758cfd614057a0c198fd95cab9a2c76d47e9458f952ba0eafc5755c40.scope/container",
+      "metrics": {
+        "memory.current": {
+          "value": "2428928",
+          "error": null
+        },
+        "memory.peak": {
+          "value": "2875392",
+          "error": null
+        },
+        "memory.stat": {
+          "value": "anon 94208\nfile 1835008\nkernel 192512\nkernel_stack 0\npagetables 53248\nsec_pagetables 0\npercpu 520\nsock 0\nvmalloc 12288\nshmem 0\nzswap 0\nzswapped 0\nzswap_incomp 0\nfile_mapped 118784\nfile_dirty 0\nfile_writeback 0\nswapcached 0\nanon_thp 0\nfile_thp 0\nshmem_thp 0\ninactive_anon 0\nactive_anon 94208\ninactive_file 1835008\nactive_file 0\nunevictable 0\nslab_reclaimable 78752\nslab_unreclaimable 40896\nslab 119648\nhugetlb 0\nworkingset_refault_anon 0\nworkingset_refault_file 448\nworkingset_activate_anon 0\nworkingset_activate_file 0\nworkingset_restore_anon 0\nworkingset_restore_file 0\nworkingset_nodereclaim 0\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgdemote_proactive 0\npgsteal_kswapd 0\npgsteal_direct 0\npgsteal_khugepaged 0\npgsteal_proactive 0\npgscan_kswapd 0\npgscan_direct 0\npgscan_khugepaged 0\npgscan_proactive 0\npgrefill 0\npgpromote_success 0\npgscan 0\npgsteal 0\npswpin 0\npswpout 0\npgfault 235\npgmajfault 3\npgactivate 0\npgdeactivate 0\npglazyfree 0\npglazyfreed 0\nswpin_zero 0\nswpout_zero 0\nzswpin 0\nzswpout 0\nzswpwb 0\nthp_fault_alloc 0\nthp_collapse_alloc 0\nthp_swpout 0\nthp_swpout_fallback 0\nnuma_pages_migrated 0\nnuma_pte_updates 0\nnuma_hint_faults 0",
+          "error": null
+        },
+        "memory.events": {
+          "value": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+          "error": null
+        },
+        "memory.swap.current": {
+          "value": "0",
+          "error": null
+        },
+        "memory.pressure": {
+          "value": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "error": null
+        },
+        "cpu.pressure": {
+          "value": "some avg10=0.00 avg60=0.00 avg300=0.00 total=103\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=103",
+          "error": null
+        },
+        "io.pressure": {
+          "value": "some avg10=0.00 avg60=0.00 avg300=0.00 total=1203\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=1203",
+          "error": null
+        },
+        "memory.high": {
+          "value": "max",
+          "error": null
+        },
+        "memory.max": {
+          "value": "max",
+          "error": null
+        },
+        "cpu.max": {
+          "value": "max 100000",
+          "error": null
+        },
+        "cpuset.cpus.effective": {
+          "value": null,
+          "error": "[Errno 2] No such file or directory: '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-8ae0c0a758cfd614057a0c198fd95cab9a2c76d47e9458f952ba0eafc5755c40.scope/container/cpuset.cpus.effective'"
+        },
+        "pids.current": {
+          "value": "1",
+          "error": null
+        }
+      },
+      "smaps_rollup": {
+        "value": "55ea7112a000-7ffc96bb1000 ---p 00000000 00:00 0                          [rollup]\nRss:                1736 kB\nPss:                1728 kB\nPss_Dirty:            92 kB\nPss_Anon:             92 kB\nPss_File:           1636 kB\nPss_Shmem:             0 kB\nShared_Clean:          8 kB\nShared_Dirty:          0 kB\nPrivate_Clean:      1636 kB\nPrivate_Dirty:        92 kB\nReferenced:         1736 kB\nAnonymous:            92 kB\nKSM:                   0 kB\nLazyFree:              0 kB\nAnonHugePages:         0 kB\nShmemPmdMapped:        0 kB\nFilePmdMapped:         0 kB\nShared_Hugetlb:        0 kB\nPrivate_Hugetlb:       0 kB\nSwap:                  0 kB\nSwapPss:               0 kB\nLocked:                0 kB",
+        "error": null
+      },
+      "required_cgroup_readable": true,
+      "pss_readable": true,
+      "exec_exit_code": 0,
+      "stopped": true,
+      "container_removed": true
+    },
+    "arch": {
+      "passed": true,
+      "errors": [],
+      "kernel": "7.2.11-200.fc44.x86_64",
+      "kernel_matches_current_host": true,
+      "image": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "inventory_sha256": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+      "container_id": "31837ff6bada82a76b29b9687121c65d03ef6289ec46d1c42c658dc9069c1de8",
+      "pid": 330253,
+      "collected_at": "2026-10-21T08:35:06+08:00",
+      "cgroup": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-31837ff6bada82a76b29b9687121c65d03ef6289ec46d1c42c658dc9069c1de8.scope/container",
+      "metrics": {
+        "memory.current": {
+          "value": "1163264",
+          "error": null
+        },
+        "memory.peak": {
+          "value": "1433600",
+          "error": null
+        },
+        "memory.stat": {
+          "value": "anon 274432\nfile 90112\nkernel 212992\nkernel_stack 0\npagetables 45056\nsec_pagetables 0\npercpu 520\nsock 0\nvmalloc 12288\nshmem 0\nzswap 0\nzswapped 0\nzswap_incomp 0\nfile_mapped 0\nfile_dirty 0\nfile_writeback 0\nswapcached 0\nanon_thp 0\nfile_thp 0\nshmem_thp 0\ninactive_anon 0\nactive_anon 274432\ninactive_file 90112\nactive_file 0\nunevictable 0\nslab_reclaimable 100496\nslab_unreclaimable 47152\nslab 147648\nhugetlb 0\nworkingset_refault_anon 0\nworkingset_refault_file 22\nworkingset_activate_anon 0\nworkingset_activate_file 0\nworkingset_restore_anon 0\nworkingset_restore_file 0\nworkingset_nodereclaim 0\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgdemote_proactive 0\npgsteal_kswapd 0\npgsteal_direct 0\npgsteal_khugepaged 0\npgsteal_proactive 0\npgscan_kswapd 0\npgscan_direct 0\npgscan_khugepaged 0\npgscan_proactive 0\npgrefill 0\npgpromote_success 0\npgscan 0\npgsteal 0\npswpin 0\npswpout 0\npgfault 350\npgmajfault 3\npgactivate 0\npgdeactivate 0\npglazyfree 0\npglazyfreed 0\nswpin_zero 0\nswpout_zero 0\nzswpin 0\nzswpout 0\nzswpwb 0\nthp_fault_alloc 0\nthp_collapse_alloc 0\nthp_swpout 0\nthp_swpout_fallback 0\nnuma_pages_migrated 0\nnuma_pte_updates 0\nnuma_hint_faults 0",
+          "error": null
+        },
+        "memory.events": {
+          "value": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+          "error": null
+        },
+        "memory.swap.current": {
+          "value": "0",
+          "error": null
+        },
+        "memory.pressure": {
+          "value": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "error": null
+        },
+        "cpu.pressure": {
+          "value": "some avg10=0.00 avg60=0.00 avg300=0.00 total=205\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=205",
+          "error": null
+        },
+        "io.pressure": {
+          "value": "some avg10=0.00 avg60=0.00 avg300=0.00 total=1285\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=1285",
+          "error": null
+        },
+        "memory.high": {
+          "value": "max",
+          "error": null
+        },
+        "memory.max": {
+          "value": "max",
+          "error": null
+        },
+        "cpu.max": {
+          "value": "max 100000",
+          "error": null
+        },
+        "cpuset.cpus.effective": {
+          "value": null,
+          "error": "[Errno 2] No such file or directory: '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-31837ff6bada82a76b29b9687121c65d03ef6289ec46d1c42c658dc9069c1de8.scope/container/cpuset.cpus.effective'"
+        },
+        "pids.current": {
+          "value": "1",
+          "error": null
+        }
+      },
+      "smaps_rollup": {
+        "value": "55fa0e097000-7fff38cee000 ---p 00000000 00:00 0                          [rollup]\nRss:                2368 kB\nPss:                2360 kB\nPss_Dirty:           268 kB\nPss_Anon:            268 kB\nPss_File:           2092 kB\nPss_Shmem:             0 kB\nShared_Clean:          8 kB\nShared_Dirty:          0 kB\nPrivate_Clean:      2092 kB\nPrivate_Dirty:       268 kB\nReferenced:         2368 kB\nAnonymous:           268 kB\nKSM:                   0 kB\nLazyFree:              0 kB\nAnonHugePages:         0 kB\nShmemPmdMapped:        0 kB\nFilePmdMapped:         0 kB\nShared_Hugetlb:        0 kB\nPrivate_Hugetlb:       0 kB\nSwap:                  0 kB\nSwapPss:               0 kB\nLocked:                0 kB",
+        "error": null
+      },
+      "required_cgroup_readable": true,
+      "pss_readable": true,
+      "exec_exit_code": 0,
+      "stopped": true,
+      "container_removed": true
+    }
+  },
+  "cleanup_errors": [],
+  "finished_at": "2026-10-21T08:35:15+08:00",
+  "passed": true
+}

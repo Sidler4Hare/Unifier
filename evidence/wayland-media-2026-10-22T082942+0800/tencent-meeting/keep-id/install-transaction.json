@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "id": "txn453ef68e9848",
+  "environment_id": "meeting-debian13",
+  "operation": "install-local",
+  "packages": [
+    "wemeet"
+  ],
+  "use_command": [
+    "test",
+    "-x",
+    "/opt/wemeet/wemeetapp.sh"
+  ],
+  "local_file": "/home/omg/下载/TencentMeeting_0300000000_3.26.10.401_x86_64_default.publish.officialwebsite.deb",
+  "revision_before": {
+    "writable_revision": "6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c",
+    "content_revision": 2,
+    "package_inventory_sha256": "abe1aadd09908abf92c47603abac3d41046f72f5144b71e30b9f9c4ee6dd90ae"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\nReading package lists...\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "/tmp/ml-incoming/TencentMeeting_0300000000_3.26.10.401_x86_64_default.publish.officialwebsite.deb"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Reading package lists...\nBuilding dependency tree...\nReading state information...\nThe following additional packages will be installed:\n  desktop-file-utils libgcrypt20 libgpg-error-l10n libgpg-error0 libnspr4\n  libnss3\nSuggested packages:\n  rng-tools\nThe following NEW packages will be installed:\n  desktop-file-utils libgcrypt20 libgpg-error-l10n libgpg-error0 libnspr4\n  libnss3 wemeet\n0 upgraded, 7 newly installed, 0 to remove and 1 not upgraded.\nNeed to get 2635 kB/200 MB of archives.\nAfter this operation, 8124 kB of additional disk space will be used.\nGet:1 /tmp/ml-incoming/TencentMeeting_0300000000_3.26.10.401_x86_64_default.publish.officialwebsite.deb wemeet amd64 3.26.10.401 [197 MB]\nGet:2 http://deb.debian.org/debian trixie/main amd64 desktop-file-utils amd64 0.28-1 [91.7 kB]\nGet:3 http://deb.debian.org/debian trixie/main amd64 libgpg-error0 amd64 1.51-4 [82.1 kB]\nGet:4 http://deb.debian.org/debian trixie/main amd64 libgcrypt20 amd64 1.11.0-7+deb13u1 [843 kB]\nGet:5 http://deb.debian.org/debian trixie/main amd64 libgpg-error-l10n all 1.51-4 [114 kB]\nGet:6 http://deb.debian.org/debian trixie/main amd64 libnspr4 amd64 2:4.36-1 [110 kB]\nGet:7 http://deb.debian.org/debian trixie/main amd64 libnss3 amd64 2:3.110-1+deb13u4 [1394 kB]\nFetched 2635 kB in 3s (805 kB/s)\nSelecting previously unselected package desktop-file-utils.\r\n(Reading database ... \r(Reading database ... 5%\r(Reading database ... 10%\r(Reading database ... 15%\r(Reading database ... 20%\r(Reading database ... 25%\r(Reading database ... 30%\r(Reading database ... 35%\r(Reading database ... 40%\r(Reading database ... 45%\r(Reading database ... 50%\r(Reading database ... 55%\r(Reading database ... 60%\r(Reading database ... 65%\r(Reading database ... 70%\r(Reading database ... 75%\r(Reading database ... 80%\r(Reading database ... 85%\r(Reading database ... 90%\r(Reading database ... 95%\r(Reading database ... 100%\r(Reading database ... 12752 files and directories currently installed.)\r\nPreparing to unpack .../0-desktop-file-utils_0.28-1_amd64.deb ...\r\nUnpacking desktop-file-utils (0.28-1) ...\r\nSelecting previously unselected package libgpg-error0:amd64.\r\nPreparing to unpack .../1-libgpg-error0_1.51-4_amd64.deb ...\r\nUnpacking libgpg-error0:amd64 (1.51-4) ...\r\nSelecting previously unselected package libgcrypt20:amd64.\r\nPreparing to unpack .../2-libgcrypt20_1.11.0-7+deb13u1_amd64.deb ...\r\nUnpacking libgcrypt20:amd64 (1.11.0-7+deb13u1) ...\r\nSelecting previously unselected package libgpg-error-l10n.\r\nPreparing to unpack .../3-libgpg-error-l10n_1.51-4_all.deb ...\r\nUnpacking libgpg-error-l10n (1.51-4) ...\r\nSelecting previously unselected package libnspr4:amd64.\r\nPreparing to unpack .../4-libnspr4_2%3a4.36-1_amd64.deb ...\r\nUnpacking libnspr4:amd64 (2:4.36-1) ...\r\nSelecting previously unselected package libnss3:amd64.\r\nPreparing to unpack .../5-libnss3_2%3a3.110-1+deb13u4_amd64.deb ...\r\nUnpacking libnss3:amd64 (2:3.110-1+deb13u4) ...\r\nSelecting previously unselected package wemeet.\r\nPreparing to unpack .../6-TencentMeeting_0300000000_3.26.10.401_x86_64_default.publish.officialwebsite.deb ...\r\nUnpacking wemeet (3.26.10.401) ...\r\nSetting up desktop-file-utils (0.28-1) ...\r\nSetting up libgpg-error0:amd64 (1.51-4) ...\r\nSetting up libgcrypt20:amd64 (1.11.0-7+deb13u1) ...\r\nSetting up libnspr4:amd64 (2:4.36-1) ...\r\nSetting up libgpg-error-l10n (1.51-4) ...\r\nSetting up libnss3:amd64 (2:3.110-1+deb13u4) ...\r\nSetting up wemeet (3.26.10.401) ...\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": null,
+  "verification": {
+    "ok": true,
+    "packages": {
+      "wemeet": true
+    },
+    "command": [
+      "test",
+      "-x",
+      "/opt/wemeet/wemeetapp.sh"
+    ],
+    "command_exit_code": 0,
+    "stdout_preview": "",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c",
+    "content_revision": 3,
+    "package_inventory_sha256": "ac79c9b32560457fff121133b969dfadca7c1ea76da22bcea76f91a11fcf395c"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-22T09:01:29+08:00",
+  "finished_at": "2026-10-22T09:02:00+08:00"
+}

@@ -1,0 +1,447 @@
+{
+  "collected_at": "2026-10-22T09:10:56+08:00",
+  "environment_id": "meeting-debian13",
+  "target": "debian13",
+  "runtime_state": "running",
+  "content_revision": 4,
+  "package_inventory_sha256": "ce7da2ee6df757e19e17694d481d2a5ca8e8395dcd4a8d0fd8671ce5f27b5cf1",
+  "image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+  "container_id": "6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c",
+  "kernel_matches_current_host": true,
+  "pid": 734691,
+  "conmon_pid": 734688,
+  "cgroup": {
+    "path": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c.scope/container",
+    "errors": {},
+    "memory_current_bytes": 350666752,
+    "memory_peak_bytes": 446857216,
+    "memory_swap_current_bytes": 253952,
+    "pids_current": 72,
+    "pids_peak": 76,
+    "memory_high": "max",
+    "memory_max": "max",
+    "cpu_max": "max 100000",
+    "memory_stat": {
+      "anon": 71245824,
+      "file": 270835712,
+      "kernel": 8323072,
+      "kernel_stack": 1163264,
+      "pagetables": 3575808,
+      "sec_pagetables": 0,
+      "percpu": 5600,
+      "sock": 0,
+      "vmalloc": 32768,
+      "shmem": 0,
+      "zswap": 0,
+      "zswapped": 0,
+      "zswap_incomp": 0,
+      "file_mapped": 123834368,
+      "file_dirty": 8192,
+      "file_writeback": 0,
+      "swapcached": 0,
+      "anon_thp": 0,
+      "file_thp": 0,
+      "shmem_thp": 0,
+      "inactive_anon": 46977024,
+      "active_anon": 24260608,
+      "inactive_file": 225320960,
+      "active_file": 45522944,
+      "unevictable": 0,
+      "slab_reclaimable": 1588952,
+      "slab_unreclaimable": 1917528,
+      "slab": 3506480,
+      "hugetlb": 0,
+      "workingset_refault_anon": 0,
+      "workingset_refault_file": 4527,
+      "workingset_activate_anon": 0,
+      "workingset_activate_file": 0,
+      "workingset_restore_anon": 0,
+      "workingset_restore_file": 0,
+      "workingset_nodereclaim": 0,
+      "pgdemote_kswapd": 0,
+      "pgdemote_direct": 0,
+      "pgdemote_khugepaged": 0,
+      "pgdemote_proactive": 0,
+      "pgsteal_kswapd": 24348,
+      "pgsteal_direct": 1172,
+      "pgsteal_khugepaged": 0,
+      "pgsteal_proactive": 0,
+      "pgscan_kswapd": 28026,
+      "pgscan_direct": 1387,
+      "pgscan_khugepaged": 0,
+      "pgscan_proactive": 0,
+      "pgrefill": 20104,
+      "pgpromote_success": 0,
+      "pgscan": 29413,
+      "pgsteal": 25520,
+      "pswpin": 0,
+      "pswpout": 62,
+      "pgfault": 26836,
+      "pgmajfault": 431,
+      "pgactivate": 2937,
+      "pgdeactivate": 0,
+      "pglazyfree": 0,
+      "pglazyfreed": 0,
+      "swpin_zero": 0,
+      "swpout_zero": 0,
+      "zswpin": 0,
+      "zswpout": 0,
+      "zswpwb": 0,
+      "thp_fault_alloc": 0,
+      "thp_collapse_alloc": 0,
+      "thp_swpout": 0,
+      "thp_swpout_fallback": 0,
+      "numa_pages_migrated": 0,
+      "numa_pte_updates": 0,
+      "numa_hint_faults": 0
+    },
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 5
+    },
+    "cpu_stat": {
+      "usage_usec": 1423829,
+      "user_usec": 764019,
+      "system_usec": 659810,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "memory_pressure": {
+      "some": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 14175
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 14175
+      }
+    },
+    "cpu_pressure": {
+      "some": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 46665
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 44739
+      }
+    },
+    "io_pressure": {
+      "some": {
+        "avg10": 0.0,
+        "avg60": 0.04,
+        "avg300": 0.01,
+        "total_us": 72491
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.04,
+        "avg300": 0.01,
+        "total_us": 71886
+      }
+    },
+    "container_id_matches": true
+  },
+  "processes": {
+    "process_count": 7,
+    "expected_process_count": 7,
+    "complete": true,
+    "pss_bytes": 274733056,
+    "rss_bytes": 364404736,
+    "pss_partial_bytes": 274733056,
+    "details": [
+      {
+        "pid": 734691,
+        "comm": "sleep",
+        "rss_bytes": 1507328,
+        "pss_bytes": 324608,
+        "pss_anon_bytes": 0,
+        "pss_file_bytes": 324608,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 1429504,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 77824,
+        "private_dirty_bytes": 0,
+        "referenced_bytes": 1187840,
+        "anonymous_bytes": 0,
+        "swap_bytes": 102400,
+        "swap_pss_bytes": 102400
+      },
+      {
+        "pid": 734814,
+        "comm": "dbus-run-sessio",
+        "rss_bytes": 2248704,
+        "pss_bytes": 473088,
+        "pss_anon_bytes": 61440,
+        "pss_file_bytes": 411648,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 2162688,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 24576,
+        "private_dirty_bytes": 61440,
+        "referenced_bytes": 1437696,
+        "anonymous_bytes": 61440,
+        "swap_bytes": 139264,
+        "swap_pss_bytes": 139264
+      },
+      {
+        "pid": 734816,
+        "comm": "dbus-daemon",
+        "rss_bytes": 4521984,
+        "pss_bytes": 2108416,
+        "pss_anon_bytes": 348160,
+        "pss_file_bytes": 1760256,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 3149824,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 1024000,
+        "private_dirty_bytes": 348160,
+        "referenced_bytes": 2793472,
+        "anonymous_bytes": 348160,
+        "swap_bytes": 12288,
+        "swap_pss_bytes": 12288
+      },
+      {
+        "pid": 734817,
+        "comm": "wemeetapp",
+        "rss_bytes": 255721472,
+        "pss_bytes": 231226368,
+        "pss_anon_bytes": 56766464,
+        "pss_file_bytes": 174459904,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 36204544,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 162742272,
+        "private_dirty_bytes": 56774656,
+        "referenced_bytes": 124911616,
+        "anonymous_bytes": 56766464,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 734861,
+        "comm": "QtWebEngineProc",
+        "rss_bytes": 45776896,
+        "pss_bytes": 20017152,
+        "pss_anon_bytes": 7004160,
+        "pss_file_bytes": 13012992,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 38768640,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 4096,
+        "private_dirty_bytes": 7004160,
+        "referenced_bytes": 15106048,
+        "anonymous_bytes": 7004160,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 734862,
+        "comm": "QtWebEngineProc",
+        "rss_bytes": 45998080,
+        "pss_bytes": 16685056,
+        "pss_anon_bytes": 3536896,
+        "pss_file_bytes": 13148160,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 38899712,
+        "shared_dirty_bytes": 6975488,
+        "private_clean_bytes": 73728,
+        "private_dirty_bytes": 49152,
+        "referenced_bytes": 15118336,
+        "anonymous_bytes": 7024640,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      },
+      {
+        "pid": 734864,
+        "comm": "QtWebEngineProc",
+        "rss_bytes": 8630272,
+        "pss_bytes": 3898368,
+        "pss_anon_bytes": 3532800,
+        "pss_file_bytes": 365568,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 1609728,
+        "shared_dirty_bytes": 6975488,
+        "private_clean_bytes": 0,
+        "private_dirty_bytes": 45056,
+        "referenced_bytes": 634880,
+        "anonymous_bytes": 7020544,
+        "swap_bytes": 0,
+        "swap_pss_bytes": 0
+      }
+    ],
+    "errors": []
+  },
+  "runtime_processes": {
+    "process_count": 1,
+    "expected_process_count": 1,
+    "complete": true,
+    "pss_bytes": 248832,
+    "rss_bytes": 2244608,
+    "pss_partial_bytes": 248832,
+    "details": [
+      {
+        "pid": 734688,
+        "comm": "conmon",
+        "rss_bytes": 2244608,
+        "pss_bytes": 248832,
+        "pss_anon_bytes": 126976,
+        "pss_file_bytes": 121856,
+        "pss_shmem_bytes": 0,
+        "shared_clean_bytes": 2109440,
+        "shared_dirty_bytes": 0,
+        "private_clean_bytes": 8192,
+        "private_dirty_bytes": 126976,
+        "referenced_bytes": 2080768,
+        "anonymous_bytes": 126976,
+        "swap_bytes": 139264,
+        "swap_pss_bytes": 139264
+      }
+    ],
+    "errors": [],
+    "source": "conmon_pid"
+  },
+  "errors": [],
+  "host": {
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 192954368,
+      "MemAvailable_bytes": 2089156608,
+      "Cached_bytes": 2738765824,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 14191017984,
+      "Shmem_bytes": 691691520
+    },
+    "pressure": {
+      "cpu": {
+        "some": {
+          "avg10": 1.72,
+          "avg60": 2.09,
+          "avg300": 3.55,
+          "total_us": 2872655912
+        },
+        "full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        }
+      },
+      "memory": {
+        "some": {
+          "avg10": 0.85,
+          "avg60": 1.67,
+          "avg300": 2.94,
+          "total_us": 981203663
+        },
+        "full": {
+          "avg10": 0.74,
+          "avg60": 1.57,
+          "avg300": 2.7,
+          "total_us": 840431909
+        }
+      },
+      "io": {
+        "some": {
+          "avg10": 0.19,
+          "avg60": 0.48,
+          "avg300": 0.96,
+          "total_us": 372904880
+        },
+        "full": {
+          "avg10": 0.03,
+          "avg60": 0.24,
+          "avg300": 0.51,
+          "total_us": 235699189
+        }
+      }
+    },
+    "load_average": [
+      2.2,
+      3.0,
+      2.72
+    ],
+    "cpu": {
+      "sample_count": 8,
+      "min_khz": 1288451,
+      "max_khz": 1400014,
+      "khz": [
+        1400014,
+        1399711,
+        1400000,
+        1399362,
+        1400000,
+        1288451,
+        1400000,
+        1399985
+      ],
+      "errors": []
+    },
+    "thermal": {
+      "zones": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "millicelsius": 32000,
+          "celsius": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "millicelsius": 20000,
+          "celsius": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "millicelsius": 59050,
+          "celsius": 59.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "millicelsius": 60050,
+          "celsius": 60.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "millicelsius": 52050,
+          "celsius": 52.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "millicelsius": 60000,
+          "celsius": 60.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "millicelsius": 39000,
+          "celsius": 39.0
+        }
+      ],
+      "package_c": 60.0,
+      "errors": []
+    }
+  }
+}

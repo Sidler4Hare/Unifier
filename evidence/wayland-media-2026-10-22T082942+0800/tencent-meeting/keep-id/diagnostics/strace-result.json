@@ -1,0 +1,5 @@
+{
+  "returncode": 0,
+  "stdout": "wemeet:WemeetSatrt\nwemeet:WemeetStop\n",
+  "stderr": "MESA: error: Failed to query drm device.\nglx: failed to create dri3 screen\nfailed to load driver: iris\n"
+}

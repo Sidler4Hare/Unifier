@@ -1,0 +1,54 @@
+VIM - Vi IMproved 9.2 (2026 Feb 14, compiled Oct 16 2026 00:00:00)
+Included patches: 1-1202
+Modified by https://bugzilla.redhat.com/
+Compiled by https://bugzilla.redhat.com/
+Huge version with GTK3 GUI.  Features included (+) or not (-):
++acl                +find_in_path       +mouseshape         -tag_old_static
++arabic             +float              +multi_byte         -tcl
++autochdir          +folding            +multi_lang         +termguicolors
++autocmd            -footer             -mzscheme           +terminal
+-autoservername     +fork()             +netbeans_intg      +terminfo
++balloon_eval       +gettext            +num64              +termresponse
++balloon_eval_term  -hangul_input       +packages           +textobjects
++browse             +iconv              +pango              +textprop
+++builtin_terms     +image              +path_extra         +timers
++byte_offset        +image_popup        +perl/dyn           +title
++channel            +insert_expand      +persistent_undo    +toolbar
++cindent            +ipv6               +popupwin           +user_commands
++clientserver       +job                -postscript         +vartabs
++clipboard          +jumplist           +printer            +vertsplit
++clipboard_provider +keymap             +profile            +vim9script
++cmdline_compl      +lambda             -python             +viminfo
++cmdline_hist       +langmap            +python3/dyn-stable +virtualedit
++cmdline_info       +libcall            +quickfix           +visual
++comments           +linebreak          +reltime            +visualextra
++conceal            +lispindent         +rightleft          +vreplace
++cryptv             +listcmds           +ruby/dyn           +wayland
++cscope             +localmap           +scrollbind         +wayland_clipboard
++cursorbind         +lua/dyn            +signs              +wildignore
++cursorshape        +menu               +smartindent        +wildmenu
++dialog_con_gui     +mksession          +socketserver       +windows
++diff               +modify_fname       +sodium             +writebackup
++digraphs           +mouse              +sound              +X11
++dnd                +mouse_dec          +spell              +xattr
+-ebcdic             +mouse_gpm          +startuptime        -xfontset
++emacs_tags         -mouse_jsbterm      +statusline         +xim
++eval               +mouse_netterm      -sun_workshop       -xpm
++ex_extra           +mouse_sgr          +syntax             +xsmp_interact
++extra_search       -mouse_sysmouse     +tabpanel           +xterm_clipboard
+-farsi              +mouse_urxvt        -tag_any_white      -xterm_save
++file_in_path       +mouse_xterm        +tag_binary         
+   system vimrc file: "/etc/vimrc"
+     user vimrc file: "$HOME/.vimrc"
+ 2nd user vimrc file: "~/.vim/vimrc"
+ 3rd user vimrc file: "~/.config/vim/vimrc"
+      user exrc file: "$HOME/.exrc"
+  system gvimrc file: "$VIM/gvimrc"
+    user gvimrc file: "$HOME/.gvimrc"
+2nd user gvimrc file: "~/.vim/gvimrc"
+3rd user gvimrc file: "~/.config/vim/gvimrc"
+       defaults file: "$VIMRUNTIME/defaults.vim"
+    system menu file: "$VIMRUNTIME/menu.vim"
+  fall-back for $VIM: "/usr/share/vim"
+Compilation: gcc -c -I. -Iproto -DHAVE_CONFIG_H -DFEAT_GUI_GTK -I/usr/include/gtk-3.0 -I/usr/include/pango-1.0 -I/usr/include/cloudproviders -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/glycin-2 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/atk-1.0 -I/usr/lib64/pkgconfig/../../include/dbus-1.0 -I/usr/lib64/pkgconfig/../../lib64/dbus-1.0/include -I/usr/include/fribidi -I/usr/include/libxml2 -I/usr/include/pixman-1 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/gio-unix-2.0 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/sysprof-6 -O2 -flto=auto -ffat-lto-objects -fexceptions -g -grecord-gcc-switches -pipe -Wall -Wno-complain-wrong-lang -Werror=format-security -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -m64 -march=x86-64 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -mtls-dialect=gnu2 -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -std=c17 -DSYS_VIMRC_FILE=/etc/vimrc -D_REENTRANT -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1 -I/usr/include/pixman-1
+Linking: gcc -Wl,--enable-new-dtags -Wl,-z,relro -Wl,--as-needed -Wl,-z,pack-relative-relocs -Wl,-z,now -Wl,--build-id=sha1 -Wl,-z,relro -Wl,--as-needed -Wl,-z,pack-relative-relocs -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-hardened-ld-errors -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -Wl,--build-id=sha1 -specs=/usr/lib/rpm/redhat/redhat-package-notes -L/usr/local/lib -o vim -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lcairo-gobject -lgdk_pixbuf-2.0 -latk-1.0 -lpango-1.0 -lcairo -lharfbuzz -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lz -lSM -lICE -lXt -lX11 -lwayland-client -lm -lcairo -lz -lpangocairo-1.0 -lpango-1.0 -lcairo -lharfbuzz -lgobject-2.0 -lglib-2.0 -lpixman-1 -lSM -lICE -lm -lselinux -lncurses -lcanberra -lsodium -lacl -lattr -lgpm

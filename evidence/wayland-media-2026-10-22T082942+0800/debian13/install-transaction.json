@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "id": "txn6a6427d95616",
+  "environment_id": "native-debian13",
+  "operation": "install",
+  "packages": [
+    "mousepad",
+    "wl-clipboard",
+    "dbus",
+    "python3-gi",
+    "gir1.2-gtk-3.0",
+    "pulseaudio-utils",
+    "fonts-noto-cjk"
+  ],
+  "use_command": [
+    "mousepad",
+    "--version"
+  ],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "964f59f20224afd5b10595007d58f003eb3facfb1a5647deab0404f257d2bc23",
+    "content_revision": 1,
+    "package_inventory_sha256": "fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Get:1 http://deb.debian.org/debian trixie InRelease [140 kB]\nGet:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]\nGet:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]\nGet:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]\nGet:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [4412 B]\nGet:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [269 kB]\nFetched 10.2 MB in 4s (2880 kB/s)\nReading package lists...\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "mousepad",
+        "wl-clipboard",
+        "dbus",
+        "python3-gi",
+        "gir1.2-gtk-3.0",
+        "pulseaudio-utils",
+        "fonts-noto-cjk"
+      ],
+      "exit_code": 0,
+      "stdout_tail": ") ...\r\nSetting up libgl1-mesa-dri:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up dconf-service (0.40.0-5) ...\r\nSetting up libhtml-format-perl (2.16-2) ...\r\nSetting up libxaw7:amd64 (2:1.0.16-1) ...\r\nSetting up x11-xserver-utils (7.7+11) ...\r\nSetting up gir1.2-harfbuzz-0.0:amd64 (10.2.0-1+deb13u1) ...\r\nSetting up librsvg2-2:amd64 (2.60.0+dfsg-1+deb13u1) ...\r\nSetting up gir1.2-pango-1.0:amd64 (1.56.3-1) ...\r\nSetting up libegl-mesa0:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libnet-smtp-ssl-perl (1.04-2) ...\r\nSetting up libmailtools-perl (2.22-1) ...\r\nSetting up librsvg2-common:amd64 (2.60.0+dfsg-1+deb13u1) ...\r\nSetting up libhttp-daemon-perl (6.16-1+deb13u1) ...\r\nSetting up libegl1:amd64 (1.7.0-1+b2) ...\r\nSetting up libglx-mesa0:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libglx0:amd64 (1.7.0-1+b2) ...\r\nSetting up dconf-gsettings-backend:amd64 (0.40.0-5) ...\r\nSetting up libgl1:amd64 (1.7.0-1+b2) ...\r\nSetting up zutty (0.16.2.20241020+dfsg1-1) ...\r\nupdate-alternatives: using /usr/bin/zutty to provide /usr/bin/x-terminal-emulator (x-terminal-emulator) in auto mode\r\nupdate-alternatives: warning: skip creation of /usr/share/man/man1/x-terminal-emulator.1.gz because associated file /usr/share/man/man1/zutty.1.gz (of link group x-terminal-emulator) doesn't exist\r\nSetting up x11-utils (7.7+7) ...\r\nSetting up libgtk-3-common (3.24.49-3) ...\r\nSetting up gsettings-desktop-schemas (48.0-1) ...\r\nSetting up libgtk-3-0t64:amd64 (3.24.49-3) ...\r\nSetting up at-spi2-core (2.56.2-1+deb13u2) ...\r\nSetting up libgspell-1-3:amd64 (1.14.0-2+b1) ...\r\nSetting up libxfce4ui-2-0:amd64 (4.20.1-1) ...\r\nSetting up gir1.2-gtk-3.0:amd64 (3.24.49-3) ...\r\nSetting up libgtk-3-bin (3.24.49-3) ...\r\nSetting up libgtksourceview-4-0:amd64 (4.8.4-6) ...\r\nSetting up libmousepad0:amd64 (0.6.3-1) ...\r\nSetting up mousepad (0.6.3-1) ...\r\nSetting up dmsetup (2:1.02.205-2) ...\r\nSetting up liblwp-protocol-https-perl (6.14-1) ...\r\nSetting up libwww-perl (6.78-1) ...\r\nSetting up libdevmapper1.02.1:amd64 (2:1.02.205-2) ...\r\nSetting up libcryptsetup12:amd64 (2:2.7.5-2) ...\r\nSetting up libxml-parser-perl (2.47-2~deb13u1) ...\r\nSetting up libxml-twig-perl (1:3.52-3) ...\r\nSetting up libnet-dbus-perl (1.2.0-2+b3) ...\r\nSetting up systemd-cryptsetup (257.13-1~deb13u1) ...\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\nProcessing triggers for systemd (257.13-1~deb13u1) ...\r\nProcessing triggers for dictionaries-common (1.30.10) ...\r\naspell-autobuildhash: processing: en [en-common].\r\naspell-autobuildhash: processing: en [en-variant_0].\r\naspell-autobuildhash: processing: en [en-variant_1].\r\naspell-autobuildhash: processing: en [en-variant_2].\r\naspell-autobuildhash: processing: en [en-w_accents-only].\r\naspell-autobuildhash: processing: en [en-wo_accents-only].\r\naspell-autobuildhash: processing: en [en_AU-variant_0].\r\naspell-autobuildhash: processing: en [en_AU-variant_1].\r\naspell-autobuildhash: processing: en [en_AU-w_accents-only].\r\naspell-autobuildhash: processing: en [en_AU-wo_accents-only].\r\naspell-autobuildhash: processing: en [en_CA-variant_0].\r\naspell-autobuildhash: processing: en [en_CA-variant_1].\r\naspell-autobuildhash: processing: en [en_CA-w_accents-only].\r\naspell-autobuildhash: processing: en [en_CA-wo_accents-only].\r\naspell-autobuildhash: processing: en [en_GB-ise-w_accents-only].\r\naspell-autobuildhash: processing: en [en_GB-ise-wo_accents-only].\r\naspell-autobuildhash: processing: en [en_GB-ize-w_accents-only].\r\naspell-autobuildhash: processing: en [en_GB-ize-wo_accents-only].\r\naspell-autobuildhash: processing: en [en_GB-variant_0].\r\naspell-autobuildhash: processing: en [en_GB-variant_1].\r\naspell-autobuildhash: processing: en [en_US-w_accents-only].\r\naspell-autobuildhash: processing: en [en_US-wo_accents-only].\r\nProcessing triggers for ca-certificates (20250419+deb13u1) ...\r\nUpdating certificates in /etc/ssl/certs...\r\n0 added, 0 removed; done.\r\nRunning hooks in /etc/ca-certificates/update.d...\r\ndone.\r\nProcessing triggers for libgdk-pixbuf-2.0-0:amd64 (2.42.12+dfsg-4+deb13u1) ...\r\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": null,
+  "verification": {
+    "ok": true,
+    "packages": {
+      "mousepad": true,
+      "wl-clipboard": true,
+      "dbus": true,
+      "python3-gi": true,
+      "gir1.2-gtk-3.0": true,
+      "pulseaudio-utils": true,
+      "fonts-noto-cjk": true
+    },
+    "command": [
+      "mousepad",
+      "--version"
+    ],
+    "command_exit_code": 0,
+    "stdout_preview": "Mousepad 0.6.3\n\nCopyright (C) 2005-2024\n\tThe Mousepad developers. All rights reserved.\n\nPlease report bugs to <https://gitlab.xfce.org/apps/mousepad>.\n",
+    "stdout_sha256": "19e6c29e13f63af09fecd781a24d381891e6f396ce389efca820a664c34de381",
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "26f4ba6fffc1c574fac87020e39a96ca31bb3e77c97022ab478128224ab1f27b",
+      "count": 2521,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "964f59f20224afd5b10595007d58f003eb3facfb1a5647deab0404f257d2bc23",
+    "content_revision": 2,
+    "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-22T08:29:55+08:00",
+  "finished_at": "2026-10-22T08:31:54+08:00"
+}

@@ -1,0 +1,7 @@
+{
+  "environment_id": "gui-fedora44",
+  "package": "google-noto-sans-cjk-vf-fonts",
+  "present": true,
+  "exit_code": 0,
+  "detail": "google-noto-sans-cjk-vf-fonts\t2.004-11.fc44.noarch"
+}

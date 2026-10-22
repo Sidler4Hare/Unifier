@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tools/probe_wayland_media.py", line 284, in run_native_target
+    attempt['audio'] = audio_test(service, app_id, docs, directory, frequency)
+                       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/tools/probe_wayland_media.py", line 168, in audio_test
+    sink = next(s for s in pulse('sinks') if s['index'] == stream['sink'])
+StopIteration
