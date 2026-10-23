@@ -1,0 +1,19 @@
+returncode=0
+--- stdout ---
+    PID    PPID STAT COMMAND
+      1       0 Ss   podman-init
+      2       1 S    sleep
+      4       0 Ss   dbus-run-sessio
+      5       4 S    dbus-daemon
+      6       4 Sl   mousepad
+     18       0 Ss   dbus-run-sessio
+     19      18 S    dbus-daemon
+     20      18 Sl   mousepad
+     34       0 Ss   dbus-run-sessio
+     35      34 S    dbus-daemon
+     36      34 Sl   mousepad
+     51       0 Ss   sh
+     52      51 R    ps
+
+--- stderr ---
+

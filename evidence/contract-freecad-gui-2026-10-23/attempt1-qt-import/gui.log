@@ -1,0 +1,1 @@
+Exception while processing file: /home/omg/文档/多兼容linux机/evidence/contract-freecad-gui-2026-10-23/host-project/control/gui-control.FCMacro [cannot import name 'QtTest' from 'PySide' (/usr/lib/freecad/Ext/PySide/__init__.py)]

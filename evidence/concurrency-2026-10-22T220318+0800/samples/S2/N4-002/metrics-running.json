@@ -1,0 +1,136 @@
+{
+  "env_id": "conc-debian",
+  "container_name": "ml-be3863e1-conc-debian",
+  "record_state": "running",
+  "container_id_recorded": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+  "inspect": {
+    "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+    "running": true,
+    "status": "running",
+    "pid": 1247873,
+    "exit_code": 0,
+    "started_at": "2026-10-22T22:05:02.634203463+08:00",
+    "finished_at": "2026-10-22T22:05:01.287479804+08:00",
+    "init": true
+  },
+  "cgroup": {
+    "cgroup_path": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742.scope/container",
+    "memory_current_bytes": 96768000,
+    "memory_peak_bytes": 102690816,
+    "memory_swap_current_bytes": 0,
+    "pids_current": 34,
+    "oom_kill": 0,
+    "error": null
+  },
+  "processes": {
+    "returncode": 0,
+    "process_count": 16,
+    "mousepad_count": 4,
+    "zombie_count": 0,
+    "rows": [
+      {
+        "pid": 1,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "podman-init"
+      },
+      {
+        "pid": 2,
+        "ppid": 1,
+        "stat": "S",
+        "comm": "sleep"
+      },
+      {
+        "pid": 4,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "dbus-run-sessio"
+      },
+      {
+        "pid": 5,
+        "ppid": 4,
+        "stat": "S",
+        "comm": "dbus-daemon"
+      },
+      {
+        "pid": 6,
+        "ppid": 4,
+        "stat": "Sl",
+        "comm": "mousepad"
+      },
+      {
+        "pid": 19,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "dbus-run-sessio"
+      },
+      {
+        "pid": 20,
+        "ppid": 19,
+        "stat": "S",
+        "comm": "dbus-daemon"
+      },
+      {
+        "pid": 21,
+        "ppid": 19,
+        "stat": "Sl",
+        "comm": "mousepad"
+      },
+      {
+        "pid": 34,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "dbus-run-sessio"
+      },
+      {
+        "pid": 35,
+        "ppid": 34,
+        "stat": "S",
+        "comm": "dbus-daemon"
+      },
+      {
+        "pid": 36,
+        "ppid": 34,
+        "stat": "Sl",
+        "comm": "mousepad"
+      },
+      {
+        "pid": 49,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "dbus-run-sessio"
+      },
+      {
+        "pid": 50,
+        "ppid": 49,
+        "stat": "S",
+        "comm": "dbus-daemon"
+      },
+      {
+        "pid": 51,
+        "ppid": 49,
+        "stat": "Sl",
+        "comm": "mousepad"
+      },
+      {
+        "pid": 66,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "sh"
+      },
+      {
+        "pid": 67,
+        "ppid": 66,
+        "stat": "R",
+        "comm": "ps"
+      }
+    ],
+    "pss_kb": 1384,
+    "pss_error": null
+  },
+  "disk": {
+    "size_rw_bytes": 157248,
+    "size_root_fs_bytes": 1515808514,
+    "error": null
+  }
+}

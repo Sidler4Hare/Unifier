@@ -1,0 +1,174 @@
+{
+  "schema": "multilinux.lifecycle.attempt-diagnosis.v1",
+  "generated_at": "2026-10-22T21:36:00+08:00",
+  "prior_attempt": "evidence/lifecycle-2026-10-22T212236+0800",
+  "final_run": "evidence/lifecycle-2026-10-22T213032+0800",
+  "summary": "第一轮（未做焦点/只读保护）在共享桌面上被真实键盘输入干扰：KWin 自动把新测试窗口设为活动窗口后，宿主上的键入事件落进 Mousepad，文档被标记修改；关窗请求因此触发应用自己的 Save Changes 模态对话框，窗口不会移除，测量侧在 20 秒等待后超时。该现象可由客户端 WAYLAND_DEBUG 日志直接证明，不是合成器未送达 close，也不是 Mousepad 崩溃/挂起，更不是产品生命周期代码停止流程失败。",
+  "classification": "external keyboard input on a shared desktop (harness/environment interference)",
+  "not_a_product_defect": true,
+  "debian13_C_cycle_015": {
+    "files": {
+      "result": "evidence/lifecycle-2026-10-22T212236+0800/samples/debian13/C/cycle-015/result.json",
+      "stderr": "evidence/lifecycle-2026-10-22T212236+0800/samples/debian13/C/cycle-015/stderr.log",
+      "result_sha256": "18eb816a29a80051f2ec53cf48084eaf5c11d00e8fb2904cf82b4fbbdcb0db7c",
+      "stderr_sha256": "1f613294abc2532e7942ca79f1bdc61f72f72b6faf7dd7f87825fe295f279f84"
+    },
+    "error": "TimeoutError: compositor never removed the closed window",
+    "corrected_kwin_close_requests": [
+      {
+        "line": 315,
+        "text": "[3391027.162] {Default Queue} xdg_toplevel#35.close()"
+      },
+      {
+        "line": 963,
+        "text": "[3394127.162] {Default Queue} xdg_toplevel#44.close()"
+      },
+      {
+        "line": 1427,
+        "text": "[3411035.851] {Default Queue} xdg_toplevel#35.close()"
+      }
+    ],
+    "keyboard_events": [
+      {
+        "line": 281,
+        "text": "[3391005.910] {Default Queue} wl_keyboard#31.key(265888, 116231893, 34, 1)"
+      },
+      {
+        "line": 464,
+        "text": "[3391113.224] {Default Queue} wl_keyboard#31.key(265897, 116264937, 34, 0)"
+      }
+    ],
+    "modified_title_events": [
+      {
+        "line": 285,
+        "text": "[3391007.202] {Default Queue}  -> xdg_toplevel#35.set_title(\"*/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian/ML-LIFE-debian13-C-015.txt - Mousepad\")"
+      }
+    ],
+    "save_changes_dialogs": [
+      {
+        "line": 320,
+        "text": "[3391031.229] {Default Queue}  -> xdg_toplevel#44.set_title(\"Save Changes\")"
+      },
+      {
+        "line": 1432,
+        "text": "[3411040.466] {Default Queue}  -> xdg_toplevel#41.set_title(\"Save Changes\")"
+      }
+    ],
+    "crash_or_hang_terms": 0,
+    "cleanup": [
+      {
+        "close_window": "requested"
+      }
+    ],
+    "interpretation": "第 281 行出现一次真实按键（scancode 34）后文档标题出现 * 前缀；关闭请求的 close 事件已送达客户端，客户端没有退出而是创建了 \"Save Changes\" 子 toplevel，因此等待 removed 超时。"
+  },
+  "debian13_D": {
+    "files": {
+      "scenario": "evidence/lifecycle-2026-10-22T212236+0800/samples/debian13/D/scenario.json",
+      "stderr": "evidence/lifecycle-2026-10-22T212236+0800/samples/debian13/D/stderr.log",
+      "scenario_sha256": "42705f56a3aaf96e91a9abd5c8a526b987d740bb9a1f29779c589539309cd63c",
+      "stderr_sha256": "6e32045ae9a195674bcd13da0b2cc8ff79d275210e65dd4da24432b4bea09dcd"
+    },
+    "window_survived_kill": true,
+    "window_after_kill": [
+      {
+        "caption": "*/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian/ML-LIFE-debian13-D-000.txt - Mousepad",
+        "resourceClass": "mousepad",
+        "pid": 1148032,
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87521c40)",
+        "wayland": null,
+        "x11": null,
+        "width": 640,
+        "height": 508,
+        "bufferWidth": 640,
+        "bufferHeight": 480,
+        "internalId": "{b9c69eed-bbc9-4b08-96ee-c8719c59e57d}",
+        "active": true
+      }
+    ],
+    "workers_alive_after_kill": [
+      {
+        "pid": 1147806,
+        "stamp": 25295619,
+        "state": "S"
+      }
+    ],
+    "top_returncode": -9,
+    "kwin_close_requests": [
+      {
+        "line": 371,
+        "text": "[3452241.275] {Default Queue} xdg_toplevel#35.close()"
+      }
+    ],
+    "keyboard_events": [
+      {
+        "line": 341,
+        "text": "[3452030.525] {Default Queue} wl_keyboard#31.key(266296, 116324430, 57, 1)"
+      },
+      {
+        "line": 368,
+        "text": "[3452158.635] {Default Queue} wl_keyboard#31.key(266299, 116324430, 57, 0)"
+      },
+      {
+        "line": 707,
+        "text": "[3453648.890] {Default Queue} wl_keyboard#31.key(266308, 116327473, 14, 1)"
+      },
+      {
+        "line": 708,
+        "text": "[3453784.985] {Default Queue} wl_keyboard#31.key(266309, 116327609, 14, 0)"
+      }
+    ],
+    "modified_title_events": [
+      {
+        "line": 342,
+        "text": "[3452031.081] {Default Queue}  -> xdg_toplevel#35.set_title(\"*/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian/ML-LIFE-debian13-D-000.txt - Mousepad\")"
+      }
+    ],
+    "save_changes_dialogs": [
+      {
+        "line": 376,
+        "text": "[3452245.691] {Default Queue}  -> xdg_toplevel#43.set_title(\"Save Changes\")"
+      }
+    ],
+    "crash_or_hang_terms": 0,
+    "interpretation": "顶层启动器被 SIGKILL 后窗口按设计保留；随后的关窗请求已送达，但文档此前被真实按键（scancode 57/14）标记修改，客户端弹 Save Changes 模态框，窗口不移除，直到测试清理再次关窗/终止启动器。"
+  },
+  "measurement_or_compositor_race_ruled_out_by": [
+    "客户端 stderr 同时记录了 close 事件和应用自己新建 Save Changes toplevel，说明合成器 close 已送达且客户端响应。",
+    "同一 Debian 热组另外 29 次关窗均在毫秒级移除；Arch 30/30 正常；若是合成器竞态不会只产生应用模态框。",
+    "修复保护后的整套复测（本目录）Debian 热组 30/30、D 通过，且 stderr 中 Save Changes、修改标题、键盘事件均为 0。",
+    "Mousepad 进程一直存活并继续处理协议（有新的 toplevel/commit），无崩溃、无挂起。"
+  ],
+  "mitigation_used_in_final_run": [
+    "work 目录中的测试文档以 0444 只读方式打开，宿主误键入无法把文档标记为已修改。",
+    "probe_lifecycle.py 加载 transient KWin focus guard：测试窗口被激活时立即把焦点还给最近的非测试窗口，避免共享桌面上的人为键入进入测试应用。"
+  ],
+  "final_run_verification": {
+    "debian13_C": {
+      "passed": true,
+      "cycles": "30/30",
+      "zombies": 0
+    },
+    "arch_C": {
+      "passed": true,
+      "cycles": "30/30",
+      "zombies": 0
+    },
+    "debian13_D": {
+      "passed": true,
+      "window_survived_kill": true,
+      "auto_stop_after_kill": true,
+      "recovery_stopped": true
+    },
+    "arch_D": {
+      "passed": true,
+      "window_survived_kill": true,
+      "auto_stop_after_kill": true,
+      "recovery_stopped": true
+    },
+    "save_changes_dialogs_in_final_C": 0,
+    "modified_titles_in_final_C": 0,
+    "keyboard_key_events_in_final_A": 0,
+    "validation_product_verdict": "lifecycle-fixed"
+  }
+}

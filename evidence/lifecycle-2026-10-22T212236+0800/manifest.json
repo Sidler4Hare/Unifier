@@ -1,0 +1,891 @@
+{
+  "schema": "multilinux.lifecycle.v1",
+  "run_id": "lifecycle-2026-10-22T212236+0800",
+  "evidence_dir": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800",
+  "prepared_at": "2026-10-22T21:22:36+08:00",
+  "scope": "Real rootless Podman environments on the Fedora 44 / KDE host. Serial GUI measurements, container lifecycle and lease ownership; physical display presentation is not measured.",
+  "source_config": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/config",
+  "targets": {
+    "debian13": {
+      "env_id": "test-debian",
+      "app_id": "life-editor-debian"
+    },
+    "arch": {
+      "env_id": "test-arch",
+      "app_id": "life-editor-arch"
+    }
+  },
+  "tool_sha256": {
+    "tools/prepare_lifecycle.py": "c8e3bcc6a8568fcdd8642bb7809e2ddc61b5fc99295d017f87048a00d73e1ece",
+    "tools/probe_lifecycle.py": "71bcb9849a03648545cf72a8c5e9e2abdb7725155c0f93742b66fcbf5448af34",
+    "tools/startup_observer.py": "42743d0bc48f74dc80bfa910c7fc2f35d81a93d0bbcff377892d47c1a3d08461",
+    "tools/kwin_window_probe.py": "9f86ababba6cbb6aa66cc9c48f03cce1c15e7573c1acb243f89f54a3682e0161"
+  },
+  "resnapshots": [
+    {
+      "at": "2026-10-22T21:23:56+08:00",
+      "previous_git_head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+      "git": {
+        "head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+        "branch": "codex/screencast-protocol",
+        "status_porcelain": [
+          " M HANDOFF.md",
+          " M README.md",
+          " M src/multilinux/cli.py",
+          " M src/multilinux/on_demand.py",
+          " M src/multilinux/packages.py",
+          " M src/multilinux/runtime.py",
+          " M src/multilinux/service.py",
+          " M tests/test_packages.py",
+          "?? evidence-install-status-prep.log",
+          "?? evidence-install-status-probe.log",
+          "?? evidence/arch-complex-2026-10-22T202359+0800/",
+          "?? evidence/install-status-2026-10-22T2108+0800/",
+          "?? evidence/lifecycle-2026-10-22T212236+0800/",
+          "?? tests/test_install_status.py",
+          "?? tests/test_lifecycle_contracts.py",
+          "?? tools/prepare_install_status.py",
+          "?? tools/prepare_lifecycle.py",
+          "?? tools/probe_arch_complex.py",
+          "?? tools/probe_freecad_macro.py",
+          "?? tools/probe_install_status.py",
+          "?? tools/probe_lifecycle.py",
+          "?? \"\\350\\260\\203\\347\\240\\224/\\345\\244\\215\\346\\235\\202Arch\\345\\272\\224\\347\\224\\250\\344\\270\\216\\345\\220\\216\\347\\273\\255\\346\\265\\213\\350\\257\\225.md\""
+        ],
+        "status_sha256": "4affdaec3afb49c50a87075502e0cfde643d9bbce0fc757adc3f4fc5beff8ea4",
+        "dirty": true,
+        "diff_stat": [
+          "HANDOFF.md                  |  10 +-",
+          " README.md                   |   4 +",
+          " src/multilinux/cli.py       |  39 ++++++++",
+          " src/multilinux/on_demand.py | 223 ++++++++++++++++++++++++++++++++++++++------",
+          " src/multilinux/packages.py  | 107 +++++++++++++++++++++",
+          " src/multilinux/runtime.py   |  10 +-",
+          " src/multilinux/service.py   | 132 +++++++++++++++++++++-----",
+          " tests/test_packages.py      |   6 +-",
+          " 8 files changed, 473 insertions(+), 58 deletions(-)"
+        ]
+      },
+      "snapshot_sha256": "9b6e96edd17d780198adfa51ca89b7ee16d67bc7fd6baccc6316f1970fb7623c"
+    }
+  ],
+  "snapshot": {
+    "created_at": "2026-10-22T21:23:56+08:00",
+    "source_config": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/config",
+    "config_origin": {
+      "targets.toml": {
+        "source": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/config/targets.toml",
+        "sha256": "cb2c9e7e3942a03bf2cc8735c08d72c986c3bbee8f9c14da550858f10badbbed"
+      },
+      "images.lock.json": {
+        "source": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/config/images.lock.json",
+        "sha256": "e773e1ec13d2033f43300a4ab2032c6d22fb0c3a1268b69d7b82d4634196b6f1"
+      }
+    },
+    "paths": [
+      "config/images.lock.json",
+      "config/targets.toml",
+      "fixtures/dmabuf_roundtrip.c",
+      "fixtures/lab-smoke.sh",
+      "fixtures/launch_mousepad.py",
+      "fixtures/mousepad_control.py",
+      "fixtures/resource_probe.c",
+      "fixtures/screencast_consumer.c",
+      "fixtures/share_target.py",
+      "fixtures/wayland_clipboard.py",
+      "fixtures/wayland_handshake.py",
+      "fixtures/x11_window_input.py",
+      "src/multilinux/__init__.py",
+      "src/multilinux/__main__.py",
+      "src/multilinux/cli.py",
+      "src/multilinux/desktop.py",
+      "src/multilinux/errors.py",
+      "src/multilinux/on_demand.py",
+      "src/multilinux/packages.py",
+      "src/multilinux/project.py",
+      "src/multilinux/resources.py",
+      "src/multilinux/routing.py",
+      "src/multilinux/runtime.py",
+      "src/multilinux/screencast.py",
+      "src/multilinux/service.py",
+      "src/multilinux/store.py",
+      "tools/audio_route.py",
+      "tools/collect_host_baseline.py",
+      "tools/kwin_window_probe.py",
+      "tools/lab.py",
+      "tools/ml.py",
+      "tools/prepare_install_status.py",
+      "tools/prepare_lifecycle.py",
+      "tools/prepare_startup.py",
+      "tools/probe_arch_complex.py",
+      "tools/probe_desktop_apps.py",
+      "tools/probe_desktop_protocols.py",
+      "tools/probe_file_sharing.py",
+      "tools/probe_freecad_macro.py",
+      "tools/probe_install_status.py",
+      "tools/probe_lifecycle.py",
+      "tools/probe_resources.py",
+      "tools/probe_screencast.py",
+      "tools/probe_startup.py",
+      "tools/probe_startup_failures.py",
+      "tools/probe_startup_phases.py",
+      "tools/probe_tencent_meeting.py",
+      "tools/probe_wayland_media.py",
+      "tools/startup_observer.py",
+      "tools/trace_startup_entry.py",
+      "tools/verify_startup_evidence.py"
+    ],
+    "files_sha256": {
+      "config/images.lock.json": "e773e1ec13d2033f43300a4ab2032c6d22fb0c3a1268b69d7b82d4634196b6f1",
+      "config/targets.toml": "cb2c9e7e3942a03bf2cc8735c08d72c986c3bbee8f9c14da550858f10badbbed",
+      "fixtures/dmabuf_roundtrip.c": "c44bf22e49ef500626f6ec68980f125ddf42624e5c5e03a4df43c26eb4624d06",
+      "fixtures/lab-smoke.sh": "a18c469ec5a054c775d8d39066dbfdca4f38cd9d4505c74bdf9ebec6f1efb17a",
+      "fixtures/launch_mousepad.py": "c336c4fb1cbcc04df2faadd930bf3414be0489b84be4c6346d41cb00d86d7396",
+      "fixtures/mousepad_control.py": "d08abd96b1e9e0f2b6dd842752a98bbd905cc86899d58a74281540e0cc38e15c",
+      "fixtures/resource_probe.c": "067675d016ccfa5dbd3cc1453edf8e191518fadd30cfba653a95a8313c556376",
+      "fixtures/screencast_consumer.c": "3889097c92cef98057568de52f70e66b612ac74a298e083245d6e16e2fe0b73a",
+      "fixtures/share_target.py": "9f3b7fa188d6388f38aab971dfdfb012a10b04c739cfdbbb74b6927764433d55",
+      "fixtures/wayland_clipboard.py": "a7c5d997eb7d28f62ed6f391de6ee8b472c029f5f3afe1ba13b67a97fab62cb9",
+      "fixtures/wayland_handshake.py": "764c0c1c1fbfdc240e67cdcff48cf905d5443209311a79601ca45cc27d991c4c",
+      "fixtures/x11_window_input.py": "a9ba9c9484e4427f19ad8a923709c343faa74185efa6461464f898e70748a80a",
+      "src/multilinux/__init__.py": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+      "src/multilinux/__main__.py": "8fc1fcde2cd1a30a9c1271714cbe49efd1b7ef1597ad4b0f16e1f84dc96ae2b8",
+      "src/multilinux/cli.py": "1a6ce51a9f71a6a0b86d5b5a1a20e16434d5c3e4d7fe3e2241df0788658d2faa",
+      "src/multilinux/desktop.py": "421ba2f4492bd17c4c1b1a3c44ff9b5c83b116c7887430e51f218aa4b89f8a93",
+      "src/multilinux/errors.py": "531a2ca4ce2056099a662eed98a6fa137013b99c7ea0a091fa3960279b92ca2a",
+      "src/multilinux/on_demand.py": "8966e606105071da47f3544229521f37c91b56181714f0dd262b66e7b2ad253a",
+      "src/multilinux/packages.py": "561def1c00ab24f92af3b2b18e39a72bf38b8fa5efbb110fb6737c5af1428156",
+      "src/multilinux/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+      "src/multilinux/resources.py": "1269fc93c41febfc8932d57b805cd512b6fd6cbde109e5c6ca680725504ce4ec",
+      "src/multilinux/routing.py": "a428aa0fd11bded46cc02eb4b498ac00482f19767d7b98f0bdd20e97c658b155",
+      "src/multilinux/runtime.py": "e961e82ae4f50574111559ab52fc930400be2be60922006be4c489e528f6306c",
+      "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+      "src/multilinux/service.py": "ad0eb6cda4213083bc3456409b3f592abf9247262fa48c2de542858bfc180baf",
+      "src/multilinux/store.py": "f1885b957b7f94f2f351b5900b9d41cc81983e5ef25777e2efa482003696382e",
+      "tools/audio_route.py": "3b4ee5815bc0397ce05ee774117431ab4d7c112eaadac346adb41886fc227fd2",
+      "tools/collect_host_baseline.py": "03677ad71234be7743a61463b3570952f6b82d5d0f7341ba4fe74f3fa00a3449",
+      "tools/kwin_window_probe.py": "9f86ababba6cbb6aa66cc9c48f03cce1c15e7573c1acb243f89f54a3682e0161",
+      "tools/lab.py": "75b0e20a452acc3b9168c8cc0bcdd96603d2721113e054515790a1db75f774f4",
+      "tools/ml.py": "9ce24eece889ef5fc43ee203f83a96722280752cae1bbe25c96271eddd4e6c49",
+      "tools/prepare_install_status.py": "5774d0ded94cb08829d94084245c869a706245fe978022e0c4ec76d65233064c",
+      "tools/prepare_lifecycle.py": "c8e3bcc6a8568fcdd8642bb7809e2ddc61b5fc99295d017f87048a00d73e1ece",
+      "tools/prepare_startup.py": "0fe52c69bef7f2b1ae3feb50b9e70840e4d132bf12a737b3c01852ddeccdb7e0",
+      "tools/probe_arch_complex.py": "45f71dc720add7be1e44f60100bd1ff628d0f2f32a528ced6668dec716d969cc",
+      "tools/probe_desktop_apps.py": "16a6ce2f11b7c4eb62b4ecdb49c89de6517603d3b30f12d575c309f010abeb63",
+      "tools/probe_desktop_protocols.py": "a711b4b6c05db1f86cb01b6e082367f7f5e104ed549487a023a6732663c77ab6",
+      "tools/probe_file_sharing.py": "e90d11e9e4d14ede05f5695a58f84bfd660150cf788293b430c10ec9d3d5ff15",
+      "tools/probe_freecad_macro.py": "46a948900755dfaa953f983cd7ab27b3a0e34a88fae6941721ce196a566d721b",
+      "tools/probe_install_status.py": "3b0a046f9ea85958b653ba4adfbd05e1a042fb83202d3de59b62ac54f40c353a",
+      "tools/probe_lifecycle.py": "71bcb9849a03648545cf72a8c5e9e2abdb7725155c0f93742b66fcbf5448af34",
+      "tools/probe_resources.py": "0efe7c61353fb7ba72ccd0e11c7f107566a6a83e23a4888a8f7d423137600d54",
+      "tools/probe_screencast.py": "bc7d2845bc939d3cd09d9ec9b25770d9dc639d6132bc6b632bf38b81b6751c5b",
+      "tools/probe_startup.py": "30f342d264fb18018ff6898fb286b0e4078cfe4f3b7264bc2c2da8822d74f37c",
+      "tools/probe_startup_failures.py": "c188d4c70a7869c7967f3e6655f8c4a2d5efe6bb538c2e8b06db8d9056fbadfd",
+      "tools/probe_startup_phases.py": "3deef866db254743e1f8663545f1ea6ca39c11c4bccbe93bbc1d14506c09eee0",
+      "tools/probe_tencent_meeting.py": "d1ca551f0488b327d3d6b8ad9c538a704dfc7be4cc44d2f389bb86661a6c1208",
+      "tools/probe_wayland_media.py": "d2410991723fca06e6af0280e946895ee38b1080a1ddf2e52d5c2cc5ae68b820",
+      "tools/startup_observer.py": "42743d0bc48f74dc80bfa910c7fc2f35d81a93d0bbcff377892d47c1a3d08461",
+      "tools/trace_startup_entry.py": "e0c7174780cd0c43d2266f88c140fccd5c6430d9a3337df312abbc5b922bd683",
+      "tools/verify_startup_evidence.py": "a6cb8fbecce5abb037399ad8fdf8e1f407453a324517789382ddb26642657cc4"
+    },
+    "snapshot_sha256": "9b6e96edd17d780198adfa51ca89b7ee16d67bc7fd6baccc6316f1970fb7623c",
+    "git": {
+      "head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+      "branch": "codex/screencast-protocol",
+      "status_porcelain": [
+        " M HANDOFF.md",
+        " M README.md",
+        " M src/multilinux/cli.py",
+        " M src/multilinux/on_demand.py",
+        " M src/multilinux/packages.py",
+        " M src/multilinux/runtime.py",
+        " M src/multilinux/service.py",
+        " M tests/test_packages.py",
+        "?? evidence-install-status-prep.log",
+        "?? evidence-install-status-probe.log",
+        "?? evidence/arch-complex-2026-10-22T202359+0800/",
+        "?? evidence/install-status-2026-10-22T2108+0800/",
+        "?? evidence/lifecycle-2026-10-22T212236+0800/",
+        "?? tests/test_install_status.py",
+        "?? tests/test_lifecycle_contracts.py",
+        "?? tools/prepare_install_status.py",
+        "?? tools/prepare_lifecycle.py",
+        "?? tools/probe_arch_complex.py",
+        "?? tools/probe_freecad_macro.py",
+        "?? tools/probe_install_status.py",
+        "?? tools/probe_lifecycle.py",
+        "?? \"\\350\\260\\203\\347\\240\\224/\\345\\244\\215\\346\\235\\202Arch\\345\\272\\224\\347\\224\\250\\344\\270\\216\\345\\220\\216\\347\\273\\255\\346\\265\\213\\350\\257\\225.md\""
+      ],
+      "status_sha256": "4affdaec3afb49c50a87075502e0cfde643d9bbce0fc757adc3f4fc5beff8ea4",
+      "dirty": true,
+      "diff_stat": [
+        "HANDOFF.md                  |  10 +-",
+        " README.md                   |   4 +",
+        " src/multilinux/cli.py       |  39 ++++++++",
+        " src/multilinux/on_demand.py | 223 ++++++++++++++++++++++++++++++++++++++------",
+        " src/multilinux/packages.py  | 107 +++++++++++++++++++++",
+        " src/multilinux/runtime.py   |  10 +-",
+        " src/multilinux/service.py   | 132 +++++++++++++++++++++-----",
+        " tests/test_packages.py      |   6 +-",
+        " 8 files changed, 473 insertions(+), 58 deletions(-)"
+      ]
+    },
+    "host": {
+      "taken_at": "2026-10-22T21:23:56+08:00",
+      "meminfo": {
+        "MemTotal_bytes": 7982043136,
+        "MemFree_bytes": 302923776,
+        "MemAvailable_bytes": 2757238784,
+        "Cached_bytes": 3088728064,
+        "SwapTotal_bytes": 22405963776,
+        "SwapFree_bytes": 19442700288
+      },
+      "pressure": {
+        "memory.some": {
+          "avg10": 0.09,
+          "avg60": 0.05,
+          "avg300": 0.06,
+          "total_us": 1125787703
+        },
+        "memory.full": {
+          "avg10": 0.09,
+          "avg60": 0.05,
+          "avg300": 0.06,
+          "total_us": 975730137
+        },
+        "cpu.some": {
+          "avg10": 0.05,
+          "avg60": 0.14,
+          "avg300": 0.31,
+          "total_us": 3414527384
+        },
+        "cpu.full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        },
+        "io.some": {
+          "avg10": 0.0,
+          "avg60": 0.12,
+          "avg300": 0.17,
+          "total_us": 495476421
+        },
+        "io.full": {
+          "avg10": 0.0,
+          "avg60": 0.11,
+          "avg300": 0.13,
+          "total_us": 334321191
+        }
+      },
+      "load_average": [
+        1.07,
+        1.5,
+        1.62
+      ],
+      "cpu_freq_khz": [
+        3800539,
+        3800064,
+        3386333,
+        3800000,
+        3689288,
+        3800047,
+        3800000,
+        3800051
+      ],
+      "thermal": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "temp_c": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "temp_c": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "temp_c": 52.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "temp_c": 58.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "temp_c": 38.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "temp_c": 58.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "temp_c": 37.0
+        }
+      ]
+    },
+    "session": {
+      "WAYLAND_DISPLAY": "wayland-0",
+      "DISPLAY": ":0",
+      "XDG_RUNTIME_DIR": "/run/user/1000",
+      "XAUTHORITY": "/run/user/1000/xauth_WtbESS",
+      "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/1000/bus",
+      "XDG_CURRENT_DESKTOP": "KDE",
+      "XDG_SESSION_TYPE": "wayland"
+    },
+    "git_branch": "codex/screencast-protocol"
+  },
+  "snapshot_pending_recreate": true,
+  "images": {
+    "debian13": {
+      "tag": "localhost/multilinux/startup-debian13:20261022-1824",
+      "locked_reference": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+      "expected_digest": "sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+      "local_digest": "sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+      "digest_matches": true,
+      "image_id": "a2778b931ba0567a053a50409252ad10129bd52ea9fdedb784d62939ca0bd0cc",
+      "created": "2026-10-22T10:22:17.130607168Z",
+      "size_bytes": 1515651266
+    },
+    "arch": {
+      "tag": "localhost/multilinux/startup-arch:20261022-1824",
+      "locked_reference": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7",
+      "expected_digest": "sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7",
+      "local_digest": "sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7",
+      "digest_matches": true,
+      "image_id": "de128b7cc59dc76fcb90b7f1270b2a03eecfcc020b96483c2722c8c6fac309e5",
+      "created": "2026-10-22T10:22:32.947753881Z",
+      "size_bytes": 3010238943
+    }
+  },
+  "environments": {
+    "test-debian": {
+      "target": "debian13",
+      "created_at": "2026-10-22T21:22:45+08:00",
+      "record": {
+        "schema_version": 1,
+        "id": "test-debian",
+        "target": "debian13",
+        "distribution_id": "debian",
+        "version_track": "13",
+        "update_policy": "versioned-release",
+        "architecture": "amd64",
+        "base_image": {
+          "source": "localhost/multilinux/startup-debian13:20261022-1824",
+          "manifest_digest": "sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+          "locked_reference": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+          "image_version_label": null
+        },
+        "writable_revision": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+        "content_revision": 1,
+        "runtime_state": "stopped",
+        "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+        "package_inventory_count": 372,
+        "package_inventory_path": ".lab/state/environments/test-debian.packages.txt",
+        "shared_mounts": [
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian",
+            "container": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian",
+            "options": "z"
+          }
+        ],
+        "desktop": {
+          "selinux_label": "disable",
+          "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+          "env": {
+            "WAYLAND_DISPLAY": "wayland-0",
+            "XDG_RUNTIME_DIR": "/run/user/1000",
+            "DISPLAY": ":0",
+            "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+            "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+            "PIPEWIRE_REMOTE": "pipewire-0",
+            "XDG_SESSION_TYPE": "wayland",
+            "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus"
+          },
+          "mounts": [
+            {
+              "host": "/run/user/1000/wayland-0",
+              "container": "/run/user/1000/wayland-0",
+              "options": ""
+            },
+            {
+              "host": "/tmp/.X11-unix/X0",
+              "container": "/tmp/.X11-unix/X0",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pulse/native",
+              "container": "/run/user/1000/pulse/native",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pipewire-0",
+              "container": "/run/user/1000/pipewire-0",
+              "options": ""
+            },
+            {
+              "host": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-debian",
+              "container": "/run/multilinux-portal",
+              "options": ""
+            }
+          ],
+          "portal_proxy": {
+            "directory": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-debian",
+            "container": "/run/multilinux-portal"
+          }
+        },
+        "created_at": "2026-10-22T21:22:45+08:00",
+        "updated_at": "2026-10-22T21:22:45+08:00",
+        "arch": null,
+        "runtime": {
+          "backend": "podman",
+          "container_name": "ml-75a8c1ff-test-debian",
+          "container_id": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+          "project": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project",
+          "network": "none",
+          "selinux_label": "disable",
+          "full_init": false,
+          "user_namespace": "keep-id",
+          "devices": [],
+          "ipc": "host",
+          "rootless": true
+        },
+        "observed": {
+          "os_release_id": "debian",
+          "os_release_version_id": "13",
+          "os_release_build_id": null,
+          "os_release_pretty_name": "Debian GNU/Linux 13 (trixie)",
+          "kernel": "7.2.11-200.fc44.x86_64",
+          "machine": "x86_64"
+        },
+        "created_by_uid": 1000,
+        "created_by_gid": 1000,
+        "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage."
+      },
+      "container_init": true,
+      "container_labels": {
+        "multilinux.env": "test-debian",
+        "multilinux.project": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project",
+        "multilinux.role": "environment"
+      },
+      "inspect_state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-22T21:22:44.86660737+08:00",
+        "FinishedAt": "2026-10-22T21:22:45.594182742+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "preflight_at": "2026-10-22T21:22:48+08:00",
+      "mousepad_version": "Mousepad 0.6.3\n\nCopyright (C) 2005-2024\n\tThe Mousepad developers. All rights reserved.\n\nPlease report bugs to <https://gitlab.xfce.org/apps/mousepad>.",
+      "mousepad_help_ok": true,
+      "package_inventory_count": 372,
+      "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "package_inventory_matches": true
+    },
+    "test-arch": {
+      "target": "arch",
+      "created_at": "2026-10-22T21:22:49+08:00",
+      "record": {
+        "schema_version": 1,
+        "id": "test-arch",
+        "target": "arch",
+        "distribution_id": "arch",
+        "version_track": "rolling",
+        "update_policy": "full-system-upgrade",
+        "architecture": "amd64",
+        "base_image": {
+          "source": "localhost/multilinux/startup-arch:20261022-1824",
+          "manifest_digest": "sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7",
+          "locked_reference": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7",
+          "image_version_label": "20261011.0.609700"
+        },
+        "writable_revision": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+        "content_revision": 1,
+        "runtime_state": "stopped",
+        "package_inventory_sha256": "4cd0877ccc6a7269a90b18ef0352c27055ba4e80b713dd596c651287f0d3efcb",
+        "package_inventory_count": 246,
+        "package_inventory_path": ".lab/state/environments/test-arch.packages.txt",
+        "shared_mounts": [
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-arch",
+            "container": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-arch",
+            "options": "z"
+          }
+        ],
+        "desktop": {
+          "selinux_label": "disable",
+          "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+          "env": {
+            "WAYLAND_DISPLAY": "wayland-0",
+            "XDG_RUNTIME_DIR": "/run/user/1000",
+            "DISPLAY": ":0",
+            "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+            "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+            "PIPEWIRE_REMOTE": "pipewire-0",
+            "XDG_SESSION_TYPE": "wayland",
+            "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus"
+          },
+          "mounts": [
+            {
+              "host": "/run/user/1000/wayland-0",
+              "container": "/run/user/1000/wayland-0",
+              "options": ""
+            },
+            {
+              "host": "/tmp/.X11-unix/X0",
+              "container": "/tmp/.X11-unix/X0",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pulse/native",
+              "container": "/run/user/1000/pulse/native",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pipewire-0",
+              "container": "/run/user/1000/pipewire-0",
+              "options": ""
+            },
+            {
+              "host": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-arch",
+              "container": "/run/multilinux-portal",
+              "options": ""
+            }
+          ],
+          "portal_proxy": {
+            "directory": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-arch",
+            "container": "/run/multilinux-portal"
+          }
+        },
+        "created_at": "2026-10-22T21:22:49+08:00",
+        "updated_at": "2026-10-22T21:22:49+08:00",
+        "arch": {
+          "image_version_label": "20261011.0.609700",
+          "os_release_version_id": "20261011.0.609700",
+          "os_release_build_id": "rolling",
+          "repository_updated_at": null,
+          "package_set_sha256": "4cd0877ccc6a7269a90b18ef0352c27055ba4e80b713dd596c651287f0d3efcb",
+          "keyring_initialized_at": null
+        },
+        "runtime": {
+          "backend": "podman",
+          "container_name": "ml-75a8c1ff-test-arch",
+          "container_id": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+          "project": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project",
+          "network": "none",
+          "selinux_label": "disable",
+          "full_init": false,
+          "user_namespace": "keep-id",
+          "devices": [],
+          "ipc": "host",
+          "rootless": true
+        },
+        "observed": {
+          "os_release_id": "arch",
+          "os_release_version_id": "20261011.0.609700",
+          "os_release_build_id": "rolling",
+          "os_release_pretty_name": "Arch Linux",
+          "kernel": "7.2.11-200.fc44.x86_64",
+          "machine": "x86_64"
+        },
+        "created_by_uid": 1000,
+        "created_by_gid": 1000,
+        "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage."
+      },
+      "container_init": true,
+      "container_labels": {
+        "multilinux.env": "test-arch",
+        "multilinux.project": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project",
+        "multilinux.role": "environment",
+        "org.opencontainers.image.authors": "Santiago Torres-Arias <santiago@archlinux.org> (@SantiagoTorres), Christian Rebischke <Chris.Rebischke@archlinux.org> (@shibumi), Justin Kromlinger <hashworks@archlinux.org> (@hashworks)",
+        "org.opencontainers.image.created": "2026-10-11T00:09:32+00:00",
+        "org.opencontainers.image.description": "Official containerd image of Arch Linux, a simple, lightweight Linux distribution aimed for flexibility.",
+        "org.opencontainers.image.documentation": "https://wiki.archlinux.org/title/Docker#Arch_Linux",
+        "org.opencontainers.image.licenses": "GPL-3.0-or-later",
+        "org.opencontainers.image.revision": "34b87485162b028c8d957bdcd2674359d883cd21",
+        "org.opencontainers.image.source": "https://gitlab.archlinux.org/archlinux/archlinux-docker",
+        "org.opencontainers.image.title": "Arch Linux base Image",
+        "org.opencontainers.image.url": "https://gitlab.archlinux.org/archlinux/archlinux-docker/-/blob/master/README.md",
+        "org.opencontainers.image.version": "20261011.0.609700"
+      },
+      "inspect_state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-22T21:22:48.369651168+08:00",
+        "FinishedAt": "2026-10-22T21:22:49.057176459+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "preflight_at": "2026-10-22T21:22:51+08:00",
+      "mousepad_version": "Mousepad 0.7.0\n\nCopyright (C) 2005-2026\n\tThe Mousepad developers. All rights reserved.\n\nPlease report bugs to <https://gitlab.xfce.org/apps/mousepad/-/issues>.",
+      "mousepad_help_ok": true,
+      "package_inventory_count": 246,
+      "package_inventory_sha256": "4cd0877ccc6a7269a90b18ef0352c27055ba4e80b713dd596c651287f0d3efcb",
+      "package_inventory_matches": true
+    }
+  },
+  "apps": {
+    "life-editor-debian": {
+      "environment_id": "test-debian",
+      "registered_at": "2026-10-22T21:22:48+08:00",
+      "launch_record": {
+        "schema_version": 1,
+        "id": "life-editor-debian",
+        "environment_id": "test-debian",
+        "executable": "/usr/bin/dbus-run-session",
+        "argv": [
+          "/usr/bin/dbus-run-session",
+          "--",
+          "/usr/bin/mousepad",
+          "--disable-server"
+        ],
+        "workdir": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian",
+        "env": {
+          "WAYLAND_DISPLAY": "wayland-0",
+          "XDG_RUNTIME_DIR": "/run/user/1000",
+          "DISPLAY": ":0",
+          "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+          "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+          "PIPEWIRE_REMOTE": "pipewire-0",
+          "XDG_SESSION_TYPE": "wayland",
+          "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus",
+          "GDK_BACKEND": "wayland",
+          "GSETTINGS_BACKEND": "memory",
+          "WAYLAND_DEBUG": "client",
+          "LC_ALL": "C.UTF-8",
+          "XDG_CURRENT_DESKTOP": "KDE",
+          "HOME": "/home/multilinux-1000",
+          "USER": "omg",
+          "LOGNAME": "omg"
+        },
+        "user": "1000:1000",
+        "on_demand": true,
+        "package_origin": null,
+        "mounts": [
+          {
+            "host": "/run/user/1000/wayland-0",
+            "container": "/run/user/1000/wayland-0",
+            "options": ""
+          },
+          {
+            "host": "/tmp/.X11-unix/X0",
+            "container": "/tmp/.X11-unix/X0",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pulse/native",
+            "container": "/run/user/1000/pulse/native",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pipewire-0",
+            "container": "/run/user/1000/pipewire-0",
+            "options": ""
+          },
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-debian",
+            "container": "/run/multilinux-portal",
+            "options": ""
+          }
+        ],
+        "export": null,
+        "created_at": "2026-10-22T21:22:46+08:00",
+        "updated_at": "2026-10-22T21:22:46+08:00"
+      }
+    },
+    "life-editor-arch": {
+      "environment_id": "test-arch",
+      "registered_at": "2026-10-22T21:22:51+08:00",
+      "launch_record": {
+        "schema_version": 1,
+        "id": "life-editor-arch",
+        "environment_id": "test-arch",
+        "executable": "/usr/bin/dbus-run-session",
+        "argv": [
+          "/usr/bin/dbus-run-session",
+          "--",
+          "/usr/bin/mousepad",
+          "--disable-server"
+        ],
+        "workdir": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-arch",
+        "env": {
+          "WAYLAND_DISPLAY": "wayland-0",
+          "XDG_RUNTIME_DIR": "/run/user/1000",
+          "DISPLAY": ":0",
+          "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+          "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+          "PIPEWIRE_REMOTE": "pipewire-0",
+          "XDG_SESSION_TYPE": "wayland",
+          "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus",
+          "GDK_BACKEND": "wayland",
+          "GSETTINGS_BACKEND": "memory",
+          "WAYLAND_DEBUG": "client",
+          "LC_ALL": "C.UTF-8",
+          "XDG_CURRENT_DESKTOP": "KDE",
+          "HOME": "/home/multilinux-1000",
+          "USER": "omg",
+          "LOGNAME": "omg"
+        },
+        "user": "1000:1000",
+        "on_demand": true,
+        "package_origin": null,
+        "mounts": [
+          {
+            "host": "/run/user/1000/wayland-0",
+            "container": "/run/user/1000/wayland-0",
+            "options": ""
+          },
+          {
+            "host": "/tmp/.X11-unix/X0",
+            "container": "/tmp/.X11-unix/X0",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pulse/native",
+            "container": "/run/user/1000/pulse/native",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pipewire-0",
+            "container": "/run/user/1000/pipewire-0",
+            "options": ""
+          },
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-arch",
+            "container": "/run/multilinux-portal",
+            "options": ""
+          }
+        ],
+        "export": null,
+        "created_at": "2026-10-22T21:22:50+08:00",
+        "updated_at": "2026-10-22T21:22:50+08:00"
+      }
+    }
+  },
+  "created_at": "2026-10-22T21:22:51+08:00",
+  "probe": {
+    "started_at": "2026-10-22T21:24:03+08:00",
+    "tool_sha256": {
+      "tools/probe_lifecycle.py": "71bcb9849a03648545cf72a8c5e9e2abdb7725155c0f93742b66fcbf5448af34",
+      "tools/startup_observer.py": "42743d0bc48f74dc80bfa910c7fc2f35d81a93d0bbcff377892d47c1a3d08461",
+      "tools/kwin_window_probe.py": "9f86ababba6cbb6aa66cc9c48f03cce1c15e7573c1acb243f89f54a3682e0161"
+    },
+    "scenarios": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H"
+    ],
+    "targets": [
+      "debian13",
+      "arch"
+    ],
+    "counts": {
+      "A": 10,
+      "B": 3,
+      "C": 30
+    },
+    "finished_at": "2026-10-22T21:28:07+08:00",
+    "cleanup": {
+      "taken_at": "2026-10-22T21:28:07+08:00",
+      "started_at": "2026-10-22T21:24:03+08:00",
+      "closed_windows": [],
+      "remaining_windows": 0,
+      "remaining_window_details": [],
+      "leftover_processes": 0,
+      "leftover_process_details": [],
+      "running_containers": 0,
+      "project_containers": [
+        {
+          "id": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+          "names": [
+            "ml-75a8c1ff-test-debian"
+          ],
+          "state": "exited",
+          "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+        },
+        {
+          "id": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+          "names": [
+            "ml-75a8c1ff-test-arch"
+          ],
+          "state": "exited",
+          "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+        }
+      ],
+      "live_leases": 0,
+      "bridge_processes": 0,
+      "environment_states": {
+        "test-arch": {
+          "record_runtime_state": "stopped",
+          "inspect": {
+            "id": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+            "running": false,
+            "status": "exited",
+            "pid": 0,
+            "exit_code": 143,
+            "oom_killed": false,
+            "started_at": "2026-10-22T21:28:05.623221971+08:00",
+            "finished_at": "2026-10-22T21:28:07.175599291+08:00",
+            "init": true,
+            "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+          }
+        },
+        "test-debian": {
+          "record_runtime_state": "stopped",
+          "inspect": {
+            "id": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+            "running": false,
+            "status": "exited",
+            "pid": 0,
+            "exit_code": 143,
+            "oom_killed": false,
+            "started_at": "2026-10-22T21:26:40.00009177+08:00",
+            "finished_at": "2026-10-22T21:26:41.5737546+08:00",
+            "init": true,
+            "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+          }
+        }
+      },
+      "all_clean": true
+    },
+    "summary_sha256": "b43acdf8cceea5fec5c492943dd8f8a2628309ee9abe5d28acc0acbf7089d853",
+    "validation_sha256": "80ca21decedf84d8f58cad137b5887485a9980bb05ecdf3d1e822ce9a6c97ca5",
+    "report_sha256": "5ce9dc78d8b0717ab4cbcd22bbe48266425fab7fc52f104ec1003539522c0e0e",
+    "sha256sums": {
+      "files": 1060,
+      "sha256": "257d7f91659b48423f56fef519a755b1fc8c68064b5df2c5e97579f19bc62de6"
+    }
+  },
+  "finished_at": "2026-10-22T21:28:07+08:00"
+}

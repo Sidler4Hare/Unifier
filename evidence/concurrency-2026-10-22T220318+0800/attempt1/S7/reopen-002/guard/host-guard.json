@@ -1,0 +1,22 @@
+{
+  "taken_at": "2026-10-22T22:08:45+08:00",
+  "blocked": false,
+  "available_bytes": 2120343552,
+  "memory_some_avg10": null,
+  "memory_full_avg10": null,
+  "load": [
+    2.94,
+    2.09,
+    1.5
+  ],
+  "attempts": [
+    {
+      "at": "2026-10-22T22:08:45+08:00",
+      "available_bytes": 2120343552,
+      "memory_some_avg10": null,
+      "memory_full_avg10": null,
+      "blocked": false
+    }
+  ],
+  "label": "S7-reopen"
+}

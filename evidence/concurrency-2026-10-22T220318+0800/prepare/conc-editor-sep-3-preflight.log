@@ -1,0 +1,33 @@
+mousepad --help returncode=0
+Usage:
+  mousepad [OPTION…] [FILES...]
+
+Help Options:
+  -h, --help                  Show help options
+  --help-all                  Show all help options
+  --help-gapplication         Show GApplication options
+  --help-gtk                  Show GTK+ Options
+
+Application Options:
+  -o, --opening-mode=MODE     File opening mode: "tab", "window" or "mixed" (open tabs in a new window)
+  -e, --encoding=ENCODING     Encoding to be used to open files (leave empty to open files in the encoding dialog)
+  --list-encodings            Display a list of possible encodings to open files
+  -l, --line=LINE             Line number the cursor to position to (LINE > 0 from top, LINE < 0 from bottom)
+  -c, --column=COLUMN         Column number the cursor to position to (COLUMN >= 0 from start, COLUMN < 0 from end)
+  --preferences               Open the preferences dialog
+  --disable-server            Do not register with the D-BUS session message bus
+  -q, --quit                  Quit a running Mousepad primary instance
+  -v, --version               Print version information and exit
+  --display=DISPLAY           X display to use
+
+
+
+mousepad --version returncode=0
+Mousepad 0.6.3
+
+Copyright (C) 2005-2024
+	The Mousepad developers. All rights reserved.
+
+Please report bugs to <https://gitlab.xfce.org/apps/mousepad>.
+
+

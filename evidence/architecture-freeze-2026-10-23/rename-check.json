@@ -1,0 +1,10 @@
+{
+  "all_passed": true,
+  "checks": {
+    "help": true,
+    "env-help": true,
+    "list": true,
+    "directory_alias_same_root": true,
+    "entry_is_relative_symlink": true
+  }
+}

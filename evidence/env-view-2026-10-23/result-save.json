@@ -1,0 +1,467 @@
+{
+  "time": "2026-10-23T10:54:38.997680+08:00",
+  "purpose": "save into a stopped merged root from the storage namespace",
+  "product_acceptance": false,
+  "image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+  "containers_before": {
+    "argv": [
+      "podman",
+      "ps",
+      "-aq",
+      "--no-trunc"
+    ],
+    "exit_code": 0,
+    "stdout": "ab0e889741ceaf7916ec6bc7625132540a9113a81eef83c8a35b6ddc8f088dfc\n763ff5a7cc29f2b578612a7a5fb73344511972f646818b8cb5fa5da9c6d73f72\n3abc1a7379b2d476899c1e3c2f0253c816d217b8c8cf85f7f4ec1a7d13d29ff6\na83a73c4cae8d823d413375bca84d7ccc18669f0e478979035b6999db225be75\n964f59f20224afd5b10595007d58f003eb3facfb1a5647deab0404f257d2bc23\n81072086d468e1942dd1b2b95055a4cf2f0ef544b84bce77dfe7a7d1c01f47d8\n42e752d86ccdd026da7024f6b354b4e236caaf893140dc87822847b9d4e321b6\n48d4ac0d7cdaa42606f0dabce0d7581b8ce2982e0d72e8a3ce3839fc45ce0c43\n6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c\n57aba3a81b7f2c5eefd3d58788b8546960f8df85892b21e6781421c48ce17255\n01905f6582c013decc73fae3d58fb4d32af46c3b229ac1ba8ff35627dfe7f892\n6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef\nb913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b\n4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948\n03c051edd89643449f95d7987b9dd037158c9309a68b062d102fddcb05ff7558\n9abc8cf0e8b8be5061df4c2b5a05f902d12456640b6237052c69f690ad350e45\nceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519\nf5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a\ne882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5\n61c8e9458782f7f4a703ca7a6e1a0e97cdce0d65af23b90db80a093936278c3e\ne3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742\n12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12\n91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4\nf15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0\n8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599\n",
+    "stderr": "",
+    "seconds": 0.053019
+  },
+  "cases": [
+    {
+      "mode": "default-rootless",
+      "container": "ml-viewsave-6edd625784c9",
+      "cleanup": [
+        {
+          "argv": [
+            "podman",
+            "unshare",
+            "podman",
+            "umount",
+            "ml-viewsave-6edd625784c9"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewsave-6edd625784c9\n",
+          "stderr": "",
+          "seconds": 0.073131
+        },
+        {
+          "argv": [
+            "podman",
+            "umount",
+            "ml-viewsave-6edd625784c9"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewsave-6edd625784c9\n",
+          "stderr": "",
+          "seconds": 0.038588
+        },
+        {
+          "argv": [
+            "podman",
+            "stop",
+            "-t",
+            "0",
+            "ml-viewsave-6edd625784c9"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewsave-6edd625784c9\n",
+          "stderr": "",
+          "seconds": 0.044816
+        },
+        {
+          "argv": [
+            "podman",
+            "rm",
+            "-f",
+            "ml-viewsave-6edd625784c9"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewsave-6edd625784c9\n",
+          "stderr": "",
+          "seconds": 0.078179
+        }
+      ],
+      "create": {
+        "argv": [
+          "podman",
+          "create",
+          "--name",
+          "ml-viewsave-6edd625784c9",
+          "--pull=never",
+          "--network=none",
+          "--cap-drop=ALL",
+          "--security-opt=no-new-privileges",
+          "--security-opt=label=disable",
+          "--http-proxy=false",
+          "--entrypoint",
+          "/bin/sleep",
+          "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+          "3600"
+        ],
+        "exit_code": 0,
+        "stdout": "7d02708ef1e8321a50cef8e79e53d1c52f779b18bcefc1107157221a55c6b200\n",
+        "stderr": "",
+        "seconds": 0.085355
+      },
+      "start": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewsave-6edd625784c9"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewsave-6edd625784c9\n",
+        "stderr": "",
+        "seconds": 0.125828
+      },
+      "setup": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewsave-6edd625784c9",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "probe_done=setup\n",
+        "stderr": "",
+        "seconds": 0.16017
+      },
+      "stop": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "0",
+          "ml-viewsave-6edd625784c9"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewsave-6edd625784c9\n",
+        "stderr": "",
+        "seconds": 0.157926
+      },
+      "write": {
+        "argv": [
+          "podman",
+          "unshare",
+          "sh",
+          "-s",
+          "ml-viewsave-6edd625784c9",
+          "/home/omg/.local/share/containers/storage"
+        ],
+        "exit_code": 0,
+        "stdout": "mount=/home/omg/.local/share/containers/storage/overlay/da4c49d7a1f54f4adede573adc89bc0205da26e83ec3d8e0b015a28f7c812a01/merged\nstat_namespace uid=0 gid=0 mode=644\nstat_chroot uid=0 gid=0 mode=644\nwrite_done=1\n",
+        "stderr": "",
+        "seconds": 0.083593
+      },
+      "write_kv": {
+        "mount": "/home/omg/.local/share/containers/storage/overlay/da4c49d7a1f54f4adede573adc89bc0205da26e83ec3d8e0b015a28f7c812a01/merged",
+        "stat_namespace uid": "0 gid=0 mode=644",
+        "stat_chroot uid": "0 gid=0 mode=644",
+        "write_done": "1"
+      },
+      "write_stat": [],
+      "host_while_mounted": {
+        "namespace": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "chroot": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "listing_error_or_count": null,
+        "listing_count": 0
+      },
+      "umount": {
+        "argv": [
+          "podman",
+          "unshare",
+          "podman",
+          "umount",
+          "ml-viewsave-6edd625784c9"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewsave-6edd625784c9\n",
+        "stderr": "",
+        "seconds": 0.0879
+      },
+      "restart": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewsave-6edd625784c9"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewsave-6edd625784c9\n",
+        "stderr": "",
+        "seconds": 0.107876
+      },
+      "verify_cmd": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewsave-6edd625784c9",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "euid=0\nnamespace=from-namespace\nstat_namespace uid=0 gid=0 mode=644\nchroot=from-chroot\nstat_chroot uid=0 gid=0 mode=644\nprivate=container-private\nprobe_done=verify\n",
+        "stderr": "",
+        "seconds": 0.146988
+      },
+      "verify_kv": {
+        "euid": "0",
+        "namespace": "from-namespace",
+        "stat_namespace uid": "0 gid=0 mode=644",
+        "chroot": "from-chroot",
+        "stat_chroot uid": "0 gid=0 mode=644",
+        "private": "container-private",
+        "probe_done": "verify"
+      },
+      "verify_stat": [],
+      "stop_after": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "0",
+          "ml-viewsave-6edd625784c9"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewsave-6edd625784c9\n",
+        "stderr": "",
+        "seconds": 0.130045
+      }
+    },
+    {
+      "mode": "keep-id",
+      "container": "ml-viewsave-f2ab52557bf2",
+      "cleanup": [
+        {
+          "argv": [
+            "podman",
+            "unshare",
+            "podman",
+            "umount",
+            "ml-viewsave-f2ab52557bf2"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewsave-f2ab52557bf2\n",
+          "stderr": "",
+          "seconds": 0.074225
+        },
+        {
+          "argv": [
+            "podman",
+            "umount",
+            "ml-viewsave-f2ab52557bf2"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewsave-f2ab52557bf2\n",
+          "stderr": "",
+          "seconds": 0.036483
+        },
+        {
+          "argv": [
+            "podman",
+            "stop",
+            "-t",
+            "0",
+            "ml-viewsave-f2ab52557bf2"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewsave-f2ab52557bf2\n",
+          "stderr": "",
+          "seconds": 0.042983
+        },
+        {
+          "argv": [
+            "podman",
+            "rm",
+            "-f",
+            "ml-viewsave-f2ab52557bf2"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewsave-f2ab52557bf2\n",
+          "stderr": "",
+          "seconds": 0.091261
+        }
+      ],
+      "create": {
+        "argv": [
+          "podman",
+          "create",
+          "--name",
+          "ml-viewsave-f2ab52557bf2",
+          "--pull=never",
+          "--network=none",
+          "--cap-drop=ALL",
+          "--security-opt=no-new-privileges",
+          "--security-opt=label=disable",
+          "--http-proxy=false",
+          "--entrypoint",
+          "/bin/sleep",
+          "--userns=keep-id",
+          "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+          "3600"
+        ],
+        "exit_code": 0,
+        "stdout": "098d0eec2e12b4a364c442a67514d53ef590c088e726cb2f9ccb5c8a8b677b46\n",
+        "stderr": "",
+        "seconds": 0.082665
+      },
+      "start": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewsave-f2ab52557bf2"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewsave-f2ab52557bf2\n",
+        "stderr": "",
+        "seconds": 0.113952
+      },
+      "setup": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewsave-f2ab52557bf2",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "probe_done=setup\n",
+        "stderr": "",
+        "seconds": 0.145777
+      },
+      "stop": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "0",
+          "ml-viewsave-f2ab52557bf2"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewsave-f2ab52557bf2\n",
+        "stderr": "",
+        "seconds": 0.13435
+      },
+      "write": {
+        "argv": [
+          "podman",
+          "unshare",
+          "sh",
+          "-s",
+          "ml-viewsave-f2ab52557bf2",
+          "/home/omg/.local/share/containers/storage"
+        ],
+        "exit_code": 0,
+        "stdout": "mount=/home/omg/.local/share/containers/storage/overlay/20849771d9b7e94fe88f8033ad3082995d5995f3780f994328dbaa37f9d9b7f6/merged\nstat_namespace uid=0 gid=0 mode=644\nstat_chroot uid=0 gid=0 mode=644\nwrite_done=1\n",
+        "stderr": "",
+        "seconds": 0.07888
+      },
+      "write_kv": {
+        "mount": "/home/omg/.local/share/containers/storage/overlay/20849771d9b7e94fe88f8033ad3082995d5995f3780f994328dbaa37f9d9b7f6/merged",
+        "stat_namespace uid": "0 gid=0 mode=644",
+        "stat_chroot uid": "0 gid=0 mode=644",
+        "write_done": "1"
+      },
+      "write_stat": [],
+      "host_while_mounted": {
+        "namespace": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "chroot": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "listing_error_or_count": null,
+        "listing_error": {
+          "error": "PermissionError",
+          "errno": 13
+        }
+      },
+      "umount": {
+        "argv": [
+          "podman",
+          "unshare",
+          "podman",
+          "umount",
+          "ml-viewsave-f2ab52557bf2"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewsave-f2ab52557bf2\n",
+        "stderr": "",
+        "seconds": 0.081718
+      },
+      "restart": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewsave-f2ab52557bf2"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewsave-f2ab52557bf2\n",
+        "stderr": "",
+        "seconds": 0.110176
+      },
+      "verify_cmd": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewsave-f2ab52557bf2",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "euid=0\nnamespace=from-namespace\nstat_namespace uid=1000 gid=1000 mode=644\nchroot=from-chroot\nstat_chroot uid=1000 gid=1000 mode=644\nprivate=container-private\nprobe_done=verify\n",
+        "stderr": "",
+        "seconds": 0.152
+      },
+      "verify_kv": {
+        "euid": "0",
+        "namespace": "from-namespace",
+        "stat_namespace uid": "1000 gid=1000 mode=644",
+        "chroot": "from-chroot",
+        "stat_chroot uid": "1000 gid=1000 mode=644",
+        "private": "container-private",
+        "probe_done": "verify"
+      },
+      "verify_stat": [],
+      "stop_after": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "0",
+          "ml-viewsave-f2ab52557bf2"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewsave-f2ab52557bf2\n",
+        "stderr": "",
+        "seconds": 0.132553
+      }
+    }
+  ],
+  "containers_after": {
+    "argv": [
+      "podman",
+      "ps",
+      "-aq",
+      "--no-trunc"
+    ],
+    "exit_code": 0,
+    "stdout": "ab0e889741ceaf7916ec6bc7625132540a9113a81eef83c8a35b6ddc8f088dfc\n763ff5a7cc29f2b578612a7a5fb73344511972f646818b8cb5fa5da9c6d73f72\n3abc1a7379b2d476899c1e3c2f0253c816d217b8c8cf85f7f4ec1a7d13d29ff6\na83a73c4cae8d823d413375bca84d7ccc18669f0e478979035b6999db225be75\n964f59f20224afd5b10595007d58f003eb3facfb1a5647deab0404f257d2bc23\n81072086d468e1942dd1b2b95055a4cf2f0ef544b84bce77dfe7a7d1c01f47d8\n42e752d86ccdd026da7024f6b354b4e236caaf893140dc87822847b9d4e321b6\n48d4ac0d7cdaa42606f0dabce0d7581b8ce2982e0d72e8a3ce3839fc45ce0c43\n6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c\n57aba3a81b7f2c5eefd3d58788b8546960f8df85892b21e6781421c48ce17255\n01905f6582c013decc73fae3d58fb4d32af46c3b229ac1ba8ff35627dfe7f892\n6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef\nb913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b\n4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948\n03c051edd89643449f95d7987b9dd037158c9309a68b062d102fddcb05ff7558\n9abc8cf0e8b8be5061df4c2b5a05f902d12456640b6237052c69f690ad350e45\nceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519\nf5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a\ne882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5\n61c8e9458782f7f4a703ca7a6e1a0e97cdce0d65af23b90db80a093936278c3e\ne3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742\n12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12\n91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4\nf15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0\n8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599\n",
+    "stderr": "",
+    "seconds": 0.051114
+  },
+  "container_set_unchanged": true
+}

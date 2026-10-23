@@ -1,0 +1,22 @@
+{
+  "taken_at": "2026-10-22T22:04:53+08:00",
+  "blocked": false,
+  "available_bytes": 2291032064,
+  "memory_some_avg10": null,
+  "memory_full_avg10": null,
+  "load": [
+    2.0,
+    1.37,
+    1.16
+  ],
+  "attempts": [
+    {
+      "at": "2026-10-22T22:04:53+08:00",
+      "available_bytes": 2291032064,
+      "memory_some_avg10": null,
+      "memory_full_avg10": null,
+      "blocked": false
+    }
+  ],
+  "label": "S2-N4"
+}

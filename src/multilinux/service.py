@@ -8,6 +8,7 @@ created and leaves no record.
 
 import contextlib
 import datetime as dt
+import fcntl
 import hashlib
 import json
 import os
@@ -17,25 +18,27 @@ import re
 import stat
 import sys
 import tempfile
+import time
 import uuid
 from zoneinfo import ZoneInfo
 
+from multilinux.catalog import plan_change, resolve_target_contract, system_contract
 from multilinux.errors import MultilinuxError
 from multilinux.packages import (
     INCOMING_DIR,
     TIMEOUT_PACMAN_KEY,
     HostObserver,
-    arch_keyring_commands,
+    driver_for,
     entry_changes,
     explain_native_error,
-    install_commands,
+    inventory_argv,
     inventory_has,
-    local_commands,
     local_package_path,
+    maintenance_findings,
+    merge_maintenance_findings,
     native_env,
     query_argv,
-    remove_commands,
-    update_commands,
+    transaction_verdict,
     validate_package_name,
     validate_use_argv,
 )
@@ -71,11 +74,11 @@ SYSTEM_PREFIXES = (
     "/bin", "/boot", "/dev", "/etc", "/lib", "/lib64", "/opt", "/proc",
     "/root", "/run", "/sbin", "/sys", "/usr", "/var",
 )
-INVENTORY_ARGV = {
-    "debian13": ["dpkg-query", "-W", "-f=${Package}\t${Version}\n"],
-    "fedora44": ["rpm", "-qa", "--qf", "%{NAME}\t%{VERSION}-%{RELEASE}.%{ARCH}\n"],
-    "arch": ["pacman", "-Q"],
-}
+# A graceful podman stop may take up to its own 8 s timeout. Lifecycle calls
+# that meet a "stopping" container wait for that transition instead of racing
+# podman start or treating a half-stopped container as released.
+LIFECYCLE_SETTLE_SECONDS = 15.0
+LIFECYCLE_SETTLE_POLL_SECONDS = 0.05
 
 
 def now() -> str:
@@ -219,6 +222,8 @@ class EnvironmentService:
                network: str = "none", desktop: bool = False, session: dict | None = None,
                user_namespace: str = "rootless-default", devices: list[str] | None = None,
                portals: bool = False, gpu: bool = False, ipc: str | None = None) -> dict:
+        target = self._target(target_name)
+        resolve_target_contract(target_name, target)
         if network not in {"none", "pasta"}:
             raise MultilinuxError("environment network must be none or pasta")
         if user_namespace not in {"rootless-default", "keep-id"}:
@@ -262,7 +267,6 @@ class EnvironmentService:
                 desktop_session['portal_proxy'] = {'directory': str(directory), 'container': inside}
             session_mounts = tuple((item["host"], item["container"]) for item in desktop_session["mounts"])
             selinux_label = desktop_session["selinux_label"]
-        target = self._target(target_name)
         if self.store.exists(env_id):
             raise MultilinuxError(f"environment {env_id} already exists")
         image = self._locked_reference(target_name)
@@ -320,6 +324,32 @@ class EnvironmentService:
     def inspect(self, env_id: str) -> dict:
         return self._live(self.store.load(validate_env_id(env_id)))
 
+    def change_plan(self, env_id: str, desired: dict | None = None) -> dict:
+        """Say whether a requested change upgrades this environment or replaces it.
+
+        This does not create, start or modify the environment. Package content
+        stays an in-place upgrade. Frozen identity fields come back as replace.
+        """
+        record = self.store.load(validate_env_id(env_id))
+        desired = dict(desired or {})
+        if "shares" in desired:
+            desired["shares"] = tuple(sorted(self._plan_share(item) for item in desired["shares"]))
+        if "desktop" in desired:
+            desired.setdefault("selinux_label", "disable" if desired["desktop"] else "default")
+            desired.setdefault("ipc", "host" if desired["desktop"] else "private")
+        if "target" in desired:
+            spec = resolve_target_contract(desired["target"], self._target(desired["target"]))
+            desired["image_digest"] = self._lock_digest(desired["target"])
+            for key in ("family", "libc", "layout", "package_driver", "package_format",
+                        "runtime_backend"):
+                desired[key] = spec[key]
+        elif not desired:
+            current = (record.get("base_image") or {}).get("manifest_digest")
+            locked = self._lock_digest(record["target"]) if record.get("target") in self.lock["targets"] else None
+            if locked and current and locked != current:
+                desired["image_digest"] = locked
+        return plan_change(record, desired or None)
+
     def export(self, env_id: str, output: Path) -> dict:
         view = self.inspect(env_id)
         output = Path(output)
@@ -329,31 +359,36 @@ class EnvironmentService:
         return view
 
     def start(self, env_id: str) -> dict:
-        record = self.store.load(validate_env_id(env_id))
-        info = self._require_owned(record)
-        if not info.running:
-            runtime = record["runtime"]
-            self.runtime.start(runtime["container_name"], project=runtime["project"],
-                               env_id=record["id"])
-            kernel = self._optional_capture(record, ["uname", "-r"])
-            if kernel:
-                record["observed"]["kernel"] = kernel.strip()
-            record["runtime_state"] = "running"
-            record["updated_at"] = self.clock()
-            self.store.save(record, None)
-        return self.inspect(record["id"])
+        env_id = validate_env_id(env_id)
+        with self._lifecycle_lock(env_id):
+            record = self.store.load(env_id)
+            info = self._wait_while_stopping(record)
+            if not info.running:
+                runtime = record["runtime"]
+                self.runtime.start(runtime["container_name"], project=runtime["project"],
+                                   env_id=record["id"])
+                kernel = self._optional_capture(record, ["uname", "-r"])
+                if kernel:
+                    record["observed"]["kernel"] = kernel.strip()
+                record["runtime_state"] = "running"
+                record["updated_at"] = self.clock()
+                self.store.save(record, None)
+        return self.inspect(env_id)
 
     def stop(self, env_id: str) -> dict:
-        record = self.store.load(validate_env_id(env_id))
-        info = self._require_owned(record)
-        if info.running:
-            runtime = record["runtime"]
-            self.runtime.stop(runtime["container_name"], project=runtime["project"],
-                              env_id=record["id"])
-            record["runtime_state"] = "stopped"
-            record["updated_at"] = self.clock()
-            self.store.save(record, None)
-        return self.inspect(record["id"])
+        env_id = validate_env_id(env_id)
+        with self._lifecycle_lock(env_id):
+            record = self.store.load(env_id)
+            info = self._wait_while_stopping(record)
+            if info.running:
+                runtime = record["runtime"]
+                self.runtime.stop(runtime["container_name"], project=runtime["project"],
+                                  env_id=record["id"])
+            if info.running or record.get("runtime_state") != "stopped":
+                record["runtime_state"] = "stopped"
+                record["updated_at"] = self.clock()
+                self.store.save(record, None)
+        return self.inspect(env_id)
 
     def run(self, env_id: str, argv: list[str], *, workdir: str | None,
             env_keys: list[str]) -> int:
@@ -395,8 +430,12 @@ class EnvironmentService:
             raise MultilinuxError(f"application {app_id} already exists")
         record = self.store.load(validate_env_id(env_id))
         desktop = record.get("desktop")
-        if package_origin and package_origin.get('target') != record['target']:
-            raise MultilinuxError('package format does not match the application environment')
+        if package_origin and package_origin.get("target") != record["target"]:
+            candidates = package_origin.get("candidates") or []
+            if package_origin.get("target") is None and len(candidates) > 1:
+                raise MultilinuxError(
+                    "package format matches more than one target: " + ", ".join(candidates))
+            raise MultilinuxError("package format does not match the application environment")
         if not desktop:
             raise MultilinuxError(
                 f"environment {record['id']} has no desktop session; create it with --desktop")
@@ -469,10 +508,16 @@ class EnvironmentService:
         return self.store.load_launch(validate_app_id(app_id))
 
     def open_app(self, app_id: str, extra: list[str] | None = None) -> ExecResult:
+        """Open one recorded application.
+
+        On-demand applications take the lease in a supervised worker instead of
+        this short-lived CLI process, so killing the launcher cannot lose
+        automatic stop ownership; manual (non on-demand) apps stay unmanaged.
+        """
         launch = self.show_app(app_id)
         if launch.get('on_demand'):
-            from multilinux.on_demand import managed_open
-            return managed_open(self, app_id, extra or [])
+            from multilinux.on_demand import supervised_open
+            return supervised_open(self, app_id, extra or [])
         return self._open_app_unmanaged(app_id, extra)
 
     def _open_app_unmanaged(self, app_id: str, extra: list[str] | None = None) -> ExecResult:
@@ -620,10 +665,11 @@ class EnvironmentService:
     def query_package(self, env_id: str, name: str) -> dict:
         name = validate_package_name(name)
         record = self.store.load(validate_env_id(env_id))
+        driver = driver_for(record)
         was_running = self._ensure_running(record["id"])
         try:
             result = self._exec_record(
-                self.store.load(record["id"]), query_argv(record["target"], name),
+                self.store.load(record["id"]), driver.query(name),
                 timeout=30, native=True)
             detail = (result.stdout or result.stderr).strip()
             return {
@@ -664,6 +710,9 @@ class EnvironmentService:
     def _package_transaction(self, env_id: str, operation: str, packages: list[str], *,
                              use_argv=None, local_file: str | None = None) -> dict:
         record = self.store.load(validate_env_id(env_id))
+        decision = plan_change(record, operation="package-change")
+        if decision["action"] != "upgrade":
+            raise MultilinuxError(decision.get("reason") or "this environment cannot be upgraded in place")
         names = [validate_package_name(name) for name in packages]
         use_argv = validate_use_argv(use_argv)
         if operation in {"install", "remove"} and not names:
@@ -696,6 +745,16 @@ class EnvironmentService:
             },
             "native": [],
             "native_error": None,
+            # Hooks run after the package files are written. Their failures do
+            # not uninstall the package, so they are recorded beside the phase
+            # and summarized by the top-level verdict.
+            "maintenance": {
+                "status": "ok",
+                "items": [],
+                "system_integration": "unverified",
+                "full_init": False,
+            },
+            "verdict": None,
             "verification": None,
             "host_entries": None,
             "host_packages": None,
@@ -749,6 +808,12 @@ class EnvironmentService:
                 "package_inventory_sha256": record["package_inventory_sha256"],
             }
             txn["phase"] = "completed" if txn["failure_phase"] is None else "failed"
+            maintenance = txn.get("maintenance") or {}
+            maintenance["status"] = "warnings" if maintenance.get("items") else "ok"
+            maintenance["system_integration"] = "unverified"
+            maintenance["full_init"] = False
+            txn["maintenance"] = maintenance
+            txn["verdict"] = transaction_verdict(txn["phase"], maintenance)
             txn["finished_at"] = self.clock()
             self.store.save_transaction(txn)
             self.log(f"{txn['environment_id']}: {txn['operation']} {txn['phase']} {txn['id']}")
@@ -756,21 +821,21 @@ class EnvironmentService:
 
     def _native_steps(self, record: dict, operation: str, names: list[str],
                       local_path: Path | None) -> list[tuple[list[str], int]]:
-        target = record["target"]
+        driver = driver_for(record)
         steps: list[tuple[list[str], int]] = []
-        if target == "arch" and operation in {"install", "update", "install-local"}:
+        if driver.needs_keyring and operation in {"install", "update", "install-local"}:
             initialized = (record.get("arch") or {}).get("keyring_initialized_at")
             if not initialized:
-                steps.extend(arch_keyring_commands(populate=self._arch_needs_populate(record)))
+                steps.extend(driver.bootstrap(populate=self._arch_needs_populate(record)))
         if operation == "install":
-            steps.extend(install_commands(target, names))
+            steps.extend(driver.install(names))
         elif operation == "update":
-            steps.extend(update_commands(target))
+            steps.extend(driver.update())
         elif operation == "remove":
-            steps.extend(remove_commands(target, names))
+            steps.extend(driver.remove(names))
         elif operation == "install-local":
             container_path = self._stage_local(record, local_path)
-            steps.extend(local_commands(target, container_path))
+            steps.extend(driver.local(container_path))
         return steps
 
     def _arch_needs_populate(self, record: dict) -> bool:
@@ -799,6 +864,15 @@ class EnvironmentService:
                 "stdout_tail": _tail(result.stdout or ""),
                 "stderr_tail": _tail(result.stderr or ""),
             })
+            # The saved tails are for reading; the hook scan uses the complete
+            # output because a failure line can sit in the leading part.
+            findings = maintenance_findings(
+                record["target"], result.stdout or "", result.stderr or "")
+            if findings:
+                maintenance = txn["maintenance"]
+                maintenance["items"] = merge_maintenance_findings(
+                    maintenance.get("items"), findings)
+                maintenance["status"] = "warnings"
             if result.returncode != 0:
                 txn["native_error"] = explain_native_error(
                     (result.stderr or "") + "\n" + (result.stdout or ""))
@@ -863,7 +937,8 @@ class EnvironmentService:
                 record["updated_at"] = stamp
                 inventory_to_save = inventory_text
                 changed = True
-        if _syu_succeeded(txn["native"]) and record.get("arch"):
+        if (_syu_succeeded(txn["native"]) and driver_for(record["target"]).tracks_package_set
+                and record.get("arch")):
             record["arch"]["repository_updated_at"] = stamp
             record["arch"]["package_set_sha256"] = record["package_inventory_sha256"]
             record["updated_at"] = stamp
@@ -954,6 +1029,42 @@ class EnvironmentService:
                 with contextlib.suppress(Exception):
                     self.stop(record["id"])
 
+    @contextlib.contextmanager
+    def _lifecycle_lock(self, env_id: str):
+        """Serialize one environment's start/stop, also across processes.
+
+        LaunchGroup's lease lock protects the lease file; this separate lock
+        protects the container itself, so two launchers cannot start the same
+        environment concurrently. It is always taken after the lease lock and
+        never before, so the two locks cannot deadlock.
+        """
+        directory = self.root / ".lab/leases"
+        directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+        path = directory / f"{env_id}.lifecycle.lock"
+        descriptor = os.open(path, os.O_CREAT | os.O_RDWR, 0o600)
+        try:
+            fcntl.flock(descriptor, fcntl.LOCK_EX)
+            yield
+        finally:
+            os.close(descriptor)
+
+    def _wait_while_stopping(self, record: dict) -> ContainerState:
+        """Wait for an in-flight podman stop; a stopping container is not stopped.
+
+        Starting podman while it still stops fails, and releasing a lease on a
+        stopping container can start a second one too early. The wait is bounded:
+        after the deadline the caller refuses to race rather than double-start.
+        """
+        info = self._require_owned(record)
+        deadline = time.monotonic() + LIFECYCLE_SETTLE_SECONDS
+        while info.status == "stopping":
+            if time.monotonic() >= deadline:
+                raise MultilinuxError(
+                    f"environment {record['id']} is still stopping; refusing to race podman")
+            time.sleep(LIFECYCLE_SETTLE_POLL_SECONDS)
+            info = self._require_owned(record)
+        return info
+
     def _ensure_running(self, env_id: str) -> bool:
         record = self.store.load(env_id)
         info = self._require_owned(record)
@@ -966,7 +1077,7 @@ class EnvironmentService:
         runtime = record["runtime"]
         return self.runtime.exec(
             runtime["container_name"], argv, project=runtime["project"], env_id=record["id"],
-            workdir=None, env=native_env(record["target"]) if native else {},
+            workdir=None, env=driver_for(record).native_env() if native else {},
             capture=True, timeout=timeout)
 
     def _read_inventory_record(self, record: dict) -> str:
@@ -1056,6 +1167,7 @@ class EnvironmentService:
                 "kernel": identity["kernel"],
                 "machine": identity["machine"],
             },
+            "system": system_contract(target_name, target),
             "created_by_uid": self.uid,
             "created_by_gid": self.gid,
             "scope": (
@@ -1147,7 +1259,7 @@ class EnvironmentService:
                 f"host kernel {self.host_kernel!r}")
 
     def _read_inventory(self, spec: CreateSpec, target_name: str) -> str:
-        argv = INVENTORY_ARGV[target_name]
+        argv = inventory_argv(target_name)
         return normalize_inventory(self._capture(spec, argv, timeout=60))
 
     def _capture(self, spec: CreateSpec, argv: list[str], timeout: int = 30) -> str:
@@ -1211,6 +1323,15 @@ class EnvironmentService:
             return self.config["targets"][name]
         except KeyError as exc:
             raise MultilinuxError(f"unknown target {name}") from exc
+
+    def _plan_share(self, raw: str) -> str:
+        path = Path(raw)
+        if not path.is_absolute():
+            raise MultilinuxError(f"shared path must be absolute: {raw}")
+        return path.resolve().as_posix()
+
+    def _lock_digest(self, target_name: str) -> str:
+        return self._locked_reference(target_name).rsplit("@", 1)[1]
 
     def _locked_reference(self, target_name: str) -> str:
         try:

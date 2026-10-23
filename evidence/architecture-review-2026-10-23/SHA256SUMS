@@ -1,0 +1,9 @@
+57c310e0a1dd21b4fb819b6e55e7ed412b4759f13a1db64838bb4c7d6e1d812b  evidence/architecture-review-2026-10-23/README.md
+a48adefc630364c3cf7f0d3a2532400c1a4c15a3865ff60bddad553f32794799  evidence/architecture-review-2026-10-23/baseline.json
+7dfdcfc804ee911a1402e4f880a698e443955c2d5bd9925676cc32810a28e5a6  evidence/architecture-review-2026-10-23/probe.py
+07a1fe0e19589a38349a0c244887bce33ad3b03f0721a093a0f77d2453346886  evidence/architecture-review-2026-10-23/result.json
+7a2a44ffe623291b68b2a5340889520cc424fb950d5fa5edbd9adee972f6e366  evidence/architecture-review-2026-10-23/unittest.txt
+9fdcdefbdfda1c4d6a6a90a312d5216ed6b1165f62b39364c0b18cfc21b0efd7  evidence/architecture-review-2026-10-23/validation.json
+ed1f72282a49c3575c62a7929ff360d78f10b3097a2108e5b114cb058bd4fa2d  evidence/architecture-review-2026-10-23/verify.py
+fd383af8f3dfe7c8ff61db36249550effaa967d29035ddbc5722c2f7e06cdb7f  设计/文件与执行控制层-v2.md
+1e12291b3a78c64e23b4735c0ec594617e3169932b5590a7fb502529e0a10782  调研/Grok改动复核与架构迭代-2026-10-23.md

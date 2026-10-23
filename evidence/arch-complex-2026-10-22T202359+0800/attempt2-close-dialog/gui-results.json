@@ -1,0 +1,27 @@
+{
+  "build": {
+    "phase": "build",
+    "passed": true,
+    "version": [
+      "1",
+      "1",
+      "4",
+      "45040 (Git)",
+      "/srcdest/freecad",
+      "2026/09/28 13:46:34",
+      "makepkg",
+      "4fd3bf320d9566a27e60069fc8387448aaa3a094"
+    ],
+    "uid": 1000,
+    "parameter_recompute": {
+      "before_volume": 22429.203673205102,
+      "after_volume": 21738.05328941535
+    },
+    "volume": 21738.05328941535,
+    "expected_volume": 21738.053289415348,
+    "step_volume": 21738.05328941535,
+    "solids": 1,
+    "valid": true,
+    "qt_platform": "wayland"
+  }
+}

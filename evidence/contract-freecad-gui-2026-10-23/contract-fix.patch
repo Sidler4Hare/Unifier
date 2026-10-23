@@ -1,0 +1,362 @@
+--- a/src/multilinux/catalog.py
++++ b/src/multilinux/catalog.py
+@@ -110,7 +110,7 @@
+             raise MultilinuxError(f"{name} {key} must be a string")
+         if prepared is not None and incoming != prepared[key]:
+             raise MultilinuxError(
+-                f"{name} {key} is fixed at {prepared[key]} for the prepared target")
++                f"{name} {key} is fixed at {prepared[key]} for the prepared target; got {incoming!r}")
+         spec[key] = incoming
+     missing = [key for key in CONTRACT_FIELDS if not spec.get(key)]
+     if missing:
+@@ -119,9 +119,19 @@
+     return spec
+ 
+ 
+-def require_runnable(name: str, spec: dict) -> dict:
+-    """Refuse a described target that has no in-place package driver yet."""
+-    if (spec["update_policy"] not in IMPLEMENTED_UPDATE
++def resolve_target_contract(name: str, raw: dict | None = None) -> dict:
++    """The shared gate for creation, planning and native driver selection.
++
++    A vocabulary-compatible description is not an installed target adapter.
++    Only PREPARED targets currently have identity/inventory/runtime support.
++    """
++    if not isinstance(name, str) or not name:
++        raise MultilinuxError("target must be a non-empty string")
++    if raw is not None and not isinstance(raw, dict):
++        raise MultilinuxError(f"{name} contract must be an object")
++    spec = describe(name, raw)
++    if (name not in PREPARED
++            or spec["update_policy"] not in IMPLEMENTED_UPDATE
+             or spec["package_driver"] not in IMPLEMENTED_DRIVERS
+             or spec["runtime_backend"] != "podman-rootless"
+             or spec["layout"] != "fhs"
+@@ -133,9 +143,37 @@
+     return spec
+ 
+ 
++def require_runnable(name: str, spec: dict) -> dict:
++    """Compatibility entry point; use the same gate as the actual driver."""
++    return resolve_target_contract(name, spec)
++
++
++def resolve_record_contract(record: dict) -> dict:
++    """Validate persisted identity; only records without system use legacy defaults."""
++    name = record.get("target")
++    if "system" in record:
++        raw = record["system"]
++        if not isinstance(raw, dict):
++            raise MultilinuxError(f"{name} system contract must be an object")
++        missing = [key for key in CONTRACT_FIELDS if not raw.get(key)]
++        if missing:
++            raise MultilinuxError(f"{name} system contract missing fields: {', '.join(missing)}")
++    else:
++        raw = {}
++    # The legacy top-level policy must not contradict the system contract.
++    if "update_policy" in record:
++        policy = record["update_policy"]
++        if not isinstance(policy, str) or not policy:
++            raise MultilinuxError(f"{name} update_policy must be a non-empty string")
++        if "update_policy" in raw and raw["update_policy"] != policy:
++            raise MultilinuxError(f"{name} conflicting update_policy: {policy!r} vs {raw['update_policy']!r}")
++        raw = {**raw, "update_policy": policy}
++    return resolve_target_contract(name, raw)
++
++
+ def system_contract(name: str, raw: dict | None = None) -> dict:
+     """Contract stored on a newly created environment record."""
+-    spec = require_runnable(name, describe(name, raw))
++    spec = resolve_target_contract(name, raw)
+     return {
+         **spec,
+         "package_change": "in-place",
+@@ -151,35 +189,24 @@
+     ``operation="package-change"`` is the package install/update/remove gate.
+     A desired map compares frozen identity fields. Omitted keys stay as they are.
+     """
+-    policy, driver = _policy(record)
+-    mode = UPDATE_POLICIES.get(policy)
++    try:
++        contract = resolve_record_contract(record)
++    except MultilinuxError as exc:
++        return {"environment_id": record.get("id"), "target": record.get("target"),
++                "action": "refused", "changes": [], "reason": str(exc)}
++    policy, driver = contract["update_policy"], contract["package_driver"]
+     plan = {
+         "environment_id": record.get("id"),
+         "target": record.get("target"),
+         "update_policy": policy,
+         "package_driver": driver,
+-        "package_change": "in-place" if policy in IMPLEMENTED_UPDATE else mode,
++        "package_change": "in-place",
+         "base_image_change": "replace",
+         "contract_change": "replace",
+     }
+     if operation == "package-change":
+-        if policy in IMPLEMENTED_UPDATE and driver in IMPLEMENTED_DRIVERS:
+-            return {**plan, "action": "upgrade", "changes": []}
+-        if mode == "replace":
+-            return {
+-                **plan,
+-                "action": "replace",
+-                "changes": ["update_policy"],
+-                "reason": f"{policy} replaces the environment instead of upgrading it in place",
+-            }
+-        shown = policy or "missing policy"
+-        return {
+-            **plan,
+-            "action": "refused",
+-            "changes": [],
+-            "reason": f"{shown} has no in-place package driver yet",
+-        }
+-    current = _view(record)
++        return {**plan, "action": "upgrade", "changes": []}
++    current = _view(record, contract)
+     if not desired:
+         return {
+             **plan,
+@@ -205,22 +232,12 @@
+     }
+ 
+ 
+-def _policy(record: dict) -> tuple[str | None, str | None]:
+-    system = record.get("system") or {}
+-    prepared = PREPARED.get(record.get("target"), {})
+-    policy = system.get("update_policy") or record.get("update_policy") or prepared.get("update_policy")
+-    driver = system.get("package_driver") or prepared.get("package_driver")
+-    return policy, driver
+-
+-
+-def _view(record: dict) -> dict:
+-    system = record.get("system") or {}
+-    prepared = PREPARED.get(record.get("target"), {})
++def _view(record: dict, contract: dict) -> dict:
+     runtime = record.get("runtime") or {}
+     base = record.get("base_image") or {}
+ 
+     def pick(key: str):
+-        return system.get(key) or prepared.get(key)
++        return contract[key]
+ 
+     return {
+         "target": record.get("target"),
+--- a/src/multilinux/packages.py
++++ b/src/multilinux/packages.py
+@@ -249,11 +249,12 @@
+ }
+ 
+ 
+-def driver_for(target: str) -> PackageDriver:
+-    """Return the runnable driver registered for a prepared target id."""
+-    _require_target(target)
+-    from multilinux.catalog import PREPARED
+-    return DRIVERS[PREPARED[target]["package_driver"]]
++def driver_for(target: str | dict) -> PackageDriver:
++    """Select from the same validated contract used by create and plan."""
++    from multilinux.catalog import resolve_record_contract, resolve_target_contract
++    contract = (resolve_record_contract(target) if isinstance(target, dict)
++                else resolve_target_contract(target))
++    return DRIVERS[contract["package_driver"]]
+ 
+ 
+ def native_env(target: str) -> dict[str, str]:
+--- a/src/multilinux/service.py
++++ b/src/multilinux/service.py
+@@ -22,7 +22,7 @@
+ import uuid
+ from zoneinfo import ZoneInfo
+ 
+-from multilinux.catalog import describe, plan_change, system_contract
++from multilinux.catalog import plan_change, resolve_target_contract, system_contract
+ from multilinux.errors import MultilinuxError
+ from multilinux.packages import (
+     INCOMING_DIR,
+@@ -222,6 +222,8 @@
+                network: str = "none", desktop: bool = False, session: dict | None = None,
+                user_namespace: str = "rootless-default", devices: list[str] | None = None,
+                portals: bool = False, gpu: bool = False, ipc: str | None = None) -> dict:
++        target = self._target(target_name)
++        resolve_target_contract(target_name, target)
+         if network not in {"none", "pasta"}:
+             raise MultilinuxError("environment network must be none or pasta")
+         if user_namespace not in {"rootless-default", "keep-id"}:
+@@ -265,7 +267,6 @@
+                 desktop_session['portal_proxy'] = {'directory': str(directory), 'container': inside}
+             session_mounts = tuple((item["host"], item["container"]) for item in desktop_session["mounts"])
+             selinux_label = desktop_session["selinux_label"]
+-        target = self._target(target_name)
+         if self.store.exists(env_id):
+             raise MultilinuxError(f"environment {env_id} already exists")
+         image = self._locked_reference(target_name)
+@@ -337,7 +338,7 @@
+             desired.setdefault("selinux_label", "disable" if desired["desktop"] else "default")
+             desired.setdefault("ipc", "host" if desired["desktop"] else "private")
+         if "target" in desired:
+-            spec = describe(desired["target"], self._target(desired["target"]))
++            spec = resolve_target_contract(desired["target"], self._target(desired["target"]))
+             desired["image_digest"] = self._lock_digest(desired["target"])
+             for key in ("family", "libc", "layout", "package_driver", "package_format",
+                         "runtime_backend"):
+@@ -664,10 +665,11 @@
+     def query_package(self, env_id: str, name: str) -> dict:
+         name = validate_package_name(name)
+         record = self.store.load(validate_env_id(env_id))
++        driver = driver_for(record)
+         was_running = self._ensure_running(record["id"])
+         try:
+             result = self._exec_record(
+-                self.store.load(record["id"]), query_argv(record["target"], name),
++                self.store.load(record["id"]), driver.query(name),
+                 timeout=30, native=True)
+             detail = (result.stdout or result.stderr).strip()
+             return {
+@@ -819,8 +821,7 @@
+ 
+     def _native_steps(self, record: dict, operation: str, names: list[str],
+                       local_path: Path | None) -> list[tuple[list[str], int]]:
+-        target = record["target"]
+-        driver = driver_for(target)
++        driver = driver_for(record)
+         steps: list[tuple[list[str], int]] = []
+         if driver.needs_keyring and operation in {"install", "update", "install-local"}:
+             initialized = (record.get("arch") or {}).get("keyring_initialized_at")
+@@ -1076,7 +1077,7 @@
+         runtime = record["runtime"]
+         return self.runtime.exec(
+             runtime["container_name"], argv, project=runtime["project"], env_id=record["id"],
+-            workdir=None, env=native_env(record["target"]) if native else {},
++            workdir=None, env=driver_for(record).native_env() if native else {},
+             capture=True, timeout=timeout)
+ 
+     def _read_inventory_record(self, record: dict) -> str:
+--- a/tests/test_catalog.py
++++ b/tests/test_catalog.py
+@@ -1,6 +1,7 @@
+ """Catalog contract: in-place package upgrades, replacement for frozen identity."""
+ 
+ from pathlib import Path
++import copy
+ import sys
+ import tempfile
+ import unittest
+@@ -16,6 +17,7 @@
+     describe,
+     plan_change,
+     require_runnable,
++    resolve_record_contract,
+     system_contract,
+ )
+ from multilinux.errors import MultilinuxError
+@@ -97,6 +99,8 @@
+             "id": "nix",
+             "target": "nixos",
+             "system": {
++                "family": "nixos", "libc": "glibc", "layout": "nix-store",
++                "package_format": "nix", "runtime_backend": "podman-rootless",
+                 "update_policy": "generation-switch",
+                 "package_driver": "nix",
+             },
+@@ -105,9 +109,9 @@
+         self.assertEqual(refused["action"], "refused")
+         self.assertIn("generation-switch", refused["reason"])
+         image = dict(record)
+-        image["system"] = {"update_policy": "image-replace", "package_driver": "android-apk"}
++        image["system"] = {**record["system"], "update_policy": "image-replace", "package_driver": "android-apk"}
+         replaced = plan_change(image, operation="package-change")
+-        self.assertEqual(replaced["action"], "replace")
++        self.assertEqual(replaced["action"], "refused")
+         with tempfile.TemporaryDirectory() as temporary:
+             service, runtime = service_in(Path(temporary))
+             created = service.create("debian13", None, [])
+@@ -119,6 +123,90 @@
+                 service.install_packages("debian13", ["hello"])
+             self.assertEqual(runtime.events[mark:], [])
+ 
++    def test_new_name_with_implemented_driver_is_rejected_before_create(self):
++        raw = dict(PREPARED["debian13"])
++        with self.assertRaisesRegex(MultilinuxError, "no runnable upgrade driver"):
++            require_runnable("future-debian", raw)
++        with self.assertRaises(MultilinuxError):
++            driver_for("future-debian")
++        with tempfile.TemporaryDirectory() as temporary:
++            service, runtime = service_in(Path(temporary))
++            service.config = copy.deepcopy(service.config)
++            service.config["targets"]["future-debian"] = {
++                **service.config["targets"]["debian13"], **raw}
++            service.lock = copy.deepcopy(service.lock)
++            service.lock["targets"]["future-debian"] = service.lock["targets"]["debian13"]
++            with self.assertRaisesRegex(MultilinuxError, "no runnable upgrade driver"):
++                service.create("future-debian", None, [])
++            self.assertEqual(runtime.events, [])
++            self.assertFalse(service.store.exists("future-debian"))
++
++    def test_create_rejects_conflicting_prepared_contract_before_runtime(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            service, runtime = service_in(Path(temporary))
++            service.config = copy.deepcopy(service.config)
++            service.config["targets"]["debian13"]["package_driver"] = "dnf"
++            with self.assertRaisesRegex(MultilinuxError, "package_driver"):
++                service.create("debian13", None, [])
++            self.assertEqual(runtime.events, [])
++
++    def test_conflicting_record_is_refused_by_plan_driver_and_all_package_operations(self):
++        for field, value in (("package_driver", "dnf"), ("package_format", "rpm"),
++                             ("libc", "musl"), ("runtime_backend", "android")):
++            with self.subTest(field=field), tempfile.TemporaryDirectory() as temporary:
++                service, runtime = service_in(Path(temporary))
++                record = service.create("debian13", None, [], network="pasta")
++                record["system"][field] = value
++                service.store.save(record, None)
++                before = list(runtime.events)
++                self.assertEqual(service.change_plan("debian13")["action"], "refused")
++                with self.assertRaises(MultilinuxError):
++                    driver_for(record)
++                with self.assertRaises(MultilinuxError):
++                    service.query_package("debian13", "hello")
++                for operation in ("install", "update", "remove", "install-local"):
++                    with self.subTest(operation=operation), self.assertRaises(MultilinuxError):
++                        service._package_transaction("debian13", operation, ["hello"])
++                self.assertEqual(runtime.events, before)
++                self.assertEqual(service.transactions_for("debian13"), [])
++
++    def test_legacy_records_agree_with_actual_three_driver_transactions(self):
++        from test_packages import PackageBoxes, StaticHost
++        for target in PREPARED:
++            with self.subTest(target=target), tempfile.TemporaryDirectory() as temporary:
++                runtime = PackageBoxes()
++                service, _ = service_in(Path(temporary), runtime)
++                service.host_observer = StaticHost()
++                record = service.create(target, None, [], network="pasta")
++                record.pop("system")
++                service.store.save(record, None)
++                plan = plan_change(record, operation="package-change")
++                self.assertEqual(plan["package_driver"], driver_for(record).name)
++                self.assertEqual(resolve_record_contract(record), PREPARED[target])
++                txn = service.install_packages(target, ["hello"])
++                self.assertEqual(txn["phase"], "completed", txn)
++                expected = {"apt": "apt-get", "dnf": "dnf", "pacman": "pacman"}[plan["package_driver"]]
++                commands = [step["argv"][0] for step in txn["native"]]
++                self.assertIn(expected, commands)
++                self.assertFalse((set(commands) & {"apt-get", "dnf", "pacman"}) - {expected})
++
++    def test_malformed_system_is_not_treated_as_a_legacy_record(self):
++        for system in (None, {}, [], {"package_driver": "apt"}):
++            record = {"target": "debian13", "system": system}
++            with self.subTest(system=system):
++                self.assertEqual(plan_change(record, operation="package-change")["action"], "refused")
++                with self.assertRaises(MultilinuxError):
++                    driver_for(record)
++
++    def test_legacy_policy_conflict_cannot_override_prepared_target(self):
++        for system in (None, dict(PREPARED["debian13"])):
++            record = {"target": "debian13", "update_policy": "full-system-upgrade"}
++            if system is not None:
++                record["system"] = system
++            self.assertEqual(plan_change(record, operation="package-change")["action"], "refused")
++            with self.assertRaises(MultilinuxError):
++                driver_for(record)
++
+     def test_one_rpm_format_can_match_two_targets(self):
+         with tempfile.TemporaryDirectory() as temporary:
+             path = Path(temporary) / "test.rpm"

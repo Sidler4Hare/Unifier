@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "result": {
+    "dialog": "Open document",
+    "initial_directory": "/home/omg/文档/多兼容linux机/evidence/contract-freecad-gui-2026-10-23/host-project",
+    "submitted_path": "/home/omg/文档/多兼容linux机/evidence/contract-freecad-gui-2026-10-23/host-project/宿主原件.FCStd",
+    "button": "&Open"
+  }
+}

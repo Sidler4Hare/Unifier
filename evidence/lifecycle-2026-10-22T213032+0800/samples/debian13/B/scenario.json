@@ -1,0 +1,232 @@
+{
+  "scenario": "B",
+  "target": "debian13",
+  "requested": 3,
+  "rows": [
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 0,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 943.699,
+        "close_to_window_removed_ms": 43.747,
+        "close_to_launcher_exit_ms": 308.084,
+        "close_to_container_died_ms": 195.706,
+        "close_to_stopped_ms": 24.605,
+        "close_to_bridge_gone_ms": 20.321
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 1,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 886.21,
+        "close_to_window_removed_ms": 57.941,
+        "close_to_launcher_exit_ms": 316.871,
+        "close_to_container_died_ms": 202.478,
+        "close_to_stopped_ms": 31.574,
+        "close_to_bridge_gone_ms": 18.52
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 2,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 876.849,
+        "close_to_window_removed_ms": 44.429,
+        "close_to_launcher_exit_ms": 308.283,
+        "close_to_container_died_ms": 195.814,
+        "close_to_stopped_ms": 27.5,
+        "close_to_bridge_gone_ms": 19.416
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 3,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 1025.215,
+        "close_to_window_removed_ms": 48.509,
+        "close_to_launcher_exit_ms": 322.62,
+        "close_to_container_died_ms": 196.449,
+        "close_to_stopped_ms": 23.12,
+        "close_to_bridge_gone_ms": 19.596
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 4,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 905.877,
+        "close_to_window_removed_ms": 44.168,
+        "close_to_launcher_exit_ms": 340.426,
+        "close_to_container_died_ms": 198.205,
+        "close_to_stopped_ms": 26.444,
+        "close_to_bridge_gone_ms": 21.789
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 5,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 879.273,
+        "close_to_window_removed_ms": 44.484,
+        "close_to_launcher_exit_ms": 307.038,
+        "close_to_container_died_ms": 198.653,
+        "close_to_stopped_ms": 22.222,
+        "close_to_bridge_gone_ms": 18.794
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 6,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 884.119,
+        "close_to_window_removed_ms": 55.326,
+        "close_to_launcher_exit_ms": 358.868,
+        "close_to_container_died_ms": 229.697,
+        "close_to_stopped_ms": 26.738,
+        "close_to_bridge_gone_ms": 21.805
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 7,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 878.981,
+        "close_to_window_removed_ms": 55.076,
+        "close_to_launcher_exit_ms": 312.208,
+        "close_to_container_died_ms": 204.201,
+        "close_to_stopped_ms": 24.489,
+        "close_to_bridge_gone_ms": 19.7
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 8,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 877.718,
+        "close_to_window_removed_ms": 43.991,
+        "close_to_launcher_exit_ms": 351.036,
+        "close_to_container_died_ms": 206.885,
+        "close_to_stopped_ms": 24.021,
+        "close_to_bridge_gone_ms": 25.081
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 9,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 1015.312,
+        "close_to_window_removed_ms": 44.782,
+        "close_to_launcher_exit_ms": 340.189,
+        "close_to_container_died_ms": 200.927,
+        "close_to_stopped_ms": 22.433,
+        "close_to_bridge_gone_ms": 21.55
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "B",
+      "target": "debian13",
+      "index": 0,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "first_launch_to_ready_ms": 952.952,
+        "second_launch_to_ready_ms": 883.716,
+        "close_to_first_launcher_exit_ms": 314.706,
+        "close_to_stopped_ms": 22.473
+      },
+      "single_container": true,
+      "reopen_delay_ms": 150.0
+    },
+    {
+      "scenario": "B",
+      "target": "debian13",
+      "index": 1,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "first_launch_to_ready_ms": 862.513,
+        "second_launch_to_ready_ms": 1004.845,
+        "close_to_first_launcher_exit_ms": 403.983,
+        "close_to_stopped_ms": 23.344
+      },
+      "single_container": true,
+      "reopen_delay_ms": 200.0
+    },
+    {
+      "scenario": "B",
+      "target": "debian13",
+      "index": 2,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "first_launch_to_ready_ms": 859.238,
+        "second_launch_to_ready_ms": 858.964,
+        "close_to_first_launcher_exit_ms": 317.825,
+        "close_to_stopped_ms": 23.232
+      },
+      "single_container": true,
+      "reopen_delay_ms": 250.0
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+complex-arch: pacman -Syu --noconfirm --needed noto-fonts-cjk
+complex-arch: install completed txn896aadb5d77f

@@ -1,0 +1,22 @@
+{
+  "taken_at": "2026-10-22T22:04:01+08:00",
+  "blocked": false,
+  "available_bytes": 1971838976,
+  "memory_some_avg10": null,
+  "memory_full_avg10": null,
+  "load": [
+    1.07,
+    1.11,
+    1.07
+  ],
+  "attempts": [
+    {
+      "at": "2026-10-22T22:04:01+08:00",
+      "available_bytes": 1971838976,
+      "memory_some_avg10": null,
+      "memory_full_avg10": null,
+      "blocked": false
+    }
+  ],
+  "label": "S1-cold"
+}

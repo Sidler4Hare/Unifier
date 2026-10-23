@@ -1,0 +1,52 @@
+{
+  "scenario": "S1",
+  "label": "shared-topology",
+  "started_at": "2026-10-22T22:04:01+08:00",
+  "failures": [],
+  "waves": [
+    {
+      "variant": "cold",
+      "index": 0,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "variant": "cold",
+      "index": 1,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "variant": "cold",
+      "index": 2,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "variant": "cold",
+      "index": 3,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "variant": "cold",
+      "index": 4,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "variant": "warm",
+      "index": 0,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "variant": "warm",
+      "index": 1,
+      "passed": true,
+      "failures": []
+    }
+  ],
+  "passed": true,
+  "finished_at": "2026-10-22T22:04:27+08:00"
+}

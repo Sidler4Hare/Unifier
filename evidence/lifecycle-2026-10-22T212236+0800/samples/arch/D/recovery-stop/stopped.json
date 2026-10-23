@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "elapsed_ms": 22.44,
+  "state": {
+    "env_id": "test-arch",
+    "container_name": "ml-75a8c1ff-test-arch",
+    "container_id_recorded": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+    "record_runtime_state": "stopped",
+    "record_full_init": false,
+    "inspect": {
+      "id": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+      "running": false,
+      "status": "exited",
+      "pid": 0,
+      "exit_code": 143,
+      "oom_killed": false,
+      "started_at": "2026-10-22T21:27:51.99853896+08:00",
+      "finished_at": "2026-10-22T21:27:52.730625499+08:00",
+      "init": true,
+      "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+    }
+  }
+}

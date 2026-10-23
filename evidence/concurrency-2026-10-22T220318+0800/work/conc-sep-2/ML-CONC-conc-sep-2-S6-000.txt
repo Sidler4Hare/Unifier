@@ -1,0 +1,2 @@
+Multilinux concurrency verification note
+固定测试文本，不修改现有文档。

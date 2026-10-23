@@ -1,0 +1,4 @@
+install-arch: pacman -Syu --noconfirm
+install-arch: pacman -U --noconfirm /tmp/ml-incoming/sunshine-2026.914.233613-1-x86_64.pkg.tar.zst
+install-arch: install-local completed txn7f44c621fb1f
+ml: warning: txn7f44c621fb1f: the package changes are applied (exit code 0), but 50 maintenance hook failure(s) (udev-uevent-write-failed, modprobe-fatal, systemd-not-pid1, systemd-system-bus-unavailable, pacman-hook-failed) were reported; system integration is unverified and may need a host step. See 'ml pkg show txn7f44c621fb1f' for the saved output.

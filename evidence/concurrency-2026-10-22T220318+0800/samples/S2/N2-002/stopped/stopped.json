@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "elapsed_ms": 28.896,
+  "state": {
+    "env_id": "conc-debian",
+    "container_name": "ml-be3863e1-conc-debian",
+    "container_id_recorded": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+    "record_runtime_state": "stopped",
+    "inspect": {
+      "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+      "running": false,
+      "status": "exited",
+      "pid": 0,
+      "exit_code": 143,
+      "init": true
+    }
+  }
+}

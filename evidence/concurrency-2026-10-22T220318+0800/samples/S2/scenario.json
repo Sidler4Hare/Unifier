@@ -1,0 +1,82 @@
+{
+  "scenario": "S2",
+  "label": "shared-scale",
+  "started_at": "2026-10-22T22:04:27+08:00",
+  "failures": [],
+  "waves": [
+    {
+      "scale": 1,
+      "index": 0,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "scale": 1,
+      "index": 1,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "scale": 1,
+      "index": 2,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "scale": 2,
+      "index": 0,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "scale": 2,
+      "index": 1,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "scale": 2,
+      "index": 2,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "scale": 3,
+      "index": 0,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "scale": 3,
+      "index": 1,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "scale": 3,
+      "index": 2,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "scale": 4,
+      "index": 0,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "scale": 4,
+      "index": 1,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "scale": 4,
+      "index": 2,
+      "passed": true,
+      "failures": []
+    }
+  ],
+  "passed": true,
+  "finished_at": "2026-10-22T22:05:05+08:00"
+}

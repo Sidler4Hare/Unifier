@@ -1,0 +1,54 @@
+{
+  "host_before": {
+    "packages": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "79dcbb15555c7c798e0c7e9e66bf96d06ad2f7b0cc6ef936337d7bdd5a5a3757",
+      "count": 2522,
+      "error": null
+    },
+    "entries": {
+      "directory": "/home/omg/.local/share/applications",
+      "names": [
+        "antigravity.desktop",
+        "cc-switch-handler.desktop",
+        "clash-verge-handler.desktop",
+        "claude-code-url-handler.desktop",
+        "kos-settings.desktop",
+        "org.gptniang.KDE.desktop",
+        "org.kos.Platform.desktop",
+        "org.quickshell.desktop",
+        "qwen-win.desktop",
+        "wemeetapp.desktop"
+      ]
+    }
+  },
+  "original_state": {
+    ".lab/state/environments/m3debian.json": "e7f9c5b82530d8c912d66c08a17d51fcf533aa4759d4101781e0bdff786b199a",
+    ".lab/state/environments/m3debian.packages.txt": "7cdc13bc09723ab0ff2dc7ba60be33980fea989730df6000d22f43ddb12e5107",
+    ".lab/state/launches/m3note.json": "849cb3adbdfee99871677cb68c1d7d09bd4fb76b608cd6dc2c6e21982030c4f5"
+  },
+  "baseline": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+  "source": "https://github.com/FreeCAD/FreeCAD",
+  "arch_package": "https://archlinux.org/packages/extra/x86_64/freecad/",
+  "source_sha256": {
+    "tools/ml.py": "9ce24eece889ef5fc43ee203f83a96722280752cae1bbe25c96271eddd4e6c49",
+    "tools/lab.py": "75b0e20a452acc3b9168c8cc0bcdd96603d2721113e054515790a1db75f774f4",
+    "config/targets.toml": "74f16595197f5dbc82e2a62d9a71ba2138228afe3765cde00a74f449179db181",
+    "config/images.lock.json": "9effc95f32804154c3ccab113067f86846b41f2b7b6d77dd050e59b96755aada",
+    "src/multilinux/__init__.py": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+    "src/multilinux/__main__.py": "8fc1fcde2cd1a30a9c1271714cbe49efd1b7ef1597ad4b0f16e1f84dc96ae2b8",
+    "src/multilinux/cli.py": "a859d46ae6b5748a393e4553d1cd7a4d43aeb742af744c95a726a958f3572e78",
+    "src/multilinux/desktop.py": "421ba2f4492bd17c4c1b1a3c44ff9b5c83b116c7887430e51f218aa4b89f8a93",
+    "src/multilinux/errors.py": "531a2ca4ce2056099a662eed98a6fa137013b99c7ea0a091fa3960279b92ca2a",
+    "src/multilinux/on_demand.py": "7c54074423187b92d7a07708004e1d9e6fb35cc6c1afe408650eb12c7a6f56dd",
+    "src/multilinux/packages.py": "20e1b6eb2a67794a22cf2c9c9b3b9ed14168c1cd373237a7b65ca7925ebeabad",
+    "src/multilinux/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+    "src/multilinux/resources.py": "1269fc93c41febfc8932d57b805cd512b6fd6cbde109e5c6ca680725504ce4ec",
+    "src/multilinux/routing.py": "a428aa0fd11bded46cc02eb4b498ac00482f19767d7b98f0bdd20e97c658b155",
+    "src/multilinux/runtime.py": "89ebf6d9e26ce74f347178746c6b8c3bec8e803065c3d7a63a29c1ed9bd20f42",
+    "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+    "src/multilinux/service.py": "6ee6377e53513a4a54b11fda13c075de3ad219338773e25acc94218b1d99697c",
+    "src/multilinux/store.py": "f1885b957b7f94f2f351b5900b9d41cc81983e5ef25777e2efa482003696382e"
+  }
+}

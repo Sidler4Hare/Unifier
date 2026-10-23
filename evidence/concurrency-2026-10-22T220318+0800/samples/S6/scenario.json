@@ -1,0 +1,25 @@
+{
+  "scenario": "S6",
+  "label": "one-env-per-process",
+  "started_at": "2026-10-22T22:07:43+08:00",
+  "failures": [],
+  "waves": [
+    {
+      "index": 0,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "index": 1,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "index": 2,
+      "passed": true,
+      "failures": []
+    }
+  ],
+  "passed": true,
+  "finished_at": "2026-10-22T22:07:58+08:00"
+}

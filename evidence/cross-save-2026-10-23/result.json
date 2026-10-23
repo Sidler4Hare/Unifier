@@ -1,0 +1,1019 @@
+{
+  "time": "2026-10-23T11:05:28.138481+08:00",
+  "purpose": "host project saved by Arch FreeCAD and an editor-style replace",
+  "product_acceptance": false,
+  "container": "ml-edae1d18-complex-arch",
+  "project": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+  "preexisting_sha256": {
+    "build-result.json": "240d0da270e4c2c30d2d6e7f5f8767e546520dc19e35dd9659ae359394beb300",
+    "build-viewport.png": "51205b796215a4a206ae0be751bdb2e0df0e02f376836c6aaa617b975bbb79d9",
+    "probe.FCMacro": "46a948900755dfaa953f983cd7ab27b3a0e34a88fae6941721ce196a566d721b",
+    "reopen-result.json": "c2989abfb71c53842b9ad540d17f0b2d5bc2439af1d713807c3f3d083682f86f",
+    "reopen-viewport.png": "eda08a186c3346ddf17f3af9762e2db9c026eb62facbfe3596ddf400f31538d1",
+    "中文 模型.FCStd": "a6c1795209fdaadfd476bf4870c05bc1f25ebca5f0f446c674337f9bea683b7e",
+    "中文 模型.step": "ac6b1c73f940f3cc450a24f82f6b5c720d39264d1f12322e5b05671b8d33dd23"
+  },
+  "state_before": "exited",
+  "share_present": true,
+  "xauth_placeholder": true,
+  "start": {
+    "argv": [
+      "podman",
+      "start",
+      "ml-edae1d18-complex-arch"
+    ],
+    "exit_code": 0,
+    "stdout": "ml-edae1d18-complex-arch\n",
+    "stderr": "",
+    "seconds": 0.158516,
+    "error": null
+  },
+  "outside_visibility": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "-w",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "-e",
+      "DISPLAY=",
+      "-e",
+      "WAYLAND_DISPLAY=",
+      "-e",
+      "QT_QPA_PLATFORM=offscreen",
+      "ml-edae1d18-complex-arch",
+      "sh",
+      "-c",
+      "test -e 'evidence/cross-save-2026-10-23/outside-marker.txt' && echo visible || echo absent"
+    ],
+    "exit_code": 0,
+    "stdout": "absent\n",
+    "stderr": "",
+    "seconds": 0.162833,
+    "error": null
+  },
+  "atomic_save": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "-w",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "-e",
+      "DISPLAY=",
+      "-e",
+      "WAYLAND_DISPLAY=",
+      "-e",
+      "QT_QPA_PLATFORM=offscreen",
+      "ml-edae1d18-complex-arch",
+      "python3",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/inside.py",
+      "atomic",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/笔记.txt",
+      "Arch 编辑器协议保存 v2\n",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/atomic.json"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "seconds": 0.191656,
+    "error": null
+  },
+  "atomic_events": [
+    {
+      "mask": [
+        "create"
+      ],
+      "cookie": 0,
+      "name": "笔记.txt.editor.tmp"
+    },
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "笔记.txt.editor.tmp"
+    },
+    {
+      "mask": [
+        "close_write"
+      ],
+      "cookie": 0,
+      "name": "笔记.txt.editor.tmp"
+    },
+    {
+      "mask": [
+        "moved_from"
+      ],
+      "cookie": 18743,
+      "name": "笔记.txt.editor.tmp"
+    },
+    {
+      "mask": [
+        "moved_to"
+      ],
+      "cookie": 18743,
+      "name": "笔记.txt"
+    },
+    {
+      "mask": [
+        "create"
+      ],
+      "cookie": 0,
+      "name": "atomic.json"
+    },
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "atomic.json"
+    },
+    {
+      "mask": [
+        "close_write"
+      ],
+      "cookie": 0,
+      "name": "atomic.json"
+    }
+  ],
+  "atomic_inside": {
+    "protocol": "temp-fsync-replace",
+    "temp": "笔记.txt.editor.tmp",
+    "inode_before": 3052133,
+    "inode_after": 3052167
+  },
+  "note_after_atomic": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/笔记.txt",
+    "uid": 1000,
+    "gid": 1000,
+    "mode": "0o100644",
+    "inode": 3052167,
+    "size": 30,
+    "is_symlink": false,
+    "sha256": "7f21863b4cc42a49dc3d63a6f162fce0a25d8c51e9246dcb97f7b0587cc46977",
+    "text": "Arch 编辑器协议保存 v2\n",
+    "selinux": "unconfined_u:object_r:container_file_t:s0"
+  },
+  "side_after_atomic": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/旁注.txt",
+    "uid": 1000,
+    "gid": 1000,
+    "mode": "0o100644",
+    "inode": 3052134,
+    "size": 22,
+    "is_symlink": false,
+    "sha256": "d7e08e73e9acfaeb172f237850b6880466669c8177ab0bbdd699511368eaf868",
+    "text": "相邻说明不要动\n",
+    "selinux": "unconfined_u:object_r:container_file_t:s0"
+  },
+  "inplace_save": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "-w",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "-e",
+      "DISPLAY=",
+      "-e",
+      "WAYLAND_DISPLAY=",
+      "-e",
+      "QT_QPA_PLATFORM=offscreen",
+      "ml-edae1d18-complex-arch",
+      "python3",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/inside.py",
+      "inplace",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/笔记.txt",
+      "同 inode 覆盖 v3\n",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/inplace.json"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "seconds": 0.176373,
+    "error": null
+  },
+  "inplace_events": [
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "笔记.txt"
+    },
+    {
+      "mask": [
+        "close_write"
+      ],
+      "cookie": 0,
+      "name": "笔记.txt"
+    },
+    {
+      "mask": [
+        "create"
+      ],
+      "cookie": 0,
+      "name": "inplace.json"
+    },
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "inplace.json"
+    },
+    {
+      "mask": [
+        "close_write"
+      ],
+      "cookie": 0,
+      "name": "inplace.json"
+    }
+  ],
+  "inplace_inside": {
+    "protocol": "truncate-same-fd",
+    "inode_before": 3052167,
+    "inode_after": 3052167
+  },
+  "note_after_inplace": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/笔记.txt",
+    "uid": 1000,
+    "gid": 1000,
+    "mode": "0o100644",
+    "inode": 3052167,
+    "size": 20,
+    "is_symlink": false,
+    "sha256": "34ebdaf4a7d33e58689bfb0b3d7d166049530ed2022c3a004e9a781b20044085",
+    "text": "同 inode 覆盖 v3\n",
+    "selinux": "unconfined_u:object_r:container_file_t:s0"
+  },
+  "readonly_inplace": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "-w",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "-e",
+      "DISPLAY=",
+      "-e",
+      "WAYLAND_DISPLAY=",
+      "-e",
+      "QT_QPA_PLATFORM=offscreen",
+      "ml-edae1d18-complex-arch",
+      "python3",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/inside.py",
+      "try-inplace",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/只读笔记.txt",
+      "不应覆盖\n",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/readonly-inplace.json"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "seconds": 0.215004,
+    "error": null
+  },
+  "readonly_inplace_inside": {
+    "protocol": "truncate-same-fd",
+    "error": "PermissionError",
+    "errno": 13,
+    "message": "Permission denied"
+  },
+  "readonly_atomic": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "-w",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "-e",
+      "DISPLAY=",
+      "-e",
+      "WAYLAND_DISPLAY=",
+      "-e",
+      "QT_QPA_PLATFORM=offscreen",
+      "ml-edae1d18-complex-arch",
+      "python3",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/inside.py",
+      "try-atomic",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/只读笔记.txt",
+      "目录可写所以替换成功\n",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/readonly-atomic.json"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "seconds": 0.212352,
+    "error": null
+  },
+  "readonly_atomic_inside": {
+    "protocol": "temp-fsync-replace",
+    "temp": "只读笔记.txt.editor.tmp",
+    "inode_before": 3052193,
+    "inode_after": 3052226,
+    "error": null
+  },
+  "readonly_after": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/只读笔记.txt",
+    "uid": 1000,
+    "gid": 1000,
+    "mode": "0o100644",
+    "inode": 3052226,
+    "size": 31,
+    "is_symlink": false,
+    "sha256": "08acc0a74e0d3d5649a1d9a6027df6032ec37a618901ab483e7ed2d6d703c923",
+    "text": "目录可写所以替换成功\n",
+    "selinux": "unconfined_u:object_r:container_file_t:s0"
+  },
+  "race_replace": {
+    "action": "stage-replace",
+    "container": {
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    "inside": {
+      "protocol": "read-then-replace-after-host",
+      "stale": "容器读到的原文\n",
+      "final_inode": 3052247
+    },
+    "host_inode_after_replace": 3052249,
+    "final": {
+      "path": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/竞争-替换.txt",
+      "uid": 1000,
+      "gid": 1000,
+      "mode": "0o100644",
+      "inode": 3052247,
+      "size": 22,
+      "is_symlink": false,
+      "sha256": "b142e6096c451a23d02b30806a1e1a1a47dabf41cf0f559585e8752185e1d4a2",
+      "text": "容器读到的原文\n",
+      "selinux": "unconfined_u:object_r:container_file_t:s0"
+    },
+    "events": [
+      {
+        "mask": [
+          "create"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.stale.tmp"
+      },
+      {
+        "mask": [
+          "modify"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.stale.tmp"
+      },
+      {
+        "mask": [
+          "close_write"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.stale.tmp"
+      },
+      {
+        "mask": [
+          "create"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.ready"
+      },
+      {
+        "mask": [
+          "modify"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.ready"
+      },
+      {
+        "mask": [
+          "close_write"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.ready"
+      },
+      {
+        "mask": [
+          "create"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.host.tmp"
+      },
+      {
+        "mask": [
+          "modify"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.host.tmp"
+      },
+      {
+        "mask": [
+          "close_write"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.host.tmp"
+      },
+      {
+        "mask": [
+          "moved_from"
+        ],
+        "cookie": 18754,
+        "name": "竞争-替换.txt.host.tmp"
+      },
+      {
+        "mask": [
+          "moved_to"
+        ],
+        "cookie": 18754,
+        "name": "竞争-替换.txt"
+      },
+      {
+        "mask": [
+          "create"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.go"
+      },
+      {
+        "mask": [
+          "modify"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.go"
+      },
+      {
+        "mask": [
+          "close_write"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.go"
+      },
+      {
+        "mask": [
+          "moved_from"
+        ],
+        "cookie": 18755,
+        "name": "竞争-替换.txt.stale.tmp"
+      },
+      {
+        "mask": [
+          "moved_to"
+        ],
+        "cookie": 18755,
+        "name": "竞争-替换.txt"
+      },
+      {
+        "mask": [
+          "create"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.result.json"
+      },
+      {
+        "mask": [
+          "modify"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.result.json"
+      },
+      {
+        "mask": [
+          "close_write"
+        ],
+        "cookie": 0,
+        "name": "竞争-替换.txt.result.json"
+      }
+    ]
+  },
+  "race_fd": {
+    "action": "stage-fd",
+    "container": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/inside.py\", line 84, in <module>\n    main()\n    ~~~~^^\n  File \"/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/inside.py\", line 64, in main\n    result = stage_fd(sys.argv[2], sys.argv[3], sys.argv[4])\n  File \"/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/inside.py\", line 47, in stage_fd\n    os.lseek(fd, 0)\n    ~~~~~~~~^^^^^^^\nTypeError: lseek expected 3 arguments, got 2\n",
+      "error": null
+    },
+    "inside": null,
+    "host_inode_after_replace": 3052272,
+    "final": {
+      "path": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/竞争-描述符.txt",
+      "uid": 1000,
+      "gid": 1000,
+      "mode": "0o100644",
+      "inode": 3052272,
+      "size": 22,
+      "is_symlink": false,
+      "sha256": "1579e0713819392253291150cfdc273c82b9884df18c2cf6b4bbbfbe8ab58626",
+      "text": "宿主换了新 inode\n",
+      "selinux": "unconfined_u:object_r:container_file_t:s0"
+    },
+    "events": [
+      {
+        "mask": [
+          "create"
+        ],
+        "cookie": 0,
+        "name": "竞争-描述符.txt.ready"
+      },
+      {
+        "mask": [
+          "modify"
+        ],
+        "cookie": 0,
+        "name": "竞争-描述符.txt.ready"
+      },
+      {
+        "mask": [
+          "close_write"
+        ],
+        "cookie": 0,
+        "name": "竞争-描述符.txt.ready"
+      },
+      {
+        "mask": [
+          "create"
+        ],
+        "cookie": 0,
+        "name": "竞争-描述符.txt.host.tmp"
+      },
+      {
+        "mask": [
+          "modify"
+        ],
+        "cookie": 0,
+        "name": "竞争-描述符.txt.host.tmp"
+      },
+      {
+        "mask": [
+          "close_write"
+        ],
+        "cookie": 0,
+        "name": "竞争-描述符.txt.host.tmp"
+      },
+      {
+        "mask": [
+          "moved_from"
+        ],
+        "cookie": 18758,
+        "name": "竞争-描述符.txt.host.tmp"
+      },
+      {
+        "mask": [
+          "moved_to"
+        ],
+        "cookie": 18758,
+        "name": "竞争-描述符.txt"
+      },
+      {
+        "mask": [
+          "create"
+        ],
+        "cookie": 0,
+        "name": "竞争-描述符.txt.go"
+      },
+      {
+        "mask": [
+          "modify"
+        ],
+        "cookie": 0,
+        "name": "竞争-描述符.txt.go"
+      },
+      {
+        "mask": [
+          "close_write"
+        ],
+        "cookie": 0,
+        "name": "竞争-描述符.txt.go"
+      },
+      {
+        "mask": [
+          "close_write"
+        ],
+        "cookie": 0,
+        "name": "竞争-描述符.txt"
+      }
+    ]
+  },
+  "side_after_races": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/旁注.txt",
+    "uid": 1000,
+    "gid": 1000,
+    "mode": "0o100644",
+    "inode": 3052134,
+    "size": 22,
+    "is_symlink": false,
+    "sha256": "d7e08e73e9acfaeb172f237850b6880466669c8177ab0bbdd699511368eaf868",
+    "text": "相邻说明不要动\n",
+    "selinux": "unconfined_u:object_r:container_file_t:s0"
+  },
+  "side_unchanged": true,
+  "freecad_save": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "-w",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "-e",
+      "DISPLAY=",
+      "-e",
+      "WAYLAND_DISPLAY=",
+      "-e",
+      "QT_QPA_PLATFORM=offscreen",
+      "-e",
+      "ML_PROJECT=/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "ml-edae1d18-complex-arch",
+      "freecadcmd",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/freecad_save.py"
+    ],
+    "exit_code": 0,
+    "stdout": "FreeCAD 1.1.4, Libs: 1.1.4R45040 (Git)\n(C) 2001-2026 FreeCAD contributors\nFreeCAD is free and open-source software licensed under the terms of LGPL2+ license.\n\nRecompute......\n\t\t\t\t\t\t(100 %)\t\n\t\t\t\t\t\t\t\t\n\u001b[32;1m\n*******************************************************************\n******        Statistics on Transfer (Write)                 ******\u001b[0m\n\u001b[32;1m\n*******************************************************************\n******        Transfer Mode = 0  I.E.  As Is       ******\u001b[0m\n\u001b[32;1m******        Transferring Shape, ShapeType = 0                      ******\u001b[0m\n\u001b[32;1m** WorkSession : Sending all data\u001b[0m\n\u001b[32;1m Step File Name : /home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/零件.step(170 ents)  Write  Done\u001b[0m\nRecompute......\n\t\t\t\t\t\t(100 %)\t\n\t\t\t\t\t\t\t\t\n",
+    "stderr": "",
+    "seconds": 0.852695,
+    "error": null
+  },
+  "freecad_save_events": [
+    {
+      "mask": [
+        "create"
+      ],
+      "cookie": 0,
+      "name": "__pycache__"
+    },
+    {
+      "mask": [
+        "create"
+      ],
+      "cookie": 0,
+      "name": "零件.FCStd.2521c582-a51f-47ab-b6be-6d99dd1d6eaa"
+    },
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "零件.FCStd.2521c582-a51f-47ab-b6be-6d99dd1d6eaa"
+    },
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "零件.FCStd.2521c582-a51f-47ab-b6be-6d99dd1d6eaa"
+    },
+    {
+      "mask": [
+        "close_write"
+      ],
+      "cookie": 0,
+      "name": "零件.FCStd.2521c582-a51f-47ab-b6be-6d99dd1d6eaa"
+    },
+    {
+      "mask": [
+        "moved_from"
+      ],
+      "cookie": 18764,
+      "name": "零件.FCStd.2521c582-a51f-47ab-b6be-6d99dd1d6eaa"
+    },
+    {
+      "mask": [
+        "moved_to"
+      ],
+      "cookie": 18764,
+      "name": "零件.FCStd"
+    },
+    {
+      "mask": [
+        "create"
+      ],
+      "cookie": 0,
+      "name": "零件.step"
+    },
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "零件.step"
+    },
+    {
+      "mask": [
+        "close_write"
+      ],
+      "cookie": 0,
+      "name": "零件.step"
+    },
+    {
+      "mask": [
+        "create"
+      ],
+      "cookie": 0,
+      "name": "零件.FCStd.a6d46b32-9e07-45ad-ad64-512eddca10ef"
+    },
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "零件.FCStd.a6d46b32-9e07-45ad-ad64-512eddca10ef"
+    },
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "零件.FCStd.a6d46b32-9e07-45ad-ad64-512eddca10ef"
+    },
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "零件.FCStd.a6d46b32-9e07-45ad-ad64-512eddca10ef"
+    },
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "零件.FCStd.a6d46b32-9e07-45ad-ad64-512eddca10ef"
+    },
+    {
+      "mask": [
+        "close_write"
+      ],
+      "cookie": 0,
+      "name": "零件.FCStd.a6d46b32-9e07-45ad-ad64-512eddca10ef"
+    },
+    {
+      "mask": [
+        "moved_from"
+      ],
+      "cookie": 18765,
+      "name": "零件.FCStd"
+    },
+    {
+      "mask": [
+        "moved_to"
+      ],
+      "cookie": 18765,
+      "name": "零件.20261023-030530.FCBak"
+    },
+    {
+      "mask": [
+        "moved_from"
+      ],
+      "cookie": 18766,
+      "name": "零件.FCStd.a6d46b32-9e07-45ad-ad64-512eddca10ef"
+    },
+    {
+      "mask": [
+        "moved_to"
+      ],
+      "cookie": 18766,
+      "name": "零件.FCStd"
+    },
+    {
+      "mask": [
+        "create"
+      ],
+      "cookie": 0,
+      "name": "freecad-save.json"
+    },
+    {
+      "mask": [
+        "modify"
+      ],
+      "cookie": 0,
+      "name": "freecad-save.json"
+    },
+    {
+      "mask": [
+        "close_write"
+      ],
+      "cookie": 0,
+      "name": "freecad-save.json"
+    }
+  ],
+  "freecad_save_report": {
+    "filename": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/零件.FCStd",
+    "length_after_second_save": 11.0,
+    "volume_at_step_export": 6000.0,
+    "volume_after_second_save": 6600.0,
+    "cwd": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+    "home": "/home/multilinux-1000",
+    "uid": 1000
+  },
+  "fcstd": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/零件.FCStd",
+    "uid": 1000,
+    "gid": 1000,
+    "mode": "0o100644",
+    "inode": 3052299,
+    "size": 2494,
+    "is_symlink": false,
+    "sha256": "2a877c4e3091c785276db14c37c1293c2b7b12990e4269633b2dd1ea85c6645d",
+    "text": null,
+    "selinux": "unconfined_u:object_r:container_file_t:s0"
+  },
+  "step": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/零件.step",
+    "uid": 1000,
+    "gid": 1000,
+    "mode": "0o100644",
+    "inode": 3052298,
+    "size": 6854,
+    "is_symlink": false,
+    "sha256": "8cf22a24c350e85e1594c8d687526edb16fd8e03f14912dfb7b3cefcd95b5cda",
+    "text": "ISO-10303-21;\nHEADER;\nFILE_DESCRIPTION(('FreeCAD Model'),'2;1');\nFILE_NAME('Open CASCADE Shape Model','2026-10-23T03:05:30',('FreeCAD'),(\n    'FreeCAD'),'Open CASCADE STEP processor 7.9','FreeCAD','Unknown');\nFILE_SCHEMA(('AUTOMOTIVE_DESIGN { 1 0 10303 214 1 1 1 1 }'));\nENDSEC;\nDATA;\n#1 = APPLICATION_PROTOCOL_DEFINITION('international standard',\n  'automotive_design',2000,#2);\n#2 = APPLICATION_CONTEXT(\n  'core data for automotive mechanical design processes');\n#3 = SHAPE_DEFINITION_REPRESENTATION(#4,#10);\n#4 = PRODUCT_DEFINITION_SHAPE('','',#5);\n#5 = PRODUCT_DEFINITION('design','',#6,#9);\n#6 = PRODUCT_DEFINITION_FORMATION('','',#7);\n#7 = PRODUCT('Open CASCADE STEP translator 7.9 1',\n  'Open CASCADE STEP translator 7.9 1','',(#8));\n#8 = PRODUCT_CONTEXT('',#2,'mechanical');\n#9 = PRODUCT_DEFINITION_CONTEXT('part definition',#2,'design');\n#10 = ADVANCED_BREP_SHAPE_REPRESENTATION('',(#11,#15),#165);\n#11 = AXIS2_PLACEMENT_3D('',#12,#13,#14);\n#12 = CARTESIAN_POINT('',(0.,0.,0.));\n#13 = DIRECTION('',(0.,0.,1.));\n#14 = DIRECTION('',(1.,0.,-0.));\n#15 = MANIFOLD_SOLID_BREP('',#16);\n#16 = CLOSED_SHELL('',(#17,#57,#97,#119,#141,#153));\n#17 = ADVANCED_FACE('',(#18),#52,.F.);\n#18 = FACE_BOUND('',#19,.F.);\n#19 = EDGE_LOOP('',(#20,#30,#38,#46));\n#20 = ORIENTED_EDGE('',*,*,#21,.F.);\n#21 = EDGE_CURVE('',#22,#24,#26,.T.);\n#22 = VERTEX_POINT('',#23);\n#23 = CARTESIAN_POINT('',(0.,0.,0.));\n#24 = VERTEX_POINT('',#25);\n#25 = CARTESIAN_POINT('',(0.,0.,30.));\n#26 = LINE('',#27,#28);\n#27 = CARTESIAN_POINT('',(0.,0.,0.));\n#28 = VECTOR('',#29,1.);\n#29 = DIRECTION('',(0.,0.,1.));\n#30 = ORIENTED_EDGE('',*,*,#31,.T.);\n#31 = EDGE_CURVE('',#22,#32,#34,.T.);\n#32 = VERTEX_POINT('',#33);\n#33 = CARTESIAN_POINT('',(0.,20.,0.));\n#34 = LINE('',#35,#36);\n#35 = CARTESIAN_POINT('',(0.,0.,0.));\n#36 = VECTOR('',#37,1.);\n#37 = DIRECTION('',(0.,1.,0.));\n#38 = ORIENTED_EDGE('',*,*,#39,.T.);\n#39 = EDGE_CURVE('',#32,#40,#42,.T.);\n#40 = VERTEX_POINT('',#41);\n#41 = CARTESIAN_POINT('',(0.,20.,30.));\n#42 = LINE('',#43,#44);\n#43 = CARTESIAN_POINT('',(0.,20.,0.));\n#44 = VECTOR('',#45,1.);\n#45 = DIRECTION('',(0.,0.,1.));\n#46 = ORIENTED_EDGE('',*,*,#47,.F.);\n#47 = EDGE_CURVE('',#24,#40,#48,.T.);\n#48 = LINE('',#49,#50);\n#49 = CARTESIAN_POINT('',(0.,0.,30.));\n#50 = VECTOR('',#51,1.);\n#51 = DIRECTION('',(0.,1.,0.));\n#52 = PLANE('',#53);\n#53 = AXIS2_PLACEMENT_3D('',#54,#55,#56);\n#54 = CARTESIAN_POINT('',(0.,0.,0.));\n#55 = DIRECTION('',(1.,0.,0.));\n#56 = DIRECTION('',(0.,0.,1.));\n#57 = ADVANCED_FACE('',(#58),#92,.T.);\n#58 = FACE_BOUND('',#59,.T.);\n#59 = EDGE_LOOP('',(#60,#70,#78,#86));\n#60 = ORIENTED_EDGE('',*,*,#61,.F.);\n#61 = EDGE_CURVE('',#62,#64,#66,.T.);\n#62 = VERTEX_POINT('',#63);\n#63 = CARTESIAN_POINT('',(10.,0.,0.));\n#64 = VERTEX_POINT('',#65);\n#65 = CARTESIAN_POINT('',(10.,0.,30.));\n#66 = LINE('',#67,#68);\n#67 = CARTESIAN_POINT('',(10.,0.,0.));\n#68 = VECTOR('',#69,1.);\n#69 = DIRECTION('',(0.,0.,1.));\n#70 = ORIENTED_EDGE('',*,*,#71,.T.);\n#71 = EDGE_CURVE('',#62,#72,#74,.T.);\n#72 = VERTEX_POINT('',#73);\n#73 = CARTESIAN_POINT('',(10.,20.,0.));\n#74 = LINE('',#75,#76);\n#75 = CARTESIAN_POINT('',(10.,0.,0.));\n#76 = VECTOR('',#77,1.);\n#77 = DIRECTION('',(0.,1.,0.));\n#78 = ORIENTED_EDGE('',*,*,#79,.T.);\n#79 = EDGE_CURVE('',#72,#80,#82,.T.);\n#80 = VERTEX_POINT('',#81);\n#81 = CARTESIAN_POINT('',(10.,20.,30.));\n#82 = LINE('',#83,#84);\n#83 = CARTESIAN_POINT('',(10.,20.,0.));\n#84 = VECTOR('',#85,1.);\n#85 = DIRECTION('',(0.,0.,1.));\n#86 = ORIENTED_EDGE('',*,*,#87,.F.);\n#87 = EDGE_CURVE('',#64,#80,#88,.T.);\n#88 = LINE('',#89,#90);\n#89 = CARTESIAN_POINT('',(10.,0.,30.));\n#90 = VECTOR('',#91,1.);\n#91 = DIRECTION('',(0.,1.,0.));\n#92 = PLANE('',#93);\n#93 = AXIS2_PLACEMENT_3D('',#94,#95,#96);\n#94 = CARTESIAN_POINT('',(10.,0.,0.));\n#95 = DIRECTION('',(1.,0.,0.));\n#96 = DIRECTION('',(0.,0.,1.));\n#97 = ADVANCED_FACE('',(#98),#114,.F.);\n#98 = FACE_BOUND('',#99,.F.);\n#99 = EDGE_LOOP('',(#100,#106,#107,#113));\n#100 = ORIENTED_EDGE('',*,*,#101,.F.);\n#101 = EDGE_CURVE('',#22,#62,#102,.T.);\n#102 = LINE('',#103,#104);\n#103 = CARTESIAN_POINT('',(0.,0.,0.));\n#104 = VECTOR('',#105,1.);\n#105 = DIRECTION('',(1.,0.,0.));\n#106 = ORIENTED_EDGE('',*,*,#21,.T.);\n#107 = ORIENTED_EDGE('',*,*,#108,.T.);\n#108 = EDGE_CURVE('',#24,#64,#109,.T.);\n#109 = LINE('',#110,#111);\n#110 = CARTESIAN_POINT('',(0.,0.,30.));\n#111 = VECTOR('',#112,1.);\n#112 = DIRECTION('',(1.,0.,0.));\n#113 = ORIENTED_EDGE('',*,*,#61,.F.);\n#114 = PLANE('',#115);\n#115 = AXIS2_PLACEMENT_3D('',#116,#117,#118);\n#116 = CARTESIAN_POINT('',(0.,0.,0.));\n#117 = DIRECTION('',(0.,1.,0.));\n#118 = DIRECTION('',(0.,0.,1.));\n#119 = ADVANCED_FACE('',(#120),#136,.T.);\n#120 = FACE_BOUND('',#121,.T.);\n#121 = EDGE_LOOP('',(#122,#128,#129,#135));\n#122 = ORIENTED_EDGE('',*,*,#123,.F.);\n#123 = EDGE_CURVE('',#32,#72,#124,.T.);\n#124 = LINE('',#125,#126);\n#125 = CARTESIAN_POINT('',(0.,20.,0.));\n#126 = VECTOR('',#127,1.);\n#127 = DIRECTION('',(1.,0.,0.));\n#128 = ORIENTED_EDGE('',*,*,#39,.T.);\n#129 = ORIENTED_EDGE('',*,*,#130,.T.);\n#130 = EDGE_CURVE('',#40,#80,#131,.T.);\n#131 = LINE('',#132,#133);\n#132 = CARTESIAN_POINT('',(0.,20.,30.));\n#133 = VECTOR('',#134,1.);\n#134 = DIRECTION('',(1.,0.,0.));\n#135 = ORIENTED_EDGE('',*,*,#79,.F.);\n#136 = PLANE('',#137);\n#137 = AXIS2_PLACEMENT_3D('',#138,#139,#140);\n#138 = CARTESIAN_POINT('',(0.,20.,0.));\n#139 = DIRECTION('',(0.,1.,0.));\n#140 = DIRECTION('',(0.,0.,1.));\n#141 = ADVANCED_FACE('',(#142),#148,.F.);\n#142 = FACE_BOUND('',#143,.F.);\n#143 = EDGE_LOOP('',(#144,#145,#146,#147));\n#144 = ORIENTED_EDGE('',*,*,#31,.F.);\n#145 = ORIENTED_EDGE('',*,*,#101,.T.);\n#146 = ORIENTED_EDGE('',*,*,#71,.T.);\n#147 = ORIENTED_EDGE('',*,*,#123,.F.);\n#148 = PLANE('',#149);\n#149 = AXIS2_PLACEMENT_3D('',#150,#151,#152);\n#150 = CARTESIAN_POINT('',(0.,0.,0.));\n#151 = DIRECTION('',(0.,0.,1.));\n#152 = DIRECTION('',(1.,0.,0.));\n#153 = ADVANCED_FACE('',(#154),#160,.T.);\n#154 = FACE_BOUND('',#155,.T.);\n#155 = EDGE_LOOP('',(#156,#157,#158,#159));\n#156 = ORIENTED_EDGE('',*,*,#47,.F.);\n#157 = ORIENTED_EDGE('',*,*,#108,.T.);\n#158 = ORIENTED_EDGE('',*,*,#87,.T.);\n#159 = ORIENTED_EDGE('',*,*,#130,.F.);\n#160 = PLANE('',#161);\n#161 = AXIS2_PLACEMENT_3D('',#162,#163,#164);\n#162 = CARTESIAN_POINT('',(0.,0.,30.));\n#163 = DIRECTION('',(0.,0.,1.));\n#164 = DIRECTION('',(1.,0.,0.));\n#165 = ( GEOMETRIC_REPRESENTATION_CONTEXT(3) \nGLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT((#169)) GLOBAL_UNIT_ASSIGNED_CONTEXT\n((#166,#167,#168)) REPRESENTATION_CONTEXT('Context #1',\n  '3D Context with UNIT and UNCERTAINTY') );\n#166 = ( LENGTH_UNIT() NAMED_UNIT(*) SI_UNIT(.MILLI.,.METRE.) );\n#167 = ( NAMED_UNIT(*) PLANE_ANGLE_UNIT() SI_UNIT($,.RADIAN.) );\n#168 = ( NAMED_UNIT(*) SI_UNIT($,.STERADIAN.) SOLID_ANGLE_UNIT() );\n#169 = UNCERTAINTY_MEASURE_WITH_UNIT(LENGTH_MEASURE(1.E-07),#166,\n  'distance_accuracy_value','confusion accuracy');\n#170 = PRODUCT_RELATED_PRODUCT_CATEGORY('part',$,(#7));\nENDSEC;\nEND-ISO-10303-21;\n",
+    "selinux": "unconfined_u:object_r:container_file_t:s0"
+  },
+  "freecad_reopen": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "-w",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "-e",
+      "DISPLAY=",
+      "-e",
+      "WAYLAND_DISPLAY=",
+      "-e",
+      "QT_QPA_PLATFORM=offscreen",
+      "-e",
+      "ML_PROJECT=/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "ml-edae1d18-complex-arch",
+      "freecadcmd",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/freecad_reopen.py"
+    ],
+    "exit_code": 0,
+    "stdout": "FreeCAD 1.1.4, Libs: 1.1.4R45040 (Git)\n(C) 2001-2026 FreeCAD contributors\nFreeCAD is free and open-source software licensed under the terms of LGPL2+ license.\n\nImporting project files......\n\t\t\t\t\t\t(100 %)\t\n\t\t\t\t\t\t\t\t\nPostprocessing......\n\t\t\t\t\t\t(100 %)\t\n\t\t\t\t\t\t\t\t\nRecompute......\n\t\t\t\t\t\t(100 %)\t\n\t\t\t\t\t\t\t\t\n",
+    "stderr": "",
+    "seconds": 0.582512,
+    "error": null
+  },
+  "freecad_reopen_report": {
+    "filename": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/零件.FCStd",
+    "length": 11.0,
+    "volume": 6600.0,
+    "uid": 1000
+  },
+  "freecad_default_at_root": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "-w",
+      "/",
+      "-e",
+      "DISPLAY=",
+      "-e",
+      "WAYLAND_DISPLAY=",
+      "-e",
+      "QT_QPA_PLATFORM=offscreen",
+      "-e",
+      "ML_REPORT=/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/freecad-default.json",
+      "-e",
+      "HOME=/home/multilinux-1000",
+      "ml-edae1d18-complex-arch",
+      "freecadcmd",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/freecad_default.py"
+    ],
+    "exit_code": 0,
+    "stdout": "FreeCAD 1.1.4, Libs: 1.1.4R45040 (Git)\n(C) 2001-2026 FreeCAD contributors\nFreeCAD is free and open-source software licensed under the terms of LGPL2+ license.\n\nRecompute......\n\t\t\t\t\t\t(100 %)\t\n\t\t\t\t\t\t\t\t\n",
+    "stderr": "",
+    "seconds": 0.745326,
+    "error": null
+  },
+  "freecad_default_report": {
+    "cwd": "/",
+    "home": "/home/multilinux-1000",
+    "uid": 1000,
+    "save_without_name_error": "ValueError(\"Object attribute 'FileName' is not set\")",
+    "file_after_failed_save": "相对零件.FCStd",
+    "relative_error": "OSError('Failed to open file')",
+    "relative_filename": "相对零件.FCStd",
+    "home_error": null,
+    "home_filename": "/home/multilinux-1000/默认家目录.FCStd"
+  },
+  "home_default_inside": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "-w",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "-e",
+      "DISPLAY=",
+      "-e",
+      "WAYLAND_DISPLAY=",
+      "-e",
+      "QT_QPA_PLATFORM=offscreen",
+      "-e",
+      "HOME=/home/multilinux-1000",
+      "ml-edae1d18-complex-arch",
+      "sh",
+      "-c",
+      "test -f /home/multilinux-1000/默认家目录.FCStd && sha256sum /home/multilinux-1000/默认家目录.FCStd || echo absent"
+    ],
+    "exit_code": 0,
+    "stdout": "2aecb982e342aa66abd5fff7e1d3119bc312b1c92251bf7f3d388576552a1ac6  /home/multilinux-1000/默认家目录.FCStd\n",
+    "stderr": "",
+    "seconds": 0.137706,
+    "error": null
+  },
+  "home_default_visible_in_project": false,
+  "relative_at_root_visible_in_project": false,
+  "remove_home_default": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "-w",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "-e",
+      "DISPLAY=",
+      "-e",
+      "WAYLAND_DISPLAY=",
+      "-e",
+      "QT_QPA_PLATFORM=offscreen",
+      "ml-edae1d18-complex-arch",
+      "rm",
+      "-f",
+      "/home/multilinux-1000/默认家目录.FCStd"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "seconds": 0.149847,
+    "error": null
+  },
+  "project_names": [
+    "__pycache__",
+    "atomic.json",
+    "freecad-default.json",
+    "freecad-reopen.json",
+    "freecad-save.json",
+    "freecad_default.py",
+    "freecad_reopen.py",
+    "freecad_save.py",
+    "inplace.json",
+    "inside.py",
+    "readonly-atomic.json",
+    "readonly-inplace.json",
+    "只读笔记.txt",
+    "旁注.txt",
+    "竞争-描述符.txt",
+    "竞争-描述符.txt.go",
+    "竞争-描述符.txt.ready",
+    "竞争-替换.txt",
+    "竞争-替换.txt.go",
+    "竞争-替换.txt.ready",
+    "竞争-替换.txt.result.json",
+    "笔记.txt",
+    "零件.20261023-030530.FCBak",
+    "零件.FCStd",
+    "零件.step"
+  ],
+  "stop": {
+    "argv": [
+      "podman",
+      "stop",
+      "-t",
+      "0",
+      "ml-edae1d18-complex-arch"
+    ],
+    "exit_code": 0,
+    "stdout": "ml-edae1d18-complex-arch\n",
+    "stderr": "",
+    "seconds": 0.190078,
+    "error": null
+  },
+  "state_after": "exited",
+  "preexisting_sha256_after": {
+    "build-result.json": "240d0da270e4c2c30d2d6e7f5f8767e546520dc19e35dd9659ae359394beb300",
+    "build-viewport.png": "51205b796215a4a206ae0be751bdb2e0df0e02f376836c6aaa617b975bbb79d9",
+    "probe.FCMacro": "46a948900755dfaa953f983cd7ab27b3a0e34a88fae6941721ce196a566d721b",
+    "reopen-result.json": "c2989abfb71c53842b9ad540d17f0b2d5bc2439af1d713807c3f3d083682f86f",
+    "reopen-viewport.png": "eda08a186c3346ddf17f3af9762e2db9c026eb62facbfe3596ddf400f31538d1",
+    "中文 模型.FCStd": "a6c1795209fdaadfd476bf4870c05bc1f25ebca5f0f446c674337f9bea683b7e",
+    "中文 模型.step": "ac6b1c73f940f3cc450a24f82f6b5c720d39264d1f12322e5b05671b8d33dd23"
+  },
+  "preexisting_unchanged": true,
+  "xauth_removed": true
+}

@@ -1,0 +1,7 @@
+$ env create --target arch --id conc-arch --share /home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-arch --network none --desktop --portals --userns keep-id
+returncode=0
+--- stdout ---
+created conc-arch (arch) stopped
+
+--- stderr ---
+

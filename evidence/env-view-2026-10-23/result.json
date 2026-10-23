@@ -1,0 +1,742 @@
+{
+  "time": "2026-10-23T10:48:55.601673+08:00",
+  "purpose": "stopped rootless rootfs view, symlink scope, volume, uid, host write",
+  "product_acceptance": false,
+  "image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+  "label_disable_scope": "temporary probe containers only; not a product default",
+  "host_uid": 1000,
+  "host_gid": 1000,
+  "host_user": "omg",
+  "host_os_release_first": "NAME=\"Fedora Linux\"",
+  "podman": {
+    "argv": [
+      "podman",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "podman version 5.8.9\n",
+    "stderr": "",
+    "seconds": 0.037704,
+    "error": null
+  },
+  "kernel": "7.2.11-200.fc44.x86_64",
+  "store": {
+    "rootless": true,
+    "selinux_enabled": true,
+    "graph_driver": "overlay",
+    "graph_root": "/home/omg/.local/share/containers/storage",
+    "graph_status": {
+      "Backing Filesystem": "btrfs",
+      "Native Overlay Diff": "true",
+      "Supports d_type": "true",
+      "Supports shifting": "false",
+      "Supports volatile": "true",
+      "Using metacopy": "false"
+    },
+    "run_root": "/run/user/1000/containers"
+  },
+  "subuid": [
+    "omg:524288:65536"
+  ],
+  "containers_before": {
+    "argv": [
+      "podman",
+      "ps",
+      "-aq",
+      "--no-trunc"
+    ],
+    "exit_code": 0,
+    "stdout": "ab0e889741ceaf7916ec6bc7625132540a9113a81eef83c8a35b6ddc8f088dfc\n763ff5a7cc29f2b578612a7a5fb73344511972f646818b8cb5fa5da9c6d73f72\n3abc1a7379b2d476899c1e3c2f0253c816d217b8c8cf85f7f4ec1a7d13d29ff6\na83a73c4cae8d823d413375bca84d7ccc18669f0e478979035b6999db225be75\n964f59f20224afd5b10595007d58f003eb3facfb1a5647deab0404f257d2bc23\n81072086d468e1942dd1b2b95055a4cf2f0ef544b84bce77dfe7a7d1c01f47d8\n42e752d86ccdd026da7024f6b354b4e236caaf893140dc87822847b9d4e321b6\n48d4ac0d7cdaa42606f0dabce0d7581b8ce2982e0d72e8a3ce3839fc45ce0c43\n6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c\n57aba3a81b7f2c5eefd3d58788b8546960f8df85892b21e6781421c48ce17255\n01905f6582c013decc73fae3d58fb4d32af46c3b229ac1ba8ff35627dfe7f892\n6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef\nb913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b\n4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948\n03c051edd89643449f95d7987b9dd037158c9309a68b062d102fddcb05ff7558\n9abc8cf0e8b8be5061df4c2b5a05f902d12456640b6237052c69f690ad350e45\nceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519\nf5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a\ne882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5\n61c8e9458782f7f4a703ca7a6e1a0e97cdce0d65af23b90db80a093936278c3e\ne3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742\n12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12\n91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4\nf15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0\n8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599\n",
+    "stderr": "",
+    "seconds": 0.050268,
+    "error": null
+  },
+  "volumes_before": {
+    "argv": [
+      "podman",
+      "volume",
+      "ls",
+      "-q"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "seconds": 0.039627,
+    "error": null
+  },
+  "image_exists": {
+    "argv": [
+      "podman",
+      "image",
+      "exists",
+      "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "seconds": 0.037527,
+    "error": null
+  },
+  "cases": [
+    {
+      "mode": "default-rootless",
+      "container": "ml-viewproto-e4e1fde081c3",
+      "volume": "ml-viewproto-e4e1fde081c3",
+      "cleanup": [
+        {
+          "argv": [
+            "podman",
+            "umount",
+            "ml-viewproto-e4e1fde081c3"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-e4e1fde081c3\n",
+          "stderr": "",
+          "seconds": 0.039322,
+          "error": null
+        },
+        {
+          "argv": [
+            "podman",
+            "stop",
+            "-t",
+            "2",
+            "ml-viewproto-e4e1fde081c3"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-e4e1fde081c3\n",
+          "stderr": "",
+          "seconds": 0.045659,
+          "error": null
+        },
+        {
+          "argv": [
+            "podman",
+            "rm",
+            "-f",
+            "ml-viewproto-e4e1fde081c3"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-e4e1fde081c3\n",
+          "stderr": "",
+          "seconds": 0.086552,
+          "error": null
+        },
+        {
+          "argv": [
+            "podman",
+            "volume",
+            "rm",
+            "-f",
+            "ml-viewproto-e4e1fde081c3"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-e4e1fde081c3\n",
+          "stderr": "",
+          "seconds": 0.048816,
+          "error": null
+        }
+      ],
+      "volume_create": {
+        "argv": [
+          "podman",
+          "volume",
+          "create",
+          "ml-viewproto-e4e1fde081c3"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-e4e1fde081c3\n",
+        "stderr": "",
+        "seconds": 0.054886,
+        "error": null
+      },
+      "create": {
+        "argv": [
+          "podman",
+          "create",
+          "--name",
+          "ml-viewproto-e4e1fde081c3",
+          "--pull=never",
+          "--network=none",
+          "--cap-drop=ALL",
+          "--security-opt=no-new-privileges",
+          "--security-opt=label=disable",
+          "--http-proxy=false",
+          "--volume",
+          "ml-viewproto-e4e1fde081c3:/var/ml-volume",
+          "--entrypoint",
+          "/bin/sleep",
+          "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+          "3600"
+        ],
+        "exit_code": 0,
+        "stdout": "66da28af8350a0dc42accdbbf4c607ff83fbd44746fdb79601c6b3cca6c514d6\n",
+        "stderr": "",
+        "seconds": 0.083557,
+        "error": null
+      },
+      "start": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewproto-e4e1fde081c3"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-e4e1fde081c3\n",
+        "stderr": "",
+        "seconds": 0.123898,
+        "error": null
+      },
+      "user_setup": {
+        "argv": [
+          "podman",
+          "exec",
+          "-i",
+          "ml-viewproto-e4e1fde081c3",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "euid=0\negid=0\nuser_home_write=ok\nstat /home/mlview/private.txt uid=0 gid=0 mode=644\nprobe_done=user\n",
+        "stderr": "",
+        "seconds": 0.136544,
+        "error": null
+      },
+      "user_setup_kv": {
+        "euid": "0",
+        "egid": "0",
+        "user_home_write": "ok",
+        "probe_done": "user"
+      },
+      "user_setup_stat": [
+        "stat /home/mlview/private.txt uid=0 gid=0 mode=644"
+      ],
+      "root_setup": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewproto-e4e1fde081c3",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "volume_write=ok\nroot_euid=0\nroot_egid=0\nstat /var/ml-persistent/private.txt uid=0 gid=0 mode=644\nstat /var/ml-volume uid=0 gid=0 mode=755\nstat /var/ml-volume/payload.txt uid=0 gid=0 mode=644\nmountinfo=1172 1179 0:36 /home/omg/.local/share/containers/storage/volumes/ml-viewproto-e4e1fde081c3/_data /var/ml-volume rw,nosuid,nodev,relatime - btrfs /dev/nvme0n1p3 rw,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/home\nprobe_done=root\n",
+        "stderr": "",
+        "seconds": 0.133104,
+        "error": null
+      },
+      "root_setup_kv": {
+        "volume_write": "ok",
+        "root_euid": "0",
+        "root_egid": "0",
+        "mountinfo": "1172 1179 0:36 /home/omg/.local/share/containers/storage/volumes/ml-viewproto-e4e1fde081c3/_data /var/ml-volume rw,nosuid,nodev,relatime - btrfs /dev/nvme0n1p3 rw,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/home",
+        "probe_done": "root"
+      },
+      "root_setup_stat": [
+        "stat /var/ml-persistent/private.txt uid=0 gid=0 mode=644",
+        "stat /var/ml-volume uid=0 gid=0 mode=755",
+        "stat /var/ml-volume/payload.txt uid=0 gid=0 mode=644"
+      ],
+      "stop": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "2",
+          "ml-viewproto-e4e1fde081c3"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-e4e1fde081c3\n",
+        "stderr": "time=\"2026-10-23T10:48:58+08:00\" level=warning msg=\"StopSignal SIGTERM failed to stop container ml-viewproto-e4e1fde081c3 in 2 seconds, resorting to SIGKILL\"\n",
+        "seconds": 2.200112,
+        "error": null
+      },
+      "inspect_stopped": {
+        "status": "exited",
+        "userns_mode": "",
+        "mounts": [
+          {
+            "Type": "volume",
+            "Name": "ml-viewproto-e4e1fde081c3",
+            "Source": "/home/omg/.local/share/containers/storage/volumes/ml-viewproto-e4e1fde081c3/_data",
+            "Destination": "/var/ml-volume",
+            "Driver": "local",
+            "Mode": "",
+            "RW": true
+          }
+        ],
+        "graph_driver": "overlay",
+        "graph_data": {
+          "LowerDir": "/home/omg/.local/share/containers/storage/overlay/15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62/diff",
+          "UpperDir": "/home/omg/.local/share/containers/storage/overlay/3f106f75f152fdc89a9f730b393ba0ddcfff73f23bce19f835177a766cb2a446/diff",
+          "WorkDir": "/home/omg/.local/share/containers/storage/overlay/3f106f75f152fdc89a9f730b393ba0ddcfff73f23bce19f835177a766cb2a446/work"
+        }
+      },
+      "cold_mount": {
+        "exit_code": 125,
+        "seconds": 0.043523,
+        "mount_path": "",
+        "under_storage": false,
+        "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+        "error": null,
+        "findmnt": null
+      },
+      "cold_umount": {
+        "argv": [
+          "podman",
+          "umount",
+          "ml-viewproto-e4e1fde081c3"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-e4e1fde081c3\n",
+        "stderr": "",
+        "seconds": 0.041888,
+        "error": null
+      },
+      "warm_mount": {
+        "exit_code": 125,
+        "seconds": 0.041371,
+        "mount_path": "",
+        "under_storage": false,
+        "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+        "error": null
+      },
+      "warm_umount": {
+        "argv": [
+          "podman",
+          "umount",
+          "ml-viewproto-e4e1fde081c3"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-e4e1fde081c3\n",
+        "stderr": "",
+        "seconds": 0.048436,
+        "error": null
+      },
+      "restart": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewproto-e4e1fde081c3"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-e4e1fde081c3\n",
+        "stderr": "",
+        "seconds": 0.140813,
+        "error": null
+      },
+      "running_mount": {
+        "exit_code": 125,
+        "seconds": 0.036171,
+        "mount_path": "",
+        "under_storage": false,
+        "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+        "error": null
+      },
+      "verify_cmd": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewproto-e4e1fde081c3",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "euid=0\npersistent=container-private\nhost_written=absent\nhome_host_written=absent\nvolume=volume-payload\nos_inside=PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nprobe_done=verify\n",
+        "stderr": "",
+        "seconds": 0.145542,
+        "error": null
+      },
+      "verify": {
+        "kv": {
+          "euid": "0",
+          "persistent": "container-private",
+          "host_written": "absent",
+          "home_host_written": "absent",
+          "volume": "volume-payload",
+          "os_inside": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"",
+          "probe_done": "verify"
+        },
+        "stat": []
+      },
+      "stop_after_verify": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "2",
+          "ml-viewproto-e4e1fde081c3"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-e4e1fde081c3\n",
+        "stderr": "time=\"2026-10-23T10:49:01+08:00\" level=warning msg=\"StopSignal SIGTERM failed to stop container ml-viewproto-e4e1fde081c3 in 2 seconds, resorting to SIGKILL\"\n",
+        "seconds": 2.148359,
+        "error": null
+      },
+      "judgment": {
+        "host_can_list_stopped_root": false,
+        "host_direct_absolute_symlink_matches_host": false,
+        "user_namespace_without_chroot_matches_host": false,
+        "chroot_absolute_symlink_matches_container": false,
+        "relative_symlink_reads_container_target": false,
+        "volume_file_visible_in_stopped_merged_root": false,
+        "root_host_write": false,
+        "home_host_write": false,
+        "restart_sees_root_host_write": false,
+        "restart_sees_volume": true
+      }
+    },
+    {
+      "mode": "keep-id",
+      "container": "ml-viewproto-d5785fdb341a",
+      "volume": "ml-viewproto-d5785fdb341a",
+      "cleanup": [
+        {
+          "argv": [
+            "podman",
+            "umount",
+            "ml-viewproto-d5785fdb341a"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-d5785fdb341a\n",
+          "stderr": "",
+          "seconds": 0.03889,
+          "error": null
+        },
+        {
+          "argv": [
+            "podman",
+            "stop",
+            "-t",
+            "2",
+            "ml-viewproto-d5785fdb341a"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-d5785fdb341a\n",
+          "stderr": "",
+          "seconds": 0.046536,
+          "error": null
+        },
+        {
+          "argv": [
+            "podman",
+            "rm",
+            "-f",
+            "ml-viewproto-d5785fdb341a"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-d5785fdb341a\n",
+          "stderr": "",
+          "seconds": 0.086103,
+          "error": null
+        },
+        {
+          "argv": [
+            "podman",
+            "volume",
+            "rm",
+            "-f",
+            "ml-viewproto-d5785fdb341a"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-d5785fdb341a\n",
+          "stderr": "",
+          "seconds": 0.047947,
+          "error": null
+        }
+      ],
+      "volume_create": {
+        "argv": [
+          "podman",
+          "volume",
+          "create",
+          "ml-viewproto-d5785fdb341a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-d5785fdb341a\n",
+        "stderr": "",
+        "seconds": 0.047582,
+        "error": null
+      },
+      "create": {
+        "argv": [
+          "podman",
+          "create",
+          "--name",
+          "ml-viewproto-d5785fdb341a",
+          "--pull=never",
+          "--network=none",
+          "--cap-drop=ALL",
+          "--security-opt=no-new-privileges",
+          "--security-opt=label=disable",
+          "--http-proxy=false",
+          "--volume",
+          "ml-viewproto-d5785fdb341a:/var/ml-volume",
+          "--entrypoint",
+          "/bin/sleep",
+          "--userns=keep-id",
+          "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+          "3600"
+        ],
+        "exit_code": 0,
+        "stdout": "71a015412bae9274e8b22e20ba119f8ff2b1d04f942d13b04b69d74485d40657\n",
+        "stderr": "",
+        "seconds": 0.083503,
+        "error": null
+      },
+      "start": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewproto-d5785fdb341a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-d5785fdb341a\n",
+        "stderr": "",
+        "seconds": 0.124455,
+        "error": null
+      },
+      "user_setup": {
+        "argv": [
+          "podman",
+          "exec",
+          "-i",
+          "ml-viewproto-d5785fdb341a",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "euid=1000\negid=1000\nuser_home_write=fail\nprobe_done=user\n",
+        "stderr": "mkdir: cannot create directory '/home/mlview': Permission denied\n",
+        "seconds": 0.123203,
+        "error": null
+      },
+      "user_setup_kv": {
+        "euid": "1000",
+        "egid": "1000",
+        "user_home_write": "fail",
+        "probe_done": "user"
+      },
+      "user_setup_stat": [],
+      "root_setup": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewproto-d5785fdb341a",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "volume_write=fail\nroot_euid=0\nroot_egid=0\nstat /var/ml-persistent/private.txt uid=0 gid=0 mode=644\nstat /var/ml-volume uid=1000 gid=1000 mode=755\nmountinfo=947 1102 0:36 /home/omg/.local/share/containers/storage/volumes/ml-viewproto-d5785fdb341a/_data /var/ml-volume rw,nosuid,nodev,relatime - btrfs /dev/nvme0n1p3 rw,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/home\nprobe_done=root\n",
+        "stderr": "/bin/sh: 8: cannot create /var/ml-volume/payload.txt: Permission denied\nstat: cannot statx '/var/ml-volume/payload.txt': No such file or directory\n",
+        "seconds": 0.127007,
+        "error": null
+      },
+      "root_setup_kv": {
+        "volume_write": "fail",
+        "root_euid": "0",
+        "root_egid": "0",
+        "mountinfo": "947 1102 0:36 /home/omg/.local/share/containers/storage/volumes/ml-viewproto-d5785fdb341a/_data /var/ml-volume rw,nosuid,nodev,relatime - btrfs /dev/nvme0n1p3 rw,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/home",
+        "probe_done": "root"
+      },
+      "root_setup_stat": [
+        "stat /var/ml-persistent/private.txt uid=0 gid=0 mode=644",
+        "stat /var/ml-volume uid=1000 gid=1000 mode=755"
+      ],
+      "stop": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "2",
+          "ml-viewproto-d5785fdb341a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-d5785fdb341a\n",
+        "stderr": "time=\"2026-10-23T10:49:04+08:00\" level=warning msg=\"StopSignal SIGTERM failed to stop container ml-viewproto-d5785fdb341a in 2 seconds, resorting to SIGKILL\"\n",
+        "seconds": 2.16414,
+        "error": null
+      },
+      "inspect_stopped": {
+        "status": "exited",
+        "userns_mode": "private",
+        "mounts": [
+          {
+            "Type": "volume",
+            "Name": "ml-viewproto-d5785fdb341a",
+            "Source": "/home/omg/.local/share/containers/storage/volumes/ml-viewproto-d5785fdb341a/_data",
+            "Destination": "/var/ml-volume",
+            "Driver": "local",
+            "Mode": "",
+            "RW": true
+          }
+        ],
+        "graph_driver": "overlay",
+        "graph_data": {
+          "LowerDir": "/home/omg/.local/share/containers/storage/overlay/6cb78344730e97eb175b5bba6833db43aed0bcaf8821864173e96d74b5404e9b/diff:/home/omg/.local/share/containers/storage/overlay/15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62/diff",
+          "UpperDir": "/home/omg/.local/share/containers/storage/overlay/7e3e9842550e17bffef6bd9d439dd5365f335ee06345e2b4b266ad103c044313/diff",
+          "WorkDir": "/home/omg/.local/share/containers/storage/overlay/7e3e9842550e17bffef6bd9d439dd5365f335ee06345e2b4b266ad103c044313/work"
+        }
+      },
+      "cold_mount": {
+        "exit_code": 125,
+        "seconds": 0.030327,
+        "mount_path": "",
+        "under_storage": false,
+        "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+        "error": null,
+        "findmnt": null
+      },
+      "cold_umount": {
+        "argv": [
+          "podman",
+          "umount",
+          "ml-viewproto-d5785fdb341a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-d5785fdb341a\n",
+        "stderr": "",
+        "seconds": 0.036958,
+        "error": null
+      },
+      "warm_mount": {
+        "exit_code": 125,
+        "seconds": 0.030974,
+        "mount_path": "",
+        "under_storage": false,
+        "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+        "error": null
+      },
+      "warm_umount": {
+        "argv": [
+          "podman",
+          "umount",
+          "ml-viewproto-d5785fdb341a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-d5785fdb341a\n",
+        "stderr": "",
+        "seconds": 0.037396,
+        "error": null
+      },
+      "restart": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewproto-d5785fdb341a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-d5785fdb341a\n",
+        "stderr": "",
+        "seconds": 0.115845,
+        "error": null
+      },
+      "running_mount": {
+        "exit_code": 125,
+        "seconds": 0.033709,
+        "mount_path": "",
+        "under_storage": false,
+        "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+        "error": null
+      },
+      "verify_cmd": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewproto-d5785fdb341a",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "euid=0\npersistent=container-private\nhost_written=absent\nhome_host_written=absent\nvolume=absent\nos_inside=PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nprobe_done=verify\n",
+        "stderr": "",
+        "seconds": 0.143103,
+        "error": null
+      },
+      "verify": {
+        "kv": {
+          "euid": "0",
+          "persistent": "container-private",
+          "host_written": "absent",
+          "home_host_written": "absent",
+          "volume": "absent",
+          "os_inside": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"",
+          "probe_done": "verify"
+        },
+        "stat": []
+      },
+      "stop_after_verify": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "2",
+          "ml-viewproto-d5785fdb341a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-d5785fdb341a\n",
+        "stderr": "time=\"2026-10-23T10:49:06+08:00\" level=warning msg=\"StopSignal SIGTERM failed to stop container ml-viewproto-d5785fdb341a in 2 seconds, resorting to SIGKILL\"\n",
+        "seconds": 2.152172,
+        "error": null
+      },
+      "judgment": {
+        "host_can_list_stopped_root": false,
+        "host_direct_absolute_symlink_matches_host": false,
+        "user_namespace_without_chroot_matches_host": false,
+        "chroot_absolute_symlink_matches_container": false,
+        "relative_symlink_reads_container_target": false,
+        "volume_file_visible_in_stopped_merged_root": false,
+        "root_host_write": false,
+        "home_host_write": false,
+        "restart_sees_root_host_write": false,
+        "restart_sees_volume": false
+      }
+    }
+  ],
+  "containers_after": {
+    "argv": [
+      "podman",
+      "ps",
+      "-aq",
+      "--no-trunc"
+    ],
+    "exit_code": 0,
+    "stdout": "ab0e889741ceaf7916ec6bc7625132540a9113a81eef83c8a35b6ddc8f088dfc\n763ff5a7cc29f2b578612a7a5fb73344511972f646818b8cb5fa5da9c6d73f72\n3abc1a7379b2d476899c1e3c2f0253c816d217b8c8cf85f7f4ec1a7d13d29ff6\na83a73c4cae8d823d413375bca84d7ccc18669f0e478979035b6999db225be75\n964f59f20224afd5b10595007d58f003eb3facfb1a5647deab0404f257d2bc23\n81072086d468e1942dd1b2b95055a4cf2f0ef544b84bce77dfe7a7d1c01f47d8\n42e752d86ccdd026da7024f6b354b4e236caaf893140dc87822847b9d4e321b6\n48d4ac0d7cdaa42606f0dabce0d7581b8ce2982e0d72e8a3ce3839fc45ce0c43\n6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c\n57aba3a81b7f2c5eefd3d58788b8546960f8df85892b21e6781421c48ce17255\n01905f6582c013decc73fae3d58fb4d32af46c3b229ac1ba8ff35627dfe7f892\n6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef\nb913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b\n4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948\n03c051edd89643449f95d7987b9dd037158c9309a68b062d102fddcb05ff7558\n9abc8cf0e8b8be5061df4c2b5a05f902d12456640b6237052c69f690ad350e45\nceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519\nf5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a\ne882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5\n61c8e9458782f7f4a703ca7a6e1a0e97cdce0d65af23b90db80a093936278c3e\ne3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742\n12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12\n91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4\nf15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0\n8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599\n",
+    "stderr": "",
+    "seconds": 0.049937,
+    "error": null
+  },
+  "volumes_after": {
+    "argv": [
+      "podman",
+      "volume",
+      "ls",
+      "-q"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "seconds": 0.036913,
+    "error": null
+  },
+  "container_set_unchanged": true,
+  "volume_set_unchanged": true,
+  "names_created": [
+    "ml-viewproto-e4e1fde081c3",
+    "ml-viewproto-e4e1fde081c3",
+    "ml-viewproto-d5785fdb341a",
+    "ml-viewproto-d5785fdb341a"
+  ]
+}

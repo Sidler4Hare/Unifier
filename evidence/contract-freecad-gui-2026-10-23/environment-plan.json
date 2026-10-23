@@ -1,0 +1,50 @@
+{
+  "environment_id": "gui-freecad",
+  "target": "arch",
+  "update_policy": "full-system-upgrade",
+  "package_driver": "pacman",
+  "package_change": "in-place",
+  "base_image_change": "replace",
+  "contract_change": "replace",
+  "action": "unchanged",
+  "changes": [],
+  "replace_fields": [
+    "target",
+    "image_digest",
+    "user_namespace",
+    "network",
+    "desktop",
+    "devices",
+    "ipc",
+    "selinux_label",
+    "shares",
+    "family",
+    "libc",
+    "layout",
+    "package_driver",
+    "package_format",
+    "runtime_backend"
+  ],
+  "contract": {
+    "target": "arch",
+    "image_digest": "sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+    "user_namespace": "keep-id",
+    "network": "none",
+    "desktop": true,
+    "devices": [
+      "/dev/dri/card1",
+      "/dev/dri/renderD128"
+    ],
+    "ipc": "host",
+    "selinux_label": "disable",
+    "shares": [
+      "/home/omg/文档/多兼容linux机/evidence/contract-freecad-gui-2026-10-23/host-project"
+    ],
+    "family": "arch",
+    "libc": "glibc",
+    "layout": "fhs",
+    "package_driver": "pacman",
+    "package_format": "arch",
+    "runtime_backend": "podman-rootless"
+  }
+}

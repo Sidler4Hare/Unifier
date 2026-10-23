@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "elapsed_ms": 30.894,
+  "state": {
+    "env_id": "conc-arch",
+    "container_name": "ml-be3863e1-conc-arch",
+    "container_id_recorded": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+    "record_runtime_state": "stopped",
+    "inspect": {
+      "id": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+      "running": false,
+      "status": "exited",
+      "pid": 0,
+      "exit_code": 143,
+      "init": true
+    }
+  }
+}

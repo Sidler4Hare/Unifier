@@ -1,0 +1,32 @@
+{
+  "before": {
+    "caption": "Multilinux FreeCAD reopen",
+    "resourceClass": "org.freecad.FreeCAD",
+    "pid": 1081004,
+    "objectType": "KWin::XdgToplevelWindow(0x55ca8822b630)",
+    "wayland": null,
+    "x11": null,
+    "width": 1100,
+    "height": 788,
+    "bufferWidth": 1100,
+    "bufferHeight": 760,
+    "internalId": "{866222ad-45b4-46ac-b86a-81b37027849f}",
+    "active": true
+  },
+  "after": {
+    "caption": "Multilinux FreeCAD reopen",
+    "resourceClass": "org.freecad.FreeCAD",
+    "pid": 1081004,
+    "objectType": "KWin::XdgToplevelWindow(0x55ca8822b630)",
+    "wayland": null,
+    "x11": null,
+    "width": 1100,
+    "height": 788,
+    "bufferWidth": 1100,
+    "bufferHeight": 760,
+    "internalId": "{866222ad-45b4-46ac-b86a-81b37027849f}",
+    "active": true
+  },
+  "path": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/reopen-window.png",
+  "capture": "active experiment window only"
+}

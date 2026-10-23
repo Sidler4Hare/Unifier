@@ -1,0 +1,459 @@
+{
+  "schema": "multilinux.lifecycle.summary.v1",
+  "generated_at": "2026-10-22T21:28:07+08:00",
+  "run_id": "lifecycle-2026-10-22T212236+0800",
+  "endpoint": "native compositor window plus first associated non-null Wayland buffer commit",
+  "physical_presentation_measured": false,
+  "sessions": "serial; F and H intentionally use two/three windows of one environment",
+  "targets": {
+    "arch": {
+      "A": {
+        "attempts": 10,
+        "passed": 10,
+        "failures": 0,
+        "metrics_ms": {
+          "launch_to_ready_ms": {
+            "count": 10,
+            "min": 880.441,
+            "p50": 892.27,
+            "p95": 1070.423,
+            "max": 1070.423,
+            "mean": 915.683
+          },
+          "close_to_window_removed_ms": {
+            "count": 10,
+            "min": 43.84,
+            "p50": 44.804,
+            "p95": 54.614,
+            "max": 54.614,
+            "mean": 46.06
+          },
+          "close_to_launcher_exit_ms": {
+            "count": 10,
+            "min": 301.541,
+            "p50": 327.417,
+            "p95": 374.752,
+            "max": 374.752,
+            "mean": 337.966
+          },
+          "close_to_container_died_ms": {
+            "count": 10,
+            "min": 194.856,
+            "p50": 206.385,
+            "p95": 240.133,
+            "max": 240.133,
+            "mean": 215.403
+          },
+          "close_to_stopped_ms": {
+            "count": 10,
+            "min": 23.22,
+            "p50": 25.964,
+            "p95": 34.77,
+            "max": 34.77,
+            "mean": 27.335
+          },
+          "close_to_bridge_gone_ms": {
+            "count": 10,
+            "min": 19.329,
+            "p50": 20.05,
+            "p95": 21.479,
+            "max": 21.479,
+            "mean": 20.187
+          }
+        },
+        "exit_codes": {
+          "143": 10
+        },
+        "pid1_names": {
+          "podman-init": 10
+        },
+        "init_flags": {
+          "True": 10
+        },
+        "failures_detail": []
+      },
+      "B": {
+        "attempts": 3,
+        "passed": 3,
+        "reopen_ready_ms": {
+          "count": 3,
+          "min": 916.694,
+          "p50": 989.003,
+          "p95": 999.061,
+          "max": 999.061,
+          "mean": 968.253
+        },
+        "reopen_delay_ms": [
+          150.0,
+          200.0,
+          250.0
+        ],
+        "single_container": true,
+        "failures_detail": []
+      },
+      "C": {
+        "cycles": 30,
+        "cycles_passed": 30,
+        "zombie_count": 0,
+        "pid1_child_count": 1,
+        "processes_after_path": "samples/arch/C/processes-after-30.txt",
+        "passed": true,
+        "failures": []
+      },
+      "D": {
+        "scenario": "D",
+        "target": "arch",
+        "index": 0,
+        "passed": true,
+        "failures": [],
+        "window_survived_kill": true,
+        "auto_stop_after_kill": true,
+        "recovery_stopped": true
+      },
+      "E": {
+        "scenario": "E",
+        "target": "arch",
+        "index": 0,
+        "passed": true,
+        "failures": [],
+        "window_survived_kill": true,
+        "recovery_stopped": true
+      },
+      "F": {
+        "scenario": "F",
+        "target": "arch",
+        "index": 0,
+        "passed": true,
+        "failures": [],
+        "auto_stop_after_last": true,
+        "single_container": true,
+        "lease_two": true,
+        "running_after_first_close": true
+      },
+      "G": {
+        "scenario": "G",
+        "target": "arch",
+        "index": 0,
+        "passed": true,
+        "failures": [],
+        "retained": true
+      },
+      "H": {
+        "scenario": "H",
+        "target": "arch",
+        "index": 0,
+        "passed": true,
+        "failures": [],
+        "auto_stop_after_last": true,
+        "single_container": true,
+        "events_created": 0,
+        "events_started": 1,
+        "three_leases": true
+      }
+    },
+    "debian13": {
+      "A": {
+        "attempts": 10,
+        "passed": 10,
+        "failures": 0,
+        "metrics_ms": {
+          "launch_to_ready_ms": {
+            "count": 10,
+            "min": 855.361,
+            "p50": 950.915,
+            "p95": 1542.872,
+            "max": 1542.872,
+            "mean": 1031.331
+          },
+          "close_to_window_removed_ms": {
+            "count": 10,
+            "min": 43.774,
+            "p50": 45.627,
+            "p95": 66.369,
+            "max": 66.369,
+            "mean": 50.278
+          },
+          "close_to_launcher_exit_ms": {
+            "count": 10,
+            "min": 292.276,
+            "p50": 337.453,
+            "p95": 478.706,
+            "max": 478.706,
+            "mean": 362.022
+          },
+          "close_to_container_died_ms": {
+            "count": 10,
+            "min": 180.273,
+            "p50": 206.331,
+            "p95": 283.42,
+            "max": 283.42,
+            "mean": 215.233
+          },
+          "close_to_stopped_ms": {
+            "count": 10,
+            "min": 22.318,
+            "p50": 25.391,
+            "p95": 29.833,
+            "max": 29.833,
+            "mean": 25.753
+          },
+          "close_to_bridge_gone_ms": {
+            "count": 10,
+            "min": 18.342,
+            "p50": 20.574,
+            "p95": 24.338,
+            "max": 24.338,
+            "mean": 20.944
+          }
+        },
+        "exit_codes": {
+          "143": 10
+        },
+        "pid1_names": {
+          "podman-init": 10
+        },
+        "init_flags": {
+          "True": 10
+        },
+        "failures_detail": []
+      },
+      "B": {
+        "attempts": 3,
+        "passed": 3,
+        "reopen_ready_ms": {
+          "count": 3,
+          "min": 867.205,
+          "p50": 873.462,
+          "p95": 941.603,
+          "max": 941.603,
+          "mean": 894.09
+        },
+        "reopen_delay_ms": [
+          150.0,
+          200.0,
+          250.0
+        ],
+        "single_container": true,
+        "failures_detail": []
+      },
+      "C": {
+        "cycles": 30,
+        "cycles_passed": 29,
+        "zombie_count": 0,
+        "pid1_child_count": 1,
+        "processes_after_path": "samples/debian13/C/processes-after-30.txt",
+        "passed": false,
+        "failures": [
+          "only 29/30 warm cycles passed"
+        ]
+      },
+      "D": {
+        "scenario": "D",
+        "target": "debian13",
+        "index": 0,
+        "passed": false,
+        "failures": [
+          "exception: TimeoutError: compositor never removed the closed window"
+        ],
+        "error": "TimeoutError: compositor never removed the closed window",
+        "window_survived_kill": true
+      },
+      "E": {
+        "scenario": "E",
+        "target": "debian13",
+        "index": 0,
+        "passed": true,
+        "failures": [],
+        "window_survived_kill": true,
+        "recovery_stopped": true
+      },
+      "F": {
+        "scenario": "F",
+        "target": "debian13",
+        "index": 0,
+        "passed": true,
+        "failures": [],
+        "auto_stop_after_last": true,
+        "single_container": true,
+        "lease_two": true,
+        "running_after_first_close": true
+      },
+      "G": {
+        "scenario": "G",
+        "target": "debian13",
+        "index": 0,
+        "passed": true,
+        "failures": [],
+        "retained": true
+      },
+      "H": {
+        "scenario": "H",
+        "target": "debian13",
+        "index": 0,
+        "passed": true,
+        "failures": [],
+        "auto_stop_after_last": true,
+        "single_container": true,
+        "events_created": 0,
+        "events_started": 1,
+        "three_leases": true
+      }
+    }
+  },
+  "conditions": {
+    "mem_available_min_bytes": 2282602496,
+    "memory_some_avg10_max": 5.81,
+    "memory_full_avg10_max": 5.63,
+    "load_1min_max": 2.82,
+    "host_snapshots": 38
+  },
+  "scenarios": {
+    "A": {
+      "arch": {
+        "passed": null,
+        "failures": null
+      },
+      "debian13": {
+        "passed": null,
+        "failures": null
+      }
+    },
+    "B": {
+      "arch": {
+        "passed": null,
+        "failures": null
+      },
+      "debian13": {
+        "passed": null,
+        "failures": null
+      }
+    },
+    "C": {
+      "arch": {
+        "passed": true,
+        "failures": []
+      },
+      "debian13": {
+        "passed": false,
+        "failures": [
+          "only 29/30 warm cycles passed"
+        ]
+      }
+    },
+    "D": {
+      "arch": {
+        "passed": true,
+        "failures": []
+      },
+      "debian13": {
+        "passed": false,
+        "failures": [
+          "exception: TimeoutError: compositor never removed the closed window"
+        ]
+      }
+    },
+    "E": {
+      "arch": {
+        "passed": true,
+        "failures": []
+      },
+      "debian13": {
+        "passed": true,
+        "failures": []
+      }
+    },
+    "F": {
+      "arch": {
+        "passed": true,
+        "failures": []
+      },
+      "debian13": {
+        "passed": true,
+        "failures": []
+      }
+    },
+    "G": {
+      "arch": {
+        "passed": true,
+        "failures": []
+      },
+      "debian13": {
+        "passed": true,
+        "failures": []
+      }
+    },
+    "H": {
+      "arch": {
+        "passed": true,
+        "failures": []
+      },
+      "debian13": {
+        "passed": true,
+        "failures": []
+      }
+    }
+  },
+  "cleanup": {
+    "taken_at": "2026-10-22T21:28:07+08:00",
+    "started_at": "2026-10-22T21:24:03+08:00",
+    "closed_windows": [],
+    "remaining_windows": 0,
+    "remaining_window_details": [],
+    "leftover_processes": 0,
+    "leftover_process_details": [],
+    "running_containers": 0,
+    "project_containers": [
+      {
+        "id": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+        "names": [
+          "ml-75a8c1ff-test-debian"
+        ],
+        "state": "exited",
+        "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+      },
+      {
+        "id": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+        "names": [
+          "ml-75a8c1ff-test-arch"
+        ],
+        "state": "exited",
+        "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+      }
+    ],
+    "live_leases": 0,
+    "bridge_processes": 0,
+    "environment_states": {
+      "test-arch": {
+        "record_runtime_state": "stopped",
+        "inspect": {
+          "id": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+          "running": false,
+          "status": "exited",
+          "pid": 0,
+          "exit_code": 143,
+          "oom_killed": false,
+          "started_at": "2026-10-22T21:28:05.623221971+08:00",
+          "finished_at": "2026-10-22T21:28:07.175599291+08:00",
+          "init": true,
+          "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+        }
+      },
+      "test-debian": {
+        "record_runtime_state": "stopped",
+        "inspect": {
+          "id": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+          "running": false,
+          "status": "exited",
+          "pid": 0,
+          "exit_code": 143,
+          "oom_killed": false,
+          "started_at": "2026-10-22T21:26:40.00009177+08:00",
+          "finished_at": "2026-10-22T21:26:41.5737546+08:00",
+          "init": true,
+          "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+        }
+      }
+    },
+    "all_clean": true
+  }
+}

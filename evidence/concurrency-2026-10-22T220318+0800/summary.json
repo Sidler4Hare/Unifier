@@ -1,0 +1,800 @@
+{
+  "schema": "multilinux.concurrency.summary.v1",
+  "generated_at": "2026-10-22T22:19:45+08:00",
+  "run_id": "concurrency-2026-10-22T220318+0800",
+  "readiness_endpoint": "container: KWin windowAdded native toplevel plus a non-empty Wayland buffer commit from the client; native Konsole: KWin windowAdded plus non-empty buffer geometry. Physical display presentation is not measured.",
+  "sessions": "serial GUI waves; only the windows of one designed wave run concurrently",
+  "conditions": {
+    "mem_available_min_bytes": 1971838976,
+    "memory_some_avg10_max": 4.69,
+    "memory_full_avg10_max": 4.59,
+    "load_1min_max": 3.89,
+    "host_snapshots": 43,
+    "container_creation_seconds": {
+      "conc-debian": 1.32,
+      "conc-arch": 1.191,
+      "conc-sep-1": 1.167,
+      "conc-sep-2": 1.16,
+      "conc-sep-3": 1.16
+    }
+  },
+  "scenarios": {
+    "S1": {
+      "label": "shared topology on one Debian environment",
+      "cold_attempts": 5,
+      "cold_passed": 5,
+      "warm_attempts": 2,
+      "warm_passed": 2,
+      "metrics": {
+        "wave_ready_ms": {
+          "count": 5,
+          "min": 1438.673,
+          "p50": 1458.21,
+          "p95": 2070.512,
+          "max": 2070.512,
+          "mean": 1603.602
+        },
+        "stop_ms": {
+          "count": 5,
+          "min": 187.472,
+          "p50": 194.354,
+          "p95": 219.464,
+          "max": 219.464,
+          "mean": 197.725
+        }
+      },
+      "partial_close_keeps_running": 5,
+      "single_container_waves": 7,
+      "create_events": 0,
+      "start_events_cold": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "extra_start_events_warm": [
+        0,
+        0
+      ],
+      "warm_first_ready_ms": {
+        "count": 2,
+        "min": 893.58,
+        "p50": 893.58,
+        "p95": 932.54,
+        "max": 932.54,
+        "mean": 913.06
+      },
+      "warm_extra_ready_ms": {
+        "count": 4,
+        "min": 659.989,
+        "p50": 690.004,
+        "p95": 910.801,
+        "max": 910.801,
+        "mean": 788.203
+      },
+      "warm_note": "Warm waves verify that opening extra windows in an already running environment adds no container start event and shares the same single container; their readiness values are reported separately and are not used as cold-start performance samples.",
+      "failures": []
+    },
+    "S2": {
+      "N1": {
+        "attempts": 3,
+        "passed": 3,
+        "ready_ms": {
+          "count": 3,
+          "min": 957.529,
+          "p50": 970.204,
+          "p95": 976.986,
+          "max": 976.986,
+          "mean": 968.24
+        },
+        "wave_ready_ms": {
+          "count": 3,
+          "min": 957.529,
+          "p50": 970.204,
+          "p95": 976.986,
+          "max": 976.986,
+          "mean": 968.24
+        },
+        "stop_ms": {
+          "count": 3,
+          "min": 203.148,
+          "p50": 212.632,
+          "p95": 236.368,
+          "max": 236.368,
+          "mean": 217.383
+        },
+        "cgroup_memory_current_bytes": {
+          "count": 3,
+          "min": 25124864,
+          "p50": 25272320,
+          "p95": 25313280,
+          "max": 25313280,
+          "mean": 25236821.333
+        },
+        "cgroup_memory_peak_bytes": {
+          "count": 3,
+          "min": 30576640,
+          "p50": 30613504,
+          "p95": 30822400,
+          "max": 30822400,
+          "mean": 30670848.0
+        },
+        "pss_kb": {
+          "count": 3,
+          "min": 1774,
+          "p50": 1802,
+          "p95": 1839,
+          "max": 1839,
+          "mean": 1805.0
+        },
+        "size_rw_bytes": {
+          "count": 3,
+          "min": 129986,
+          "p50": 130800,
+          "p95": 131614,
+          "max": 131614,
+          "mean": 130800.0
+        },
+        "container_count": [
+          1,
+          1,
+          1
+        ],
+        "failures": []
+      },
+      "N2": {
+        "attempts": 3,
+        "passed": 3,
+        "ready_ms": {
+          "count": 6,
+          "min": 1017.896,
+          "p50": 1032.688,
+          "p95": 1345.396,
+          "max": 1345.396,
+          "mean": 1170.167
+        },
+        "wave_ready_ms": {
+          "count": 3,
+          "min": 1286.801,
+          "p50": 1308.819,
+          "p95": 1345.396,
+          "max": 1345.396,
+          "mean": 1313.672
+        },
+        "stop_ms": {
+          "count": 3,
+          "min": 209.875,
+          "p50": 212.654,
+          "p95": 247.923,
+          "max": 247.923,
+          "mean": 223.484
+        },
+        "cgroup_memory_current_bytes": {
+          "count": 3,
+          "min": 48861184,
+          "p50": 48992256,
+          "p95": 49041408,
+          "max": 49041408,
+          "mean": 48964949.333
+        },
+        "cgroup_memory_peak_bytes": {
+          "count": 3,
+          "min": 54448128,
+          "p50": 54460416,
+          "p95": 54845440,
+          "max": 54845440,
+          "mean": 54584661.333
+        },
+        "pss_kb": {
+          "count": 3,
+          "min": 1513,
+          "p50": 1557,
+          "p95": 1597,
+          "max": 1597,
+          "mean": 1555.667
+        },
+        "size_rw_bytes": {
+          "count": 3,
+          "min": 133918,
+          "p50": 136360,
+          "p95": 137988,
+          "max": 137988,
+          "mean": 136088.667
+        },
+        "container_count": [
+          1,
+          1,
+          1
+        ],
+        "failures": []
+      },
+      "N3": {
+        "attempts": 3,
+        "passed": 3,
+        "ready_ms": {
+          "count": 9,
+          "min": 1020.912,
+          "p50": 1350.909,
+          "p95": 1750.186,
+          "max": 1750.186,
+          "mean": 1361.726
+        },
+        "wave_ready_ms": {
+          "count": 3,
+          "min": 1615.905,
+          "p50": 1617.631,
+          "p95": 1750.186,
+          "max": 1750.186,
+          "mean": 1661.241
+        },
+        "stop_ms": {
+          "count": 3,
+          "min": 214.13,
+          "p50": 215.484,
+          "p95": 232.5,
+          "max": 232.5,
+          "mean": 220.705
+        },
+        "cgroup_memory_current_bytes": {
+          "count": 3,
+          "min": 73015296,
+          "p50": 73293824,
+          "p95": 77635584,
+          "max": 77635584,
+          "mean": 74648234.667
+        },
+        "cgroup_memory_peak_bytes": {
+          "count": 3,
+          "min": 78213120,
+          "p50": 78462976,
+          "p95": 78491648,
+          "max": 78491648,
+          "mean": 78389248.0
+        },
+        "pss_kb": {
+          "count": 3,
+          "min": 1410,
+          "p50": 1454,
+          "p95": 1457,
+          "max": 1457,
+          "mean": 1440.333
+        },
+        "size_rw_bytes": {
+          "count": 3,
+          "min": 141920,
+          "p50": 144362,
+          "p95": 146804,
+          "max": 146804,
+          "mean": 144362.0
+        },
+        "container_count": [
+          1,
+          1,
+          1
+        ],
+        "failures": []
+      },
+      "N4": {
+        "attempts": 3,
+        "passed": 3,
+        "ready_ms": {
+          "count": 12,
+          "min": 977.783,
+          "p50": 1417.369,
+          "p95": 2172.404,
+          "max": 2172.404,
+          "mean": 1553.703
+        },
+        "wave_ready_ms": {
+          "count": 3,
+          "min": 1948.237,
+          "p50": 2035.99,
+          "p95": 2172.404,
+          "max": 2172.404,
+          "mean": 2052.21
+        },
+        "stop_ms": {
+          "count": 3,
+          "min": 212.22,
+          "p50": 214.935,
+          "p95": 241.39,
+          "max": 241.39,
+          "mean": 222.848
+        },
+        "cgroup_memory_current_bytes": {
+          "count": 3,
+          "min": 96768000,
+          "p50": 99373056,
+          "p95": 103456768,
+          "max": 103456768,
+          "mean": 99865941.333
+        },
+        "cgroup_memory_peak_bytes": {
+          "count": 3,
+          "min": 102690816,
+          "p50": 104112128,
+          "p95": 107909120,
+          "max": 107909120,
+          "mean": 104904021.333
+        },
+        "pss_kb": {
+          "count": 3,
+          "min": 1352,
+          "p50": 1370,
+          "p95": 1384,
+          "max": 1384,
+          "mean": 1368.667
+        },
+        "size_rw_bytes": {
+          "count": 3,
+          "min": 151550,
+          "p50": 154806,
+          "p95": 157248,
+          "max": 157248,
+          "mean": 154534.667
+        },
+        "container_count": [
+          1,
+          1,
+          1
+        ],
+        "failures": []
+      }
+    },
+    "S3": {
+      "attempts": 3,
+      "passed": 3,
+      "ready_ms": {
+        "count": 18,
+        "min": 1292.839,
+        "p50": 2025.183,
+        "p95": 2590.398,
+        "max": 2590.398,
+        "mean": 1971.944
+      },
+      "wave_ready_ms": {
+        "count": 3,
+        "min": 2273.174,
+        "p50": 2525.64,
+        "p95": 2590.398,
+        "max": 2590.398,
+        "mean": 2463.071
+      },
+      "stop_ms": {
+        "count": 3,
+        "min": 226.898,
+        "p50": 246.047,
+        "p95": 287.536,
+        "max": 287.536,
+        "mean": 253.494
+      },
+      "running_containers": [
+        2,
+        2,
+        2
+      ],
+      "failures": []
+    },
+    "S4": {
+      "attempts": 3,
+      "passed": 3,
+      "native_ready_ms": {
+        "count": 9,
+        "min": 416.913,
+        "p50": 531.093,
+        "p95": 574.418,
+        "max": 574.418,
+        "mean": 510.713
+      },
+      "wave_ready_ms": {
+        "count": 3,
+        "min": 444.608,
+        "p50": 564.497,
+        "p95": 574.418,
+        "max": 574.418,
+        "mean": 527.841
+      },
+      "close_ms": {
+        "count": 3,
+        "min": 19.761,
+        "p50": 22.255,
+        "p95": 22.528,
+        "max": 22.528,
+        "mean": 21.515
+      },
+      "native_pss_kb": {
+        "count": 9,
+        "min": 43302,
+        "p50": 47636,
+        "p95": 52350,
+        "max": 52350,
+        "mean": 47309.889
+      },
+      "host_pids_unique": [
+        true,
+        true,
+        true
+      ],
+      "containers_changed": [
+        false,
+        false,
+        false
+      ],
+      "failures": []
+    },
+    "S5": {
+      "attempts": 2,
+      "passed": 2,
+      "wave_ready_ms": {
+        "count": 2,
+        "min": 1623.291,
+        "p50": 1623.291,
+        "p95": 1768.545,
+        "max": 1768.545,
+        "mean": 1695.918
+      },
+      "running_containers": [
+        2,
+        2
+      ],
+      "host_pids_unique": [
+        true,
+        true
+      ],
+      "failures": []
+    },
+    "S6": {
+      "attempts": 3,
+      "passed": 3,
+      "wave_ready_ms": {
+        "count": 3,
+        "min": 1232.53,
+        "p50": 1283.702,
+        "p95": 1417.777,
+        "max": 1417.777,
+        "mean": 1311.336
+      },
+      "stop_ms": {
+        "count": 3,
+        "min": 186.656,
+        "p50": 202.65,
+        "p95": 203.716,
+        "max": 203.716,
+        "mean": 197.674
+      },
+      "running_containers": [
+        3,
+        3,
+        3
+      ],
+      "totals_running": {
+        "memory_current_bytes": {
+          "count": 3,
+          "min": 74313728,
+          "p50": 74592256,
+          "p95": 118784000,
+          "max": 118784000,
+          "mean": 89229994.667
+        },
+        "memory_peak_bytes": {
+          "count": 3,
+          "min": 91213824,
+          "p50": 92119040,
+          "p95": 134836224,
+          "max": 134836224,
+          "mean": 106056362.667
+        },
+        "pss_kb": {
+          "count": 3,
+          "min": 2695,
+          "p50": 2716,
+          "p95": 2724,
+          "max": 2724,
+          "mean": 2711.667
+        },
+        "size_rw_bytes": {
+          "count": 3,
+          "min": 324039,
+          "p50": 348198,
+          "p95": 350619,
+          "max": 350619,
+          "mean": 340952.0
+        },
+        "process_count": {
+          "count": 3,
+          "min": 21,
+          "p50": 21,
+          "p95": 21,
+          "max": 21,
+          "mean": 21.0
+        },
+        "mousepad_count": {
+          "count": 3,
+          "min": 3,
+          "p50": 3,
+          "p95": 3,
+          "max": 3,
+          "mean": 3.0
+        }
+      },
+      "failures": [],
+      "comparison": {
+        "shared_N3": {
+          "containers": 1,
+          "wave_ready_ms": {
+            "count": 3,
+            "min": 1615.905,
+            "p50": 1617.631,
+            "p95": 1750.186,
+            "max": 1750.186,
+            "mean": 1661.241
+          },
+          "cgroup_memory_current_bytes": {
+            "count": 3,
+            "min": 73015296,
+            "p50": 73293824,
+            "p95": 77635584,
+            "max": 77635584,
+            "mean": 74648234.667
+          },
+          "cgroup_memory_peak_bytes": {
+            "count": 3,
+            "min": 78213120,
+            "p50": 78462976,
+            "p95": 78491648,
+            "max": 78491648,
+            "mean": 78389248.0
+          },
+          "pss_kb": {
+            "count": 3,
+            "min": 1410,
+            "p50": 1454,
+            "p95": 1457,
+            "max": 1457,
+            "mean": 1440.333
+          },
+          "size_rw_bytes": {
+            "count": 3,
+            "min": 141920,
+            "p50": 144362,
+            "p95": 146804,
+            "max": 146804,
+            "mean": 144362.0
+          }
+        },
+        "separate_3_envs": {
+          "containers": 3,
+          "wave_ready_ms": {
+            "count": 3,
+            "min": 1232.53,
+            "p50": 1283.702,
+            "p95": 1417.777,
+            "max": 1417.777,
+            "mean": 1311.336
+          },
+          "cgroup_memory_current_bytes": {
+            "count": 3,
+            "min": 74313728,
+            "p50": 74592256,
+            "p95": 118784000,
+            "max": 118784000,
+            "mean": 89229994.667
+          },
+          "cgroup_memory_peak_bytes": {
+            "count": 3,
+            "min": 91213824,
+            "p50": 92119040,
+            "p95": 134836224,
+            "max": 134836224,
+            "mean": 106056362.667
+          },
+          "pss_kb": {
+            "count": 3,
+            "min": 2695,
+            "p50": 2716,
+            "p95": 2724,
+            "max": 2724,
+            "mean": 2711.667
+          },
+          "size_rw_bytes": {
+            "count": 3,
+            "min": 324039,
+            "p50": 348198,
+            "p95": 350619,
+            "max": 350619,
+            "mean": 340952.0
+          }
+        },
+        "separate_over_shared_wave_ready_ms": 0.789,
+        "separate_over_shared_cgroup_memory_current_bytes": 1.195,
+        "separate_over_shared_cgroup_memory_peak_bytes": 1.353,
+        "separate_over_shared_pss_kb": 1.883,
+        "separate_over_shared_size_rw_bytes": 2.362
+      }
+    },
+    "S7": {
+      "agile_waves_attempts": 10,
+      "agile_waves_passed": 10,
+      "ready_ms": {
+        "count": 30,
+        "min": 928.054,
+        "p50": 1349.735,
+        "p95": 1795.639,
+        "max": 2032.56,
+        "mean": 1358.507
+      },
+      "wave_ready_ms": {
+        "count": 10,
+        "min": 1431.976,
+        "p50": 1597.684,
+        "p95": 2032.56,
+        "max": 2032.56,
+        "mean": 1638.642
+      },
+      "stop_ms": {
+        "count": 10,
+        "min": 178.397,
+        "p50": 213.209,
+        "p95": 261.416,
+        "max": 261.416,
+        "mean": 216.19
+      },
+      "reopen_waves_attempts": 3,
+      "reopen_waves_passed": 3,
+      "reopen_ready_ms": {
+        "count": 3,
+        "min": 1914.989,
+        "p50": 1942.355,
+        "p95": 2056.729,
+        "max": 2056.729,
+        "mean": 1971.358
+      },
+      "reopen_started_after_close_ms": {
+        "count": 3,
+        "min": 150.096,
+        "p50": 200.081,
+        "p95": 250.086,
+        "max": 250.086,
+        "mean": 200.088
+      },
+      "final_residual_check": [
+        {
+          "zombie_count": 0,
+          "lease_before_stop": 0,
+          "passed": true
+        }
+      ],
+      "failures": []
+    }
+  },
+  "cleanup": {
+    "taken_at": "2026-10-22T22:18:21+08:00",
+    "started_at": "2026-10-22T22:18:07+08:00",
+    "closed_windows": [],
+    "remaining_windows": 0,
+    "remaining_window_details": [],
+    "native_killed": [],
+    "leftover_native_processes": 0,
+    "leftover_native_details": [],
+    "leftover_processes": 0,
+    "leftover_process_details": [],
+    "running_containers": 0,
+    "project_containers": [
+      {
+        "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+        "names": [
+          "ml-be3863e1-conc-debian"
+        ],
+        "state": "exited",
+        "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+      },
+      {
+        "id": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+        "names": [
+          "ml-be3863e1-conc-arch"
+        ],
+        "state": "exited",
+        "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+      },
+      {
+        "id": "91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4",
+        "names": [
+          "ml-be3863e1-conc-sep-1"
+        ],
+        "state": "exited",
+        "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+      },
+      {
+        "id": "f15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0",
+        "names": [
+          "ml-be3863e1-conc-sep-2"
+        ],
+        "state": "exited",
+        "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+      },
+      {
+        "id": "8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599",
+        "names": [
+          "ml-be3863e1-conc-sep-3"
+        ],
+        "state": "exited",
+        "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+      }
+    ],
+    "live_leases": 0,
+    "bridge_processes": 0,
+    "environment_states": {
+      "conc-debian": {
+        "record_runtime_state": "stopped",
+        "inspect": {
+          "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+          "running": false,
+          "status": "exited",
+          "pid": 0,
+          "exit_code": 143,
+          "init": true
+        }
+      },
+      "conc-arch": {
+        "record_runtime_state": "stopped",
+        "inspect": {
+          "id": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+          "running": false,
+          "status": "exited",
+          "pid": 0,
+          "exit_code": 143,
+          "init": true
+        }
+      },
+      "conc-sep-1": {
+        "record_runtime_state": "stopped",
+        "inspect": {
+          "id": "91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4",
+          "running": false,
+          "status": "exited",
+          "pid": 0,
+          "exit_code": 143,
+          "init": true
+        }
+      },
+      "conc-sep-2": {
+        "record_runtime_state": "stopped",
+        "inspect": {
+          "id": "f15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0",
+          "running": false,
+          "status": "exited",
+          "pid": 0,
+          "exit_code": 143,
+          "init": true
+        }
+      },
+      "conc-sep-3": {
+        "record_runtime_state": "stopped",
+        "inspect": {
+          "id": "8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599",
+          "running": false,
+          "status": "exited",
+          "pid": 0,
+          "exit_code": 143,
+          "init": true
+        }
+      }
+    },
+    "host_packages_sha256_before": "fe6c159cf9089083a9270ee386d311fa46620892c3a5f440d20097d0604c5e5f",
+    "host_packages_sha256_after": "fe6c159cf9089083a9270ee386d311fa46620892c3a5f440d20097d0604c5e5f",
+    "host_packages_unchanged": true,
+    "host_desktop_entries_sha256_before": "ab0562c90184c6563b81fcfa6f6bf10f22cea42bd2cae3d1a1a1df57a3dafd78",
+    "host_desktop_entries_sha256_after": "ab0562c90184c6563b81fcfa6f6bf10f22cea42bd2cae3d1a1a1df57a3dafd78",
+    "host_desktop_entries_unchanged": true,
+    "all_clean": true
+  },
+  "snapshot": {
+    "git_head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+    "git_branch": "codex/screencast-protocol",
+    "git_dirty": true,
+    "snapshot_sha256": "23e058d37b8690ca3ff6626003863c8bb67c201b631a6f3ccf3c91ba595c103a"
+  }
+}

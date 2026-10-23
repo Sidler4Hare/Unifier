@@ -1,0 +1,27 @@
+{
+  "taken_at": "2026-10-22T21:24:12+08:00",
+  "blocked": false,
+  "available_bytes": 2821914624,
+  "memory_some_avg10": null,
+  "memory_full_avg10": null,
+  "load": [
+    1.12,
+    1.5,
+    1.61
+  ],
+  "attempts": [
+    {
+      "at": "2026-10-22T21:24:12+08:00",
+      "available_bytes": 2821914624,
+      "memory_some_avg10": null,
+      "memory_full_avg10": null,
+      "load": [
+        1.12,
+        1.5,
+        1.61
+      ],
+      "blocked": false
+    }
+  ],
+  "label": "A"
+}

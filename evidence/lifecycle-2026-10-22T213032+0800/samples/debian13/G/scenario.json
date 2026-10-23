@@ -1,0 +1,397 @@
+{
+  "scenario": "G",
+  "target": "debian13",
+  "index": 0,
+  "started_at": "2026-10-22T21:32:36+08:00",
+  "sample_dir": "samples/debian13/G",
+  "failures": [],
+  "host_before": {
+    "taken_at": "2026-10-22T21:32:36+08:00",
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 274800640,
+      "MemAvailable_bytes": 2499809280,
+      "Cached_bytes": 3186724864,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 18898255872
+    },
+    "pressure": {
+      "memory.some": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.06,
+        "total_us": 1127285328
+      },
+      "memory.full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.05,
+        "total_us": 977184783
+      },
+      "cpu.some": {
+        "avg10": 1.25,
+        "avg60": 1.2,
+        "avg300": 0.83,
+        "total_us": 3422785419
+      },
+      "cpu.full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 0
+      },
+      "io.some": {
+        "avg10": 1.02,
+        "avg60": 1.11,
+        "avg300": 0.7,
+        "total_us": 501604013
+      },
+      "io.full": {
+        "avg10": 0.9,
+        "avg60": 0.98,
+        "avg300": 0.61,
+        "total_us": 339847849
+      }
+    },
+    "load_average": [
+      1.74,
+      1.49,
+      1.57
+    ],
+    "cpu_freq_khz": [
+      3268055,
+      3795600,
+      3540484,
+      3689954,
+      2789788,
+      3799338,
+      3089278,
+      3413787
+    ],
+    "thermal": [
+      {
+        "type": "acpitz",
+        "temp_c": 32.0
+      },
+      {
+        "type": "x86_pkg_temp",
+        "temp_c": 70.0
+      }
+    ]
+  },
+  "host_guard": {
+    "taken_at": "2026-10-22T21:32:36+08:00",
+    "blocked": false,
+    "available_bytes": 2499809280,
+    "memory_some_avg10": null,
+    "memory_full_avg10": null,
+    "load": [
+      1.74,
+      1.49,
+      1.57
+    ],
+    "attempts": [
+      {
+        "at": "2026-10-22T21:32:36+08:00",
+        "available_bytes": 2499809280,
+        "memory_some_avg10": null,
+        "memory_full_avg10": null,
+        "load": [
+          1.74,
+          1.49,
+          1.57
+        ],
+        "blocked": false
+      }
+    ],
+    "label": "G"
+  },
+  "reset": {
+    "target": "debian13",
+    "env_id": "test-debian",
+    "actions": [
+      {
+        "wait_stopped": {
+          "ok": true,
+          "elapsed_ms": 22.328,
+          "state": {
+            "env_id": "test-debian",
+            "container_name": "ml-9914ab53-test-debian",
+            "container_id_recorded": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+            "record_runtime_state": "stopped",
+            "record_full_init": false,
+            "inspect": {
+              "id": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+              "running": false,
+              "status": "exited",
+              "pid": 0,
+              "exit_code": 143,
+              "oom_killed": false,
+              "started_at": "2026-10-22T21:32:33.413172109+08:00",
+              "finished_at": "2026-10-22T21:32:35.979111595+08:00",
+              "init": true,
+              "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+            }
+          }
+        }
+      }
+    ],
+    "lease_before": {
+      "live_count": 0,
+      "auto_stop": false,
+      "bridge": null
+    },
+    "bridges_killed": [],
+    "state_after": {
+      "env_id": "test-debian",
+      "container_name": "ml-9914ab53-test-debian",
+      "container_id_recorded": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+      "record_runtime_state": "stopped",
+      "record_full_init": false,
+      "inspect": {
+        "id": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+        "running": false,
+        "status": "exited",
+        "pid": 0,
+        "exit_code": 143,
+        "oom_killed": false,
+        "started_at": "2026-10-22T21:32:33.413172109+08:00",
+        "finished_at": "2026-10-22T21:32:35.979111595+08:00",
+        "init": true,
+        "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+      }
+    }
+  },
+  "manual_start": {
+    "returncode": 0,
+    "stdout": "started test-debian (running)",
+    "stderr": ""
+  },
+  "env_started": {
+    "env_id": "test-debian",
+    "container_name": "ml-9914ab53-test-debian",
+    "container_id_recorded": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+    "record_runtime_state": "running",
+    "record_full_init": false,
+    "inspect": {
+      "id": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+      "running": true,
+      "status": "running",
+      "pid": 1195335,
+      "exit_code": 0,
+      "oom_killed": false,
+      "started_at": "2026-10-22T21:32:36.709570135+08:00",
+      "finished_at": "2026-10-22T21:32:35.979111595+08:00",
+      "init": true,
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    }
+  },
+  "ready": {
+    "ready_ns": 116726660377612,
+    "launch_to_ready_ms": 618.006,
+    "launch_to_window_ms": 618.006,
+    "launch_to_buffer_commit_ms": 615.476,
+    "launch_to_frame_callback_ms": null,
+    "window": {
+      "event": "added",
+      "marker": "ML-LIFE-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T213032+0800/work/test-debian/ML-LIFE-debian13-G-000.txt [Read Only] - Mousepad",
+      "window_id": "{0c101d09-fbe2-4444-8c7d-f37f448d1a51}",
+      "type": "KWin::XdgToplevelWindow(0x55ca88118e40)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca88118e40)",
+      "pid": 1195564,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 116726660377612,
+      "sent_wall_ms": 1792675957544
+    },
+    "wayland": {
+      "surface_id": "33",
+      "first_attach_received_ns": 116726657773204,
+      "first_commit_received_ns": 116726657847491,
+      "first_frame_callback_received_ns": null
+    },
+    "geometry_extra": {}
+  },
+  "lease_open": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T213032+0800/project/.lab/leases/test-debian.json",
+    "exists": true,
+    "raw": {
+      "leases": {
+        "73b812354fd14e0082f7c4fef717b50b": {
+          "pid": 1195419,
+          "stamp": 25335913,
+          "app_id": "life-editor-debian"
+        }
+      },
+      "auto_stop": false,
+      "bridge": {
+        "pid": 1195457,
+        "stamp": 25335930,
+        "socket": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T213032+0800/project/.lab/desktop/test-debian/bus"
+      },
+      "container_id": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+      "container_started_at": "2026-10-22T21:32:36.709570135+08:00"
+    },
+    "live": {
+      "73b812354fd14e0082f7c4fef717b50b": {
+        "pid": 1195419,
+        "stamp": 25335913,
+        "app_id": "life-editor-debian"
+      }
+    },
+    "live_count": 1,
+    "bridge": {
+      "pid": 1195457,
+      "stamp": 25335930,
+      "socket": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T213032+0800/project/.lab/desktop/test-debian/bus"
+    },
+    "bridge_alive": true
+  },
+  "removed": {
+    "event": "removed",
+    "marker": "ML-LIFE-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T213032+0800/work/test-debian/ML-LIFE-debian13-G-000.txt [Read Only] - Mousepad",
+    "window_id": "{0c101d09-fbe2-4444-8c7d-f37f448d1a51}",
+    "type": "KWin::XdgToplevelWindow(0x55ca88118e40)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca88118e40)",
+    "pid": 1195564,
+    "resource_class": "mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 116726715043410,
+    "sent_wall_ms": 1792675957592
+  },
+  "launcher_exit": {
+    "returncode": 0,
+    "exit_ns": 116726811189831
+  },
+  "finish": {
+    "returncode": 0,
+    "exit_ns": 116726811189831,
+    "launcher_pid": 1195415,
+    "launcher_stamp": 25335907
+  },
+  "env_after": {
+    "env_id": "test-debian",
+    "container_name": "ml-9914ab53-test-debian",
+    "container_id_recorded": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+    "record_runtime_state": "running",
+    "record_full_init": false,
+    "inspect": {
+      "id": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+      "running": true,
+      "status": "running",
+      "pid": 1195335,
+      "exit_code": 0,
+      "oom_killed": false,
+      "started_at": "2026-10-22T21:32:36.709570135+08:00",
+      "finished_at": "2026-10-22T21:32:35.979111595+08:00",
+      "init": true,
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    }
+  },
+  "lease_after": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T213032+0800/project/.lab/leases/test-debian.json",
+    "exists": true,
+    "raw": {
+      "leases": {},
+      "auto_stop": false,
+      "bridge": null,
+      "container_id": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+      "container_started_at": "2026-10-22T21:32:36.709570135+08:00"
+    },
+    "live": {},
+    "live_count": 0,
+    "bridge": null,
+    "bridge_alive": false
+  },
+  "bridges_after": [],
+  "retained": true,
+  "manual_stop": {
+    "returncode": 0,
+    "stdout": "stopped test-debian (stopped)",
+    "stderr": ""
+  },
+  "wait_stopped": {
+    "ok": true,
+    "elapsed_ms": 21.962,
+    "state": {
+      "env_id": "test-debian",
+      "container_name": "ml-9914ab53-test-debian",
+      "container_id_recorded": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+      "record_runtime_state": "stopped",
+      "record_full_init": false,
+      "inspect": {
+        "id": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+        "running": false,
+        "status": "exited",
+        "pid": 0,
+        "exit_code": 143,
+        "oom_killed": false,
+        "started_at": "2026-10-22T21:32:36.709570135+08:00",
+        "finished_at": "2026-10-22T21:32:39.01910608+08:00",
+        "init": true,
+        "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+      }
+    }
+  },
+  "wait_bridge": {
+    "ok": true,
+    "elapsed_ms": 18.65,
+    "bridge": null,
+    "processes": []
+  },
+  "env_final": {
+    "env_id": "test-debian",
+    "container_name": "ml-9914ab53-test-debian",
+    "container_id_recorded": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+    "record_runtime_state": "stopped",
+    "record_full_init": false,
+    "inspect": {
+      "id": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+      "running": false,
+      "status": "exited",
+      "pid": 0,
+      "exit_code": 143,
+      "oom_killed": false,
+      "started_at": "2026-10-22T21:32:36.709570135+08:00",
+      "finished_at": "2026-10-22T21:32:39.01910608+08:00",
+      "init": true,
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    }
+  },
+  "lease_final": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T213032+0800/project/.lab/leases/test-debian.json",
+    "exists": true,
+    "raw": {
+      "leases": {},
+      "auto_stop": false,
+      "bridge": null,
+      "container_id": "e882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5",
+      "container_started_at": "2026-10-22T21:32:36.709570135+08:00"
+    },
+    "live": {},
+    "live_count": 0,
+    "bridge": null,
+    "bridge_alive": false
+  },
+  "cleanup": [],
+  "passed": true,
+  "finished_at": "2026-10-22T21:32:39+08:00"
+}

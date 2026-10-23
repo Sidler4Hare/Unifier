@@ -1,0 +1,187 @@
+{
+  "scenario": "A",
+  "target": "debian13",
+  "requested": 10,
+  "rows": [
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 0,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 1542.872,
+        "close_to_window_removed_ms": 44.221,
+        "close_to_launcher_exit_ms": 338.905,
+        "close_to_container_died_ms": 208.473,
+        "close_to_stopped_ms": 29.833,
+        "close_to_bridge_gone_ms": 24.338
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 1,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 914.683,
+        "close_to_window_removed_ms": 45.627,
+        "close_to_launcher_exit_ms": 353.114,
+        "close_to_container_died_ms": 205.05,
+        "close_to_stopped_ms": 24.242,
+        "close_to_bridge_gone_ms": 21.035
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 2,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 995.14,
+        "close_to_window_removed_ms": 55.987,
+        "close_to_launcher_exit_ms": 331.902,
+        "close_to_container_died_ms": 213.945,
+        "close_to_stopped_ms": 24.241,
+        "close_to_bridge_gone_ms": 20.574
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 3,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 1186.04,
+        "close_to_window_removed_ms": 43.774,
+        "close_to_launcher_exit_ms": 401.13,
+        "close_to_container_died_ms": 217.151,
+        "close_to_stopped_ms": 26.398,
+        "close_to_bridge_gone_ms": 21.769
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 4,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 1125.003,
+        "close_to_window_removed_ms": 66.369,
+        "close_to_launcher_exit_ms": 478.706,
+        "close_to_container_died_ms": 283.42,
+        "close_to_stopped_ms": 23.953,
+        "close_to_bridge_gone_ms": 22.085
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 5,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 950.915,
+        "close_to_window_removed_ms": 54.258,
+        "close_to_launcher_exit_ms": 334.409,
+        "close_to_container_died_ms": 206.331,
+        "close_to_stopped_ms": 29.0,
+        "close_to_bridge_gone_ms": 20.543
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 6,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 999.136,
+        "close_to_window_removed_ms": 45.244,
+        "close_to_launcher_exit_ms": 292.276,
+        "close_to_container_died_ms": 180.273,
+        "close_to_stopped_ms": 25.391,
+        "close_to_bridge_gone_ms": 20.059
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 7,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 873.633,
+        "close_to_window_removed_ms": 45.167,
+        "close_to_launcher_exit_ms": 315.146,
+        "close_to_container_died_ms": 193.395,
+        "close_to_stopped_ms": 25.484,
+        "close_to_bridge_gone_ms": 19.744
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 8,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 870.528,
+        "close_to_window_removed_ms": 47.554,
+        "close_to_launcher_exit_ms": 337.453,
+        "close_to_container_died_ms": 197.298,
+        "close_to_stopped_ms": 22.318,
+        "close_to_bridge_gone_ms": 18.342
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "debian13",
+      "index": 9,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 855.361,
+        "close_to_window_removed_ms": 54.577,
+        "close_to_launcher_exit_ms": 437.18,
+        "close_to_container_died_ms": 246.992,
+        "close_to_stopped_ms": 26.674,
+        "close_to_bridge_gone_ms": 20.949
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    }
+  ]
+}

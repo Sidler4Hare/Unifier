@@ -1,0 +1,1913 @@
+{
+  "schema": "multilinux.concurrency.v1",
+  "run_id": "concurrency-2026-10-22T220318+0800",
+  "evidence_dir": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800",
+  "prepared_at": "2026-10-22T22:03:18+08:00",
+  "scope": "Real rootless Podman concurrency verification on the Fedora 44 / KDE host: shared environments, two distributions plus the native host distribution, one-environment-per-process control, performance and agile start/stop. GUI waves are serial except the windows that belong to the same designed wave.",
+  "source_config": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/config",
+  "env_specs": [
+    {
+      "env_id": "conc-debian",
+      "target": "debian13",
+      "app_id": "conc-editor-debian"
+    },
+    {
+      "env_id": "conc-arch",
+      "target": "arch",
+      "app_id": "conc-editor-arch"
+    },
+    {
+      "env_id": "conc-sep-1",
+      "target": "debian13",
+      "app_id": "conc-editor-sep-1"
+    },
+    {
+      "env_id": "conc-sep-2",
+      "target": "debian13",
+      "app_id": "conc-editor-sep-2"
+    },
+    {
+      "env_id": "conc-sep-3",
+      "target": "debian13",
+      "app_id": "conc-editor-sep-3"
+    }
+  ],
+  "tool_sha256": {
+    "tools/prepare_concurrency.py": "3fd9057ccdafb24a42aa0e2bac4e505725f6438b68e2cd6acaa378eb2be91571",
+    "tools/probe_concurrency.py": "7b13ecdfd8b346516dbdbabb17eba23a5a9e0fded6ee0d8ce2b87d14f7d9ad09",
+    "tools/prepare_lifecycle.py": "c8e3bcc6a8568fcdd8642bb7809e2ddc61b5fc99295d017f87048a00d73e1ece",
+    "tools/probe_lifecycle.py": "275017408393f622f471b719375d05630781641bae123c4146d74efd98e70888",
+    "tools/startup_observer.py": "42743d0bc48f74dc80bfa910c7fc2f35d81a93d0bbcff377892d47c1a3d08461",
+    "tools/kwin_window_probe.py": "9f86ababba6cbb6aa66cc9c48f03cce1c15e7573c1acb243f89f54a3682e0161"
+  },
+  "resnapshots": [
+    {
+      "at": "2026-10-22T22:03:49+08:00",
+      "previous_git_head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+      "git": {
+        "head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+        "branch": "codex/screencast-protocol",
+        "status_porcelain": [
+          " M HANDOFF.md",
+          " M README.md",
+          " M src/multilinux/cli.py",
+          " M src/multilinux/on_demand.py",
+          " M src/multilinux/packages.py",
+          " M src/multilinux/runtime.py",
+          " M src/multilinux/service.py",
+          " M tests/test_packages.py",
+          " M \"\\350\\256\\276\\350\\256\\241/\\347\\254\\254\\344\\270\\200\\347\\211\\210\\345\\207\\206\\345\\244\\207\\344\\270\\216\\345\\256\\236\\346\\226\\275.md\"",
+          "?? evidence/arch-complex-2026-10-22T202359+0800/",
+          "?? evidence/concurrency-2026-10-22T220318+0800/",
+          "?? evidence/install-status-2026-10-22T2108+0800/",
+          "?? evidence/lifecycle-2026-10-22T212236+0800/",
+          "?? evidence/lifecycle-2026-10-22T213032+0800/",
+          "?? tests/test_install_status.py",
+          "?? tests/test_lifecycle_contracts.py",
+          "?? tools/prepare_concurrency.py",
+          "?? tools/prepare_install_status.py",
+          "?? tools/prepare_lifecycle.py",
+          "?? tools/probe_arch_complex.py",
+          "?? tools/probe_concurrency.py",
+          "?? tools/probe_freecad_macro.py",
+          "?? tools/probe_install_status.py",
+          "?? tools/probe_lifecycle.py",
+          "?? \"\\350\\260\\203\\347\\240\\224/\\345\\244\\215\\346\\235\\202Arch\\345\\272\\224\\347\\224\\250\\344\\270\\216\\345\\220\\216\\347\\273\\255\\346\\265\\213\\350\\257\\225.md\""
+        ],
+        "status_sha256": "9182fd6e7bb92a89846fb2611c980ba8c052927636ed5f1429e9dfeb04fba053",
+        "dirty": true,
+        "diff_stat": [
+          "HANDOFF.md                                         |  24 ++-",
+          " README.md                                          |  75 +++++++",
+          " src/multilinux/cli.py                              |  39 ++++",
+          " src/multilinux/on_demand.py                        | 223 ++++++++++++++++++---",
+          " src/multilinux/packages.py                         | 107 ++++++++++",
+          " src/multilinux/runtime.py                          |  10 +-",
+          " src/multilinux/service.py                          | 132 +++++++++---",
+          " tests/test_packages.py                             |   6 +-",
+          " ...244\\207\\344\\270\\216\\345\\256\\236\\346\\226\\275.md\" |  68 +++++++",
+          " 9 files changed, 626 insertions(+), 58 deletions(-)"
+        ]
+      },
+      "snapshot_sha256": "4b50740e9384d3555910af5105a3aae0893ce77ee748f467dbcdf757ae964d04"
+    },
+    {
+      "at": "2026-10-22T22:12:23+08:00",
+      "previous_git_head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+      "git": {
+        "head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+        "branch": "codex/screencast-protocol",
+        "status_porcelain": [
+          " M HANDOFF.md",
+          " M README.md",
+          " M src/multilinux/cli.py",
+          " M src/multilinux/on_demand.py",
+          " M src/multilinux/packages.py",
+          " M src/multilinux/runtime.py",
+          " M src/multilinux/service.py",
+          " M tests/test_packages.py",
+          " M \"\\350\\256\\276\\350\\256\\241/\\347\\254\\254\\344\\270\\200\\347\\211\\210\\345\\207\\206\\345\\244\\207\\344\\270\\216\\345\\256\\236\\346\\226\\275.md\"",
+          "?? evidence/arch-complex-2026-10-22T202359+0800/",
+          "?? evidence/concurrency-2026-10-22T220318+0800/",
+          "?? evidence/install-status-2026-10-22T2108+0800/",
+          "?? evidence/lifecycle-2026-10-22T212236+0800/",
+          "?? evidence/lifecycle-2026-10-22T213032+0800/",
+          "?? tests/test_install_status.py",
+          "?? tests/test_lifecycle_contracts.py",
+          "?? tools/prepare_concurrency.py",
+          "?? tools/prepare_install_status.py",
+          "?? tools/prepare_lifecycle.py",
+          "?? tools/probe_arch_complex.py",
+          "?? tools/probe_concurrency.py",
+          "?? tools/probe_freecad_macro.py",
+          "?? tools/probe_install_status.py",
+          "?? tools/probe_lifecycle.py",
+          "?? \"\\350\\260\\203\\347\\240\\224/\\345\\244\\215\\346\\235\\202Arch\\345\\272\\224\\347\\224\\250\\344\\270\\216\\345\\220\\216\\347\\273\\255\\346\\265\\213\\350\\257\\225.md\""
+        ],
+        "status_sha256": "9182fd6e7bb92a89846fb2611c980ba8c052927636ed5f1429e9dfeb04fba053",
+        "dirty": true,
+        "diff_stat": [
+          "HANDOFF.md                                         |  24 ++-",
+          " README.md                                          |  75 +++++++",
+          " src/multilinux/cli.py                              |  39 ++++",
+          " src/multilinux/on_demand.py                        | 223 ++++++++++++++++++---",
+          " src/multilinux/packages.py                         | 107 ++++++++++",
+          " src/multilinux/runtime.py                          |  10 +-",
+          " src/multilinux/service.py                          | 132 +++++++++---",
+          " tests/test_packages.py                             |   6 +-",
+          " ...244\\207\\344\\270\\216\\345\\256\\236\\346\\226\\275.md\" |  68 +++++++",
+          " 9 files changed, 626 insertions(+), 58 deletions(-)"
+        ]
+      },
+      "snapshot_sha256": "2e19b0be3f5fd12b0bdb9c96dbcdedddbab27f36747fc016ff3abae046b2a74a"
+    },
+    {
+      "at": "2026-10-22T22:15:06+08:00",
+      "previous_git_head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+      "git": {
+        "head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+        "branch": "codex/screencast-protocol",
+        "status_porcelain": [
+          " M HANDOFF.md",
+          " M README.md",
+          " M src/multilinux/cli.py",
+          " M src/multilinux/on_demand.py",
+          " M src/multilinux/packages.py",
+          " M src/multilinux/runtime.py",
+          " M src/multilinux/service.py",
+          " M tests/test_packages.py",
+          " M \"\\350\\256\\276\\350\\256\\241/\\347\\254\\254\\344\\270\\200\\347\\211\\210\\345\\207\\206\\345\\244\\207\\344\\270\\216\\345\\256\\236\\346\\226\\275.md\"",
+          "?? evidence/arch-complex-2026-10-22T202359+0800/",
+          "?? evidence/concurrency-2026-10-22T220318+0800/",
+          "?? evidence/install-status-2026-10-22T2108+0800/",
+          "?? evidence/lifecycle-2026-10-22T212236+0800/",
+          "?? evidence/lifecycle-2026-10-22T213032+0800/",
+          "?? tests/test_install_status.py",
+          "?? tests/test_lifecycle_contracts.py",
+          "?? tools/prepare_concurrency.py",
+          "?? tools/prepare_install_status.py",
+          "?? tools/prepare_lifecycle.py",
+          "?? tools/probe_arch_complex.py",
+          "?? tools/probe_concurrency.py",
+          "?? tools/probe_freecad_macro.py",
+          "?? tools/probe_install_status.py",
+          "?? tools/probe_lifecycle.py",
+          "?? \"\\350\\260\\203\\347\\240\\224/\\345\\244\\215\\346\\235\\202Arch\\345\\272\\224\\347\\224\\250\\344\\270\\216\\345\\220\\216\\347\\273\\255\\346\\265\\213\\350\\257\\225.md\""
+        ],
+        "status_sha256": "9182fd6e7bb92a89846fb2611c980ba8c052927636ed5f1429e9dfeb04fba053",
+        "dirty": true,
+        "diff_stat": [
+          "HANDOFF.md                                         |  24 ++-",
+          " README.md                                          |  75 +++++++",
+          " src/multilinux/cli.py                              |  39 ++++",
+          " src/multilinux/on_demand.py                        | 223 ++++++++++++++++++---",
+          " src/multilinux/packages.py                         | 107 ++++++++++",
+          " src/multilinux/runtime.py                          |  10 +-",
+          " src/multilinux/service.py                          | 132 +++++++++---",
+          " tests/test_packages.py                             |   6 +-",
+          " ...244\\207\\344\\270\\216\\345\\256\\236\\346\\226\\275.md\" |  68 +++++++",
+          " 9 files changed, 626 insertions(+), 58 deletions(-)"
+        ]
+      },
+      "snapshot_sha256": "18c7b0f4018191f1032bcab5a2e2cea396a8b478c85f78d4a6611ca297187e44"
+    },
+    {
+      "at": "2026-10-22T22:18:06+08:00",
+      "previous_git_head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+      "git": {
+        "head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+        "branch": "codex/screencast-protocol",
+        "status_porcelain": [
+          " M HANDOFF.md",
+          " M README.md",
+          " M src/multilinux/cli.py",
+          " M src/multilinux/on_demand.py",
+          " M src/multilinux/packages.py",
+          " M src/multilinux/runtime.py",
+          " M src/multilinux/service.py",
+          " M tests/test_packages.py",
+          " M \"\\350\\256\\276\\350\\256\\241/\\347\\254\\254\\344\\270\\200\\347\\211\\210\\345\\207\\206\\345\\244\\207\\344\\270\\216\\345\\256\\236\\346\\226\\275.md\"",
+          "?? evidence/arch-complex-2026-10-22T202359+0800/",
+          "?? evidence/concurrency-2026-10-22T220318+0800/",
+          "?? evidence/install-status-2026-10-22T2108+0800/",
+          "?? evidence/lifecycle-2026-10-22T212236+0800/",
+          "?? evidence/lifecycle-2026-10-22T213032+0800/",
+          "?? tests/test_install_status.py",
+          "?? tests/test_lifecycle_contracts.py",
+          "?? tools/prepare_concurrency.py",
+          "?? tools/prepare_install_status.py",
+          "?? tools/prepare_lifecycle.py",
+          "?? tools/probe_arch_complex.py",
+          "?? tools/probe_concurrency.py",
+          "?? tools/probe_freecad_macro.py",
+          "?? tools/probe_install_status.py",
+          "?? tools/probe_lifecycle.py",
+          "?? \"\\350\\260\\203\\347\\240\\224/\\345\\244\\215\\346\\235\\202Arch\\345\\272\\224\\347\\224\\250\\344\\270\\216\\345\\220\\216\\347\\273\\255\\346\\265\\213\\350\\257\\225.md\""
+        ],
+        "status_sha256": "9182fd6e7bb92a89846fb2611c980ba8c052927636ed5f1429e9dfeb04fba053",
+        "dirty": true,
+        "diff_stat": [
+          "HANDOFF.md                                         |  24 ++-",
+          " README.md                                          |  75 +++++++",
+          " src/multilinux/cli.py                              |  39 ++++",
+          " src/multilinux/on_demand.py                        | 223 ++++++++++++++++++---",
+          " src/multilinux/packages.py                         | 107 ++++++++++",
+          " src/multilinux/runtime.py                          |  10 +-",
+          " src/multilinux/service.py                          | 132 +++++++++---",
+          " tests/test_packages.py                             |   6 +-",
+          " ...244\\207\\344\\270\\216\\345\\256\\236\\346\\226\\275.md\" |  68 +++++++",
+          " 9 files changed, 626 insertions(+), 58 deletions(-)"
+        ]
+      },
+      "snapshot_sha256": "23e058d37b8690ca3ff6626003863c8bb67c201b631a6f3ccf3c91ba595c103a"
+    }
+  ],
+  "snapshot": {
+    "created_at": "2026-10-22T22:18:06+08:00",
+    "source_config": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/config",
+    "config_origin": {
+      "targets.toml": {
+        "source": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/config/targets.toml",
+        "sha256": "cb2c9e7e3942a03bf2cc8735c08d72c986c3bbee8f9c14da550858f10badbbed"
+      },
+      "images.lock.json": {
+        "source": "/home/omg/文档/多兼容linux机/evidence/startup-2026-10-22T182400+0800/project/config/images.lock.json",
+        "sha256": "e773e1ec13d2033f43300a4ab2032c6d22fb0c3a1268b69d7b82d4634196b6f1"
+      }
+    },
+    "paths": [
+      "config/images.lock.json",
+      "config/targets.toml",
+      "fixtures/dmabuf_roundtrip.c",
+      "fixtures/lab-smoke.sh",
+      "fixtures/launch_mousepad.py",
+      "fixtures/mousepad_control.py",
+      "fixtures/resource_probe.c",
+      "fixtures/screencast_consumer.c",
+      "fixtures/share_target.py",
+      "fixtures/wayland_clipboard.py",
+      "fixtures/wayland_handshake.py",
+      "fixtures/x11_window_input.py",
+      "src/multilinux/__init__.py",
+      "src/multilinux/__main__.py",
+      "src/multilinux/cli.py",
+      "src/multilinux/desktop.py",
+      "src/multilinux/errors.py",
+      "src/multilinux/on_demand.py",
+      "src/multilinux/packages.py",
+      "src/multilinux/project.py",
+      "src/multilinux/resources.py",
+      "src/multilinux/routing.py",
+      "src/multilinux/runtime.py",
+      "src/multilinux/screencast.py",
+      "src/multilinux/service.py",
+      "src/multilinux/store.py",
+      "tools/audio_route.py",
+      "tools/collect_host_baseline.py",
+      "tools/kwin_window_probe.py",
+      "tools/lab.py",
+      "tools/ml.py",
+      "tools/prepare_concurrency.py",
+      "tools/prepare_install_status.py",
+      "tools/prepare_lifecycle.py",
+      "tools/prepare_startup.py",
+      "tools/probe_arch_complex.py",
+      "tools/probe_concurrency.py",
+      "tools/probe_desktop_apps.py",
+      "tools/probe_desktop_protocols.py",
+      "tools/probe_file_sharing.py",
+      "tools/probe_freecad_macro.py",
+      "tools/probe_install_status.py",
+      "tools/probe_lifecycle.py",
+      "tools/probe_resources.py",
+      "tools/probe_screencast.py",
+      "tools/probe_startup.py",
+      "tools/probe_startup_failures.py",
+      "tools/probe_startup_phases.py",
+      "tools/probe_tencent_meeting.py",
+      "tools/probe_wayland_media.py",
+      "tools/startup_observer.py",
+      "tools/trace_startup_entry.py",
+      "tools/verify_startup_evidence.py"
+    ],
+    "files_sha256": {
+      "config/images.lock.json": "e773e1ec13d2033f43300a4ab2032c6d22fb0c3a1268b69d7b82d4634196b6f1",
+      "config/targets.toml": "cb2c9e7e3942a03bf2cc8735c08d72c986c3bbee8f9c14da550858f10badbbed",
+      "fixtures/dmabuf_roundtrip.c": "c44bf22e49ef500626f6ec68980f125ddf42624e5c5e03a4df43c26eb4624d06",
+      "fixtures/lab-smoke.sh": "a18c469ec5a054c775d8d39066dbfdca4f38cd9d4505c74bdf9ebec6f1efb17a",
+      "fixtures/launch_mousepad.py": "c336c4fb1cbcc04df2faadd930bf3414be0489b84be4c6346d41cb00d86d7396",
+      "fixtures/mousepad_control.py": "d08abd96b1e9e0f2b6dd842752a98bbd905cc86899d58a74281540e0cc38e15c",
+      "fixtures/resource_probe.c": "067675d016ccfa5dbd3cc1453edf8e191518fadd30cfba653a95a8313c556376",
+      "fixtures/screencast_consumer.c": "3889097c92cef98057568de52f70e66b612ac74a298e083245d6e16e2fe0b73a",
+      "fixtures/share_target.py": "9f3b7fa188d6388f38aab971dfdfb012a10b04c739cfdbbb74b6927764433d55",
+      "fixtures/wayland_clipboard.py": "a7c5d997eb7d28f62ed6f391de6ee8b472c029f5f3afe1ba13b67a97fab62cb9",
+      "fixtures/wayland_handshake.py": "764c0c1c1fbfdc240e67cdcff48cf905d5443209311a79601ca45cc27d991c4c",
+      "fixtures/x11_window_input.py": "a9ba9c9484e4427f19ad8a923709c343faa74185efa6461464f898e70748a80a",
+      "src/multilinux/__init__.py": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+      "src/multilinux/__main__.py": "8fc1fcde2cd1a30a9c1271714cbe49efd1b7ef1597ad4b0f16e1f84dc96ae2b8",
+      "src/multilinux/cli.py": "1a6ce51a9f71a6a0b86d5b5a1a20e16434d5c3e4d7fe3e2241df0788658d2faa",
+      "src/multilinux/desktop.py": "421ba2f4492bd17c4c1b1a3c44ff9b5c83b116c7887430e51f218aa4b89f8a93",
+      "src/multilinux/errors.py": "531a2ca4ce2056099a662eed98a6fa137013b99c7ea0a091fa3960279b92ca2a",
+      "src/multilinux/on_demand.py": "8966e606105071da47f3544229521f37c91b56181714f0dd262b66e7b2ad253a",
+      "src/multilinux/packages.py": "561def1c00ab24f92af3b2b18e39a72bf38b8fa5efbb110fb6737c5af1428156",
+      "src/multilinux/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+      "src/multilinux/resources.py": "1269fc93c41febfc8932d57b805cd512b6fd6cbde109e5c6ca680725504ce4ec",
+      "src/multilinux/routing.py": "a428aa0fd11bded46cc02eb4b498ac00482f19767d7b98f0bdd20e97c658b155",
+      "src/multilinux/runtime.py": "e961e82ae4f50574111559ab52fc930400be2be60922006be4c489e528f6306c",
+      "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+      "src/multilinux/service.py": "ad0eb6cda4213083bc3456409b3f592abf9247262fa48c2de542858bfc180baf",
+      "src/multilinux/store.py": "f1885b957b7f94f2f351b5900b9d41cc81983e5ef25777e2efa482003696382e",
+      "tools/audio_route.py": "3b4ee5815bc0397ce05ee774117431ab4d7c112eaadac346adb41886fc227fd2",
+      "tools/collect_host_baseline.py": "03677ad71234be7743a61463b3570952f6b82d5d0f7341ba4fe74f3fa00a3449",
+      "tools/kwin_window_probe.py": "9f86ababba6cbb6aa66cc9c48f03cce1c15e7573c1acb243f89f54a3682e0161",
+      "tools/lab.py": "75b0e20a452acc3b9168c8cc0bcdd96603d2721113e054515790a1db75f774f4",
+      "tools/ml.py": "9ce24eece889ef5fc43ee203f83a96722280752cae1bbe25c96271eddd4e6c49",
+      "tools/prepare_concurrency.py": "3fd9057ccdafb24a42aa0e2bac4e505725f6438b68e2cd6acaa378eb2be91571",
+      "tools/prepare_install_status.py": "5774d0ded94cb08829d94084245c869a706245fe978022e0c4ec76d65233064c",
+      "tools/prepare_lifecycle.py": "c8e3bcc6a8568fcdd8642bb7809e2ddc61b5fc99295d017f87048a00d73e1ece",
+      "tools/prepare_startup.py": "0fe52c69bef7f2b1ae3feb50b9e70840e4d132bf12a737b3c01852ddeccdb7e0",
+      "tools/probe_arch_complex.py": "45f71dc720add7be1e44f60100bd1ff628d0f2f32a528ced6668dec716d969cc",
+      "tools/probe_concurrency.py": "7b13ecdfd8b346516dbdbabb17eba23a5a9e0fded6ee0d8ce2b87d14f7d9ad09",
+      "tools/probe_desktop_apps.py": "16a6ce2f11b7c4eb62b4ecdb49c89de6517603d3b30f12d575c309f010abeb63",
+      "tools/probe_desktop_protocols.py": "a711b4b6c05db1f86cb01b6e082367f7f5e104ed549487a023a6732663c77ab6",
+      "tools/probe_file_sharing.py": "e90d11e9e4d14ede05f5695a58f84bfd660150cf788293b430c10ec9d3d5ff15",
+      "tools/probe_freecad_macro.py": "46a948900755dfaa953f983cd7ab27b3a0e34a88fae6941721ce196a566d721b",
+      "tools/probe_install_status.py": "3b0a046f9ea85958b653ba4adfbd05e1a042fb83202d3de59b62ac54f40c353a",
+      "tools/probe_lifecycle.py": "275017408393f622f471b719375d05630781641bae123c4146d74efd98e70888",
+      "tools/probe_resources.py": "0efe7c61353fb7ba72ccd0e11c7f107566a6a83e23a4888a8f7d423137600d54",
+      "tools/probe_screencast.py": "bc7d2845bc939d3cd09d9ec9b25770d9dc639d6132bc6b632bf38b81b6751c5b",
+      "tools/probe_startup.py": "30f342d264fb18018ff6898fb286b0e4078cfe4f3b7264bc2c2da8822d74f37c",
+      "tools/probe_startup_failures.py": "c188d4c70a7869c7967f3e6655f8c4a2d5efe6bb538c2e8b06db8d9056fbadfd",
+      "tools/probe_startup_phases.py": "3deef866db254743e1f8663545f1ea6ca39c11c4bccbe93bbc1d14506c09eee0",
+      "tools/probe_tencent_meeting.py": "d1ca551f0488b327d3d6b8ad9c538a704dfc7be4cc44d2f389bb86661a6c1208",
+      "tools/probe_wayland_media.py": "d2410991723fca06e6af0280e946895ee38b1080a1ddf2e52d5c2cc5ae68b820",
+      "tools/startup_observer.py": "42743d0bc48f74dc80bfa910c7fc2f35d81a93d0bbcff377892d47c1a3d08461",
+      "tools/trace_startup_entry.py": "e0c7174780cd0c43d2266f88c140fccd5c6430d9a3337df312abbc5b922bd683",
+      "tools/verify_startup_evidence.py": "a6cb8fbecce5abb037399ad8fdf8e1f407453a324517789382ddb26642657cc4"
+    },
+    "snapshot_sha256": "23e058d37b8690ca3ff6626003863c8bb67c201b631a6f3ccf3c91ba595c103a",
+    "git": {
+      "head": "fd0b2da877ec6a4059b0260c8aa53695851f1fac",
+      "branch": "codex/screencast-protocol",
+      "status_porcelain": [
+        " M HANDOFF.md",
+        " M README.md",
+        " M src/multilinux/cli.py",
+        " M src/multilinux/on_demand.py",
+        " M src/multilinux/packages.py",
+        " M src/multilinux/runtime.py",
+        " M src/multilinux/service.py",
+        " M tests/test_packages.py",
+        " M \"\\350\\256\\276\\350\\256\\241/\\347\\254\\254\\344\\270\\200\\347\\211\\210\\345\\207\\206\\345\\244\\207\\344\\270\\216\\345\\256\\236\\346\\226\\275.md\"",
+        "?? evidence/arch-complex-2026-10-22T202359+0800/",
+        "?? evidence/concurrency-2026-10-22T220318+0800/",
+        "?? evidence/install-status-2026-10-22T2108+0800/",
+        "?? evidence/lifecycle-2026-10-22T212236+0800/",
+        "?? evidence/lifecycle-2026-10-22T213032+0800/",
+        "?? tests/test_install_status.py",
+        "?? tests/test_lifecycle_contracts.py",
+        "?? tools/prepare_concurrency.py",
+        "?? tools/prepare_install_status.py",
+        "?? tools/prepare_lifecycle.py",
+        "?? tools/probe_arch_complex.py",
+        "?? tools/probe_concurrency.py",
+        "?? tools/probe_freecad_macro.py",
+        "?? tools/probe_install_status.py",
+        "?? tools/probe_lifecycle.py",
+        "?? \"\\350\\260\\203\\347\\240\\224/\\345\\244\\215\\346\\235\\202Arch\\345\\272\\224\\347\\224\\250\\344\\270\\216\\345\\220\\216\\347\\273\\255\\346\\265\\213\\350\\257\\225.md\""
+      ],
+      "status_sha256": "9182fd6e7bb92a89846fb2611c980ba8c052927636ed5f1429e9dfeb04fba053",
+      "dirty": true,
+      "diff_stat": [
+        "HANDOFF.md                                         |  24 ++-",
+        " README.md                                          |  75 +++++++",
+        " src/multilinux/cli.py                              |  39 ++++",
+        " src/multilinux/on_demand.py                        | 223 ++++++++++++++++++---",
+        " src/multilinux/packages.py                         | 107 ++++++++++",
+        " src/multilinux/runtime.py                          |  10 +-",
+        " src/multilinux/service.py                          | 132 +++++++++---",
+        " tests/test_packages.py                             |   6 +-",
+        " ...244\\207\\344\\270\\216\\345\\256\\236\\346\\226\\275.md\" |  68 +++++++",
+        " 9 files changed, 626 insertions(+), 58 deletions(-)"
+      ]
+    },
+    "host": {
+      "taken_at": "2026-10-22T22:18:06+08:00",
+      "meminfo": {
+        "MemTotal_bytes": 7982043136,
+        "MemFree_bytes": 1401999360,
+        "MemAvailable_bytes": 3356741632,
+        "Cached_bytes": 2803138560,
+        "SwapTotal_bytes": 22405963776,
+        "SwapFree_bytes": 17550172160
+      },
+      "pressure": {
+        "memory.some": {
+          "avg10": 1.3,
+          "avg60": 3.54,
+          "avg300": 1.35,
+          "total_us": 1135728267
+        },
+        "memory.full": {
+          "avg10": 1.19,
+          "avg60": 3.31,
+          "avg300": 1.27,
+          "total_us": 985266536
+        },
+        "cpu.some": {
+          "avg10": 1.44,
+          "avg60": 3.86,
+          "avg300": 2.25,
+          "total_us": 3457134959
+        },
+        "cpu.full": {
+          "avg10": 0.0,
+          "avg60": 0.0,
+          "avg300": 0.0,
+          "total_us": 0
+        },
+        "io.some": {
+          "avg10": 0.16,
+          "avg60": 0.63,
+          "avg300": 0.55,
+          "total_us": 514609563
+        },
+        "io.full": {
+          "avg10": 0.03,
+          "avg60": 0.28,
+          "avg300": 0.36,
+          "total_us": 350956299
+        }
+      },
+      "load_average": [
+        3.56,
+        2.54,
+        1.86
+      ],
+      "cpu_freq_khz": [
+        3800000,
+        3038562,
+        3799935,
+        3556926,
+        3800043,
+        1432058,
+        3800000,
+        3799961
+      ],
+      "thermal": [
+        {
+          "zone": "thermal_zone0",
+          "type": "acpitz",
+          "temp_c": 32.0
+        },
+        {
+          "zone": "thermal_zone1",
+          "type": "INT3400 Thermal",
+          "temp_c": 20.0
+        },
+        {
+          "zone": "thermal_zone2",
+          "type": "SEN1",
+          "temp_c": 55.05
+        },
+        {
+          "zone": "thermal_zone3",
+          "type": "TCPU",
+          "temp_c": 60.05
+        },
+        {
+          "zone": "thermal_zone4",
+          "type": "SEN2",
+          "temp_c": 42.05
+        },
+        {
+          "zone": "thermal_zone5",
+          "type": "x86_pkg_temp",
+          "temp_c": 60.0
+        },
+        {
+          "zone": "thermal_zone6",
+          "type": "iwlwifi_1",
+          "temp_c": 38.0
+        }
+      ]
+    },
+    "session": {
+      "WAYLAND_DISPLAY": "wayland-0",
+      "DISPLAY": ":0",
+      "XDG_RUNTIME_DIR": "/run/user/1000",
+      "XAUTHORITY": "/run/user/1000/xauth_WtbESS",
+      "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/1000/bus",
+      "XDG_CURRENT_DESKTOP": "KDE",
+      "XDG_SESSION_TYPE": "wayland"
+    },
+    "konsole": {
+      "path": "/usr/bin/konsole",
+      "version": "konsole 26.08.1"
+    },
+    "host_packages_sha256": "fe6c159cf9089083a9270ee386d311fa46620892c3a5f440d20097d0604c5e5f",
+    "host_desktop_entries_sha256": "ab0562c90184c6563b81fcfa6f6bf10f22cea42bd2cae3d1a1a1df57a3dafd78"
+  },
+  "images": {
+    "debian13": {
+      "tag": "localhost/multilinux/startup-debian13:20261022-1824",
+      "locked_reference": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+      "expected_digest": "sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+      "local_digest": "sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+      "digest_matches": true,
+      "image_id": "a2778b931ba0567a053a50409252ad10129bd52ea9fdedb784d62939ca0bd0cc",
+      "created": "2026-10-22T10:22:17.130607168Z",
+      "size_bytes": 1515651266
+    },
+    "arch": {
+      "tag": "localhost/multilinux/startup-arch:20261022-1824",
+      "locked_reference": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7",
+      "expected_digest": "sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7",
+      "local_digest": "sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7",
+      "digest_matches": true,
+      "image_id": "de128b7cc59dc76fcb90b7f1270b2a03eecfcc020b96483c2722c8c6fac309e5",
+      "created": "2026-10-22T10:22:32.947753881Z",
+      "size_bytes": 3010238943
+    }
+  },
+  "environments": {
+    "conc-debian": {
+      "target": "debian13",
+      "created_at": "2026-10-22T22:03:21+08:00",
+      "creation_seconds": 1.32,
+      "record": {
+        "schema_version": 1,
+        "id": "conc-debian",
+        "target": "debian13",
+        "distribution_id": "debian",
+        "version_track": "13",
+        "update_policy": "versioned-release",
+        "architecture": "amd64",
+        "base_image": {
+          "source": "localhost/multilinux/startup-debian13:20261022-1824",
+          "manifest_digest": "sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+          "locked_reference": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+          "image_version_label": null
+        },
+        "writable_revision": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+        "content_revision": 1,
+        "runtime_state": "stopped",
+        "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+        "package_inventory_count": 372,
+        "package_inventory_path": ".lab/state/environments/conc-debian.packages.txt",
+        "shared_mounts": [
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-debian",
+            "container": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-debian",
+            "options": "z"
+          }
+        ],
+        "desktop": {
+          "selinux_label": "disable",
+          "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+          "env": {
+            "WAYLAND_DISPLAY": "wayland-0",
+            "XDG_RUNTIME_DIR": "/run/user/1000",
+            "DISPLAY": ":0",
+            "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+            "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+            "PIPEWIRE_REMOTE": "pipewire-0",
+            "XDG_SESSION_TYPE": "wayland",
+            "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus"
+          },
+          "mounts": [
+            {
+              "host": "/run/user/1000/wayland-0",
+              "container": "/run/user/1000/wayland-0",
+              "options": ""
+            },
+            {
+              "host": "/tmp/.X11-unix/X0",
+              "container": "/tmp/.X11-unix/X0",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pulse/native",
+              "container": "/run/user/1000/pulse/native",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pipewire-0",
+              "container": "/run/user/1000/pipewire-0",
+              "options": ""
+            },
+            {
+              "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-debian",
+              "container": "/run/multilinux-portal",
+              "options": ""
+            }
+          ],
+          "portal_proxy": {
+            "directory": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-debian",
+            "container": "/run/multilinux-portal"
+          }
+        },
+        "created_at": "2026-10-22T22:03:21+08:00",
+        "updated_at": "2026-10-22T22:03:21+08:00",
+        "arch": null,
+        "runtime": {
+          "backend": "podman",
+          "container_name": "ml-be3863e1-conc-debian",
+          "container_id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+          "project": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project",
+          "network": "none",
+          "selinux_label": "disable",
+          "full_init": false,
+          "user_namespace": "keep-id",
+          "devices": [],
+          "ipc": "host",
+          "rootless": true
+        },
+        "observed": {
+          "os_release_id": "debian",
+          "os_release_version_id": "13",
+          "os_release_build_id": null,
+          "os_release_pretty_name": "Debian GNU/Linux 13 (trixie)",
+          "kernel": "7.2.11-200.fc44.x86_64",
+          "machine": "x86_64"
+        },
+        "created_by_uid": 1000,
+        "created_by_gid": 1000,
+        "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage."
+      },
+      "container_init": true,
+      "inspect_state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-22T22:03:20.275043394+08:00",
+        "FinishedAt": "2026-10-22T22:03:20.962724006+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "app_id": "conc-editor-debian",
+      "app_registration_seconds": 0.977,
+      "mousepad_version": "Mousepad 0.6.3\n\nCopyright (C) 2005-2024\n\tThe Mousepad developers. All rights reserved.\n\nPlease report bugs to <https://gitlab.xfce.org/apps/mousepad>.",
+      "package_inventory_count": 372,
+      "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "package_inventory_matches": true
+    },
+    "conc-arch": {
+      "target": "arch",
+      "created_at": "2026-10-22T22:03:24+08:00",
+      "creation_seconds": 1.191,
+      "record": {
+        "schema_version": 1,
+        "id": "conc-arch",
+        "target": "arch",
+        "distribution_id": "arch",
+        "version_track": "rolling",
+        "update_policy": "full-system-upgrade",
+        "architecture": "amd64",
+        "base_image": {
+          "source": "localhost/multilinux/startup-arch:20261022-1824",
+          "manifest_digest": "sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7",
+          "locked_reference": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7",
+          "image_version_label": "20261011.0.609700"
+        },
+        "writable_revision": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+        "content_revision": 1,
+        "runtime_state": "stopped",
+        "package_inventory_sha256": "4cd0877ccc6a7269a90b18ef0352c27055ba4e80b713dd596c651287f0d3efcb",
+        "package_inventory_count": 246,
+        "package_inventory_path": ".lab/state/environments/conc-arch.packages.txt",
+        "shared_mounts": [
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-arch",
+            "container": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-arch",
+            "options": "z"
+          }
+        ],
+        "desktop": {
+          "selinux_label": "disable",
+          "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+          "env": {
+            "WAYLAND_DISPLAY": "wayland-0",
+            "XDG_RUNTIME_DIR": "/run/user/1000",
+            "DISPLAY": ":0",
+            "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+            "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+            "PIPEWIRE_REMOTE": "pipewire-0",
+            "XDG_SESSION_TYPE": "wayland",
+            "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus"
+          },
+          "mounts": [
+            {
+              "host": "/run/user/1000/wayland-0",
+              "container": "/run/user/1000/wayland-0",
+              "options": ""
+            },
+            {
+              "host": "/tmp/.X11-unix/X0",
+              "container": "/tmp/.X11-unix/X0",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pulse/native",
+              "container": "/run/user/1000/pulse/native",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pipewire-0",
+              "container": "/run/user/1000/pipewire-0",
+              "options": ""
+            },
+            {
+              "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-arch",
+              "container": "/run/multilinux-portal",
+              "options": ""
+            }
+          ],
+          "portal_proxy": {
+            "directory": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-arch",
+            "container": "/run/multilinux-portal"
+          }
+        },
+        "created_at": "2026-10-22T22:03:24+08:00",
+        "updated_at": "2026-10-22T22:03:24+08:00",
+        "arch": {
+          "image_version_label": "20261011.0.609700",
+          "os_release_version_id": "20261011.0.609700",
+          "os_release_build_id": "rolling",
+          "repository_updated_at": null,
+          "package_set_sha256": "4cd0877ccc6a7269a90b18ef0352c27055ba4e80b713dd596c651287f0d3efcb",
+          "keyring_initialized_at": null
+        },
+        "runtime": {
+          "backend": "podman",
+          "container_name": "ml-be3863e1-conc-arch",
+          "container_id": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+          "project": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project",
+          "network": "none",
+          "selinux_label": "disable",
+          "full_init": false,
+          "user_namespace": "keep-id",
+          "devices": [],
+          "ipc": "host",
+          "rootless": true
+        },
+        "observed": {
+          "os_release_id": "arch",
+          "os_release_version_id": "20261011.0.609700",
+          "os_release_build_id": "rolling",
+          "os_release_pretty_name": "Arch Linux",
+          "kernel": "7.2.11-200.fc44.x86_64",
+          "machine": "x86_64"
+        },
+        "created_by_uid": 1000,
+        "created_by_gid": 1000,
+        "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage."
+      },
+      "container_init": true,
+      "inspect_state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-22T22:03:23.790665354+08:00",
+        "FinishedAt": "2026-10-22T22:03:24.490715418+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "app_id": "conc-editor-arch",
+      "app_registration_seconds": 0.987,
+      "mousepad_version": "Mousepad 0.7.0\n\nCopyright (C) 2005-2026\n\tThe Mousepad developers. All rights reserved.\n\nPlease report bugs to <https://gitlab.xfce.org/apps/mousepad/-/issues>.",
+      "package_inventory_count": 246,
+      "package_inventory_sha256": "4cd0877ccc6a7269a90b18ef0352c27055ba4e80b713dd596c651287f0d3efcb",
+      "package_inventory_matches": true
+    },
+    "conc-sep-1": {
+      "target": "debian13",
+      "created_at": "2026-10-22T22:03:28+08:00",
+      "creation_seconds": 1.167,
+      "record": {
+        "schema_version": 1,
+        "id": "conc-sep-1",
+        "target": "debian13",
+        "distribution_id": "debian",
+        "version_track": "13",
+        "update_policy": "versioned-release",
+        "architecture": "amd64",
+        "base_image": {
+          "source": "localhost/multilinux/startup-debian13:20261022-1824",
+          "manifest_digest": "sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+          "locked_reference": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+          "image_version_label": null
+        },
+        "writable_revision": "91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4",
+        "content_revision": 1,
+        "runtime_state": "stopped",
+        "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+        "package_inventory_count": 372,
+        "package_inventory_path": ".lab/state/environments/conc-sep-1.packages.txt",
+        "shared_mounts": [
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-1",
+            "container": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-1",
+            "options": "z"
+          }
+        ],
+        "desktop": {
+          "selinux_label": "disable",
+          "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+          "env": {
+            "WAYLAND_DISPLAY": "wayland-0",
+            "XDG_RUNTIME_DIR": "/run/user/1000",
+            "DISPLAY": ":0",
+            "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+            "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+            "PIPEWIRE_REMOTE": "pipewire-0",
+            "XDG_SESSION_TYPE": "wayland",
+            "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus"
+          },
+          "mounts": [
+            {
+              "host": "/run/user/1000/wayland-0",
+              "container": "/run/user/1000/wayland-0",
+              "options": ""
+            },
+            {
+              "host": "/tmp/.X11-unix/X0",
+              "container": "/tmp/.X11-unix/X0",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pulse/native",
+              "container": "/run/user/1000/pulse/native",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pipewire-0",
+              "container": "/run/user/1000/pipewire-0",
+              "options": ""
+            },
+            {
+              "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-sep-1",
+              "container": "/run/multilinux-portal",
+              "options": ""
+            }
+          ],
+          "portal_proxy": {
+            "directory": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-sep-1",
+            "container": "/run/multilinux-portal"
+          }
+        },
+        "created_at": "2026-10-22T22:03:28+08:00",
+        "updated_at": "2026-10-22T22:03:28+08:00",
+        "arch": null,
+        "runtime": {
+          "backend": "podman",
+          "container_name": "ml-be3863e1-conc-sep-1",
+          "container_id": "91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4",
+          "project": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project",
+          "network": "none",
+          "selinux_label": "disable",
+          "full_init": false,
+          "user_namespace": "keep-id",
+          "devices": [],
+          "ipc": "host",
+          "rootless": true
+        },
+        "observed": {
+          "os_release_id": "debian",
+          "os_release_version_id": "13",
+          "os_release_build_id": null,
+          "os_release_pretty_name": "Debian GNU/Linux 13 (trixie)",
+          "kernel": "7.2.11-200.fc44.x86_64",
+          "machine": "x86_64"
+        },
+        "created_by_uid": 1000,
+        "created_by_gid": 1000,
+        "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage."
+      },
+      "container_init": true,
+      "inspect_state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-22T22:03:27.330300811+08:00",
+        "FinishedAt": "2026-10-22T22:03:28.00670686+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "app_id": "conc-editor-sep-1",
+      "app_registration_seconds": 0.987,
+      "mousepad_version": "Mousepad 0.6.3\n\nCopyright (C) 2005-2024\n\tThe Mousepad developers. All rights reserved.\n\nPlease report bugs to <https://gitlab.xfce.org/apps/mousepad>.",
+      "package_inventory_count": 372,
+      "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "package_inventory_matches": true
+    },
+    "conc-sep-2": {
+      "target": "debian13",
+      "created_at": "2026-10-22T22:03:31+08:00",
+      "creation_seconds": 1.16,
+      "record": {
+        "schema_version": 1,
+        "id": "conc-sep-2",
+        "target": "debian13",
+        "distribution_id": "debian",
+        "version_track": "13",
+        "update_policy": "versioned-release",
+        "architecture": "amd64",
+        "base_image": {
+          "source": "localhost/multilinux/startup-debian13:20261022-1824",
+          "manifest_digest": "sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+          "locked_reference": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+          "image_version_label": null
+        },
+        "writable_revision": "f15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0",
+        "content_revision": 1,
+        "runtime_state": "stopped",
+        "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+        "package_inventory_count": 372,
+        "package_inventory_path": ".lab/state/environments/conc-sep-2.packages.txt",
+        "shared_mounts": [
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-2",
+            "container": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-2",
+            "options": "z"
+          }
+        ],
+        "desktop": {
+          "selinux_label": "disable",
+          "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+          "env": {
+            "WAYLAND_DISPLAY": "wayland-0",
+            "XDG_RUNTIME_DIR": "/run/user/1000",
+            "DISPLAY": ":0",
+            "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+            "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+            "PIPEWIRE_REMOTE": "pipewire-0",
+            "XDG_SESSION_TYPE": "wayland",
+            "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus"
+          },
+          "mounts": [
+            {
+              "host": "/run/user/1000/wayland-0",
+              "container": "/run/user/1000/wayland-0",
+              "options": ""
+            },
+            {
+              "host": "/tmp/.X11-unix/X0",
+              "container": "/tmp/.X11-unix/X0",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pulse/native",
+              "container": "/run/user/1000/pulse/native",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pipewire-0",
+              "container": "/run/user/1000/pipewire-0",
+              "options": ""
+            },
+            {
+              "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-sep-2",
+              "container": "/run/multilinux-portal",
+              "options": ""
+            }
+          ],
+          "portal_proxy": {
+            "directory": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-sep-2",
+            "container": "/run/multilinux-portal"
+          }
+        },
+        "created_at": "2026-10-22T22:03:31+08:00",
+        "updated_at": "2026-10-22T22:03:31+08:00",
+        "arch": null,
+        "runtime": {
+          "backend": "podman",
+          "container_name": "ml-be3863e1-conc-sep-2",
+          "container_id": "f15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0",
+          "project": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project",
+          "network": "none",
+          "selinux_label": "disable",
+          "full_init": false,
+          "user_namespace": "keep-id",
+          "devices": [],
+          "ipc": "host",
+          "rootless": true
+        },
+        "observed": {
+          "os_release_id": "debian",
+          "os_release_version_id": "13",
+          "os_release_build_id": null,
+          "os_release_pretty_name": "Debian GNU/Linux 13 (trixie)",
+          "kernel": "7.2.11-200.fc44.x86_64",
+          "machine": "x86_64"
+        },
+        "created_by_uid": 1000,
+        "created_by_gid": 1000,
+        "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage."
+      },
+      "container_init": true,
+      "inspect_state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-22T22:03:30.780858898+08:00",
+        "FinishedAt": "2026-10-22T22:03:31.460698452+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "app_id": "conc-editor-sep-2",
+      "app_registration_seconds": 0.98,
+      "mousepad_version": "Mousepad 0.6.3\n\nCopyright (C) 2005-2024\n\tThe Mousepad developers. All rights reserved.\n\nPlease report bugs to <https://gitlab.xfce.org/apps/mousepad>.",
+      "package_inventory_count": 372,
+      "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "package_inventory_matches": true
+    },
+    "conc-sep-3": {
+      "target": "debian13",
+      "created_at": "2026-10-22T22:03:35+08:00",
+      "creation_seconds": 1.16,
+      "record": {
+        "schema_version": 1,
+        "id": "conc-sep-3",
+        "target": "debian13",
+        "distribution_id": "debian",
+        "version_track": "13",
+        "update_policy": "versioned-release",
+        "architecture": "amd64",
+        "base_image": {
+          "source": "localhost/multilinux/startup-debian13:20261022-1824",
+          "manifest_digest": "sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+          "locked_reference": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae",
+          "image_version_label": null
+        },
+        "writable_revision": "8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599",
+        "content_revision": 1,
+        "runtime_state": "stopped",
+        "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+        "package_inventory_count": 372,
+        "package_inventory_path": ".lab/state/environments/conc-sep-3.packages.txt",
+        "shared_mounts": [
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-3",
+            "container": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-3",
+            "options": "z"
+          }
+        ],
+        "desktop": {
+          "selinux_label": "disable",
+          "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+          "env": {
+            "WAYLAND_DISPLAY": "wayland-0",
+            "XDG_RUNTIME_DIR": "/run/user/1000",
+            "DISPLAY": ":0",
+            "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+            "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+            "PIPEWIRE_REMOTE": "pipewire-0",
+            "XDG_SESSION_TYPE": "wayland",
+            "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus"
+          },
+          "mounts": [
+            {
+              "host": "/run/user/1000/wayland-0",
+              "container": "/run/user/1000/wayland-0",
+              "options": ""
+            },
+            {
+              "host": "/tmp/.X11-unix/X0",
+              "container": "/tmp/.X11-unix/X0",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pulse/native",
+              "container": "/run/user/1000/pulse/native",
+              "options": ""
+            },
+            {
+              "host": "/run/user/1000/pipewire-0",
+              "container": "/run/user/1000/pipewire-0",
+              "options": ""
+            },
+            {
+              "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-sep-3",
+              "container": "/run/multilinux-portal",
+              "options": ""
+            }
+          ],
+          "portal_proxy": {
+            "directory": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-sep-3",
+            "container": "/run/multilinux-portal"
+          }
+        },
+        "created_at": "2026-10-22T22:03:35+08:00",
+        "updated_at": "2026-10-22T22:03:35+08:00",
+        "arch": null,
+        "runtime": {
+          "backend": "podman",
+          "container_name": "ml-be3863e1-conc-sep-3",
+          "container_id": "8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599",
+          "project": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project",
+          "network": "none",
+          "selinux_label": "disable",
+          "full_init": false,
+          "user_namespace": "keep-id",
+          "devices": [],
+          "ipc": "host",
+          "rootless": true
+        },
+        "observed": {
+          "os_release_id": "debian",
+          "os_release_version_id": "13",
+          "os_release_build_id": null,
+          "os_release_pretty_name": "Debian GNU/Linux 13 (trixie)",
+          "kernel": "7.2.11-200.fc44.x86_64",
+          "machine": "x86_64"
+        },
+        "created_by_uid": 1000,
+        "created_by_gid": 1000,
+        "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage."
+      },
+      "container_init": true,
+      "inspect_state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-22T22:03:34.243537489+08:00",
+        "FinishedAt": "2026-10-22T22:03:34.919690033+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "app_id": "conc-editor-sep-3",
+      "app_registration_seconds": 0.991,
+      "mousepad_version": "Mousepad 0.6.3\n\nCopyright (C) 2005-2024\n\tThe Mousepad developers. All rights reserved.\n\nPlease report bugs to <https://gitlab.xfce.org/apps/mousepad>.",
+      "package_inventory_count": 372,
+      "package_inventory_sha256": "24a0dea4a82cb8451ea4fec09f31aaaabf1bf89a8c16393648718ac61fba28bd",
+      "package_inventory_matches": true
+    }
+  },
+  "apps": {
+    "conc-editor-debian": {
+      "environment_id": "conc-debian",
+      "registered_at": "2026-10-22T22:03:23+08:00",
+      "launch_record": {
+        "schema_version": 1,
+        "id": "conc-editor-debian",
+        "environment_id": "conc-debian",
+        "executable": "/usr/bin/dbus-run-session",
+        "argv": [
+          "/usr/bin/dbus-run-session",
+          "--",
+          "/usr/bin/mousepad",
+          "--disable-server"
+        ],
+        "workdir": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-debian",
+        "env": {
+          "WAYLAND_DISPLAY": "wayland-0",
+          "XDG_RUNTIME_DIR": "/run/user/1000",
+          "DISPLAY": ":0",
+          "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+          "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+          "PIPEWIRE_REMOTE": "pipewire-0",
+          "XDG_SESSION_TYPE": "wayland",
+          "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus",
+          "GDK_BACKEND": "wayland",
+          "GSETTINGS_BACKEND": "memory",
+          "WAYLAND_DEBUG": "client",
+          "LC_ALL": "C.UTF-8",
+          "XDG_CURRENT_DESKTOP": "KDE",
+          "HOME": "/home/multilinux-1000",
+          "USER": "omg",
+          "LOGNAME": "omg"
+        },
+        "user": "1000:1000",
+        "on_demand": true,
+        "package_origin": null,
+        "mounts": [
+          {
+            "host": "/run/user/1000/wayland-0",
+            "container": "/run/user/1000/wayland-0",
+            "options": ""
+          },
+          {
+            "host": "/tmp/.X11-unix/X0",
+            "container": "/tmp/.X11-unix/X0",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pulse/native",
+            "container": "/run/user/1000/pulse/native",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pipewire-0",
+            "container": "/run/user/1000/pipewire-0",
+            "options": ""
+          },
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-debian",
+            "container": "/run/multilinux-portal",
+            "options": ""
+          }
+        ],
+        "export": null,
+        "created_at": "2026-10-22T22:03:22+08:00",
+        "updated_at": "2026-10-22T22:03:22+08:00"
+      }
+    },
+    "conc-editor-arch": {
+      "environment_id": "conc-arch",
+      "registered_at": "2026-10-22T22:03:26+08:00",
+      "launch_record": {
+        "schema_version": 1,
+        "id": "conc-editor-arch",
+        "environment_id": "conc-arch",
+        "executable": "/usr/bin/dbus-run-session",
+        "argv": [
+          "/usr/bin/dbus-run-session",
+          "--",
+          "/usr/bin/mousepad",
+          "--disable-server"
+        ],
+        "workdir": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-arch",
+        "env": {
+          "WAYLAND_DISPLAY": "wayland-0",
+          "XDG_RUNTIME_DIR": "/run/user/1000",
+          "DISPLAY": ":0",
+          "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+          "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+          "PIPEWIRE_REMOTE": "pipewire-0",
+          "XDG_SESSION_TYPE": "wayland",
+          "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus",
+          "GDK_BACKEND": "wayland",
+          "GSETTINGS_BACKEND": "memory",
+          "WAYLAND_DEBUG": "client",
+          "LC_ALL": "C.UTF-8",
+          "XDG_CURRENT_DESKTOP": "KDE",
+          "HOME": "/home/multilinux-1000",
+          "USER": "omg",
+          "LOGNAME": "omg"
+        },
+        "user": "1000:1000",
+        "on_demand": true,
+        "package_origin": null,
+        "mounts": [
+          {
+            "host": "/run/user/1000/wayland-0",
+            "container": "/run/user/1000/wayland-0",
+            "options": ""
+          },
+          {
+            "host": "/tmp/.X11-unix/X0",
+            "container": "/tmp/.X11-unix/X0",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pulse/native",
+            "container": "/run/user/1000/pulse/native",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pipewire-0",
+            "container": "/run/user/1000/pipewire-0",
+            "options": ""
+          },
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-arch",
+            "container": "/run/multilinux-portal",
+            "options": ""
+          }
+        ],
+        "export": null,
+        "created_at": "2026-10-22T22:03:25+08:00",
+        "updated_at": "2026-10-22T22:03:25+08:00"
+      }
+    },
+    "conc-editor-sep-1": {
+      "environment_id": "conc-sep-1",
+      "registered_at": "2026-10-22T22:03:30+08:00",
+      "launch_record": {
+        "schema_version": 1,
+        "id": "conc-editor-sep-1",
+        "environment_id": "conc-sep-1",
+        "executable": "/usr/bin/dbus-run-session",
+        "argv": [
+          "/usr/bin/dbus-run-session",
+          "--",
+          "/usr/bin/mousepad",
+          "--disable-server"
+        ],
+        "workdir": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-1",
+        "env": {
+          "WAYLAND_DISPLAY": "wayland-0",
+          "XDG_RUNTIME_DIR": "/run/user/1000",
+          "DISPLAY": ":0",
+          "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+          "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+          "PIPEWIRE_REMOTE": "pipewire-0",
+          "XDG_SESSION_TYPE": "wayland",
+          "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus",
+          "GDK_BACKEND": "wayland",
+          "GSETTINGS_BACKEND": "memory",
+          "WAYLAND_DEBUG": "client",
+          "LC_ALL": "C.UTF-8",
+          "XDG_CURRENT_DESKTOP": "KDE",
+          "HOME": "/home/multilinux-1000",
+          "USER": "omg",
+          "LOGNAME": "omg"
+        },
+        "user": "1000:1000",
+        "on_demand": true,
+        "package_origin": null,
+        "mounts": [
+          {
+            "host": "/run/user/1000/wayland-0",
+            "container": "/run/user/1000/wayland-0",
+            "options": ""
+          },
+          {
+            "host": "/tmp/.X11-unix/X0",
+            "container": "/tmp/.X11-unix/X0",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pulse/native",
+            "container": "/run/user/1000/pulse/native",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pipewire-0",
+            "container": "/run/user/1000/pipewire-0",
+            "options": ""
+          },
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-sep-1",
+            "container": "/run/multilinux-portal",
+            "options": ""
+          }
+        ],
+        "export": null,
+        "created_at": "2026-10-22T22:03:29+08:00",
+        "updated_at": "2026-10-22T22:03:29+08:00"
+      }
+    },
+    "conc-editor-sep-2": {
+      "environment_id": "conc-sep-2",
+      "registered_at": "2026-10-22T22:03:33+08:00",
+      "launch_record": {
+        "schema_version": 1,
+        "id": "conc-editor-sep-2",
+        "environment_id": "conc-sep-2",
+        "executable": "/usr/bin/dbus-run-session",
+        "argv": [
+          "/usr/bin/dbus-run-session",
+          "--",
+          "/usr/bin/mousepad",
+          "--disable-server"
+        ],
+        "workdir": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-2",
+        "env": {
+          "WAYLAND_DISPLAY": "wayland-0",
+          "XDG_RUNTIME_DIR": "/run/user/1000",
+          "DISPLAY": ":0",
+          "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+          "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+          "PIPEWIRE_REMOTE": "pipewire-0",
+          "XDG_SESSION_TYPE": "wayland",
+          "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus",
+          "GDK_BACKEND": "wayland",
+          "GSETTINGS_BACKEND": "memory",
+          "WAYLAND_DEBUG": "client",
+          "LC_ALL": "C.UTF-8",
+          "XDG_CURRENT_DESKTOP": "KDE",
+          "HOME": "/home/multilinux-1000",
+          "USER": "omg",
+          "LOGNAME": "omg"
+        },
+        "user": "1000:1000",
+        "on_demand": true,
+        "package_origin": null,
+        "mounts": [
+          {
+            "host": "/run/user/1000/wayland-0",
+            "container": "/run/user/1000/wayland-0",
+            "options": ""
+          },
+          {
+            "host": "/tmp/.X11-unix/X0",
+            "container": "/tmp/.X11-unix/X0",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pulse/native",
+            "container": "/run/user/1000/pulse/native",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pipewire-0",
+            "container": "/run/user/1000/pipewire-0",
+            "options": ""
+          },
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-sep-2",
+            "container": "/run/multilinux-portal",
+            "options": ""
+          }
+        ],
+        "export": null,
+        "created_at": "2026-10-22T22:03:32+08:00",
+        "updated_at": "2026-10-22T22:03:32+08:00"
+      }
+    },
+    "conc-editor-sep-3": {
+      "environment_id": "conc-sep-3",
+      "registered_at": "2026-10-22T22:03:37+08:00",
+      "launch_record": {
+        "schema_version": 1,
+        "id": "conc-editor-sep-3",
+        "environment_id": "conc-sep-3",
+        "executable": "/usr/bin/dbus-run-session",
+        "argv": [
+          "/usr/bin/dbus-run-session",
+          "--",
+          "/usr/bin/mousepad",
+          "--disable-server"
+        ],
+        "workdir": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-3",
+        "env": {
+          "WAYLAND_DISPLAY": "wayland-0",
+          "XDG_RUNTIME_DIR": "/run/user/1000",
+          "DISPLAY": ":0",
+          "XAUTHORITY": "/run/multilinux-portal/Xauthority",
+          "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+          "PIPEWIRE_REMOTE": "pipewire-0",
+          "XDG_SESSION_TYPE": "wayland",
+          "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/multilinux-portal/bus",
+          "GDK_BACKEND": "wayland",
+          "GSETTINGS_BACKEND": "memory",
+          "WAYLAND_DEBUG": "client",
+          "LC_ALL": "C.UTF-8",
+          "XDG_CURRENT_DESKTOP": "KDE",
+          "HOME": "/home/multilinux-1000",
+          "USER": "omg",
+          "LOGNAME": "omg"
+        },
+        "user": "1000:1000",
+        "on_demand": true,
+        "package_origin": null,
+        "mounts": [
+          {
+            "host": "/run/user/1000/wayland-0",
+            "container": "/run/user/1000/wayland-0",
+            "options": ""
+          },
+          {
+            "host": "/tmp/.X11-unix/X0",
+            "container": "/tmp/.X11-unix/X0",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pulse/native",
+            "container": "/run/user/1000/pulse/native",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pipewire-0",
+            "container": "/run/user/1000/pipewire-0",
+            "options": ""
+          },
+          {
+            "host": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/desktop/conc-sep-3",
+            "container": "/run/multilinux-portal",
+            "options": ""
+          }
+        ],
+        "export": null,
+        "created_at": "2026-10-22T22:03:36+08:00",
+        "updated_at": "2026-10-22T22:03:36+08:00"
+      }
+    }
+  },
+  "env_map": {
+    "conc-debian": {
+      "target": "debian13",
+      "app_id": "conc-editor-debian",
+      "work": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-debian"
+    },
+    "conc-arch": {
+      "target": "arch",
+      "app_id": "conc-editor-arch",
+      "work": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-arch"
+    },
+    "conc-sep-1": {
+      "target": "debian13",
+      "app_id": "conc-editor-sep-1",
+      "work": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-1"
+    },
+    "conc-sep-2": {
+      "target": "debian13",
+      "app_id": "conc-editor-sep-2",
+      "work": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-2"
+    },
+    "conc-sep-3": {
+      "target": "debian13",
+      "app_id": "conc-editor-sep-3",
+      "work": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-3"
+    }
+  },
+  "creation_started_at": "2026-10-22T22:03:19+08:00",
+  "creation_finished_at": "2026-10-22T22:03:37+08:00",
+  "host_after_create": {
+    "taken_at": "2026-10-22T22:03:37+08:00",
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 211509248,
+      "MemAvailable_bytes": 1946787840,
+      "Cached_bytes": 2408701952,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 19293376512
+    },
+    "pressure": {
+      "memory.some": {
+        "avg10": 0.01,
+        "avg60": 0.11,
+        "avg300": 0.07,
+        "total_us": 1128223770
+      },
+      "memory.full": {
+        "avg10": 0.01,
+        "avg60": 0.11,
+        "avg300": 0.07,
+        "total_us": 978116477
+      },
+      "cpu.some": {
+        "avg10": 1.48,
+        "avg60": 0.48,
+        "avg300": 0.16,
+        "total_us": 3435708966
+      },
+      "cpu.full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 0
+      },
+      "io.some": {
+        "avg10": 2.1,
+        "avg60": 0.64,
+        "avg300": 0.14,
+        "total_us": 506199329
+      },
+      "io.full": {
+        "avg10": 2.1,
+        "avg60": 0.63,
+        "avg300": 0.14,
+        "total_us": 344081534
+      }
+    },
+    "load_average": [
+      1.4,
+      1.17,
+      1.08
+    ],
+    "cpu_freq_khz": [
+      3800038,
+      399568,
+      1934548,
+      842088,
+      3800000,
+      1312047,
+      1335197,
+      3060421
+    ],
+    "thermal": [
+      {
+        "zone": "thermal_zone0",
+        "type": "acpitz",
+        "temp_c": 32.0
+      },
+      {
+        "zone": "thermal_zone1",
+        "type": "INT3400 Thermal",
+        "temp_c": 20.0
+      },
+      {
+        "zone": "thermal_zone2",
+        "type": "SEN1",
+        "temp_c": 71.05
+      },
+      {
+        "zone": "thermal_zone3",
+        "type": "TCPU",
+        "temp_c": 69.05
+      },
+      {
+        "zone": "thermal_zone4",
+        "type": "SEN2",
+        "temp_c": 39.05
+      },
+      {
+        "zone": "thermal_zone5",
+        "type": "x86_pkg_temp",
+        "temp_c": 70.0
+      },
+      {
+        "zone": "thermal_zone6",
+        "type": "iwlwifi_1",
+        "temp_c": 33.0
+      }
+    ]
+  },
+  "created_at": "2026-10-22T22:03:37+08:00",
+  "probe": {
+    "started_at": "2026-10-22T22:18:07+08:00",
+    "tool_sha256": {
+      "tools/probe_concurrency.py": "7b13ecdfd8b346516dbdbabb17eba23a5a9e0fded6ee0d8ce2b87d14f7d9ad09",
+      "tools/prepare_concurrency.py": "3fd9057ccdafb24a42aa0e2bac4e505725f6438b68e2cd6acaa378eb2be91571",
+      "tools/probe_lifecycle.py": "275017408393f622f471b719375d05630781641bae123c4146d74efd98e70888",
+      "tools/startup_observer.py": "42743d0bc48f74dc80bfa910c7fc2f35d81a93d0bbcff377892d47c1a3d08461",
+      "tools/kwin_window_probe.py": "9f86ababba6cbb6aa66cc9c48f03cce1c15e7573c1acb243f89f54a3682e0161"
+    },
+    "scenarios": [
+      "S4",
+      "S5"
+    ],
+    "focus_guard": {
+      "loaded": true,
+      "plugin": "multilinux-lifecycle-focus-guard-843ddc5828e84b5eb2b85b781ac11091",
+      "script": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/observer/focus-guard-843ddc5828e84b5eb2b85b781ac11091.js"
+    },
+    "note_mode": "read-only (0444) work documents",
+    "finished_at": "2026-10-22T22:18:21+08:00",
+    "cleanup": {
+      "taken_at": "2026-10-22T22:18:21+08:00",
+      "started_at": "2026-10-22T22:18:07+08:00",
+      "closed_windows": [],
+      "remaining_windows": 0,
+      "remaining_window_details": [],
+      "native_killed": [],
+      "leftover_native_processes": 0,
+      "leftover_native_details": [],
+      "leftover_processes": 0,
+      "leftover_process_details": [],
+      "running_containers": 0,
+      "project_containers": [
+        {
+          "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+          "names": [
+            "ml-be3863e1-conc-debian"
+          ],
+          "state": "exited",
+          "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+        },
+        {
+          "id": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+          "names": [
+            "ml-be3863e1-conc-arch"
+          ],
+          "state": "exited",
+          "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+        },
+        {
+          "id": "91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4",
+          "names": [
+            "ml-be3863e1-conc-sep-1"
+          ],
+          "state": "exited",
+          "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+        },
+        {
+          "id": "f15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0",
+          "names": [
+            "ml-be3863e1-conc-sep-2"
+          ],
+          "state": "exited",
+          "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+        },
+        {
+          "id": "8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599",
+          "names": [
+            "ml-be3863e1-conc-sep-3"
+          ],
+          "state": "exited",
+          "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+        }
+      ],
+      "live_leases": 0,
+      "bridge_processes": 0,
+      "environment_states": {
+        "conc-debian": {
+          "record_runtime_state": "stopped",
+          "inspect": {
+            "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+            "running": false,
+            "status": "exited",
+            "pid": 0,
+            "exit_code": 143,
+            "init": true
+          }
+        },
+        "conc-arch": {
+          "record_runtime_state": "stopped",
+          "inspect": {
+            "id": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+            "running": false,
+            "status": "exited",
+            "pid": 0,
+            "exit_code": 143,
+            "init": true
+          }
+        },
+        "conc-sep-1": {
+          "record_runtime_state": "stopped",
+          "inspect": {
+            "id": "91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4",
+            "running": false,
+            "status": "exited",
+            "pid": 0,
+            "exit_code": 143,
+            "init": true
+          }
+        },
+        "conc-sep-2": {
+          "record_runtime_state": "stopped",
+          "inspect": {
+            "id": "f15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0",
+            "running": false,
+            "status": "exited",
+            "pid": 0,
+            "exit_code": 143,
+            "init": true
+          }
+        },
+        "conc-sep-3": {
+          "record_runtime_state": "stopped",
+          "inspect": {
+            "id": "8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599",
+            "running": false,
+            "status": "exited",
+            "pid": 0,
+            "exit_code": 143,
+            "init": true
+          }
+        }
+      },
+      "host_packages_sha256_before": "fe6c159cf9089083a9270ee386d311fa46620892c3a5f440d20097d0604c5e5f",
+      "host_packages_sha256_after": "fe6c159cf9089083a9270ee386d311fa46620892c3a5f440d20097d0604c5e5f",
+      "host_packages_unchanged": true,
+      "host_desktop_entries_sha256_before": "ab0562c90184c6563b81fcfa6f6bf10f22cea42bd2cae3d1a1a1df57a3dafd78",
+      "host_desktop_entries_sha256_after": "ab0562c90184c6563b81fcfa6f6bf10f22cea42bd2cae3d1a1a1df57a3dafd78",
+      "host_desktop_entries_unchanged": true,
+      "all_clean": true
+    },
+    "summary_sha256": "207fa12d147630cff19906cb1722c1723438717c557724c8afc51ede0439ea62",
+    "validation_sha256": "fee89b82a09441388b77611922d6122829d89e53429b4802af030d1526d16da1",
+    "report_sha256": "ac88209fe681a18e765558f28d4d73779222479aa00ce34fa3622767c1646474",
+    "rerun_scenarios": [
+      "S5",
+      "S7"
+    ],
+    "rerun_reason": "native Konsole marker collision in the first S5 attempt",
+    "rerun_reasons": {
+      "S5": "native Konsole marker collision matched a stale KWin window id",
+      "S7": "reopen-during-stop started only after the previous launcher exited; fixed to start 150-250 ms after the last close request"
+    }
+  },
+  "finished_at": "2026-10-22T22:18:21+08:00",
+  "notes": [
+    "S5（混合场景）第一次尝试因测量工具缺陷失败：原生 Konsole 窗口 marker 在不同场景复用，probe 匹配到上一场景遗留的 KWin added 事件里的已销毁窗口 ID，等待 buffer geometry 超时；原始样本保留在 attempt1/S5，未改写。",
+    "修复：原生窗口 marker 加入随机 UUID 保证全局唯一；validation 的每项 machine check 同时要求相关 wave 实际通过。S5 仅重跑 2 个 wave，均通过（2 native + Debian 2 + Arch 2；运行中项目容器=2；每环境 lease=2；关闭后两环境自动停止）。",
+    "最终 validation/summary/report 由 summary 子命令从全部原始 samples（S1–S7）重算；S5 使用重跑结果，attempt1/S5 仅作审计保留。",
+    "S7（敏捷并发）第一次尝试的算法缺陷：停止中重开 wave 在关闭最后一个窗口后先等待全部启动器退出（此时环境已经停止），重开发起时间实测 349.6–402.2 ms，不是要求的 150–250 ms。原始样本保留在 attempt1/S7，未改写。",
+    "修复：重开 wave 在最后一个 close 请求后直接计时，不再等待启动器退出；第二组 3 个并发启动在 150/200/250 ms 发起，此时 env 仍在 stopping 且租约锁被持有。重跑结果：发起时间 150.1/200.1/250.1 ms，重开就绪 p50 1942 ms（<3000 ms 参考），create 事件 0、start 事件 2（stop+restart 各一次）、单容器 ID 恒定、3 lease。",
+    "最终 validation/summary/report 由 summary 子命令从全部原始 samples（S1–S7）重算；S5 与 S7 使用重跑结果，attempt1/S5 与 attempt1/S7 仅作审计保留。",
+    "S5 原生就绪口径已改为 KWin windowAdded + 非空 frameGeometry，KWin 几何查询间隔 100ms；S4/S5 均已用新口径重跑：S4 3/3、S5 2/2 通过。",
+    "S7 重开计时已改为从最后一个 close 请求开始；重跑 10/10 并发首启 + 3/3 停止中重开通过，发起时间 150.1/200.1/250.1ms。",
+    "最终 validation 的 wave_counts 是修正后正式样本计数；attempt1/（S5 首轮失败、S7 口径缺陷）与 attempt2/（旧 bufferGeometry 口径）仅作审计保留，不计入通过率。"
+  ],
+  "attempt1": {
+    "directories": [
+      "attempt1/S5",
+      "attempt1/S7"
+    ],
+    "classification": "measurement-harness defects (native readiness criterion too strict; reopen timer started after launcher exit), not product defects",
+    "raw_samples_modified": false,
+    "reruns": {
+      "S5": "samples/S5",
+      "S7": "samples/S7"
+    }
+  },
+  "retry_history": [
+    {
+      "scenario": "S5",
+      "attempt_directory": "attempt1/S5",
+      "status": "failed",
+      "status_label": "第一轮两波均失败（not every mixed window became ready）",
+      "reason": "混合并发下原生 Konsole 的 KWin bufferGeometry 为 0；原生就绪口径强制 bufferWidth/Height>0 导致 25s 超时，且 5ms 一次的几何查询在单 wave 内留下 3300+ 个临时 KWin 脚本。",
+      "impact": "失败仅出现在原生侧就绪判定；拓扑检查未发现异常。原始 samples 保留在 attempt1/S5/scenario.json 与 wave-*/result.json。",
+      "product_defect": false,
+      "rerun_directory": "samples/S5",
+      "rerun_result": "原生就绪改为 KWin windowAdded + 非空 frameGeometry、查询间隔放宽到 100ms，并修复原生 marker 跨场景复用问题后重跑 2/2 通过；native 就绪约 429–545ms，混合 6 窗口全部 ready，运行中项目容器=2，每环境 lease=2，关闭后两环境自动停止。"
+    },
+    {
+      "scenario": "S5",
+      "attempt_directory": "attempt2/S5-buffergeom",
+      "status": "passed-under-old-criterion",
+      "status_label": "中间轮次（marker 唯一化修复后）在旧 bufferGeometry 口径下通过",
+      "reason": "仍使用 bufferWidth/Height>0 的原生就绪口径；为保证最终证据全部使用新口径而重跑。",
+      "impact": "保留作口径变更前的审计记录，不计入最终 wave_counts。",
+      "product_defect": false,
+      "rerun_directory": "samples/S5",
+      "rerun_result": "最终 samples/S5 使用 frameGeometry 口径并通过 2/2。"
+    },
+    {
+      "scenario": "S4",
+      "attempt_directory": "attempt2/S4-buffergeom",
+      "status": "passed-under-old-criterion",
+      "status_label": "旧 bufferGeometry 口径下的通过记录",
+      "reason": "与 S5 同步改写原生就绪口径后重跑，保证 S4/S5 口径一致。",
+      "impact": "保留作口径变更前的审计记录，不计入最终 wave_counts。",
+      "product_defect": false,
+      "rerun_directory": "samples/S4",
+      "rerun_result": "最终 samples/S4 使用 frameGeometry 口径并通过 3/3。"
+    },
+    {
+      "scenario": "S7",
+      "attempt_directory": "attempt1/S7",
+      "status": "passed-but-methodology-flawed",
+      "status_label": "第一轮 10/10 + 3/3 通过，但“停止中重开”计时口径有缺陷",
+      "reason": "重开 wave 在关闭最后一个窗口后先等待全部启动器退出（此时环境已经停止）才计时，实际重开发起为 349.6–402.2ms，不满足要求的 150–250ms。",
+      "impact": "波次本身没有失败，但并没有真正覆盖 env stopping 期间的重开；属于测量口径缺陷，原始样本保留在 attempt1/S7/。",
+      "product_defect": false,
+      "rerun_directory": "samples/S7",
+      "rerun_result": "改为最后一个 close 请求后直接计时：重开发起 150.1/200.1/250.1ms，重开就绪 p50 1942ms，10/10 并发首启 + 3/3 停止中重开通过，create 事件 0、start 事件 2（stop+restart 各一次）、容器 ID 恒定。"
+    }
+  ],
+  "attempt2": {
+    "directories": [
+      "attempt2/S4-buffergeom",
+      "attempt2/S5-buffergeom"
+    ],
+    "classification": "intermediate runs under the earlier bufferGeometry readiness criterion; kept for audit, excluded from final wave counts",
+    "raw_samples_modified": false
+  },
+  "wave_counts_scope": "final corrected samples only; attempt1/ and attempt2/ are excluded audit records"
+}

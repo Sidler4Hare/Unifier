@@ -1,0 +1,26 @@
+test_conflicting_record_is_refused_by_plan_driver_and_all_package_operations (test_catalog.CatalogContract.test_conflicting_record_is_refused_by_plan_driver_and_all_package_operations) ... ok
+test_create_rejects_conflicting_prepared_contract_before_runtime (test_catalog.CatalogContract.test_create_rejects_conflicting_prepared_contract_before_runtime) ... ok
+test_create_stores_the_runnable_contract (test_catalog.CatalogContract.test_create_stores_the_runnable_contract) ... ok
+test_identity_change_is_a_replacement_and_does_not_touch_the_container (test_catalog.CatalogContract.test_identity_change_is_a_replacement_and_does_not_touch_the_container) ... ok
+test_legacy_policy_conflict_cannot_override_prepared_target (test_catalog.CatalogContract.test_legacy_policy_conflict_cannot_override_prepared_target) ... ok
+test_legacy_records_agree_with_actual_three_driver_transactions (test_catalog.CatalogContract.test_legacy_records_agree_with_actual_three_driver_transactions) ... debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnb77285081df1
+fedora44: dnf install -y hello
+fedora44: install completed txn5798df211a7e
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txnfb2c11c1a4b3
+ok
+test_malformed_system_is_not_treated_as_a_legacy_record (test_catalog.CatalogContract.test_malformed_system_is_not_treated_as_a_legacy_record) ... ok
+test_new_name_with_implemented_driver_is_rejected_before_create (test_catalog.CatalogContract.test_new_name_with_implemented_driver_is_rejected_before_create) ... ok
+test_one_rpm_format_can_match_two_targets (test_catalog.CatalogContract.test_one_rpm_format_can_match_two_targets) ... ok
+test_prepared_target_rejects_a_different_libc (test_catalog.CatalogContract.test_prepared_target_rejects_a_different_libc) ... ok
+test_prepared_toml_matches_the_catalog (test_catalog.CatalogContract.test_prepared_toml_matches_the_catalog) ... ok
+test_reserved_package_policy_is_refused_before_any_command (test_catalog.CatalogContract.test_reserved_package_policy_is_refused_before_any_command) ... ok
+test_unnamed_target_must_carry_the_whole_contract (test_catalog.CatalogContract.test_unnamed_target_must_carry_the_whole_contract) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.038s
+
+OK

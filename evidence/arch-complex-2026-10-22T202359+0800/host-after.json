@@ -1,0 +1,24 @@
+{
+  "packages": {
+    "available": true,
+    "tool": "rpm",
+    "sha256": "79dcbb15555c7c798e0c7e9e66bf96d06ad2f7b0cc6ef936337d7bdd5a5a3757",
+    "count": 2522,
+    "error": null
+  },
+  "entries": {
+    "directory": "/home/omg/.local/share/applications",
+    "names": [
+      "antigravity.desktop",
+      "cc-switch-handler.desktop",
+      "clash-verge-handler.desktop",
+      "claude-code-url-handler.desktop",
+      "kos-settings.desktop",
+      "org.gptniang.KDE.desktop",
+      "org.kos.Platform.desktop",
+      "org.quickshell.desktop",
+      "qwen-win.desktop",
+      "wemeetapp.desktop"
+    ]
+  }
+}

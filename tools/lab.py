@@ -77,7 +77,24 @@ def targets():
         raise LabError("Unsupported target configuration")
     if set(data.get("targets", {})) != {"debian13", "fedora44", "arch"}:
         raise LabError("The v1 experiment requires exactly debian13, fedora44 and arch")
+    prepared = _prepared_catalog()
+    if set(prepared) != set(data["targets"]):
+        raise LabError("Prepared catalog does not match the v1 target set")
+    for name, expected in prepared.items():
+        target = data["targets"][name]
+        for key, value in expected.items():
+            if target.get(key) != value:
+                raise LabError(
+                    f"{name} catalog field {key} must be {value} for the prepared experiment")
     return data
+
+
+def _prepared_catalog():
+    src = ROOT / "src"
+    if str(src) not in sys.path:
+        sys.path.insert(0, str(src))
+    from multilinux.catalog import PREPARED
+    return PREPARED
 
 
 def repository(reference):

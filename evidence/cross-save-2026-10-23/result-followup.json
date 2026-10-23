@@ -1,0 +1,114 @@
+{
+  "time": "2026-10-23T11:06:52.632928+08:00",
+  "product_acceptance": false,
+  "state_before": "exited",
+  "start_exit": 0,
+  "stage_fd": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "opened_inode": 3052532,
+    "host_replacement_inode": 3052547,
+    "inside": {
+      "stale": "描述符打开时的原文\n",
+      "bytes_written_to_old_fd": 40,
+      "path_text_after_old_fd_write": "宿主换了新 inode\n",
+      "path_inode_after": 3052547
+    },
+    "final_text": "宿主换了新 inode\n",
+    "final_inode": 3052547
+  },
+  "dates": {
+    "host": "2026-10-23T11:06:53+08:00",
+    "container": "2026-10-23T03:06:53+00:00"
+  },
+  "outside_absolute": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "ml-edae1d18-complex-arch",
+      "sh",
+      "-c",
+      "test -e '/home/omg/文档/多兼容linux机/evidence/cross-save-2026-10-23/outside-marker.txt' && echo visible || echo absent"
+    ],
+    "exit_code": 0,
+    "stdout": "absent\n",
+    "stderr": ""
+  },
+  "root_relative_leftover": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "ml-edae1d18-complex-arch",
+      "sh",
+      "-c",
+      "test -e /相对零件.FCStd && echo present || echo absent"
+    ],
+    "exit_code": 0,
+    "stdout": "absent\n",
+    "stderr": ""
+  },
+  "home_leftover": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "ml-edae1d18-complex-arch",
+      "sh",
+      "-c",
+      "test -e /home/multilinux-1000/默认家目录.FCStd && echo present || echo absent"
+    ],
+    "exit_code": 0,
+    "stdout": "absent\n",
+    "stderr": ""
+  },
+  "readback_cmd": {
+    "argv": [
+      "podman",
+      "exec",
+      "-u",
+      "1000:1000",
+      "-w",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "-e",
+      "QT_QPA_PLATFORM=offscreen",
+      "-e",
+      "DISPLAY=",
+      "-e",
+      "WAYLAND_DISPLAY=",
+      "-e",
+      "ML_PROJECT=/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23",
+      "ml-edae1d18-complex-arch",
+      "freecadcmd",
+      "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/readback.py"
+    ],
+    "exit_code": 0,
+    "stdout": "FreeCAD 1.1.4, Libs: 1.1.4R45040 (Git)\n(C) 2001-2026 FreeCAD contributors\nFreeCAD is free and open-source software licensed under the terms of LGPL2+ license.\n\nImporting project files......\n\t\t\t\t\t\t(100 %)\t\n\t\t\t\t\t\t\t\t\nPostprocessing......\n\t\t\t\t\t\t(100 %)\t\n\t\t\t\t\t\t\t\t\nRecompute......\n\t\t\t\t\t\t(100 %)\t\n\t\t\t\t\t\t\t\t\n",
+    "stderr": ""
+  },
+  "readback": {
+    "backup_length": 10.0,
+    "backup_volume": 6000.0,
+    "step_volume": 6000.0,
+    "step_valid": true
+  },
+  "stop": {
+    "argv": [
+      "podman",
+      "stop",
+      "-t",
+      "0",
+      "ml-edae1d18-complex-arch"
+    ],
+    "exit_code": 0,
+    "stdout": "ml-edae1d18-complex-arch\n",
+    "stderr": ""
+  },
+  "state_after": "exited",
+  "xauth_removed": true
+}

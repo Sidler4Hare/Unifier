@@ -1,0 +1,16 @@
+[
+  {
+    "caption": "Multilinux FreeCAD build",
+    "resourceClass": "org.freecad.FreeCAD",
+    "pid": 1079319,
+    "objectType": "KWin::XdgToplevelWindow(0x55ca877c34a0)",
+    "wayland": null,
+    "x11": null,
+    "width": 1100,
+    "height": 788,
+    "bufferWidth": 1100,
+    "bufferHeight": 760,
+    "internalId": "{c46ef977-d620-4275-b978-0a5ba6e8b5e6}",
+    "active": true
+  }
+]

@@ -1,0 +1,1776 @@
+{
+  "time": "2026-10-23T10:52:02.965366+08:00",
+  "purpose": "stopped rootless rootfs view, symlink scope, volume, uid, host write",
+  "product_acceptance": false,
+  "image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+  "label_disable_scope": "temporary probe containers only; not a product default",
+  "host_uid": 1000,
+  "host_gid": 1000,
+  "host_user": "omg",
+  "host_os_release_first": "NAME=\"Fedora Linux\"",
+  "podman": {
+    "argv": [
+      "podman",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "podman version 5.8.9\n",
+    "stderr": "",
+    "seconds": 0.039171,
+    "error": null
+  },
+  "kernel": "7.2.11-200.fc44.x86_64",
+  "store": {
+    "rootless": true,
+    "selinux_enabled": true,
+    "graph_driver": "overlay",
+    "graph_root": "/home/omg/.local/share/containers/storage",
+    "graph_status": {
+      "Backing Filesystem": "btrfs",
+      "Native Overlay Diff": "true",
+      "Supports d_type": "true",
+      "Supports shifting": "false",
+      "Supports volatile": "true",
+      "Using metacopy": "false"
+    },
+    "run_root": "/run/user/1000/containers"
+  },
+  "subuid": [
+    "omg:524288:65536"
+  ],
+  "containers_before": {
+    "argv": [
+      "podman",
+      "ps",
+      "-aq",
+      "--no-trunc"
+    ],
+    "exit_code": 0,
+    "stdout": "ab0e889741ceaf7916ec6bc7625132540a9113a81eef83c8a35b6ddc8f088dfc\n763ff5a7cc29f2b578612a7a5fb73344511972f646818b8cb5fa5da9c6d73f72\n3abc1a7379b2d476899c1e3c2f0253c816d217b8c8cf85f7f4ec1a7d13d29ff6\na83a73c4cae8d823d413375bca84d7ccc18669f0e478979035b6999db225be75\n964f59f20224afd5b10595007d58f003eb3facfb1a5647deab0404f257d2bc23\n81072086d468e1942dd1b2b95055a4cf2f0ef544b84bce77dfe7a7d1c01f47d8\n42e752d86ccdd026da7024f6b354b4e236caaf893140dc87822847b9d4e321b6\n48d4ac0d7cdaa42606f0dabce0d7581b8ce2982e0d72e8a3ce3839fc45ce0c43\n6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c\n57aba3a81b7f2c5eefd3d58788b8546960f8df85892b21e6781421c48ce17255\n01905f6582c013decc73fae3d58fb4d32af46c3b229ac1ba8ff35627dfe7f892\n6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef\nb913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b\n4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948\n03c051edd89643449f95d7987b9dd037158c9309a68b062d102fddcb05ff7558\n9abc8cf0e8b8be5061df4c2b5a05f902d12456640b6237052c69f690ad350e45\nceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519\nf5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a\ne882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5\n61c8e9458782f7f4a703ca7a6e1a0e97cdce0d65af23b90db80a093936278c3e\ne3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742\n12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12\n91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4\nf15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0\n8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599\n",
+    "stderr": "",
+    "seconds": 0.048584,
+    "error": null
+  },
+  "volumes_before": {
+    "argv": [
+      "podman",
+      "volume",
+      "ls",
+      "-q"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "seconds": 0.034531,
+    "error": null
+  },
+  "image_exists": {
+    "argv": [
+      "podman",
+      "image",
+      "exists",
+      "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "seconds": 0.039324,
+    "error": null
+  },
+  "unshare_id": {
+    "argv": [
+      "podman",
+      "unshare",
+      "sh",
+      "-c",
+      "id; printf \"uid_map=\"; cat /proc/self/uid_map; printf \"gid_map=\"; cat /proc/self/gid_map"
+    ],
+    "exit_code": 0,
+    "stdout": "uid=0(root) gid=0(root) 组=0(root),65534(nobody) 上下文=unconfined_u:unconfined_r:container_runtime_t:s0-s0:c0.c1023\nuid_map=         0       1000          1\n         1     524288      65536\ngid_map=         0       1000          1\n         1     524288      65536\n",
+    "stderr": "",
+    "seconds": 0.045391,
+    "error": null
+  },
+  "cases": [
+    {
+      "mode": "default-rootless",
+      "container": "ml-viewproto-36794aa25b6a",
+      "volume": "ml-viewproto-36794aa25b6a",
+      "cleanup": [
+        {
+          "unshare": {
+            "exit_code": 0,
+            "seconds": 0.076439,
+            "stdout": "ml-viewproto-36794aa25b6a\n",
+            "stderr": "",
+            "error": null
+          },
+          "direct": {
+            "exit_code": 0,
+            "seconds": 0.037173,
+            "stdout": "ml-viewproto-36794aa25b6a\n",
+            "stderr": "",
+            "error": null
+          }
+        },
+        {
+          "argv": [
+            "podman",
+            "stop",
+            "-t",
+            "0",
+            "ml-viewproto-36794aa25b6a"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-36794aa25b6a\n",
+          "stderr": "",
+          "seconds": 0.045362,
+          "error": null
+        },
+        {
+          "argv": [
+            "podman",
+            "rm",
+            "-f",
+            "ml-viewproto-36794aa25b6a"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-36794aa25b6a\n",
+          "stderr": "",
+          "seconds": 0.080843,
+          "error": null
+        },
+        {
+          "argv": [
+            "podman",
+            "volume",
+            "rm",
+            "-f",
+            "ml-viewproto-36794aa25b6a"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-36794aa25b6a\n",
+          "stderr": "",
+          "seconds": 0.04753,
+          "error": null
+        }
+      ],
+      "volume_create": {
+        "argv": [
+          "podman",
+          "volume",
+          "create",
+          "ml-viewproto-36794aa25b6a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-36794aa25b6a\n",
+        "stderr": "",
+        "seconds": 0.055025,
+        "error": null
+      },
+      "create": {
+        "argv": [
+          "podman",
+          "create",
+          "--name",
+          "ml-viewproto-36794aa25b6a",
+          "--pull=never",
+          "--network=none",
+          "--cap-drop=ALL",
+          "--security-opt=no-new-privileges",
+          "--security-opt=label=disable",
+          "--http-proxy=false",
+          "--volume",
+          "ml-viewproto-36794aa25b6a:/var/ml-volume",
+          "--entrypoint",
+          "/bin/sleep",
+          "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+          "3600"
+        ],
+        "exit_code": 0,
+        "stdout": "3588c793f969b35547ca529b788895e7b5ac6477825bd8945a44f6f9a059f0c1\n",
+        "stderr": "",
+        "seconds": 0.089265,
+        "error": null
+      },
+      "start": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewproto-36794aa25b6a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-36794aa25b6a\n",
+        "stderr": "",
+        "seconds": 0.126674,
+        "error": null
+      },
+      "user_setup": {
+        "argv": [
+          "podman",
+          "exec",
+          "-i",
+          "ml-viewproto-36794aa25b6a",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "euid=0\negid=0\nuser_home_write=ok\nstat /home/mlview/private.txt uid=0 gid=0 mode=644\nuser_volume_write=ok\nstat /var/ml-volume/user-payload.txt uid=0 gid=0 mode=644\nprobe_done=user\n",
+        "stderr": "",
+        "seconds": 0.141384,
+        "error": null
+      },
+      "user_setup_kv": {
+        "euid": "0",
+        "egid": "0",
+        "user_home_write": "ok",
+        "user_volume_write": "ok",
+        "probe_done": "user"
+      },
+      "user_setup_stat": [
+        "stat /home/mlview/private.txt uid=0 gid=0 mode=644",
+        "stat /var/ml-volume/user-payload.txt uid=0 gid=0 mode=644"
+      ],
+      "root_setup": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewproto-36794aa25b6a",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "volume_write=ok\nroot_euid=0\nroot_egid=0\nstat /var/ml-persistent/private.txt uid=0 gid=0 mode=644\nstat /var/ml-volume uid=0 gid=0 mode=755\nstat /var/ml-volume/payload.txt uid=0 gid=0 mode=644\nmountinfo=945 1025 0:36 /home/omg/.local/share/containers/storage/volumes/ml-viewproto-36794aa25b6a/_data /var/ml-volume rw,nosuid,nodev,relatime - btrfs /dev/nvme0n1p3 rw,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/home\nprobe_done=root\n",
+        "stderr": "",
+        "seconds": 0.134885,
+        "error": null
+      },
+      "root_setup_kv": {
+        "volume_write": "ok",
+        "root_euid": "0",
+        "root_egid": "0",
+        "mountinfo": "945 1025 0:36 /home/omg/.local/share/containers/storage/volumes/ml-viewproto-36794aa25b6a/_data /var/ml-volume rw,nosuid,nodev,relatime - btrfs /dev/nvme0n1p3 rw,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/home",
+        "probe_done": "root"
+      },
+      "root_setup_stat": [
+        "stat /var/ml-persistent/private.txt uid=0 gid=0 mode=644",
+        "stat /var/ml-volume uid=0 gid=0 mode=755",
+        "stat /var/ml-volume/payload.txt uid=0 gid=0 mode=644"
+      ],
+      "stop": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "0",
+          "ml-viewproto-36794aa25b6a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-36794aa25b6a\n",
+        "stderr": "",
+        "seconds": 0.352098,
+        "error": null
+      },
+      "inspect_stopped": {
+        "status": "exited",
+        "userns_mode": "",
+        "mounts": [
+          {
+            "Type": "volume",
+            "Name": "ml-viewproto-36794aa25b6a",
+            "Source": "/home/omg/.local/share/containers/storage/volumes/ml-viewproto-36794aa25b6a/_data",
+            "Destination": "/var/ml-volume",
+            "Driver": "local",
+            "Mode": "",
+            "RW": true
+          }
+        ],
+        "graph_driver": "overlay",
+        "graph_data": {
+          "LowerDir": "/home/omg/.local/share/containers/storage/overlay/15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62/diff",
+          "UpperDir": "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/diff",
+          "WorkDir": "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/work"
+        }
+      },
+      "upper_stopped": {
+        "host_list": {
+          "names": [
+            "etc",
+            "home",
+            "run",
+            "var"
+          ],
+          "count": 4
+        },
+        "host_private": {
+          "text": "container-private\n"
+        },
+        "host_private_stat": {
+          "uid": 1000,
+          "gid": 1000,
+          "mode": "0o100644",
+          "is_symlink": false,
+          "is_dir": false,
+          "selinux": "system_u:object_r:container_file_t:s0:c1022,c1023"
+        },
+        "host_volume_dir": {
+          "names": [],
+          "count": 0
+        },
+        "unshare_private": {
+          "argv": [
+            "podman",
+            "unshare",
+            "cat",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/diff/var/ml-persistent/private.txt"
+          ],
+          "exit_code": 0,
+          "stdout": "container-private\n",
+          "stderr": "",
+          "seconds": 0.038784,
+          "error": null
+        },
+        "unshare_private_stat": {
+          "argv": [
+            "podman",
+            "unshare",
+            "stat",
+            "-c",
+            "uid=%u gid=%g mode=%a",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/diff/var/ml-persistent/private.txt"
+          ],
+          "exit_code": 0,
+          "stdout": "uid=0 gid=0 mode=644\n",
+          "stderr": "",
+          "seconds": 0.038622,
+          "error": null
+        },
+        "unshare_volume_dir": {
+          "argv": [
+            "podman",
+            "unshare",
+            "ls",
+            "-la",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/diff/var/ml-volume"
+          ],
+          "exit_code": 0,
+          "stdout": "总计 0\ndrwxr-xr-t. 1 root root  0 10月23日 10:52 .\ndrwxr-xr-x. 1 root root 44 10月23日 10:52 ..\n",
+          "stderr": "",
+          "seconds": 0.041191,
+          "error": null
+        }
+      },
+      "volume_source": "/home/omg/.local/share/containers/storage/volumes/ml-viewproto-36794aa25b6a/_data",
+      "volume_stopped": {
+        "host_list": {
+          "names": [
+            "payload.txt",
+            "user-payload.txt"
+          ],
+          "count": 2
+        },
+        "host_dir_stat": {
+          "uid": 1000,
+          "gid": 1000,
+          "mode": "0o40755",
+          "is_symlink": false,
+          "is_dir": true,
+          "selinux": "system_u:object_r:container_file_t:s0"
+        },
+        "host_payload": {
+          "text": "volume-payload\n"
+        },
+        "host_payload_stat": {
+          "uid": 1000,
+          "gid": 1000,
+          "mode": "0o100644",
+          "is_symlink": false,
+          "is_dir": false,
+          "selinux": "unconfined_u:object_r:container_file_t:s0"
+        },
+        "host_user_payload": {
+          "text": "user-volume-payload\n"
+        },
+        "host_user_payload_stat": {
+          "uid": 1000,
+          "gid": 1000,
+          "mode": "0o100644",
+          "is_symlink": false,
+          "is_dir": false,
+          "selinux": "unconfined_u:object_r:container_file_t:s0"
+        },
+        "unshare_payload": {
+          "argv": [
+            "podman",
+            "unshare",
+            "cat",
+            "/home/omg/.local/share/containers/storage/volumes/ml-viewproto-36794aa25b6a/_data/payload.txt"
+          ],
+          "exit_code": 0,
+          "stdout": "volume-payload\n",
+          "stderr": "",
+          "seconds": 0.040469,
+          "error": null
+        },
+        "unshare_payload_stat": {
+          "argv": [
+            "podman",
+            "unshare",
+            "stat",
+            "-c",
+            "uid=%u gid=%g mode=%a",
+            "/home/omg/.local/share/containers/storage/volumes/ml-viewproto-36794aa25b6a/_data/payload.txt"
+          ],
+          "exit_code": 0,
+          "stdout": "uid=0 gid=0 mode=644\n",
+          "stderr": "",
+          "seconds": 0.039016,
+          "error": null
+        }
+      },
+      "volume_host_write": {
+        "written": true,
+        "stat": {
+          "uid": 1000,
+          "gid": 1000,
+          "mode": "0o100644",
+          "is_symlink": false,
+          "is_dir": false,
+          "selinux": "unconfined_u:object_r:container_file_t:s0"
+        },
+        "readback": {
+          "text": "host-volume-write\n"
+        }
+      },
+      "cold_mount": {
+        "exit_code": 0,
+        "seconds": 0.144123,
+        "direct_seconds": 0.034883,
+        "unshare_seconds": 0.10924,
+        "mount_path": "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged",
+        "under_storage": true,
+        "stderr": "",
+        "error": null,
+        "direct": {
+          "exit_code": 125,
+          "seconds": 0.034883,
+          "stdout": "",
+          "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+          "error": null
+        },
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.10924,
+          "stdout": "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged\n",
+          "stderr": "",
+          "error": null
+        },
+        "findmnt": {
+          "argv": [
+            "findmnt",
+            "-n",
+            "-o",
+            "FSTYPE,SOURCE,TARGET",
+            "-T",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged"
+          ],
+          "exit_code": 0,
+          "stdout": "btrfs /dev/nvme0n1p3[/home] /home\n",
+          "stderr": "",
+          "seconds": 0.004124,
+          "error": null
+        }
+      },
+      "stopped_view": {
+        "root_listing": {
+          "names": [],
+          "count": 0
+        },
+        "base_listing": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "private": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "private_stat": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "relative_link": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "relative_read": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "absolute_link": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "absolute_read": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "absolute_realpath": "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged/var/ml-persistent/abs-link",
+        "os_link": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "os_link_read": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "rootfs_os_release": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "merged_volume_listing": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "merged_volume_read": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "volume_link_read": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "unshare_os_link": {
+          "argv": [
+            "podman",
+            "unshare",
+            "cat",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged/var/ml-persistent/os-link"
+          ],
+          "exit_code": 0,
+          "stdout": "NAME=\"Fedora Linux\"\nVERSION=\"44 (KDE Plasma Desktop Edition)\"\nRELEASE_TYPE=stable\nID=fedora\nVERSION_ID=44\nVERSION_CODENAME=\"\"\nPRETTY_NAME=\"Fedora Linux 44 (KDE Plasma Desktop Edition)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:44\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f44/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=44\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=44\nSUPPORT_END=2027-05-19\nVARIANT=\"KDE Plasma Desktop Edition\"\nVARIANT_ID=kde\n",
+          "stderr": "",
+          "seconds": 0.039308,
+          "error": null
+        },
+        "unshare_chroot_os_link": {
+          "argv": [
+            "podman",
+            "unshare",
+            "chroot",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged",
+            "cat",
+            "/var/ml-persistent/os-link"
+          ],
+          "exit_code": 0,
+          "stdout": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.7\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\"\n",
+          "stderr": "",
+          "seconds": 0.041854,
+          "error": null
+        },
+        "unshare_chroot_abs": {
+          "argv": [
+            "podman",
+            "unshare",
+            "chroot",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged",
+            "cat",
+            "/var/ml-persistent/abs-link"
+          ],
+          "exit_code": 0,
+          "stdout": "container-target\n",
+          "stderr": "",
+          "seconds": 0.041572,
+          "error": null
+        },
+        "unshare_chroot_rel": {
+          "argv": [
+            "podman",
+            "unshare",
+            "chroot",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged",
+            "cat",
+            "/var/ml-persistent/rel-link"
+          ],
+          "exit_code": 0,
+          "stdout": "container-target\n",
+          "stderr": "",
+          "seconds": 0.040284,
+          "error": null
+        },
+        "unshare_chroot_volume": {
+          "argv": [
+            "podman",
+            "unshare",
+            "chroot",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged",
+            "cat",
+            "/var/ml-volume/payload.txt"
+          ],
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "cat: /var/ml-volume/payload.txt: No such file or directory\n",
+          "seconds": 0.039787,
+          "error": null
+        },
+        "unshare_root_list": {
+          "argv": [
+            "podman",
+            "unshare",
+            "ls",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged"
+          ],
+          "exit_code": 0,
+          "stdout": "bin\nboot\ndev\netc\nhome\nlib\nlib64\nmedia\nmnt\nopt\nproc\nroot\nrun\nsbin\nsrv\nsys\ntmp\nusr\nvar\n",
+          "stderr": "",
+          "seconds": 0.040583,
+          "error": null
+        },
+        "unshare_private_stat": {
+          "argv": [
+            "podman",
+            "unshare",
+            "stat",
+            "-c",
+            "uid=%u gid=%g mode=%a",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged/var/ml-persistent/private.txt"
+          ],
+          "exit_code": 0,
+          "stdout": "uid=0 gid=0 mode=644\n",
+          "stderr": "",
+          "seconds": 0.039999,
+          "error": null
+        }
+      },
+      "root_host_write": {
+        "error": "FileNotFoundError",
+        "errno": 2,
+        "message": "No such file or directory"
+      },
+      "home_host_write": {
+        "skipped": "app home was not created"
+      },
+      "cold_umount": {
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.093012,
+          "stdout": "ml-viewproto-36794aa25b6a\n",
+          "stderr": "",
+          "error": null
+        },
+        "direct": {
+          "exit_code": 0,
+          "seconds": 0.03728,
+          "stdout": "ml-viewproto-36794aa25b6a\n",
+          "stderr": "",
+          "error": null
+        }
+      },
+      "warm_mount": {
+        "exit_code": 0,
+        "seconds": 0.139369,
+        "direct_seconds": 0.03288,
+        "unshare_seconds": 0.106489,
+        "mount_path": "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged",
+        "under_storage": true,
+        "stderr": "",
+        "error": null,
+        "direct": {
+          "exit_code": 125,
+          "seconds": 0.03288,
+          "stdout": "",
+          "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+          "error": null
+        },
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.106489,
+          "stdout": "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged\n",
+          "stderr": "",
+          "error": null
+        },
+        "findmnt": {
+          "argv": [
+            "findmnt",
+            "-n",
+            "-o",
+            "FSTYPE,SOURCE,TARGET",
+            "-T",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged"
+          ],
+          "exit_code": 0,
+          "stdout": "btrfs /dev/nvme0n1p3[/home] /home\n",
+          "stderr": "",
+          "seconds": 0.00271,
+          "error": null
+        }
+      },
+      "warm_reread": {
+        "private": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "host_written": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "os_link_read": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "unshare_private": {
+          "argv": [
+            "podman",
+            "unshare",
+            "cat",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged/var/ml-persistent/private.txt"
+          ],
+          "exit_code": 0,
+          "stdout": "container-private\n",
+          "stderr": "",
+          "seconds": 0.03886,
+          "error": null
+        }
+      },
+      "warm_umount": {
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.08501,
+          "stdout": "ml-viewproto-36794aa25b6a\n",
+          "stderr": "",
+          "error": null
+        },
+        "direct": {
+          "exit_code": 0,
+          "seconds": 0.0387,
+          "stdout": "ml-viewproto-36794aa25b6a\n",
+          "stderr": "",
+          "error": null
+        }
+      },
+      "restart": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewproto-36794aa25b6a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-36794aa25b6a\n",
+        "stderr": "",
+        "seconds": 0.118047,
+        "error": null
+      },
+      "running_mount": {
+        "exit_code": 0,
+        "seconds": 0.137787,
+        "direct_seconds": 0.031226,
+        "unshare_seconds": 0.106561,
+        "mount_path": "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged",
+        "under_storage": true,
+        "stderr": "",
+        "error": null,
+        "direct": {
+          "exit_code": 125,
+          "seconds": 0.031226,
+          "stdout": "",
+          "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+          "error": null
+        },
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.106561,
+          "stdout": "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged\n",
+          "stderr": "",
+          "error": null
+        },
+        "findmnt": {
+          "argv": [
+            "findmnt",
+            "-n",
+            "-o",
+            "FSTYPE,SOURCE,TARGET",
+            "-T",
+            "/home/omg/.local/share/containers/storage/overlay/4d224673bb220c4250d23aefdcf0009a9fb5d02986e8461885f85d043f534ce0/merged"
+          ],
+          "exit_code": 0,
+          "stdout": "btrfs /dev/nvme0n1p3[/home] /home\n",
+          "stderr": "",
+          "seconds": 0.002732,
+          "error": null
+        }
+      },
+      "running_view_read": {
+        "private": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "os_link_read": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "note": "read only; this probe does not write a live overlay"
+      },
+      "running_umount": {
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.071924,
+          "stdout": "ml-viewproto-36794aa25b6a\n",
+          "stderr": "",
+          "error": null
+        },
+        "direct": {
+          "exit_code": 0,
+          "seconds": 0.037046,
+          "stdout": "ml-viewproto-36794aa25b6a\n",
+          "stderr": "",
+          "error": null
+        }
+      },
+      "verify_cmd": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewproto-36794aa25b6a",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "euid=0\npersistent=container-private\nhost_written=absent\nhome_host_written=absent\nvolume=volume-payload\nuser_volume=user-volume-payload\nhost_volume=host-volume-write\nos_inside=PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nprobe_done=verify\n",
+        "stderr": "",
+        "seconds": 0.143663,
+        "error": null
+      },
+      "verify": {
+        "kv": {
+          "euid": "0",
+          "persistent": "container-private",
+          "host_written": "absent",
+          "home_host_written": "absent",
+          "volume": "volume-payload",
+          "user_volume": "user-volume-payload",
+          "host_volume": "host-volume-write",
+          "os_inside": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"",
+          "probe_done": "verify"
+        },
+        "stat": []
+      },
+      "stop_after_verify": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "0",
+          "ml-viewproto-36794aa25b6a"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-36794aa25b6a\n",
+        "stderr": "",
+        "seconds": 0.123884,
+        "error": null
+      },
+      "judgment": {
+        "direct_mount_refused": true,
+        "unshare_mount_ok": true,
+        "host_can_list_stopped_root": true,
+        "unshare_can_list_stopped_root": true,
+        "host_direct_absolute_symlink_matches_host": false,
+        "user_namespace_without_chroot_matches_host": true,
+        "chroot_absolute_symlink_matches_container": true,
+        "relative_symlink_reads_container_target": false,
+        "volume_file_visible_in_stopped_merged_root": false,
+        "host_can_read_upper_private": true,
+        "unshare_can_read_upper_private": true,
+        "volume_payload_visible_on_host_path": true,
+        "user_volume_visible_on_host_path": true,
+        "root_host_write": false,
+        "home_host_write": false,
+        "volume_host_write": true,
+        "restart_sees_root_host_write": false,
+        "restart_sees_volume": true,
+        "restart_sees_user_volume": true,
+        "restart_sees_host_volume_write": true,
+        "user_home_write": "ok",
+        "user_volume_write": "ok",
+        "root_volume_write": "ok"
+      },
+      "leftover_mounts": []
+    },
+    {
+      "mode": "keep-id",
+      "container": "ml-viewproto-5458382ac65c",
+      "volume": "ml-viewproto-5458382ac65c",
+      "cleanup": [
+        {
+          "unshare": {
+            "exit_code": 0,
+            "seconds": 0.081929,
+            "stdout": "ml-viewproto-5458382ac65c\n",
+            "stderr": "",
+            "error": null
+          },
+          "direct": {
+            "exit_code": 0,
+            "seconds": 0.038374,
+            "stdout": "ml-viewproto-5458382ac65c\n",
+            "stderr": "",
+            "error": null
+          }
+        },
+        {
+          "argv": [
+            "podman",
+            "stop",
+            "-t",
+            "0",
+            "ml-viewproto-5458382ac65c"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-5458382ac65c\n",
+          "stderr": "",
+          "seconds": 0.045998,
+          "error": null
+        },
+        {
+          "argv": [
+            "podman",
+            "rm",
+            "-f",
+            "ml-viewproto-5458382ac65c"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-5458382ac65c\n",
+          "stderr": "",
+          "seconds": 0.078259,
+          "error": null
+        },
+        {
+          "argv": [
+            "podman",
+            "volume",
+            "rm",
+            "-f",
+            "ml-viewproto-5458382ac65c"
+          ],
+          "exit_code": 0,
+          "stdout": "ml-viewproto-5458382ac65c\n",
+          "stderr": "",
+          "seconds": 0.048601,
+          "error": null
+        }
+      ],
+      "volume_create": {
+        "argv": [
+          "podman",
+          "volume",
+          "create",
+          "ml-viewproto-5458382ac65c"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-5458382ac65c\n",
+        "stderr": "",
+        "seconds": 0.046927,
+        "error": null
+      },
+      "create": {
+        "argv": [
+          "podman",
+          "create",
+          "--name",
+          "ml-viewproto-5458382ac65c",
+          "--pull=never",
+          "--network=none",
+          "--cap-drop=ALL",
+          "--security-opt=no-new-privileges",
+          "--security-opt=label=disable",
+          "--http-proxy=false",
+          "--volume",
+          "ml-viewproto-5458382ac65c:/var/ml-volume",
+          "--entrypoint",
+          "/bin/sleep",
+          "--userns=keep-id",
+          "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+          "3600"
+        ],
+        "exit_code": 0,
+        "stdout": "7d1b8a7af29253e35f9b20169f21a8c944ff9184222ab75fd5fdc1ed7df087b3\n",
+        "stderr": "",
+        "seconds": 0.082577,
+        "error": null
+      },
+      "start": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewproto-5458382ac65c"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-5458382ac65c\n",
+        "stderr": "",
+        "seconds": 0.115998,
+        "error": null
+      },
+      "user_setup": {
+        "argv": [
+          "podman",
+          "exec",
+          "-i",
+          "ml-viewproto-5458382ac65c",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "euid=1000\negid=1000\nuser_home_write=fail\nuser_volume_write=ok\nstat /var/ml-volume/user-payload.txt uid=1000 gid=1000 mode=644\nprobe_done=user\n",
+        "stderr": "mkdir: cannot create directory '/home/mlview': Permission denied\n",
+        "seconds": 0.148511,
+        "error": null
+      },
+      "user_setup_kv": {
+        "euid": "1000",
+        "egid": "1000",
+        "user_home_write": "fail",
+        "user_volume_write": "ok",
+        "probe_done": "user"
+      },
+      "user_setup_stat": [
+        "stat /var/ml-volume/user-payload.txt uid=1000 gid=1000 mode=644"
+      ],
+      "root_setup": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewproto-5458382ac65c",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "volume_write=fail\nroot_euid=0\nroot_egid=0\nstat /var/ml-persistent/private.txt uid=0 gid=0 mode=644\nstat /var/ml-volume uid=1000 gid=1000 mode=755\nmountinfo=947 1102 0:36 /home/omg/.local/share/containers/storage/volumes/ml-viewproto-5458382ac65c/_data /var/ml-volume rw,nosuid,nodev,relatime - btrfs /dev/nvme0n1p3 rw,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/home\nprobe_done=root\n",
+        "stderr": "/bin/sh: 8: cannot create /var/ml-volume/payload.txt: Permission denied\nstat: cannot statx '/var/ml-volume/payload.txt': No such file or directory\n",
+        "seconds": 0.142615,
+        "error": null
+      },
+      "root_setup_kv": {
+        "volume_write": "fail",
+        "root_euid": "0",
+        "root_egid": "0",
+        "mountinfo": "947 1102 0:36 /home/omg/.local/share/containers/storage/volumes/ml-viewproto-5458382ac65c/_data /var/ml-volume rw,nosuid,nodev,relatime - btrfs /dev/nvme0n1p3 rw,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/home",
+        "probe_done": "root"
+      },
+      "root_setup_stat": [
+        "stat /var/ml-persistent/private.txt uid=0 gid=0 mode=644",
+        "stat /var/ml-volume uid=1000 gid=1000 mode=755"
+      ],
+      "stop": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "0",
+          "ml-viewproto-5458382ac65c"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-5458382ac65c\n",
+        "stderr": "",
+        "seconds": 0.157695,
+        "error": null
+      },
+      "inspect_stopped": {
+        "status": "exited",
+        "userns_mode": "private",
+        "mounts": [
+          {
+            "Type": "volume",
+            "Name": "ml-viewproto-5458382ac65c",
+            "Source": "/home/omg/.local/share/containers/storage/volumes/ml-viewproto-5458382ac65c/_data",
+            "Destination": "/var/ml-volume",
+            "Driver": "local",
+            "Mode": "",
+            "RW": true
+          }
+        ],
+        "graph_driver": "overlay",
+        "graph_data": {
+          "LowerDir": "/home/omg/.local/share/containers/storage/overlay/6cb78344730e97eb175b5bba6833db43aed0bcaf8821864173e96d74b5404e9b/diff:/home/omg/.local/share/containers/storage/overlay/15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62/diff",
+          "UpperDir": "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/diff",
+          "WorkDir": "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/work"
+        }
+      },
+      "upper_stopped": {
+        "host_list": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "host_private": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "host_private_stat": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "host_volume_dir": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "unshare_private": {
+          "argv": [
+            "podman",
+            "unshare",
+            "cat",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/diff/var/ml-persistent/private.txt"
+          ],
+          "exit_code": 0,
+          "stdout": "container-private\n",
+          "stderr": "",
+          "seconds": 0.036626,
+          "error": null
+        },
+        "unshare_private_stat": {
+          "argv": [
+            "podman",
+            "unshare",
+            "stat",
+            "-c",
+            "uid=%u gid=%g mode=%a",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/diff/var/ml-persistent/private.txt"
+          ],
+          "exit_code": 0,
+          "stdout": "uid=1 gid=1 mode=644\n",
+          "stderr": "",
+          "seconds": 0.037681,
+          "error": null
+        },
+        "unshare_volume_dir": {
+          "argv": [
+            "podman",
+            "unshare",
+            "ls",
+            "-la",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/diff/var/ml-volume"
+          ],
+          "exit_code": 0,
+          "stdout": "总计 0\ndrwxr-xr-t. 1 bin bin  0 10月23日 10:52 .\ndrwxr-xr-x. 1 bin bin 44 10月23日 10:52 ..\n",
+          "stderr": "",
+          "seconds": 0.040093,
+          "error": null
+        }
+      },
+      "volume_source": "/home/omg/.local/share/containers/storage/volumes/ml-viewproto-5458382ac65c/_data",
+      "volume_stopped": {
+        "host_list": {
+          "names": [
+            "user-payload.txt"
+          ],
+          "count": 1
+        },
+        "host_dir_stat": {
+          "uid": 1000,
+          "gid": 1000,
+          "mode": "0o40755",
+          "is_symlink": false,
+          "is_dir": true,
+          "selinux": "system_u:object_r:container_file_t:s0"
+        },
+        "host_payload": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "host_payload_stat": {
+          "error": "FileNotFoundError",
+          "errno": 2,
+          "message": "No such file or directory"
+        },
+        "host_user_payload": {
+          "text": "user-volume-payload\n"
+        },
+        "host_user_payload_stat": {
+          "uid": 1000,
+          "gid": 1000,
+          "mode": "0o100644",
+          "is_symlink": false,
+          "is_dir": false,
+          "selinux": "unconfined_u:object_r:container_file_t:s0"
+        },
+        "unshare_payload": {
+          "argv": [
+            "podman",
+            "unshare",
+            "cat",
+            "/home/omg/.local/share/containers/storage/volumes/ml-viewproto-5458382ac65c/_data/payload.txt"
+          ],
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "cat: /home/omg/.local/share/containers/storage/volumes/ml-viewproto-5458382ac65c/_data/payload.txt: 没有那个文件或目录\n",
+          "seconds": 0.036948,
+          "error": null
+        },
+        "unshare_payload_stat": {
+          "argv": [
+            "podman",
+            "unshare",
+            "stat",
+            "-c",
+            "uid=%u gid=%g mode=%a",
+            "/home/omg/.local/share/containers/storage/volumes/ml-viewproto-5458382ac65c/_data/payload.txt"
+          ],
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "stat: 对 '/home/omg/.local/share/containers/storage/volumes/ml-viewproto-5458382ac65c/_data/payload.txt' 调用 statx 失败: 没有那个文件或目录\n",
+          "seconds": 0.03968,
+          "error": null
+        }
+      },
+      "volume_host_write": {
+        "written": true,
+        "stat": {
+          "uid": 1000,
+          "gid": 1000,
+          "mode": "0o100644",
+          "is_symlink": false,
+          "is_dir": false,
+          "selinux": "unconfined_u:object_r:container_file_t:s0"
+        },
+        "readback": {
+          "text": "host-volume-write\n"
+        }
+      },
+      "cold_mount": {
+        "exit_code": 0,
+        "seconds": 0.142766,
+        "direct_seconds": 0.034331,
+        "unshare_seconds": 0.108435,
+        "mount_path": "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged",
+        "under_storage": true,
+        "stderr": "",
+        "error": null,
+        "direct": {
+          "exit_code": 125,
+          "seconds": 0.034331,
+          "stdout": "",
+          "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+          "error": null
+        },
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.108435,
+          "stdout": "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged\n",
+          "stderr": "",
+          "error": null
+        },
+        "findmnt": {
+          "argv": [
+            "findmnt",
+            "-n",
+            "-o",
+            "FSTYPE,SOURCE,TARGET",
+            "-T",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged"
+          ],
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "",
+          "seconds": 0.002662,
+          "error": null
+        }
+      },
+      "stopped_view": {
+        "root_listing": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "base_listing": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "private": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "private_stat": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "relative_link": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "relative_read": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "absolute_link": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "absolute_read": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "absolute_realpath": "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged/var/ml-persistent/abs-link",
+        "os_link": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "os_link_read": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "rootfs_os_release": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "merged_volume_listing": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "merged_volume_read": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "volume_link_read": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "unshare_os_link": {
+          "argv": [
+            "podman",
+            "unshare",
+            "cat",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged/var/ml-persistent/os-link"
+          ],
+          "exit_code": 0,
+          "stdout": "NAME=\"Fedora Linux\"\nVERSION=\"44 (KDE Plasma Desktop Edition)\"\nRELEASE_TYPE=stable\nID=fedora\nVERSION_ID=44\nVERSION_CODENAME=\"\"\nPRETTY_NAME=\"Fedora Linux 44 (KDE Plasma Desktop Edition)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:44\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f44/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=44\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=44\nSUPPORT_END=2027-05-19\nVARIANT=\"KDE Plasma Desktop Edition\"\nVARIANT_ID=kde\n",
+          "stderr": "",
+          "seconds": 0.037406,
+          "error": null
+        },
+        "unshare_chroot_os_link": {
+          "argv": [
+            "podman",
+            "unshare",
+            "chroot",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged",
+            "cat",
+            "/var/ml-persistent/os-link"
+          ],
+          "exit_code": 0,
+          "stdout": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.7\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\"\n",
+          "stderr": "",
+          "seconds": 0.040809,
+          "error": null
+        },
+        "unshare_chroot_abs": {
+          "argv": [
+            "podman",
+            "unshare",
+            "chroot",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged",
+            "cat",
+            "/var/ml-persistent/abs-link"
+          ],
+          "exit_code": 0,
+          "stdout": "container-target\n",
+          "stderr": "",
+          "seconds": 0.040268,
+          "error": null
+        },
+        "unshare_chroot_rel": {
+          "argv": [
+            "podman",
+            "unshare",
+            "chroot",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged",
+            "cat",
+            "/var/ml-persistent/rel-link"
+          ],
+          "exit_code": 0,
+          "stdout": "container-target\n",
+          "stderr": "",
+          "seconds": 0.038096,
+          "error": null
+        },
+        "unshare_chroot_volume": {
+          "argv": [
+            "podman",
+            "unshare",
+            "chroot",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged",
+            "cat",
+            "/var/ml-volume/payload.txt"
+          ],
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "cat: /var/ml-volume/payload.txt: No such file or directory\n",
+          "seconds": 0.040163,
+          "error": null
+        },
+        "unshare_root_list": {
+          "argv": [
+            "podman",
+            "unshare",
+            "ls",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged"
+          ],
+          "exit_code": 0,
+          "stdout": "bin\nboot\ndev\netc\nhome\nlib\nlib64\nmedia\nmnt\nopt\nproc\nroot\nrun\nsbin\nsrv\nsys\ntmp\nusr\nvar\n",
+          "stderr": "",
+          "seconds": 0.038427,
+          "error": null
+        },
+        "unshare_private_stat": {
+          "argv": [
+            "podman",
+            "unshare",
+            "stat",
+            "-c",
+            "uid=%u gid=%g mode=%a",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged/var/ml-persistent/private.txt"
+          ],
+          "exit_code": 0,
+          "stdout": "uid=1 gid=1 mode=644\n",
+          "stderr": "",
+          "seconds": 0.036489,
+          "error": null
+        }
+      },
+      "root_host_write": {
+        "error": "PermissionError",
+        "errno": 13,
+        "message": "Permission denied"
+      },
+      "home_host_write": {
+        "skipped": "app home was not created"
+      },
+      "cold_umount": {
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.092405,
+          "stdout": "ml-viewproto-5458382ac65c\n",
+          "stderr": "",
+          "error": null
+        },
+        "direct": {
+          "exit_code": 0,
+          "seconds": 0.033913,
+          "stdout": "ml-viewproto-5458382ac65c\n",
+          "stderr": "",
+          "error": null
+        }
+      },
+      "warm_mount": {
+        "exit_code": 0,
+        "seconds": 0.13993,
+        "direct_seconds": 0.033459,
+        "unshare_seconds": 0.106471,
+        "mount_path": "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged",
+        "under_storage": true,
+        "stderr": "",
+        "error": null,
+        "direct": {
+          "exit_code": 125,
+          "seconds": 0.033459,
+          "stdout": "",
+          "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+          "error": null
+        },
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.106471,
+          "stdout": "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged\n",
+          "stderr": "",
+          "error": null
+        },
+        "findmnt": {
+          "argv": [
+            "findmnt",
+            "-n",
+            "-o",
+            "FSTYPE,SOURCE,TARGET",
+            "-T",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged"
+          ],
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "",
+          "seconds": 0.002625,
+          "error": null
+        }
+      },
+      "warm_reread": {
+        "private": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "host_written": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "os_link_read": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "unshare_private": {
+          "argv": [
+            "podman",
+            "unshare",
+            "cat",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged/var/ml-persistent/private.txt"
+          ],
+          "exit_code": 0,
+          "stdout": "container-private\n",
+          "stderr": "",
+          "seconds": 0.037381,
+          "error": null
+        }
+      },
+      "warm_umount": {
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.085795,
+          "stdout": "ml-viewproto-5458382ac65c\n",
+          "stderr": "",
+          "error": null
+        },
+        "direct": {
+          "exit_code": 0,
+          "seconds": 0.039464,
+          "stdout": "ml-viewproto-5458382ac65c\n",
+          "stderr": "",
+          "error": null
+        }
+      },
+      "restart": {
+        "argv": [
+          "podman",
+          "start",
+          "ml-viewproto-5458382ac65c"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-5458382ac65c\n",
+        "stderr": "",
+        "seconds": 0.122145,
+        "error": null
+      },
+      "running_mount": {
+        "exit_code": 0,
+        "seconds": 0.143292,
+        "direct_seconds": 0.034411,
+        "unshare_seconds": 0.108881,
+        "mount_path": "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged",
+        "under_storage": true,
+        "stderr": "",
+        "error": null,
+        "direct": {
+          "exit_code": 125,
+          "seconds": 0.034411,
+          "stdout": "",
+          "stderr": "Error: cannot run command \"podman mount\" in rootless mode, must execute `podman unshare` first\n",
+          "error": null
+        },
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.108881,
+          "stdout": "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged\n",
+          "stderr": "",
+          "error": null
+        },
+        "findmnt": {
+          "argv": [
+            "findmnt",
+            "-n",
+            "-o",
+            "FSTYPE,SOURCE,TARGET",
+            "-T",
+            "/home/omg/.local/share/containers/storage/overlay/a9bba1b65349170e605ddaa5af6d150850369e08c14dc99ace62baf467b1113c/merged"
+          ],
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "",
+          "seconds": 0.002666,
+          "error": null
+        }
+      },
+      "running_view_read": {
+        "private": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "os_link_read": {
+          "error": "PermissionError",
+          "errno": 13,
+          "message": "Permission denied"
+        },
+        "note": "read only; this probe does not write a live overlay"
+      },
+      "running_umount": {
+        "unshare": {
+          "exit_code": 0,
+          "seconds": 0.075831,
+          "stdout": "ml-viewproto-5458382ac65c\n",
+          "stderr": "",
+          "error": null
+        },
+        "direct": {
+          "exit_code": 0,
+          "seconds": 0.03847,
+          "stdout": "ml-viewproto-5458382ac65c\n",
+          "stderr": "",
+          "error": null
+        }
+      },
+      "verify_cmd": {
+        "argv": [
+          "podman",
+          "exec",
+          "-u",
+          "0",
+          "-i",
+          "ml-viewproto-5458382ac65c",
+          "/bin/sh",
+          "-s"
+        ],
+        "exit_code": 0,
+        "stdout": "euid=0\npersistent=container-private\nhost_written=absent\nhome_host_written=absent\nvolume=absent\nuser_volume=user-volume-payload\nhost_volume=host-volume-write\nos_inside=PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nprobe_done=verify\n",
+        "stderr": "",
+        "seconds": 0.146692,
+        "error": null
+      },
+      "verify": {
+        "kv": {
+          "euid": "0",
+          "persistent": "container-private",
+          "host_written": "absent",
+          "home_host_written": "absent",
+          "volume": "absent",
+          "user_volume": "user-volume-payload",
+          "host_volume": "host-volume-write",
+          "os_inside": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"",
+          "probe_done": "verify"
+        },
+        "stat": []
+      },
+      "stop_after_verify": {
+        "argv": [
+          "podman",
+          "stop",
+          "-t",
+          "0",
+          "ml-viewproto-5458382ac65c"
+        ],
+        "exit_code": 0,
+        "stdout": "ml-viewproto-5458382ac65c\n",
+        "stderr": "",
+        "seconds": 0.123815,
+        "error": null
+      },
+      "judgment": {
+        "direct_mount_refused": true,
+        "unshare_mount_ok": true,
+        "host_can_list_stopped_root": false,
+        "unshare_can_list_stopped_root": true,
+        "host_direct_absolute_symlink_matches_host": false,
+        "user_namespace_without_chroot_matches_host": true,
+        "chroot_absolute_symlink_matches_container": true,
+        "relative_symlink_reads_container_target": false,
+        "volume_file_visible_in_stopped_merged_root": false,
+        "host_can_read_upper_private": false,
+        "unshare_can_read_upper_private": true,
+        "volume_payload_visible_on_host_path": false,
+        "user_volume_visible_on_host_path": true,
+        "root_host_write": false,
+        "home_host_write": false,
+        "volume_host_write": true,
+        "restart_sees_root_host_write": false,
+        "restart_sees_volume": false,
+        "restart_sees_user_volume": true,
+        "restart_sees_host_volume_write": true,
+        "user_home_write": "fail",
+        "user_volume_write": "ok",
+        "root_volume_write": "fail"
+      },
+      "leftover_mounts": []
+    }
+  ],
+  "containers_after": {
+    "argv": [
+      "podman",
+      "ps",
+      "-aq",
+      "--no-trunc"
+    ],
+    "exit_code": 0,
+    "stdout": "ab0e889741ceaf7916ec6bc7625132540a9113a81eef83c8a35b6ddc8f088dfc\n763ff5a7cc29f2b578612a7a5fb73344511972f646818b8cb5fa5da9c6d73f72\n3abc1a7379b2d476899c1e3c2f0253c816d217b8c8cf85f7f4ec1a7d13d29ff6\na83a73c4cae8d823d413375bca84d7ccc18669f0e478979035b6999db225be75\n964f59f20224afd5b10595007d58f003eb3facfb1a5647deab0404f257d2bc23\n81072086d468e1942dd1b2b95055a4cf2f0ef544b84bce77dfe7a7d1c01f47d8\n42e752d86ccdd026da7024f6b354b4e236caaf893140dc87822847b9d4e321b6\n48d4ac0d7cdaa42606f0dabce0d7581b8ce2982e0d72e8a3ce3839fc45ce0c43\n6a3eace1e9ea01caf086fafe3160f044f3e115eeb8a5c2305aa740ba15c2630c\n57aba3a81b7f2c5eefd3d58788b8546960f8df85892b21e6781421c48ce17255\n01905f6582c013decc73fae3d58fb4d32af46c3b229ac1ba8ff35627dfe7f892\n6e62513c41a331377c2e48a4c001caff040dcdc4cc8520f50129489dd9c116ef\nb913a194b73cde7643f680725cb5eea6a805ab416af40032caf3eab233888d8b\n4aa283c255e9de3ba952b0d0dc2bab496f8ab8bf36931da9a98b5f6e866c5948\n03c051edd89643449f95d7987b9dd037158c9309a68b062d102fddcb05ff7558\n9abc8cf0e8b8be5061df4c2b5a05f902d12456640b6237052c69f690ad350e45\nceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519\nf5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a\ne882e5e3e107b5b9dd984ed1077d189b2ca075cac899a1d1f02f1d2b08582ff5\n61c8e9458782f7f4a703ca7a6e1a0e97cdce0d65af23b90db80a093936278c3e\ne3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742\n12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12\n91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4\nf15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0\n8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599\n",
+    "stderr": "",
+    "seconds": 0.049055,
+    "error": null
+  },
+  "volumes_after": {
+    "argv": [
+      "podman",
+      "volume",
+      "ls",
+      "-q"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "seconds": 0.038891,
+    "error": null
+  },
+  "container_set_unchanged": true,
+  "volume_set_unchanged": true,
+  "names_created": [
+    "ml-viewproto-36794aa25b6a",
+    "ml-viewproto-36794aa25b6a",
+    "ml-viewproto-5458382ac65c",
+    "ml-viewproto-5458382ac65c"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "before": {
+    "caption": "Multilinux FreeCAD GUI acceptance",
+    "resourceClass": "org.freecad.FreeCAD",
+    "pid": 74573,
+    "objectType": "KWin::XdgToplevelWindow(0x558c66db6f00)",
+    "wayland": null,
+    "x11": null,
+    "width": 1100,
+    "height": 788,
+    "bufferWidth": 1100,
+    "bufferHeight": 760,
+    "internalId": "{180466fb-e70f-4f4f-9fc0-2bc680063cdd}",
+    "active": true
+  },
+  "after": {
+    "caption": "Multilinux FreeCAD GUI acceptance",
+    "resourceClass": "org.freecad.FreeCAD",
+    "pid": 74573,
+    "objectType": "KWin::XdgToplevelWindow(0x558c66db6f00)",
+    "wayland": null,
+    "x11": null,
+    "width": 1100,
+    "height": 788,
+    "bufferWidth": 1100,
+    "bufferHeight": 760,
+    "internalId": "{180466fb-e70f-4f4f-9fc0-2bc680063cdd}",
+    "active": true
+  },
+  "path": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/contract-freecad-gui-2026-10-23/06-reopened-after-stop.png",
+  "capture": "active experiment window only"
+}

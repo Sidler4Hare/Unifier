@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "id": "txn7f44c621fb1f",
+  "environment_id": "install-arch",
+  "operation": "install-local",
+  "packages": [
+    "sunshine"
+  ],
+  "use_command": [
+    "/usr/bin/sunshine",
+    "--version"
+  ],
+  "local_file": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/downloads/sunshine-2026.914.233613-1-x86_64.pkg.tar.zst",
+  "revision_before": {
+    "writable_revision": "9abc8cf0e8b8be5061df4c2b5a05f902d12456640b6237052c69f690ad350e45",
+    "content_revision": 3,
+    "package_inventory_sha256": "bafcbb43216dfcc83bd17a3e98ba1ee7a3428c0ed50564311023e5b548b0112b"
+  },
+  "native": [
+    {
+      "argv": [
+        "pacman",
+        "-Syu",
+        "--noconfirm"
+      ],
+      "exit_code": 0,
+      "stdout_tail": ":: Synchronizing package databases...\n core downloading...\n extra downloading...\n:: Starting full system upgrade...\n there is nothing to do\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "pacman",
+        "-U",
+        "--noconfirm",
+        "/tmp/ml-incoming/sunshine-2026.914.233613-1-x86_64.pkg.tar.zst"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "pci0000:00/0000:00:1f.0/PNP0C09:00/PNP0C0D:00/input/input0/event0/uevent': Permission denied\ninput25: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input25/uevent': Permission denied\nevent11: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input25/event11/uevent': Permission denied\ninput26: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input26/uevent': Permission denied\nevent12: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input26/event12/uevent': Permission denied\ninput27: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input27/uevent': Permission denied\nevent13: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input27/event13/uevent': Permission denied\ninput28: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input28/uevent': Permission denied\nevent14: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input28/event14/uevent': Permission denied\ninput29: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input29/uevent': Permission denied\nevent15: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input29/event15/uevent': Permission denied\ninput20: Failed to write 'change' to '/sys/devices/pci0000:00/acpi.video_bus.0/input/input20/uevent': Permission denied\nevent8: Failed to write 'change' to '/sys/devices/pci0000:00/acpi.video_bus.0/input/input20/event8/uevent': Permission denied\ninput1: Failed to write 'change' to '/sys/devices/platform/PNP0C0C:00/input/input1/uevent': Permission denied\nevent1: Failed to write 'change' to '/sys/devices/platform/PNP0C0C:00/input/input1/event1/uevent': Permission denied\ninput2: Failed to write 'change' to '/sys/devices/platform/PNP0C0E:00/input/input2/uevent': Permission denied\nevent2: Failed to write 'change' to '/sys/devices/platform/PNP0C0E:00/input/input2/event2/uevent': Permission denied\ninput3: Failed to write 'change' to '/sys/devices/platform/i8042/serio0/input/input3/uevent': Permission denied\nevent3: Failed to write 'change' to '/sys/devices/platform/i8042/serio0/input/input3/event3/uevent': Permission denied\ninput24: Failed to write 'change' to '/sys/devices/platform/pcspkr/input/input24/uevent': Permission denied\nevent10: Failed to write 'change' to '/sys/devices/platform/pcspkr/input/input24/event10/uevent': Permission denied\ninput22: Failed to write 'change' to '/sys/devices/virtual/input/input22/uevent': Permission denied\nevent5: Failed to write 'change' to '/sys/devices/virtual/input/input22/event5/uevent': Permission denied\ninput23: Failed to write 'change' to '/sys/devices/virtual/input/input23/uevent': Permission denied\nevent9: Failed to write 'change' to '/sys/devices/virtual/input/input23/event9/uevent': Permission denied\nmice: Failed to write 'change' to '/sys/devices/virtual/input/mice/uevent': Permission denied\nmodprobe: FATAL: Module uinput not found in directory /lib/modules/7.2.11-200.fc44.x86_64\nmodprobe: FATAL: Module uhid not found in directory /lib/modules/7.2.11-200.fc44.x86_64\nmodprobe: FATAL: Module uhid not found in directory /lib/modules/7.2.11-200.fc44.x86_64\n:: Running post-transaction hooks...\n(1/6) Reloading user manager configuration...\n  Skipped: Current root is not booted.\n(2/6) Reloading device manager configuration...\n  Skipped: Current root is not booted.\n(3/6) Arming ConditionNeedsUpdate...\n(4/6) Loading new kernel modules...\nSystem has not been booted with systemd as init system (PID 1). Can't operate.\nFailed to connect to system scope bus via local transport: Host is down\n(5/6) Updating icon theme caches...\n(6/6) Updating the desktop file MIME type cache...\n",
+      "stderr_tail": "warning: sunshine-2026.914.233613-1 is up to date -- reinstalling\nerror: command failed to execute correctly\nerror: command failed to execute correctly\n"
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "warnings",
+    "items": [
+      {
+        "source": "stdout",
+        "reason": "udev-uevent-write-failed",
+        "tool": "udev",
+        "line": "uinput: Failed to write 'change' to '/sys/devices/virtual/misc/uinput/uevent': Permission denied",
+        "count": 43
+      },
+      {
+        "source": "stdout",
+        "reason": "modprobe-fatal",
+        "tool": "modprobe",
+        "line": "modprobe: FATAL: Module uinput not found in directory /lib/modules/7.2.11-200.fc44.x86_64",
+        "count": 3
+      },
+      {
+        "source": "stdout",
+        "reason": "systemd-not-pid1",
+        "tool": "systemd",
+        "line": "System has not been booted with systemd as init system (PID 1). Can't operate.",
+        "count": 1
+      },
+      {
+        "source": "stdout",
+        "reason": "systemd-system-bus-unavailable",
+        "tool": "systemd",
+        "line": "Failed to connect to system scope bus via local transport: Host is down",
+        "count": 1
+      },
+      {
+        "source": "stderr",
+        "reason": "pacman-hook-failed",
+        "tool": "pacman",
+        "line": "error: command failed to execute correctly",
+        "count": 2
+      }
+    ],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified-with-warnings",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "sunshine": true
+    },
+    "command": [
+      "/usr/bin/sunshine",
+      "--version"
+    ],
+    "command_exit_code": 0,
+    "stdout_preview": "[2026-10-22 13:21:12.509]: Info: Sunshine version: 2026.914.233613 commit: 63d35f702ee9e362e43263742981836ec0710384\n[2026-10-22 13:21:12.509]: Info: Package Publisher: LizardByte\n[2026-10-22 13:21:12.509]: Info: Publisher Website: https://app.lizardbyte.dev\n[2026-10-22 13:21:12.509]: Info: Get support: https://app.lizardbyte.dev/support\n",
+    "stdout_sha256": "05560fd789f65c03c13f9a18eacc422dc9f9afdebe80f8fbf93eb1de367a8ec9",
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "79dcbb15555c7c798e0c7e9e66bf96d06ad2f7b0cc6ef936337d7bdd5a5a3757",
+      "count": 2522,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "79dcbb15555c7c798e0c7e9e66bf96d06ad2f7b0cc6ef936337d7bdd5a5a3757",
+      "count": 2522,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "9abc8cf0e8b8be5061df4c2b5a05f902d12456640b6237052c69f690ad350e45",
+    "content_revision": 3,
+    "package_inventory_sha256": "bafcbb43216dfcc83bd17a3e98ba1ee7a3428c0ed50564311023e5b548b0112b"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-22T21:21:09+08:00",
+  "finished_at": "2026-10-22T21:21:13+08:00"
+}

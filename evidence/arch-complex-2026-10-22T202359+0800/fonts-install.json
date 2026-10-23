@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "id": "txn896aadb5d77f",
+  "environment_id": "complex-arch",
+  "operation": "install",
+  "packages": [
+    "noto-fonts-cjk"
+  ],
+  "use_command": [],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "03c051edd89643449f95d7987b9dd037158c9309a68b062d102fddcb05ff7558",
+    "content_revision": 2,
+    "package_inventory_sha256": "6752b148e609490357bcab3cb7fcc9b20a7acef7f873b79b1bfcde2654fa533e"
+  },
+  "native": [
+    {
+      "argv": [
+        "pacman",
+        "-Syu",
+        "--noconfirm",
+        "--needed",
+        "noto-fonts-cjk"
+      ],
+      "exit_code": 0,
+      "stdout_tail": ":: Synchronizing package databases...\n core downloading...\n extra downloading...\n:: Starting full system upgrade...\nresolving dependencies...\nlooking for conflicting packages...\n\nPackage (1)           New Version  Net Change  Download Size\n\nextra/noto-fonts-cjk  20240730-1   298.79 MiB     188.75 MiB\n\nTotal Download Size:   188.75 MiB\nTotal Installed Size:  298.79 MiB\n\n:: Proceed with installation? [Y/n] \n:: Retrieving packages...\n noto-fonts-cjk-20240730-1-any downloading...\nchecking keyring...\nchecking package integrity...\nloading package files...\nchecking for file conflicts...\n:: Processing package changes...\ninstalling noto-fonts-cjk...\n:: Running post-transaction hooks...\n(1/2) Arming ConditionNeedsUpdate...\n(2/2) Updating fontconfig cache...\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": null,
+  "verification": {
+    "ok": true,
+    "packages": {
+      "noto-fonts-cjk": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "79dcbb15555c7c798e0c7e9e66bf96d06ad2f7b0cc6ef936337d7bdd5a5a3757",
+      "count": 2522,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "79dcbb15555c7c798e0c7e9e66bf96d06ad2f7b0cc6ef936337d7bdd5a5a3757",
+      "count": 2522,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "03c051edd89643449f95d7987b9dd037158c9309a68b062d102fddcb05ff7558",
+    "content_revision": 3,
+    "package_inventory_sha256": "f776288d4321a22e6ac93bfcf2273ae712c4e74ceeeaa2e529b4093466062508"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-22T20:30:37+08:00",
+  "finished_at": "2026-10-22T20:31:48+08:00"
+}

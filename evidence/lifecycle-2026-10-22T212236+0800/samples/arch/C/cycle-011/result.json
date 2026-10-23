@@ -1,0 +1,155 @@
+{
+  "index": 11,
+  "started_at": "2026-10-22T21:27:29+08:00",
+  "ready": {
+    "ready_ns": 116419005542442,
+    "launch_to_ready_ms": 883.982,
+    "launch_to_window_ms": 883.982,
+    "launch_to_buffer_commit_ms": 880.453,
+    "launch_to_frame_callback_ms": null,
+    "window": {
+      "event": "added",
+      "marker": "ML-LIFE-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-arch/ML-LIFE-arch-C-011.txt - Mousepad",
+      "window_id": "{4aea13b7-7f8e-49e1-9673-5f1197e9eefa}",
+      "type": "KWin::XdgToplevelWindow(0x55ca86ac9f20)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca86ac9f20)",
+      "pid": 1163980,
+      "resource_class": "org.xfce.mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 116419005542442,
+      "sent_wall_ms": 1792675649888
+    },
+    "wayland": {
+      "surface_id": "33",
+      "first_attach_received_ns": 116419001899338,
+      "first_commit_received_ns": 116419002013036,
+      "first_frame_callback_received_ns": null
+    },
+    "geometry_extra": {}
+  },
+  "lease_open": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/leases/test-arch.json",
+    "exists": true,
+    "raw": {
+      "leases": {
+        "b3ff4f7ec29c49d5a7fca1b4d15cc2f7": {
+          "pid": 1163837,
+          "stamp": 25305127,
+          "app_id": "life-editor-arch"
+        }
+      },
+      "auto_stop": false,
+      "bridge": {
+        "pid": 1163879,
+        "stamp": 25305155,
+        "socket": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-arch/bus"
+      },
+      "container_id": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+      "container_started_at": "2026-10-22T21:27:18.603098899+08:00"
+    },
+    "live": {
+      "b3ff4f7ec29c49d5a7fca1b4d15cc2f7": {
+        "pid": 1163837,
+        "stamp": 25305127,
+        "app_id": "life-editor-arch"
+      }
+    },
+    "live_count": 1,
+    "bridge": {
+      "pid": 1163879,
+      "stamp": 25305155,
+      "socket": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-arch/bus"
+    },
+    "bridge_alive": true
+  },
+  "env_open": {
+    "env_id": "test-arch",
+    "container_name": "ml-75a8c1ff-test-arch",
+    "container_id_recorded": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+    "record_runtime_state": "running",
+    "record_full_init": false,
+    "inspect": {
+      "id": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+      "running": true,
+      "status": "running",
+      "pid": 1160951,
+      "exit_code": 0,
+      "oom_killed": false,
+      "started_at": "2026-10-22T21:27:18.603098899+08:00",
+      "finished_at": "2026-10-22T21:27:17.831688816+08:00",
+      "init": true,
+      "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+    }
+  },
+  "removed": {
+    "event": "removed",
+    "marker": "ML-LIFE-",
+    "caption": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-arch/ML-LIFE-arch-C-011.txt - Mousepad",
+    "window_id": "{4aea13b7-7f8e-49e1-9673-5f1197e9eefa}",
+    "type": "KWin::XdgToplevelWindow(0x55ca86ac9f20)",
+    "objectType": "KWin::XdgToplevelWindow(0x55ca86ac9f20)",
+    "pid": 1163980,
+    "resource_class": "org.xfce.mousepad",
+    "geometry": {
+      "width": 640,
+      "height": 508
+    },
+    "buffer_geometry": {
+      "width": 640,
+      "height": 480
+    },
+    "ready_for_painting": null,
+    "received_ns": 116419093187247,
+    "sent_wall_ms": 1792675649974
+  },
+  "launcher_exit": {
+    "returncode": 0,
+    "exit_ns": 116419211286061
+  },
+  "lease_after": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/leases/test-arch.json",
+    "exists": true,
+    "raw": {
+      "leases": {},
+      "auto_stop": false,
+      "bridge": null,
+      "container_id": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+      "container_started_at": "2026-10-22T21:27:18.603098899+08:00"
+    },
+    "live": {},
+    "live_count": 0,
+    "bridge": null,
+    "bridge_alive": false
+  },
+  "env_after": {
+    "env_id": "test-arch",
+    "container_name": "ml-75a8c1ff-test-arch",
+    "container_id_recorded": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+    "record_runtime_state": "running",
+    "record_full_init": false,
+    "inspect": {
+      "id": "f5316684bd3ba1458ca895c9cc55897918c556f7a82d0cee38f905eb7d193e7a",
+      "running": true,
+      "status": "running",
+      "pid": 1160951,
+      "exit_code": 0,
+      "oom_killed": false,
+      "started_at": "2026-10-22T21:27:18.603098899+08:00",
+      "finished_at": "2026-10-22T21:27:17.831688816+08:00",
+      "init": true,
+      "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+    }
+  },
+  "note_unchanged": true,
+  "passed": true,
+  "cleanup": []
+}

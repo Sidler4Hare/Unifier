@@ -1,0 +1,6 @@
+{
+  "stale": "描述符打开时的原文\n",
+  "bytes_written_to_old_fd": 40,
+  "path_text_after_old_fd_write": "宿主换了新 inode\n",
+  "path_inode_after": 3052547
+}

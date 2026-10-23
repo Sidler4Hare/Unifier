@@ -1,0 +1,77 @@
+{
+  "宿主原件.FCStd": {
+    "sha256": "3be64b0eb11274a16bcc95706d230511108c448e16350d846fcd6a51f2941e1b",
+    "unchanged_after_restart": true,
+    "xml_objects": [
+      {
+        "name": "Box",
+        "type": "Part::Box"
+      },
+      {
+        "name": "Hole",
+        "type": "Part::Cylinder"
+      },
+      {
+        "name": "Cut",
+        "type": "Part::Cut"
+      },
+      {
+        "name": "Box001",
+        "type": "Part::Box"
+      }
+    ],
+    "gui_objects": [
+      {
+        "name": "Box",
+        "label": "Box",
+        "type": "Part::Box",
+        "volume": 24000.0,
+        "valid": true
+      },
+      {
+        "name": "Hole",
+        "label": "Hole",
+        "type": "Part::Cylinder",
+        "volume": 2261.9467105846516,
+        "valid": true
+      },
+      {
+        "name": "Cut",
+        "label": "Cut",
+        "type": "Part::Cut",
+        "volume": 21738.05328941535,
+        "valid": true
+      },
+      {
+        "name": "Box001",
+        "label": "Cube",
+        "type": "Part::Box",
+        "volume": 999.9999999999998,
+        "valid": true
+      }
+    ],
+    "uid": 1000,
+    "gid": 1000
+  },
+  "新建 零件.FCStd": {
+    "sha256": "a4e4a741c77674afe43931202a0736ec913cbc0fd8a579f0ce5c815ae2551697",
+    "unchanged_after_restart": true,
+    "xml_objects": [
+      {
+        "name": "Box",
+        "type": "Part::Box"
+      }
+    ],
+    "gui_objects": [
+      {
+        "name": "Box",
+        "label": "Cube",
+        "type": "Part::Box",
+        "volume": 999.9999999999998,
+        "valid": true
+      }
+    ],
+    "uid": 1000,
+    "gid": 1000
+  }
+}

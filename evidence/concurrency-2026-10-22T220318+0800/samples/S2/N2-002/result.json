@@ -1,0 +1,458 @@
+{
+  "scenario": "S2",
+  "variant": "cold",
+  "scale": 2,
+  "index": 2,
+  "started_at": "2026-10-22T22:04:40+08:00",
+  "failures": [],
+  "host_before": {
+    "taken_at": "2026-10-22T22:04:40+08:00",
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 385052672,
+      "MemAvailable_bytes": 2268950528,
+      "Cached_bytes": 2651426816,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 18672033792
+    },
+    "pressure": {
+      "memory.some": {
+        "avg10": 0.23,
+        "avg60": 0.78,
+        "avg300": 0.3,
+        "total_us": 1129130290
+      },
+      "memory.full": {
+        "avg10": 0.23,
+        "avg60": 0.76,
+        "avg300": 0.29,
+        "total_us": 979013246
+      },
+      "cpu.some": {
+        "avg10": 1.99,
+        "avg60": 1.4,
+        "avg300": 0.47,
+        "total_us": 3437139898
+      },
+      "cpu.full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 0
+      },
+      "io.some": {
+        "avg10": 1.97,
+        "avg60": 1.16,
+        "avg300": 0.37,
+        "total_us": 507210880
+      },
+      "io.full": {
+        "avg10": 1.73,
+        "avg60": 1.06,
+        "avg300": 0.34,
+        "total_us": 344970452
+      }
+    },
+    "load_average": [
+      1.92,
+      1.33,
+      1.14
+    ],
+    "cpu_freq_khz": [
+      3068184,
+      2788237,
+      3100000,
+      400851,
+      2229752,
+      882083,
+      3100000,
+      400523
+    ],
+    "thermal": [
+      {
+        "type": "acpitz",
+        "temp_c": 32.0
+      },
+      {
+        "type": "x86_pkg_temp",
+        "temp_c": 71.0
+      }
+    ]
+  },
+  "host_guard": {
+    "taken_at": "2026-10-22T22:04:40+08:00",
+    "blocked": false,
+    "available_bytes": 2269163520,
+    "memory_some_avg10": null,
+    "memory_full_avg10": null,
+    "load": [
+      1.92,
+      1.33,
+      1.14
+    ],
+    "attempts": [
+      {
+        "at": "2026-10-22T22:04:40+08:00",
+        "available_bytes": 2269163520,
+        "memory_some_avg10": null,
+        "memory_full_avg10": null,
+        "blocked": false
+      }
+    ],
+    "label": "S2-N2"
+  },
+  "reset": {
+    "env_id": "conc-debian",
+    "actions": [
+      {
+        "wait_stopped": {
+          "ok": true,
+          "elapsed_ms": 30.438,
+          "state": {
+            "env_id": "conc-debian",
+            "container_name": "ml-be3863e1-conc-debian",
+            "container_id_recorded": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+            "record_runtime_state": "stopped",
+            "inspect": {
+              "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+              "running": false,
+              "status": "exited",
+              "pid": 0,
+              "exit_code": 143,
+              "init": true
+            }
+          }
+        }
+      }
+    ],
+    "bridges_killed": [],
+    "lease_before": false,
+    "containers": [
+      {
+        "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+        "names": [
+          "ml-be3863e1-conc-debian"
+        ],
+        "state": "exited",
+        "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+      }
+    ]
+  },
+  "ready": [
+    {
+      "kind": "container",
+      "env_id": "conc-debian",
+      "marker": "ML-CONC-conc-debian-S2-N2-002-0",
+      "launcher_pid": 1242321,
+      "window": {
+        "event": "added",
+        "marker": "ML-CONC-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-debian/ML-CONC-conc-debian-S2-N2-002-0.txt [Read Only] - Mousepad",
+        "window_id": "{42ed00ce-5e84-4d14-b665-78946727d584}",
+        "type": "KWin::XdgToplevelWindow(0x55ca86ac9f20)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca86ac9f20)",
+        "pid": 1242609,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 118651046586728,
+        "sent_wall_ms": 1792677881929
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 118651042825527,
+        "first_commit_received_ns": 118651042948418,
+        "first_frame_callback_received_ns": null
+      },
+      "launch_to_window_ms": 1017.896,
+      "launch_to_buffer_commit_ms": 1014.258,
+      "launch_to_ready_ms": 1017.896,
+      "ready_ns": 118651046586728
+    },
+    {
+      "kind": "container",
+      "env_id": "conc-debian",
+      "marker": "ML-CONC-conc-debian-S2-N2-002-1",
+      "launcher_pid": 1242325,
+      "window": {
+        "event": "added",
+        "marker": "ML-CONC-",
+        "caption": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-debian/ML-CONC-conc-debian-S2-N2-002-1.txt [Read Only] - Mousepad",
+        "window_id": "{dd2ecf73-eb8a-46e8-b52a-291fd3df37a8}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87b10ea0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87b10ea0)",
+        "pid": 1242732,
+        "resource_class": "mousepad",
+        "geometry": {
+          "width": 640,
+          "height": 508
+        },
+        "buffer_geometry": {
+          "width": 640,
+          "height": 480
+        },
+        "ready_for_painting": null,
+        "received_ns": 118651339720754,
+        "sent_wall_ms": 1792677882223
+      },
+      "wayland": {
+        "surface_id": "33",
+        "first_attach_received_ns": 118651337729768,
+        "first_commit_received_ns": 118651337831973,
+        "first_frame_callback_received_ns": null
+      },
+      "launch_to_window_ms": 1308.819,
+      "launch_to_buffer_commit_ms": 1306.93,
+      "launch_to_ready_ms": 1308.819,
+      "ready_ns": 118651339720754
+    }
+  ],
+  "ready_errors": {},
+  "events": {
+    "create": 0,
+    "start": 1
+  },
+  "topology": {
+    "container_count": 1,
+    "container_id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+    "container_id_recorded": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+    "container_id_matches": true,
+    "leases": 2,
+    "mousepad_processes": 2,
+    "container_processes": 10,
+    "zombies": 0,
+    "expected_leases": 2,
+    "expected_mousepad": 2
+  },
+  "metrics_running": {
+    "env_id": "conc-debian",
+    "container_name": "ml-be3863e1-conc-debian",
+    "record_state": "running",
+    "container_id_recorded": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+    "inspect": {
+      "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+      "running": true,
+      "status": "running",
+      "pid": 1242418,
+      "exit_code": 0,
+      "started_at": "2026-10-22T22:04:41.315583437+08:00",
+      "finished_at": "2026-10-22T22:04:40.156531239+08:00",
+      "init": true
+    },
+    "cgroup": {
+      "cgroup_path": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742.scope/container",
+      "memory_current_bytes": 48861184,
+      "memory_peak_bytes": 54460416,
+      "memory_swap_current_bytes": 0,
+      "pids_current": 18,
+      "oom_kill": 0,
+      "error": null
+    },
+    "processes": {
+      "returncode": 0,
+      "process_count": 10,
+      "mousepad_count": 2,
+      "zombie_count": 0,
+      "rows": [
+        {
+          "pid": 1,
+          "ppid": 0,
+          "stat": "Ss",
+          "comm": "podman-init"
+        },
+        {
+          "pid": 2,
+          "ppid": 1,
+          "stat": "S",
+          "comm": "sleep"
+        },
+        {
+          "pid": 4,
+          "ppid": 0,
+          "stat": "Ss",
+          "comm": "dbus-run-sessio"
+        },
+        {
+          "pid": 5,
+          "ppid": 4,
+          "stat": "S",
+          "comm": "dbus-daemon"
+        },
+        {
+          "pid": 6,
+          "ppid": 4,
+          "stat": "Sl",
+          "comm": "mousepad"
+        },
+        {
+          "pid": 19,
+          "ppid": 0,
+          "stat": "Ss",
+          "comm": "dbus-run-sessio"
+        },
+        {
+          "pid": 20,
+          "ppid": 19,
+          "stat": "S",
+          "comm": "dbus-daemon"
+        },
+        {
+          "pid": 21,
+          "ppid": 19,
+          "stat": "Sl",
+          "comm": "mousepad"
+        },
+        {
+          "pid": 36,
+          "ppid": 0,
+          "stat": "Ss",
+          "comm": "sh"
+        },
+        {
+          "pid": 37,
+          "ppid": 36,
+          "stat": "R",
+          "comm": "ps"
+        }
+      ],
+      "pss_kb": 1597,
+      "pss_error": null
+    },
+    "disk": {
+      "size_rw_bytes": 137988,
+      "size_root_fs_bytes": 1515789254,
+      "error": null
+    }
+  },
+  "host_after_ready": {
+    "taken_at": "2026-10-22T22:04:42+08:00",
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 268988416,
+      "MemAvailable_bytes": 2221879296,
+      "Cached_bytes": 2643521536,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 18672668672
+    },
+    "pressure": {
+      "memory.some": {
+        "avg10": 0.19,
+        "avg60": 0.76,
+        "avg300": 0.3,
+        "total_us": 1129131700
+      },
+      "memory.full": {
+        "avg10": 0.18,
+        "avg60": 0.74,
+        "avg300": 0.29,
+        "total_us": 979014655
+      },
+      "cpu.some": {
+        "avg10": 2.17,
+        "avg60": 1.45,
+        "avg300": 0.49,
+        "total_us": 3437205543
+      },
+      "cpu.full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 0
+      },
+      "io.some": {
+        "avg10": 1.79,
+        "avg60": 1.15,
+        "avg300": 0.37,
+        "total_us": 507261445
+      },
+      "io.full": {
+        "avg10": 1.6,
+        "avg60": 1.06,
+        "avg300": 0.34,
+        "total_us": 345016061
+      }
+    },
+    "load_average": [
+      1.92,
+      1.33,
+      1.14
+    ],
+    "cpu_freq_khz": [
+      2586268,
+      3500036,
+      2825719,
+      1954901,
+      2938845,
+      3500438,
+      3019828,
+      2033401
+    ],
+    "thermal": [
+      {
+        "type": "acpitz",
+        "temp_c": 32.0
+      },
+      {
+        "type": "x86_pkg_temp",
+        "temp_c": 68.0
+      }
+    ]
+  },
+  "wait_stopped": {
+    "ok": true,
+    "elapsed_ms": 28.896,
+    "state": {
+      "env_id": "conc-debian",
+      "container_name": "ml-be3863e1-conc-debian",
+      "container_id_recorded": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+      "record_runtime_state": "stopped",
+      "inspect": {
+        "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+        "running": false,
+        "status": "exited",
+        "pid": 0,
+        "exit_code": 143,
+        "init": true
+      }
+    }
+  },
+  "wait_bridge": {
+    "ok": true,
+    "elapsed_ms": 24.386,
+    "bridge": null,
+    "processes": []
+  },
+  "lease_after": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/project/.lab/leases/conc-debian.json",
+    "exists": true,
+    "raw": {
+      "leases": {},
+      "auto_stop": false,
+      "bridge": null,
+      "container_id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+      "container_started_at": "2026-10-22T22:04:41.315583437+08:00"
+    },
+    "live": {},
+    "live_count": 0,
+    "bridge": null,
+    "bridge_alive": false
+  },
+  "timings": {
+    "wave_ready_ms": 1308.819,
+    "stop_ms": 247.923
+  },
+  "disk_size_rw_bytes": 137988,
+  "cleanup": [
+    [],
+    []
+  ],
+  "passed": true,
+  "finished_at": "2026-10-22T22:04:43+08:00"
+}

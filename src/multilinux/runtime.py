@@ -19,7 +19,8 @@ LABEL_ENV = "multilinux.env"
 LABEL_ROLE = "multilinux.role"
 ROLE_ENVIRONMENT = "environment"
 
-# Exec-form entrypoint is not resolved through PATH.
+# Exec-form entrypoint is not resolved through PATH. It runs under --init
+# (catatonit) so a stop signal reaches it without waiting out the stop timeout.
 SLEEPER = "/usr/bin/sleep"
 
 
@@ -89,6 +90,12 @@ def creation_argv(spec: CreateSpec) -> list[str]:
 
     The root is writable because native package transactions change it.
     Network is chosen here: none has no repository access, pasta does.
+
+    The container runs with --init so PID 1 is a real init. Without it the
+    sleeper never handles SIGTERM (podman stop then waits the whole timeout and
+    the stop path blocks the next start) and orphaned exec children stay as
+    zombies under PID 1. With it, stop signals are forwarded and orphans are
+    reaped inside the container.
     """
     if "@sha256:" not in spec.image:
         raise MultilinuxError(f"refusing to create from an unlocked image reference: {spec.image}")
@@ -110,6 +117,7 @@ def creation_argv(spec: CreateSpec) -> list[str]:
         "--network=" + spec.network,
         "--http-proxy=false",
         "--restart=no",
+        "--init",
         "--stop-timeout=8",
         "--entrypoint", SLEEPER,
     ]

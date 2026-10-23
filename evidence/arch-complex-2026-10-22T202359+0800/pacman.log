@@ -1,0 +1,479 @@
+[2026-10-11T00:03:55+0000] [ALPM] installed filesystem (2025.10.12-1)
+[2026-10-11T00:03:55+0000] [ALPM] installed linux-api-headers (7.2-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed tzdata (2026e-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed glibc (2.44+r50+g1848099f063e-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed libgcc (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed libstdc++ (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed libasan (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed libatomic (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed libgfortran (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed libgomp (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed libhwasan (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed liblsan (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed libobjc (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed libquadmath (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed libtsan (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed libubsan (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:56+0000] [ALPM] installed gcc-libs (16.2.1+r23+gd564253eb6c8-1)
+[2026-10-11T00:03:57+0000] [ALPM] installed ncurses (6.6-2)
+[2026-10-11T00:03:57+0000] [ALPM] installed readline (8.3.6-1)
+[2026-10-11T00:03:57+0000] [ALPM] installed bash (5.3.20-1)
+[2026-10-11T00:03:57+0000] [ALPM] installed acl (2.4.0-1)
+[2026-10-11T00:03:57+0000] [ALPM] installed attr (2.6.0-1)
+[2026-10-11T00:03:57+0000] [ALPM] installed gmp (6.3.0-3)
+[2026-10-11T00:03:57+0000] [ALPM] installed zlib (1:1.3.2-3)
+[2026-10-11T00:03:57+0000] [ALPM] installed sqlite (3.53.4-1)
+[2026-10-11T00:03:57+0000] [ALPM] installed util-linux-libs (2.42.4-1)
+[2026-10-11T00:03:57+0000] [ALPM] installed e2fsprogs (1.47.4-1)
+[2026-10-11T00:03:57+0000] [ALPM] installed keyutils (1.6.3-4)
+[2026-10-11T00:03:57+0000] [ALPM] installed gdbm (1.26-2)
+[2026-10-11T00:03:57+0000] [ALPM] installed brotli (1.2.0-1)
+[2026-10-11T00:03:57+0000] [ALPM] installed xz (5.8.4-1)
+[2026-10-11T00:03:57+0000] [ALPM] installed lz4 (1:1.10.0-2)
+[2026-10-11T00:03:57+0000] [ALPM] installed zstd (1.5.7-3)
+[2026-10-11T00:03:58+0000] [ALPM] installed openssl (3.6.5-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libsasl (2.1.28-5)
+[2026-10-11T00:03:58+0000] [ALPM] installed libldap (2.7.1-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libevent (2.1.13-2)
+[2026-10-11T00:03:58+0000] [ALPM] installed libverto (0.3.2-6)
+[2026-10-11T00:03:58+0000] [ALPM] installed lmdb (0.9.35-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed krb5 (1.22.2-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libcap-ng (0.9.6-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed audit (4.2.1-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libxcrypt (4.5.2-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libtirpc (1.3.8-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libnsl (2.0.1-2)
+[2026-10-11T00:03:58+0000] [ALPM] installed pambase (20260616-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libgpg-error (1.61-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libgcrypt (1.12.4-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed systemd-libs (262-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed pam (1.7.3-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libcap (2.78-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed coreutils (9.12-2)
+[2026-10-11T00:03:58+0000] [ALPM] installed bzip2 (1.0.8-6)
+[2026-10-11T00:03:58+0000] [ALPM] installed libseccomp (2.6.0-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed file (5.48-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed findutils (4.11.0-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed mpfr (4.2.2-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed gawk (5.4.1-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed pcre2 (10.49-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed grep (3.12-2)
+[2026-10-11T00:03:58+0000] [ALPM] installed procps-ng (4.0.7-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed sed (4.10-2)
+[2026-10-11T00:03:58+0000] [ALPM] installed tar (1.35-5)
+[2026-10-11T00:03:58+0000] [ALPM] installed libtasn1 (4.21.0-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libffi (3.8.0-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libp11-kit (0.26.5-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed p11-kit (0.26.5-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed ca-certificates-utils (20240618-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed ca-certificates-mozilla (3.131-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed ca-certificates (20240618-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libunistring (1.4.2-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libidn2 (2.3.8-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libnghttp2 (1.70.0-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libnghttp3 (1.18.0-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed nettle (4.0-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed leancrypto (1.9.1-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed gnutls (3.8.13-3)
+[2026-10-11T00:03:58+0000] [ALPM] installed libngtcp2 (1.25.0-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libpsl (0.21.5-2)
+[2026-10-11T00:03:58+0000] [ALPM] installed libssh2 (1.11.1-7)
+[2026-10-11T00:03:58+0000] [ALPM] installed curl (8.22.0-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed json-c (0.19-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed gnulib-l10n (20241231-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed icu (78.3-1)
+[2026-10-11T00:03:58+0000] [ALPM] installed libxml2 (2.15.4-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed gettext (1.0-2)
+[2026-10-11T00:03:59+0000] [ALPM] installed hwdata (0.412-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed kmod (34.2-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed pciutils (3.15.0-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed psmisc (23.7-2)
+[2026-10-11T00:03:59+0000] [ALPM] installed shadow (4.20.0.arch1-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed util-linux (2.42.4-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed gzip (1.15-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed licenses (20240728-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed libksba (1.8.1-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed libusb (1.0.30-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed libassuan (3.0.0-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed libsysprof-capture (51.0-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed glib2 (2.90.1-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed tpm2-tss (4.2.0-2)
+[2026-10-11T00:03:59+0000] [ALPM] installed libsecret (0.21.8.2-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed pinentry (1.3.3-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed npth (1.8-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed gnupg (2.4.9-3)
+[2026-10-11T00:03:59+0000] [ALPM] installed gpgme (2.2.0-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed libarchive (3.8.9-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed pacman-mirrorlist (20260610-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed device-mapper (2.03.43-2)
+[2026-10-11T00:03:59+0000] [ALPM] installed popt (1.19-2)
+[2026-10-11T00:03:59+0000] [ALPM] installed cryptsetup (2.8.8-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed expat (2.9.0-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed dbus (1.16.2-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed dbus-broker (37-3)
+[2026-10-11T00:03:59+0000] [ALPM] installed dbus-broker-units (37-3)
+[2026-10-11T00:03:59+0000] [ALPM] installed dbus-units (37-3)
+[2026-10-11T00:03:59+0000] [ALPM] installed kbd (2.10.0-1)
+[2026-10-11T00:03:59+0000] [ALPM] installed libelf (0.196-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed systemd (262-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed jansson (2.15.1-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed binutils (2.47-4)
+[2026-10-11T00:04:00+0000] [ALPM] installed libmakepkg-dropins (20-2)
+[2026-10-11T00:04:00+0000] [ALPM] installed pacman (7.1.0.r9.g54d9411-2)
+[2026-10-11T00:04:00+0000] [ALPM] installed archlinux-keyring (20260909-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed systemd-sysvcompat (262-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed iputils (20250605-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed libmnl (1.0.5-2)
+[2026-10-11T00:04:00+0000] [ALPM] installed libnfnetlink (1.0.2-2)
+[2026-10-11T00:04:00+0000] [ALPM] installed libnetfilter_conntrack (1.1.1-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed libnftnl (1.3.2-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed libnl (3.12.0-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed libpcap (1.11.0-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed nftables (1:1.1.7-3)
+[2026-10-11T00:04:00+0000] [ALPM] installed iptables (1:1.8.13-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed libbpf (1.7.0-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed iproute2 (7.2.0-1)
+[2026-10-11T00:04:00+0000] [ALPM] installed base (3-3)
+[2026-10-11T00:04:00+0000] [ALPM] transaction completed
+[2026-10-22T12:24:24+0000] [PACMAN] Running 'pacman -Syu --noconfirm --needed freecad qt6-wayland mesa-utils noto-fonts'
+[2026-10-22T12:24:24+0000] [PACMAN] synchronizing package lists
+[2026-10-22T12:25:12+0000] [PACMAN] starting full system upgrade
+[2026-10-22T12:28:04+0000] [ALPM] transaction started
+[2026-10-22T12:28:04+0000] [ALPM] upgraded linux-api-headers (7.2-1 -> 7.3-1)
+[2026-10-22T12:28:04+0000] [ALPM] upgraded zlib (1:1.3.2-3 -> 1:1.3.2-4)
+[2026-10-22T12:28:04+0000] [ALPM] installed boost-libs (1.92.0-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed xcb-proto (1.17.0-4)
+[2026-10-22T12:28:04+0000] [ALPM] installed xorgproto (2026.1-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed libxdmcp (1.1.5-2)
+[2026-10-22T12:28:04+0000] [ALPM] installed libxau (1.0.12-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed libxcb (1.17.0-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed libx11 (1.8.14-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed libxext (1.3.7-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed libpciaccess (0.19-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed libdrm (2.4.134-1)
+[2026-10-22T12:28:04+0000] [ALPM] upgraded systemd-libs (262-1 -> 262.1-1)
+[2026-10-22T12:28:04+0000] [ALPM] upgraded sqlite (3.53.4-1 -> 3.54.0-1)
+[2026-10-22T12:28:04+0000] [ALPM] upgraded ca-certificates-mozilla (3.131-1 -> 3.131.1-1)
+[2026-10-22T12:28:04+0000] [ALPM] upgraded curl (8.22.0-1 -> 8.23.0-1)
+[2026-10-22T12:28:04+0000] [ALPM] upgraded libelf (0.196-1 -> 0.197-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed libxshmfence (1.3.3-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed libxxf86vm (1.1.7-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed libedit (20260512_3.1-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed llvm-libs (23.1.3-4)
+[2026-10-22T12:28:04+0000] [ALPM] installed lm_sensors (1:3.6.2-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed spirv-tools (1:1.4.363.0-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed default-cursors (3-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed wayland (1.26.0-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed mesa (1:26.2.5-1)
+[2026-10-22T12:28:04+0000] [ALPM] installed libglvnd (1.7.0-3)
+[2026-10-22T12:28:05+0000] [ALPM] installed coin (1:4.0.10-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed fmt (12.2.0-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed libpng (1.6.59-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed freetype2 (2.15.0-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed glu (9.0.3-3)
+[2026-10-22T12:28:05+0000] [ALPM] installed glew (2.3.1-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed hicolor-icon-theme (0.18-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed libspnav (1.2-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed libaec (1.1.7-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed hdf5 (2.2.0-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed mpdecimal (4.0.1-3)
+[2026-10-22T12:28:05+0000] [ALPM] installed python (3.14.8-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed tcl (8.6.16-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed libxss (1.2.5-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed fontconfig (2:2.18.3-2)
+[2026-10-22T12:28:05+0000] [ALPM-SCRIPTLET] Creating fontconfig configuration...
+[2026-10-22T12:28:05+0000] [ALPM-SCRIPTLET] Rebuilding fontconfig cache...
+[2026-10-22T12:28:05+0000] [ALPM] installed libxrender (0.9.13-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed libxft (2.3.9-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed tk (8.6.16-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed med (5.0.0-4)
+[2026-10-22T12:28:05+0000] [ALPM] installed hwloc (2.15.0-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed onetbb (2023.1.0-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed verdict (1.4.5-3)
+[2026-10-22T12:28:05+0000] [ALPM] upgraded libarchive (3.8.9-1 -> 3.8.10-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed pugixml (1.16-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed libjpeg-turbo (3.2.0-2)
+[2026-10-22T12:28:05+0000] [ALPM] installed jbigkit (2.2-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed libdeflate (1.26-1)
+[2026-10-22T12:28:05+0000] [ALPM] installed libwebp (1.6.0-2)
+[2026-10-22T12:28:05+0000] [ALPM] installed libtiff (4.7.2-2)
+[2026-10-22T12:28:05+0000] [ALPM] installed jsoncpp (1.9.8-1)
+[2026-10-22T12:28:06+0000] [ALPM] installed vtk (9.7.1-1)
+[2026-10-22T12:28:07+0000] [ALPM] installed opencascade (1:7.9.3-4)
+[2026-10-22T12:28:07+0000] [ALPM] installed numactl (2.0.19-1)
+[2026-10-22T12:28:07+0000] [ALPM] installed libfabric (2.7.0-1)
+[2026-10-22T12:28:07+0000] [ALPM] installed openpmix (5.0.11-1)
+[2026-10-22T12:28:07+0000] [ALPM] installed openucx (1.20.1-3)
+[2026-10-22T12:28:07+0000] [ALPM] installed prrte (3.0.14-1)
+[2026-10-22T12:28:07+0000] [ALPM] installed openmpi (5.0.11-1)
+[2026-10-22T12:28:07+0000] [ALPM] installed pybind11 (3.1.0-1)
+[2026-10-22T12:28:08+0000] [ALPM] upgraded dbus (1.16.2-1 -> 1.16.2-2)
+[2026-10-22T12:28:08+0000] [ALPM] installed double-conversion (3.4.0-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed graphite (1:1.3.15-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed harfbuzz (14.6.0-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed libb2 (0.98.1-3)
+[2026-10-22T12:28:08+0000] [ALPM] installed libdaemon (0.14-6)
+[2026-10-22T12:28:08+0000] [ALPM] installed avahi (1:0.9rc5-2)
+[2026-10-22T12:28:08+0000] [ALPM] installed libcups (2:2.4.20-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed libice (1.1.2-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed libevdev (1.14.0-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed libgudev (238-4)
+[2026-10-22T12:28:08+0000] [ALPM] installed libwacom (2.20.0-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed lua54 (5.4.9-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed mtdev (1.1.7-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed libinput (1.32.0-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed duktape (2.7.0-7)
+[2026-10-22T12:28:08+0000] [ALPM] installed libproxy (0.5.12-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed libsm (1.2.6-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed liburing (2.15-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed xkeyboard-config (2.48-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed libxkbcommon (1.13.2-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed libxkbcommon-x11 (1.13.2-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed md4c (0.6.0-2)
+[2026-10-22T12:28:08+0000] [ALPM] installed shared-mime-info (2.5.1-2)
+[2026-10-22T12:28:08+0000] [ALPM] installed tslib (1.24-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed xcb-util-renderutil (0.3.10-2)
+[2026-10-22T12:28:08+0000] [ALPM] installed xcb-util (0.4.1-2)
+[2026-10-22T12:28:08+0000] [ALPM] installed xcb-util-image (0.4.1-3)
+[2026-10-22T12:28:08+0000] [ALPM] installed xcb-util-cursor (0.1.6-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed xcb-util-keysyms (0.4.1-5)
+[2026-10-22T12:28:08+0000] [ALPM] installed xcb-util-wm (0.4.2-2)
+[2026-10-22T12:28:08+0000] [ALPM] installed xdg-utils (1.2.1-2)
+[2026-10-22T12:28:08+0000] [ALPM] installed qt6-translations (6.12.0-1)
+[2026-10-22T12:28:08+0000] [ALPM] installed qt6-base (6.12.0-3)
+[2026-10-22T12:28:09+0000] [ALPM] installed qt6-declarative (6.12.0-2)
+[2026-10-22T12:28:09+0000] [ALPM] installed shiboken6 (6.12.0-3)
+[2026-10-22T12:28:09+0000] [ALPM] installed pyside6 (6.12.0-3)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-defusedxml (0.7.1-8)
+[2026-10-22T12:28:09+0000] [ALPM] installed blas (3.12.1-2)
+[2026-10-22T12:28:09+0000] [ALPM] installed cblas (3.12.1-2)
+[2026-10-22T12:28:09+0000] [ALPM] installed lapack (3.12.1-2)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-numpy (2.5.4-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-contourpy (1.4.0-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-cycler (0.12.1-4)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-six (1.17.0-3)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-dateutil (2.9.0-8)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-fonttools (4.67.0-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-kiwisolver (1.5.1-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-packaging (26.3-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed lcms2 (2.19.1-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed aom (3.15.2-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed dav1d (1.5.4-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed libyuv (r2921+644251f25-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed rav1e (0.8.1-3)
+[2026-10-22T12:28:09+0000] [ALPM] installed svt-av1 (4.2.0-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed libavif (1.4.2-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed fribidi (1.0.17-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed libraqm (0.11.0-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed openjpeg2 (2.5.4-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed libimagequant (4.4.1-2)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-pillow (13.0.0-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-pyparsing (3.3.3-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed qhull (2020.2-6)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-matplotlib (3.11.2-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-attrs (26.1.0-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-pycparser (3.11-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-cffi (2.1.1-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-cryptography (50.0.2-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-filelock (4.0.10-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-wheel (0.48.0-1)
+[2026-10-22T12:28:09+0000] [ALPM] installed python-pip (26.2.2-1)
+[2026-10-22T12:28:10+0000] [ALPM] installed soqt (1.6.4-2)
+[2026-10-22T12:28:10+0000] [ALPM] installed python-pivy (1:0.6.11-2)
+[2026-10-22T12:28:10+0000] [ALPM] installed python-ply (3.11-17)
+[2026-10-22T12:28:10+0000] [ALPM] installed python-typing_extensions (4.16.0-1)
+[2026-10-22T12:28:10+0000] [ALPM] installed libyaml (0.2.5-3)
+[2026-10-22T12:28:10+0000] [ALPM] installed python-yaml (6.0.3-2)
+[2026-10-22T12:28:10+0000] [ALPM] installed qt6-svg (6.12.0-1)
+[2026-10-22T12:28:10+0000] [ALPM] installed gumbo-parser (0.14.1-1)
+[2026-10-22T12:28:10+0000] [ALPM] installed litehtml (0.10-2)
+[2026-10-22T12:28:10+0000] [ALPM] installed qt6-tools (6.12.0-1)
+[2026-10-22T12:28:10+0000] [ALPM] installed xerces-c (3.3.0-4)
+[2026-10-22T12:28:10+0000] [ALPM] installed yaml-cpp (0.9.0-1)
+[2026-10-22T12:28:11+0000] [ALPM] installed freecad (1.1.4-3)
+[2026-10-22T12:28:11+0000] [ALPM] installed qt6-wayland (6.12.0-1)
+[2026-10-22T12:28:11+0000] [ALPM] installed lzo (2.10-5)
+[2026-10-22T12:28:11+0000] [ALPM] installed pixman (0.46.4-1)
+[2026-10-22T12:28:11+0000] [ALPM] installed cairo (1.18.6-1)
+[2026-10-22T12:28:11+0000] [ALPM] installed libdatrie (0.2.14-1)
+[2026-10-22T12:28:11+0000] [ALPM] installed libthai (0.1.30-1)
+[2026-10-22T12:28:11+0000] [ALPM] installed pango (1:1.58.2-1)
+[2026-10-22T12:28:11+0000] [ALPM] installed libdecor (0.2.5-1)
+[2026-10-22T12:28:11+0000] [ALPM] installed vulkan-icd-loader (1.4.363.0-1)
+[2026-10-22T12:28:11+0000] [ALPM] installed mesa-utils (9.0.0-7)
+[2026-10-22T12:28:11+0000] [ALPM] installed noto-fonts (1:2026.10.01-1)
+[2026-10-22T12:28:11+0000] [ALPM] upgraded iproute2 (7.2.0-1 -> 7.3.0-1)
+[2026-10-22T12:28:11+0000] [ALPM] upgraded systemd (262-1 -> 262.1-1)
+[2026-10-22T12:28:11+0000] [ALPM-SCRIPTLET] Failed to connect to audit log, ignoring: Invalid argument
+[2026-10-22T12:28:11+0000] [ALPM-SCRIPTLET] Creating group 'avahi' with GID 969.
+[2026-10-22T12:28:11+0000] [ALPM-SCRIPTLET] Creating user 'avahi' (Avahi mDNS/DNS-SD daemon) with UID 969 and GID 969.
+[2026-10-22T12:28:12+0000] [ALPM] upgraded pacman (7.1.0.r9.g54d9411-2 -> 7.1.0.r9.g54d9411-3)
+[2026-10-22T12:28:12+0000] [ALPM] upgraded systemd-sysvcompat (262-1 -> 262.1-1)
+[2026-10-22T12:28:12+0000] [ALPM] transaction completed
+[2026-10-22T12:28:19+0000] [ALPM] running '20-systemd-sysusers.hook'...
+[2026-10-22T12:28:19+0000] [ALPM-SCRIPTLET] Failed to connect to audit log, ignoring: Invalid argument
+[2026-10-22T12:28:19+0000] [ALPM] running '21-systemd-tmpfiles.hook'...
+[2026-10-22T12:28:19+0000] [ALPM-SCRIPTLET] /usr/lib/tmpfiles.d/journal-nocow.conf:26: Failed to resolve specifier: uninitialized /etc/ detected, skipping.
+[2026-10-22T12:28:19+0000] [ALPM-SCRIPTLET] All rules containing unresolvable specifiers will be skipped.
+[2026-10-22T12:28:19+0000] [ALPM] running '25-systemd-catalog.hook'...
+[2026-10-22T12:28:19+0000] [ALPM] running '25-systemd-hwdb.hook'...
+[2026-10-22T12:28:20+0000] [ALPM] running '25-systemd-sysctl.hook'...
+[2026-10-22T12:28:20+0000] [ALPM-SCRIPTLET]   Skipped: Current root is not booted.
+[2026-10-22T12:28:20+0000] [ALPM] running '30-systemd-daemon-reload-system.hook'...
+[2026-10-22T12:28:20+0000] [ALPM-SCRIPTLET]   Skipped: Current root is not booted.
+[2026-10-22T12:28:20+0000] [ALPM] running '30-systemd-daemon-reload-user.hook'...
+[2026-10-22T12:28:20+0000] [ALPM-SCRIPTLET]   Skipped: Current root is not booted.
+[2026-10-22T12:28:20+0000] [ALPM] running '30-update-mime-database.hook'...
+[2026-10-22T12:28:20+0000] [ALPM] running '35-systemd-enqueue-marked.hook'...
+[2026-10-22T12:28:20+0000] [ALPM-SCRIPTLET]   Skipped: Current root is not booted.
+[2026-10-22T12:28:20+0000] [ALPM] running '35-systemd-udev-reload.hook'...
+[2026-10-22T12:28:20+0000] [ALPM-SCRIPTLET]   Skipped: Current root is not booted.
+[2026-10-22T12:28:20+0000] [ALPM] running '35-systemd-update.hook'...
+[2026-10-22T12:28:20+0000] [ALPM] running '40-fontconfig-config.hook'...
+[2026-10-22T12:28:20+0000] [ALPM] running '40-update-ca-trust.hook'...
+[2026-10-22T12:28:21+0000] [ALPM] running 'dbus-reload.hook'...
+[2026-10-22T12:28:21+0000] [ALPM-SCRIPTLET]   Skipped: Current root is not booted.
+[2026-10-22T12:28:21+0000] [ALPM] running 'fontconfig.hook'...
+[2026-10-22T12:30:38+0000] [PACMAN] Running 'pacman -Syu --noconfirm --needed noto-fonts-cjk'
+[2026-10-22T12:30:38+0000] [PACMAN] synchronizing package lists
+[2026-10-22T12:30:40+0000] [PACMAN] starting full system upgrade
+[2026-10-22T12:31:38+0000] [ALPM] transaction started
+[2026-10-22T12:31:39+0000] [ALPM] installed noto-fonts-cjk (20240730-1)
+[2026-10-22T12:31:39+0000] [ALPM] transaction completed
+[2026-10-22T12:31:39+0000] [ALPM] running '35-systemd-update.hook'...
+[2026-10-22T12:31:39+0000] [ALPM] running 'fontconfig.hook'...
+[2026-10-22T12:31:50+0000] [PACMAN] Running 'pacman -Syu --noconfirm'
+[2026-10-22T12:31:50+0000] [PACMAN] synchronizing package lists
+[2026-10-22T12:31:53+0000] [PACMAN] starting full system upgrade
+[2026-10-22T12:31:53+0000] [PACMAN] Running 'pacman -U --noconfirm /tmp/ml-incoming/sunshine-2026.914.233613-1-x86_64.pkg.tar.zst'
+[2026-10-22T12:32:52+0000] [PACMAN] Running 'pacman -Syu --noconfirm'
+[2026-10-22T12:32:52+0000] [PACMAN] synchronizing package lists
+[2026-10-22T12:32:53+0000] [PACMAN] starting full system upgrade
+[2026-10-22T12:32:54+0000] [PACMAN] Running 'pacman -U --noconfirm /tmp/ml-incoming/sunshine-2026.914.233613-1-x86_64.pkg.tar.zst'
+[2026-10-22T12:35:35+0000] [PACMAN] Running 'pacman -Syu --noconfirm'
+[2026-10-22T12:35:35+0000] [PACMAN] synchronizing package lists
+[2026-10-22T12:35:35+0000] [PACMAN] starting full system upgrade
+[2026-10-22T12:35:36+0000] [PACMAN] Running 'pacman -U --noconfirm /tmp/ml-incoming/sunshine-2026.914.233613-1-x86_64.pkg.tar.zst'
+[2026-10-22T12:35:43+0000] [ALPM] transaction started
+[2026-10-22T12:35:43+0000] [ALPM] installed adwaita-fonts (51.0-2)
+[2026-10-22T12:35:43+0000] [ALPM] installed adwaita-icon-theme-legacy (46.2-3)
+[2026-10-22T12:35:43+0000] [ALPM] installed adwaita-cursors (51.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed adwaita-icon-theme (51.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed dconf (51.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed gsettings-system-schemas (51.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed gsettings-desktop-schemas (51.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libxfixes (6.0.2-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libxi (1.8.4-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libxtst (1.2.6-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed xorg-xprop (1.2.8-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed at-spi2-core (2.62.1-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed desktop-file-utils (0.28-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed bubblewrap (0.13.1-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed giflib (6.1.3-2)
+[2026-10-22T12:35:43+0000] [ALPM] installed libunwind (1.8.3-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed gperftools (2.19.1-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed gtest (1.18.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed highway (1.4.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libjxl (0.12.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed librsvg (2:2.63.3-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed glycin (2.2.3-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed gdk-pixbuf2 (2.44.8-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed iso-codes (4.20.1-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libcloudproviders (0.4.1-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libcolord (1.4.8-2)
+[2026-10-22T12:35:43+0000] [ALPM] installed libepoxy (1.5.10-3)
+[2026-10-22T12:35:43+0000] [ALPM] installed libxcomposite (0.4.7-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libxcursor (1.2.3-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libxdamage (1.1.7-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libxinerama (1.1.6-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libxrandr (1.5.5-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed json-glib (1.10.8-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed glib-networking (1:2.90.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libsoup3 (3.8.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libstemmer (3.1.1-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed tinysparql (3.12.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed gtk-update-icon-cache (1:4.24.1-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed gtk3 (1:3.24.52-2)
+[2026-10-22T12:35:43+0000] [ALPM] installed libdbusmenu-glib (18.10.20180917-2)
+[2026-10-22T12:35:43+0000] [ALPM] installed libdbusmenu-gtk3 (18.10.20180917-2)
+[2026-10-22T12:35:43+0000] [ALPM] installed libayatana-appindicator (0.6.1-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libmfx (23.2.2-6)
+[2026-10-22T12:35:43+0000] [ALPM] installed libpipewire (1:1.6.9-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed libasyncns (1:0.8+r3+g68cd5af-3)
+[2026-10-22T12:35:43+0000] [ALPM] installed libogg (1.3.6-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed flac (1.5.0-1)
+[2026-10-22T12:35:43+0000] [ALPM] installed alsa-topology-conf (1.2.5.1-4)
+[2026-10-22T12:35:44+0000] [ALPM] installed alsa-ucm-conf (1.2.16.1-1)
+[2026-10-22T12:35:44+0000] [ALPM] installed alsa-lib (1.2.16.1-1)
+[2026-10-22T12:35:44+0000] [ALPM] installed mpg123 (1.33.7-1)
+[2026-10-22T12:35:44+0000] [ALPM] installed lame (4.0-1)
+[2026-10-22T12:35:44+0000] [ALPM] installed libvorbis (1.3.7-4)
+[2026-10-22T12:35:44+0000] [ALPM] installed opus (1.6.1-1)
+[2026-10-22T12:35:44+0000] [ALPM] installed libsndfile (1.2.2-4)
+[2026-10-22T12:35:44+0000] [ALPM] installed libpulse (17.0+r134+g77d25a1e6-1)
+[2026-10-22T12:35:44+0000] [ALPM] installed libva (2.24.1-1)
+[2026-10-22T12:35:44+0000] [ALPM] installed miniupnpc (2.3.3-3)
+[2026-10-22T12:35:44+0000] [ALPM] installed which (2.25-1)
+[2026-10-22T12:35:44+0000] [ALPM] installed sunshine (2026.914.233613-1)
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] Failed to connect to udev via varlink: No such file or directory
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] uinput: Failed to write 'change' to '/sys/devices/virtual/misc/uinput/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] uhid: Failed to write 'change' to '/sys/devices/virtual/misc/uhid/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] hidraw0: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:14.0/usb3/3-1/3-1:1.0/0003:046D:C53F.0016/hidraw/hidraw0/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] hidraw1: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:14.0/usb3/3-1/3-1:1.1/0003:046D:C53F.0017/hidraw/hidraw1/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] hidraw4: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:14.0/usb3/3-1/3-1:1.2/0003:046D:C53F.0018/0003:046D:4074.0019/hidraw/hidraw4/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] hidraw2: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:14.0/usb3/3-1/3-1:1.2/0003:046D:C53F.0018/hidraw/hidraw2/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] hidraw3: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-ELAN0E04:00/0018:04F3:3190.0004/hidraw/hidraw3/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input45: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:14.0/usb3/3-1/3-1:1.2/0003:046D:C53F.0018/0003:046D:4074.0019/input/input45/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event4: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:14.0/usb3/3-1/3-1:1.2/0003:046D:C53F.0018/0003:046D:4074.0019/input/input45/event4/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] mouse0: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:14.0/usb3/3-1/3-1:1.2/0003:046D:C53F.0018/0003:046D:4074.0019/input/input45/mouse0/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input17: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-ELAN0E04:00/0018:04F3:3190.0004/input/input17/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event6: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-ELAN0E04:00/0018:04F3:3190.0004/input/input17/event6/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] mouse1: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-ELAN0E04:00/0018:04F3:3190.0004/input/input17/mouse1/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input19: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-ELAN0E04:00/0018:04F3:3190.0004/input/input19/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event7: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-ELAN0E04:00/0018:04F3:3190.0004/input/input19/event7/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] mouse2: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-ELAN0E04:00/0018:04F3:3190.0004/input/input19/mouse2/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input0: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.0/PNP0C09:00/PNP0C0D:00/input/input0/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event0: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.0/PNP0C09:00/PNP0C0D:00/input/input0/event0/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input25: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input25/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event11: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input25/event11/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input26: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input26/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event12: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input26/event12/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input27: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input27/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event13: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input27/event13/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input28: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input28/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event14: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input28/event14/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input29: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input29/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event15: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input29/event15/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input20: Failed to write 'change' to '/sys/devices/pci0000:00/acpi.video_bus.0/input/input20/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event8: Failed to write 'change' to '/sys/devices/pci0000:00/acpi.video_bus.0/input/input20/event8/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input1: Failed to write 'change' to '/sys/devices/platform/PNP0C0C:00/input/input1/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event1: Failed to write 'change' to '/sys/devices/platform/PNP0C0C:00/input/input1/event1/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input2: Failed to write 'change' to '/sys/devices/platform/PNP0C0E:00/input/input2/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event2: Failed to write 'change' to '/sys/devices/platform/PNP0C0E:00/input/input2/event2/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input3: Failed to write 'change' to '/sys/devices/platform/i8042/serio0/input/input3/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event3: Failed to write 'change' to '/sys/devices/platform/i8042/serio0/input/input3/event3/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input24: Failed to write 'change' to '/sys/devices/platform/pcspkr/input/input24/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event10: Failed to write 'change' to '/sys/devices/platform/pcspkr/input/input24/event10/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input22: Failed to write 'change' to '/sys/devices/virtual/input/input22/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event5: Failed to write 'change' to '/sys/devices/virtual/input/input22/event5/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] input23: Failed to write 'change' to '/sys/devices/virtual/input/input23/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] event9: Failed to write 'change' to '/sys/devices/virtual/input/input23/event9/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] mice: Failed to write 'change' to '/sys/devices/virtual/input/mice/uevent': Permission denied
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] modprobe: FATAL: Module uinput not found in directory /lib/modules/7.2.11-200.fc44.x86_64
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] modprobe: FATAL: Module uhid not found in directory /lib/modules/7.2.11-200.fc44.x86_64
+[2026-10-22T12:35:44+0000] [ALPM-SCRIPTLET] modprobe: FATAL: Module uhid not found in directory /lib/modules/7.2.11-200.fc44.x86_64
+[2026-10-22T12:35:44+0000] [ALPM] transaction completed
+[2026-10-22T12:35:45+0000] [ALPM] running '30-systemd-daemon-reload-user.hook'...
+[2026-10-22T12:35:46+0000] [ALPM-SCRIPTLET]   Skipped: Current root is not booted.
+[2026-10-22T12:35:46+0000] [ALPM] running '35-systemd-udev-reload.hook'...
+[2026-10-22T12:35:46+0000] [ALPM-SCRIPTLET]   Skipped: Current root is not booted.
+[2026-10-22T12:35:46+0000] [ALPM] running '35-systemd-update.hook'...
+[2026-10-22T12:35:46+0000] [ALPM] running '36-systemd-modules-load.hook'...
+[2026-10-22T12:35:46+0000] [ALPM-SCRIPTLET] System has not been booted with systemd as init system (PID 1). Can't operate.
+[2026-10-22T12:35:46+0000] [ALPM-SCRIPTLET] Failed to connect to system scope bus via local transport: Host is down
+[2026-10-22T12:35:46+0000] [ALPM] running 'fontconfig.hook'...
+[2026-10-22T12:35:46+0000] [ALPM] running 'gio-querymodules.hook'...
+[2026-10-22T12:35:46+0000] [ALPM] running 'glib-compile-schemas.hook'...
+[2026-10-22T12:35:46+0000] [ALPM] running 'gtk-query-immodules-3.0.hook'...
+[2026-10-22T12:35:46+0000] [ALPM] running 'gtk-update-icon-cache.hook'...
+[2026-10-22T12:35:46+0000] [ALPM] running 'update-desktop-database.hook'...

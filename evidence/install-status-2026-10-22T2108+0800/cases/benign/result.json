@@ -1,0 +1,17 @@
+{
+  "name": "benign",
+  "started_at": "2026-10-22T21:20:59+08:00",
+  "passed": true,
+  "raw": "cases/benign",
+  "returncode": 0,
+  "stderr": "install-arch: pacman-key --init\ninstall-arch: pacman -Syu --noconfirm\ninstall-arch: pacman -U --noconfirm /tmp/ml-incoming/ml-benign-1.0.1-1-x86_64.pkg.tar.zst\ninstall-arch: install-local completed txn0d27f5f30226\n",
+  "transaction_id": "txn0d27f5f30226",
+  "phase": "completed",
+  "verdict": "verified",
+  "maintenance_status": "ok",
+  "maintenance_items": [],
+  "problems": [],
+  "audit_returncode": 0,
+  "show_returncode": 0,
+  "finished_at": "2026-10-22T21:21:05+08:00"
+}

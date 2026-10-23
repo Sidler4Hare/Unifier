@@ -1,10 +1,61 @@
-# 当前接手入口
+# Unifier 当前接手入口
+
+## 定档：Unifier 架构实验基线（2026-10-23）
+
+- 项目统一更名为 **Unifier**，私有仓库 `Sidler4Hare/Unifier`，定档标签 `architecture-experiment-2026-10-23`。本节覆盖下方历史阶段的“未提交”状态描述。
+- 以 [定档说明](设计/Unifier-架构实验定档-2026-10-23.md) 为当前架构与验收范围入口；历史报告、失败尝试和冻结源码保留原文。
+- 新命令入口 `tools/unifier.py` 兼容委托到 `tools/ml.py`；内部 Python 包、环境标签、MIME 和已注册应用不迁移。
+- 当前机器使用 `/home/omg/文档/Unifier` 作为新目录入口；它指向原物理工作区，维持路径派生的环境身份与历史证据引用。克隆到其他目录可继续开发，但旧运行记录不能直接迁移。
+- 本轮完整工作区备份放在相邻的 `Unifier-backups/`，包含未跟踪、忽略文件及 Git 历史，详见其中恢复说明；不把临时套接字当作可恢复文件。
+- 后续围绕这份基线实现文件控制层，不扩大历史实验的通过范围。
+
+## 历史：两个契约修复及 FreeCAD 真 GUI 验收（2026-10-23）
+
+- 报告：`evidence/contract-freecad-gui-2026-10-23/report.md`；修复前四文件保存在 `before/`，本轮独立差分为 `contract-fix.patch`。没有提交。
+- 创建、计划和驱动共用 `resolve_target_contract`；持久记录经 `resolve_record_contract` 校验。未知 apt 目标提前拒绝；已知目标的矛盾 system 拒绝；只有缺少 system 的旧记录可用旧字段兼容。未实现政策实际操作均 refused，不能把可描述当可运行。
+- 回归 162 项，158 通过、4 跳过。新增 6 项测试涵盖多个契约字段和四种包操作，并对三套旧记录做模拟事务，核对计划与执行驱动一致。
+- 使用已有本地镜像创建独立 `gui-freecad`，无 pull/包安装，network none。真 Wayland FreeCAD 1.1.4 GUI 经过 QAction 和真实 Open/Save 对话框完成：宿主原件打开、加立方体、原地保存、关闭重开、新建模型、仅输入文件名保存到当前宿主项目、正常退出自动停止、再次打开两份文件。
+- 停机后回读原件 4 对象、新件 1 对象，形状有效，哈希稳定，UID/GID 1000:1000；最终 stopped、无租约/bridge/窗口，原有环境和旧模型证据保留。
+- `attempt1-qt-import/`、`attempt2-dialog-submit/` 保留探针失败。最终 41 项证据检查通过；未把它们算成 41 个独立 GUI 场景。
+- 新建默认目录仅验收本次先打开宿主文件再新建的流程。通用文件路由、原文件管理器集成、任意空白启动的保存默认值和并发防覆盖仍未实现。旧架构 v2 与上一节报告中的两个缺口现在以本轮修复报告为准。
+
+## 最新：架构复核与文件控制层 v2（2026-10-23）
+
+- [改动与测试复核](调研/Grok改动复核与架构迭代-2026-10-23.md)、[设计 v2](设计/文件与执行控制层-v2.md)、证据 `evidence/architecture-review-2026-10-23/`。
+- 对比当日 09:30 源码哈希：新增 catalog，修改 routing/packages/service/cli。包驱动与更换计划已部分落地；文件层仍是设计。不要把 10 月 22 日的全部未提交改动归入此次增量。
+- 本轮当前工作树回归 156 项：152 通过、4 跳过。新增 13 项文件机制检查通过；三处进程中断后重复恢复保留源，无重复登记。仅普通文件的复制发布/保守恢复，不是源删除、断电恢复或产品移动验收。
+- 两项待修契约边界：新 apt 目标可通过 require_runnable，但 driver_for 只接 PREPARED；合成矛盾 system/target 记录会让计划与实际驱动不一致。未改真实环境记录。
+- 下一轮按 v2 关口实施：统一目标契约与身份；宿主项目调用 Arch 应用保存；停止环境只读投影；随后补移动源清理、真实故障矩阵。必须验证宿主跟随投影绝对链接，不能只在服务端 chroot 测试。
+- 本轮未改生产代码/测试/配置/工具，未重跑旧 GUI 或启停容器，未提交。原有脏工作与历史证据保留。下面各节为历史阶段，不是当前最新架构状态。
 
 2026-10-22，本轮开发分支：`codex/screencast-protocol`，基线 `0c14564`。
 
 用户已确认腾讯会议应用轮实测通过。本轮继续共享桌面前端、GPU DMA-BUF 与 CPU MemFd 的协议连接。M5 跨宿主尚未开始。
 
-## 最近一次测试：启动性能与回收（2026-10-22 晚）
+2026-10-22 深夜，本轮先完成生命周期与安装状态准确性修复，再做并发测试。生产代码在工作树中未提交。
+
+## 最新一轮：生命周期与安装状态修复（2026-10-22 深夜）
+
+用户要求先做修复与验证，顺延并发测试。两项修复均已在真机验证：
+
+- 生命周期：`--init`（PID 1=catatonit）、受管启动器的 detached worker 租约、auto_stop 按 container_id+started_at 继承、start/stop 的 lifecycle flock 与 stopping 等待、桥接健康重建。
+- 真机第二轮 `evidence/lifecycle-2026-10-22T213032+0800/`：`product_verdict=lifecycle-fixed`；20/20 冷启动通过，关窗→died p50 199 ms、记录 stopped p50 24.5 ms，快速重开 p50 884 ms，Debian/Arch 各 30 次热组后 0 僵尸，SIGKILL 启动器、并发双窗口、手动保留、3 次并发首启全部通过。
+- 第一轮 `evidence/lifecycle-2026-10-22T212236+0800/` 保留 2 次 Debian 关窗测量超时作为原始失败记录；根因是共享桌面真实键盘输入触发 Mousepad 自身 Save Changes 模态框，不是产品停止流程缺陷。第二轮改用只读文档并加临时 KWin 焦点保护，同冻结代码完整重跑通过，最终判定以第二轮为准。
+- 安装状态：事务新增 `maintenance`（status/items/system_integration/full_init）与 `verdict`；`pkg log` 输出 verdict，CLI 对 `verified-with-warnings` 打 stderr 警告且仍返回 0。真实 Arch 3 个事务通过：正常包 verified；合成失败钩子与真实 Sunshine 均为 verified-with-warnings（Sunshine 5 类维护失败）。证据 `evidence/install-status-2026-10-22T2108+0800/`。
+- 全量回归 149 项通过（4 项 `MULTILINUX_INTEGRATION` 按设计跳过）。所有测试环境停止保留；无存活租约/桥接/窗口；用户原有腾讯会议容器保持运行。
+- 代码改动：`src/multilinux/{runtime,on_demand,service,cli,packages}.py`，新增 `tests/test_lifecycle_contracts.py`、`tests/test_install_status.py`、`tools/{prepare,probe}_lifecycle.py`、`tools/{prepare,probe}_install_status.py`。
+- 并发测试已于 2026-10-22 晚完成（task-4）：`evidence/concurrency-2026-10-22T220318+0800/`，`product_verdict=concurrency-verified`，44/44 设计波次通过。共享 Debian 环境 3 窗口：单容器、单 start、create=0、lease=3、进程=3；双发行版 Debian 3+Arch 3 运行中容器恒为 2；母发行版原生 3 Konsole 不产生容器；混合 2+2+2 容器=2；10 wave ×3 并发首启 stop p50 213 ms、停止中重开就绪 p50 1942 ms。S5/S7 各有一轮测量口径失败，原始记录在 `attempt1/`、`attempt2/`，修正后重跑通过，不是产品缺陷。
+- 下一轮候选：Fedora 容器并发、更大 N/长时间压力、网络与 I/O 并发、M5 跨宿主；不要把本轮 `concurrency-verified` 扩展成 M5 或所有应用的结论。不要覆盖上述生命周期/安装状态/并发证据。
+
+## 前一轮：复杂 Arch 应用（2026-10-22 20:23 后）
+
+- 最新报告：`evidence/arch-complex-2026-10-22T202359+0800/report.md`。FreeCAD 1.1.4 原生 Wayland 的参数建模、中文文件、STEP 回读和停止后重开通过，最终真实窗口已检查，两次启动器正常退出。
+- GitHub Release 的 Sunshine 原生 Arch 包完成哈希核对、本地安装和普通用户版本查询。但 udev/modprobe/systemd 钩子失败，pacman 仍返回 0，项目记 `completed`；这不是完整兼容通过。设备与串流未验收。
+- 默认镜像两次下载失败，独立环境增加 USTC 镜像后恢复；保留所有失败和修正前 GUI 探针尝试。
+- 独立环境 `complex-arch` 已停止并保留；宿主包、桌面入口、原项目状态核对不变。生产代码未改，已有生命周期缺陷仍在。
+- 后续测试优先级见 `调研/复杂Arch应用与后续测试.md`。新增工具为 `tools/probe_arch_complex.py` 与 `tools/probe_freecad_macro.py`。
+
+## 前一轮：启动性能与回收（2026-10-22 晚）
 
 用户随后要求开始测性能。最新证据是 `evidence/startup-2026-10-22T182400+0800/report.md`，不是前面的 ScreenCast 功能报告。
 

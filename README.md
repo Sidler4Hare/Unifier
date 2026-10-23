@@ -1,4 +1,19 @@
-# 多发行版 Linux 应用兼容子系统
+# Unifier
+
+
+Unifier 是共享宿主内核、保留 Debian / Fedora / Arch 原生用户空间和包管理的 Linux 应用兼容项目。2026-10-23 起统一使用 **Unifier** 名称。
+
+当前里程碑：**架构实验基线已定档**，标签 `architecture-experiment-2026-10-23`。范围、证据与下一阶段边界见[定档说明](设计/Unifier-架构实验定档-2026-10-23.md)。这是已验证实验的基线，完整文件控制层及跨宿主验收仍在后续阶段。
+
+新入口为 `python3 tools/unifier.py`；旧 `tools/ml.py`、内部 `multilinux` 名称与现有环境身份保持兼容。两个入口共用同一实现，帮助与错误中的 `ml` 暂保留为协议兼容名称。
+
+- [契约修复与 FreeCAD 真实 GUI 闭环](evidence/contract-freecad-gui-2026-10-23/report.md)：两处契约缺口已修复；158 项回归通过、4 跳过；宿主项目原件保存、新建对话框默认位置及停机重开通过。
+- [最新改动复核与架构迭代](调研/Grok改动复核与架构迭代-2026-10-23.md)：区分代码增量、原有测试和本轮复核；该次历史基线 152 项回归通过、4 跳过，新增 13 项文件归属/恢复机制检查。
+- [文件与执行控制层 v2](设计/文件与执行控制层-v2.md)：环境/数据身份、私有文件投影、保存保证、复制移动恢复和下一阶段交付关口；尚未接入产品文件层。
+- [宿主权威与文件、命令、依赖边界：架构复审](设计/宿主权威与文件执行边界.md)：2026-10-23 的现状检查与下一阶段设计。升级/更换判定和 apt、dnf、pacman 驱动已经进产品；文件层与执行上下文仍是设计。
+- [文件层可行性、工程难度与性能需求评估](调研/文件层可行性与性能评估-2026-10-23.md)：机制约束、28 波文件访问实验、资源预算与阶段工期估计。
+- [环境文件视图原型](调研/环境文件视图原型-2026-10-23.md)：rootless 合并根对宿主进程不可见；绝对链接和独立卷已在临时 Debian 容器上核对。
+- [跨应用保存原型](调研/跨应用保存原型-2026-10-23.md)：Arch FreeCAD 把共享项目写回原路径；备份、STEP、默认位置和交错写入已核对。
 
 首版范围：**Debian 13、Fedora 44、Arch Linux 当前滚动版**，`linux/amd64`，共享宿主内核，保留各自原生包管理和运行环境。本轮在 Fedora 44 宿主准备三套用户空间。
 
@@ -40,28 +55,30 @@ python3 tools/collect_host_baseline.py --output evidence/host-baseline-current.j
 管理持久环境：
 
 ```bash
-python3 tools/ml.py env create --target debian13
-python3 tools/ml.py env start debian13
-python3 tools/ml.py env run debian13 --workdir /usr -- true
-python3 tools/ml.py env stop debian13
-python3 tools/ml.py env inspect debian13
-python3 tools/ml.py env remove debian13 --yes
+python3 tools/unifier.py env create --target debian13
+python3 tools/unifier.py env start debian13
+python3 tools/unifier.py env run debian13 --workdir /usr -- true
+python3 tools/unifier.py env stop debian13
+python3 tools/unifier.py env inspect debian13
+python3 tools/unifier.py env remove debian13 --yes
 ```
 
 `run` 要求环境已经启动。`--` 之后的参数按 argv 传入该环境，退出码是该进程的退出码。宿主环境变量默认不进入环境；要带入的名字重复使用 `--env KEY`。`--share` 把宿主上的一个绝对路径目录按相同路径挂入环境。`remove` 会删除环境的可写根，所以必须带 `--yes`。
+
+`env plan <id>` 只读。不带其他参数时，它说明这份环境的目录契约：包内容可以原地升级；基础镜像、用户命名空间、网络、桌面、共享目录和发行版身份要另建环境，旧环境保留到明确删除。`--target`、`--network`、`--userns`、`--desktop` / `--no-desktop`、`--share` 和 `--ipc` 用来试算一次更换，不会创建或停止容器。
 
 **M1 生命周期已完成。** 2026-10-19 15:27:10–15:28:04 +08:00，Debian 13、Fedora 44 和 Arch rolling 三个临时环境完成创建、argv、工作目录、退出码、来源隔离、停止后再次启动和共享文件属主检查，随后已删除。证据见 [生命周期验收](evidence/m1-lifecycle-2026-10-19.json)。产品代码在 `src/multilinux/`。准备工具仍然只负责镜像和基础探针。
 
 安装、更新和卸载走各环境自己的包管理器。安装和更新要在创建时选择 `pasta`：
 
 ```bash
-python3 tools/ml.py env create --target debian13 --network pasta
-python3 tools/ml.py pkg install debian13 tree --use-command tree --use-command --version
-python3 tools/ml.py pkg query debian13 tree
-python3 tools/ml.py pkg update debian13
-python3 tools/ml.py pkg remove debian13 tree --use-command tree --use-command --version
-python3 tools/ml.py pkg log debian13
-python3 tools/ml.py pkg show TXNID
+python3 tools/unifier.py env create --target debian13 --network pasta
+python3 tools/unifier.py pkg install debian13 tree --use-command tree --use-command --version
+python3 tools/unifier.py pkg query debian13 tree
+python3 tools/unifier.py pkg update debian13
+python3 tools/unifier.py pkg remove debian13 tree --use-command tree --use-command --version
+python3 tools/unifier.py pkg log debian13
+python3 tools/unifier.py pkg show TXNID
 ```
 
 `env create` 的 `--network` 只能是 `none` 或 `pasta`，默认 `none`。安装、更新，以及带 `--file` 的本地包安装，需要 `pasta`；以 `none` 创建的环境会在写入事务之前被拒绝。查询和卸载使用环境里已经存在的包数据库。`--use-command` 重复出现，拼成验收 argv：安装和更新时期望退出码为 0，卸载时期望它不是 0。`--file` 与仓库包名互相排斥。成功的事务把 JSON 写到标准输出，退出码为 0；失败的事务同样写出 JSON，退出码为 1。进度写在标准错误。
@@ -78,13 +95,13 @@ MULTILINUX_INTEGRATION=1 MULTILINUX_EVIDENCE=1 python3 -m unittest tests.test_pk
 桌面接入在创建环境时打开。`--desktop` 挂上当前 Wayland、X11 和音频套接字，并让这个环境使用 `label=disable`，这样容器才能连上宿主会话，同时不去改套接字的 SELinux 标签。普通环境仍然使用默认容器标签。
 
 ```bash
-python3 tools/ml.py env create --target debian13 --id m3debian --network pasta --desktop --share /tmp/ml-m3-docs
-python3 tools/ml.py app add m3debian m3note --exec /usr/bin/gvim --workdir /tmp/ml-m3-docs --set GDK_BACKEND=x11 -- -N -n -u NONE -U NONE --servername MLNOTE --nofork
-python3 tools/ml.py app export m3note
-python3 tools/ml.py app open m3note -- /tmp/ml-m3-docs/note.mlnote
-python3 tools/ml.py app show m3note
-python3 tools/ml.py app unexport m3note
-python3 tools/ml.py app remove m3note
+python3 tools/unifier.py env create --target debian13 --id m3debian --network pasta --desktop --share /tmp/ml-m3-docs
+python3 tools/unifier.py app add m3debian m3note --exec /usr/bin/gvim --workdir /tmp/ml-m3-docs --set GDK_BACKEND=x11 -- -N -n -u NONE -U NONE --servername MLNOTE --nofork
+python3 tools/unifier.py app export m3note
+python3 tools/unifier.py app open m3note -- /tmp/ml-m3-docs/note.mlnote
+python3 tools/unifier.py app show m3note
+python3 tools/unifier.py app unexport m3note
+python3 tools/unifier.py app remove m3note
 ```
 
 `app open` 会在环境尚未启动时先启动它，并一直保持到应用退出。导出的桌面项调用 `ml.py app open`，文件类型默认是 `application/x-multilinux-note`，扩展名是 `mlnote`。工作目录必须位于某个 `--share` 目录里。下次登录如果 `XAUTHORITY` 路径变了，需要重新创建带 `--desktop` 的环境。
@@ -103,8 +120,8 @@ MULTILINUX_INTEGRATION=1 MULTILINUX_EVIDENCE=1 python3 -m unittest tests.test_de
 `ml.py res` 提供单次和时序采样：
 
 ```bash
-python3 tools/ml.py res sample <env>
-python3 tools/ml.py res series <env> --samples 10 --interval 1 --settle 5
+python3 tools/unifier.py res sample <env>
+python3 tools/unifier.py res series <env> --samples 10 --interval 1 --settle 5
 ```
 
 `sample` 读取容器 cgroup 的 `memory.current`、`memory.peak`、`memory.stat`、`memory.events`、swap、pressure 和 pids，逐个进程汇总 `/proc/PID/smaps_rollup` 的 PSS，并把 conmon 单独记录。停止的环境没有 cgroup，字段保持 null 并写明原因。磁盘读取 Podman 的 `SizeRw` 与 `SizeRootFs`；`SizeRootFs` 含共享下层，不能跨环境相加。`series` 只在首尾采磁盘。当前内核接受写 `memory.peak` 但不归零，`--reset-peak` 会如实标记失败，不用 0 填补。
@@ -210,8 +227,8 @@ python3 tools/probe_desktop_apps.py open --run-dir evidence/gui-apps-2026-10-22T
 将 `--target` 换为 `debian13` 或 `arch` 可打开另外两套。它们使用证据目录中独立快照的环境记录，因此不出现在主项目的 `ml.py env list` 中。查看和停止它们使用快照里的 CLI：
 
 ```bash
-python3 evidence/gui-apps-2026-10-22T081145+0800/project/tools/ml.py env list
-python3 evidence/gui-apps-2026-10-22T081145+0800/project/tools/ml.py env stop gui-fedora44
+python3 evidence/gui-apps-2026-10-22T081145+0800/project/tools/unifier.py env list
+python3 evidence/gui-apps-2026-10-22T081145+0800/project/tools/unifier.py env stop gui-fedora44
 ```
 
 宿主的 2521 个 RPM 包清单、桌面入口名单、`mimeapps.list` 和主项目原有环境/启动记录核对不变；代码回归 55 项，51 项通过，4 项现场测试默认跳过。图形测试通过 gVim 自身接口自动完成，窗口经 GTK3/X11 和当前 XWayland 会话显示。原生 Wayland GUI、人工鼠标键盘操作、剪贴板、实际音频播放、GPU 和跨宿主仍待验证。下次登录的认证路径可能变化，届时需创建新一轮环境。10 月 21 日的 M4 性能数据仍保持原来的实验范围，本轮 GUI 资源快照不作为性能排名。
@@ -237,7 +254,7 @@ python3 evidence/gui-apps-2026-10-22T081145+0800/project/tools/ml.py env stop gu
 打开后续修复并保留登录状态的腾讯会议部署：
 
 ```bash
-python3 /home/omg/.local/share/multilinux/apps/wemeet/tools/ml.py app open wemeet --
+python3 /home/omg/.local/share/multilinux/apps/wemeet/tools/unifier.py app open wemeet --
 ```
 
 该启动配置使用按需生命周期。手动启动并保留的环境需用同一部署 CLI 执行 `env stop meeting`；关闭前确认其中没有正在进行的会议。新登录会话可能需要更新认证挂载。
@@ -257,3 +274,123 @@ GPU 路径实际完成 DMA-BUF → EGLImage → GLES/FBO → `glReadPixels`，�
 正常并发共用通过，但敏捷启停仍有三项现场问题：完整停止约 **8.36 秒**，停止期间快速重开约 **8.94–9.10 秒**；PID 1 不回收孤儿子进程，Arch 连续热组打开后发现 **155 个僵尸子进程**；强杀启动器后自动启停所有权丢失，后续正常启动也不能恢复。问题均保留证据，本轮没有修改生产启停逻辑。
 
 180 个正式样本和 15 个生命周期场景执行完成，另保留一次已修正的测量探针时序失败。105 项回归中 101 通过、4 跳过；机器证据有效，产品结论为 **需要修复生命周期**。测试环境、窗口、代理和临时 KWin 脚本已回收，原部署保持原状态。详见[完整报告](evidence/startup-2026-10-22T182400+0800/report.md)、[机器核验](evidence/startup-2026-10-22T182400+0800/validation.json)和[接手入口](HANDOFF.md)。
+
+## 复杂 Arch 应用（2026-10-22 晚）
+
+[本轮报告](evidence/arch-complex-2026-10-22T202359+0800/report.md)：FreeCAD 原生 Wayland 的建模、参数重算、中文 FCStd/STEP 保存与回读、停机重开通过；GitHub Release Sunshine 原生包安装与命令入口通过，但 udev/内核模块/systemd 钩子失败，系统集成与串流未验收。发现 pacman 返回 0 时项目 `completed` 不体现这些钩子错误。独立实验环境已停止并保留；生产生命周期缺陷已在本轮后续修复，见下节。[后续测试矩阵](调研/复杂Arch应用与后续测试.md)。
+
+
+## 生命周期与安装状态修复（2026-10-22 深夜）
+
+用户要求先完成生命周期缺陷和安装状态准确性修复与验证，再做并发测试。本轮修改了生产代码 `src/multilinux/`，工作树尚未提交；产品行为由证据目录 `project/` 中的冻结快照复现。
+
+### 生命周期
+
+三项旧现场缺陷都已在代码中修复：
+
+- 容器创建参数加入 `--init`，PID 1 为 catatonit：SIGTERM 可转发给 sleeper，孤儿进程由 PID 1 回收。旧容器的 `sleep` PID 1 不再作为基线。
+- 受管应用启动改为“短启动器 + 脱离会话的 worker”：worker 持有租约并在应用退出时释放；启动器被 SIGKILL 后窗口关闭仍能自动停止环境与桥接。worker 用环境标记防递归，退出码按 shell 约定映射。
+- 租约所有权按 `container_id` + `container_started_at` 继承；手动 stop/start 会改变 StartedAt，从而不被误停。最后租约释放始终保存租约移除并清理桥接；stop 失败时保留 `auto_stop` 供下一次受管启动重试。
+- `start`/`stop` 增加按环境的跨进程 flock，并等待 podman 的 `stopping` 状态结束（上限 15 秒）；锁序固定为 lease lock → lifecycle lock。桥接按“进程存活 + socket 仍是 socket”复用，失效则重建。
+- 代码位置：`src/multilinux/runtime.py`、`on_demand.py`、`service.py`、`cli.py`；离线契约测试 `tests/test_lifecycle_contracts.py`（26 项）。
+
+真机复验使用两个独立环境（Debian 13、Arch）和原生 Mousepad，窗口就绪仍采用 KWin 原生 toplevel + 非空 buffer commit：
+
+| 场景 | 第二轮结果 |
+|---|---|
+| 冷启动 10 次/环境 | 20/20 通过；就绪 p50 Debian 884 ms、Arch 887 ms |
+| 关窗→容器 died 事件 | p50 199 ms（旧 8.36 s 级停止） |
+| 关窗→环境记录 stopped | p50 24.5 ms；20/20 容器退出码 143，PID 1 均为 podman-init |
+| 关窗后 150–250 ms 快速重开 | 6/6 通过；重开就绪 p50 884 ms（旧约 8.9 s），单容器 |
+| 30 次热组开关后僵尸 | 两环境均 0 僵尸；PID 1 直接子进程 1 |
+| 只 SIGKILL 顶层启动器 | 两环境窗口存活；关窗后自动停止；随后正常循环恢复 auto_stop |
+| 同时 SIGKILL 启动器与 worker | 两环境按可接受路径处理；后续正常受管循环最终自动停止 |
+| 双窗口并发租约 | 两环境单容器、lease=2；关一个仍 running，关最后一个自动停止 |
+| 手动预启动保留 | 两环境受管关窗后仍 running |
+| 停止态 3 次并发首启 | 两环境均 0 次 create、1 次 start、单容器；全部关闭后自动停止 |
+
+第二轮 `product_verdict=lifecycle-fixed`，残留窗口/进程/租约/桥接均为 0。第一轮在同样的冻结代码下出现 2 次 Debian 关窗测量超时（C/cycle-015 与 D）：协议日志显示共享桌面的真实键盘输入把文档标记为已修改，Mousepad 弹出自身 Save Changes 模态框，不是合成器或产品停止流程缺陷；原始失败证据保留为 `lifecycle-2026-10-22T212236+0800`。第二轮改用只读文档并加临时 KWin 焦点保护后完整重跑 A–H 全部通过，最终判定以第二轮为准。
+
+证据：[第二轮报告](evidence/lifecycle-2026-10-22T213032+0800/report.md)、[第二轮机器核验](evidence/lifecycle-2026-10-22T213032+0800/validation.json)、[第一轮保留失败](evidence/lifecycle-2026-10-22T212236+0800/report.md)。复现入口：
+
+```bash
+python3 tools/prepare_lifecycle.py snapshot --run-dir <new-evidence>
+python3 tools/prepare_lifecycle.py create --run-dir <new-evidence>
+python3 tools/probe_lifecycle.py run --run-dir <new-evidence>
+python3 tools/probe_lifecycle.py summary --run-dir <new-evidence>
+```
+
+### 安装状态准确性
+
+事务新增分层字段，避免把“pacman 退出 0”当成完整成功：
+
+- `maintenance = {status: ok|warnings, items: [...], system_integration: "unverified", full_init: false}`；
+- `verdict = verified | verified-with-warnings | failed`；`phase` 仍只表示包事务是否完成，包已安装不会因维护钩子失败被判 failed；
+- CLI 对 `verified-with-warnings` 在 stderr 打印一行警告并仍返回 0；`pkg log` 增加 verdict/maintenance 字段；
+- 扫描完整 stdout/stderr 识别 pacman 钩子失败、rpm/dnf scriptlet 失败、`modprobe: FATAL`、systemd 非 PID 1、systemd system bus 不可用、udev uevent 写入失败；普通容器条件（`Skipped: Current root is not booted.`、`ignoring`）和普通 `error:` 不误报。
+
+真实 Arch 环境（从已停止的 complex-arch 证据容器提交本地镜像，新建干净环境）3 个事务：
+
+| 用例 | phase | verdict | maintenance |
+|---|---|---|---|
+| ml-benign + `/bin/true` | completed | verified | ok |
+| ml-hooktest（故意失败的 alpm 钩子，pacman 退出 0） | completed | verified-with-warnings | pacman-hook-failed ×1 |
+| 真实 Sunshine 本地包 + `sunshine --version` | completed | verified-with-warnings | udev ×43、modprobe ×3、systemd-not-pid1 ×1、systemd-bus ×1、pacman-hook-failed ×2 |
+
+三个用例的包都在清单中、use command 退出 0，宿主 RPM 清单与桌面入口前后不变。Sunshine 仍只证明“包已安装、命令入口可运行、维护钩子失败可见”，不证明 udev/uinput/systemd 或串流可用。
+
+证据：[安装状态报告](evidence/install-status-2026-10-22T2108+0800/report.md)、[机器核验](evidence/install-status-2026-10-22T2108+0800/validation.json)。新增工具 `tools/prepare_install_status.py`、`tools/probe_install_status.py`。
+
+### 回归与边界
+
+- 全量离线回归 **149 项通过**（4 项既有 `MULTILINUX_INTEGRATION` 现场测试按设计跳过）。
+- 生命周期真机只覆盖 Fedora 44 宿主上的 Debian 13 与 Arch；Fedora 环境未在本轮重复。安装状态真实站只覆盖 Arch；Debian/Fedora 文本规则仅有离线测试。
+- 生命周期第二轮开始时宿主可用内存最低约 2.43 GiB、内存 PSI some avg10 max 0；未锁频，仍是日常使用宿主上的工程测量。
+- 本轮实验容器全部停止保留，运行中容器只剩用户原有的腾讯会议部署；无存活租约、桥接或测试窗口。
+
+## 并发测试：共享环境、母发行版与双发行版、性能、敏捷启停
+
+2026-10-22 晚，按用户确认的四项并发矩阵执行完毕：同一发行版多进程共用一套环境、系统母发行版（宿主 Fedora 44 原生 Konsole）+ Debian 13 + Arch 两套发行版的多个应用进程、共享/每进程一套环境的性能对照，以及并发下的敏捷启动关闭。证据：[并发报告](evidence/concurrency-2026-10-22T220318+0800/report.md)、[机器核验](evidence/concurrency-2026-10-22T220318+0800/validation.json)。
+
+**判定：`concurrency-verified`。** 44/44 个设计波次通过，0 失败；`measurement_valid=true`。五个自建环境全部停止保留，无运行中容器、租约、桥接、测试窗口或实验进程残留。
+
+### 拓扑验收：多个应用进程共用一套环境
+
+- 五个环境：`conc-debian`、`conc-arch` 与 3 个 Debian 对照环境，均由本地 `startup-*` 镜像摘要创建，未刷新/下载；每个环境一个 on-demand Mousepad。
+- **S1 共享拓扑**（Debian，3 窗口并发，5 冷 + 2 热波次）：每波容器数 **1**、容器 ID 与 prepare 记录一致、create 事件 **0**、冷启动 start 事件 **1**、live lease **3**、容器内 Mousepad 进程 **3**；关 1 个后仍 running（lease=2），关最后一个后 stopped；热追加 2 窗口额外 start 事件 **0**，lease=3。
+- **S2 共享规模**：N=1/2/3/4 各 3 波，全部 12/12 通过，均单容器、单 start、N lease。
+- **S3 双发行版**：Debian 3 + Arch 3 同时，3/3 通过；运行中项目容器恒为 **2**，每环境 1 容器/3 lease/3 进程。
+- **S4 母发行版原生**：3 个 `konsole --separate` 窗口，3/3 通过；3 个独立宿主 PID，项目容器集合与环境记录不变，无 lease、无容器创建。
+- **S5 混合**：原生 2 + Debian 2 + Arch 2，2/2 通过；运行中项目容器恒为 2，native 独立 PID。
+- 整个测试期间 prepare 完成后 **create 事件 = 0**：没有任何进程按“每应用一套环境”新建发行版；同环境热追加也不产生新的 start 事件。
+
+### 性能（描述性 p50/p95，不是应用排名）
+
+S2 共享环境规模（每 N 3 wave，冷启动）：
+
+| N | 通过 | 单窗口就绪 p50/p95 (ms) | 全窗口就绪 p50/p95 (ms) | 停止 p50/p95 (ms) | cgroup current p50 | cgroup peak p50 | PSS p50 | SizeRw p50 |
+|---:|---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 3/3 | 970.2/977.0 | 970.2/977.0 | 212.6/236.4 | 24.1 MiB | 29.2 MiB | 1802.0 kB | 127.7 KiB |
+| 2 | 3/3 | 1032.7/1345.4 | 1308.8/1345.4 | 212.7/247.9 | 46.7 MiB | 51.9 MiB | 1557.0 kB | 133.2 KiB |
+| 3 | 3/3 | 1350.9/1750.2 | 1617.6/1750.2 | 215.5/232.5 | 69.9 MiB | 74.8 MiB | 1454.0 kB | 141.0 KiB |
+| 4 | 3/3 | 1417.4/2172.4 | 2036.0/2172.4 | 214.9/241.4 | 94.8 MiB | 99.3 MiB | 1370.0 kB | 151.2 KiB |
+
+- 同一发行版的多个进程共享一套环境：容器启动成本只付一次，N 个窗口的全窗口就绪时间从 970 ms（N=1）增至 2036 ms（N=4），而停止时间稳定在约 215–241 ms。
+- **S6 每进程一套环境对照**（3 个 Debian 环境各 1 窗口）：3 波全部通过；wave ready p50 1283.7 ms，停止 p50 202.7 ms。与共享 1 环境 N=3 相比，3 套环境的 ready 为 0.79x（启动略快，因为 3 个容器并行启动），但 cgroup current 1.20x、peak 1.35x、PSS 1.88x、SizeRw 2.36x；额外产生 3 个容器、3 个桥接和 3 份可写层。该对照只用于回答问题，不是产品默认路径。
+- **S3 双发行版**：6 窗口全就绪 p50 2525.6 ms，停止 p50 246.0 ms；**S5 混合 6 窗口**（2 原生 + 4 容器）全就绪 p50 1623.3 ms。
+- **S7 敏捷并发**：10 个波次 × 3 并发首启全部通过；单窗口就绪 p50 1349.7 ms，全窗口 p50 1597.7 ms；停止 p50 213.2 ms、p95 261.4 ms；停止中重开发起 150.1/200.1/250.1 ms，重开就绪 p50 1942.4 ms、p95 2056.7 ms（参考阈值 stop p95 < 1500 ms、reopen p95 < 3000 ms）；每次重开均单容器、容器 ID 恒定、3 lease、create=0、start=2（stop+restart 各一次）。
+- **母发行版原生**：3 个 Konsole 窗口就绪 p50 531.1 ms、p95 574.4 ms，关闭到窗口移除 p50 22.3 ms；宿主 Konsole 进程树 PSS p50 约 47.6 MiB。
+- 宿主条件：可用内存最低 1880.5 MiB，内存 PSI some avg10 max 4.69%、full max 4.59%，1 分钟 load max 3.89；未锁频，是日常使用宿主上的工程测量。
+
+### 保留失败与口径修正
+
+- **S5 第一轮**：原生 Konsole 在混合并发下 KWin `bufferGeometry=0`，旧就绪口径强制 bufferWidth/Height>0 导致 25 s 超时（2/2 波失败），同时 5 ms 轮询生成 3300+ 临时 KWin 脚本。改为 `windowAdded + 非空 frameGeometry`（100 ms 查询）后重跑 S5 2/2、S4 3/3 通过；原始失败保留在证据 `attempt1/S5`，不是产品拓扑/生命周期缺陷。
+- **S7 第一轮**：波次全部通过，但“停止中重开”在等待启动器退出后才计时，实际发起 349.6–402.2 ms，未覆盖停止窗口；改为最后一个 close 请求后直接计时，重跑后发起 150–250 ms、10/10 + 3/3 通过。原始记录保留在 `attempt1/S7`。
+- 旧 bufferGeometry 口径下的中间通过记录保留在 `attempt2/S4-buffergeom`、`attempt2/S5-buffergeom`；最终 `wave_counts` 只统计修正后样本，`retained_attempts` 明确记录审计材料，不把修正前的记录混入通过率。
+
+### 边界
+
+- 母发行版侧是 Fedora 44 原生 KDE Konsole，容器侧是 Debian/Arch 原生 Mousepad；软件栈和工具包不同，数字不是应用排名。
+- 容器就绪是 KWin windowAdded + 非空 Wayland buffer commit；原生 Konsole 是 windowAdded + 非空 frameGeometry（未开启宿主 WAYLAND_DEBUG），不是物理呈现。
+- 容器内存为 cgroup current/peak 加容器内 PSS；原生内存为宿主 Konsole 进程树 PSS；两种口径不能相加为总量。
+- 本轮只覆盖 Debian 13 与 Arch；Fedora 容器并发、更大规模/长时间压力、M5 跨宿主仍不在本轮结论内。

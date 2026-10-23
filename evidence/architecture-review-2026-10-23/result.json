@@ -1,0 +1,102 @@
+{
+  "time": "2026-10-23T15:31:09.141945+08:00",
+  "product_acceptance": false,
+  "kernel": "7.2.11-200.fc44.x86_64",
+  "source_sha256": "7dfdcfc804ee911a1402e4f880a698e443955c2d5bd9925676cc32810a28e5a6",
+  "checks": {
+    "copy_follows_destination_despite_copied_xattr": true,
+    "offline_move_domain_recovered_from_destination": true,
+    "editor_replace_changes_inode_not_domain": true,
+    "one_inode_can_have_two_domain_paths": true,
+    "symlink_target_resolves_to_environment_domain": true,
+    "cross_filesystem_rename_EXDEV": true,
+    "recover_intent_twice": true,
+    "recover_staged_twice": true,
+    "recover_published_twice": true,
+    "conflict_source_preserves_bytes": true,
+    "conflict_target_preserves_bytes": true,
+    "conflict_same-content-target_preserves_bytes": true,
+    "temporary_paths_removed": true
+  },
+  "observations": {
+    "offline_move": {
+      "current_domain": "env:fixture",
+      "historical_provenance_without_log": "UNKNOWN"
+    },
+    "hardlink": {
+      "action": "ambiguous-alias; do not assign a unique inode owner",
+      "link_count": 2
+    },
+    "recovery": [
+      {
+        "phase": "intent",
+        "worker_exit": 77,
+        "first": "source-retained-no-copy",
+        "second": "source-retained-no-copy",
+        "source_retained": true
+      },
+      {
+        "phase": "staged",
+        "worker_exit": 77,
+        "first": "source-cleanup-pending",
+        "second": "source-cleanup-pending",
+        "source_retained": true,
+        "registry_rows": 1,
+        "hash_equal": true
+      },
+      {
+        "phase": "published",
+        "worker_exit": 77,
+        "first": "source-cleanup-pending",
+        "second": "source-cleanup-pending",
+        "source_retained": true,
+        "registry_rows": 1,
+        "hash_equal": true
+      },
+      {
+        "case": "source",
+        "worker_exit": 77,
+        "result": "conflict-source-retained"
+      },
+      {
+        "case": "target",
+        "worker_exit": 77,
+        "result": "conflict-target-retained"
+      },
+      {
+        "case": "same-content-target",
+        "worker_exit": 77,
+        "result": "conflict-target-retained"
+      }
+    ],
+    "catalog": {
+      "unprepared_apt_contract_accepted": true,
+      "actual_driver_lookup_error": "no package adapter for future-debian",
+      "inconsistent_record_plan": {
+        "environment_id": "fixture",
+        "target": "debian13",
+        "update_policy": "versioned-release",
+        "package_driver": "dnf",
+        "package_change": "in-place",
+        "base_image_change": "replace",
+        "contract_change": "replace",
+        "action": "upgrade",
+        "changes": []
+      },
+      "actual_target_driver": "apt",
+      "scope": "synthetic contract boundaries, not a corrupt live environment"
+    }
+  },
+  "limits": [
+    "Local Btrfs and tmpfs regular-file mechanism only; no containers or GUI.",
+    "External operations run while no watcher exists; no real IN_Q_OVERFLOW injection.",
+    "os._exit is process interruption, not host power loss; tmpfs is not power-durable.",
+    "Recovery retains source; source deletion and concurrent-writer CAS are not implemented.",
+    "No inode reuse, ACL, SELinux, mmap, quota, ENOSPC or arbitrary tree recovery coverage."
+  ],
+  "devices": {
+    "local": 53,
+    "remote": 27
+  },
+  "all_mechanism_checks_passed": true
+}

@@ -1,0 +1,130 @@
+{
+  "env_id": "conc-arch",
+  "container_name": "ml-be3863e1-conc-arch",
+  "record_state": "running",
+  "container_id_recorded": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+  "inspect": {
+    "id": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+    "running": true,
+    "status": "running",
+    "pid": 1281081,
+    "exit_code": 0,
+    "started_at": "2026-10-22T22:12:26.27590749+08:00",
+    "finished_at": "2026-10-22T22:10:43.434781235+08:00",
+    "init": true
+  },
+  "cgroup": {
+    "cgroup_path": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12.scope/container",
+    "memory_current_bytes": 131178496,
+    "memory_peak_bytes": 134963200,
+    "memory_swap_current_bytes": 0,
+    "pids_current": 36,
+    "oom_kill": 0,
+    "error": null
+  },
+  "processes": {
+    "returncode": 0,
+    "process_count": 15,
+    "mousepad_count": 2,
+    "zombie_count": 0,
+    "rows": [
+      {
+        "pid": 1,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "podman-init"
+      },
+      {
+        "pid": 2,
+        "ppid": 1,
+        "stat": "S",
+        "comm": "sleep"
+      },
+      {
+        "pid": 4,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "dbus-run-sessio"
+      },
+      {
+        "pid": 5,
+        "ppid": 4,
+        "stat": "S",
+        "comm": "dbus-daemon"
+      },
+      {
+        "pid": 6,
+        "ppid": 4,
+        "stat": "Sl",
+        "comm": "mousepad"
+      },
+      {
+        "pid": 27,
+        "ppid": 6,
+        "stat": "S",
+        "comm": "bwrap"
+      },
+      {
+        "pid": 28,
+        "ppid": 27,
+        "stat": "S",
+        "comm": "bwrap"
+      },
+      {
+        "pid": 29,
+        "ppid": 28,
+        "stat": "Sl",
+        "comm": "glycin-image-rs"
+      },
+      {
+        "pid": 33,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "dbus-run-sessio"
+      },
+      {
+        "pid": 34,
+        "ppid": 33,
+        "stat": "S",
+        "comm": "dbus-daemon"
+      },
+      {
+        "pid": 35,
+        "ppid": 33,
+        "stat": "Sl",
+        "comm": "mousepad"
+      },
+      {
+        "pid": 56,
+        "ppid": 35,
+        "stat": "S",
+        "comm": "bwrap"
+      },
+      {
+        "pid": 57,
+        "ppid": 56,
+        "stat": "S",
+        "comm": "bwrap"
+      },
+      {
+        "pid": 58,
+        "ppid": 57,
+        "stat": "Sl",
+        "comm": "glycin-image-rs"
+      },
+      {
+        "pid": 63,
+        "ppid": 0,
+        "stat": "Rs",
+        "comm": "ps"
+      }
+    ],
+    "pss_kb": 2969,
+    "pss_error": null
+  },
+  "disk": {
+    "size_rw_bytes": 206129,
+    "size_root_fs_bytes": 3010445072,
+    "error": null
+  }
+}

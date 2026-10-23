@@ -1,0 +1,27 @@
+returncode=0
+--- stdout ---
+    PID    PPID STAT COMMAND
+      1       0 Ss   podman-init
+      2       1 S    sleep
+      4       0 Ss   dbus-run-sessio
+      5       4 S    dbus-daemon
+      6       4 Sl   mousepad
+     28       6 S    bwrap
+     29      28 S    bwrap
+     30      29 Sl   glycin-image-rs
+     34       0 Ss   dbus-run-sessio
+     35      34 S    dbus-daemon
+     36      34 Sl   mousepad
+     57      36 S    bwrap
+     58      57 S    bwrap
+     59      58 Sl   glycin-image-rs
+     64       0 Ss   dbus-run-sessio
+     65      64 S    dbus-daemon
+     66      64 Sl   mousepad
+     87      66 S    bwrap
+     88      87 S    bwrap
+     89      88 Sl   glycin-image-rs
+     94       0 Rs   ps
+
+--- stderr ---
+

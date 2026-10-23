@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "no_error": true,
+    "28_waves": true,
+    "7_per_mode": true,
+    "all_small_hashes": true,
+    "all_large_hashes": true,
+    "all_saves": true,
+    "source_hash_unchanged": true,
+    "cleanup": true
+  },
+  "scope": "engineering mechanism benchmark; not product acceptance; no cold storage or optimized FUSE claim",
+  "all_passed": true
+}

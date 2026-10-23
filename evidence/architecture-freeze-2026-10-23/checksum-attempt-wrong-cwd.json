@@ -1,0 +1,12 @@
+{
+  "all_passed": false,
+  "checks": {
+    "help": true,
+    "env-help": true,
+    "list": true,
+    "directory_alias_same_root": true,
+    "entry_is_relative_symlink": true,
+    "evidence/contract-freecad-gui-2026-10-23": false,
+    "evidence/architecture-review-2026-10-23": false
+  }
+}

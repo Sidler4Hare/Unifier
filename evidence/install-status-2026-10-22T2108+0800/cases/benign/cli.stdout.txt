@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "id": "txn0d27f5f30226",
+  "environment_id": "install-arch",
+  "operation": "install-local",
+  "packages": [
+    "ml-benign"
+  ],
+  "use_command": [
+    "/bin/true"
+  ],
+  "local_file": "/home/omg/文档/多兼容linux机/evidence/install-status-2026-10-22T2108+0800/packages/ml-benign-1.0.1-1-x86_64.pkg.tar.zst",
+  "revision_before": {
+    "writable_revision": "9abc8cf0e8b8be5061df4c2b5a05f902d12456640b6237052c69f690ad350e45",
+    "content_revision": 1,
+    "package_inventory_sha256": "5ad1fc5e88a014d94f458e1de7c64a23c6978b4fb837821b34feebcdfd7b67f1"
+  },
+  "native": [
+    {
+      "argv": [
+        "pacman-key",
+        "--init"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "pacman",
+        "-Syu",
+        "--noconfirm"
+      ],
+      "exit_code": 0,
+      "stdout_tail": ":: Synchronizing package databases...\n core downloading...\n extra downloading...\n:: Starting full system upgrade...\n there is nothing to do\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "pacman",
+        "-U",
+        "--noconfirm",
+        "/tmp/ml-incoming/ml-benign-1.0.1-1-x86_64.pkg.tar.zst"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "loading packages...\nresolving dependencies...\nlooking for conflicting packages...\n\nPackage (1)  New Version  Net Change\n\nml-benign    1.0.1-1        0.00 MiB\n\nTotal Installed Size:  0.00 MiB\n\n:: Proceed with installation? [Y/n] \nchecking keyring...\nchecking package integrity...\nloading package files...\nchecking for file conflicts...\n:: Processing package changes...\ninstalling ml-benign...\nml-benign post_install executes\n:: Running post-transaction hooks...\n(1/1) Arming ConditionNeedsUpdate...\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "ml-benign": true
+    },
+    "command": [
+      "/bin/true"
+    ],
+    "command_exit_code": 0,
+    "stdout_preview": "",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "79dcbb15555c7c798e0c7e9e66bf96d06ad2f7b0cc6ef936337d7bdd5a5a3757",
+      "count": 2522,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "79dcbb15555c7c798e0c7e9e66bf96d06ad2f7b0cc6ef936337d7bdd5a5a3757",
+      "count": 2522,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "9abc8cf0e8b8be5061df4c2b5a05f902d12456640b6237052c69f690ad350e45",
+    "content_revision": 2,
+    "package_inventory_sha256": "2f8ee32933e3a8ff2b162bba604d4a9c0b60b44d877486e1a48e7800841abb4b"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-22T21:20:59+08:00",
+  "finished_at": "2026-10-22T21:21:05+08:00"
+}

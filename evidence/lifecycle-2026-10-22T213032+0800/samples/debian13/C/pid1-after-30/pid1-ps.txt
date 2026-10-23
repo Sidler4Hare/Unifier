@@ -1,0 +1,10 @@
+returncode=0
+--- stdout ---
+    PID    PPID STAT COMMAND
+      1       0 Ss   podman-init
+      2       1 S    sleep
+    461       0 Ss   sh
+    462     461 R    ps
+
+--- stderr ---
+

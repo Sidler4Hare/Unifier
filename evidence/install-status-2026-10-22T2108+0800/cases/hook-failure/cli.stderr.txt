@@ -1,0 +1,4 @@
+install-arch: pacman -Syu --noconfirm
+install-arch: pacman -U --noconfirm /tmp/ml-incoming/ml-hooktest-1.0.1-1-x86_64.pkg.tar.zst
+install-arch: install-local completed txndcf587657ab1
+ml: warning: txndcf587657ab1: the package changes are applied (exit code 0), but 1 maintenance hook failure(s) (pacman-hook-failed) were reported; system integration is unverified and may need a host step. See 'ml pkg show txndcf587657ab1' for the saved output.

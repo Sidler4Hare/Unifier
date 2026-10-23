@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "sshfs",
+    ":/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/ml-fs-pilot-hmlub421/source",
+    "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/ml-fs-pilot-hmlub421/mount",
+    "-f",
+    "-o",
+    "passive,dir_cache=no,attr_timeout=0,entry_timeout=0,negative_timeout=0"
+  ],
+  "mounted": true,
+  "read": "local-only\n",
+  "unmount_exit": 0,
+  "fuse_stderr": "",
+  "sftp_stderr": "",
+  "mount_removed": true
+}

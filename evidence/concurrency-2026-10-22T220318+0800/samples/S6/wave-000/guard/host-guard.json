@@ -1,0 +1,22 @@
+{
+  "taken_at": "2026-10-22T22:07:43+08:00",
+  "blocked": false,
+  "available_bytes": 2310209536,
+  "memory_some_avg10": null,
+  "memory_full_avg10": null,
+  "load": [
+    1.92,
+    1.73,
+    1.35
+  ],
+  "attempts": [
+    {
+      "at": "2026-10-22T22:07:43+08:00",
+      "available_bytes": 2310209536,
+      "memory_some_avg10": null,
+      "memory_full_avg10": null,
+      "blocked": false
+    }
+  ],
+  "label": "S6"
+}

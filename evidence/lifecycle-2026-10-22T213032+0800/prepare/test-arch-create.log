@@ -1,0 +1,7 @@
+$ env create --target arch --id test-arch --share /home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T213032+0800/work/test-arch --network none --desktop --portals --userns keep-id
+returncode=0
+--- stdout ---
+created test-arch (arch) stopped
+
+--- stderr ---
+

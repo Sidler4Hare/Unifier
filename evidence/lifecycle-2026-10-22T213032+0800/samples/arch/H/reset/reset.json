@@ -1,0 +1,56 @@
+{
+  "target": "arch",
+  "env_id": "test-arch",
+  "actions": [
+    {
+      "wait_stopped": {
+        "ok": true,
+        "elapsed_ms": 22.038,
+        "state": {
+          "env_id": "test-arch",
+          "container_name": "ml-9914ab53-test-arch",
+          "container_id_recorded": "61c8e9458782f7f4a703ca7a6e1a0e97cdce0d65af23b90db80a093936278c3e",
+          "record_runtime_state": "stopped",
+          "record_full_init": false,
+          "inspect": {
+            "id": "61c8e9458782f7f4a703ca7a6e1a0e97cdce0d65af23b90db80a093936278c3e",
+            "running": false,
+            "status": "exited",
+            "pid": 0,
+            "exit_code": 143,
+            "oom_killed": false,
+            "started_at": "2026-10-22T21:34:00.670796148+08:00",
+            "finished_at": "2026-10-22T21:34:02.924953848+08:00",
+            "init": true,
+            "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+          }
+        }
+      }
+    }
+  ],
+  "lease_before": {
+    "live_count": 0,
+    "auto_stop": false,
+    "bridge": null
+  },
+  "bridges_killed": [],
+  "state_after": {
+    "env_id": "test-arch",
+    "container_name": "ml-9914ab53-test-arch",
+    "container_id_recorded": "61c8e9458782f7f4a703ca7a6e1a0e97cdce0d65af23b90db80a093936278c3e",
+    "record_runtime_state": "stopped",
+    "record_full_init": false,
+    "inspect": {
+      "id": "61c8e9458782f7f4a703ca7a6e1a0e97cdce0d65af23b90db80a093936278c3e",
+      "running": false,
+      "status": "exited",
+      "pid": 0,
+      "exit_code": 143,
+      "oom_killed": false,
+      "started_at": "2026-10-22T21:34:00.670796148+08:00",
+      "finished_at": "2026-10-22T21:34:02.924953848+08:00",
+      "init": true,
+      "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+    }
+  }
+}

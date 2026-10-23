@@ -1,0 +1,11 @@
+{
+  "cwd": "/",
+  "home": "/home/multilinux-1000",
+  "uid": 1000,
+  "save_without_name_error": "ValueError(\"Object attribute 'FileName' is not set\")",
+  "file_after_failed_save": "相对零件.FCStd",
+  "relative_error": "OSError('Failed to open file')",
+  "relative_filename": "相对零件.FCStd",
+  "home_error": null,
+  "home_filename": "/home/multilinux-1000/默认家目录.FCStd"
+}

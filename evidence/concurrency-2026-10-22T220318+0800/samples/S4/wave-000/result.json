@@ -1,0 +1,600 @@
+{
+  "scenario": "S4",
+  "index": 0,
+  "started_at": "2026-10-22T22:18:07+08:00",
+  "failures": [],
+  "host_before": {
+    "taken_at": "2026-10-22T22:18:07+08:00",
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 779415552,
+      "MemAvailable_bytes": 3380183040,
+      "Cached_bytes": 3412439040,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 17555361792
+    },
+    "pressure": {
+      "memory.some": {
+        "avg10": 1.06,
+        "avg60": 3.43,
+        "avg300": 1.34,
+        "total_us": 1135763293
+      },
+      "memory.full": {
+        "avg10": 0.98,
+        "avg60": 3.2,
+        "avg300": 1.26,
+        "total_us": 985300441
+      },
+      "cpu.some": {
+        "avg10": 1.18,
+        "avg60": 3.73,
+        "avg300": 2.24,
+        "total_us": 3457152147
+      },
+      "cpu.full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 0
+      },
+      "io.some": {
+        "avg10": 0.49,
+        "avg60": 0.68,
+        "avg300": 0.56,
+        "total_us": 514699985
+      },
+      "io.full": {
+        "avg10": 0.39,
+        "avg60": 0.34,
+        "avg300": 0.37,
+        "total_us": 351037698
+      }
+    },
+    "load_average": [
+      3.56,
+      2.54,
+      1.86
+    ],
+    "cpu_freq_khz": [
+      3686706,
+      3800000,
+      3799954,
+      2978794,
+      3789142,
+      3800000,
+      3800145,
+      3251143
+    ],
+    "thermal": [
+      {
+        "type": "acpitz",
+        "temp_c": 32.0
+      },
+      {
+        "type": "x86_pkg_temp",
+        "temp_c": 67.0
+      }
+    ]
+  },
+  "host_guard": {
+    "taken_at": "2026-10-22T22:18:07+08:00",
+    "blocked": false,
+    "available_bytes": 3380125696,
+    "memory_some_avg10": null,
+    "memory_full_avg10": null,
+    "load": [
+      3.56,
+      2.54,
+      1.86
+    ],
+    "attempts": [
+      {
+        "at": "2026-10-22T22:18:07+08:00",
+        "available_bytes": 3380125696,
+        "memory_some_avg10": null,
+        "memory_full_avg10": null,
+        "blocked": false
+      }
+    ],
+    "label": "S4"
+  },
+  "containers_before": [
+    {
+      "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+      "names": [
+        "ml-be3863e1-conc-debian"
+      ],
+      "state": "exited",
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    },
+    {
+      "id": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+      "names": [
+        "ml-be3863e1-conc-arch"
+      ],
+      "state": "exited",
+      "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+    },
+    {
+      "id": "91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4",
+      "names": [
+        "ml-be3863e1-conc-sep-1"
+      ],
+      "state": "exited",
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    },
+    {
+      "id": "f15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0",
+      "names": [
+        "ml-be3863e1-conc-sep-2"
+      ],
+      "state": "exited",
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    },
+    {
+      "id": "8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599",
+      "names": [
+        "ml-be3863e1-conc-sep-3"
+      ],
+      "state": "exited",
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    }
+  ],
+  "env_records_before": [
+    "conc-arch",
+    "conc-debian",
+    "conc-sep-1",
+    "conc-sep-2",
+    "conc-sep-3"
+  ],
+  "lease_before": {
+    "conc-debian": 0,
+    "conc-arch": 0,
+    "conc-sep-1": 0,
+    "conc-sep-2": 0,
+    "conc-sep-3": 0
+  },
+  "ready": [
+    {
+      "kind": "native",
+      "marker": "ML-CONC-native-000-0-a57643a7",
+      "host_pid": 1301881,
+      "window": {
+        "event": "added",
+        "marker": "ML-CONC-",
+        "caption": "ML-CONC-native-000-0-a57643a7 — Konsole",
+        "window_id": "{e23b29dd-f85b-4692-86d5-4cc8a66432be}",
+        "type": "KWin::XdgToplevelWindow(0x55ca88234dd0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca88234dd0)",
+        "pid": 1301881,
+        "resource_class": "org.kde.konsole",
+        "geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "ready_for_painting": null,
+        "received_ns": 119447928499983,
+        "sent_wall_ms": 1792678688402
+      },
+      "geometry": {
+        "caption": "ML-CONC-native-000-0-a57643a7 — Konsole",
+        "resourceClass": "org.kde.konsole",
+        "pid": 1301881,
+        "objectType": "KWin::XdgToplevelWindow(0x55ca88234dd0)",
+        "wayland": null,
+        "x11": null,
+        "width": 1536,
+        "height": 924.8,
+        "bufferWidth": 1536,
+        "bufferHeight": 896.8,
+        "internalId": "{e23b29dd-f85b-4692-86d5-4cc8a66432be}",
+        "active": false
+      },
+      "readiness_basis": "kwin_windowAdded+non_empty_frameGeometry",
+      "frame_geometry": {
+        "width": 1536,
+        "height": 924.8
+      },
+      "buffer_geometry": {
+        "width": 1536,
+        "height": 896.8
+      },
+      "geometry_probe_count": 1,
+      "launch_to_window_ms": 505.627,
+      "launch_to_ready_ms": 527.319,
+      "ready_ns": 119447950192168
+    },
+    {
+      "kind": "native",
+      "marker": "ML-CONC-native-000-1-f889acda",
+      "host_pid": 1301885,
+      "window": {
+        "event": "added",
+        "marker": "ML-CONC-",
+        "caption": "ML-CONC-native-000-1-f889acda — Konsole",
+        "window_id": "{f2b46b33-cbf4-4ae1-be5b-12535679d87a}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87f34aa0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87f34aa0)",
+        "pid": 1301885,
+        "resource_class": "org.kde.konsole",
+        "geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "ready_for_painting": null,
+        "received_ns": 119447928603301,
+        "sent_wall_ms": 1792678688403
+      },
+      "geometry": {
+        "caption": "ML-CONC-native-000-1-f889acda — Konsole",
+        "resourceClass": "org.kde.konsole",
+        "pid": 1301885,
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87f34aa0)",
+        "wayland": null,
+        "x11": null,
+        "width": 1536,
+        "height": 924.8,
+        "bufferWidth": 1536,
+        "bufferHeight": 896.8,
+        "internalId": "{f2b46b33-cbf4-4ae1-be5b-12535679d87a}",
+        "active": false
+      },
+      "readiness_basis": "kwin_windowAdded+non_empty_frameGeometry",
+      "frame_geometry": {
+        "width": 1536,
+        "height": 924.8
+      },
+      "buffer_geometry": {
+        "width": 1536,
+        "height": 896.8
+      },
+      "geometry_probe_count": 1,
+      "launch_to_window_ms": 504.905,
+      "launch_to_ready_ms": 549.421,
+      "ready_ns": 119447973118421
+    },
+    {
+      "kind": "native",
+      "marker": "ML-CONC-native-000-2-511b25ce",
+      "host_pid": 1301889,
+      "window": {
+        "event": "added",
+        "marker": "ML-CONC-",
+        "caption": "ML-CONC-native-000-2-511b25ce — Konsole",
+        "window_id": "{5e03d187-78a0-4357-bf2b-597c5e6552c4}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87c3b7c0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87c3b7c0)",
+        "pid": 1301889,
+        "resource_class": "org.kde.konsole",
+        "geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "ready_for_painting": null,
+        "received_ns": 119447928674366,
+        "sent_wall_ms": 1792678688405
+      },
+      "geometry": {
+        "caption": "ML-CONC-native-000-2-511b25ce — Konsole",
+        "resourceClass": "org.kde.konsole",
+        "pid": 1301889,
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87c3b7c0)",
+        "wayland": null,
+        "x11": null,
+        "width": 1536,
+        "height": 924.8,
+        "bufferWidth": 1536,
+        "bufferHeight": 896.8,
+        "internalId": "{5e03d187-78a0-4357-bf2b-597c5e6552c4}",
+        "active": false
+      },
+      "readiness_basis": "kwin_windowAdded+non_empty_frameGeometry",
+      "frame_geometry": {
+        "width": 1536,
+        "height": 924.8
+      },
+      "buffer_geometry": {
+        "width": 1536,
+        "height": 896.8
+      },
+      "geometry_probe_count": 1,
+      "launch_to_window_ms": 504.265,
+      "launch_to_ready_ms": 564.497,
+      "ready_ns": 119447988907071
+    }
+  ],
+  "ready_errors": {},
+  "host_pids": [
+    1301881,
+    1301885,
+    1301889
+  ],
+  "host_pids_unique": true,
+  "containers_during": [
+    {
+      "id": "e3bcce0dd375153131256f2852bc7442a09e6819b5ca6940c66bb1e2a961f742",
+      "names": [
+        "ml-be3863e1-conc-debian"
+      ],
+      "state": "exited",
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    },
+    {
+      "id": "12c0e8b4689edbb8fe12ad02cc1d40bb7c49dcd4d7b8f1d7ce958bc962089e12",
+      "names": [
+        "ml-be3863e1-conc-arch"
+      ],
+      "state": "exited",
+      "image": "localhost/multilinux/startup-arch@sha256:0dc2019ceb7dcc6513e27d5bf7f06296663e5eb64d6d3a34ab7ab5a5c460d4c7"
+    },
+    {
+      "id": "91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4",
+      "names": [
+        "ml-be3863e1-conc-sep-1"
+      ],
+      "state": "exited",
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    },
+    {
+      "id": "f15a018bcfd4a5738a7062898c1ae9409cc4c5389d880b5a089298b272e03dd0",
+      "names": [
+        "ml-be3863e1-conc-sep-2"
+      ],
+      "state": "exited",
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    },
+    {
+      "id": "8a148b0a88c90c258cc5b75c53bc8cc835349e5f48c96f3b6c81aa45e7d1f599",
+      "names": [
+        "ml-be3863e1-conc-sep-3"
+      ],
+      "state": "exited",
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    }
+  ],
+  "env_records_during": [
+    "conc-arch",
+    "conc-debian",
+    "conc-sep-1",
+    "conc-sep-2",
+    "conc-sep-3"
+  ],
+  "lease_during": {
+    "conc-debian": 0,
+    "conc-arch": 0,
+    "conc-sep-1": 0,
+    "conc-sep-2": 0,
+    "conc-sep-3": 0
+  },
+  "host_after_ready": {
+    "taken_at": "2026-10-22T22:18:08+08:00",
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 217698304,
+      "MemAvailable_bytes": 3022036992,
+      "Cached_bytes": 3854532608,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 17618190336
+    },
+    "pressure": {
+      "memory.some": {
+        "avg10": 1.06,
+        "avg60": 3.43,
+        "avg300": 1.34,
+        "total_us": 1135784512
+      },
+      "memory.full": {
+        "avg10": 0.98,
+        "avg60": 3.2,
+        "avg300": 1.26,
+        "total_us": 985320927
+      },
+      "cpu.some": {
+        "avg10": 1.18,
+        "avg60": 3.73,
+        "avg300": 2.24,
+        "total_us": 3457231170
+      },
+      "cpu.full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 0
+      },
+      "io.some": {
+        "avg10": 0.49,
+        "avg60": 0.68,
+        "avg300": 0.56,
+        "total_us": 514773860
+      },
+      "io.full": {
+        "avg10": 0.39,
+        "avg60": 0.34,
+        "avg300": 0.37,
+        "total_us": 351096023
+      }
+    },
+    "load_average": [
+      3.56,
+      2.54,
+      1.86
+    ],
+    "cpu_freq_khz": [
+      3620762,
+      3800000,
+      3800038,
+      3801751,
+      3751243,
+      3800120,
+      3799773,
+      3800418
+    ],
+    "thermal": [
+      {
+        "type": "acpitz",
+        "temp_c": 32.0
+      },
+      {
+        "type": "x86_pkg_temp",
+        "temp_c": 82.0
+      }
+    ]
+  },
+  "pss": [
+    51874,
+    52078,
+    43721
+  ],
+  "pss_processes": [
+    [
+      {
+        "pid": 1301881,
+        "pss_kb": 51648
+      },
+      {
+        "pid": 1302093,
+        "pss_kb": 225
+      }
+    ],
+    [
+      {
+        "pid": 1301885,
+        "pss_kb": 51845
+      },
+      {
+        "pid": 1302092,
+        "pss_kb": 232
+      }
+    ],
+    [
+      {
+        "pid": 1301889,
+        "pss_kb": 43533
+      },
+      {
+        "pid": 1302094,
+        "pss_kb": 187
+      }
+    ]
+  ],
+  "close": [
+    {
+      "kill": {
+        "pid": 1301881,
+        "signal": 15,
+        "sent": true
+      },
+      "returncode": -15,
+      "removed": {
+        "event": "removed",
+        "marker": "ML-CONC-",
+        "caption": "ML-CONC-native-000-0-a57643a7 — Konsole",
+        "window_id": "{e23b29dd-f85b-4692-86d5-4cc8a66432be}",
+        "type": "KWin::XdgToplevelWindow(0x55ca88234dd0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca88234dd0)",
+        "pid": 1301881,
+        "resource_class": "org.kde.konsole",
+        "geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "ready_for_painting": null,
+        "received_ns": 119448243336639,
+        "sent_wall_ms": 1792678688763
+      },
+      "close_to_window_removed_ms": 22.255,
+      "close_to_process_exit_ms": 8.527
+    },
+    {
+      "kill": {
+        "pid": 1301885,
+        "signal": 15,
+        "sent": true
+      },
+      "returncode": -15,
+      "removed": {
+        "event": "removed",
+        "marker": "ML-CONC-",
+        "caption": "ML-CONC-native-000-1-f889acda — Konsole",
+        "window_id": "{f2b46b33-cbf4-4ae1-be5b-12535679d87a}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87f34aa0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87f34aa0)",
+        "pid": 1301885,
+        "resource_class": "org.kde.konsole",
+        "geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "ready_for_painting": null,
+        "received_ns": 119448262149663,
+        "sent_wall_ms": 1792678688785
+      },
+      "close_to_window_removed_ms": 18.738,
+      "close_to_process_exit_ms": 8.323
+    },
+    {
+      "kill": {
+        "pid": 1301889,
+        "signal": 15,
+        "sent": true
+      },
+      "returncode": -15,
+      "removed": {
+        "event": "removed",
+        "marker": "ML-CONC-",
+        "caption": "ML-CONC-native-000-2-511b25ce — Konsole",
+        "window_id": "{5e03d187-78a0-4357-bf2b-597c5e6552c4}",
+        "type": "KWin::XdgToplevelWindow(0x55ca87c3b7c0)",
+        "objectType": "KWin::XdgToplevelWindow(0x55ca87c3b7c0)",
+        "pid": 1301889,
+        "resource_class": "org.kde.konsole",
+        "geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "buffer_geometry": {
+          "width": 1536,
+          "height": null
+        },
+        "ready_for_painting": null,
+        "received_ns": 119448276712290,
+        "sent_wall_ms": 1792678688799
+      },
+      "close_to_window_removed_ms": 14.524,
+      "close_to_process_exit_ms": 4.084
+    }
+  ],
+  "windows_after": [],
+  "timings": {
+    "wave_ready_ms": 564.497,
+    "close_ms": 22.255
+  },
+  "cleanup": [
+    [],
+    [],
+    []
+  ],
+  "passed": true,
+  "finished_at": "2026-10-22T22:18:08+08:00"
+}

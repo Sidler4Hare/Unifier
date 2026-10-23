@@ -96,6 +96,10 @@ class PackageBoxes(FakeRuntime):
         self.copies = []
         self.key_list = "pub 2048R/TESTKEY 2026-01-01\n"
         self.fail_packages = set()
+        # Post-transaction hook output reported while the tool still exits 0.
+        # Tests set these to replay a real hook failure instead of a clean run.
+        self.package_stdout = ""
+        self.package_stderr = ""
 
     def copy_in(self, name, host_path, container_path, *, project, env_id):
         self._owned(name, project, env_id)
@@ -191,7 +195,7 @@ class PackageBoxes(FakeRuntime):
         if missing:
             return ExecResult(100, "", f"E: Unable to locate package {missing[0]}")
         self.installed.setdefault(env_id, set()).update(plain)
-        return ExecResult(0, "", "")
+        return ExecResult(0, self.package_stdout, self.package_stderr)
 
     def _remove(self, env_id, names):
         installed = self.installed.setdefault(env_id, set())

@@ -1,0 +1,82 @@
+{
+  "env_id": "conc-sep-1",
+  "container_name": "ml-be3863e1-conc-sep-1",
+  "record_state": "running",
+  "container_id_recorded": "91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4",
+  "inspect": {
+    "id": "91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4",
+    "running": true,
+    "status": "running",
+    "pid": 1262275,
+    "exit_code": 0,
+    "started_at": "2026-10-22T22:07:55.22350628+08:00",
+    "finished_at": "2026-10-22T22:07:52.359063395+08:00",
+    "init": true
+  },
+  "cgroup": {
+    "cgroup_path": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-91cf59a900425f80b907cf30e7c61a8982813a6b5373b46d0c013282307e07b4.scope/container",
+    "memory_current_bytes": 24780800,
+    "memory_peak_bytes": 30588928,
+    "memory_swap_current_bytes": 0,
+    "pids_current": 10,
+    "oom_kill": 0,
+    "error": null
+  },
+  "processes": {
+    "returncode": 0,
+    "process_count": 7,
+    "mousepad_count": 1,
+    "zombie_count": 0,
+    "rows": [
+      {
+        "pid": 1,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "podman-init"
+      },
+      {
+        "pid": 2,
+        "ppid": 1,
+        "stat": "S",
+        "comm": "sleep"
+      },
+      {
+        "pid": 4,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "dbus-run-sessio"
+      },
+      {
+        "pid": 5,
+        "ppid": 4,
+        "stat": "S",
+        "comm": "dbus-daemon"
+      },
+      {
+        "pid": 6,
+        "ppid": 4,
+        "stat": "Sl",
+        "comm": "mousepad"
+      },
+      {
+        "pid": 21,
+        "ppid": 0,
+        "stat": "Ss",
+        "comm": "sh"
+      },
+      {
+        "pid": 22,
+        "ppid": 21,
+        "stat": "R",
+        "comm": "ps"
+      }
+    ],
+    "pss_kb": 906,
+    "pss_error": null
+  },
+  "disk": {
+    "size_rw_bytes": 116873,
+    "size_root_fs_bytes": 1515768139,
+    "error": null
+  }
+}

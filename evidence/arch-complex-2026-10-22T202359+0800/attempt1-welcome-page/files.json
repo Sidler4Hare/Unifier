@@ -1,0 +1,50 @@
+{
+  "build-result.json": {
+    "sha256": "240d0da270e4c2c30d2d6e7f5f8767e546520dc19e35dd9659ae359394beb300",
+    "bytes": 513,
+    "uid": 1000,
+    "gid": 1000
+  },
+  "build-viewport.png": {
+    "sha256": "30ba5bf620ccfe6f6852114d198d996f351d44a6232ec5dbe2a746ae28ffffad",
+    "bytes": 5252,
+    "uid": 1000,
+    "gid": 1000
+  },
+  "probe.FCMacro": {
+    "sha256": "08d89e11404cf760a75a83db9bcee58beb6110e049f8142c233e6b9bc7d946ad",
+    "bytes": 3068,
+    "uid": 1000,
+    "gid": 1000
+  },
+  "reopen-result.json": {
+    "sha256": "c2989abfb71c53842b9ad540d17f0b2d5bc2439af1d713807c3f3d083682f86f",
+    "bytes": 403,
+    "uid": 1000,
+    "gid": 1000
+  },
+  "reopen-viewport.png": {
+    "sha256": "46268a450b26763e64f355be766b6212115545174975855914af5439f61f05d8",
+    "bytes": 5251,
+    "uid": 1000,
+    "gid": 1000
+  },
+  "中文 模型.20261022-122847.FCBak": {
+    "sha256": "abfeee4c034d96daac1cff25ffbe0c25fa6ac136147bc4c6818d004bde0c7fc2",
+    "bytes": 7814,
+    "uid": 1000,
+    "gid": 1000
+  },
+  "中文 模型.FCStd": {
+    "sha256": "89cad5864f0736080ae302ac7742969c078eb43e274ece38cf319e06bd8ce10a",
+    "bytes": 8741,
+    "uid": 1000,
+    "gid": 1000
+  },
+  "中文 模型.step": {
+    "sha256": "0e9de990a48e132b456b9195c160516139abc42de305110d3aad47ee7552699f",
+    "bytes": 8299,
+    "uid": 1000,
+    "gid": 1000
+  }
+}

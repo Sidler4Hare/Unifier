@@ -1,0 +1,412 @@
+{
+  "scenario": "D",
+  "target": "debian13",
+  "index": 0,
+  "started_at": "2026-10-22T21:25:53+08:00",
+  "sample_dir": "samples/debian13/D",
+  "failures": [
+    "exception: TimeoutError: compositor never removed the closed window"
+  ],
+  "host_before": {
+    "taken_at": "2026-10-22T21:25:53+08:00",
+    "meminfo": {
+      "MemTotal_bytes": 7982043136,
+      "MemFree_bytes": 397053952,
+      "MemAvailable_bytes": 2330226688,
+      "Cached_bytes": 3055759360,
+      "SwapTotal_bytes": 22405963776,
+      "SwapFree_bytes": 18820976640
+    },
+    "pressure": {
+      "memory.some": {
+        "avg10": 0.15,
+        "avg60": 0.49,
+        "avg300": 0.33,
+        "total_us": 1127233204
+      },
+      "memory.full": {
+        "avg10": 0.15,
+        "avg60": 0.48,
+        "avg300": 0.33,
+        "total_us": 977134427
+      },
+      "cpu.some": {
+        "avg10": 2.38,
+        "avg60": 1.43,
+        "avg300": 0.82,
+        "total_us": 3417402356
+      },
+      "cpu.full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total_us": 0
+      },
+      "io.some": {
+        "avg10": 1.0,
+        "avg60": 0.73,
+        "avg300": 0.47,
+        "total_us": 497375801
+      },
+      "io.full": {
+        "avg10": 0.88,
+        "avg60": 0.61,
+        "avg300": 0.37,
+        "total_us": 335942575
+      }
+    },
+    "load_average": [
+      1.32,
+      1.52,
+      1.61
+    ],
+    "cpu_freq_khz": [
+      3800000,
+      1054071,
+      853503,
+      3579025,
+      3800038,
+      1209664,
+      958182,
+      1688888
+    ],
+    "thermal": [
+      {
+        "type": "acpitz",
+        "temp_c": 32.0
+      },
+      {
+        "type": "x86_pkg_temp",
+        "temp_c": 75.0
+      }
+    ]
+  },
+  "host_guard": {
+    "taken_at": "2026-10-22T21:25:53+08:00",
+    "blocked": false,
+    "available_bytes": 2330226688,
+    "memory_some_avg10": null,
+    "memory_full_avg10": null,
+    "load": [
+      1.32,
+      1.52,
+      1.61
+    ],
+    "attempts": [
+      {
+        "at": "2026-10-22T21:25:53+08:00",
+        "available_bytes": 2330226688,
+        "memory_some_avg10": null,
+        "memory_full_avg10": null,
+        "load": [
+          1.32,
+          1.52,
+          1.61
+        ],
+        "blocked": false
+      }
+    ],
+    "label": "D"
+  },
+  "reset": {
+    "target": "debian13",
+    "env_id": "test-debian",
+    "actions": [
+      {
+        "wait_stopped": {
+          "ok": true,
+          "elapsed_ms": 23.205,
+          "state": {
+            "env_id": "test-debian",
+            "container_name": "ml-75a8c1ff-test-debian",
+            "container_id_recorded": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+            "record_runtime_state": "stopped",
+            "record_full_init": false,
+            "inspect": {
+              "id": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+              "running": false,
+              "status": "exited",
+              "pid": 0,
+              "exit_code": 143,
+              "oom_killed": false,
+              "started_at": "2026-10-22T21:24:42.115487203+08:00",
+              "finished_at": "2026-10-22T21:25:53.547841734+08:00",
+              "init": true,
+              "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+            }
+          }
+        }
+      }
+    ],
+    "lease_before": {
+      "live_count": 0,
+      "auto_stop": false,
+      "bridge": null
+    },
+    "bridges_killed": [],
+    "state_after": {
+      "env_id": "test-debian",
+      "container_name": "ml-75a8c1ff-test-debian",
+      "container_id_recorded": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+      "record_runtime_state": "stopped",
+      "record_full_init": false,
+      "inspect": {
+        "id": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+        "running": false,
+        "status": "exited",
+        "pid": 0,
+        "exit_code": 143,
+        "oom_killed": false,
+        "started_at": "2026-10-22T21:24:42.115487203+08:00",
+        "finished_at": "2026-10-22T21:25:53.547841734+08:00",
+        "init": true,
+        "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+      }
+    }
+  },
+  "ready": {
+    "ready_ns": 116323976082269,
+    "launch_to_ready_ms": 868.166,
+    "launch_to_window_ms": 868.166,
+    "launch_to_buffer_commit_ms": 866.227,
+    "launch_to_frame_callback_ms": null,
+    "window": {
+      "event": "added",
+      "marker": "ML-LIFE-",
+      "caption": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian/ML-LIFE-debian13-D-000.txt - Mousepad",
+      "window_id": "{b9c69eed-bbc9-4b08-96ee-c8719c59e57d}",
+      "type": "KWin::XdgToplevelWindow(0x55ca87521c40)",
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87521c40)",
+      "pid": 1148032,
+      "resource_class": "mousepad",
+      "geometry": {
+        "width": 640,
+        "height": 508
+      },
+      "buffer_geometry": {
+        "width": 640,
+        "height": 480
+      },
+      "ready_for_painting": null,
+      "received_ns": 116323976082269,
+      "sent_wall_ms": 1792675554860
+    },
+    "wayland": {
+      "surface_id": "33",
+      "first_attach_received_ns": 116323974048735,
+      "first_commit_received_ns": 116323974143608,
+      "first_frame_callback_received_ns": null
+    },
+    "geometry_extra": {}
+  },
+  "process_chain_before_kill": {
+    "launcher_pid": 1147792,
+    "pids": [
+      {
+        "pid": 1147792,
+        "ppid": 1130975,
+        "state": "S",
+        "comm": "python3",
+        "cmdline": "/usr/bin/python3 /home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/tools/ml.py app open life-editor-debian -- /home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian/ML-LIFE-debian13-D-000.txt",
+        "stamp": 25295614
+      },
+      {
+        "pid": 1147806,
+        "ppid": 1147792,
+        "state": "S",
+        "comm": "python3",
+        "cmdline": "/usr/bin/python3 /home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/tools/ml.py app _worker life-editor-debian -- /home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian/ML-LIFE-debian13-D-000.txt",
+        "stamp": 25295619
+      },
+      {
+        "pid": 1147845,
+        "ppid": 1147806,
+        "state": "S",
+        "comm": "xdg-dbus-proxy",
+        "cmdline": "/usr/bin/xdg-dbus-proxy unix:path=/run/user/1000/bus bus --filter --talk=org.freedesktop.portal.Desktop --talk=org.freedesktop.portal.Documents --talk=org.kde.StatusNotifierWatcher --talk=org.freedesktop.Notifications --own=com.tencent.wemeet.*",
+        "stamp": 25295637
+      },
+      {
+        "pid": 1148012,
+        "ppid": 1147806,
+        "state": "S",
+        "comm": "podman",
+        "cmdline": "podman exec --user 1000:1000 --workdir /home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian --env WAYLAND_DISPLAY=wayland-0 --env XDG_RUNTIME_DIR=/run/user/1000 --env DISPLAY=:0 --env XAUTHORITY=/run/multilinux-portal/Xauthority --env PULSE_SERVER=unix:/run/user/1000/pulse/native --env PIPEWIRE_REMOTE=pipewire-0 --env XDG_SESSION_TYPE=wayland --env DBUS_SESSION_BUS_ADDRESS=unix:path=/run/multilinux-portal/bus --env GDK_BACKEND=wayland --env GSETTINGS_BACKEND=memory --env WAYLAND_DEBUG=client --env LC_ALL=C.UTF-8 --env XDG_CURRENT_DESKTOP=KDE --env HOME=/home/multilinux-1000 --env USER=omg --env LOGNAME=omg ml-75a8c1ff-test-debian /usr/bin/dbus-run-session -- /usr/bin/mousepad --disable-server /home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian/ML-LIFE-debian13-D-000.txt",
+        "stamp": 25295679
+      }
+    ],
+    "worker_pids": [
+      1147806
+    ]
+  },
+  "pid1": {
+    "name": "podman-init",
+    "sigcgt": "0000000000000000",
+    "sigign": "0000000000000000",
+    "sigblk": "fffffffe3ffbfa07",
+    "sigpnd": "0000000000000000",
+    "comm": "podman-init",
+    "cmdline": "/run/podman-init -- /usr/bin/sleep infinity",
+    "ps_stdout": "    PID    PPID STAT COMMAND\n      1       0 Ss   podman-init\n      2       1 S    sleep\n      4       0 Ss   dbus-run-sessio\n      5       4 S    dbus-daemon\n      6       4 Sl   mousepad\n     22       0 Ss   sh\n     23      22 R    ps\n",
+    "exec_returncodes": {
+      "status": 0,
+      "comm": 0,
+      "cmdline": 0,
+      "ps": 0
+    }
+  },
+  "lease_before_kill": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/leases/test-debian.json",
+    "exists": true,
+    "raw": {
+      "leases": {
+        "c347734b8ccd4c8abda92fadce8230c0": {
+          "pid": 1147806,
+          "stamp": 25295619,
+          "app_id": "life-editor-debian"
+        }
+      },
+      "auto_stop": true,
+      "bridge": {
+        "pid": 1147845,
+        "stamp": 25295637,
+        "socket": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-debian/bus"
+      },
+      "container_id": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+      "container_started_at": "2026-10-22T21:25:54.371751971+08:00"
+    },
+    "live": {
+      "c347734b8ccd4c8abda92fadce8230c0": {
+        "pid": 1147806,
+        "stamp": 25295619,
+        "app_id": "life-editor-debian"
+      }
+    },
+    "live_count": 1,
+    "bridge": {
+      "pid": 1147845,
+      "stamp": 25295637,
+      "socket": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-debian/bus"
+    },
+    "bridge_alive": true
+  },
+  "window_before_kill": [
+    {
+      "caption": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian/ML-LIFE-debian13-D-000.txt - Mousepad",
+      "resourceClass": "mousepad",
+      "pid": 1148032,
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87521c40)",
+      "wayland": null,
+      "x11": null,
+      "width": 640,
+      "height": 508,
+      "bufferWidth": 640,
+      "bufferHeight": 480,
+      "internalId": "{b9c69eed-bbc9-4b08-96ee-c8719c59e57d}",
+      "active": true
+    }
+  ],
+  "worker_pids": [
+    1147806
+  ],
+  "lease_owner_is_worker": true,
+  "kill_top": {
+    "pid": 1147792,
+    "signal": 9,
+    "sent": true
+  },
+  "top_killed_at": "2026-10-22T21:25:55+08:00",
+  "top_dead": true,
+  "top_returncode": -9,
+  "top_exit_after_kill_ms": 1.503,
+  "workers_alive_after_kill": [
+    {
+      "pid": 1147806,
+      "stamp": 25295619,
+      "state": "S"
+    }
+  ],
+  "window_after_kill": [
+    {
+      "caption": "*/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/work/test-debian/ML-LIFE-debian13-D-000.txt - Mousepad",
+      "resourceClass": "mousepad",
+      "pid": 1148032,
+      "objectType": "KWin::XdgToplevelWindow(0x55ca87521c40)",
+      "wayland": null,
+      "x11": null,
+      "width": 640,
+      "height": 508,
+      "bufferWidth": 640,
+      "bufferHeight": 480,
+      "internalId": "{b9c69eed-bbc9-4b08-96ee-c8719c59e57d}",
+      "active": true
+    }
+  ],
+  "env_after_kill": {
+    "env_id": "test-debian",
+    "container_name": "ml-75a8c1ff-test-debian",
+    "container_id_recorded": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+    "record_runtime_state": "running",
+    "record_full_init": false,
+    "inspect": {
+      "id": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+      "running": true,
+      "status": "running",
+      "pid": 1147897,
+      "exit_code": 0,
+      "oom_killed": false,
+      "started_at": "2026-10-22T21:25:54.371751971+08:00",
+      "finished_at": "2026-10-22T21:25:53.547841734+08:00",
+      "init": true,
+      "image": "localhost/multilinux/startup-debian13@sha256:7990ae5a43f0c637a3a3afedb5002fe75e766281fc2b6cc002631ddf7576ebae"
+    }
+  },
+  "lease_after_kill": {
+    "path": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/leases/test-debian.json",
+    "exists": true,
+    "raw": {
+      "leases": {
+        "c347734b8ccd4c8abda92fadce8230c0": {
+          "pid": 1147806,
+          "stamp": 25295619,
+          "app_id": "life-editor-debian"
+        }
+      },
+      "auto_stop": true,
+      "bridge": {
+        "pid": 1147845,
+        "stamp": 25295637,
+        "socket": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-debian/bus"
+      },
+      "container_id": "ceee419f992802b6392810612a810e2facf140d3e5a02be7f879bfdba9e2f519",
+      "container_started_at": "2026-10-22T21:25:54.371751971+08:00"
+    },
+    "live": {
+      "c347734b8ccd4c8abda92fadce8230c0": {
+        "pid": 1147806,
+        "stamp": 25295619,
+        "app_id": "life-editor-debian"
+      }
+    },
+    "live_count": 1,
+    "bridge": {
+      "pid": 1147845,
+      "stamp": 25295637,
+      "socket": "/home/omg/文档/多兼容linux机/evidence/lifecycle-2026-10-22T212236+0800/project/.lab/desktop/test-debian/bus"
+    },
+    "bridge_alive": true
+  },
+  "window_survived_kill": true,
+  "error": "TimeoutError: compositor never removed the closed window",
+  "cleanup": [
+    []
+  ],
+  "events_status_counts": {
+    "init": 1,
+    "start": 1,
+    "exec": 6,
+    "exec_died": 10
+  },
+  "passed": false,
+  "finished_at": "2026-10-22T21:26:26+08:00"
+}

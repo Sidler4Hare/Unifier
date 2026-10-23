@@ -1,0 +1,187 @@
+{
+  "scenario": "A",
+  "target": "arch",
+  "requested": 10,
+  "rows": [
+    {
+      "scenario": "A",
+      "target": "arch",
+      "index": 0,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 1073.499,
+        "close_to_window_removed_ms": 45.273,
+        "close_to_launcher_exit_ms": 310.856,
+        "close_to_container_died_ms": 194.855,
+        "close_to_stopped_ms": 24.578,
+        "close_to_bridge_gone_ms": 20.186
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "arch",
+      "index": 1,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 912.517,
+        "close_to_window_removed_ms": 47.95,
+        "close_to_launcher_exit_ms": 384.098,
+        "close_to_container_died_ms": 250.523,
+        "close_to_stopped_ms": 24.979,
+        "close_to_bridge_gone_ms": 23.82
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "arch",
+      "index": 2,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 870.568,
+        "close_to_window_removed_ms": 55.186,
+        "close_to_launcher_exit_ms": 341.894,
+        "close_to_container_died_ms": 205.772,
+        "close_to_stopped_ms": 24.211,
+        "close_to_bridge_gone_ms": 21.947
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "arch",
+      "index": 3,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 1004.022,
+        "close_to_window_removed_ms": 44.589,
+        "close_to_launcher_exit_ms": 364.124,
+        "close_to_container_died_ms": 212.559,
+        "close_to_stopped_ms": 29.191,
+        "close_to_bridge_gone_ms": 27.042
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "arch",
+      "index": 4,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 965.064,
+        "close_to_window_removed_ms": 60.122,
+        "close_to_launcher_exit_ms": 312.328,
+        "close_to_container_died_ms": 199.15,
+        "close_to_stopped_ms": 23.532,
+        "close_to_bridge_gone_ms": 19.687
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "arch",
+      "index": 5,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 887.184,
+        "close_to_window_removed_ms": 57.855,
+        "close_to_launcher_exit_ms": 309.652,
+        "close_to_container_died_ms": 198.192,
+        "close_to_stopped_ms": 24.427,
+        "close_to_bridge_gone_ms": 20.929
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "arch",
+      "index": 6,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 885.278,
+        "close_to_window_removed_ms": 58.684,
+        "close_to_launcher_exit_ms": 342.851,
+        "close_to_container_died_ms": 199.388,
+        "close_to_stopped_ms": 23.841,
+        "close_to_bridge_gone_ms": 19.807
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "arch",
+      "index": 7,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 904.393,
+        "close_to_window_removed_ms": 58.176,
+        "close_to_launcher_exit_ms": 314.165,
+        "close_to_container_died_ms": 208.674,
+        "close_to_stopped_ms": 30.385,
+        "close_to_bridge_gone_ms": 18.914
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "arch",
+      "index": 8,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 875.268,
+        "close_to_window_removed_ms": 58.416,
+        "close_to_launcher_exit_ms": 302.245,
+        "close_to_container_died_ms": 200.564,
+        "close_to_stopped_ms": 23.188,
+        "close_to_bridge_gone_ms": 19.57
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    },
+    {
+      "scenario": "A",
+      "target": "arch",
+      "index": 9,
+      "passed": true,
+      "failures": [],
+      "timings": {
+        "launch_to_ready_ms": 880.3,
+        "close_to_window_removed_ms": 58.036,
+        "close_to_launcher_exit_ms": 301.863,
+        "close_to_container_died_ms": 195.655,
+        "close_to_stopped_ms": 29.174,
+        "close_to_bridge_gone_ms": 19.493
+      },
+      "container_exit_code": 143,
+      "event_exit_code": 143,
+      "single_container": true
+    }
+  ]
+}

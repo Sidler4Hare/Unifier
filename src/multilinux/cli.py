@@ -5,6 +5,7 @@ import json
 import sys
 
 from multilinux.errors import MultilinuxError
+from multilinux.packages import transaction_verdict
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -59,6 +60,20 @@ def build_parser() -> argparse.ArgumentParser:
     remove.add_argument("--yes", action="store_true",
                         help="required; this permanently deletes the environment")
     remove.set_defaults(func=cmd_remove)
+
+    plan = operations.add_parser(
+        "plan",
+        help="show whether a change upgrades this environment or replaces it")
+    plan.add_argument("id")
+    plan.add_argument("--target", help="prepared target id to compare")
+    plan.add_argument("--network", choices=("none", "pasta"))
+    plan.add_argument("--userns", choices=("rootless-default", "keep-id"))
+    plan.add_argument("--desktop", action=argparse.BooleanOptionalAction, default=None,
+                      help="compare a desktop session; --no-desktop compares a headless one")
+    plan.add_argument("--share", action="append", default=None,
+                      help="absolute host directory; the whole set is compared")
+    plan.add_argument("--ipc", choices=("private", "host"))
+    plan.set_defaults(func=cmd_plan)
 
     # Parsed by cmd_run before this parser runs, so `ml env -h` can still list it.
     run = operations.add_parser("run", help="execute argv in a started environment")
@@ -244,6 +259,25 @@ def cmd_export(args) -> int:
     return 0
 
 
+def cmd_plan(args) -> int:
+    desired = {}
+    if args.target:
+        desired["target"] = args.target
+    if args.network:
+        desired["network"] = args.network
+    if args.userns:
+        desired["user_namespace"] = args.userns
+    if args.desktop is not None:
+        desired["desktop"] = args.desktop
+    if args.share is not None:
+        desired["shares"] = list(args.share)
+    if args.ipc:
+        desired["ipc"] = args.ipc
+    print(json.dumps(service_factory().change_plan(args.id, desired or None),
+                     ensure_ascii=False, indent=2))
+    return 0
+
+
 def cmd_start(args) -> int:
     view = service_factory().start(args.id)
     print(f"started {args.id} ({view['runtime_state']})")
@@ -271,6 +305,21 @@ def cmd_run_help(args) -> int:
 
 def _print_transaction(txn: dict) -> int:
     print(json.dumps(txn, ensure_ascii=False, indent=2))
+    verdict = transaction_verdict(txn.get("phase"), txn.get("maintenance"))
+    if verdict == "verified-with-warnings":
+        items = (txn.get("maintenance") or {}).get("items") or []
+        reasons = ", ".join(dict.fromkeys(
+            str(item.get("reason")) for item in items if item.get("reason")))
+        detail = f" ({reasons})" if reasons else ""
+        failures = sum(int(item.get("count") or 1) for item in items)
+        print(
+            f"ml: warning: {txn.get('id')}: the package changes are applied "
+            f"(exit code 0), but {failures} maintenance hook failure(s){detail} "
+            "were reported; system integration is unverified and may need a "
+            "host step. "
+            f"See 'ml pkg show {txn.get('id')}' for the saved output.",
+            file=sys.stderr)
+        return 0
     return 0 if txn.get("phase") == "completed" else 1
 
 
@@ -307,11 +356,14 @@ def cmd_pkg_remove(args) -> int:
 def cmd_pkg_log(args) -> int:
     rows = []
     for txn in service_factory().transactions_for(args.id):
+        maintenance = txn.get("maintenance") or {}
         rows.append({
             "id": txn["id"],
             "operation": txn["operation"],
             "packages": txn.get("packages") or [],
             "phase": txn["phase"],
+            "verdict": transaction_verdict(txn.get("phase"), txn.get("maintenance")),
+            "maintenance": maintenance.get("status"),
             "failure_phase": txn.get("failure_phase"),
             "started_at": txn.get("started_at"),
             "finished_at": txn.get("finished_at"),
@@ -343,8 +395,7 @@ def cmd_app_add(args) -> int:
     if args.on_demand:
         options['on_demand'] = True
     if args.package_file:
-        from multilinux.routing import route_package
-        options['package_origin'] = route_package(args.package_file)
+        options["package_origin"] = _route_package(args.package_file)
     launch = service_factory().add_app(
         args.environment, args.id, args.executable, argv,
         workdir=args.workdir, env_overlay=_set_overlay(args.set), **options)
@@ -359,6 +410,19 @@ def cmd_app_show(args) -> int:
 
 def cmd_app_open(args) -> int:
     result = service_factory().open_app(args.id, list(getattr(args, "extra", None) or []))
+    return result.returncode
+
+
+def worker_parser() -> argparse.ArgumentParser:
+    """Internal supervisor entry point; never listed by `ml app -h`."""
+    parser = argparse.ArgumentParser(prog="ml app _worker")
+    parser.add_argument("id")
+    return parser
+
+
+def cmd_app_worker(args) -> int:
+    from multilinux.on_demand import managed_open
+    result = managed_open(service_factory(), args.id, list(getattr(args, 'extra', None) or []))
     return result.returncode
 
 
@@ -380,9 +444,14 @@ def cmd_app_export(args) -> int:
     return 0
 
 
-def cmd_pkg_route(args):
+def _route_package(path: str) -> dict:
     from multilinux.routing import route_package
-    print(json.dumps(route_package(args.file), ensure_ascii=False, indent=2))
+    service = service_factory()
+    return route_package(path, service.config.get("targets"))
+
+
+def cmd_pkg_route(args):
+    print(json.dumps(_route_package(args.file), ensure_ascii=False, indent=2))
     return 0
 
 
@@ -447,6 +516,13 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if argv[:2] == ["env", "run"]:
             return cmd_run(argv[2:])
+        if argv[:2] == ["app", "_worker"]:
+            # The supervised worker is an internal entry point. Parsing it here
+            # keeps it out of `ml app -h` while still accepting program argv.
+            head, command = _split_double_dash(argv[2:])
+            args = worker_parser().parse_args(head)
+            args.extra = command
+            return cmd_app_worker(args)
         if len(argv) >= 2 and argv[0] == "app" and argv[1] in {"add", "open", "exec"}:
             head, command = _split_double_dash(argv[2:])
             args = build_parser().parse_args([argv[0], argv[1], *head])
