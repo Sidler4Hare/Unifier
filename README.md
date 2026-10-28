@@ -3,13 +3,91 @@
 
 Unifier 是共享宿主内核、保留 Debian / Fedora / Arch 原生用户空间和包管理的 Linux 应用兼容项目。2026-10-23 起统一使用 **Unifier** 名称。
 
-当前里程碑：**架构实验基线已定档**，标签 `architecture-experiment-2026-10-23`。范围、证据与下一阶段边界见[定档说明](设计/Unifier-架构实验定档-2026-10-23.md)。这是已验证实验的基线，完整文件控制层及跨宿主验收仍在后续阶段。
+2026-10-28 新增默认启用的**发行版派系白名单**：宿主按 Debian/Ubuntu、Fedora、RHEL、Arch、SUSE 五组策略准入，Ubuntu 与 Debian 共用宿主集成规则；客体仍严格限定为 Debian 13、Fedora 44、Arch。创建、启动、执行和包事务检查当前宿主，未知 ID 不因 `ID_LIKE` 放行，Atomic/事务式和 NixOS/Alpine/Void/Gentoo 等暂列独立适配。同派系不混源、不共享系统依赖、不放宽容器 ID/版本验证。通过 `python3 tools/unifier.py compat list`、`compat check --target debian13`、`compat matrix` 查看白名单和关系。见[分组与宿主—容器矩阵](设计/发行版派系白名单与容器关系-2026-10-28.md)及[验证报告](evidence/distro-whitelist-2026-10-28/report.md)。五组属于机制准入，跨宿主真实验收仍开放。白名单现已同步 FreeCAD、腾讯会议两个日常部署，各两轮菜单启动、完整窗口、正常关窗和自动停机通过；同步中修复了 FreeCAD 旧 Xauthority 临时绑定路径缺失，449 项回归（445 通过、4 条件跳过）。见[日常部署与数据保全报告](evidence/whitelist-daily-deploy-2026-10-28/report.md)。下一台 Ubuntu Server 可使用[便携源码包](artifacts/unifier-ubuntu-server-20261028.tar.gz)、[无桌面验收步骤](设计/Ubuntu-Server白名单与容器验收-2026-10-28.md)及 `tools/probe_headless.py`；目前只在 Fedora 解包复验，Ubuntu 实机待执行。
+
+2026-10-27 已将运行环境从 27 个归并为 **FreeCAD、腾讯会议两个日常容器**，旧测试实例和旧腾讯会议已在校验归档后退役。两个应用的 `src/tools` 已同步到当前已验收代码，菜单启动/关窗停机各两轮、部署端真实 FUSE 验证通过。见[归并与迁移报告](evidence/runtime-consolidation-2026-10-27/report.md)。后续测试复用有编号的临时环境，结束后按 CID 清理，不再长期累积测试容器。
+
+扩展测试先复用本机已安装应用：已只读确认 WPS、微信、VS Code/ZCode/Qoder CN、LibreOffice、Chrome、PDF/媒体与 Flatpak 对照，并找到与安装记录同构建的本地 WPS RPM；新增同名、同类型、组件/入口及默认关联等 18 组关系用例，实际工作流尚未执行。见[本机盘点与关系计划](evidence/installed-applications-2026-10-27/report.md)。原 WPS、Beyond Compare、Zoom、飞书的 9 个客体安装组合保留，Fedora/WPS 同构建对照优先，新下载顺延；另列 Agent 跨环境及文件系统实测，见[扩展测试计划](设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md)。既有投影验收状态如下。
+
+## 投影三处语义缺口已修复并通过本机真实验收（2026-10-27）
+
+继续先备份、dsh Command Code / DeepSeek 施工、主控独立审查与真实挂载验证。恢复 mtime 的原地修改现在通过真实 ctime 重验证失效旧页；链接按组件处理 symlink/`..`；稳定对外 inode 与可回收 nodeid 分开，回收与预算仍有效。
+
+最终 **411 项回归（407 通过、4 条件跳过），真实 FUSE 核心 22/22＋新边界 9/9，Debian/Fedora/Arch 完整链路各 26/26，共 78/78**。原子替换、旧 FD、mmap、分页与资源错误回滚保持通过；修复前、中间失败和最终源码均单独保留。27 原容器、23 主状态文件及 21,982 旧证据保全，测试资源已清理。
+
+默认挂载点首次撤销 4/5，正常重试清理 5/5；一次现场记录到 ChatGPT 外部目录访问，不能宣称即时撤销全部通过。外部修改通知仍未实现，性能、GUI/IDE、严格快照与跨宿主关口仍开放。见[修复验收报告](evidence/projection-boundaries-2026-10-27/report.md)和[设计说明](设计/投影边界修复-2026-10-27.md)。未提交/推送。
+
+## 历史：投影复测核心回归通过，扩展语义发现缺口（2026-10-27）
+
+当前源码与上轮验收哈希一致：全量 399 项（395 通过、4 条件跳过），真实 FUSE 核心 22/22、三客体完整 broker 51/51、补充契约 7/7。原子替换/unlink 后旧 FD 身份、常规大小/内容更新、目录分页与回收继续通过；默认挂载点关闭 FD 后连续 5 轮首次正常撤销成功，历史 EBUSY 原因仍未证明。
+
+扩展真实挂载在直接 fixture 及三客体产品链路均确认 3 个缺口：**恢复原 mtime 的原地修改会让旧 FD 读到旧页；包含中间 symlink 与 `..` 的链接可能读错目标；目录句柄释放后列出 inode 与后续 stat 不一致**。外部修改通知仍未实现。有限性能复测中，小文件 stat/读取哈希约为原生 51×/35×，16MiB 顺序读取哈希约 1.8×，不作跨负载或跨宿主推广。不能宣布通用文件语义或 F 全阶段通过。
+
+本轮未改产品源码；原有 27 个容器、23 个主状态文件与 21,581 个历史证据文件保留，测试资源已清理。日常 FreeCAD 的一次启停由用户确认来自用户或其他聊天，时间变化原样保留。见[复测报告与复现入口](evidence/projection-retest-2026-10-27/report.md)。未提交/推送。
+
+## 历史：投影对象、目录与回收本机受限修复（2026-10-26）
+
+已先备份并逐项校验当前版本（31,529 条目），保留可单独启动的 legacy worker。新实现使用对象锚点、独立文件/目录句柄、统一 MountGraph、稳定目录 cookie 和引用回收，修复替换/unlink 后旧 FD 身份、立即读取大小/内容一致性、目录覆盖与分页、FORGET/RELEASEDIR、总预算和资源错误回滚。
+
+主控验证：**真实 FUSE 22/22，Debian/Fedora/Arch 三客体完整 broker 链路 51/51，补充反例 7/7；全量 399 项（395 通过、4 条件跳过）**。原有 27 个容器、23 个主状态文件和 20,983 个历史证据文件保留，无本轮挂载或 storage 引用残留。一次 EBUSY 及正常重试清理记录保留。仍是只读 live 管理视图；通知、快照、性能、GUI/IDE 和跨宿主关口开放。未提交/推送。见[验收报告](evidence/projection-objects-2026-10-26/report.md)和[设计说明](设计/投影对象与目录修复-2026-10-26.md)。
+
+## 历史：F 本机原始测量与修复前一致性失败（2026-10-26）
+
+以下记录修复前源码的 F 测量；对象/目录最新状态以上节为准，原报告与失败证据保持原样。
+
+完成 237 个正式会话、180 个冷/热计时样本、270 个路径负载样本、45 次视图生命周期和 180 秒连续压力；独立证据与保全核验通过。本轮未修改产品源码，三个测试容器已清理，原有 27 个容器、主状态和旧证据保留。
+
+三发行版均复现投影 FD 跨替换身份不稳定、大小/内容缓存不一致，以及缺少外部修改通知；路径缓存上限未证明。产品 FUSE 的本轮负载 p50 相对宿主约 21–43 倍，普通项目继续使用直接 bind。**当前不能宣布 F 全阶段通过或通用 POSIX 文件语义验收。** 下一轮优先修一致性，再复验；跨宿主待办保持明确标注。详见 [F 报告与原始证据](evidence/unifier-v2-stage-f-2026-10-26/report.md)及[第六阶段说明](设计/Unifier-v2-第六阶段本机验证.md)。未提交/推送。
+
+## E 项目会话与可撤销入口已通过本机受限真实验收
+
+D 受控源清理通过后已推进 E。最终 **359 项回归（355 通过、4 条件跳过）**，Debian/Fedora/Arch 项目会话、管道/退出码/真实 PTY Ctrl-C、共享租约/定向取消/崩溃恢复、原生 GIO 入口和撤销恢复均通过；C/D 真实组合回归保持通过。进入一次 `project shell` 后直接使用环境内命令；`project export/revoke` 提供显式、可撤销入口。不是全局宿主命令拦截。
+
+日常 FreeCAD 已更新到本次已测代码并重新菜单启动两次。原有 27 个容器及状态、主状态与此前证据保全，本轮 6 个测试容器/3 卷已清理。详见[E 验收与边界](evidence/unifier-v2-stage-e-2026-10-25/report.md)和[第五阶段说明](设计/Unifier-v2-第五阶段实现.md)。D/E 均有独立恢复备份，未提交/推送；F 后续进度见上方。
+
+## D 受控完整移动已通过本机真实验收（2026-10-25）
+
+显式受控源根与逐操作 `--cleanup-source` 授权下，普通文件目标发布/登记、源隔离核对/清理、DONE 与恢复已闭环。304 项回归（300 通过、4 条件跳过），35 项原生移动、7 项日志窗口、真实 ENOSPC、公共 CLI 和三发行版复验通过。默认 move 及旧 journal 继续保留源。不是跨文件系统原子 rename，未知归属窗口保守保留。详见[D 完成验收](evidence/unifier-v2-stage-d-complete-2026-10-25/report.md)。D 已存独立恢复检查点；后续 E 的当前状态以上方最新验收为准。
+
+## 历史：第四阶段 D 初版受管复制与恢复验收
+
+C 通过后已推进 D：基于已登记根的无覆盖复制、持久日志、目标管理域登记、源 provenance 和幂等恢复。最终回归 **293 项（289 通过、4 条件跳过）**；20 项真实跨文件系统/阶段退出用例、隔离限额 tmpfs 的 ENOSPC、三发行版 C 投影复制到宿主、公共 CLI 均通过。受限 move 保留源并停在 SOURCE_CLEANUP_PENDING，完整移动未完成，CLI exit 1；不自动删除源。
+
+详见[D 真实验收与边界](evidence/unifier-v2-stage-d-2026-10-24/report.md)和[第四阶段说明](设计/Unifier-v2-第四阶段实现.md)。该初版只覆盖当时的受限普通文件范围，未做断电/两物理磁盘/跨宿主验收；后续 D 完整受控移动与 E 以上方最新验收为准。FreeCAD 日常菜单已更新到本次已测代码并重新实际启动两次；仅保留该日常容器，3 个测试容器及卷已清理。
+
+## 第三阶段 C：停止环境只读投影已通过本机真实验收
+
+C 已实现并通过 Debian 13、Fedora 44、Arch 真实 Podman/FUSE 验收；完整回归 **270 项，266 通过、4 条件跳过**。宿主 cat、Dolphin、KWrite 已验证管理投影、绝对/向上链接、卷和嵌套 bind、guest UID、只读修改拒绝、缺失后端、busy FD、broker/worker SIGKILL 和恢复清理。浏览不启动环境；活动 view 阻止 start/remove，撤销后无本轮 FUSE、broker 或 storage 引用残留。
+
+入口为 `python3 tools/unifier.py view open/list/status/readlink-raw/revoke/recover`。实现边界见[第三阶段说明](设计/Unifier-v2-第三阶段实现.md)，真实验收和失败历史见[C 阶段验收](evidence/unifier-v2-stage-c-2026-10-24/acceptance.md)。不确定挂载获取/释放窗口保留 needs-reconciliation；未做宿主断电、压力或跨宿主验收。
+
+FreeCAD 已保留独立的日常菜单入口与环境，项目目录 `/home/omg/文档/Unifier-CAD`，两次真实菜单启动/关窗自动停止通过，见[部署记录](evidence/unifier-v2-stage-c-2026-10-24/freecad-desktop/README.md)。
+
+C/D/E 当前验收结果以本页最新状态和对应报告为准；F 本机测量及新发现边界见上方。
+
+## 第二阶段 B：项目、处理器与受限文件路由（2026-10-24）
+
+A 阶段已由监督者独立验收通过（三发行版真实创建/迁移/备份/退出码/绑定拒绝/数据根保留，见 `evidence/unifier-v2-stage-a-2026-10-23/live-three-distros-2026-10-24.json`）。本轮在 `codex/unifier-v2-control` 上实现 B 首版受限闭环：
+
+- 新增显式 `project add/list/show/remove`：登记 `project_uuid`、root、默认保存目录、工具链/环境绑定和 `edit`/`view` 默认 handler UUID；一个根一个 project，删除登记不删数据/包/容器。
+- 新增显式 `handler add/list/show/remove`：首版 provider 仅 `environment-app`；固定 app 的 `app_instance_uuid`、环境 UUID/代际/容器实例和 exec 配置指纹（argv/executable/env/user/workdir 等）。同名 app 删除重建（即使配置完全相同）得到新实例，旧 handler 拒绝；同名 handler 重建不能替换 project 授权。
+- 新增 `file plan` / `file open --path ... --intent edit|view`：使用 A 的锚定 FD FileRef，要求 project/handler/app instance/环境代际/root inode/默认保存目录/实际同路径挂载全部有效；按运行时 container-path 最长挂载映射检查 root/file/cwd，拒绝 host 遮蔽、不同路径和子 ro 覆盖。计划输出 provider、全部绑定 UUID、observed_version、argv/cwd、intent、save_capability 和真实 environment-shared `access_scope`。
+- `edit` 要求 project 与 root 均为 `read-write` 且实际使用挂载没有 `ro`；readonly policy 的 `view` 也要求所有实际使用挂载为 OS 只读，否则保守拒绝，不用 warning 冒充隔离。默认保存目录进入嵌套数据根或经符号链接解析都会被拒绝。
+- on-demand `file open` 主入口只做只读预检，然后启动 detached `file _worker`；worker 从 path/intent 重新解析全部绑定、持现有租约并执行，禁止旧 plan JSON 或递归监督。`start`/`exec_app` 在生命周期锁和 exec 边界复核 app instance 与执行指纹。
+- `{file}` 模板只允许一个独立 argv 元素；中文、空格、引号、分号仍作为单参数，无 shell 拼接。直接 API 错类型、重复 UUID/alias 返回 `MultilinuxError`，不随机取第一条。
+- 普通共享目录仍默认 `preserve-host`（无 `:z`、不 relabel）；共享标签政策与 A 一致。默认保存目录只设置 cwd，`save_as_default` 明确为 `unknown`，不能宣称应用 Save As 默认位置已生效。
+
+本轮最终回归 **236 项：232 通过、4 项按条件跳过**；最终源码的 Debian/Fedora/Arch 真实容器复验及 7 项独立路由反例通过。**Arch FreeCAD 的新路由 → 真 Wayland GUI 打开/修改/保存/新建/停机重开、SIGKILL 启动器后关窗回收、pacman 卸载后项目保留均已实测通过。** 38 项证据检查全部通过，原有 26 个容器和状态保留，详见[本轮验收报告](evidence/unifier-v2-stage-b-2026-10-24/report.md)。
+
+实现与验收细节见[第二阶段实现说明](设计/Unifier-v2-第二阶段实现.md)，证据见 `evidence/unifier-v2-stage-b-2026-10-24/`。**该节记录 B 检查点；后续 C、D 完整受控移动及 E 的真实验收、F 本机测量与未通过关口见本页上方。**
+
+当前历史里程碑：**架构实验基线已定档**，标签 `architecture-experiment-2026-10-23`。范围、证据与下一阶段边界见[定档说明](设计/Unifier-架构实验定档-2026-10-23.md)。这是已验证实验的基线，完整文件控制层及跨宿主验收仍在后续阶段。
 
 新入口为 `python3 tools/unifier.py`；旧 `tools/ml.py`、内部 `multilinux` 名称与现有环境身份保持兼容。两个入口共用同一实现，帮助与错误中的 `ml` 暂保留为协议兼容名称。
 
 - [契约修复与 FreeCAD 真实 GUI 闭环](evidence/contract-freecad-gui-2026-10-23/report.md)：两处契约缺口已修复；158 项回归通过、4 跳过；宿主项目原件保存、新建对话框默认位置及停机重开通过。
 - [最新改动复核与架构迭代](调研/Grok改动复核与架构迭代-2026-10-23.md)：区分代码增量、原有测试和本轮复核；该次历史基线 152 项回归通过、4 跳过，新增 13 项文件归属/恢复机制检查。
-- [文件与执行控制层 v2](设计/文件与执行控制层-v2.md)：环境/数据身份、私有文件投影、保存保证、复制移动恢复和下一阶段交付关口；尚未接入产品文件层。
+- [文件与执行控制层 v2](设计/文件与执行控制层-v2.md)：环境/数据身份、私有文件投影、保存保证、复制移动恢复和阶段交付关口；当前 A–E 的受限交付以最新阶段验收为准。
 - [宿主权威与文件、命令、依赖边界：架构复审](设计/宿主权威与文件执行边界.md)：2026-10-23 的现状检查与下一阶段设计。升级/更换判定和 apt、dnf、pacman 驱动已经进产品；文件层与执行上下文仍是设计。
 - [文件层可行性、工程难度与性能需求评估](调研/文件层可行性与性能评估-2026-10-23.md)：机制约束、28 波文件访问实验、资源预算与阶段工期估计。
 - [环境文件视图原型](调研/环境文件视图原型-2026-10-23.md)：rootless 合并根对宿主进程不可见；绝对链接和独立卷已在临时 Debian 容器上核对。
