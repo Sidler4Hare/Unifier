@@ -170,7 +170,9 @@ def service_in(root: Path, runtime=None, lock=None):
     runtime = runtime or FakeRuntime()
     service = EnvironmentService(
         root, runtime, CONFIG, lock or LOCK, host_kernel="host-kernel",
-        clock=lambda: "2026-10-19T12:00:00+08:00", uid=1000, gid=1000)
+        clock=lambda: "2026-10-19T12:00:00+08:00", uid=1000, gid=1000,
+        host_facts={"os_release": {"ID": "fedora", "VERSION_ID": "44"},
+                    "system": "Linux", "machine": "x86_64", "libc": "glibc"})
     return service, runtime
 
 
@@ -337,7 +339,8 @@ class ExecutionAndOwnership(unittest.TestCase):
             (root / ".lab").mkdir()
             record = service.create("debian13", None, [str(notes)])
             self.assertEqual(record["shared_mounts"][0]["host"], notes.resolve().as_posix())
-            self.assertEqual(record["shared_mounts"][0]["options"], "z")
+            self.assertEqual(record["shared_mounts"][0]["options"], "")
+            self.assertEqual(record["runtime"]["share_label_policy"], "preserve-host")
             refused = [str(root), str(root / ".lab"), str(root.parent), "/usr/bin", "notes",
                        str(colon)]
             for path in refused:
@@ -358,7 +361,10 @@ class PodmanCommandBoundary(unittest.TestCase):
         self.assertIn("--pull=never", argv)
         self.assertIn("--network=none", argv)
         self.assertIn(SLEEPER, argv)
-        self.assertIn("/data/notes:/data/notes:z", argv)
+        self.assertIn("/data/notes:/data/notes", argv)
+        self.assertNotIn("/data/notes:/data/notes:z", argv)
+        relabel = replace(spec, share_label_policy="shared-relabel")
+        self.assertIn("/data/notes:/data/notes:z", creation_argv(relabel))
         self.assertNotIn("--userns=keep-id", argv)
         self.assertNotIn("--read-only", argv)
         self.assertIn(f"{LABEL_PROJECT}=/project", argv)

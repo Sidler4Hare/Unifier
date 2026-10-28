@@ -13,7 +13,7 @@ import hashlib
 import json
 import os
 import pwd
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import re
 import stat
 import sys
@@ -22,8 +22,26 @@ import time
 import uuid
 from zoneinfo import ZoneInfo
 
-from multilinux.catalog import plan_change, resolve_target_contract, system_contract
+from multilinux.catalog import (
+    plan_change,
+    resolve_record_contract,
+    resolve_target_contract,
+    system_contract,
+)
 from multilinux.errors import MultilinuxError
+from multilinux.compatibility import (
+    compatibility_mode, observe_host, relationship_plan, require_relationship,
+)
+from multilinux.handlers import execution_fingerprint as app_execution_fingerprint
+from multilinux.identity import (
+    binding_for,
+    check_record_header,
+    identity,
+    schema_version,
+    stamp_new_identity,
+    validate_binding,
+    validate_migratable_record,
+)
 from multilinux.packages import (
     INCOMING_DIR,
     TIMEOUT_PACMAN_KEY,
@@ -51,8 +69,14 @@ from multilinux.desktop import (
     remove_mime_association,
     render_desktop_entry,
     render_mime_xml,
+    restore_xauthority_mount,
     validate_app_id,
     validate_desktop_session,
+)
+from multilinux.share_label import (
+    effective_policy as effective_share_label_policy,
+    validate_policy as validate_share_label_policy,
+    volume_options as share_volume_options,
 )
 from multilinux.runtime import (
     ROLE_ENVIRONMENT,
@@ -63,6 +87,7 @@ from multilinux.runtime import (
     project_label,
 )
 from multilinux.store import EnvironmentStore
+from multilinux.views import assert_no_active_views
 
 
 ENV_ID = re.compile(r"[a-z][a-z0-9-]{0,31}\Z")
@@ -175,7 +200,7 @@ def _hides_system_tree(path: str) -> bool:
 
 
 def validate_env_id(env_id: str) -> str:
-    if not ENV_ID.fullmatch(env_id) or env_id.endswith("-"):
+    if not isinstance(env_id, str) or not ENV_ID.fullmatch(env_id) or env_id.endswith("-"):
         raise MultilinuxError(
             "environment id must be 1-32 characters, start with a lowercase letter, "
             "and contain only lowercase letters, digits and hyphens")
@@ -203,7 +228,7 @@ class EnvironmentService:
     def __init__(self, root: Path, runtime, config: dict, lock: dict, *,
                  host_kernel: str | None = None, clock=None, uid: int | None = None,
                  gid: int | None = None, host_observer=None, log=None,
-                 host_desktop=None, cache_runner=None):
+                 host_desktop=None, cache_runner=None, host_facts: dict | None = None):
         self.root = Path(root)
         self.runtime = runtime
         self.config = config
@@ -216,18 +241,32 @@ class EnvironmentService:
         self.host_observer = host_observer if host_observer is not None else HostObserver()
         self.host_desktop = host_desktop if host_desktop is not None else HostDesktop()
         self.cache_runner = cache_runner
+        self.host_facts = host_facts
         self.log = log or _log_progress
+
+    def compatibility_plan(self, target_name: str) -> dict:
+        compatibility_mode(self.config)
+        facts = self.host_facts if self.host_facts is not None else observe_host()
+        raw = self.config.get("targets", {}).get(target_name)
+        return relationship_plan(facts, target_name, raw)
+
+    def _require_host_compatibility(self, record: dict) -> dict:
+        resolve_record_contract(record)
+        return require_relationship(self.compatibility_plan(record["target"]))
 
     def create(self, target_name: str, env_id: str | None, shares: list[str],
                network: str = "none", desktop: bool = False, session: dict | None = None,
                user_namespace: str = "rootless-default", devices: list[str] | None = None,
-               portals: bool = False, gpu: bool = False, ipc: str | None = None) -> dict:
+               portals: bool = False, gpu: bool = False, ipc: str | None = None,
+               share_label_policy: str = "preserve-host") -> dict:
         target = self._target(target_name)
         resolve_target_contract(target_name, target)
+        host_relationship = require_relationship(self.compatibility_plan(target_name))
         if network not in {"none", "pasta"}:
             raise MultilinuxError("environment network must be none or pasta")
         if user_namespace not in {"rootless-default", "keep-id"}:
             raise MultilinuxError("user namespace must be rootless-default or keep-id")
+        share_label_policy = validate_share_label_policy(share_label_policy)
         if session is not None and not desktop:
             raise MultilinuxError("a session snapshot requires --desktop")
         if (devices or portals or gpu) and not desktop:
@@ -277,6 +316,7 @@ class EnvironmentService:
             project=project_label(self.root),
             image=image,
             mounts=mounts,
+            share_label_policy=share_label_policy,
             network=network,
             session_mounts=session_mounts,
             selinux_label=selinux_label,
@@ -298,6 +338,7 @@ class EnvironmentService:
             info = self._require_owned_record(spec.name, spec.project, env_id)
             record = self._record(spec, target_name, target, image, identity, inventory, info,
                                   desktop_session)
+            record["compatibility_at_creation"] = host_relationship
             self.store.save(record, inventory)
             return record
         except Exception:
@@ -311,13 +352,20 @@ class EnvironmentService:
             view = self._live(record)
             summaries.append({
                 "id": view["id"],
+                "environment_uuid": view.get("environment_uuid"),
+                "generation": view.get("generation"),
                 "target": view["target"],
                 "distribution_id": view["distribution_id"],
                 "version_track": view["version_track"],
                 "runtime_state": view["runtime_state"],
+                "share_label_policy": view.get("share_label_policy"),
                 "writable_revision": view["writable_revision"],
                 "base_image_digest": view["base_image"]["manifest_digest"],
                 "kernel_matches_current_host": view["kernel_matches_current_host"],
+                "host_family": view["compatibility"].get("host", {}).get("family"),
+                "container_family": view["compatibility"].get("container_family"),
+                "host_relationship": view["compatibility"].get("relationship"),
+                "compatibility_allowed": view["compatibility"].get("allowed", False),
             })
         return summaries
 
@@ -337,6 +385,9 @@ class EnvironmentService:
         if "desktop" in desired:
             desired.setdefault("selinux_label", "disable" if desired["desktop"] else "default")
             desired.setdefault("ipc", "host" if desired["desktop"] else "private")
+        if "share_label_policy" in desired:
+            desired["share_label_policy"] = validate_share_label_policy(
+                desired["share_label_policy"])
         if "target" in desired:
             spec = resolve_target_contract(desired["target"], self._target(desired["target"]))
             desired["image_digest"] = self._lock_digest(desired["target"])
@@ -348,7 +399,84 @@ class EnvironmentService:
             locked = self._lock_digest(record["target"]) if record.get("target") in self.lock["targets"] else None
             if locked and current and locked != current:
                 desired["image_digest"] = locked
-        return plan_change(record, desired or None)
+        plan = plan_change(record, desired or None)
+        plan["environment_uuid"] = record.get("environment_uuid")
+        plan["generation"] = record.get("generation")
+        plan["compatibility"] = self.compatibility_plan(desired.get("target", record["target"]))
+        if not plan["compatibility"]["allowed"]:
+            plan["action"] = "refused"
+            plan["reason"] = "; ".join(plan["compatibility"]["reasons"])
+        return plan
+
+    def migrate_environment(self, env_id: str) -> dict:
+        """Explicitly add versioned identity to one valid legacy record.
+
+        This is deliberately not called by list/inspect. It never asks the
+        runtime for anything, so it cannot start, stop or create a container.
+        The per-record flock makes concurrent migrations agree on one UUID;
+        the original bytes are saved once under ``environments/backups/``.
+
+        Validation happens once before the lock is created, so a malformed
+        record leaves no lock or backup behind. The same checks run again under
+        the lock to close the preflight race.
+        """
+        env_id = validate_env_id(env_id)
+
+        def preflight(record: dict):
+            check_record_header(record, env_id)
+            version = schema_version(record)
+            # The same contract gate used by planning, creation and drivers.
+            resolve_record_contract(record)
+            existing = identity(record)
+            if existing is not None:
+                return version, existing
+            if version != 1:
+                # A schema-2 record without identity is not a legacy record;
+                # issuing a UUID here would hide a malformed write.
+                raise MultilinuxError(
+                    f"environment schema_version {version} has no identity; "
+                    "only legacy schema-1 records can be migrated")
+            validate_migratable_record(record, env_id)
+            return version, None
+
+        record = self.store.load(env_id)
+        _version, existing = preflight(record)
+        if existing is not None:
+            return {
+                "environment_id": env_id,
+                "status": "already-migrated",
+                "environment_uuid": existing[0],
+                "generation": existing[1],
+                "backup": None,
+            }
+
+        lock_path = self.store.identity_lock_path(env_id)
+        lock_path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        descriptor = os.open(lock_path, os.O_CREAT | os.O_RDWR, 0o600)
+        try:
+            fcntl.flock(descriptor, fcntl.LOCK_EX)
+            record = self.store.load(env_id)
+            _version, existing = preflight(record)
+            if existing is not None:
+                return {
+                    "environment_id": env_id,
+                    "status": "already-migrated",
+                    "environment_uuid": existing[0],
+                    "generation": existing[1],
+                    "backup": None,
+                }
+            backup = self.store.backup_environment(env_id)
+            stamp_new_identity(record)
+            self.store.save(record, None)
+            return {
+                "environment_id": env_id,
+                "status": "migrated",
+                "environment_uuid": record["environment_uuid"],
+                "generation": record["generation"],
+                "backup": str(backup),
+            }
+        finally:
+            os.close(descriptor)
 
     def export(self, env_id: str, output: Path) -> dict:
         view = self.inspect(env_id)
@@ -358,16 +486,83 @@ class EnvironmentService:
         self._write_export(output, view)
         return view
 
-    def start(self, env_id: str) -> dict:
+    def _require_start_expected(self, record: dict, expected_app: dict | None,
+                                expected_binding: dict | None):
+        """Check app instance/fingerprint and environment binding before start.
+
+        Returns the binding that later runtime checks must use. Reading the
+        launch again on every call is intentional: callers may have waited for
+        a stopping container while the app record changed.
+        """
+        if expected_app is not None:
+            if not isinstance(expected_app, dict):
+                raise MultilinuxError("expected_app must be an object")
+            app_id = expected_app.get("app_id")
+            launch = self.show_app(app_id)
+            if launch.get("environment_id") != record.get("id"):
+                raise MultilinuxError(
+                    "application no longer belongs to the requested environment")
+            self._require_app_execution(
+                launch,
+                app_instance_uuid=expected_app.get("app_instance_uuid"),
+                execution_fingerprint=expected_app.get("execution_fingerprint"))
+            launch_binding = launch.get("environment_binding")
+            validate_binding(launch_binding)
+            if expected_binding is None:
+                expected_binding = launch_binding
+            elif expected_binding != launch_binding:
+                raise MultilinuxError(
+                    "application environment binding changed before start")
+        if expected_binding is not None:
+            self._require_record_binding(record, expected_binding)
+        return expected_binding
+
+    def start(self, env_id: str, *, expected_binding: dict | None = None,
+              expected_app: dict | None = None) -> dict:
+        """Start one environment.
+
+        ``expected_binding``/``expected_app`` are supplied by application
+        launch paths so identity, app instance and execution configuration are
+        checked under the lifecycle lock and again after a wait for a stopping
+        container, immediately before any runtime mutation.
+        """
         env_id = validate_env_id(env_id)
+        if expected_binding is not None:
+            validate_binding(expected_binding)
+        if expected_app is not None and not isinstance(expected_app, dict):
+            raise MultilinuxError("expected_app must be an object")
+        self._require_host_compatibility(self.store.load(env_id))
         with self._lifecycle_lock(env_id):
+            assert_no_active_views(self.root, env_id)
             record = self.store.load(env_id)
+            self._require_host_compatibility(record)
+            expected_binding = self._require_start_expected(
+                record, expected_app, expected_binding)
             info = self._wait_while_stopping(record)
+
+            # The wait can be long enough for the app/env record to change.
+            # Never start from the pre-wait record or save it back over newer
+            # state. Re-read and repeat every expectation first.
+            record = self.store.load(env_id)
+            self._require_host_compatibility(record)
+            expected_binding = self._require_start_expected(
+                record, expected_app, expected_binding)
+            info = self._require_owned(record)
+            if expected_binding is not None and info.container_id != expected_binding["container_id"]:
+                raise MultilinuxError(
+                    f"refusing to start {env_id}: its container instance no longer "
+                    "matches the application binding; re-register the application")
             if not info.running:
+                restore_xauthority_mount(record, uid=self.uid)
                 runtime = record["runtime"]
                 self.runtime.start(runtime["container_name"], project=runtime["project"],
                                    env_id=record["id"])
                 kernel = self._optional_capture(record, ["uname", "-r"])
+                # Merge into the newest record rather than writing the record
+                # captured before the wait/start.
+                record = self.store.load(env_id)
+                if expected_app is not None or expected_binding is not None:
+                    self._require_start_expected(record, expected_app, expected_binding)
                 if kernel:
                     record["observed"]["kernel"] = kernel.strip()
                 record["runtime_state"] = "running"
@@ -397,6 +592,7 @@ class EnvironmentService:
         if workdir is not None and (not workdir.startswith("/") or "\x00" in workdir):
             raise MultilinuxError("workdir must be an absolute path inside the environment")
         record = self.store.load(validate_env_id(env_id))
+        self._require_host_compatibility(record)
         info = self._require_owned(record)
         if not info.running:
             raise MultilinuxError(f"environment {record['id']} is {info.status}; start it before run")
@@ -408,18 +604,23 @@ class EnvironmentService:
         return result.returncode
 
     def remove(self, env_id: str) -> None:
-        record = self.store.load(validate_env_id(env_id))
-        runtime = record["runtime"]
-        name = runtime["container_name"]
-        info = self.runtime.inspect(name)
-        if info is None:
+        env_id = validate_env_id(env_id)
+        with self._lifecycle_lock(env_id):
+            from multilinux.project_sessions import assert_environment_not_live
+            assert_environment_not_live(self.root, env_id, self)
+            assert_no_active_views(self.root, env_id)
+            record = self.store.load(env_id)
+            runtime = record["runtime"]
+            name = runtime["container_name"]
+            info = self.runtime.inspect(name)
+            if info is None:
+                self.store.delete(record["id"])
+                return
+            if not self._matches(info, record):
+                raise MultilinuxError(
+                    f"refusing to remove {name}: it does not belong to environment {record['id']}")
+            self.runtime.remove(name, project=runtime["project"], env_id=record["id"])
             self.store.delete(record["id"])
-            return
-        if not self._matches(info, record):
-            raise MultilinuxError(
-                f"refusing to remove {name}: it does not belong to environment {record['id']}")
-        self.runtime.remove(name, project=runtime["project"], env_id=record["id"])
-        self.store.delete(record["id"])
 
     def add_app(self, env_id: str, app_id: str, executable: str, argv: list[str], *,
                 workdir: str | None = None, env_overlay: dict | None = None,
@@ -429,6 +630,9 @@ class EnvironmentService:
         if self._launch_exists(app_id):
             raise MultilinuxError(f"application {app_id} already exists")
         record = self.store.load(validate_env_id(env_id))
+        # New application records pin the exact environment instance. A legacy
+        # environment must be migrated explicitly before it can gain new apps.
+        binding = binding_for(record)
         desktop = record.get("desktop")
         if package_origin and package_origin.get("target") != record["target"]:
             candidates = package_origin.get("candidates") or []
@@ -485,10 +689,16 @@ class EnvironmentService:
             if not was_running:
                 with contextlib.suppress(Exception):
                     self.stop(record["id"])
+        record = self.store.load(record["id"])
         launch = {
-            "schema_version": 1,
+            "schema_version": 2,
             "id": app_id,
+            "app_instance_uuid": str(uuid.uuid4()),
             "environment_id": record["id"],
+            "environment_uuid": binding["environment_uuid"],
+            "generation": binding["generation"],
+            "container_id": binding["container_id"],
+            "environment_binding": binding,
             "executable": executable,
             "argv": list(argv),
             "workdir": workdir,
@@ -507,42 +717,187 @@ class EnvironmentService:
     def show_app(self, app_id: str) -> dict:
         return self.store.load_launch(validate_app_id(app_id))
 
-    def open_app(self, app_id: str, extra: list[str] | None = None) -> ExecResult:
+    def open_app(self, app_id: str, extra: list[str] | None = None, *,
+                 expected_app_instance_uuid: str | None = None,
+                 expected_execution_fingerprint: str | None = None,
+                 integration_uuid: str | None = None,
+                 project_uuid: str | None = None) -> ExecResult:
         """Open one recorded application.
 
         On-demand applications take the lease in a supervised worker instead of
         this short-lived CLI process, so killing the launcher cannot lose
         automatic stop ownership; manual (non on-demand) apps stay unmanaged.
+        A desktop launcher passes the journaled integration and exact app
+        instance pins; the detached worker repeats the same checks itself.
         """
         launch = self.show_app(app_id)
+        if integration_uuid is not None:
+            self.validate_integration_launch(
+                integration_uuid, app_id=app_id, project_uuid=project_uuid,
+                app_instance_uuid=expected_app_instance_uuid,
+                execution_fingerprint=expected_execution_fingerprint)
         if launch.get('on_demand'):
             from multilinux.on_demand import supervised_open
-            return supervised_open(self, app_id, extra or [])
-        return self._open_app_unmanaged(app_id, extra)
+            pins = {}
+            if expected_app_instance_uuid is not None:
+                pins["expected_app_instance_uuid"] = expected_app_instance_uuid
+            if expected_execution_fingerprint is not None:
+                pins["expected_execution_fingerprint"] = expected_execution_fingerprint
+            if integration_uuid is not None:
+                pins["integration_uuid"] = integration_uuid
+            if project_uuid is not None:
+                pins["project_uuid"] = project_uuid
+            return supervised_open(self, app_id, extra or [], **pins)
+        return self._open_app_unmanaged(
+            app_id, extra,
+            expected_app_instance_uuid=expected_app_instance_uuid,
+            expected_execution_fingerprint=expected_execution_fingerprint)
 
-    def _open_app_unmanaged(self, app_id: str, extra: list[str] | None = None) -> ExecResult:
+    def _open_app_unmanaged(self, app_id: str, extra: list[str] | None = None, *,
+                            expected_app_instance_uuid: str | None = None,
+                            expected_execution_fingerprint: str | None = None) -> ExecResult:
         launch = self.show_app(app_id)
         argv = list(launch["argv"])
         for item in extra or []:
             if item == "":
                 continue
             argv.append(item)
-        return self.exec_app(app_id, argv, capture=False, timeout=None)
+        return self.exec_app(
+            app_id, argv, capture=False, timeout=None,
+            expected_app_instance_uuid=expected_app_instance_uuid,
+            expected_execution_fingerprint=expected_execution_fingerprint)
+
+    def validate_app_binding(self, app_id: str) -> dict:
+        """Read-only preflight used before a supervisor is spawned."""
+        launch = self.show_app(app_id)
+        self._validate_launch_binding(launch)
+        return launch
+
+    def validate_integration_launch(self, integration_uuid: str, *, app_id=None,
+                                    project_uuid=None, app_instance_uuid=None,
+                                    execution_fingerprint=None) -> dict:
+        """Validate the journaled desktop integration that launched this argv.
+
+        The journal's stored desktop path is authoritative for an explicitly
+        installed entry; it need not live under this process's default
+        HostDesktop directories.
+        """
+        from multilinux.desktop_integrations import DesktopIntegrationManager
+        manager = DesktopIntegrationManager(self.root, self)
+        return manager.validate_launcher(
+            integration_uuid, project_uuid=project_uuid, app_id=app_id,
+            app_instance_uuid=app_instance_uuid,
+            execution_fingerprint=execution_fingerprint)
+
+    def _require_app_execution(self, launch: dict, *, app_instance_uuid=None,
+                               execution_fingerprint=None) -> None:
+        """Recheck the authorized app instance/config at a mutation boundary."""
+        if app_instance_uuid is not None:
+            actual = launch.get("app_instance_uuid")
+            if not isinstance(actual, str) or actual != app_instance_uuid:
+                raise MultilinuxError(
+                    "application instance changed; re-register the handler explicitly")
+        if execution_fingerprint is not None:
+            actual = app_execution_fingerprint(launch)
+            if not isinstance(execution_fingerprint, str) or actual != execution_fingerprint:
+                raise MultilinuxError(
+                    "application execution configuration changed; "
+                    "re-register the handler explicitly")
+
+    def _require_record_binding(self, record: dict, binding: dict) -> None:
+        """Compare the persisted environment instance with an application pin."""
+        validate_binding(binding)
+        if record.get("id") != binding["environment_id"]:
+            raise MultilinuxError("application binding names a different environment")
+        identity(record, required=True)
+        schema_version(record)
+        if record.get("environment_uuid") != binding["environment_uuid"]:
+            raise MultilinuxError(
+                "application binding is stale: the environment UUID was replaced; "
+                "re-register the application explicitly")
+        if record.get("generation") != binding["generation"]:
+            raise MultilinuxError(
+                "application binding is stale: the environment generation changed; "
+                "re-register the application explicitly")
+        runtime = record.get("runtime") or {}
+        if runtime.get("container_id") != binding["container_id"]:
+            raise MultilinuxError(
+                "application binding is stale: the environment container instance changed; "
+                "re-register the application explicitly")
+
+    def _validate_launch_binding(self, launch: dict, *, record: dict | None = None) -> dict:
+        binding = launch.get("environment_binding")
+        if binding is None:
+            raise MultilinuxError(
+                f"application {launch.get('id')} has a legacy launch record without a "
+                "versioned environment binding; re-register it explicitly with app remove/add")
+        validate_binding(binding)
+        environment_id = launch.get("environment_id")
+        if environment_id != binding["environment_id"]:
+            raise MultilinuxError("launch record and environment binding disagree")
+        for key in ("environment_uuid", "generation", "container_id"):
+            if key in launch and launch[key] != binding[key]:
+                raise MultilinuxError(
+                    f"launch record {key} disagrees with its environment binding; "
+                    "re-register the application explicitly")
+        if record is None:
+            record = self.store.load(validate_env_id(environment_id))
+        self._require_record_binding(record, binding)
+        self._require_host_compatibility(record)
+        runtime = record["runtime"]
+        info = self.runtime.inspect(runtime["container_name"])
+        if info is None:
+            raise MultilinuxError(
+                f"application {launch.get('id')} is bound to a container that no longer "
+                "exists; re-register the application explicitly")
+        if not self._matches(info, record) or info.container_id != binding["container_id"]:
+            raise MultilinuxError(
+                "application binding is stale: the current container does not match "
+                "the recorded environment instance; re-register the application explicitly")
+        return binding
 
     def exec_app(self, app_id: str, argv: list[str], *, capture: bool = False,
-                 timeout: int | None = None) -> ExecResult:
+                 timeout: int | None = None, workdir: str | None = None,
+                 expected_app_instance_uuid: str | None = None,
+                 expected_execution_fingerprint: str | None = None) -> ExecResult:
         if not argv or any(not isinstance(item, str) or item == "" for item in argv):
             raise MultilinuxError("argv must be a non-empty list of non-empty strings")
         launch = self.show_app(app_id)
+        self._require_app_execution(
+            launch, app_instance_uuid=expected_app_instance_uuid,
+            execution_fingerprint=expected_execution_fingerprint)
+        binding = self._validate_launch_binding(launch)
         record = self.store.load(launch["environment_id"])
-        self.start(record["id"])
+        workdir_override = None
+        if workdir is not None:
+            workdir_override = self._shared_workdir(record, workdir)
+        # The lifecycle lock rechecks the binding and app instance before start.
+        self.start(
+            record["id"], expected_binding=binding,
+            expected_app={
+                "app_id": app_id,
+                "app_instance_uuid": expected_app_instance_uuid,
+                "execution_fingerprint": expected_execution_fingerprint,
+            })
         record = self.store.load(record["id"])
+        self._require_record_binding(record, binding)
         runtime = record["runtime"]
+        info = self._require_owned(record)
+        if info.container_id != binding["container_id"] or not info.running:
+            raise MultilinuxError(
+                "application binding changed before execution; refusing to run")
+        # Re-read the launch at the exec boundary so a concurrent change to
+        # env/user/workdir cannot use stale authorization.
+        launch = self.show_app(app_id)
+        self._require_app_execution(
+            launch, app_instance_uuid=expected_app_instance_uuid,
+            execution_fingerprint=expected_execution_fingerprint)
+        effective_workdir = workdir_override if workdir is not None else launch.get("workdir")
         user_options = {"user": launch["user"]} if launch.get("user") else {}
         return self.runtime.exec(
             runtime["container_name"], argv, project=runtime["project"], env_id=record["id"],
-            workdir=launch["workdir"], env=dict(launch["env"]), capture=capture, timeout=timeout,
-            **user_options)
+            workdir=effective_workdir, env=dict(launch["env"]), capture=capture,
+            timeout=timeout, **user_options)
 
     def export_app(self, app_id: str, *, mime_type: str = "application/x-multilinux-note",
                    extension: str = "mlnote", menu_only: bool = False,
@@ -554,6 +909,7 @@ class EnvironmentService:
             raise MultilinuxError(
                 "file association type must look like application/x-multilinux-note")
         launch = self.show_app(app_id)
+        self._validate_launch_binding(launch)
         if launch.get("export"):
             raise MultilinuxError(f"application {launch['id']} is already exported")
         xml = render_mime_xml(mime_type, extension)
@@ -710,6 +1066,7 @@ class EnvironmentService:
     def _package_transaction(self, env_id: str, operation: str, packages: list[str], *,
                              use_argv=None, local_file: str | None = None) -> dict:
         record = self.store.load(validate_env_id(env_id))
+        self._require_host_compatibility(record)
         decision = plan_change(record, operation="package-change")
         if decision["action"] != "upgrade":
             raise MultilinuxError(decision.get("reason") or "this environment cannot be upgraded in place")
@@ -1067,6 +1424,7 @@ class EnvironmentService:
 
     def _ensure_running(self, env_id: str) -> bool:
         record = self.store.load(env_id)
+        self._require_host_compatibility(record)
         info = self._require_owned(record)
         if info.running:
             return True
@@ -1118,8 +1476,8 @@ class EnvironmentService:
                 "package_set_sha256": inventory_hash,
                 "keyring_initialized_at": None,
             }
-        return {
-            "schema_version": 1,
+        return stamp_new_identity({
+            "schema_version": 2,
             "id": spec.env_id,
             "target": target_name,
             "distribution_id": identity["id"],
@@ -1139,7 +1497,8 @@ class EnvironmentService:
             "package_inventory_count": inventory.count("\n"),
             "package_inventory_path": "",
             "shared_mounts": [
-                {"host": host, "container": container, "options": "z"}
+                {"host": host, "container": container,
+                 "options": share_volume_options(spec.share_label_policy)}
                 for host, container in spec.mounts
             ],
             "desktop": desktop_session,
@@ -1152,6 +1511,7 @@ class EnvironmentService:
                 "container_id": info.container_id,
                 "project": spec.project,
                 "network": spec.network,
+                "share_label_policy": spec.share_label_policy,
                 "selinux_label": spec.selinux_label,
                 "full_init": False,
                 "user_namespace": spec.user_namespace,
@@ -1177,10 +1537,17 @@ class EnvironmentService:
                 "Ordinary application environment. Native package transactions are recorded "
                 "separately. Host desktop sockets are not mounted."
             ),
-        }
+        })
 
     def _live(self, record: dict) -> dict:
         view = dict(record)
+        view["environment_uuid"] = record.get("environment_uuid")
+        view["generation"] = record.get("generation")
+        view["share_label_policy"] = effective_share_label_policy(record)
+        try:
+            view["compatibility"] = self.compatibility_plan(record["target"])
+        except MultilinuxError as exc:
+            view["compatibility"] = {"allowed": False, "reasons": [str(exc)]}
         info = self.runtime.inspect(record["runtime"]["container_name"])
         if info is None:
             view["runtime_state"] = "missing"
@@ -1224,13 +1591,40 @@ class EnvironmentService:
         return executable
 
     def _shared_workdir(self, record: dict, workdir: str | None) -> str | None:
+        """Accept a new application workdir only inside a real shared directory.
+
+        The lexical check rejects ``..`` outright. Then the real path of the
+        workdir must still be under the real path of the selected shared root,
+        so a symlink inside the share cannot register a host path outside it.
+        This is a registration-time check; it cannot constrain later writes by
+        an environment process that already has the mount.
+        """
         if workdir is None:
             return None
         if not workdir.startswith("/") or "\n" in workdir or "\x00" in workdir:
             raise MultilinuxError("workdir must be an absolute path")
+        parts = PurePosixPath(workdir).parts
+        if ".." in parts:
+            raise MultilinuxError("workdir must not contain '..' components")
         shares = [item["host"] for item in record.get("shared_mounts") or []]
-        if not any(workdir == host or workdir.startswith(host + "/") for host in shares):
+        selected = None
+        for host in shares:
+            host_parts = PurePosixPath(host).parts
+            if parts[:len(host_parts)] == host_parts:
+                if selected is None or len(host_parts) > len(PurePosixPath(selected).parts):
+                    selected = host
+        if selected is None:
             raise MultilinuxError("workdir must stay inside a shared mount")
+        try:
+            real_workdir = Path(workdir).resolve(strict=True)
+            real_share = Path(selected).resolve(strict=True)
+        except (OSError, RuntimeError) as exc:
+            raise MultilinuxError(f"workdir is not a valid shared directory: {exc}") from exc
+        if not real_workdir.is_dir():
+            raise MultilinuxError("workdir must be an existing directory inside a shared mount")
+        if not real_workdir.is_relative_to(real_share):
+            raise MultilinuxError(
+                "workdir resolves outside its shared mount; symlink escapes are refused")
         return workdir
 
     def _remove_our_desktop_file(self, path: Path, launch: dict) -> None:

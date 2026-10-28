@@ -11,6 +11,7 @@ the old one kept until the caller retires it.
 """
 
 from multilinux.errors import MultilinuxError
+from multilinux.share_label import effective_policy as effective_share_label_policy
 
 
 CONTRACT_FIELDS = (
@@ -82,6 +83,7 @@ REPLACE_FIELDS = (
     "devices",
     "ipc",
     "selinux_label",
+    "share_label_policy",
     "shares",
     "family",
     "libc",
@@ -197,6 +199,8 @@ def plan_change(record: dict, desired: dict | None = None, *,
     policy, driver = contract["update_policy"], contract["package_driver"]
     plan = {
         "environment_id": record.get("id"),
+        "environment_uuid": record.get("environment_uuid"),
+        "generation": record.get("generation"),
         "target": record.get("target"),
         "update_policy": policy,
         "package_driver": driver,
@@ -248,6 +252,7 @@ def _view(record: dict, contract: dict) -> dict:
         "devices": tuple(sorted(runtime.get("devices") or ())),
         "ipc": runtime.get("ipc") or "private",
         "selinux_label": runtime.get("selinux_label") or "default",
+        "share_label_policy": effective_share_label_policy(record),
         "shares": tuple(sorted(
             item.get("host", "") for item in (record.get("shared_mounts") or []))),
         "family": pick("family"),

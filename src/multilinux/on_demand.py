@@ -22,6 +22,7 @@ import time
 import uuid
 
 from multilinux.errors import MultilinuxError
+from multilinux.identity import validate_binding
 from multilinux.runtime import ExecResult
 
 # Set for the detached worker so a second supervision layer can never recurse.
@@ -44,6 +45,12 @@ def live_leases(items):
     live = {}
     for key, item in items.items():
         if not isinstance(item, dict):
+            continue
+        # A project session lease is evidence for a guest execution. A dead
+        # host proxy is not proof that the guest ended, so retain the lease
+        # until ProjectSessions.recover() verifies the guest identity.
+        if item.get('kind') == 'project-session':
+            live[key] = item
             continue
         stamp = item.get('stamp')
         pid = item.get('pid')
@@ -224,11 +231,41 @@ class LaunchGroup:
         return (container_id == info.container_id
                 and started_at == info.started_at)
 
-    def acquire(self, app_id):
+    def _acquire(self, *, app_id=None, expected_app_instance_uuid=None,
+                 expected_execution_fingerprint=None, expected_binding=None,
+                 owner=None, validate=None):
+        """Take one lease in this environment's existing shared group.
+
+        Application and project-session leases live in the same file, so they
+        share one container instance and the existing auto-stop ownership.
+        The optional ``validate`` callback rechecks caller-specific pins under
+        the group lock and before ``service.start``.
+        """
         token = uuid.uuid4().hex
         with self.locked():
             state = self.read()
             record = self.service.store.load(self.env_id)
+            expected_app = None
+            if app_id is not None:
+                # Check the application pin before the bridge or any start call.
+                # The supervisor must not start a same-name replacement environment
+                # and only discover the stale binding later in exec_app.
+                launch = self.service.show_app(app_id)
+                self.service._require_app_execution(
+                    launch, app_instance_uuid=expected_app_instance_uuid,
+                    execution_fingerprint=expected_execution_fingerprint)
+                binding = self.service._validate_launch_binding(launch, record=record)
+                expected_app = {
+                    "app_id": app_id,
+                    "app_instance_uuid": expected_app_instance_uuid,
+                    "execution_fingerprint": expected_execution_fingerprint,
+                }
+            else:
+                validate_binding(expected_binding)
+                self.service._require_record_binding(record, expected_binding)
+                binding = expected_binding
+            if validate is not None:
+                validate(record)
             info = self.service._require_owned(record)
             if not state['leases']:
                 state['auto_stop'] = self._inherits_auto_stop(state, info) or not info.running
@@ -237,7 +274,10 @@ class LaunchGroup:
             try:
                 # The lease lock serializes launch groups; service.start waits
                 # for a finishing podman stop and never double-starts an env.
-                self.service.start(self.env_id)
+                # expected_binding is rechecked under the lifecycle lock itself.
+                self.service.start(
+                    self.env_id, expected_binding=binding,
+                    expected_app=expected_app)
             except BaseException:
                 if not state['leases']:
                     stop_bridge(bridge)
@@ -246,11 +286,32 @@ class LaunchGroup:
             state['bridge'] = bridge
             state['container_id'] = info.container_id
             state['container_started_at'] = info.started_at
-            state['leases'][token] = {'pid': os.getpid(),
-                                      'stamp': process_stamp(os.getpid()),
-                                      'app_id': app_id}
+            entry = {'pid': os.getpid(),
+                     'stamp': process_stamp(os.getpid())}
+            if app_id is not None:
+                entry['app_id'] = app_id
+            else:
+                entry.update(owner or {})
+                entry['kind'] = 'project-session'
+            state['leases'][token] = entry
             self.save(state)
         return token
+
+    def acquire(self, app_id, *, expected_app_instance_uuid=None,
+                expected_execution_fingerprint=None):
+        return self._acquire(
+            app_id=app_id,
+            expected_app_instance_uuid=expected_app_instance_uuid,
+            expected_execution_fingerprint=expected_execution_fingerprint)
+
+    def acquire_project(self, project_uuid, *, expected_binding, validate=None):
+        """Take a project-session lease in the same group as application leases."""
+        if not isinstance(project_uuid, str) or not project_uuid:
+            raise MultilinuxError('project UUID must be a non-empty string')
+        return self._acquire(
+            expected_binding=expected_binding,
+            owner={'project_uuid': project_uuid},
+            validate=validate)
 
     def release(self, token):
         with self.locked():
@@ -288,26 +349,85 @@ class LaunchGroup:
             state['bridge'] = None
 
 
-def managed_open(service, app_id, extra):
+def managed_open(service, app_id, extra, *, expected_app_instance_uuid=None,
+                 expected_execution_fingerprint=None, integration_uuid=None,
+                 project_uuid=None):
     launch = service.show_app(app_id)
+    # Read-only preflight before the lease can start the environment. The
+    # integration journal is checked here, inside the detached worker, not only
+    # in the short-lived launcher.
+    if integration_uuid is not None:
+        service.validate_integration_launch(
+            integration_uuid, app_id=app_id, project_uuid=project_uuid,
+            app_instance_uuid=expected_app_instance_uuid,
+            execution_fingerprint=expected_execution_fingerprint)
+    service._validate_launch_binding(launch)
     origin = launch.get('package_origin')
     if origin and origin['target'] != service.store.load(launch['environment_id'])['target']:
         raise MultilinuxError('recorded package target differs from the application environment')
+    pins = {}
+    if expected_app_instance_uuid is not None:
+        pins["expected_app_instance_uuid"] = expected_app_instance_uuid
+    if expected_execution_fingerprint is not None:
+        pins["expected_execution_fingerprint"] = expected_execution_fingerprint
     group = LaunchGroup(service, launch['environment_id'])
-    lease = group.acquire(app_id)
+    lease = group.acquire(app_id, **pins)
     try:
-        return service._open_app_unmanaged(app_id, extra)
+        return service._open_app_unmanaged(app_id, extra, **pins)
     finally:
         group.release(lease)
 
 
-def worker_command(service, app_id, extra):
+def managed_exec(service, app_id, argv, *, workdir=None,
+                 expected_app_instance_uuid=None,
+                 expected_execution_fingerprint=None):
+    """Run one explicit argv in an on-demand app's environment under its lease.
+
+    This is the B-stage foreground variant of managed_open: the lease is held
+    by the calling process, the application runs with a caller-provided argv
+    and cwd, and the environment stops after the last managed execution if the
+    group owns it. A detached-worker variant for file open is not implemented.
+    """
+    launch = service.show_app(app_id)
+    service._require_app_execution(
+        launch, app_instance_uuid=expected_app_instance_uuid,
+        execution_fingerprint=expected_execution_fingerprint)
+    service._validate_launch_binding(launch)
+    group = LaunchGroup(service, launch["environment_id"])
+    lease = group.acquire(
+        app_id, expected_app_instance_uuid=expected_app_instance_uuid,
+        expected_execution_fingerprint=expected_execution_fingerprint)
+    try:
+        return service.exec_app(
+            app_id, argv, capture=False, timeout=None, workdir=workdir,
+            expected_app_instance_uuid=expected_app_instance_uuid,
+            expected_execution_fingerprint=expected_execution_fingerprint)
+    finally:
+        group.release(lease)
+
+
+def worker_command(service, app_id, extra, *, expected_app_instance_uuid=None,
+                   expected_execution_fingerprint=None, integration_uuid=None,
+                   project_uuid=None):
     """The detached worker runs this checkout's own CLI entry point."""
     entry = Path(__file__).resolve().parents[2] / 'tools/ml.py'
-    return [sys.executable, str(entry), 'app', '_worker', app_id, '--', *extra]
+    command = [sys.executable, str(entry), 'app', '_worker', app_id]
+    if integration_uuid is not None:
+        command.extend(['--integration', integration_uuid])
+    if expected_app_instance_uuid is not None:
+        command.extend(['--app-instance', expected_app_instance_uuid])
+    if expected_execution_fingerprint is not None:
+        command.extend(['--execution-fingerprint',
+                        expected_execution_fingerprint])
+    if project_uuid is not None:
+        command.extend(['--project', project_uuid])
+    command.extend(['--', *extra])
+    return command
 
 
-def supervised_open(service, app_id, extra):
+def supervised_open(service, app_id, extra, *, expected_app_instance_uuid=None,
+                    expected_execution_fingerprint=None, integration_uuid=None,
+                    project_uuid=None):
     """Hold the lease in a detached worker, not in the short-lived launcher.
 
     The launcher only waits. If it is killed the worker keeps the lease and the
@@ -317,8 +437,30 @@ def supervised_open(service, app_id, extra):
     """
     if os.environ.get(WORKER_MARKER) == '1':
         # The worker must hold the lease itself; never spawn a nested supervisor.
-        return managed_open(service, app_id, extra)
-    command = worker_command(service, app_id, extra)
+        pins = {}
+        if expected_app_instance_uuid is not None:
+            pins["expected_app_instance_uuid"] = expected_app_instance_uuid
+        if expected_execution_fingerprint is not None:
+            pins["expected_execution_fingerprint"] = expected_execution_fingerprint
+        if integration_uuid is not None:
+            pins["integration_uuid"] = integration_uuid
+        if project_uuid is not None:
+            pins["project_uuid"] = project_uuid
+        return managed_open(service, app_id, extra, **pins)
+    if service is not None:
+        # Fail before spawning a detached worker when the binding is already
+        # stale. The worker still rechecks it under the lease lock.
+        service.validate_app_binding(app_id)
+        if integration_uuid is not None:
+            service.validate_integration_launch(
+                integration_uuid, app_id=app_id, project_uuid=project_uuid,
+                app_instance_uuid=expected_app_instance_uuid,
+                execution_fingerprint=expected_execution_fingerprint)
+    command = worker_command(
+        service, app_id, extra,
+        expected_app_instance_uuid=expected_app_instance_uuid,
+        expected_execution_fingerprint=expected_execution_fingerprint,
+        integration_uuid=integration_uuid, project_uuid=project_uuid)
     environment = dict(os.environ)
     environment[WORKER_MARKER] = '1'
     try:

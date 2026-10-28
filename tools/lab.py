@@ -78,6 +78,12 @@ def targets():
     if set(data.get("targets", {})) != {"debian13", "fedora44", "arch"}:
         raise LabError("The v1 experiment requires exactly debian13, fedora44 and arch")
     prepared = _prepared_catalog()
+    from multilinux.compatibility import compatibility_mode
+    from multilinux.errors import MultilinuxError
+    try:
+        compatibility_mode(data)
+    except MultilinuxError as exc:
+        raise LabError(str(exc)) from exc
     if set(prepared) != set(data["targets"]):
         raise LabError("Prepared catalog does not match the v1 target set")
     for name, expected in prepared.items():
@@ -148,7 +154,12 @@ def require_rootless():
 
 def doctor(args):
     config = targets()
+    from multilinux.compatibility import classify_host, observe_host, relationship_plan
+    facts = observe_host()
+    host_profile = classify_host(facts)
     checks = []
+    checks.append({"name": "host-whitelist", "ok": host_profile["admitted"],
+                   "detail": host_profile})
     tools = {name: shutil.which(name) is not None for name in ("podman", "skopeo")}
     checks.append({"name": "python", "ok": sys.version_info >= (3, 11),
                    "detail": platform.python_version()})
@@ -181,6 +192,9 @@ def doctor(args):
               "ready_for_image_preparation": all(c["ok"] for c in checks),
               "kernel": platform.release(), "uid": os.getuid(), "gid": os.getgid(),
               "runtime": runtime, "checks": checks, "image_lock": lock_status,
+              "compatibility": {
+                  name: relationship_plan(facts, name, target)
+                  for name, target in config["targets"].items()},
               "scope": "Runtime preflight; does not prove any target application is compatible."}
     if args.output:
         save_json(args.output, result)

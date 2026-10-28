@@ -100,8 +100,11 @@ class SessionMounts(unittest.TestCase):
             self.assertIn("label=disable", argv)
             self.assertIn("/run/user/1000/wayland-0:/run/user/1000/wayland-0", joined)
             self.assertNotIn("/run/user/1000/wayland-0:/run/user/1000/wayland-0:z", joined)
-            self.assertIn(f"{notes.resolve().as_posix()}:{notes.resolve().as_posix()}:z", joined)
-            self.assertEqual(record["shared_mounts"][0]["options"], "z")
+            self.assertIn(f"{notes.resolve().as_posix()}:{notes.resolve().as_posix()}", joined)
+            self.assertNotIn(
+                f"{notes.resolve().as_posix()}:{notes.resolve().as_posix()}:z", joined)
+            self.assertEqual(record["shared_mounts"][0]["options"], "")
+            self.assertEqual(record["runtime"]["share_label_policy"], "preserve-host")
             self.assertEqual(record["desktop"]["mounts"][0]["options"], "")
             self.assertEqual(record["runtime"]["selinux_label"], "disable")
             runtime.identities["plain"] = dict(PROFILES["fedora44"])

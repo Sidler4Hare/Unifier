@@ -1,5 +1,6 @@
 """Atomic environment records under .lab/state/environments/."""
 
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -18,6 +19,22 @@ class EnvironmentStore:
 
     def inventory_path(self, env_id: str) -> Path:
         return self.directory / f"{env_id}.packages.txt"
+
+    def identity_lock_path(self, env_id: str) -> Path:
+        """Per-record lock used only by explicit identity migration."""
+        return self.directory / ".identity-locks" / f"{env_id}.lock"
+
+    def identity_backup_path(self, env_id: str, source_sha256: str) -> Path:
+        """A durable copy named by the exact pre-migration source bytes.
+
+        Naming by content digest means a later, different legacy record for the
+        same alias cannot overwrite or be mistaken for the first original.
+        """
+        if (not isinstance(source_sha256, str) or len(source_sha256) != 64
+                or any(char not in "0123456789abcdef" for char in source_sha256)):
+            raise MultilinuxError("identity backup digest must be 64 lowercase hex digits")
+        return (self.directory / "backups"
+                / f"{env_id}.pre-identity-{source_sha256}.json")
 
     def exists(self, env_id: str) -> bool:
         return self.path(env_id).is_file()
@@ -95,6 +112,37 @@ class EnvironmentStore:
         found.sort(key=lambda item: item.get("started_at") or "")
         return found
 
+    def backup_environment(self, env_id: str) -> Path:
+        """Copy the original record bytes once, before the explicit migration.
+
+        The caller holds the per-record migration lock. An existing backup is
+        left untouched: it is the original record, not a scratch file.
+        """
+        source = self.path(env_id)
+        if not source.is_file():
+            raise MultilinuxError(f"environment {env_id} does not exist")
+        payload = source.read_bytes()
+        digest = hashlib.sha256(payload).hexdigest()
+        destination = self.identity_backup_path(env_id, digest)
+        if destination.exists():
+            if destination.read_bytes() != payload:
+                raise MultilinuxError(
+                    f"identity backup for {env_id} does not match the current record; "
+                    "refusing to migrate over an earlier backup")
+            return destination
+        destination.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        descriptor = os.open(destination, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        try:
+            with os.fdopen(descriptor, "wb") as stream:
+                stream.write(payload)
+                stream.flush()
+                os.fsync(stream.fileno())
+        except BaseException:
+            destination.unlink(missing_ok=True)
+            raise
+        _fsync_directory(destination.parent)
+        return destination
+
     def _relative(self, path: Path) -> str:
         return path.relative_to(self.root).as_posix()
 
@@ -116,6 +164,16 @@ class EnvironmentStore:
                 stream.flush()
                 os.fsync(stream.fileno())
             temporary.replace(path)
+            _fsync_directory(path.parent)
         except BaseException:
             temporary.unlink(missing_ok=True)
             raise
+
+
+def _fsync_directory(path: Path) -> None:
+    """Persist a rename/create in its parent directory."""
+    descriptor = os.open(path, os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)

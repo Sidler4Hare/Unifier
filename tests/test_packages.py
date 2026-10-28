@@ -224,6 +224,8 @@ def package_service(root, runtime=None, observer=None):
     service = EnvironmentService(
         root, runtime, CONFIG, LOCK, host_kernel="host-kernel", clock=clock,
         uid=1000, gid=1000, host_observer=observer or StaticHost(),
+        host_facts={"os_release": {"ID": "fedora", "VERSION_ID": "44"},
+                    "system": "Linux", "machine": "x86_64", "libc": "glibc"},
         log=lambda _message: None)
     return service, runtime
 
