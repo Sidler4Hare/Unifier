@@ -1,0 +1,87 @@
+{
+  "fixture_cid": "a7d80c34cb64cda7d6420f597051b61b64f409704ef87669c9c0871edb858ade",
+  "steps": [
+    {
+      "args": [
+        "mount",
+        "--format=json"
+      ],
+      "exit": 0,
+      "stdout": "[]",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "mount",
+        "a7d80c34cb64cda7d6420f597051b61b64f409704ef87669c9c0871edb858ade"
+      ],
+      "exit": 0,
+      "stdout": "/home/omg/.local/share/containers/storage/overlay/2c7656fc56fd3ed09d5f2de73bf21782c1a606c2bed96c03c6bada653fd796b9/merged",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "mount",
+        "a7d80c34cb64cda7d6420f597051b61b64f409704ef87669c9c0871edb858ade"
+      ],
+      "exit": 0,
+      "stdout": "/home/omg/.local/share/containers/storage/overlay/2c7656fc56fd3ed09d5f2de73bf21782c1a606c2bed96c03c6bada653fd796b9/merged",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "mount",
+        "--format=json"
+      ],
+      "exit": 0,
+      "stdout": "[\n {\n  \"id\": \"a7d80c34cb64cda7d6420f597051b61b64f409704ef87669c9c0871edb858ade\",\n  \"Names\": [\n   \"ml-45162743-view-fedora44\"\n  ],\n  \"mountpoint\": \"/home/omg/.local/share/containers/storage/overlay/2c7656fc56fd3ed09d5f2de73bf21782c1a606c2bed96c03c6bada653fd796b9/merged\"\n }\n]",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "umount",
+        "a7d80c34cb64cda7d6420f597051b61b64f409704ef87669c9c0871edb858ade"
+      ],
+      "exit": 0,
+      "stdout": "a7d80c34cb64cda7d6420f597051b61b64f409704ef87669c9c0871edb858ade",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "mount",
+        "--format=json"
+      ],
+      "exit": 0,
+      "stdout": "[\n {\n  \"id\": \"a7d80c34cb64cda7d6420f597051b61b64f409704ef87669c9c0871edb858ade\",\n  \"Names\": [\n   \"ml-45162743-view-fedora44\"\n  ],\n  \"mountpoint\": \"/home/omg/.local/share/containers/storage/overlay/2c7656fc56fd3ed09d5f2de73bf21782c1a606c2bed96c03c6bada653fd796b9/merged\"\n }\n]",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "mount",
+        "--format=json"
+      ],
+      "exit": 0,
+      "stdout": "[\n {\n  \"id\": \"a7d80c34cb64cda7d6420f597051b61b64f409704ef87669c9c0871edb858ade\",\n  \"Names\": [\n   \"ml-45162743-view-fedora44\"\n  ],\n  \"mountpoint\": \"/home/omg/.local/share/containers/storage/overlay/2c7656fc56fd3ed09d5f2de73bf21782c1a606c2bed96c03c6bada653fd796b9/merged\"\n }\n]",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "umount",
+        "a7d80c34cb64cda7d6420f597051b61b64f409704ef87669c9c0871edb858ade"
+      ],
+      "exit": 0,
+      "stdout": "a7d80c34cb64cda7d6420f597051b61b64f409704ef87669c9c0871edb858ade",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "mount",
+        "--format=json"
+      ],
+      "exit": 0,
+      "stdout": "[]",
+      "stderr": ""
+    }
+  ],
+  "original_mounts_preserved": true
+}

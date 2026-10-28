@@ -1,0 +1,56 @@
+{
+  "waves": [
+    {
+      "wave": 0,
+      "view_uuid": "d39f90b9-39df-434c-8d67-6937546bf474",
+      "mountpoint": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-retest-2026-10-27/default-lifecycle/project/.lab/state/views/d39f90b9-39df-434c-8d67-6937546bf474/mount",
+      "retries": [],
+      "first_post_close_success": true,
+      "busy_while_held": "view revoke incomplete: view mountpoint is busy or could not be unmounted: fusermount3: failed to unmount /home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-retest-2026-10-27/default-lifecycle/project/.lab/state/views/d39f90b9-39df-434c-8d67-6937546bf474/mount: Device or resource busy",
+      "unmounted": true,
+      "elapsed_after_close_seconds": 0.13190518200281076
+    },
+    {
+      "wave": 1,
+      "view_uuid": "850c1d52-e14f-42d8-830d-1b07cd0236f3",
+      "mountpoint": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-retest-2026-10-27/default-lifecycle/project/.lab/state/views/850c1d52-e14f-42d8-830d-1b07cd0236f3/mount",
+      "retries": [],
+      "first_post_close_success": true,
+      "busy_while_held": "view revoke incomplete: view mountpoint is busy or could not be unmounted: fusermount3: failed to unmount /home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-retest-2026-10-27/default-lifecycle/project/.lab/state/views/850c1d52-e14f-42d8-830d-1b07cd0236f3/mount: Device or resource busy",
+      "unmounted": true,
+      "elapsed_after_close_seconds": 0.12666431599791395
+    },
+    {
+      "wave": 2,
+      "view_uuid": "32f54eb2-5a93-4834-8818-c42c7130da90",
+      "mountpoint": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-retest-2026-10-27/default-lifecycle/project/.lab/state/views/32f54eb2-5a93-4834-8818-c42c7130da90/mount",
+      "retries": [],
+      "first_post_close_success": true,
+      "busy_while_held": "view revoke incomplete: view mountpoint is busy or could not be unmounted: fusermount3: failed to unmount /home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-retest-2026-10-27/default-lifecycle/project/.lab/state/views/32f54eb2-5a93-4834-8818-c42c7130da90/mount: Device or resource busy",
+      "unmounted": true,
+      "elapsed_after_close_seconds": 0.18117220400017686
+    },
+    {
+      "wave": 3,
+      "view_uuid": "8714cc63-3770-480b-8247-1df5c95ead46",
+      "mountpoint": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-retest-2026-10-27/default-lifecycle/project/.lab/state/views/8714cc63-3770-480b-8247-1df5c95ead46/mount",
+      "retries": [],
+      "first_post_close_success": true,
+      "busy_while_held": "view revoke incomplete: view mountpoint is busy or could not be unmounted: fusermount3: failed to unmount /home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-retest-2026-10-27/default-lifecycle/project/.lab/state/views/8714cc63-3770-480b-8247-1df5c95ead46/mount: Device or resource busy",
+      "unmounted": true,
+      "elapsed_after_close_seconds": 0.18889232999936212
+    },
+    {
+      "wave": 4,
+      "view_uuid": "36267894-12f2-40d6-9a02-32668fb50a04",
+      "mountpoint": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-retest-2026-10-27/default-lifecycle/project/.lab/state/views/36267894-12f2-40d6-9a02-32668fb50a04/mount",
+      "retries": [],
+      "first_post_close_success": true,
+      "busy_while_held": "view revoke incomplete: view mountpoint is busy or could not be unmounted: fusermount3: failed to unmount /home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-retest-2026-10-27/default-lifecycle/project/.lab/state/views/36267894-12f2-40d6-9a02-32668fb50a04/mount: Device or resource busy",
+      "unmounted": true,
+      "elapsed_after_close_seconds": 0.12625954700342845
+    }
+  ],
+  "scope": "default workspace mountpoint; one stopped Debian fixture reused",
+  "container_id": "49a09fbe290ee259bb91b4a5459e49e45dac9a07c346d648238f352df90ee532"
+}

@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Original window probe
+Exec=/usr/bin/true
+MimeType=application/x-multilinux-ewin-96250f72;

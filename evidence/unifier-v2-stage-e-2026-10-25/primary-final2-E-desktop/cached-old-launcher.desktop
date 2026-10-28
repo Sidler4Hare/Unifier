@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=native-debian13
+Comment=Run application in environment session-debian13
+Exec=/usr/bin/python3 "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/native-project/tools/ml.py" app open eprobe-6b1a63e9 --project 1591cc9e-1062-4a7f-8d3b-7f6c841d70f3 --integration 829ef137-2ca3-40fa-ab5e-4e749a755989 --app-instance 6a6eb0e6-8ea3-444b-8fbb-f5fabbb1569b --execution-fingerprint ebc66d658842982ba0fb1c3813e8f4661c1c43cff479c2facb48ced952e487b9 -- %f
+MimeType=application/x-multilinux-eprobe-6b1a63e9;
+Terminal=false
+Categories=Utility;
+X-Multilinux-App=eprobe-6b1a63e9
+X-Multilinux-Environment=session-debian13
+X-Multilinux-Project=1591cc9e-1062-4a7f-8d3b-7f6c841d70f3
+X-Multilinux-Integration=829ef137-2ca3-40fa-ab5e-4e749a755989
+X-Multilinux-App-Instance=6a6eb0e6-8ea3-444b-8fbb-f5fabbb1569b
+X-Multilinux-Execution-Fingerprint=ebc66d658842982ba0fb1c3813e8f4661c1c43cff479c2facb48ced952e487b9

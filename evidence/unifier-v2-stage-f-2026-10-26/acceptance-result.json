@@ -1,0 +1,51 @@
+{
+  "scope": "Fedora 44 KDE Wayland host only; three keep-id guests; frozen A-E source",
+  "local_measurement_matrix_completed": true,
+  "independent_evidence_verification_passed": true,
+  "product_file_semantics_accepted": false,
+  "stage_f_fully_accepted": false,
+  "verdict": "LOCAL_MEASUREMENTS_COMPLETE_WITH_OPEN_PRODUCT_GATES",
+  "verification_checks": 101,
+  "formal_session_count": 237,
+  "projection_workload_samples": 270,
+  "projection_view_cycles": 45,
+  "soak_seconds": 180.024,
+  "preservation_passed": true,
+  "postconditions_passed": true,
+  "product_gates": [
+    {
+      "id": "open-fd-identity",
+      "status": "FAILED",
+      "evidence": "semantic-recheck-1.json",
+      "observation": "All three projected unread FDs read replacement bytes; the same native FD preserves the original inode."
+    },
+    {
+      "id": "size-content-coherence",
+      "status": "FAILED",
+      "evidence": "semantic-recheck-1.json",
+      "observation": "All three projections return 32 bytes of the new 128-byte content immediately after replacement; neither full old nor full new version. Full new content observed after 1.3 seconds."
+    },
+    {
+      "id": "external-change-notifications",
+      "status": "FAILED",
+      "evidence": "projection-formal-2/summary.json; soak-formal-2/summary.json",
+      "observation": "Host modification events observed; no corresponding projection change event on all three targets."
+    },
+    {
+      "id": "path-cache-bound",
+      "status": "UNKNOWN",
+      "evidence": "primary-cache-attempt1.json",
+      "observation": "PSS grows after 12000 unique paths; short idle does not establish a long-term bound or prove a leak."
+    }
+  ],
+  "external_pending": [
+    "Debian/Ubuntu host",
+    "Arch host",
+    "another Wayland desktop",
+    "independent hardware performance repeat",
+    "real power loss or independent disk faults"
+  ],
+  "product_source_modified": false,
+  "commit_or_push_performed": false,
+  "completed_at": "2026-10-26T18:25:48+08:00"
+}

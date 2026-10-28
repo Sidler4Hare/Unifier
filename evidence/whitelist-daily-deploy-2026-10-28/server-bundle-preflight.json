@@ -1,0 +1,18 @@
+{
+  "help": {
+    "returncode": 0,
+    "desktop_env_removed": true
+  },
+  "compat": {
+    "returncode": 0,
+    "desktop_env_removed": true
+  },
+  "doctor": {
+    "returncode": 0,
+    "desktop_env_removed": true
+  },
+  "contracts": {
+    "returncode": 0,
+    "desktop_env_removed": true
+  }
+}

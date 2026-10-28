@@ -1,0 +1,18 @@
+{
+  "target": "fedora44",
+  "small_file_count": 2000,
+  "small_file_bytes": 4096,
+  "small_bytes": 8192000,
+  "small_sha256": "086d42aabc6ae71821f31f87c314b8fdef6e359ccde27fc6495396d09d7607ce",
+  "sequential_file_bytes": 16777216,
+  "sequential_sha256": "97206bb0552cb75fd1e796fe61f90c928e4ff004bd20bd3f16a371e4e9643e87",
+  "sample_files": {
+    "f0000": "c5dfe5240899df410a089b225ce14e003fc2e9d35c303a81075059cbd09b5836",
+    "f1000": "850e52d560e1bf46d84186feb343f03833bbfcfcc184f29d4f4e1e98b7ece6fd",
+    "f1999": "1f4a457bbc7d7ec237d499f040842960f86bb7456b64ff00ff25600657ff6fb5"
+  },
+  "total_fixture_bytes": 24969288,
+  "limit_bytes": 134217728,
+  "zero_4096_sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+  "workload_sha256": "0930ec589a37147b065b7f6320c499fc6bb9773f68d9f08347e331b664e8e42f"
+}

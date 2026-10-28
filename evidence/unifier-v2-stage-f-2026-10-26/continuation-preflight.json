@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-26T16:26:44+08:00",
+  "host_kernel": "7.2.11-200.fc44.x86_64",
+  "guard": {
+    "label": "",
+    "mem_available_bytes": 3093864448,
+    "memory_psi_full_avg10": 0.0,
+    "memory_psi_some_avg10": 0.0,
+    "floor_bytes": 734003200,
+    "full_abort": 50.0,
+    "some_abort": 90.0,
+    "checked_at": "2026-10-26T16:26:44+08:00",
+    "errors": [],
+    "ok": true,
+    "reasons": []
+  },
+  "fixtures": {
+    "debian13": {
+      "environment_id": "stagef-debian13",
+      "record_state": "stopped",
+      "container_id": "860f412b4d69f4150b0bb1aceb9e3f087bd96931e16595a960b807d681152208",
+      "running": false,
+      "status": "exited",
+      "started_at": "2026-10-26T08:22:08.935586553+08:00",
+      "created_at": null,
+      "expected_container_id": "860f412b4d69f4150b0bb1aceb9e3f087bd96931e16595a960b807d681152208"
+    },
+    "fedora44": {
+      "environment_id": "stagef-fedora44",
+      "record_state": "stopped",
+      "container_id": "f31e73b27cda60ead284da13f53b29d137b0c92cee8fad68c5c2c0d94e7a4ec8",
+      "running": false,
+      "status": "exited",
+      "started_at": "2026-10-26T08:21:51.391187746+08:00",
+      "created_at": null,
+      "expected_container_id": "f31e73b27cda60ead284da13f53b29d137b0c92cee8fad68c5c2c0d94e7a4ec8"
+    },
+    "arch": {
+      "environment_id": "stagef-arch",
+      "record_state": "stopped",
+      "container_id": "42153f6f2a71533bd2bf06597dbc225925c36c07bdf7fbea7f7370fb9d77f045",
+      "running": false,
+      "status": "exited",
+      "started_at": "2026-10-26T08:21:51.415722568+08:00",
+      "created_at": null,
+      "expected_container_id": "42153f6f2a71533bd2bf06597dbc225925c36c07bdf7fbea7f7370fb9d77f045"
+    }
+  },
+  "dsh_session": "session-35a45395-8549-437a-8aa2-3f47a054e04b",
+  "source_matches_baseline": true
+}

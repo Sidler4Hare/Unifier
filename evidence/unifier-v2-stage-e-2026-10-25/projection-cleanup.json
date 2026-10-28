@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "removed": [
+    {
+      "target": "debian13",
+      "container_id": "74b1d3c8e265adfe52e9083db85216e2f57adbd3d995be5e2a25f8bdebeae57d",
+      "volume": "unifier-c-debian13-a3a809c236"
+    },
+    {
+      "target": "fedora44",
+      "container_id": "bb4cc280d663b2299517e24dc2cc85727401c07d8298a82e06149931b7f52953",
+      "volume": "unifier-c-fedora44-a3a809c236"
+    },
+    {
+      "target": "arch",
+      "container_id": "9b291ca2c0e3d8fb2048ce8b1399dc7169c3c81510e59ce0e2d763d153c46175",
+      "volume": "unifier-c-arch-a3a809c236"
+    }
+  ]
+}

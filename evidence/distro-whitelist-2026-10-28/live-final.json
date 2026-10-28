@@ -1,0 +1,249 @@
+{
+  "captured_at": "2026-10-28T12:21:36.605383+00:00",
+  "scope": "Fedora-local lifecycle, native package query and refusal only; no cross-host or GUI acceptance",
+  "registry": "/home/omg/文档/多兼容linux机/.lab/whitelist-live-7fbkmb7t",
+  "before": [
+    {
+      "id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "name": "ml-53c5c8a5-freecad-arch",
+      "status": "exited",
+      "started_at": "2026-10-27T13:52:36.214929485+08:00",
+      "finished_at": "2026-10-27T13:52:55.430338174+08:00"
+    },
+    {
+      "id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "name": "ml-6b061a2f-meeting",
+      "status": "exited",
+      "started_at": "2026-10-28T08:56:11.630871249+08:00",
+      "finished_at": "2026-10-28T09:21:06.040281361+08:00"
+    }
+  ],
+  "targets": {
+    "debian13": {
+      "container_id": "9fb12c4409416cc7e6ceadb61275d1231691e8d6d09cfddec6a410ce64a6d9cb",
+      "distribution_id": "debian",
+      "version_track": "13",
+      "base_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 1,
+        "mode": "whitelist",
+        "host": {
+          "id": "fedora",
+          "version_id": "44",
+          "variant_id": "kde",
+          "id_like": [],
+          "family": "fedora",
+          "reference_host": "fedora",
+          "integration_profile": "fedora",
+          "package_driver": "dnf",
+          "base_package_driver": "dnf",
+          "package_format": "rpm",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "debian13",
+        "container_family": "debian",
+        "container_contract": {
+          "family": "debian",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "apt",
+          "package_format": "deb",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "versioned-release"
+        },
+        "allowed": true,
+        "relationship": "cross-family",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      },
+      "query": {
+        "environment_id": "debian13",
+        "package": "base-files",
+        "present": true,
+        "exit_code": 0,
+        "detail": "base-files\t13.8+deb13u7"
+      },
+      "shared_kernel": true,
+      "exit_code_17": true,
+      "simulated_host_refusal": true
+    },
+    "fedora44": {
+      "container_id": "267a268075137009d915f81f774dcc04c28328ae8a18868949378c1083e3544a",
+      "distribution_id": "fedora",
+      "version_track": "44",
+      "base_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 1,
+        "mode": "whitelist",
+        "host": {
+          "id": "fedora",
+          "version_id": "44",
+          "variant_id": "kde",
+          "id_like": [],
+          "family": "fedora",
+          "reference_host": "fedora",
+          "integration_profile": "fedora",
+          "package_driver": "dnf",
+          "base_package_driver": "dnf",
+          "package_format": "rpm",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "fedora44",
+        "container_family": "fedora",
+        "container_contract": {
+          "family": "fedora",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "dnf",
+          "package_format": "rpm",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "versioned-release"
+        },
+        "allowed": true,
+        "relationship": "same-distribution",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      },
+      "query": {
+        "environment_id": "fedora44",
+        "package": "filesystem",
+        "present": true,
+        "exit_code": 0,
+        "detail": "filesystem\t3.18-52.fc44.x86_64"
+      },
+      "shared_kernel": true,
+      "exit_code_17": true,
+      "simulated_host_refusal": true
+    },
+    "arch": {
+      "container_id": "7691979138b1fab78493b593375248f3f22e6c2cba4ab69a33c1069fc3d7ca6d",
+      "distribution_id": "arch",
+      "version_track": "rolling",
+      "base_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 1,
+        "mode": "whitelist",
+        "host": {
+          "id": "fedora",
+          "version_id": "44",
+          "variant_id": "kde",
+          "id_like": [],
+          "family": "fedora",
+          "reference_host": "fedora",
+          "integration_profile": "fedora",
+          "package_driver": "dnf",
+          "base_package_driver": "dnf",
+          "package_format": "rpm",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "arch",
+        "container_family": "arch",
+        "container_contract": {
+          "family": "arch",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "pacman",
+          "package_format": "arch",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "full-system-upgrade"
+        },
+        "allowed": true,
+        "relationship": "cross-family",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      },
+      "query": {
+        "environment_id": "arch",
+        "package": "filesystem",
+        "present": true,
+        "exit_code": 0,
+        "detail": "filesystem 2025.10.12-1"
+      },
+      "shared_kernel": true,
+      "exit_code_17": true,
+      "simulated_host_refusal": true
+    }
+  },
+  "errors": [],
+  "after": [
+    {
+      "id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "name": "ml-53c5c8a5-freecad-arch",
+      "status": "exited",
+      "started_at": "2026-10-27T13:52:36.214929485+08:00",
+      "finished_at": "2026-10-27T13:52:55.430338174+08:00"
+    },
+    {
+      "id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "name": "ml-6b061a2f-meeting",
+      "status": "exited",
+      "started_at": "2026-10-28T08:56:11.630871249+08:00",
+      "finished_at": "2026-10-28T09:21:06.040281361+08:00"
+    }
+  ],
+  "existing_containers_preserved": true,
+  "passed": true
+}

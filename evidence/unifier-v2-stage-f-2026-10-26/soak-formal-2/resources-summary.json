@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "scope": "read-only local process/cgroup/host sampling; PSS and cgroup not summed",
+  "sample_count": 181,
+  "metrics": {
+    "host.mem_available_bytes": {
+      "count": 181,
+      "min": 2661236736,
+      "p50": 3124674560,
+      "p95": 3179511808,
+      "max": 3282739200,
+      "mean": 3100211890.21,
+      "first": 3130626048,
+      "last": 2684325888
+    },
+    "host.processes.storage-helper.fds": {
+      "count": 181,
+      "min": 12,
+      "p50": 12,
+      "p95": 12,
+      "max": 12,
+      "mean": 12.0,
+      "first": 12,
+      "last": 12
+    },
+    "host.processes.storage-helper.pss_partial_bytes": {
+      "count": 181,
+      "min": 54628352,
+      "p50": 54700032,
+      "p95": 54921216,
+      "max": 54947840,
+      "mean": 54755005.525,
+      "first": 54679552,
+      "last": 54630400
+    },
+    "host.processes.storage-helper.pss_unknown_count": {
+      "count": 181,
+      "min": 0,
+      "p50": 0,
+      "p95": 0,
+      "max": 0,
+      "mean": 0.0,
+      "first": 0,
+      "last": 0
+    },
+    "host.processes.storage-helper.threads": {
+      "count": 181,
+      "min": 12,
+      "p50": 12,
+      "p95": 12,
+      "max": 12,
+      "mean": 12.0,
+      "first": 12,
+      "last": 12
+    },
+    "host.processes.view-worker.fds": {
+      "count": 181,
+      "min": 7,
+      "p50": 7,
+      "p95": 8,
+      "max": 9,
+      "mean": 7.11,
+      "first": 7,
+      "last": 7
+    },
+    "host.processes.view-worker.pss_partial_bytes": {
+      "count": 181,
+      "min": 13378560,
+      "p50": 14156800,
+      "p95": 14166016,
+      "max": 14179328,
+      "mean": 14134147.536,
+      "first": 13378560,
+      "last": 14058496
+    },
+    "host.processes.view-worker.pss_unknown_count": {
+      "count": 181,
+      "min": 0,
+      "p50": 0,
+      "p95": 0,
+      "max": 0,
+      "mean": 0.0,
+      "first": 0,
+      "last": 0
+    },
+    "host.processes.view-worker.threads": {
+      "count": 181,
+      "min": 2,
+      "p50": 2,
+      "p95": 2,
+      "max": 2,
+      "mean": 2.0,
+      "first": 2,
+      "last": 2
+    },
+    "host.psi_memory_full_avg10": {
+      "count": 181,
+      "min": 0.0,
+      "p50": 0.0,
+      "p95": 0.16,
+      "max": 0.36,
+      "mean": 0.015,
+      "first": 0.0,
+      "last": 0.13
+    },
+    "host.psi_memory_some_avg10": {
+      "count": 181,
+      "min": 0.0,
+      "p50": 0.0,
+      "p95": 0.16,
+      "max": 0.36,
+      "mean": 0.015,
+      "first": 0.0,
+      "last": 0.13
+    },
+    "host.sample_duration_ns": {
+      "count": 181,
+      "min": 42400129,
+      "p50": 58400945,
+      "p95": 135757157,
+      "max": 146445083,
+      "mean": 70528902.967,
+      "first": 141390909,
+      "last": 135161119
+    },
+    "host.swap_free_bytes": {
+      "count": 181,
+      "min": 18946023424,
+      "p50": 18957590528,
+      "p95": 18961121280,
+      "max": 18961391616,
+      "mean": 18957012064.177,
+      "first": 18950963200,
+      "last": 18946072576
+    }
+  },
+  "coverage": {
+    "debian13": {
+      "samples": 181,
+      "running": 0,
+      "cgroup_present": 0,
+      "guest_pss_complete": 0,
+      "guest_pss_partial": 0,
+      "guest_pss_unknown": 181
+    },
+    "fedora44": {
+      "samples": 181,
+      "running": 0,
+      "cgroup_present": 0,
+      "guest_pss_complete": 0,
+      "guest_pss_partial": 0,
+      "guest_pss_unknown": 181
+    },
+    "arch": {
+      "samples": 181,
+      "running": 0,
+      "cgroup_present": 0,
+      "guest_pss_complete": 0,
+      "guest_pss_partial": 0,
+      "guest_pss_unknown": 181
+    }
+  },
+  "errors": [],
+  "notes": [
+    "PSS sums are only meaningful when pss_complete is true.",
+    "Partial PSS coverage is reported as partial, not as zero usage.",
+    "cgroup memory.current is the guest charge and is not added to host PSS.",
+    "UNKNOWN means the kernel/runtime denied or removed an observable."
+  ],
+  "close_reason": "soak complete",
+  "abort": {
+    "aborted": false,
+    "reason": null
+  },
+  "sampling": {
+    "interval_seconds": 1.0,
+    "sample_count": 181,
+    "mean_sample_duration_ms": 70.529,
+    "note": "Timed command paths pause this sampler where possible; the sampler itself only reads /proc and cgroup files."
+  }
+}

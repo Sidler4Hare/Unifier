@@ -1,0 +1,149 @@
+{
+  "status": "PASSED_MENU_REOPEN_AND_LIFECYCLE",
+  "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+  "cycles": [
+    {
+      "cycle": 1,
+      "window": {
+        "caption": "FreeCAD 1.1.4",
+        "resourceClass": "org.freecad.FreeCAD",
+        "pid": 845075,
+        "objectType": "KWin::XdgToplevelWindow(0x558c66ce66a0)",
+        "wayland": null,
+        "x11": null,
+        "width": 1100,
+        "height": 788,
+        "bufferWidth": 1100,
+        "bufferHeight": 760,
+        "internalId": "{d7783ead-46c0-47fd-8d28-1db79b04f666}",
+        "active": true
+      },
+      "screenshot": {
+        "before": {
+          "caption": "FreeCAD 1.1.4",
+          "resourceClass": "org.freecad.FreeCAD",
+          "pid": 845075,
+          "objectType": "KWin::XdgToplevelWindow(0x558c66ce66a0)",
+          "wayland": null,
+          "x11": null,
+          "width": 1100,
+          "height": 788,
+          "bufferWidth": 1100,
+          "bufferHeight": 760,
+          "internalId": "{d7783ead-46c0-47fd-8d28-1db79b04f666}",
+          "active": true
+        },
+        "after": {
+          "caption": "FreeCAD 1.1.4",
+          "resourceClass": "org.freecad.FreeCAD",
+          "pid": 845075,
+          "objectType": "KWin::XdgToplevelWindow(0x558c66ce66a0)",
+          "wayland": null,
+          "x11": null,
+          "width": 1100,
+          "height": 788,
+          "bufferWidth": 1100,
+          "bufferHeight": 760,
+          "internalId": "{d7783ead-46c0-47fd-8d28-1db79b04f666}",
+          "active": true
+        },
+        "path": "/home/omg/文档/多兼容linux机/evidence/runtime-consolidation-2026-10-27/freecad-gui/launch-1.png",
+        "capture": "active experiment window only"
+      },
+      "leases_during": {
+        "leases": {
+          "3f0f70a1fa0049d6b22041613ea14112": {
+            "pid": 844735,
+            "stamp": 36200606,
+            "app_id": "freecad"
+          }
+        },
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+        "container_started_at": "2026-10-27T13:52:14.732885918+08:00"
+      },
+      "same_container": true,
+      "state_after_close": "stopped",
+      "leases_after": {
+        "leases": {},
+        "auto_stop": false,
+        "bridge": null,
+        "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+        "container_started_at": "2026-10-27T13:52:14.732885918+08:00"
+      }
+    },
+    {
+      "cycle": 2,
+      "window": {
+        "caption": "FreeCAD 1.1.4",
+        "resourceClass": "org.freecad.FreeCAD",
+        "pid": 846422,
+        "objectType": "KWin::XdgToplevelWindow(0x558c6755e520)",
+        "wayland": null,
+        "x11": null,
+        "width": 1100,
+        "height": 788,
+        "bufferWidth": 1100,
+        "bufferHeight": 760,
+        "internalId": "{bc2058df-59c0-48d5-98b1-bab646c563fc}",
+        "active": true
+      },
+      "screenshot": {
+        "before": {
+          "caption": "FreeCAD 1.1.4",
+          "resourceClass": "org.freecad.FreeCAD",
+          "pid": 846422,
+          "objectType": "KWin::XdgToplevelWindow(0x558c6755e520)",
+          "wayland": null,
+          "x11": null,
+          "width": 1100,
+          "height": 788,
+          "bufferWidth": 1100,
+          "bufferHeight": 760,
+          "internalId": "{bc2058df-59c0-48d5-98b1-bab646c563fc}",
+          "active": true
+        },
+        "after": {
+          "caption": "FreeCAD 1.1.4",
+          "resourceClass": "org.freecad.FreeCAD",
+          "pid": 846422,
+          "objectType": "KWin::XdgToplevelWindow(0x558c6755e520)",
+          "wayland": null,
+          "x11": null,
+          "width": 1100,
+          "height": 788,
+          "bufferWidth": 1100,
+          "bufferHeight": 760,
+          "internalId": "{bc2058df-59c0-48d5-98b1-bab646c563fc}",
+          "active": true
+        },
+        "path": "/home/omg/文档/多兼容linux机/evidence/runtime-consolidation-2026-10-27/freecad-gui/launch-2.png",
+        "capture": "active experiment window only"
+      },
+      "leases_during": {
+        "leases": {
+          "2140edd87ede4822bd93dd4a09137612": {
+            "pid": 846080,
+            "stamp": 36202755,
+            "app_id": "freecad"
+          }
+        },
+        "auto_stop": true,
+        "bridge": null,
+        "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+        "container_started_at": "2026-10-27T13:52:36.214929485+08:00"
+      },
+      "same_container": true,
+      "state_after_close": "stopped",
+      "leases_after": {
+        "leases": {},
+        "auto_stop": false,
+        "bridge": null,
+        "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+        "container_started_at": "2026-10-27T13:52:36.214929485+08:00"
+      }
+    }
+  ],
+  "scope": "Real menu/window/normal WM close, shared data and lifecycle; no login, meeting or camera acceptance."
+}

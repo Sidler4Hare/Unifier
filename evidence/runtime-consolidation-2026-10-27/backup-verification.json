@@ -1,0 +1,15 @@
+{
+  "status": "VERIFIED_BEFORE_ANY_REMOVAL",
+  "recorded_at": "2026-10-27T13:46:55.859746+08:00",
+  "original_containers": 27,
+  "retirement_checkpoints": 26,
+  "archived_image_configs": 60,
+  "regular_host_files_verified": 32399,
+  "host_archive_sha256": "3eac7f7c9c7a71af6735a467b87e4567068ca214acc736df013be0763ab189f7",
+  "runtime_archive_sha256": "0e20785e4cd822c94bcd7c47203b1aa52e62790c277e47c28e2d406964ccfc9f",
+  "host_archive_bytes": 101396763,
+  "runtime_archive_bytes": 8097528720,
+  "every_image_config_and_layer_verified": true,
+  "scope": "Stopped filesystem and host data recovery; runtime sockets/processes are recreated. Restored containers receive new IDs and must be rebound explicitly.",
+  "private_backup": "/home/omg/文档/Unifier-backups/20261027-133146-before-runtime-consolidation"
+}

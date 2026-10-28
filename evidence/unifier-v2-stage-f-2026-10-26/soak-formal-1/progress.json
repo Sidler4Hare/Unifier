@@ -1,0 +1,40 @@
+{
+  "tool": "probe_soak",
+  "status": "failed",
+  "phase": "finished",
+  "acceptance": "pending-primary-review",
+  "started_at": "2026-10-26T16:47:57+08:00",
+  "updated_at": "2026-10-26T16:51:09+08:00",
+  "scope": {
+    "target": "debian13",
+    "seconds": 180
+  },
+  "checks": {
+    "bounded_duration": true,
+    "real_reader_iterations": true,
+    "read_batches_present": true,
+    "no_reader_errors": true,
+    "sequential_evidence_present": true,
+    "current_read_evidence_present": true,
+    "writer_progressed": false,
+    "writer_no_error": true,
+    "writer_thread_stopped": true,
+    "watch_paths_distinct": true,
+    "host_inotify_control_observed": true,
+    "host_writer_event_observed": true,
+    "host_no_external_events": true,
+    "fuse_watch_honest": true,
+    "resource_samples_present": false,
+    "resource_coverage_present": true,
+    "resource_sampling_not_aborted": true,
+    "resource_sampling_no_errors": true,
+    "sampler_thread_stopped": true,
+    "view_revoked_clean": true,
+    "storage_journal_not_active": true,
+    "no_guard_abort": true,
+    "environment_still_stopped": true
+  },
+  "error": "ProbeError: one or more soak checks failed",
+  "message": "bounded 180s soak",
+  "finished_at": "2026-10-26T16:51:09+08:00"
+}

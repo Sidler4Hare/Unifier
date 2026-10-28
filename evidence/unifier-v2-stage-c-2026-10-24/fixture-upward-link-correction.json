@@ -1,0 +1,10 @@
+{
+  "targets": [
+    "debian13",
+    "fedora44",
+    "arch"
+  ],
+  "reason": "four parent traversals from /var/lib/unifier-view/a/b reach /var, not root; fixture now uses seven to exercise root-clamping semantics",
+  "original_attempt": "live-attempt3.json",
+  "all_stopped": true
+}

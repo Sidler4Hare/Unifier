@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "resolved_at": "2026-10-18T16:14:36+08:00",
+  "platform": "linux/amd64",
+  "arch_policy": "Resolve current latest, then pin its manifest. Before installing packages in a mutable Arch environment, perform pacman -Syu.",
+  "targets": {
+    "debian13": {
+      "source": "docker.io/library/debian:13-slim",
+      "source_manifest_digest": "sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f",
+      "manifest_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "locked_reference": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "os": "linux",
+      "architecture": "amd64",
+      "image_created_at": "2026-10-05T00:00:00Z",
+      "image_version_label": null,
+      "compressed_layer_bytes": 29843350
+    },
+    "fedora44": {
+      "source": "registry.fedoraproject.org/fedora:44",
+      "source_manifest_digest": "sha256:4a78eff1423dcce55cf68b8fd66e7cdca61c85978283db3ecc3089a8419fbbc0",
+      "manifest_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "locked_reference": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "os": "linux",
+      "architecture": "amd64",
+      "image_created_at": "2026-10-18T06:48:07.40957965Z",
+      "image_version_label": "44",
+      "compressed_layer_bytes": 71966619
+    },
+    "arch": {
+      "source": "docker.io/library/archlinux:latest",
+      "source_manifest_digest": "sha256:3c64b538588416593f69a1aebd2f2ec0f2541b29159f32556fa7def2167147a0",
+      "manifest_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "locked_reference": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "os": "linux",
+      "architecture": "amd64",
+      "image_created_at": "2026-10-12T17:57:16.04298908Z",
+      "image_version_label": "20261011.0.609700",
+      "compressed_layer_bytes": 134063065
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "error": "[Errno 39] Directory not empty: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/4facba0d-22e7-459d-89b9-60f94ef12e67'",
+  "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 8, in <module>\n  File \"/home/omg/文档/多兼容linux机/src/multilinux/views.py\", line 792, in recover\n    recovered.append(self.revoke(record[\"view_uuid\"]))\n                     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omg/文档/多兼容linux机/src/multilinux/views.py\", line 777, in revoke\n    _rmdir(Path(record[\"view_dir\"]))\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omg/文档/多兼容linux机/src/multilinux/views.py\", line 240, in _rmdir\n    os.rmdir(path)\n    ~~~~~~~~^^^^^^\nOSError: [Errno 39] Directory not empty: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/4facba0d-22e7-459d-89b9-60f94ef12e67'\n"
+}

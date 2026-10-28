@@ -1,0 +1,36 @@
+{
+  "status": "READ_ONLY_INVENTORY_AND_PLAN_VERIFIED",
+  "recorded_at": "2026-10-27T20:26:21.507350+08:00",
+  "checks": {
+    "product_source_and_test_files_unchanged": true,
+    "desktop_mime_and_daily_state_files_unchanged": true,
+    "both_container_instances_and_start_times_unchanged": true,
+    "rpm_package_identities_unchanged": true,
+    "flatpak_application_records_unchanged": true,
+    "queried_default_associations_unchanged": true,
+    "chrome_two_entries_same_rpm_and_exec": true,
+    "chrome_hidden_and_visible_entries_distinct": true,
+    "wps_umbrella_and_writer_same_program_and_package": true,
+    "wps_local_rpm_matches_installed_build": true,
+    "local_wps_file_hash_still_matches": true,
+    "desktop_metadata_parse_errors_absent": true,
+    "relationship_families_18_unique": true,
+    "relationship_workflows_all_not_run": true,
+    "original_9_installation_cells_retained_not_run": true
+  },
+  "protected_source_files": 105,
+  "protected_registration_or_state_files": 308,
+  "changed_product_files": [],
+  "changed_desktop_or_state_files": [],
+  "changed_default_queries": [],
+  "containers": 2,
+  "running_containers": 0,
+  "intended_edits_only": [
+    "README.md",
+    "HANDOFF.md",
+    "设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md",
+    "evidence/extension-test-plan-2026-10-27/plan.json",
+    "new evidence/installed-applications-2026-10-27/ artifacts"
+  ],
+  "scope": "Metadata observations and planning only; no installed application was launched, installed, updated, removed or assigned a new default by this task."
+}

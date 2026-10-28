@@ -1,0 +1,13 @@
+{
+  "all_passed": true,
+  "checks": {
+    "identical_app_recreation_has_new_uuid": true,
+    "old_handler_refused_after_identical_app_recreation": true,
+    "readonly_view_cannot_use_writable_mount": true,
+    "default_save_cannot_enter_nested_readonly_root": true,
+    "shadowing_mount_cannot_substitute_another_host_file": true,
+    "nested_readonly_mount_blocks_edit": true,
+    "config_change_during_wait_has_zero_start_or_exec": true
+  },
+  "scope": "independent temporary-file/FakeRuntime routing boundary checks"
+}

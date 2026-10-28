@@ -1,0 +1,209 @@
+{"at": "2026-10-26T16:26:52+08:00", "phase": "starting"}
+{"at": "2026-10-26T16:26:52+08:00", "phase": "wave", "level": 1, "wave": 0, "message": "Fedora N=1 wave 1"}
+{"at": "2026-10-26T16:27:00+08:00", "phase": "wave-complete", "target": "fedora44", "level": 1, "wave": 0, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:27:00+08:00", "phase": "wave", "level": 1, "wave": 1, "message": "Fedora N=1 wave 2"}
+{"at": "2026-10-26T16:27:07+08:00", "phase": "wave-complete", "target": "fedora44", "level": 1, "wave": 1, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:27:07+08:00", "phase": "wave", "level": 1, "wave": 2, "message": "Fedora N=1 wave 3"}
+{"at": "2026-10-26T16:27:15+08:00", "phase": "wave-complete", "target": "fedora44", "level": 1, "wave": 2, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:27:15+08:00", "phase": "wave", "level": 2, "wave": 0, "message": "Fedora N=2 wave 1"}
+{"at": "2026-10-26T16:27:24+08:00", "phase": "wave-complete", "target": "fedora44", "level": 2, "wave": 0, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:27:24+08:00", "phase": "wave", "level": 2, "wave": 1, "message": "Fedora N=2 wave 2"}
+{"at": "2026-10-26T16:27:33+08:00", "phase": "wave-complete", "target": "fedora44", "level": 2, "wave": 1, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:27:33+08:00", "phase": "wave", "level": 2, "wave": 2, "message": "Fedora N=2 wave 3"}
+{"at": "2026-10-26T16:27:43+08:00", "phase": "wave-complete", "target": "fedora44", "level": 2, "wave": 2, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:27:43+08:00", "phase": "wave", "level": 4, "wave": 0, "message": "Fedora N=4 wave 1"}
+{"at": "2026-10-26T16:27:57+08:00", "phase": "wave-complete", "target": "fedora44", "level": 4, "wave": 0, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:27:57+08:00", "phase": "wave", "level": 4, "wave": 1, "message": "Fedora N=4 wave 2"}
+{"at": "2026-10-26T16:28:10+08:00", "phase": "wave-complete", "target": "fedora44", "level": 4, "wave": 1, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:28:10+08:00", "phase": "wave", "level": 4, "wave": 2, "message": "Fedora N=4 wave 3"}
+{"at": "2026-10-26T16:28:25+08:00", "phase": "wave-complete", "target": "fedora44", "level": 4, "wave": 2, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:28:25+08:00", "phase": "wave", "level": 8, "wave": 0, "message": "Fedora N=8 wave 1"}
+{"at": "2026-10-26T16:28:47+08:00", "phase": "wave-complete", "target": "fedora44", "level": 8, "wave": 0, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:28:47+08:00", "phase": "wave", "level": 8, "wave": 1, "message": "Fedora N=8 wave 2"}
+{"at": "2026-10-26T16:29:09+08:00", "phase": "wave-complete", "target": "fedora44", "level": 8, "wave": 1, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:29:09+08:00", "phase": "wave", "level": 8, "wave": 2, "message": "Fedora N=8 wave 3"}
+{"at": "2026-10-26T16:29:33+08:00", "phase": "wave-complete", "target": "fedora44", "level": 8, "wave": 2, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T16:29:33+08:00", "phase": "mixed-wave", "wave": 0, "message": "three-distro mixed wave 1"}
+{"at": "2026-10-26T16:30:01+08:00", "phase": "mixed-wave-complete", "wave": 0, "message": "two sessions per distro completed"}
+{"at": "2026-10-26T16:30:01+08:00", "phase": "mixed-wave", "wave": 1, "message": "three-distro mixed wave 2"}
+{"at": "2026-10-26T16:30:36+08:00", "phase": "mixed-wave-complete", "wave": 1, "message": "two sessions per distro completed"}
+{"at": "2026-10-26T16:30:39+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 1/30"}
+{"at": "2026-10-26T16:30:42+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 2/30"}
+{"at": "2026-10-26T16:30:45+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 3/30"}
+{"at": "2026-10-26T16:30:48+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 4/30"}
+{"at": "2026-10-26T16:30:51+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 5/30"}
+{"at": "2026-10-26T16:30:54+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 6/30"}
+{"at": "2026-10-26T16:30:57+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 7/30"}
+{"at": "2026-10-26T16:31:00+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 8/30"}
+{"at": "2026-10-26T16:31:03+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 9/30"}
+{"at": "2026-10-26T16:31:07+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 10/30"}
+{"at": "2026-10-26T16:31:10+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 11/30"}
+{"at": "2026-10-26T16:31:13+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 12/30"}
+{"at": "2026-10-26T16:31:16+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 13/30"}
+{"at": "2026-10-26T16:31:19+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 14/30"}
+{"at": "2026-10-26T16:31:22+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 15/30"}
+{"at": "2026-10-26T16:31:25+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 16/30"}
+{"at": "2026-10-26T16:31:28+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 17/30"}
+{"at": "2026-10-26T16:31:31+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 18/30"}
+{"at": "2026-10-26T16:31:34+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 19/30"}
+{"at": "2026-10-26T16:31:37+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 20/30"}
+{"at": "2026-10-26T16:31:40+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 21/30"}
+{"at": "2026-10-26T16:31:43+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 22/30"}
+{"at": "2026-10-26T16:31:46+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 23/30"}
+{"at": "2026-10-26T16:31:49+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 24/30"}
+{"at": "2026-10-26T16:31:52+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 25/30"}
+{"at": "2026-10-26T16:31:55+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 26/30"}
+{"at": "2026-10-26T16:31:58+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 27/30"}
+{"at": "2026-10-26T16:32:01+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 28/30"}
+{"at": "2026-10-26T16:32:04+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 29/30"}
+{"at": "2026-10-26T16:32:07+08:00", "phase": "timing-cold", "target": "debian13", "message": "cold 30/30"}
+{"at": "2026-10-26T16:32:09+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 1/30"}
+{"at": "2026-10-26T16:32:12+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 2/30"}
+{"at": "2026-10-26T16:32:14+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 3/30"}
+{"at": "2026-10-26T16:32:16+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 4/30"}
+{"at": "2026-10-26T16:32:18+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 5/30"}
+{"at": "2026-10-26T16:32:21+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 6/30"}
+{"at": "2026-10-26T16:32:23+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 7/30"}
+{"at": "2026-10-26T16:32:26+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 8/30"}
+{"at": "2026-10-26T16:32:28+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 9/30"}
+{"at": "2026-10-26T16:32:30+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 10/30"}
+{"at": "2026-10-26T16:32:32+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 11/30"}
+{"at": "2026-10-26T16:32:34+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 12/30"}
+{"at": "2026-10-26T16:32:37+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 13/30"}
+{"at": "2026-10-26T16:32:39+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 14/30"}
+{"at": "2026-10-26T16:32:41+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 15/30"}
+{"at": "2026-10-26T16:32:44+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 16/30"}
+{"at": "2026-10-26T16:32:46+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 17/30"}
+{"at": "2026-10-26T16:32:48+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 18/30"}
+{"at": "2026-10-26T16:32:50+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 19/30"}
+{"at": "2026-10-26T16:32:53+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 20/30"}
+{"at": "2026-10-26T16:32:55+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 21/30"}
+{"at": "2026-10-26T16:32:57+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 22/30"}
+{"at": "2026-10-26T16:33:00+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 23/30"}
+{"at": "2026-10-26T16:33:02+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 24/30"}
+{"at": "2026-10-26T16:33:04+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 25/30"}
+{"at": "2026-10-26T16:33:06+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 26/30"}
+{"at": "2026-10-26T16:33:09+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 27/30"}
+{"at": "2026-10-26T16:33:11+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 28/30"}
+{"at": "2026-10-26T16:33:13+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 29/30"}
+{"at": "2026-10-26T16:33:15+08:00", "phase": "timing-warm", "target": "debian13", "message": "warm 30/30"}
+{"at": "2026-10-26T16:33:22+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 1/30"}
+{"at": "2026-10-26T16:33:25+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 2/30"}
+{"at": "2026-10-26T16:33:28+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 3/30"}
+{"at": "2026-10-26T16:33:31+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 4/30"}
+{"at": "2026-10-26T16:33:34+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 5/30"}
+{"at": "2026-10-26T16:33:37+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 6/30"}
+{"at": "2026-10-26T16:33:41+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 7/30"}
+{"at": "2026-10-26T16:33:44+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 8/30"}
+{"at": "2026-10-26T16:33:47+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 9/30"}
+{"at": "2026-10-26T16:33:50+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 10/30"}
+{"at": "2026-10-26T16:33:53+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 11/30"}
+{"at": "2026-10-26T16:33:56+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 12/30"}
+{"at": "2026-10-26T16:33:59+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 13/30"}
+{"at": "2026-10-26T16:34:02+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 14/30"}
+{"at": "2026-10-26T16:34:05+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 15/30"}
+{"at": "2026-10-26T16:34:08+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 16/30"}
+{"at": "2026-10-26T16:34:11+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 17/30"}
+{"at": "2026-10-26T16:34:15+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 18/30"}
+{"at": "2026-10-26T16:34:18+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 19/30"}
+{"at": "2026-10-26T16:34:21+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 20/30"}
+{"at": "2026-10-26T16:34:24+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 21/30"}
+{"at": "2026-10-26T16:34:27+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 22/30"}
+{"at": "2026-10-26T16:34:30+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 23/30"}
+{"at": "2026-10-26T16:34:33+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 24/30"}
+{"at": "2026-10-26T16:34:36+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 25/30"}
+{"at": "2026-10-26T16:34:39+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 26/30"}
+{"at": "2026-10-26T16:34:42+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 27/30"}
+{"at": "2026-10-26T16:34:45+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 28/30"}
+{"at": "2026-10-26T16:34:49+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 29/30"}
+{"at": "2026-10-26T16:34:52+08:00", "phase": "timing-cold", "target": "fedora44", "message": "cold 30/30"}
+{"at": "2026-10-26T16:34:54+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 1/30"}
+{"at": "2026-10-26T16:34:57+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 2/30"}
+{"at": "2026-10-26T16:34:59+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 3/30"}
+{"at": "2026-10-26T16:35:01+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 4/30"}
+{"at": "2026-10-26T16:35:04+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 5/30"}
+{"at": "2026-10-26T16:35:06+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 6/30"}
+{"at": "2026-10-26T16:35:08+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 7/30"}
+{"at": "2026-10-26T16:35:10+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 8/30"}
+{"at": "2026-10-26T16:35:13+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 9/30"}
+{"at": "2026-10-26T16:35:15+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 10/30"}
+{"at": "2026-10-26T16:35:17+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 11/30"}
+{"at": "2026-10-26T16:35:19+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 12/30"}
+{"at": "2026-10-26T16:35:22+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 13/30"}
+{"at": "2026-10-26T16:35:24+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 14/30"}
+{"at": "2026-10-26T16:35:26+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 15/30"}
+{"at": "2026-10-26T16:35:29+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 16/30"}
+{"at": "2026-10-26T16:35:31+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 17/30"}
+{"at": "2026-10-26T16:35:33+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 18/30"}
+{"at": "2026-10-26T16:35:36+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 19/30"}
+{"at": "2026-10-26T16:35:38+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 20/30"}
+{"at": "2026-10-26T16:35:40+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 21/30"}
+{"at": "2026-10-26T16:35:42+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 22/30"}
+{"at": "2026-10-26T16:35:45+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 23/30"}
+{"at": "2026-10-26T16:35:47+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 24/30"}
+{"at": "2026-10-26T16:35:49+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 25/30"}
+{"at": "2026-10-26T16:35:52+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 26/30"}
+{"at": "2026-10-26T16:35:54+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 27/30"}
+{"at": "2026-10-26T16:35:56+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 28/30"}
+{"at": "2026-10-26T16:35:59+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 29/30"}
+{"at": "2026-10-26T16:36:01+08:00", "phase": "timing-warm", "target": "fedora44", "message": "warm 30/30"}
+{"at": "2026-10-26T16:36:08+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 1/30"}
+{"at": "2026-10-26T16:36:11+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 2/30"}
+{"at": "2026-10-26T16:36:14+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 3/30"}
+{"at": "2026-10-26T16:36:17+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 4/30"}
+{"at": "2026-10-26T16:36:20+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 5/30"}
+{"at": "2026-10-26T16:36:23+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 6/30"}
+{"at": "2026-10-26T16:36:26+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 7/30"}
+{"at": "2026-10-26T16:36:30+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 8/30"}
+{"at": "2026-10-26T16:36:33+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 9/30"}
+{"at": "2026-10-26T16:36:36+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 10/30"}
+{"at": "2026-10-26T16:36:39+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 11/30"}
+{"at": "2026-10-26T16:36:42+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 12/30"}
+{"at": "2026-10-26T16:36:45+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 13/30"}
+{"at": "2026-10-26T16:36:48+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 14/30"}
+{"at": "2026-10-26T16:36:51+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 15/30"}
+{"at": "2026-10-26T16:36:55+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 16/30"}
+{"at": "2026-10-26T16:36:58+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 17/30"}
+{"at": "2026-10-26T16:37:01+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 18/30"}
+{"at": "2026-10-26T16:37:04+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 19/30"}
+{"at": "2026-10-26T16:37:07+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 20/30"}
+{"at": "2026-10-26T16:37:11+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 21/30"}
+{"at": "2026-10-26T16:37:14+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 22/30"}
+{"at": "2026-10-26T16:37:17+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 23/30"}
+{"at": "2026-10-26T16:37:20+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 24/30"}
+{"at": "2026-10-26T16:37:23+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 25/30"}
+{"at": "2026-10-26T16:37:26+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 26/30"}
+{"at": "2026-10-26T16:37:29+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 27/30"}
+{"at": "2026-10-26T16:37:32+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 28/30"}
+{"at": "2026-10-26T16:37:36+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 29/30"}
+{"at": "2026-10-26T16:37:39+08:00", "phase": "timing-cold", "target": "arch", "message": "cold 30/30"}
+{"at": "2026-10-26T16:37:42+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 1/30"}
+{"at": "2026-10-26T16:37:50+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 2/30"}
+{"at": "2026-10-26T16:37:53+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 3/30"}
+{"at": "2026-10-26T16:37:55+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 4/30"}
+{"at": "2026-10-26T16:37:58+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 5/30"}
+{"at": "2026-10-26T16:38:00+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 6/30"}
+{"at": "2026-10-26T16:38:03+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 7/30"}
+{"at": "2026-10-26T16:38:05+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 8/30"}
+{"at": "2026-10-26T16:38:07+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 9/30"}
+{"at": "2026-10-26T16:38:10+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 10/30"}
+{"at": "2026-10-26T16:38:12+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 11/30"}
+{"at": "2026-10-26T16:38:15+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 12/30"}
+{"at": "2026-10-26T16:38:17+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 13/30"}
+{"at": "2026-10-26T16:38:19+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 14/30"}
+{"at": "2026-10-26T16:38:22+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 15/30"}
+{"at": "2026-10-26T16:38:24+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 16/30"}
+{"at": "2026-10-26T16:38:27+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 17/30"}
+{"at": "2026-10-26T16:38:29+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 18/30"}
+{"at": "2026-10-26T16:38:31+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 19/30"}
+{"at": "2026-10-26T16:38:34+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 20/30"}
+{"at": "2026-10-26T16:38:36+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 21/30"}
+{"at": "2026-10-26T16:38:39+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 22/30"}
+{"at": "2026-10-26T16:38:41+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 23/30"}
+{"at": "2026-10-26T16:38:43+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 24/30"}
+{"at": "2026-10-26T16:38:46+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 25/30"}
+{"at": "2026-10-26T16:38:48+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 26/30"}
+{"at": "2026-10-26T16:38:51+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 27/30"}
+{"at": "2026-10-26T16:38:53+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 28/30"}
+{"at": "2026-10-26T16:38:55+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 29/30"}
+{"at": "2026-10-26T16:38:58+08:00", "phase": "timing-warm", "target": "arch", "message": "warm 30/30"}

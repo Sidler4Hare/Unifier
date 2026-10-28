@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "cases": {
+    "btrfs": {
+      "passed": true,
+      "nonblocking_competing_writer_errno": 11,
+      "getlease_break_target": 2,
+      "existing_writer_denied_write_lease": true,
+      "bytes_preserved": true
+    },
+    "tmpfs": {
+      "passed": true,
+      "nonblocking_competing_writer_errno": 11,
+      "getlease_break_target": 2,
+      "existing_writer_denied_write_lease": true,
+      "bytes_preserved": true
+    }
+  },
+  "scope": "real isolated host Btrfs/tmpfs regular files, no privileged fallback",
+  "sources": [
+    "https://man7.org/linux/man-pages/man2/F_SETLEASE.2const.html",
+    "https://man7.org/linux/man-pages/man2/rename.2.html"
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "source": "/home/omg/文档/多兼容linux机/.lab/agents/projection-boundaries-20261027/baseline/src",
+  "started_at": 1793068836.2613096,
+  "cases": [
+    {
+      "name": "boundary-preserved-mtime",
+      "passed": false,
+      "error": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/real_boundary_probe.py\", line 17, in main\n    try:case={'name':name,'passed':True,'data':call(f)}\n                                               ~~~~^^^\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/boundary_cases.py\", line 18, in check\n    assert data[field],data\n           ~~~~^^^^^^^\nAssertionError: {'native_sha256': '7824a27eb07f3e73a7d9948951e1f97c3deffa1958e7b1d370740b98fd5e7e0b', 'held_projected_sha256': '957269f144778a4554482f666a89cbe723252ac16cf79c02fd0d5de9dd91dfa6', 'held_fd_fresh_after_fstat': False, 'reopened_fresh': True, 'size': 4096, 'preserved_mtime_ns': True, 'ctime_changed': True}\n"
+    },
+    {
+      "name": "boundary-symlink-dotdot",
+      "passed": false,
+      "error": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/real_boundary_probe.py\", line 17, in main\n    try:case={'name':name,'passed':True,'data':call(f)}\n                                               ~~~~^^^\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/boundary_cases.py\", line 18, in check\n    assert data[field],data\n           ~~~~^^^^^^^\nAssertionError: {'native': 'ROOT-CORRECT', 'projected': 'A-WRONG', 'same_target': False, 'raw_link': 'jump/../target', 'projected_link': '/tmp/unifier-object-cqe5luxj/view/link-context/a/target'}\n"
+    },
+    {
+      "name": "boundary-released-dirent",
+      "passed": false,
+      "error": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/real_boundary_probe.py\", line 17, in main\n    try:case={'name':name,'passed':True,'data':call(f)}\n                                               ~~~~^^^\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/boundary_cases.py\", line 18, in check\n    assert data[field],data\n           ~~~~^^^^^^^\nAssertionError: {'native': [{'name': 'c', 'listed': 310555, 'stat': 310555}, {'name': 'b', 'listed': 310554, 'stat': 310554}, {'name': 'a', 'listed': 310553, 'stat': 310553}], 'projected': [{'name': 'a', 'listed': 8, 'stat': 11}, {'name': 'b', 'listed': 9, 'stat': 12}, {'name': 'c', 'listed': 10, 'stat': 13}], 'projected_dirent_matches_later_stat': False}\n"
+    },
+    {
+      "name": "mtime-without-explicit-stat",
+      "passed": false,
+      "error": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/real_boundary_probe.py\", line 17, in main\n    try:case={'name':name,'passed':True,'data':call(f)}\n                                               ~~~~^^^\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/boundary_cases.py\", line 37, in preserved_mtime_without_stat\n    assert actual==expected==marker*4096,{'expected':marker.decode(),'observed':actual[:1].decode()}\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'expected': 'B', 'observed': 'A'}\n"
+    },
+    {
+      "name": "mtime-mmap-after-fstat",
+      "passed": false,
+      "error": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/real_boundary_probe.py\", line 17, in main\n    try:case={'name':name,'passed':True,'data':call(f)}\n                                               ~~~~^^^\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/boundary_cases.py\", line 58, in preserved_mtime_mmap\n    assert mapping[:]==marker*4096,{'expected':marker.decode(),'observed':mapping[:1].decode()}\n           ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'expected': 'B', 'observed': 'A'}\n"
+    },
+    {
+      "name": "symlink-component-errors",
+      "passed": false,
+      "error": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/real_boundary_probe.py\", line 17, in main\n    try:case={'name':name,'passed':True,'data':call(f)}\n                                               ~~~~^^^\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/boundary_cases.py\", line 81, in symlink_component_errors\n    assert native==projected,rows[name]\n           ^^^^^^^^^^^^^^^^^\nAssertionError: {'raw': '../a/jump/../target', 'native': {'bytes': 'ROOT'}, 'projected': {'bytes': 'WRONG'}}\n"
+    },
+    {
+      "name": "symlink-root-clamp",
+      "passed": true,
+      "data": {
+        "host_control_reachable": true,
+        "projected_errno": 2,
+        "host_escape": false
+      }
+    },
+    {
+      "name": "dangling-suffix-confinement",
+      "passed": true,
+      "data": {
+        "initial_errno": null,
+        "unresolved_suffix_then_prefix_creation_confined": true
+      }
+    },
+    {
+      "name": "inode-releasedir-churn",
+      "passed": false,
+      "error": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/real_boundary_probe.py\", line 17, in main\n    try:case={'name':name,'passed':True,'data':call(f)}\n                                               ~~~~^^^\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/boundary_cases.py\", line 136, in inode_after_repeated_releasedir\n    assert listed==first,{'wave':wave,'inode_mapping_changed':True}\n           ^^^^^^^^^^^^^\nAssertionError: {'wave': 1, 'inode_mapping_changed': True}\n"
+    }
+  ],
+  "initial_status": {
+    "ok": true,
+    "view_uuid": "e3bd0d46-e6ff-4e8d-bc5c-d158702078b7",
+    "mountpoint": "/tmp/unifier-object-cqe5luxj/view",
+    "worker_pid": 798782,
+    "worker_stamp": 35050840,
+    "initialized": true,
+    "readonly": true,
+    "allow_other": false,
+    "init_major": 7,
+    "init_minor": 31,
+    "consistency": {
+      "mode": "live-readonly",
+      "readonly": true,
+      "live": true,
+      "snapshot": false,
+      "watcher": false,
+      "cross_volume_consistent": false,
+      "entry_ttl": 0,
+      "attr_ttl": 0,
+      "direct_io": false,
+      "mmap": "page-cache",
+      "xattr": "unsupported",
+      "acl": "unknown",
+      "permissions": "not-default_permissions",
+      "auto_inval_data": true,
+      "kernel_offered_auto_inval_data": true
+    },
+    "counters": {
+      "nodes": 1,
+      "node_budget": 65536,
+      "handles": 0,
+      "file_handles": 0,
+      "dir_handles": 0,
+      "handle_budget": 1024,
+      "dir_entries": 0,
+      "dir_entry_budget": 65536,
+      "dir_bytes": 0,
+      "dir_bytes_budget": 8388608,
+      "next_nodeid": 2,
+      "next_handle": 1
+    }
+  },
+  "known_open_gate_external_watcher": {
+    "native_events": [
+      {
+        "mask": 2,
+        "cookie": 0,
+        "name": "watched.txt"
+      },
+      {
+        "mask": 8,
+        "cookie": 0,
+        "name": "watched.txt"
+      },
+      {
+        "mask": 256,
+        "cookie": 0,
+        "name": "replacement.tmp"
+      },
+      {
+        "mask": 2,
+        "cookie": 0,
+        "name": "replacement.tmp"
+      },
+      {
+        "mask": 8,
+        "cookie": 0,
+        "name": "replacement.tmp"
+      },
+      {
+        "mask": 64,
+        "cookie": 296684,
+        "name": "replacement.tmp"
+      },
+      {
+        "mask": 128,
+        "cookie": 296684,
+        "name": "watched.txt"
+      }
+    ],
+    "projected_events": [],
+    "projected_change_events_delivered": false,
+    "fresh_open_bytes": "replaced",
+    "declared_capability": false
+  },
+  "final_status": {
+    "ok": true,
+    "view_uuid": "e3bd0d46-e6ff-4e8d-bc5c-d158702078b7",
+    "mountpoint": "/tmp/unifier-object-cqe5luxj/view",
+    "worker_pid": 798782,
+    "worker_stamp": 35050840,
+    "initialized": true,
+    "readonly": true,
+    "allow_other": false,
+    "init_major": 7,
+    "init_minor": 31,
+    "consistency": {
+      "mode": "live-readonly",
+      "readonly": true,
+      "live": true,
+      "snapshot": false,
+      "watcher": false,
+      "cross_volume_consistent": false,
+      "entry_ttl": 0,
+      "attr_ttl": 0,
+      "direct_io": false,
+      "mmap": "page-cache",
+      "xattr": "unsupported",
+      "acl": "unknown",
+      "permissions": "not-default_permissions",
+      "auto_inval_data": true,
+      "kernel_offered_auto_inval_data": true
+    },
+    "counters": {
+      "nodes": 23,
+      "node_budget": 65536,
+      "handles": 0,
+      "file_handles": 0,
+      "dir_handles": 0,
+      "handle_budget": 1024,
+      "dir_entries": 0,
+      "dir_entry_budget": 65536,
+      "dir_bytes": 0,
+      "dir_bytes_budget": 8388608,
+      "next_nodeid": 155,
+      "next_handle": 11
+    }
+  },
+  "cleanup": {
+    "not_mounted": true,
+    "worker_exit": 0,
+    "normal_unmount": true
+  },
+  "finished_at": 1793068837.5251799,
+  "passed": false
+}

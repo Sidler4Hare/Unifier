@@ -1,0 +1,295 @@
+{
+  "app_root": "/home/omg/.local/share/multilinux/apps/freecad",
+  "work": "/home/omg/文档/Unifier-CAD",
+  "source_sha256": {
+    "src/multilinux/__init__.py": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+    "src/multilinux/__main__.py": "8fc1fcde2cd1a30a9c1271714cbe49efd1b7ef1597ad4b0f16e1f84dc96ae2b8",
+    "src/multilinux/catalog.py": "a2704215ff0c3b04fe71b341eca876817888ffce8a51adf1779b67c407cab089",
+    "src/multilinux/cli.py": "4b3df210fd39f4ad54de78d536f22b77e771ccd441e686a8081f04c72191c760",
+    "src/multilinux/control.py": "8c72e1601f9a640d2a432d675fc9954e26ed87ae91f1dc274edfb69e9fb515c1",
+    "src/multilinux/desktop.py": "36382e7b385cc018ff179ec19e78ef652b90dafe56a6a78d646a93b3c157a7e7",
+    "src/multilinux/errors.py": "531a2ca4ce2056099a662eed98a6fa137013b99c7ea0a091fa3960279b92ca2a",
+    "src/multilinux/file_routes.py": "44d5a533de708cf03943d7443cf640dd271c828e8da868e424fcf0ac45afd280",
+    "src/multilinux/handlers.py": "1dfc87b8b593c35155a24eb3d55210318f00c45086cf6bd806e09a16657d58a0",
+    "src/multilinux/identity.py": "184f7fe3c3449b8f230b7a9615caacb0be1bbc9d6905150dbf85011789331c8f",
+    "src/multilinux/json_records.py": "e78b72caf5f2693f07995f065e6905f42685c2ce846617b9373ef51be416b906",
+    "src/multilinux/on_demand.py": "ce441674a0f9f24e052f7f3e5278c66c629b08417b8fd5b98b7722f1b96f5d57",
+    "src/multilinux/packages.py": "34a37cb687c6a09d10e81348c22013a5fd2d8fb18229f07dc19d0525b4868668",
+    "src/multilinux/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+    "src/multilinux/projects.py": "6a53b6175d7b6c7f3ea7dd2aba504966653bd6cfdf94de184c29d3e9d6819eed",
+    "src/multilinux/registry.py": "b163d0c885a1cb9d3164c35cca8fc6fe0fb045b22ae4f0444524e075902aca43",
+    "src/multilinux/resources.py": "1269fc93c41febfc8932d57b805cd512b6fd6cbde109e5c6ca680725504ce4ec",
+    "src/multilinux/routing.py": "cd3f4ab38b50846d6b4c518b3d270428a52af19369f26ac85df9eac920b37fe7",
+    "src/multilinux/runtime.py": "b274a50b61e46bc7dc5696571451c44330f05872724b3fd118a3559f2133f42a",
+    "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+    "src/multilinux/service.py": "cc11692eccf685255f7d224709a7bff6c45bb08abeef0db08b99d95e1ebe0b9f",
+    "src/multilinux/share_label.py": "dfd46c05c3d9d5d7239163b68c5284215833c885c3612d9d868b30b958979aee",
+    "src/multilinux/store.py": "7a386a46239fcd010aa700f0454bf3929ffc27758ed1f8a17ea5e5d2c2f2b7dd",
+    "tools/ml.py": "9ce24eece889ef5fc43ee203f83a96722280752cae1bbe25c96271eddd4e6c49",
+    "tools/unifier.py": "9ce24eece889ef5fc43ee203f83a96722280752cae1bbe25c96271eddd4e6c49",
+    "tools/lab.py": "64798b26ac6e4f449c0b3fb60fae4eeb2f73fc1e85a5f5d13ab86a29dddf6113",
+    "config/targets.toml": "33d1a978213ce84a45a4328cb5ee687e62f4228b756dac438af83ce4b05ae59a",
+    "config/images.lock.json": "1d68396e253f8e0f2d408b2f5f60b4e5e3a745f986834a19521ec65654a320b2"
+  },
+  "base": "accepted Stage B native GUI snapshot",
+  "image": "localhost/multilinux/installstatus-arch@sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+  "image_id": "e6edccdadc8fd38b9b984d7da2667c4faf4e04878f6b1f4f3271536c968de080",
+  "environment": {
+    "schema_version": 2,
+    "id": "freecad-arch",
+    "target": "arch",
+    "distribution_id": "arch",
+    "version_track": "rolling",
+    "update_policy": "full-system-upgrade",
+    "architecture": "amd64",
+    "base_image": {
+      "source": "localhost/multilinux/installstatus-arch:20261022210845",
+      "manifest_digest": "sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+      "locked_reference": "localhost/multilinux/installstatus-arch@sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+      "image_version_label": "20261011.0.609700"
+    },
+    "writable_revision": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+    "content_revision": 1,
+    "runtime_state": "stopped",
+    "package_inventory_sha256": "5ad1fc5e88a014d94f458e1de7c64a23c6978b4fb837821b34feebcdfd7b67f1",
+    "package_inventory_count": 350,
+    "package_inventory_path": ".lab/state/environments/freecad-arch.packages.txt",
+    "shared_mounts": [
+      {
+        "host": "/home/omg/文档/Unifier-CAD",
+        "container": "/home/omg/文档/Unifier-CAD",
+        "options": ""
+      }
+    ],
+    "desktop": {
+      "selinux_label": "disable",
+      "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+      "env": {
+        "WAYLAND_DISPLAY": "wayland-0",
+        "XDG_RUNTIME_DIR": "/run/user/1000",
+        "DISPLAY": ":0",
+        "XAUTHORITY": "/tmp/ml-xauthority",
+        "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+        "PIPEWIRE_REMOTE": "pipewire-0",
+        "XDG_SESSION_TYPE": "wayland"
+      },
+      "mounts": [
+        {
+          "host": "/run/user/1000/wayland-0",
+          "container": "/run/user/1000/wayland-0",
+          "options": ""
+        },
+        {
+          "host": "/tmp/.X11-unix/X0",
+          "container": "/tmp/.X11-unix/X0",
+          "options": ""
+        },
+        {
+          "host": "/run/user/1000/xauth_NCgtEd",
+          "container": "/tmp/ml-xauthority",
+          "options": ""
+        },
+        {
+          "host": "/run/user/1000/pulse/native",
+          "container": "/run/user/1000/pulse/native",
+          "options": ""
+        },
+        {
+          "host": "/run/user/1000/pipewire-0",
+          "container": "/run/user/1000/pipewire-0",
+          "options": ""
+        }
+      ]
+    },
+    "created_at": "2026-10-24T11:16:02+08:00",
+    "updated_at": "2026-10-24T11:16:02+08:00",
+    "arch": {
+      "image_version_label": "20261011.0.609700",
+      "os_release_version_id": "20261011.0.609700",
+      "os_release_build_id": "rolling",
+      "repository_updated_at": null,
+      "package_set_sha256": "5ad1fc5e88a014d94f458e1de7c64a23c6978b4fb837821b34feebcdfd7b67f1",
+      "keyring_initialized_at": null
+    },
+    "runtime": {
+      "backend": "podman",
+      "container_name": "ml-53c5c8a5-freecad-arch",
+      "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "project": "/home/omg/.local/share/multilinux/apps/freecad",
+      "network": "none",
+      "share_label_policy": "preserve-host",
+      "selinux_label": "disable",
+      "full_init": false,
+      "user_namespace": "keep-id",
+      "devices": [
+        "/dev/dri/card1",
+        "/dev/dri/renderD128"
+      ],
+      "ipc": "host",
+      "rootless": true
+    },
+    "observed": {
+      "os_release_id": "arch",
+      "os_release_version_id": "20261011.0.609700",
+      "os_release_build_id": "rolling",
+      "os_release_pretty_name": "Arch Linux",
+      "kernel": "7.2.11-200.fc44.x86_64",
+      "machine": "x86_64"
+    },
+    "system": {
+      "family": "arch",
+      "libc": "glibc",
+      "layout": "fhs",
+      "package_driver": "pacman",
+      "package_format": "arch",
+      "runtime_backend": "podman-rootless",
+      "update_policy": "full-system-upgrade",
+      "package_change": "in-place",
+      "base_image_change": "replace",
+      "contract_change": "replace"
+    },
+    "created_by_uid": 1000,
+    "created_by_gid": 1000,
+    "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage.",
+    "environment_uuid": "1da35b87-4617-4953-bb03-0b55613a73a4",
+    "generation": 1
+  },
+  "application": {
+    "schema_version": 2,
+    "id": "freecad",
+    "app_instance_uuid": "3bab3a05-68ef-4da8-bf9c-69ed8f4db083",
+    "environment_id": "freecad-arch",
+    "environment_uuid": "1da35b87-4617-4953-bb03-0b55613a73a4",
+    "generation": 1,
+    "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+    "environment_binding": {
+      "environment_id": "freecad-arch",
+      "environment_uuid": "1da35b87-4617-4953-bb03-0b55613a73a4",
+      "generation": 1,
+      "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5"
+    },
+    "executable": "/usr/bin/FreeCAD",
+    "argv": [
+      "/usr/bin/FreeCAD"
+    ],
+    "workdir": "/home/omg/文档/Unifier-CAD",
+    "env": {
+      "WAYLAND_DISPLAY": "wayland-0",
+      "XDG_RUNTIME_DIR": "/run/user/1000",
+      "DISPLAY": ":0",
+      "XAUTHORITY": "/tmp/ml-xauthority",
+      "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+      "PIPEWIRE_REMOTE": "pipewire-0",
+      "XDG_SESSION_TYPE": "wayland",
+      "QT_QPA_PLATFORM": "wayland",
+      "LC_ALL": "C.UTF-8",
+      "HOME": "/home/multilinux-1000",
+      "USER": "omg",
+      "LOGNAME": "omg"
+    },
+    "user": "1000:1000",
+    "on_demand": true,
+    "package_origin": null,
+    "mounts": [
+      {
+        "host": "/run/user/1000/wayland-0",
+        "container": "/run/user/1000/wayland-0",
+        "options": ""
+      },
+      {
+        "host": "/tmp/.X11-unix/X0",
+        "container": "/tmp/.X11-unix/X0",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/xauth_NCgtEd",
+        "container": "/tmp/ml-xauthority",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/pulse/native",
+        "container": "/run/user/1000/pulse/native",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/pipewire-0",
+        "container": "/run/user/1000/pipewire-0",
+        "options": ""
+      }
+    ],
+    "export": {
+      "mode": "menu",
+      "desktop_id": "unifier-freecad",
+      "desktop_path": "/home/omg/.local/share/applications/unifier-freecad.desktop"
+    },
+    "created_at": "2026-10-24T11:16:03+08:00",
+    "updated_at": "2026-10-24T11:16:05+08:00"
+  },
+  "root": {
+    "schema_version": 1,
+    "root_uuid": "e8f344cc-1059-44c2-b9e7-19d2a176cf24",
+    "management_domain": "host-project",
+    "backend": "local-directory",
+    "locator": "/home/omg/文档/Unifier-CAD",
+    "access_policy": "read-write",
+    "root_dev": 53,
+    "root_ino": 3176923,
+    "created_at": "2026-10-24T11:16:04+08:00"
+  },
+  "handler": {
+    "schema_version": 1,
+    "handler_uuid": "cfebfad0-e7fa-45bd-9e46-4930387001e9",
+    "alias": "freecad-edit",
+    "intent": "edit",
+    "provider": "environment-app",
+    "app_id": "freecad",
+    "app_instance_uuid": "3bab3a05-68ef-4da8-bf9c-69ed8f4db083",
+    "app_binding": {
+      "environment_id": "freecad-arch",
+      "environment_uuid": "1da35b87-4617-4953-bb03-0b55613a73a4",
+      "generation": 1,
+      "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5"
+    },
+    "execution_fingerprint": "1c5c3aca069e8eaef898ede816aef7b8f66de5c5acbe6d61e9c3f01ad01e6ea5",
+    "file_argument": {
+      "mode": "append"
+    },
+    "save_capability": "explicit-path",
+    "created_at": "2026-10-24T11:16:05+08:00",
+    "updated_at": "2026-10-24T11:16:05+08:00"
+  },
+  "project": {
+    "schema_version": 1,
+    "project_uuid": "0474f276-c4f7-40a0-80b9-d2d0548bde88",
+    "alias": "cad",
+    "root_uuid": "e8f344cc-1059-44c2-b9e7-19d2a176cf24",
+    "default_save_root": "/home/omg/文档/Unifier-CAD",
+    "access_policy": "read-write",
+    "environment_binding": {
+      "environment_id": "freecad-arch",
+      "environment_uuid": "1da35b87-4617-4953-bb03-0b55613a73a4",
+      "generation": 1,
+      "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5"
+    },
+    "toolchain": {
+      "provider": "environment",
+      "target": "arch",
+      "environment_id": "freecad-arch",
+      "environment_uuid": "1da35b87-4617-4953-bb03-0b55613a73a4",
+      "generation": 1,
+      "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5"
+    },
+    "intent_handlers": {
+      "edit": "cfebfad0-e7fa-45bd-9e46-4930387001e9"
+    },
+    "created_at": "2026-10-24T11:16:05+08:00",
+    "updated_at": "2026-10-24T11:16:05+08:00"
+  },
+  "desktop": "/home/omg/.local/share/applications/unifier-freecad.desktop",
+  "desktop_sha256": "5bb377b962064f65675ee7eaad0b6e468a019fb78db9d5a30678b8abb0a422e3",
+  "icon": "/home/omg/.local/share/multilinux/apps/freecad/freecad.svg",
+  "icon_copy_exit": 0,
+  "existing_desktop_preserved": true,
+  "menu_only": true,
+  "mime_defaults_changed": false
+}

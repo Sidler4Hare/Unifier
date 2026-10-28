@@ -1,0 +1,18 @@
+{
+  "target": "arch",
+  "small_file_count": 2000,
+  "small_file_bytes": 4096,
+  "small_bytes": 8192000,
+  "small_sha256": "2d7f14a964ec55ab7ed84c7cc9335d11d3fbc61112b197d9a3e0c5e55672e24d",
+  "sequential_file_bytes": 16777216,
+  "sequential_sha256": "4209402d28301652dc2c8a587c8d819e6526d4d687449f61ac1c3dbb5cfa31de",
+  "sample_files": {
+    "f0000": "3bbe4026b3864d6ab0a3d1f5d7f929289f541b343c204398ced6eba55939ed8e",
+    "f1000": "2812eac27a4d52f93f30c334383f165a8286c2c7157f95b6d60a8979831dffea",
+    "f1999": "3930e54565285d5542b72e7866b810081039d6d24f9121c25f0239e8ca2ee66f"
+  },
+  "total_fixture_bytes": 24969288,
+  "limit_bytes": 134217728,
+  "zero_4096_sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+  "workload_sha256": "0930ec589a37147b065b7f6320c499fc6bb9773f68d9f08347e331b664e8e42f"
+}

@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/home/omg/.local/share/multilinux/apps/wemeet/tools/ml.py", line 18, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/omg/.local/share/multilinux/apps/wemeet/src/multilinux/cli.py", line 1243, in main
+    return args.func(args)
+           ~~~~~~~~~^^^^^^
+  File "/home/omg/.local/share/multilinux/apps/wemeet/src/multilinux/cli.py", line 766, in cmd_app_open
+    project_uuid = session_factory().projects.show(project)["project_uuid"]
+                   ~~~~~~~~~~~~~~~^^
+  File "/home/omg/.local/share/multilinux/apps/wemeet/src/multilinux/cli.py", line 546, in session_factory
+    return ProjectSessions(project_root(), service_factory())
+                                           ~~~~~~~~~~~~~~~^^
+  File "/home/omg/.local/share/multilinux/apps/wemeet/src/multilinux/cli.py", line 525, in service_factory
+    return default_service()
+  File "/home/omg/.local/share/multilinux/apps/wemeet/src/multilinux/cli.py", line 520, in default_service
+    config, lock, root = load_project()
+                         ~~~~~~~~~~~~^^
+  File "/home/omg/.local/share/multilinux/apps/wemeet/src/multilinux/project.py", line 18, in load_project
+    lock = lab.read_lock(config)
+  File "/home/omg/.local/share/multilinux/apps/wemeet/tools/lab.py", line 135, in read_lock
+    raise LabError(f"Invalid or stale image lock for {name}")
+tools.lab.LabError: Invalid or stale image lock for debian13

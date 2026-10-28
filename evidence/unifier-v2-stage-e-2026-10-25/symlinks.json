@@ -1,0 +1,8 @@
+{
+  "scope": "raw symlink metadata; target content is not hashed or dereferenced",
+  "links": {
+    "evidence/unifier-v2-stage-e-2026-10-25/workspace-arch/absolute-os-release": "/etc/os-release",
+    "evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13/absolute-os-release": "/etc/os-release",
+    "evidence/unifier-v2-stage-e-2026-10-25/workspace-fedora44/absolute-os-release": "/etc/os-release"
+  }
+}

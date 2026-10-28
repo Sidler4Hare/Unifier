@@ -1,0 +1,46 @@
+{
+  "recovered": [
+    {
+      "backend": "podman-overlay",
+      "broker_pid": null,
+      "broker_stamp": null,
+      "control_socket": null,
+      "created_at": "2026-10-24T11:25:02+08:00",
+      "environment_binding": {
+        "container_id": "cd0d45e40e5a07a5f88edbb245b71ec704492b5726f603d7fd013ea216abb08c",
+        "environment_id": "view-debian13",
+        "environment_uuid": "d408d8c2-5885-416f-ad0b-440a8f37909a",
+        "generation": 1
+      },
+      "environment_id": "view-debian13",
+      "log_path": null,
+      "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/4facba0d-22e7-459d-89b9-60f94ef12e67/mount",
+      "owner_pid": 168217,
+      "owner_stamp": 9397440,
+      "raw_link_semantics": "projected-link",
+      "readonly": true,
+      "schema_version": 1,
+      "spec_path": null,
+      "state": "revoking",
+      "storage_socket": null,
+      "uid_map": {
+        "container_gid": 0,
+        "container_uid": 0,
+        "host_gid": 1000,
+        "host_uid": 1000,
+        "subgid_count": 0,
+        "subgid_start": 0,
+        "subuid_count": 0,
+        "subuid_start": 0,
+        "user_namespace": "rootless-default"
+      },
+      "updated_at": "2026-10-24T11:35:36+08:00",
+      "view_dir": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/4facba0d-22e7-459d-89b9-60f94ef12e67",
+      "view_uuid": "4facba0d-22e7-459d-89b9-60f94ef12e67",
+      "worker_pid": null,
+      "worker_stamp": null
+    }
+  ],
+  "views_after": [],
+  "own_containers_volumes_removed": true
+}

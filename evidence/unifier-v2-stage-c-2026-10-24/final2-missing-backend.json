@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "volume_source": "/home/omg/.local/share/containers/storage/volumes/unifier-c-debian13-25830ce750/_data",
+  "before": [],
+  "missing_before_open_error": "BACKEND_UNAVAILABLE: volume source is missing for /var/lib/unifier-volume",
+  "missing": {
+    "errno": 5,
+    "error": "[Errno 5] Input/output error: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/486155b7-63bd-4293-b38b-e51976a34448/mount/var/lib/unifier-volume/payload.txt'"
+  },
+  "empty-replacement": {
+    "errno": 5,
+    "error": "[Errno 5] Input/output error: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/486155b7-63bd-4293-b38b-e51976a34448/mount/var/lib/unifier-volume/payload.txt'"
+  },
+  "source_restored": true,
+  "no_storage_leak": true,
+  "environment_stopped": true
+}

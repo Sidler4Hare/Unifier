@@ -1,0 +1,32 @@
+{
+  "before": {
+    "caption": "Unifier v2 B FreeCAD acceptance",
+    "resourceClass": "org.freecad.FreeCAD",
+    "pid": 132546,
+    "objectType": "KWin::XdgToplevelWindow(0x558c66f27a00)",
+    "wayland": null,
+    "x11": null,
+    "width": 1100,
+    "height": 788,
+    "bufferWidth": 1100,
+    "bufferHeight": 760,
+    "internalId": "{67dd1e2d-06cb-4462-bbbc-5b31ccb834d6}",
+    "active": true
+  },
+  "after": {
+    "caption": "Unifier v2 B FreeCAD acceptance",
+    "resourceClass": "org.freecad.FreeCAD",
+    "pid": 132546,
+    "objectType": "KWin::XdgToplevelWindow(0x558c66f27a00)",
+    "wayland": null,
+    "x11": null,
+    "width": 1100,
+    "height": 788,
+    "bufferWidth": 1100,
+    "bufferHeight": 760,
+    "internalId": "{67dd1e2d-06cb-4462-bbbc-5b31ccb834d6}",
+    "active": true
+  },
+  "path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/edit-window.png",
+  "capture": "active experiment window only"
+}

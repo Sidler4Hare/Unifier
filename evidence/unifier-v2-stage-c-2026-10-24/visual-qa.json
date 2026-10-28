@@ -1,0 +1,11 @@
+{
+  "dolphin_root_listing_observed": true,
+  "kwrite_guest_debian13_text_observed": true,
+  "freecad_main_window_observed": true,
+  "images": [
+    "dolphin-projection.png",
+    "kwrite-projection.png",
+    "freecad-desktop/menu-launch-2.png"
+  ],
+  "qa": "direct image inspection by primary agent"
+}

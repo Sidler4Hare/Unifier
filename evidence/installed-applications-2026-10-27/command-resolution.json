@@ -1,0 +1,248 @@
+[
+  {
+    "command": "wps",
+    "path": "/usr/bin/wps",
+    "resolved": "/usr/bin/wps",
+    "rpm_owners": [
+      "wps-office"
+    ],
+    "context": "agent inspection process",
+    "sha256": "9ec8eb80b7a40ef9e4353abcdfb3fa3872487d679dac4cea9f0278347c4c9469"
+  },
+  {
+    "command": "et",
+    "path": "/usr/bin/et",
+    "resolved": "/usr/bin/et",
+    "rpm_owners": [
+      "wps-office"
+    ],
+    "context": "agent inspection process",
+    "sha256": "e309fc09dc8738622db63a6e48fe601c5b8a9ca7178e3e367b938e998dc3de2d"
+  },
+  {
+    "command": "wpp",
+    "path": "/usr/bin/wpp",
+    "resolved": "/usr/bin/wpp",
+    "rpm_owners": [
+      "wps-office"
+    ],
+    "context": "agent inspection process",
+    "sha256": "866a9f6a576839ca2c90adb828674a125e769739371d044ae52302406e9a0f03"
+  },
+  {
+    "command": "wpspdf",
+    "path": "/usr/bin/wpspdf",
+    "resolved": "/usr/bin/wpspdf",
+    "rpm_owners": [
+      "wps-office"
+    ],
+    "context": "agent inspection process",
+    "sha256": "aed88e66263d5a4d2fc6b78928f57b2e720ce21a24fd84f59386a908a100596c"
+  },
+  {
+    "command": "wechat",
+    "path": "/usr/bin/wechat",
+    "resolved": "/opt/wechat/wechat",
+    "rpm_owners": [
+      "wechat"
+    ],
+    "context": "agent inspection process",
+    "sha256": "91c2e3237ba69acadb23a84bdde360c714719889756aed92e9e45785c3d97010"
+  },
+  {
+    "command": "code",
+    "path": "/usr/bin/code",
+    "resolved": "/usr/share/code/bin/code",
+    "rpm_owners": [
+      "code"
+    ],
+    "context": "agent inspection process",
+    "sha256": "160a47a7a6a97c94b87eb614bc4f060d8d2252306a19122ee06159fff217c2e3"
+  },
+  {
+    "command": "zcode",
+    "path": "/usr/bin/zcode",
+    "resolved": "/opt/ZCode/zcode",
+    "rpm_owners": [],
+    "context": "agent inspection process",
+    "sha256": "7f7881d04a9119cd865abe9e45d3cce510eab82a40cab823d7b243f7daf0b03b"
+  },
+  {
+    "command": "qoder-cn",
+    "path": "/usr/bin/qoder-cn",
+    "resolved": "/opt/Qoder CN/qoder-cn",
+    "rpm_owners": [],
+    "context": "agent inspection process",
+    "sha256": "42c6543a5c56874bc1cec6809b23e985cf182249fe10f1ba952d85ad5d1a86eb"
+  },
+  {
+    "command": "google-chrome",
+    "path": "/usr/bin/google-chrome",
+    "resolved": "/opt/google/chrome/google-chrome",
+    "rpm_owners": [
+      "google-chrome-stable"
+    ],
+    "context": "agent inspection process",
+    "sha256": "aea09d69ce7f24d5901f6bfb15dd44d0c856e793e0a498f8d8393ec7d2c308ec"
+  },
+  {
+    "command": "google-chrome-stable",
+    "path": "/usr/bin/google-chrome-stable",
+    "resolved": "/opt/google/chrome/google-chrome",
+    "rpm_owners": [
+      "google-chrome-stable"
+    ],
+    "context": "agent inspection process",
+    "sha256": "aea09d69ce7f24d5901f6bfb15dd44d0c856e793e0a498f8d8393ec7d2c308ec"
+  },
+  {
+    "command": "kwrite",
+    "path": "/usr/bin/kwrite",
+    "resolved": "/usr/bin/kwrite",
+    "rpm_owners": [
+      "kwrite"
+    ],
+    "context": "agent inspection process",
+    "sha256": "70e808bfa033d1d63b19fd4b640b48257c10ff79f5e6cf8c7ad8bcbbcb66f046"
+  },
+  {
+    "command": "kate",
+    "path": null,
+    "resolved": null,
+    "rpm_owners": [],
+    "context": "agent inspection process"
+  },
+  {
+    "command": "libreoffice",
+    "path": "/usr/bin/libreoffice",
+    "resolved": "/usr/bin/libreoffice",
+    "rpm_owners": [
+      "libreoffice-core"
+    ],
+    "context": "agent inspection process",
+    "sha256": "d9fd3a5d7deaab5865f641ad618827815f57389f4ec5e565909a409de6d02503"
+  },
+  {
+    "command": "soffice",
+    "path": "/home/omg/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/soffice",
+    "resolved": "/home/omg/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/soffice",
+    "rpm_owners": [],
+    "context": "agent inspection process",
+    "sha256": "35c5a2736f68e6370a7b9fe5082e66bc438c1a8de11261d6c4bc847073ced45b"
+  },
+  {
+    "command": "mpv",
+    "path": "/usr/bin/mpv",
+    "resolved": "/usr/bin/mpv",
+    "rpm_owners": [
+      "mpv"
+    ],
+    "context": "agent inspection process",
+    "sha256": "f6494d41a295c83b83a6876e438f88672ac904287b1a8016c93788e8228684a6"
+  },
+  {
+    "command": "haruna",
+    "path": "/usr/bin/haruna",
+    "resolved": "/usr/bin/haruna",
+    "rpm_owners": [
+      "haruna"
+    ],
+    "context": "agent inspection process",
+    "sha256": "eb9209617f2849e718c5b8b65eeb3aae50c19c6fa0300e51cb3681d5e928bfe4"
+  },
+  {
+    "command": "dragon",
+    "path": "/usr/bin/dragon",
+    "resolved": "/usr/bin/dragon",
+    "rpm_owners": [
+      "dragon"
+    ],
+    "context": "agent inspection process",
+    "sha256": "e513d961c3cdb5620e5fa2679d086054499f2b164f2d97437090b1e63bb18c0b"
+  },
+  {
+    "command": "okular",
+    "path": "/usr/bin/okular",
+    "resolved": "/usr/bin/okular",
+    "rpm_owners": [
+      "okular"
+    ],
+    "context": "agent inspection process",
+    "sha256": "ac2fea76bfcd219ace51568c281eb4f902960efb5835d68c1efa9daadbed3f94"
+  },
+  {
+    "command": "qwen",
+    "path": "/home/omg/.local/bin/qwen",
+    "resolved": "/home/omg/.local/bin/qwen",
+    "rpm_owners": [],
+    "context": "agent inspection process",
+    "sha256": "4e607afed79579819b8df003bff7bfe51316513425d7b0817ef60b7b9c8eab05",
+    "wrapper_indicators": [
+      "wine",
+      "flatpak",
+      ".exe"
+    ]
+  },
+  {
+    "command": "dsh",
+    "path": "/home/omg/.nodejs/bin/dsh",
+    "resolved": "/home/omg/.nodejs/lib/node_modules/@deepseek-ai/dsh/lib/bin.js",
+    "rpm_owners": [],
+    "context": "agent inspection process",
+    "sha256": "80112efe368efb1a39720c7ada0af00442e5131fb2744edaaff8a3e8bb499e6f"
+  },
+  {
+    "command": "codex",
+    "path": "/usr/lib/chatgpt/resources/codex",
+    "resolved": "/usr/lib/chatgpt/resources/codex",
+    "rpm_owners": [
+      "chatgpt"
+    ],
+    "context": "agent inspection process",
+    "sha256": "70ea33b7094a4c20c007d09b83bb50e33debb9bbf99bf066709f9eb85bad524a"
+  },
+  {
+    "command": "claude",
+    "path": "/home/omg/.local/bin/claude",
+    "resolved": "/home/omg/.local/share/claude/versions/2.1.283",
+    "rpm_owners": [],
+    "context": "agent inspection process",
+    "sha256": "1859583ce32920595c61ef868bee52e1b1594f7486db209935e01f1e5e804ae2"
+  },
+  {
+    "command": "node",
+    "path": "/home/omg/.nodejs/bin/node",
+    "resolved": "/home/omg/.nodejs/bin/node",
+    "rpm_owners": [],
+    "context": "agent inspection process",
+    "sha256": "7fde7b8afa198da66257f42ee2001d874c7355631e6d1579a5fb5ef1f246df4c"
+  },
+  {
+    "command": "npm",
+    "path": "/home/omg/.nodejs/bin/npm",
+    "resolved": "/home/omg/.nodejs/lib/node_modules/npm/bin/npm-cli.js",
+    "rpm_owners": [],
+    "context": "agent inspection process",
+    "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+  },
+  {
+    "command": "python3",
+    "path": "/usr/bin/python3",
+    "resolved": "/usr/bin/python3.14",
+    "rpm_owners": [
+      "python3"
+    ],
+    "context": "agent inspection process",
+    "sha256": "df5a95e6119c051c43ab78993af48f8a53c54a25a475dacd1428c322251eb8b0"
+  },
+  {
+    "command": "git",
+    "path": "/usr/bin/git",
+    "resolved": "/usr/bin/git",
+    "rpm_owners": [
+      "git-core"
+    ],
+    "context": "agent inspection process",
+    "sha256": "20739384fd97e904e8545b39753c3e42a0cd7a8016d382f6ec1aadc910f8c872"
+  }
+]

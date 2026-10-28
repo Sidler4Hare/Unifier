@@ -1,0 +1,461 @@
+{
+  "schema_version": 1,
+  "scope": "read-only local process/cgroup/host sampling; PSS and cgroup not summed",
+  "sample_count": 68,
+  "metrics": {
+    "env.arch.cgroup.memory_current_bytes": {
+      "count": 4,
+      "min": 15884288,
+      "p50": 16732160,
+      "p95": 16814080,
+      "max": 16814080,
+      "mean": 16540672.0,
+      "first": 16814080,
+      "last": 15884288
+    },
+    "env.arch.cgroup.memory_peak_bytes": {
+      "count": 4,
+      "min": 21929984,
+      "p50": 21929984,
+      "p95": 21929984,
+      "max": 21929984,
+      "mean": 21929984.0,
+      "first": 21929984,
+      "last": 21929984
+    },
+    "env.arch.cgroup.memory_swap_current_bytes": {
+      "count": 4,
+      "min": 0,
+      "p50": 0,
+      "p95": 0,
+      "max": 0,
+      "mean": 0.0,
+      "first": 0,
+      "last": 0
+    },
+    "env.arch.cgroup.pids_current": {
+      "count": 4,
+      "min": 2,
+      "p50": 5,
+      "p95": 5,
+      "max": 5,
+      "mean": 4.25,
+      "first": 5,
+      "last": 2
+    },
+    "env.arch.guest.fds": {
+      "count": 4,
+      "min": 0,
+      "p50": 10,
+      "p95": 10,
+      "max": 10,
+      "mean": 7.5,
+      "first": 10,
+      "last": 0
+    },
+    "env.arch.guest.pss_partial_bytes": {
+      "count": 4,
+      "min": 2620416,
+      "p50": 5642240,
+      "p95": 5642240,
+      "max": 5642240,
+      "mean": 4886784.0,
+      "first": 5642240,
+      "last": 2620416
+    },
+    "env.arch.guest.pss_unknown_count": {
+      "count": 4,
+      "min": 0,
+      "p50": 0,
+      "p95": 0,
+      "max": 0,
+      "mean": 0.0,
+      "first": 0,
+      "last": 0
+    },
+    "env.arch.guest.threads": {
+      "count": 4,
+      "min": 2,
+      "p50": 5,
+      "p95": 5,
+      "max": 5,
+      "mean": 4.25,
+      "first": 5,
+      "last": 2
+    },
+    "env.debian13.cgroup.memory_current_bytes": {
+      "count": 4,
+      "min": 12099584,
+      "p50": 12541952,
+      "p95": 13099008,
+      "max": 13099008,
+      "mean": 12685312.0,
+      "first": 13000704,
+      "last": 12099584
+    },
+    "env.debian13.cgroup.memory_peak_bytes": {
+      "count": 4,
+      "min": 15097856,
+      "p50": 15097856,
+      "p95": 15097856,
+      "max": 15097856,
+      "mean": 15097856.0,
+      "first": 15097856,
+      "last": 15097856
+    },
+    "env.debian13.cgroup.memory_swap_current_bytes": {
+      "count": 4,
+      "min": 0,
+      "p50": 0,
+      "p95": 0,
+      "max": 0,
+      "mean": 0.0,
+      "first": 0,
+      "last": 0
+    },
+    "env.debian13.cgroup.pids_current": {
+      "count": 4,
+      "min": 2,
+      "p50": 5,
+      "p95": 5,
+      "max": 5,
+      "mean": 4.25,
+      "first": 5,
+      "last": 2
+    },
+    "env.debian13.guest.fds": {
+      "count": 4,
+      "min": 0,
+      "p50": 10,
+      "p95": 10,
+      "max": 10,
+      "mean": 7.5,
+      "first": 10,
+      "last": 0
+    },
+    "env.debian13.guest.pss_partial_bytes": {
+      "count": 4,
+      "min": 1883136,
+      "p50": 2733056,
+      "p95": 2733056,
+      "max": 2733056,
+      "mean": 2520576.0,
+      "first": 2733056,
+      "last": 1883136
+    },
+    "env.debian13.guest.pss_unknown_count": {
+      "count": 4,
+      "min": 0,
+      "p50": 0,
+      "p95": 0,
+      "max": 0,
+      "mean": 0.0,
+      "first": 0,
+      "last": 0
+    },
+    "env.debian13.guest.threads": {
+      "count": 4,
+      "min": 2,
+      "p50": 5,
+      "p95": 5,
+      "max": 5,
+      "mean": 4.25,
+      "first": 5,
+      "last": 2
+    },
+    "env.fedora44.cgroup.memory_current_bytes": {
+      "count": 31,
+      "min": 561152,
+      "p50": 3850240,
+      "p95": 8548352,
+      "max": 8589312,
+      "mean": 4401614.452,
+      "first": 1495040,
+      "last": 561152
+    },
+    "env.fedora44.cgroup.memory_peak_bytes": {
+      "count": 31,
+      "min": 3514368,
+      "p50": 8736768,
+      "p95": 13619200,
+      "max": 13619200,
+      "mean": 8111797.677,
+      "first": 4190208,
+      "last": 5545984
+    },
+    "env.fedora44.cgroup.memory_swap_current_bytes": {
+      "count": 31,
+      "min": 0,
+      "p50": 0,
+      "p95": 0,
+      "max": 0,
+      "mean": 0.0,
+      "first": 0,
+      "last": 0
+    },
+    "env.fedora44.cgroup.pids_current": {
+      "count": 31,
+      "min": 2,
+      "p50": 8,
+      "p95": 26,
+      "max": 26,
+      "mean": 11.806,
+      "first": 5,
+      "last": 2
+    },
+    "env.fedora44.guest.fds": {
+      "count": 31,
+      "min": 0,
+      "p50": 20,
+      "p95": 80,
+      "max": 80,
+      "mean": 29.452,
+      "first": 10,
+      "last": 0
+    },
+    "env.fedora44.guest.pss_partial_bytes": {
+      "count": 31,
+      "min": 1981440,
+      "p50": 5325824,
+      "p95": 8363008,
+      "max": 8363008,
+      "mean": 5372762.839,
+      "first": 4803584,
+      "last": 1981440
+    },
+    "env.fedora44.guest.pss_unknown_count": {
+      "count": 31,
+      "min": 0,
+      "p50": 0,
+      "p95": 8,
+      "max": 8,
+      "mean": 1.0,
+      "first": 0,
+      "last": 0
+    },
+    "env.fedora44.guest.threads": {
+      "count": 31,
+      "min": 2,
+      "p50": 8,
+      "p95": 26,
+      "max": 26,
+      "mean": 10.742,
+      "first": 5,
+      "last": 2
+    },
+    "host.mem_available_bytes": {
+      "count": 68,
+      "min": 1737240576,
+      "p50": 2070593536,
+      "p95": 2176790528,
+      "max": 2243870720,
+      "mean": 2019259753.412,
+      "first": 2190692352,
+      "last": 2120257536
+    },
+    "host.processes.conmon.fds": {
+      "count": 31,
+      "min": 16,
+      "p50": 16,
+      "p95": 48,
+      "max": 48,
+      "mean": 20.129,
+      "first": 16,
+      "last": 48
+    },
+    "host.processes.conmon.pss_partial_bytes": {
+      "count": 31,
+      "min": 189440,
+      "p50": 308224,
+      "p95": 926720,
+      "max": 952320,
+      "mean": 387600.516,
+      "first": 357376,
+      "last": 952320
+    },
+    "host.processes.conmon.pss_unknown_count": {
+      "count": 31,
+      "min": 0,
+      "p50": 0,
+      "p95": 0,
+      "max": 0,
+      "mean": 0.0,
+      "first": 0,
+      "last": 0
+    },
+    "host.processes.conmon.threads": {
+      "count": 31,
+      "min": 1,
+      "p50": 1,
+      "p95": 3,
+      "max": 3,
+      "mean": 1.258,
+      "first": 1,
+      "last": 3
+    },
+    "host.processes.session-podman-proxy.fds": {
+      "count": 39,
+      "min": 9,
+      "p50": 38,
+      "p95": 104,
+      "max": 104,
+      "mean": 46.846,
+      "first": 12,
+      "last": 10
+    },
+    "host.processes.session-podman-proxy.pss_partial_bytes": {
+      "count": 39,
+      "min": 22951936,
+      "p50": 78807040,
+      "p95": 153525248,
+      "max": 153783296,
+      "mean": 82991839.179,
+      "first": 45039616,
+      "last": 22951936
+    },
+    "host.processes.session-podman-proxy.pss_unknown_count": {
+      "count": 39,
+      "min": 0,
+      "p50": 0,
+      "p95": 0,
+      "max": 1,
+      "mean": 0.026,
+      "first": 0,
+      "last": 1
+    },
+    "host.processes.session-podman-proxy.threads": {
+      "count": 39,
+      "min": 12,
+      "p50": 38,
+      "p95": 101,
+      "max": 101,
+      "mean": 46.615,
+      "first": 13,
+      "last": 13
+    },
+    "host.processes.session-worker.fds": {
+      "count": 43,
+      "min": 0,
+      "p50": 16,
+      "p95": 32,
+      "max": 34,
+      "mean": 16.163,
+      "first": 5,
+      "last": 0
+    },
+    "host.processes.session-worker.pss_partial_bytes": {
+      "count": 43,
+      "min": 0,
+      "p50": 53764096,
+      "p95": 116170752,
+      "max": 116171776,
+      "mean": 55448385.488,
+      "first": 15478784,
+      "last": 0
+    },
+    "host.processes.session-worker.pss_unknown_count": {
+      "count": 43,
+      "min": 0,
+      "p50": 0,
+      "p95": 1,
+      "max": 5,
+      "mean": 0.395,
+      "first": 0,
+      "last": 1
+    },
+    "host.processes.session-worker.threads": {
+      "count": 43,
+      "min": 0,
+      "p50": 4,
+      "p95": 8,
+      "max": 13,
+      "mean": 3.977,
+      "first": 1,
+      "last": 0
+    },
+    "host.psi_memory_full_avg10": {
+      "count": 68,
+      "min": 0.0,
+      "p50": 0.46,
+      "p95": 2.94,
+      "max": 3.37,
+      "mean": 0.963,
+      "first": 0.0,
+      "last": 0.11
+    },
+    "host.psi_memory_some_avg10": {
+      "count": 68,
+      "min": 0.0,
+      "p50": 0.54,
+      "p95": 3.66,
+      "max": 4.24,
+      "mean": 1.108,
+      "first": 0.0,
+      "last": 0.12
+    },
+    "host.sample_duration_ns": {
+      "count": 68,
+      "min": 49890489,
+      "p50": 82017462,
+      "p95": 381554564,
+      "max": 458742234,
+      "mean": 143026581.147,
+      "first": 215812192,
+      "last": 237024326
+    },
+    "host.swap_free_bytes": {
+      "count": 68,
+      "min": 18650693632,
+      "p50": 18715521024,
+      "p95": 18750582784,
+      "max": 18769637376,
+      "mean": 18703658044.235,
+      "first": 18732675072,
+      "last": 18678239232
+    }
+  },
+  "coverage": {
+    "debian13": {
+      "samples": 68,
+      "running": 4,
+      "cgroup_present": 4,
+      "guest_pss_complete": 4,
+      "guest_pss_partial": 0,
+      "guest_pss_unknown": 64
+    },
+    "fedora44": {
+      "samples": 68,
+      "running": 31,
+      "cgroup_present": 31,
+      "guest_pss_complete": 25,
+      "guest_pss_partial": 6,
+      "guest_pss_unknown": 37
+    },
+    "arch": {
+      "samples": 68,
+      "running": 4,
+      "cgroup_present": 4,
+      "guest_pss_complete": 4,
+      "guest_pss_partial": 0,
+      "guest_pss_unknown": 64
+    }
+  },
+  "errors": [],
+  "notes": [
+    "PSS sums are only meaningful when pss_complete is true.",
+    "Partial PSS coverage is reported as partial, not as zero usage.",
+    "cgroup memory.current is the guest charge and is not added to host PSS.",
+    "UNKNOWN means the kernel/runtime denied or removed an observable."
+  ],
+  "close_reason": "probe exiting",
+  "abort": {
+    "aborted": false,
+    "reason": null
+  },
+  "sampling": {
+    "interval_seconds": 1.0,
+    "sample_count": 68,
+    "mean_sample_duration_ms": 143.027,
+    "note": "Timed command paths pause this sampler where possible; the sampler itself only reads /proc and cgroup files."
+  }
+}

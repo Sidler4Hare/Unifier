@@ -1,0 +1,14 @@
+{
+  "inode_notification_protocol": {
+    "header": "unique=0; error=+2 (FUSE_NOTIFY_INVAL_INODE)",
+    "payload": "struct <Qqq> ino/off/len; off=0,len=0 invalidates all pages",
+    "local_reference": "/usr/include/linux/fuse.h:673,1075"
+  },
+  "references": [
+    "https://libfuse.github.io/doxygen/fuse__lowlevel_8h.html",
+    "https://www.kernel.org/doc/html/next/filesystems/fuse-io.html",
+    "https://raw.githubusercontent.com/torvalds/linux/master/fs/fuse/inode.c"
+  ],
+  "scope_note": "readonly pages have no writeback; inode cache invalidation does not claim delivery of external modification inotify events",
+  "absent_inode_note": "fuse_reverse_inval_inode ENOENT means fuse_ilookup found no inode; distinguish from actual invalidation write failures."
+}

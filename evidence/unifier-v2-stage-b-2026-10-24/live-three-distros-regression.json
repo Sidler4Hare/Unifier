@@ -1,0 +1,77 @@
+{
+  "scope": "v2 identity and read-only FileRef on one host; no GUI or file transfer",
+  "targets": {
+    "debian13": {
+      "locked_reference": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "created_identity": "1308d81b-a2ae-498e-a725-db195d6f8bbb",
+      "repeated_exec_same_container": true,
+      "exit_code_17_preserved": true,
+      "share_label_policy": "preserve-host",
+      "migration": {
+        "no_runtime_mutation": true,
+        "exact_backup": true,
+        "idempotent": true,
+        "inventory_preserved": true,
+        "container_id_preserved": true
+      },
+      "stale_binding_error": "application binding is stale: the environment UUID was replaced; re-register the application explicitly",
+      "replacement_has_new_uuid": true,
+      "stale_binding_zero_mutations": true,
+      "data_root_survives_environment_removal": true,
+      "file_ref_observed": true,
+      "temporary_containers_removed": true
+    },
+    "fedora44": {
+      "locked_reference": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "created_identity": "b08f413b-929f-4eb0-97c4-0a5f670a2f5c",
+      "repeated_exec_same_container": true,
+      "exit_code_17_preserved": true,
+      "share_label_policy": "preserve-host",
+      "migration": {
+        "no_runtime_mutation": true,
+        "exact_backup": true,
+        "idempotent": true,
+        "inventory_preserved": true,
+        "container_id_preserved": true
+      },
+      "stale_binding_error": "application binding is stale: the environment UUID was replaced; re-register the application explicitly",
+      "replacement_has_new_uuid": true,
+      "stale_binding_zero_mutations": true,
+      "data_root_survives_environment_removal": true,
+      "file_ref_observed": true,
+      "temporary_containers_removed": true
+    },
+    "arch": {
+      "locked_reference": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "created_identity": "6cc46019-c178-4c8f-b8c6-c8dc5d789a04",
+      "repeated_exec_same_container": true,
+      "exit_code_17_preserved": true,
+      "share_label_policy": "preserve-host",
+      "migration": {
+        "no_runtime_mutation": true,
+        "exact_backup": true,
+        "idempotent": true,
+        "inventory_preserved": true,
+        "container_id_preserved": true
+      },
+      "stale_binding_error": "application binding is stale: the environment UUID was replaced; re-register the application explicitly",
+      "replacement_has_new_uuid": true,
+      "stale_binding_zero_mutations": true,
+      "data_root_survives_environment_removal": true,
+      "file_ref_observed": true,
+      "temporary_containers_removed": true
+    }
+  },
+  "passed": true,
+  "source_sha256": {
+    "src/multilinux/service.py": "cc11692eccf685255f7d224709a7bff6c45bb08abeef0db08b99d95e1ebe0b9f",
+    "src/multilinux/identity.py": "184f7fe3c3449b8f230b7a9615caacb0be1bbc9d6905150dbf85011789331c8f",
+    "src/multilinux/store.py": "7a386a46239fcd010aa700f0454bf3929ffc27758ed1f8a17ea5e5d2c2f2b7dd",
+    "src/multilinux/catalog.py": "a2704215ff0c3b04fe71b341eca876817888ffce8a51adf1779b67c407cab089",
+    "src/multilinux/runtime.py": "b274a50b61e46bc7dc5696571451c44330f05872724b3fd118a3559f2133f42a",
+    "src/multilinux/share_label.py": "dfd46c05c3d9d5d7239163b68c5284215833c885c3612d9d868b30b958979aee",
+    "src/multilinux/control.py": "8c72e1601f9a640d2a432d675fc9954e26ed87ae91f1dc274edfb69e9fb515c1",
+    "src/multilinux/registry.py": "b163d0c885a1cb9d3164c35cca8fc6fe0fb045b22ae4f0444524e075902aca43"
+  },
+  "source_unchanged_during_run": true
+}

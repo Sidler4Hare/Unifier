@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "operation": "file.plan",
+  "intent": "edit",
+  "provider": "environment-app",
+  "handler_uuid": "66a2dcbc-c748-488b-9a20-6374616d4ade",
+  "handler_alias": "freecad-edit",
+  "project_uuid": "bcab01e6-aca8-47c6-8dfe-c88f36793bf8",
+  "project_alias": "cad-project",
+  "root_uuid": "688f0377-04f1-41fa-babb-7bee1d42c1e9",
+  "environment_id": "v2-freecad",
+  "environment_uuid": "2a27a2ab-5a13-4b81-9c04-138d0754afbb",
+  "generation": 1,
+  "container_id": "4b914a65c295d2ecf3ea3ec4f07955e500c548f3012192b5b743bae097c0c14a",
+  "app_id": "freecad-b",
+  "app_instance_uuid": "21618057-9962-453a-a770-2ed1458cc22a",
+  "execution_fingerprint": "759df9dfd5721a2def582709f39682d4138814f62416b5a6ce149919304ee182",
+  "environment_binding": {
+    "environment_id": "v2-freecad",
+    "environment_uuid": "2a27a2ab-5a13-4b81-9c04-138d0754afbb",
+    "generation": 1,
+    "container_id": "4b914a65c295d2ecf3ea3ec4f07955e500c548f3012192b5b743bae097c0c14a"
+  },
+  "file_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project/宿主原件.FCStd",
+  "relative_path": "宿主原件.FCStd",
+  "observed_version": {
+    "dev": 53,
+    "ino": 3169317,
+    "mode": 33188,
+    "nlink": 1,
+    "uid": 1000,
+    "gid": 1000,
+    "size": 7532,
+    "mtime": 1792764934.4243505,
+    "ctime": 1792808309.158412,
+    "mtime_ns": 1792764934424350395,
+    "ctime_ns": 1792808309158411921,
+    "file_type": "regular"
+  },
+  "role": "document",
+  "argv": [
+    "/usr/bin/FreeCAD",
+    "-u",
+    "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project/control/freecad-test.cfg",
+    "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project/control/gui-control.FCMacro",
+    "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project/宿主原件.FCStd"
+  ],
+  "cwd": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+  "default_save_root": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+  "save_capability": "explicit-path",
+  "save_as_default": "unknown",
+  "default_save_enforced": false,
+  "save_as_default_note": "cwd is set to the project default; application new-file Save As default is not verified by this plan",
+  "root_access_policy": "read-write",
+  "project_access_policy": "read-write",
+  "access_scope": {
+    "mode": "environment-shared-static-mounts",
+    "project_root": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+    "file_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project/宿主原件.FCStd",
+    "cwd": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+    "mappings": {
+      "project_root": {
+        "path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+        "mount": {
+          "host": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+          "container": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+          "options": "",
+          "same_absolute_path": true
+        },
+        "expected_host": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+        "same_host_object": true
+      },
+      "file": {
+        "path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project/宿主原件.FCStd",
+        "mount": {
+          "host": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+          "container": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+          "options": "",
+          "same_absolute_path": true
+        },
+        "expected_host": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project/宿主原件.FCStd",
+        "same_host_object": true
+      },
+      "cwd": {
+        "path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+        "mount": {
+          "host": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+          "container": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+          "options": "",
+          "same_absolute_path": true
+        },
+        "expected_host": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+        "same_host_object": true
+      }
+    },
+    "selected_mount": {
+      "host": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+      "container": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+      "options": "",
+      "same_absolute_path": true
+    },
+    "used_mounts": [
+      {
+        "host": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+        "container": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+        "options": "",
+        "same_absolute_path": true
+      }
+    ],
+    "shared_mounts": [
+      {
+        "host": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+        "container": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+        "options": "",
+        "same_absolute_path": true
+      }
+    ],
+    "runtime_read_only": false,
+    "any_used_mount_read_only": false,
+    "policy_enforcement": "routing-only",
+    "policy_note": "read-only is a routing decision; without an OS-level read-only mount it is not a filesystem write guarantee",
+    "warning": "All applications in this environment share every static mount. This route is not per-file or per-application isolation."
+  },
+  "file_ref": {
+    "schema_version": 1,
+    "root_uuid": "688f0377-04f1-41fa-babb-7bee1d42c1e9",
+    "management_domain": "host-project",
+    "backend": "local-directory",
+    "access_policy": "read-write",
+    "relative_path": "宿主原件.FCStd",
+    "role": "document",
+    "observed_version": {
+      "dev": 53,
+      "ino": 3169317,
+      "mode": 33188,
+      "nlink": 1,
+      "uid": 1000,
+      "gid": 1000,
+      "size": 7532,
+      "mtime": 1792764934.4243505,
+      "ctime": 1792808309.158412,
+      "mtime_ns": 1792764934424350395,
+      "ctime_ns": 1792808309158411921,
+      "file_type": "regular"
+    },
+    "capabilities": {
+      "observe": true,
+      "read": false,
+      "write": false,
+      "read_content": false,
+      "write_content": false,
+      "create": false,
+      "delete": false,
+      "copy": false,
+      "move": false,
+      "execute": false
+    },
+    "implemented_operations": [
+      "observe"
+    ],
+    "execution": {
+      "interpreter": null,
+      "environment": null,
+      "note": "role and management domain do not select executable context"
+    }
+  },
+  "execution": {
+    "mode": "argv-array",
+    "shell": false,
+    "on_demand": true,
+    "revalidate_on_open": true
+  }
+}

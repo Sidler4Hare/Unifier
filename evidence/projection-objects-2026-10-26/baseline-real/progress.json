@@ -1,0 +1,110 @@
+{
+  "source": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/projection-objects-20261026/baseline/src",
+  "scope": "real kernel FUSE, isolated local backends",
+  "cases": [
+    {
+      "name": "replace-32-128-primed-False",
+      "passed": false,
+      "error": "AssertionError({'old_size': 32, 'new_size': 128, 'primed': False, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223540, 'new_ino': 223540, 'held_stat_size': 32})",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 379, in <lambda>\n    cases = [(f'replace-{a}-{b}-primed-{c}', lambda f, a=a,b=b,c=c: replace_case(f,a,b,c))\n                                                                    ~~~~~~~~~~~~^^^^^^^^^\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 141, in replace_case\n    assert fresh == new, observed\n           ^^^^^^^^^^^^\nAssertionError: {'old_size': 32, 'new_size': 128, 'primed': False, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223540, 'new_ino': 223540, 'held_stat_size': 32}\n"
+    },
+    {
+      "name": "replace-32-128-primed-True",
+      "passed": false,
+      "error": "AssertionError({'old_size': 32, 'new_size': 128, 'primed': True, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223542, 'new_ino': 223542, 'held_stat_size': 32})",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 379, in <lambda>\n    cases = [(f'replace-{a}-{b}-primed-{c}', lambda f, a=a,b=b,c=c: replace_case(f,a,b,c))\n                                                                    ~~~~~~~~~~~~^^^^^^^^^\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 141, in replace_case\n    assert fresh == new, observed\n           ^^^^^^^^^^^^\nAssertionError: {'old_size': 32, 'new_size': 128, 'primed': True, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223542, 'new_ino': 223542, 'held_stat_size': 32}\n"
+    },
+    {
+      "name": "replace-128-32-primed-False",
+      "passed": false,
+      "error": "AssertionError({'old_size': 128, 'new_size': 32, 'primed': False, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223544, 'new_ino': 223544, 'held_stat_size': 32})",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 379, in <lambda>\n    cases = [(f'replace-{a}-{b}-primed-{c}', lambda f, a=a,b=b,c=c: replace_case(f,a,b,c))\n                                                                    ~~~~~~~~~~~~^^^^^^^^^\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 142, in replace_case\n    assert held == os.pread(host, old_size + new_size + 1024, 0) == old, observed\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'old_size': 128, 'new_size': 32, 'primed': False, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223544, 'new_ino': 223544, 'held_stat_size': 32}\n"
+    },
+    {
+      "name": "replace-128-32-primed-True",
+      "passed": false,
+      "error": "AssertionError({'old_size': 128, 'new_size': 32, 'primed': True, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223546, 'new_ino': 223546, 'held_stat_size': 32})",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 379, in <lambda>\n    cases = [(f'replace-{a}-{b}-primed-{c}', lambda f, a=a,b=b,c=c: replace_case(f,a,b,c))\n                                                                    ~~~~~~~~~~~~^^^^^^^^^\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 142, in replace_case\n    assert held == os.pread(host, old_size + new_size + 1024, 0) == old, observed\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'old_size': 128, 'new_size': 32, 'primed': True, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223546, 'new_ino': 223546, 'held_stat_size': 32}\n"
+    },
+    {
+      "name": "replace-32-32-primed-False",
+      "passed": false,
+      "error": "AssertionError({'old_size': 32, 'new_size': 32, 'primed': False, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223548, 'new_ino': 223548, 'held_stat_size': 32})",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 379, in <lambda>\n    cases = [(f'replace-{a}-{b}-primed-{c}', lambda f, a=a,b=b,c=c: replace_case(f,a,b,c))\n                                                                    ~~~~~~~~~~~~^^^^^^^^^\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 142, in replace_case\n    assert held == os.pread(host, old_size + new_size + 1024, 0) == old, observed\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'old_size': 32, 'new_size': 32, 'primed': False, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223548, 'new_ino': 223548, 'held_stat_size': 32}\n"
+    },
+    {
+      "name": "replace-32-32-primed-True",
+      "passed": false,
+      "error": "AssertionError({'old_size': 32, 'new_size': 32, 'primed': True, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223550, 'new_ino': 223550, 'held_stat_size': 32})",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 379, in <lambda>\n    cases = [(f'replace-{a}-{b}-primed-{c}', lambda f, a=a,b=b,c=c: replace_case(f,a,b,c))\n                                                                    ~~~~~~~~~~~~^^^^^^^^^\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 142, in replace_case\n    assert held == os.pread(host, old_size + new_size + 1024, 0) == old, observed\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'old_size': 32, 'new_size': 32, 'primed': True, 'new_read_size': 32, 'held_read_size': 32, 'old_ino': 223550, 'new_ino': 223550, 'held_stat_size': 32}\n"
+    },
+    {
+      "name": "unlink",
+      "passed": false,
+      "error": "AssertionError()",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 158, in unlink_case\n    assert not (f.view / p.name).exists()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "name": "hardlinks",
+      "passed": true,
+      "data": {
+        "alias_identity": true,
+        "independent_file_offsets": true
+      }
+    },
+    {
+      "name": "inplace",
+      "passed": false,
+      "error": "AssertionError((32, 32, 128))",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 200, in inplace_case\n    assert st.st_size == len(data) and read == data, (st.st_size, len(read), len(data))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (32, 32, 128)\n"
+    },
+    {
+      "name": "mmap",
+      "passed": false,
+      "error": "AssertionError()",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 221, in mmap_case\n    assert new[:] == b'B' * 16384\n           ^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "name": "topology",
+      "passed": false,
+      "error": "FileNotFoundError(2, 'No such file or directory')",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 231, in topology_case\n    assert (f.view / 'missing/anc/child/mounted.txt').read_bytes() == b'MOUNTED'\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib64/python3.14/pathlib/__init__.py\", line 777, in read_bytes\n    with self.open(mode='rb', buffering=0) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib64/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/unifier-object-kaz0bkfr/view/missing/anc/child/mounted.txt'\n"
+    },
+    {
+      "name": "directory-pagination",
+      "passed": false,
+      "error": "AssertionError(['.', '..', 'a', 'b', 'd', 'z'])",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 277, in directory_case\n    assert all(names.count(n) == 1 for n in ('b', 'c', 'd')), names\n           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ['.', '..', 'a', 'b', 'd', 'z']\n"
+    },
+    {
+      "name": "directory-identity",
+      "passed": false,
+      "error": "AssertionError()",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 303, in directory_identity_case\n    assert os.read(child, 999) == b'original-dir'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "name": "readonly",
+      "passed": true,
+      "data": {
+        "erofs": true
+      }
+    },
+    {
+      "name": "resources",
+      "passed": false,
+      "error": "AssertionError()",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 387, in main\n    data = call(fixture)\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/real_fuse_probe.py\", line 338, in resource_case\n    assert not (f.view / q.name).exists()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+  ],
+  "started_at": 1793024084.6878364,
+  "initial_status": {
+    "ok": true,
+    "view_uuid": "ac963116-0098-4d40-8605-830ed25cb249",
+    "mountpoint": "/tmp/unifier-object-kaz0bkfr/view",
+    "worker_pid": 742358,
+    "worker_stamp": 30575683,
+    "initialized": true,
+    "readonly": true,
+    "allow_other": false
+  }
+}

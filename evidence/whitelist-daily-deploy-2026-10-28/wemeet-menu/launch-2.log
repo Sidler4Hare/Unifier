@@ -1,0 +1,14 @@
+wemeet:WemeetSatrt
+libpng warning: tRNS: invalid with alpha channel
+2026-10-28 12:47:19|140442886781696|xnn.XNNHandleMonitor|xnnhandlemonitor.cpp:35||regist handle,type:0 handle:906206288
+2026-10-28 12:47:19|140442886781696|xnn.XNNRTResource|xnnrtresource.cpp:20||the acc thread cnt is 0
+2026-10-28 12:47:19|140442886781696|xnn.XNNContext|xnncontext.cpp:99||init xnn context succ
+2026-10-28 12:47:19|140442886781696|XNNReg|xnnlayerreg.cpp:866||layer map inited
+2026-10-28 12:47:19|140442886781696|xnn.XNNHandleMonitor|xnnhandlemonitor.cpp:35||regist handle,type:0 handle:906207488
+2026-10-28 12:47:19|140442886781696|xnn.XNNRTResource|xnnrtresource.cpp:20||the acc thread cnt is 0
+2026-10-28 12:47:19|140442886781696|xnn.XNNContext|xnncontext.cpp:99||init xnn context succ
+2026-10-28 12:47:19|140442886781696|XNNReg|xnnlayerreg.cpp:866||layer map inited
+2026-10-28 12:47:19|140442886781696|xnn.XNNHandleMonitor|xnnhandlemonitor.cpp:35||regist handle,type:0 handle:906209072
+2026-10-28 12:47:19|140442886781696|xnn.XNNRTResource|xnnrtresource.cpp:20||the acc thread cnt is 0
+2026-10-28 12:47:19|140442886781696|xnn.XNNContext|xnncontext.cpp:99||init xnn context succ
+wemeet:WemeetStop

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mime-type xmlns="http://www.freedesktop.org/standards/shared-mime-info" type="application/x-multilinux-eprobe-2d1f3e3c">
+  <!--Created automatically by update-mime-database. DO NOT EDIT!-->
+  <comment>Multilinux note</comment>
+  <glob pattern="*.e2d1f3e3c"/>
+  <glob pattern="*.e2d1f3e3c"/>
+</mime-type>

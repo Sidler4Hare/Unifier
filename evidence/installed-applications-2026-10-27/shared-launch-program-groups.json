@@ -1,0 +1,865 @@
+[
+  {
+    "program": "/usr/bin/python3.14",
+    "rpm_owners": [],
+    "entries": [
+      {
+        "id": "unifier-freecad.desktop",
+        "name": "FreeCAD",
+        "exec": "/usr/bin/python3 /home/omg/.local/share/multilinux/apps/freecad/tools/ml.py app open freecad --",
+        "no_display": false
+      },
+      {
+        "id": "wemeetapp.desktop",
+        "name": "腾讯会议",
+        "exec": "/usr/bin/python3 /home/omg/.local/share/multilinux/apps/wemeet/tools/ml.py app open wemeet --project f5840b15-a892-4fd2-92ae-545936a99410 --integration 4163d856-5b6d-4e5d-a59b-c447b2ede08d --app-instance ef419e86-cb15-4589-b5fa-468bf8c624d6 --execution-fingerprint de2811d98abe8b336e217de159e602ea9db3792cfdafee180db7477a6a252ad6 --",
+        "no_display": false
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/flatpak",
+    "rpm_owners": [],
+    "entries": [
+      {
+        "id": "com.moonlight_stream.Moonlight.desktop",
+        "name": "Moonlight",
+        "exec": "/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=moonlight com.moonlight_stream.Moonlight",
+        "no_display": false
+      },
+      {
+        "id": "com.valvesoftware.Steam.desktop",
+        "name": "Steam",
+        "exec": "/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam --file-forwarding com.valvesoftware.Steam @@u %U @@",
+        "no_display": false
+      },
+      {
+        "id": "org.waywallen.waywallen.desktop",
+        "name": "Waywallen",
+        "exec": "/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=waywallen org.waywallen.waywallen",
+        "no_display": false
+      },
+      {
+        "id": "org.winehq.Wine.desktop",
+        "name": "Wine Windows Program Loader",
+        "exec": "/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=wine --file-forwarding org.winehq.Wine start /unix @@ %f @@",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/kcmshell6",
+    "rpm_owners": [
+      "plasma-breeze"
+    ],
+    "entries": [
+      {
+        "id": "breezestyleconfig.desktop",
+        "name": "Breeze Widget Style",
+        "exec": "kcmshell6 breezestyleconfig",
+        "no_display": true
+      },
+      {
+        "id": "kcm_breezedecoration.desktop",
+        "name": "Breeze Window Decoration",
+        "exec": "kcmshell6 kcm_breezedecoration",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/kde-geo-uri-handler",
+    "rpm_owners": [
+      "kf6-kguiaddons"
+    ],
+    "entries": [
+      {
+        "id": "cartes-geo-handler.desktop",
+        "name": "Cartes",
+        "exec": "kde-geo-uri-handler --coordinate-template \"https://cartes.app/?geo=<URI>\" --query-template \"https://cartes.app/?geo=<URI>\" --fallback \"https://cartes.app\" %u",
+        "no_display": true
+      },
+      {
+        "id": "google-maps-geo-handler.desktop",
+        "name": "Google Maps",
+        "exec": "kde-geo-uri-handler --coordinate-template \"https://www.google.com/maps/@<LAT>,<LON>,<Z>z\" --query-template \"https://www.google.com/maps/search/<Q>\" --fallback \"https://www.google.com/maps/\" %u",
+        "no_display": true
+      },
+      {
+        "id": "openstreetmap-geo-handler.desktop",
+        "name": "OpenStreetMap",
+        "exec": "kde-geo-uri-handler --coordinate-template \"https://www.openstreetmap.org/#map=<Z>/<LAT>/<LON>\" --query-template \"https://www.openstreetmap.org/search?query=<Q>\" --fallback \"https://www.openstreetmap.org\" %u",
+        "no_display": true
+      },
+      {
+        "id": "wheelmap-geo-handler.desktop",
+        "name": "wheelmap.org",
+        "exec": "kde-geo-uri-handler --coordinate-template \"https://wheelmap.org/?lat=<LAT>&lon=<LON>\" --query-template \"https://wheelmap.org/search?q=<Q>\" --fallback \"https://wheelmap.org\" %u",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/share/code/code",
+    "rpm_owners": [
+      "code"
+    ],
+    "entries": [
+      {
+        "id": "code-url-handler.desktop",
+        "name": "Visual Studio Code - URL Handler",
+        "exec": "/usr/share/code/code --open-url %U",
+        "no_display": true
+      },
+      {
+        "id": "code.desktop",
+        "name": "Visual Studio Code",
+        "exec": "/usr/share/code/code %F",
+        "no_display": false
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/opt/google/chrome/google-chrome",
+    "rpm_owners": [
+      "google-chrome-stable"
+    ],
+    "entries": [
+      {
+        "id": "com.google.Chrome.desktop",
+        "name": "Google Chrome",
+        "exec": "/usr/bin/google-chrome-stable %U",
+        "no_display": true
+      },
+      {
+        "id": "google-chrome.desktop",
+        "name": "Google Chrome",
+        "exec": "/usr/bin/google-chrome-stable %U",
+        "no_display": false
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/libexec/ibus-setup-libpinyin",
+    "rpm_owners": [
+      "ibus-libpinyin"
+    ],
+    "entries": [
+      {
+        "id": "ibus-setup-libbopomofo.desktop",
+        "name": "IBus LibBopomofo Preferences",
+        "exec": "/usr/libexec/ibus-setup-libpinyin libbopomofo",
+        "no_display": true
+      },
+      {
+        "id": "ibus-setup-libpinyin.desktop",
+        "name": "IBus LibPinyin Setup",
+        "exec": "/usr/libexec/ibus-setup-libpinyin libpinyin",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/libexec/ibus-setup-typing-booster",
+    "rpm_owners": [
+      "ibus-typing-booster"
+    ],
+    "entries": [
+      {
+        "id": "ibus-setup-tb.desktop",
+        "name": "Typing Booster Preferences",
+        "exec": "/usr/libexec/ibus-setup-typing-booster",
+        "no_display": true
+      },
+      {
+        "id": "ibus-setup-typing-booster.desktop",
+        "name": "Typing Booster Preferences",
+        "exec": "/usr/libexec/ibus-setup-typing-booster",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/systemsettings",
+    "rpm_owners": [
+      "kinfocenter"
+    ],
+    "entries": [
+      {
+        "id": "kcm_about-distro.desktop",
+        "name": "About this System",
+        "exec": "systemsettings kcm_about-distro",
+        "no_display": true
+      },
+      {
+        "id": "org.kde.kinfocenter.desktop",
+        "name": "Info Center",
+        "exec": "kinfocenter",
+        "no_display": false
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/systemsettings",
+    "rpm_owners": [
+      "plasma-desktop"
+    ],
+    "entries": [
+      {
+        "id": "kcm_access.desktop",
+        "name": "Accessibility",
+        "exec": "systemsettings kcm_access",
+        "no_display": true
+      },
+      {
+        "id": "kcm_activities.desktop",
+        "name": "Activities",
+        "exec": "systemsettings kcm_activities",
+        "no_display": true
+      },
+      {
+        "id": "kcm_baloofile.desktop",
+        "name": "File Search",
+        "exec": "systemsettings kcm_baloofile",
+        "no_display": true
+      },
+      {
+        "id": "kcm_clock.desktop",
+        "name": "Date & Time",
+        "exec": "systemsettings kcm_clock",
+        "no_display": true
+      },
+      {
+        "id": "kcm_desktoppaths.desktop",
+        "name": "Locations",
+        "exec": "systemsettings kcm_desktoppaths",
+        "no_display": true
+      },
+      {
+        "id": "kcm_gamecontroller.desktop",
+        "name": "Game Controller",
+        "exec": "systemsettings kcm_gamecontroller",
+        "no_display": true
+      },
+      {
+        "id": "kcm_keyboard.desktop",
+        "name": "Keyboard",
+        "exec": "systemsettings kcm_keyboard",
+        "no_display": true
+      },
+      {
+        "id": "kcm_keys.desktop",
+        "name": "Shortcuts",
+        "exec": "systemsettings kcm_keys",
+        "no_display": true
+      },
+      {
+        "id": "kcm_landingpage.desktop",
+        "name": "Quick Settings",
+        "exec": "systemsettings kcm_landingpage",
+        "no_display": true
+      },
+      {
+        "id": "kcm_mouse.desktop",
+        "name": "Mouse",
+        "exec": "systemsettings kcm_mouse",
+        "no_display": true
+      },
+      {
+        "id": "kcm_plasmasearch.desktop",
+        "name": "Plasma Search",
+        "exec": "systemsettings kcm_plasmasearch",
+        "no_display": true
+      },
+      {
+        "id": "kcm_recentFiles.desktop",
+        "name": "Recent Files",
+        "exec": "systemsettings kcm_recentFiles",
+        "no_display": true
+      },
+      {
+        "id": "kcm_smserver.desktop",
+        "name": "Desktop Session",
+        "exec": "systemsettings kcm_smserver",
+        "no_display": true
+      },
+      {
+        "id": "kcm_solid_actions.desktop",
+        "name": "Device Actions",
+        "exec": "systemsettings kcm_solid_actions",
+        "no_display": true
+      },
+      {
+        "id": "kcm_splashscreen.desktop",
+        "name": "Splash Screen",
+        "exec": "systemsettings kcm_splashscreen",
+        "no_display": true
+      },
+      {
+        "id": "kcm_tablet.desktop",
+        "name": "Drawing Tablet",
+        "exec": "systemsettings kcm_tablet",
+        "no_display": true
+      },
+      {
+        "id": "kcm_touchpad.desktop",
+        "name": "Touchpad",
+        "exec": "systemsettings kcm_touchpad",
+        "no_display": true
+      },
+      {
+        "id": "kcm_touchscreen.desktop",
+        "name": "Touchscreen",
+        "exec": "systemsettings kcm_touchscreen",
+        "no_display": true
+      },
+      {
+        "id": "kcm_workspace.desktop",
+        "name": "General Behavior",
+        "exec": "systemsettings kcm_workspace",
+        "no_display": true
+      },
+      {
+        "id": "kcmspellchecking.desktop",
+        "name": "Spell Check",
+        "exec": "systemsettings kcmspellchecking",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/systemsettings",
+    "rpm_owners": [
+      "kwin-common"
+    ],
+    "entries": [
+      {
+        "id": "kcm_animations.desktop",
+        "name": "Animations",
+        "exec": "systemsettings kcm_animations",
+        "no_display": true
+      },
+      {
+        "id": "kcm_kwin_effects.desktop",
+        "name": "Desktop Effects",
+        "exec": "systemsettings kcm_kwin_effects",
+        "no_display": true
+      },
+      {
+        "id": "kcm_kwin_scripts.desktop",
+        "name": "KWin Scripts",
+        "exec": "systemsettings kcm_kwin_scripts",
+        "no_display": true
+      },
+      {
+        "id": "kcm_kwin_virtualdesktops.desktop",
+        "name": "Virtual Desktops",
+        "exec": "systemsettings kcm_kwin_virtualdesktops",
+        "no_display": true
+      },
+      {
+        "id": "kcm_kwindecoration.desktop",
+        "name": "Window Decorations",
+        "exec": "systemsettings kcm_kwindecoration",
+        "no_display": true
+      },
+      {
+        "id": "kcm_kwinoptions.desktop",
+        "name": "Window Behavior",
+        "exec": "systemsettings kcm_kwinoptions",
+        "no_display": true
+      },
+      {
+        "id": "kcm_kwinrules.desktop",
+        "name": "Window Rules",
+        "exec": "systemsettings kcm_kwinrules",
+        "no_display": true
+      },
+      {
+        "id": "kcm_kwintabbox.desktop",
+        "name": "Task Switcher",
+        "exec": "systemsettings kcm_kwintabbox",
+        "no_display": true
+      },
+      {
+        "id": "kcm_kwinxwayland.desktop",
+        "name": "Legacy X11 App Support",
+        "exec": "systemsettings kcm_kwinxwayland",
+        "no_display": true
+      },
+      {
+        "id": "kcm_virtualkeyboard.desktop",
+        "name": "Virtual Keyboard",
+        "exec": "systemsettings kcm_virtualkeyboard",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/systemsettings",
+    "rpm_owners": [
+      "plasma-workspace"
+    ],
+    "entries": [
+      {
+        "id": "kcm_autostart.desktop",
+        "name": "Autostart",
+        "exec": "systemsettings kcm_autostart",
+        "no_display": true
+      },
+      {
+        "id": "kcm_colors.desktop",
+        "name": "Colors",
+        "exec": "systemsettings kcm_colors",
+        "no_display": true
+      },
+      {
+        "id": "kcm_componentchooser.desktop",
+        "name": "Default Applications",
+        "exec": "systemsettings kcm_componentchooser",
+        "no_display": true
+      },
+      {
+        "id": "kcm_cursortheme.desktop",
+        "name": "Pointers",
+        "exec": "systemsettings kcm_cursortheme",
+        "no_display": true
+      },
+      {
+        "id": "kcm_desktoptheme.desktop",
+        "name": "Plasma Style",
+        "exec": "systemsettings kcm_desktoptheme",
+        "no_display": true
+      },
+      {
+        "id": "kcm_feedback.desktop",
+        "name": "User Feedback",
+        "exec": "systemsettings kcm_feedback",
+        "no_display": true
+      },
+      {
+        "id": "kcm_fontinst.desktop",
+        "name": "Font Management",
+        "exec": "systemsettings kcm_fontinst",
+        "no_display": true
+      },
+      {
+        "id": "kcm_fonts.desktop",
+        "name": "Fonts",
+        "exec": "systemsettings kcm_fonts",
+        "no_display": true
+      },
+      {
+        "id": "kcm_icons.desktop",
+        "name": "Icons",
+        "exec": "systemsettings kcm_icons",
+        "no_display": true
+      },
+      {
+        "id": "kcm_lookandfeel.desktop",
+        "name": "Global Theme",
+        "exec": "systemsettings kcm_lookandfeel",
+        "no_display": true
+      },
+      {
+        "id": "kcm_nightlight.desktop",
+        "name": "Night Light",
+        "exec": "systemsettings kcm_nightlight",
+        "no_display": true
+      },
+      {
+        "id": "kcm_nighttime.desktop",
+        "name": "Day-Night Cycle",
+        "exec": "systemsettings kcm_nighttime",
+        "no_display": true
+      },
+      {
+        "id": "kcm_notifications.desktop",
+        "name": "Notifications",
+        "exec": "systemsettings kcm_notifications",
+        "no_display": true
+      },
+      {
+        "id": "kcm_regionandlang.desktop",
+        "name": "Region & Language",
+        "exec": "systemsettings kcm_regionandlang",
+        "no_display": true
+      },
+      {
+        "id": "kcm_soundtheme.desktop",
+        "name": "System Sounds",
+        "exec": "systemsettings kcm_soundtheme",
+        "no_display": true
+      },
+      {
+        "id": "kcm_style.desktop",
+        "name": "Application Style",
+        "exec": "systemsettings kcm_style",
+        "no_display": true
+      },
+      {
+        "id": "kcm_users.desktop",
+        "name": "Users",
+        "exec": "systemsettings kcm_users",
+        "no_display": true
+      },
+      {
+        "id": "kcm_wallpaper.desktop",
+        "name": "Wallpaper",
+        "exec": "systemsettings kcm_wallpaper",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/systemsettings",
+    "rpm_owners": [
+      "plasma-nm"
+    ],
+    "entries": [
+      {
+        "id": "kcm_cellular_network.desktop",
+        "name": "Cellular Network",
+        "exec": "systemsettings kcm_cellular_network",
+        "no_display": true
+      },
+      {
+        "id": "kcm_mobile_hotspot.desktop",
+        "name": "Hotspot",
+        "exec": "systemsettings kcm_mobile_hotspot",
+        "no_display": true
+      },
+      {
+        "id": "kcm_mobile_wifi.desktop",
+        "name": "Wi-Fi",
+        "exec": "systemsettings kcm_mobile_wifi",
+        "no_display": true
+      },
+      {
+        "id": "kcm_mobile_wired.desktop",
+        "name": "Wired Network",
+        "exec": "systemsettings kcm_mobile_wired",
+        "no_display": true
+      },
+      {
+        "id": "kcm_networkmanagement.desktop",
+        "name": "Wi-Fi & Networking",
+        "exec": "systemsettings kcm_networkmanagement",
+        "no_display": true
+      },
+      {
+        "id": "org.kde.vpnimport.desktop",
+        "name": "VPN Importer",
+        "exec": "systemsettings kcm_networkmanagement --args VPN=%f",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/kcmshell6",
+    "rpm_owners": [
+      "plasma-desktop"
+    ],
+    "entries": [
+      {
+        "id": "kcm_kded.desktop",
+        "name": "Background Services",
+        "exec": "kcmshell6 kcm_kded",
+        "no_display": true
+      },
+      {
+        "id": "kcm_krunnersettings.desktop",
+        "name": "KRunner Settings",
+        "exec": "kcmshell6 kcm_krunnersettings",
+        "no_display": true
+      },
+      {
+        "id": "kcm_qtquicksettings.desktop",
+        "name": "Plasma Renderer",
+        "exec": "kcmshell6 kcm_qtquicksettings",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/systemsettings",
+    "rpm_owners": [
+      "powerdevil"
+    ],
+    "entries": [
+      {
+        "id": "kcm_mobile_power.desktop",
+        "name": "Energy",
+        "exec": "systemsettings kcm_mobile_power",
+        "no_display": true
+      },
+      {
+        "id": "kcm_powerdevilprofilesconfig.desktop",
+        "name": "Power Management",
+        "exec": "systemsettings kcm_powerdevilprofilesconfig",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/systemsettings",
+    "rpm_owners": [
+      "kio-extras"
+    ],
+    "entries": [
+      {
+        "id": "kcm_netpref.desktop",
+        "name": "Connection Preferences",
+        "exec": "systemsettings kcm_netpref",
+        "no_display": true
+      },
+      {
+        "id": "kcm_proxy.desktop",
+        "name": "Proxy",
+        "exec": "systemsettings kcm_proxy",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/kcmshell6",
+    "rpm_owners": [
+      "kio-extras"
+    ],
+    "entries": [
+      {
+        "id": "kcm_trash.desktop",
+        "name": "Trash",
+        "exec": "kcmshell6 kcm_trash",
+        "no_display": true
+      },
+      {
+        "id": "kcm_webshortcuts.desktop",
+        "name": "Web Search Keywords",
+        "exec": "kcmshell6 kcm_webshortcuts",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/systemsettings",
+    "rpm_owners": [
+      "plasma-systemsettings"
+    ],
+    "entries": [
+      {
+        "id": "kdesystemsettings.desktop",
+        "name": "KDE System Settings",
+        "exec": "systemsettings",
+        "no_display": false
+      },
+      {
+        "id": "systemsettings.desktop",
+        "name": "System Settings",
+        "exec": "systemsettings",
+        "no_display": false
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/kwalletmanager5",
+    "rpm_owners": [
+      "kwalletmanager5"
+    ],
+    "entries": [
+      {
+        "id": "kwalletmanager5-kwalletd.desktop",
+        "name": "KWalletManager",
+        "exec": "kwalletmanager5 --kwalletd",
+        "no_display": true
+      },
+      {
+        "id": "org.kde.kwalletmanager.desktop",
+        "name": "KWalletManager",
+        "exec": "kwalletmanager5 %F",
+        "no_display": false
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/okular",
+    "rpm_owners": [
+      "okular"
+    ],
+    "entries": [
+      {
+        "id": "okularApplication_comicbook.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_djvu.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_dvi.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_epub.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_fax.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_fb.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_ghostview.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_kimgio.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_md.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_mobi.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_pdf.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_tiff.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_txt.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "okularApplication_xps.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": true
+      },
+      {
+        "id": "org.kde.okular.desktop",
+        "name": "Okular",
+        "exec": "okular %U",
+        "no_display": false
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/plasma-discover",
+    "rpm_owners": [
+      "plasma-discover"
+    ],
+    "entries": [
+      {
+        "id": "org.kde.discover.desktop",
+        "name": "Discover",
+        "exec": "plasma-discover %F",
+        "no_display": false
+      },
+      {
+        "id": "org.kde.discover.urlhandler.desktop",
+        "name": "Discover",
+        "exec": "plasma-discover %U",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/qrca",
+    "rpm_owners": [
+      "qrca"
+    ],
+    "entries": [
+      {
+        "id": "org.kde.qrca.desktop",
+        "name": "Qrca",
+        "exec": "qrca",
+        "no_display": false
+      },
+      {
+        "id": "org.kde.qrca.wifi.desktop",
+        "name": "Qrca Wi-Fi scanner",
+        "exec": "qrca --wifi",
+        "no_display": true
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  },
+  {
+    "program": "/usr/bin/wps",
+    "rpm_owners": [
+      "wps-office"
+    ],
+    "entries": [
+      {
+        "id": "wps-office-prometheus.desktop",
+        "name": "WPS Office",
+        "exec": "/usr/bin/wps %F",
+        "no_display": false
+      },
+      {
+        "id": "wps-office-wps.desktop",
+        "name": "WPS Writer",
+        "exec": "/usr/bin/wps %U",
+        "no_display": false
+      }
+    ],
+    "interpretation": "same launch program; component/URI/field-code semantics still distinct"
+  }
+]

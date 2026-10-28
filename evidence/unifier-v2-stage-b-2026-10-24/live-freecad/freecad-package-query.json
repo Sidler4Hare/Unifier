@@ -1,0 +1,7 @@
+{
+  "environment_id": "v2-freecad",
+  "package": "freecad",
+  "present": true,
+  "exit_code": 0,
+  "detail": "freecad 1.1.4-3"
+}

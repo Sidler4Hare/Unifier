@@ -1,0 +1,145 @@
+{
+  "records": [
+    {
+      "view_uuid": "86577a66-48bf-4c4f-a2dd-f0804cefac8b",
+      "container_id": "6a074f6d9e09781cb846a8936e515c05f7fd768b055e71a3f1c69ebbc8b589ad",
+      "status_before": {
+        "ok": true,
+        "view_uuid": "86577a66-48bf-4c4f-a2dd-f0804cefac8b",
+        "mountpoint": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/broker-final/project/.lab/state/views/86577a66-48bf-4c4f-a2dd-f0804cefac8b/mount",
+        "worker_pid": 757203,
+        "worker_stamp": 30751184,
+        "initialized": true,
+        "readonly": true,
+        "allow_other": false,
+        "init_major": 7,
+        "init_minor": 31,
+        "consistency": {
+          "mode": "live-readonly",
+          "readonly": true,
+          "live": true,
+          "snapshot": false,
+          "watcher": false,
+          "cross_volume_consistent": false,
+          "entry_ttl": 0,
+          "attr_ttl": 0,
+          "direct_io": false,
+          "mmap": "page-cache",
+          "xattr": "unsupported",
+          "acl": "unknown",
+          "permissions": "not-default_permissions",
+          "auto_inval_data": true,
+          "kernel_offered_auto_inval_data": true
+        },
+        "counters": {
+          "nodes": 2314,
+          "node_budget": 65536,
+          "handles": 0,
+          "file_handles": 0,
+          "dir_handles": 0,
+          "handle_budget": 1024,
+          "dir_entries": 0,
+          "dir_entry_budget": 65536,
+          "dir_bytes": 0,
+          "dir_bytes_budget": 8388608,
+          "next_nodeid": 3799,
+          "next_handle": 697
+        }
+      },
+      "revoke": {
+        "backend": "podman-overlay",
+        "broker_launcher_pid": 757166,
+        "broker_launcher_stamp": 30751165,
+        "broker_pid": 757178,
+        "broker_stamp": 30751166,
+        "cleanup_errors": [
+          "view mountpoint is busy or could not be unmounted: fusermount3: failed to unmount /home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/broker-final/project/.lab/state/views/86577a66-48bf-4c4f-a2dd-f0804cefac8b/mount: Device or resource busy"
+        ],
+        "control_socket": "/run/user/1000/unifier-views/86577a66-48bf-4c4f-a2dd-f0804cefac8b/c",
+        "created_at": "2026-10-26T22:43:59+08:00",
+        "environment_binding": {
+          "container_id": "6a074f6d9e09781cb846a8936e515c05f7fd768b055e71a3f1c69ebbc8b589ad",
+          "environment_id": "projection-debian13",
+          "environment_uuid": "839260b1-f859-40a6-82fa-6eb688dcf151",
+          "generation": 1
+        },
+        "environment_id": "projection-debian13",
+        "fuse_access_gid": 1000,
+        "fuse_access_uid": 1000,
+        "last_error": "view revoke incomplete",
+        "log_path": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/broker-final/project/.lab/state/views/86577a66-48bf-4c4f-a2dd-f0804cefac8b/view.log",
+        "mountpoint": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/broker-final/project/.lab/state/views/86577a66-48bf-4c4f-a2dd-f0804cefac8b/mount",
+        "namespace_caps": "not-assumed",
+        "owner_pid": 756702,
+        "owner_stamp": 30750983,
+        "raw_link_semantics": "projected-link",
+        "readonly": true,
+        "ready_path": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/broker-final/project/.lab/state/views/86577a66-48bf-4c4f-a2dd-f0804cefac8b/ready.json",
+        "runtime_dev": 88,
+        "runtime_dir": "/run/user/1000/unifier-views/86577a66-48bf-4c4f-a2dd-f0804cefac8b",
+        "runtime_ino": 10812,
+        "schema_version": 1,
+        "spec_path": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/broker-final/project/.lab/state/views/86577a66-48bf-4c4f-a2dd-f0804cefac8b/spec.json",
+        "state": "revoking",
+        "storage_journal": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/broker-final/project/.lab/state/views/86577a66-48bf-4c4f-a2dd-f0804cefac8b/storage.json",
+        "storage_nonce": "263639937af147a3bab49f32fbf4602f",
+        "storage_ref_state": "mounted",
+        "storage_socket": "/run/user/1000/unifier-views/86577a66-48bf-4c4f-a2dd-f0804cefac8b/s",
+        "uid_map": {
+          "container_gid": 1000,
+          "container_uid": 1000,
+          "gid_ranges": [
+            [
+              1000,
+              1000,
+              1
+            ],
+            [
+              524288,
+              0,
+              1000
+            ],
+            [
+              525288,
+              1001,
+              64536
+            ]
+          ],
+          "host_gid": 1000,
+          "host_uid": 1000,
+          "subgid_count": 65536,
+          "subgid_start": 524288,
+          "subuid_count": 65536,
+          "subuid_start": 524288,
+          "uid_ranges": [
+            [
+              1000,
+              1000,
+              1
+            ],
+            [
+              524288,
+              0,
+              1000
+            ],
+            [
+              525288,
+              1001,
+              64536
+            ]
+          ],
+          "user_namespace": "keep-id"
+        },
+        "updated_at": "2026-10-26T22:46:26+08:00",
+        "view_dir": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/broker-final/project/.lab/state/views/86577a66-48bf-4c4f-a2dd-f0804cefac8b",
+        "view_uuid": "86577a66-48bf-4c4f-a2dd-f0804cefac8b",
+        "worker_pid": 757203,
+        "worker_stamp": 30751184
+      },
+      "container_removed": true
+    }
+  ],
+  "started_at": 1793025986.4783034,
+  "remaining_views": [],
+  "finished_at": 1793025986.951761
+}

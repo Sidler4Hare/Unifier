@@ -1,0 +1,12 @@
+{
+  "failure": "Start page held active MDI view; Std_Save action disabled",
+  "environment_state": "stopped",
+  "leases": {
+    "leases": {},
+    "auto_stop": false,
+    "bridge": null,
+    "container_id": "4b914a65c295d2ecf3ea3ec4f07955e500c548f3012192b5b743bae097c0c14a",
+    "container_started_at": "2026-10-24T10:48:07.775511452+08:00"
+  },
+  "container_removed": true
+}

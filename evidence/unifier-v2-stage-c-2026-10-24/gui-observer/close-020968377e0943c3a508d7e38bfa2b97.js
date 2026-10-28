@@ -1,0 +1,1 @@
+for (const w of workspace.windowList()) { if (w.pid === 195981 && String(w.internalId) === "{a50d59a1-e2ac-4c65-94d2-3f7ff7c57cae}" && String(w.resourceClass) === "org.kde.kwrite") { w.closeWindow(); } }

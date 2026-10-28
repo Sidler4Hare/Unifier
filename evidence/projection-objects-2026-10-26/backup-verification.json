@@ -1,0 +1,8 @@
+{
+  "backup": "/home/omg/文档/Unifier-backups/20261026-220929-before-projection-objects",
+  "archive": "/home/omg/文档/Unifier-backups/20261026-220929-before-projection-objects/workspace.tar.gz",
+  "archive_sha256": "733fe9bfe8a5cd0dc024e2418521430e3296300cfc19d21e3493cf335eb54865",
+  "entries_verified": 31529,
+  "tracked_untracked_ignored_included": true,
+  "git_included": true
+}

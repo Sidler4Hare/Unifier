@@ -1,0 +1,60 @@
+{
+  "status": "PREPARATION_VERIFIED_EXECUTION_NOT_STARTED",
+  "recorded_at": "2026-10-27T13:17:35.465147+08:00",
+  "scope": "regular-file hashes; symlinks, runtime sockets, .git and Python bytecode not snapshotted by this audit; this hash baseline is not a recovery backup",
+  "baseline_regular_files": 23877,
+  "preserved_main_state_files": 23,
+  "preserved_historical_evidence_files": 22991,
+  "expected_document_edits": [
+    "HANDOFF.md",
+    "README.md"
+  ],
+  "changed_original_files": [
+    "HANDOFF.md",
+    "README.md"
+  ],
+  "missing_original_files": [],
+  "containers_before": 27,
+  "containers_after": 27,
+  "container_comparison_fields": [
+    "Id",
+    "Names",
+    "State",
+    "ImageID",
+    "Labels",
+    "Mounts",
+    "StartedAt",
+    "ExitedAt",
+    "ExitCode",
+    "Pid",
+    "Restarts"
+  ],
+  "observed_unifier_mounts": [],
+  "new_files": [
+    "evidence/extension-test-plan-2026-10-27/plan.json",
+    "evidence/extension-test-plan-2026-10-27/preflight.json",
+    "evidence/extension-test-plan-2026-10-27/preservation-baseline.json",
+    "evidence/extension-test-plan-2026-10-27/sources.json",
+    "设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md"
+  ],
+  "broken_local_links": [],
+  "checks": {
+    "primary_installation_cells_9": true,
+    "application_cells_unique": true,
+    "agent_target_cells_12": true,
+    "agent_target_pairs_unique": true,
+    "shared_data_edges_12": true,
+    "shared_edges_no_self_and_unique": true,
+    "agent_families_14": true,
+    "filesystem_families_20": true,
+    "all_execution_cells_not_run": true,
+    "phase_dependencies_resolve": true,
+    "plan_local_links_resolve": true,
+    "new_file_scope_only_plan": true,
+    "original_files_only_expected_document_edits": true,
+    "source_unchanged": true,
+    "containers_unchanged": true,
+    "no_running_containers": true
+  },
+  "product_tests": "not rerun for plan-only changes; no new runtime acceptance claimed"
+}

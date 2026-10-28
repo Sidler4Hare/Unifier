@@ -1,0 +1,19 @@
+{
+  "status": "DEPLOYED_PENDING_MENU_RETEST",
+  "apps": {
+    "freecad": {
+      "source_sha256": {
+        "src/multilinux/desktop.py": "98f1cb6f3f2a4e105284c33c29d58120a58d165120d418c87b37bdbbcfcf0caa",
+        "src/multilinux/service.py": "c06ae57191f8c9b34461eeac9b8d884cee25f263ab5161c527021fcfe93b0177"
+      },
+      "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5"
+    },
+    "wemeet": {
+      "source_sha256": {
+        "src/multilinux/desktop.py": "98f1cb6f3f2a4e105284c33c29d58120a58d165120d418c87b37bdbbcfcf0caa",
+        "src/multilinux/service.py": "c06ae57191f8c9b34461eeac9b8d884cee25f263ab5161c527021fcfe93b0177"
+      },
+      "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb"
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "revoked": [
+    {
+      "uuid": "bd2d463f-1bec-47fa-8ca6-1957545eabc9",
+      "revoke": {
+        "backend": "podman-overlay",
+        "broker_launcher_pid": 654428,
+        "broker_launcher_stamp": 28570650,
+        "broker_pid": 654442,
+        "broker_stamp": 28570654,
+        "cleanup_errors": [
+          "view mountpoint is busy or could not be unmounted: fusermount3: failed to unmount /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/bd2d463f-1bec-47fa-8ca6-1957545eabc9/mount: Device or resource busy"
+        ],
+        "control_socket": "/run/user/1000/unifier-views/bd2d463f-1bec-47fa-8ca6-1957545eabc9/c",
+        "created_at": "2026-10-26T16:40:34+08:00",
+        "environment_binding": {
+          "container_id": "860f412b4d69f4150b0bb1aceb9e3f087bd96931e16595a960b807d681152208",
+          "environment_id": "stagef-debian13",
+          "environment_uuid": "7521848a-5556-440b-8639-910d6c9fb343",
+          "generation": 1
+        },
+        "environment_id": "stagef-debian13",
+        "fuse_access_gid": 1000,
+        "fuse_access_uid": 1000,
+        "last_error": "view revoke incomplete",
+        "log_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/bd2d463f-1bec-47fa-8ca6-1957545eabc9/view.log",
+        "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/bd2d463f-1bec-47fa-8ca6-1957545eabc9/mount",
+        "namespace_caps": "not-assumed",
+        "owner_pid": 651123,
+        "owner_stamp": 28566304,
+        "raw_link_semantics": "projected-link",
+        "readonly": true,
+        "ready_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/bd2d463f-1bec-47fa-8ca6-1957545eabc9/ready.json",
+        "runtime_dev": 88,
+        "runtime_dir": "/run/user/1000/unifier-views/bd2d463f-1bec-47fa-8ca6-1957545eabc9",
+        "runtime_ino": 10079,
+        "schema_version": 1,
+        "spec_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/bd2d463f-1bec-47fa-8ca6-1957545eabc9/spec.json",
+        "state": "revoking",
+        "storage_journal": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/bd2d463f-1bec-47fa-8ca6-1957545eabc9/storage.json",
+        "storage_nonce": "8d24cefaeee04e198a589e3f1a6d9a06",
+        "storage_ref_state": "mounted",
+        "storage_socket": "/run/user/1000/unifier-views/bd2d463f-1bec-47fa-8ca6-1957545eabc9/s",
+        "uid_map": {
+          "container_gid": 1000,
+          "container_uid": 1000,
+          "gid_ranges": [
+            [
+              1000,
+              1000,
+              1
+            ],
+            [
+              524288,
+              0,
+              1000
+            ],
+            [
+              525288,
+              1001,
+              64536
+            ]
+          ],
+          "host_gid": 1000,
+          "host_uid": 1000,
+          "subgid_count": 65536,
+          "subgid_start": 524288,
+          "subuid_count": 65536,
+          "subuid_start": 524288,
+          "uid_ranges": [
+            [
+              1000,
+              1000,
+              1
+            ],
+            [
+              524288,
+              0,
+              1000
+            ],
+            [
+              525288,
+              1001,
+              64536
+            ]
+          ],
+          "user_namespace": "keep-id"
+        },
+        "updated_at": "2026-10-26T16:41:18+08:00",
+        "view_dir": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/bd2d463f-1bec-47fa-8ca6-1957545eabc9",
+        "view_uuid": "bd2d463f-1bec-47fa-8ca6-1957545eabc9",
+        "worker_pid": 654469,
+        "worker_stamp": 28570676
+      }
+    }
+  ],
+  "registry_after": [],
+  "states": {
+    "debian13": {
+      "environment_id": "stagef-debian13",
+      "record_state": "stopped",
+      "container_id": "860f412b4d69f4150b0bb1aceb9e3f087bd96931e16595a960b807d681152208",
+      "running": false,
+      "status": "exited",
+      "started_at": "2026-10-26T16:39:54.623723349+08:00",
+      "created_at": null,
+      "expected_container_id": "860f412b4d69f4150b0bb1aceb9e3f087bd96931e16595a960b807d681152208"
+    },
+    "fedora44": {
+      "environment_id": "stagef-fedora44",
+      "record_state": "stopped",
+      "container_id": "f31e73b27cda60ead284da13f53b29d137b0c92cee8fad68c5c2c0d94e7a4ec8",
+      "running": false,
+      "status": "exited",
+      "started_at": "2026-10-26T16:34:52.422252077+08:00",
+      "created_at": null,
+      "expected_container_id": "f31e73b27cda60ead284da13f53b29d137b0c92cee8fad68c5c2c0d94e7a4ec8"
+    },
+    "arch": {
+      "environment_id": "stagef-arch",
+      "record_state": "stopped",
+      "container_id": "42153f6f2a71533bd2bf06597dbc225925c36c07bdf7fbea7f7370fb9d77f045",
+      "running": false,
+      "status": "exited",
+      "started_at": "2026-10-26T16:37:39.591663266+08:00",
+      "created_at": null,
+      "expected_container_id": "42153f6f2a71533bd2bf06597dbc225925c36c07bdf7fbea7f7370fb9d77f045"
+    }
+  }
+}

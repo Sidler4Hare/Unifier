@@ -1,0 +1,26 @@
+{
+  "workers": [
+    {
+      "pid": 765111,
+      "stamp": 30805772,
+      "same_process_still_alive": false
+    },
+    {
+      "pid": 765311,
+      "stamp": 30805858,
+      "same_process_still_alive": false
+    },
+    {
+      "pid": 765964,
+      "stamp": 30806137,
+      "same_process_still_alive": false
+    },
+    {
+      "pid": 766602,
+      "stamp": 30806347,
+      "same_process_still_alive": false
+    }
+  ],
+  "remaining_fixture_workers_or_brokers": [],
+  "passed": true
+}

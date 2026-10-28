@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "status": "failed",
+  "acceptance": "pending-primary-review",
+  "error": "TypeError: unsupported operand type(s) for /: 'dict' and 'float'",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/probe_sessions.py\", line 759, in main\n    timings = run_timings(\n        facade, fixtures, reps=args.timing_reps, sampler=sampler,\n        progress=progress)\n  File \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/probe_sessions.py\", line 707, in run_timings\n    target_row[\"cold_seconds\"] = common.stats(\n                                 ~~~~~~~~~~~~^\n        value / 1000.0 for value in target_row[\"cold\"])\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/common.py\", line 153, in stats\n    numbers = sorted(float(value) for value in values\n                     if isinstance(value, (int, float)) and not isinstance(value, bool))\n  File \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/common.py\", line 153, in <genexpr>\n    numbers = sorted(float(value) for value in values\n                                               ^^^^^^\n  File \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/probe_sessions.py\", line 708, in <genexpr>\n    value / 1000.0 for value in target_row[\"cold\"])\n    ~~~~~~^~~~~~~~\nTypeError: unsupported operand type(s) for /: 'dict' and 'float'\n",
+  "started_at": "2026-10-26T08:21:01+08:00",
+  "finished_at": "2026-10-26T08:22:14+08:00"
+}

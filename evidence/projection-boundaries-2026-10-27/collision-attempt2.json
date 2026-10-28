@@ -1,0 +1,24 @@
+{
+  "source": "/home/omg/文档/多兼容linux机/.lab/agents/projection-boundaries-20261027/attempt2/src",
+  "passed": false,
+  "refused": 10,
+  "before_fds": 7,
+  "after_fds": 17,
+  "after": {
+    "nodes": 1,
+    "node_budget": 65536,
+    "handles": 0,
+    "file_handles": 0,
+    "dir_handles": 0,
+    "handle_budget": 1024,
+    "dir_entries": 0,
+    "dir_entry_budget": 65536,
+    "dir_bytes": 0,
+    "dir_bytes_budget": 8388608,
+    "next_nodeid": 3,
+    "next_handle": 1,
+    "inode_ids": 1,
+    "inode_collisions": 10
+  },
+  "error": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/collision_contract_probe.py\", line 27, in <module>\n    assert refused==10 and after==before and b.stats()['nodes']==1,r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'source': '/home/omg/文档/多兼容linux机/.lab/agents/projection-boundaries-20261027/attempt2/src', 'passed': False, 'refused': 10, 'before_fds': 7, 'after_fds': 17, 'after': {'nodes': 1, 'node_budget': 65536, 'handles': 0, 'file_handles': 0, 'dir_handles': 0, 'handle_budget': 1024, 'dir_entries': 0, 'dir_entry_budget': 65536, 'dir_bytes': 0, 'dir_bytes_budget': 8388608, 'next_nodeid': 3, 'next_handle': 1, 'inode_ids': 1, 'inode_collisions': 10}}\n"
+}

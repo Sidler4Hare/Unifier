@@ -1,0 +1,128 @@
+# Real FreeCAD GUI test controller. Only this private fixture accepts commands.
+# Model creation/open/save are driven by the application's QAction/file dialogs.
+import json, os, traceback
+from pathlib import Path
+import FreeCAD as App
+import FreeCADGui as Gui
+from PySide6 import QtCore, QtGui, QtWidgets, QtTest
+
+CONTROL = Path(os.environ['ML_GUI_CONTROL'])
+MARKER = 'Unifier v2 B FreeCAD acceptance'
+
+
+def snapshot():
+    main = Gui.getMainWindow()
+    dialogs = []
+    for w in QtWidgets.QApplication.topLevelWidgets():
+        if w.isVisible() and isinstance(w, QtWidgets.QDialog):
+            row = {'class':w.metaObject().className(), 'name':w.objectName(), 'title':w.windowTitle(),
+                   'line_edits':[{'name':e.objectName(),'text':e.text()} for e in w.findChildren(QtWidgets.QLineEdit)],
+                   'buttons':[{'name':b.objectName(),'text':b.text()} for b in w.findChildren(QtWidgets.QAbstractButton)]}
+            if isinstance(w, QtWidgets.QFileDialog):
+                row.update(directory=w.directory().absolutePath(),selected=w.selectedFiles())
+            dialogs.append(row)
+    docs = []
+    for name, doc in App.listDocuments().items():
+        objects=[]
+        for obj in doc.Objects:
+            row={'name':obj.Name,'label':obj.Label,'type':obj.TypeId}
+            if hasattr(obj,'Shape'):
+                row.update(volume=obj.Shape.Volume,valid=obj.Shape.isValid())
+            objects.append(row)
+        docs.append({'name':name,'label':doc.Label,'filename':doc.FileName,'objects':objects})
+    return {'pid':os.getpid(),'uid':os.getuid(),'platform':QtWidgets.QApplication.instance().platformName(),
+            'version':App.Version(),'cwd':os.getcwd(),'home':os.environ.get('HOME'),
+            'title':main.windowTitle(),'visible':main.isVisible(),'dialogs':dialogs,'documents':docs,
+            'active_document':App.ActiveDocument.Name if App.ActiveDocument else None,
+            'actions':[{'name':a.objectName(),'text':a.text(),'enabled':a.isEnabled()}
+                       for a in main.findChildren(QtGui.QAction) if a.objectName()]}
+
+
+def execute(command):
+    op = command['op']
+    if op == 'inspect':
+        return snapshot()
+    if op == 'trigger':
+        name = command['action']
+        matches=[a for a in Gui.getMainWindow().findChildren(QtGui.QAction) if a.objectName()==name]
+        if len(matches)!=1 or not matches[0].isEnabled():
+            raise RuntimeError('action not unique/enabled: '+name)
+        QtCore.QTimer.singleShot(0, matches[0].trigger)
+        return {'scheduled_action':name,'text':matches[0].text()}
+    if op == 'file_dialog_submit':
+        dialogs=[w for w in QtWidgets.QApplication.topLevelWidgets()
+                 if w.isVisible() and isinstance(w,QtWidgets.QFileDialog)]
+        if len(dialogs)!=1:
+            raise RuntimeError('expected one visible QFileDialog')
+        dialog=dialogs[0]
+        initial=dialog.directory().absolutePath()
+        edit=dialog.findChild(QtWidgets.QLineEdit,'fileNameEdit')
+        if edit is None:raise RuntimeError('fileNameEdit unavailable')
+        edit.setText(command['path']);edit.setFocus()
+        box=dialog.findChild(QtWidgets.QDialogButtonBox)
+        standard=(QtWidgets.QDialogButtonBox.Save if dialog.acceptMode()==QtWidgets.QFileDialog.AcceptSave
+                  else QtWidgets.QDialogButtonBox.Open)
+        button=box.button(standard) if box else None
+        if button is None or not button.isEnabled():raise RuntimeError('dialog submit button unavailable')
+        result={'dialog':dialog.windowTitle(),'initial_directory':initial,'submitted_path':command['path'],
+                'button':button.text()}
+        # Do not queue a closure holding dialog widgets across modal-loop exit.
+        button.click()
+        return result
+    if op == 'dismiss_dialog':
+        dialogs=[w for w in QtWidgets.QApplication.topLevelWidgets()
+                 if w.isVisible() and isinstance(w,QtWidgets.QMessageBox)]
+        if len(dialogs)!=1:raise RuntimeError('expected one QMessageBox')
+        box=dialogs[0]
+        buttons=[b for b in box.buttons() if b.text()==command['text']]
+        if len(buttons)!=1:raise RuntimeError('button not unique')
+        QtCore.QTimer.singleShot(0,buttons[0].click)
+        return {'clicked':command['text']}
+    if op == 'view':
+        # A first-run Start page can be the active MDI tab while App has the
+        # model document active. Select the real document tab before view/save.
+        if App.ActiveDocument:
+            label=App.ActiveDocument.Label
+            candidates=[]
+            for bar in Gui.getMainWindow().findChildren(QtWidgets.QTabBar):
+                for index in range(bar.count()):
+                    text=bar.tabText(index)
+                    if text.startswith(label+' :') or text == label:
+                        candidates.append((bar,index))
+            if len(candidates)!=1:
+                raise RuntimeError('document tab not unique for '+label)
+            bar,index=candidates[0]
+            QtTest.QTest.mouseClick(bar,QtCore.Qt.MouseButton.LeftButton,
+                                   QtCore.Qt.KeyboardModifier.NoModifier,
+                                   bar.tabRect(index).center())
+            QtWidgets.QApplication.processEvents()
+        if Gui.activeDocument():
+            Gui.activeDocument().activeView().viewAxonometric()
+            Gui.activeDocument().activeView().fitAll()
+        return snapshot()
+    if op == 'exit':
+        QtCore.QTimer.singleShot(0,Gui.getMainWindow().close)
+        return {'closing':True}
+    raise RuntimeError('unknown op')
+
+
+def tick():
+    # Stable marker permits capturing this window only, never another app.
+    main=Gui.getMainWindow()
+    if main.isVisible():main.setWindowTitle(MARKER)
+    for path in sorted(CONTROL.glob('command-*.json')):
+        output=CONTROL/('reply-'+path.name[8:])
+        if output.exists():continue
+        try:
+            result={'ok':True,'result':execute(json.loads(path.read_text()))}
+        except Exception:
+            result={'ok':False,'error':traceback.format_exc()}
+        temp=output.with_suffix('.tmp');temp.write_text(json.dumps(result,ensure_ascii=False,indent=2));temp.replace(output)
+
+
+Gui.activateWorkbench('PartWorkbench')
+Gui.getMainWindow().resize(1100,760)
+Gui.getMainWindow().show()
+timer=QtCore.QTimer(Gui.getMainWindow())
+timer.timeout.connect(tick)
+timer.start(150)

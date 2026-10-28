@@ -1,0 +1,951 @@
+{
+  "passed": true,
+  "targets": {
+    "debian13": {
+      "passed": true,
+      "view": {
+        "backend": "podman-overlay",
+        "broker_launcher_pid": 272276,
+        "broker_launcher_stamp": 21794402,
+        "broker_pid": 272309,
+        "broker_stamp": 21794404,
+        "cleanup_errors": [],
+        "control_socket": "/run/user/1000/unifier-views/935dcdda-3309-4141-b2a4-cdf367930618/c",
+        "created_at": "2026-10-25T21:51:11+08:00",
+        "environment_binding": {
+          "container_id": "2d05594d3fc6c4c4d22b6c97c3509d869364460f4eafae1635ae0aaa002edc89",
+          "environment_id": "view-debian13",
+          "environment_uuid": "53b53351-91bc-461e-a02d-d94c672ad203",
+          "generation": 1
+        },
+        "environment_id": "view-debian13",
+        "fuse_access_gid": 1000,
+        "fuse_access_uid": 1000,
+        "last_error": null,
+        "log_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/935dcdda-3309-4141-b2a4-cdf367930618/view.log",
+        "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/935dcdda-3309-4141-b2a4-cdf367930618/mount",
+        "namespace_caps": "not-assumed",
+        "owner_pid": 272209,
+        "owner_stamp": 21794376,
+        "raw_link_semantics": "projected-link",
+        "readonly": true,
+        "ready_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/935dcdda-3309-4141-b2a4-cdf367930618/ready.json",
+        "runtime_dev": 88,
+        "runtime_dir": "/run/user/1000/unifier-views/935dcdda-3309-4141-b2a4-cdf367930618",
+        "runtime_ino": 4486,
+        "schema_version": 1,
+        "spec_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/935dcdda-3309-4141-b2a4-cdf367930618/spec.json",
+        "state": "ready",
+        "storage_journal": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/935dcdda-3309-4141-b2a4-cdf367930618/storage.json",
+        "storage_nonce": "b38eda97c62a459aa2ebaa6db2e099ae",
+        "storage_ref_state": "mounted",
+        "storage_socket": "/run/user/1000/unifier-views/935dcdda-3309-4141-b2a4-cdf367930618/s",
+        "uid_map": {
+          "container_gid": 0,
+          "container_uid": 0,
+          "gid_ranges": [
+            [
+              1000,
+              0,
+              1
+            ],
+            [
+              524288,
+              1,
+              65536
+            ]
+          ],
+          "host_gid": 1000,
+          "host_uid": 1000,
+          "subgid_count": 65536,
+          "subgid_start": 524288,
+          "subuid_count": 65536,
+          "subuid_start": 524288,
+          "uid_ranges": [
+            [
+              1000,
+              0,
+              1
+            ],
+            [
+              524288,
+              1,
+              65536
+            ]
+          ],
+          "user_namespace": "rootless-default"
+        },
+        "updated_at": "2026-10-25T21:51:12+08:00",
+        "view_dir": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/935dcdda-3309-4141-b2a4-cdf367930618",
+        "view_uuid": "935dcdda-3309-4141-b2a4-cdf367930618",
+        "worker_pid": 272381,
+        "worker_stamp": 21794416
+      },
+      "busy_revoke_error": "view revoke incomplete: view mountpoint is busy or could not be unmounted: fusermount3: failed to unmount /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/935dcdda-3309-4141-b2a4-cdf367930618/mount: Device or resource busy",
+      "operation": {
+        "schema_version": 1,
+        "operation_uuid": "eb45417f-e03e-4a73-9650-d2616443bf3f",
+        "operation": "copy",
+        "state": "DONE",
+        "source": {
+          "root_uuid": "7ff10530-dfc5-4881-963a-15f248c0263c",
+          "management_domain": "host-project",
+          "access_policy": "read-only",
+          "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/935dcdda-3309-4141-b2a4-cdf367930618/mount",
+          "relative_path": "var/lib/unifier-view/payload.txt",
+          "root_dev": 90,
+          "root_ino": 3192106,
+          "parent_parts": [
+            "var",
+            "lib",
+            "unifier-view"
+          ],
+          "observed_version": {
+            "dev": 90,
+            "ino": 3192279,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 0,
+            "gid": 0,
+            "size": 9,
+            "mtime_ns": 1792912430157489217,
+            "ctime_ns": 1792912430157489217,
+            "file_type": "regular",
+            "acl_check": "unavailable: [Errno 5] Input/output error: '/proc/self/fd/7'",
+            "xattrs_observed_but_not_copied": []
+          },
+          "sha256": "1efa5108e958ecae132bfccb6908fc2c576d561e9b2012424e418d3eb90847ac",
+          "source_view": {
+            "environment_binding": {
+              "container_id": "2d05594d3fc6c4c4d22b6c97c3509d869364460f4eafae1635ae0aaa002edc89",
+              "environment_id": "view-debian13",
+              "environment_uuid": "53b53351-91bc-461e-a02d-d94c672ad203",
+              "generation": 1
+            },
+            "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/935dcdda-3309-4141-b2a4-cdf367930618/mount",
+            "view_uuid": "935dcdda-3309-4141-b2a4-cdf367930618"
+          },
+          "cleanup_policy": "retain",
+          "parent_dev": 90,
+          "parent_ino": 3192276,
+          "verified_size": 9
+        },
+        "target": {
+          "root_uuid": "47bb7d79-4d77-4e3c-84b4-d7a5dfbf3413",
+          "management_domain": "host-project",
+          "access_policy": "read-write",
+          "locator": "/dev/shm/unifier-d-view-blj4jzeu",
+          "relative_path": "宿主副本.txt",
+          "root_dev": 27,
+          "root_ino": 1451,
+          "parent_parts": [],
+          "parent_dev": 27,
+          "parent_ino": 1451,
+          "overwrite": false
+        },
+        "stage": {
+          "name": ".ml-stage-eb45417f-e03e-4a73-9650-d2616443bf3f-8750541942494cde9ded8d5d159d6fff",
+          "nonce": "8750541942494cde9ded8d5d159d6fff",
+          "parent_dev": 27,
+          "parent_ino": 1451,
+          "dev": 27,
+          "ino": 1452,
+          "size": 9,
+          "mode": 33188,
+          "mtime_ns": 1792936272176338671,
+          "ctime_ns": 1792936272176338671,
+          "sha256": "1efa5108e958ecae132bfccb6908fc2c576d561e9b2012424e418d3eb90847ac",
+          "ready": true,
+          "created": true,
+          "cleaned": true
+        },
+        "published": {
+          "dev": 27,
+          "ino": 1452,
+          "size": 9,
+          "sha256": "1efa5108e958ecae132bfccb6908fc2c576d561e9b2012424e418d3eb90847ac",
+          "nlink": 1,
+          "published_at": "2026-10-25T21:51:12+08:00"
+        },
+        "registry": {
+          "committed": true,
+          "committed_at": "2026-10-25T21:51:12+08:00"
+        },
+        "provenance": {
+          "source_root_uuid": "7ff10530-dfc5-4881-963a-15f248c0263c",
+          "source_relative_path": "var/lib/unifier-view/payload.txt",
+          "source_management_domain": "host-project",
+          "source_view_uuid": "935dcdda-3309-4141-b2a4-cdf367930618",
+          "note": "target uses the destination management domain; source is independent provenance"
+        },
+        "management_domain": "host-project",
+        "execution": {
+          "authorized": false,
+          "interpreter": null,
+          "environment": null,
+          "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+        },
+        "source_cleanup": {
+          "requested": false,
+          "authorized": false,
+          "mode": "retain",
+          "policy_snapshot": "retain",
+          "root_uuid": "7ff10530-dfc5-4881-963a-15f248c0263c",
+          "root_dev": 90,
+          "root_ino": 3192106,
+          "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/935dcdda-3309-4141-b2a4-cdf367930618/mount",
+          "access_policy": "read-only",
+          "backend": "local-directory",
+          "source_view_present": true,
+          "authorized_at": null,
+          "state": "not_requested",
+          "performed": false,
+          "quarantine": {
+            "dir_name": null,
+            "dir_dev": null,
+            "dir_ino": null,
+            "dir_nonce": null,
+            "entry_name": "source",
+            "captured_dev": null,
+            "captured_ino": null,
+            "captured_size": null,
+            "captured_sha256": null,
+            "captured_ctime_ns": null
+          },
+          "captured": null,
+          "lease": {
+            "type": "write",
+            "acquired": false,
+            "broken": false
+          },
+          "deletion_intent": null,
+          "reason": null,
+          "removed_at": null
+        },
+        "capabilities": {
+          "regular_file_copy": true,
+          "move_copies_then_retains_source": true,
+          "controlled_move_source_delete": true,
+          "source_delete": false,
+          "atomic_cross_filesystem_move": false,
+          "universal_atomic_rename": false,
+          "directory_recursive": false,
+          "acl_preservation": false,
+          "sparse_file": false,
+          "device_or_special_file": false,
+          "symlink_follow": false,
+          "hardlink_source": false,
+          "xattr_or_selinux_preservation": false,
+          "full_metadata_preservation": false,
+          "overwrite_existing_target": false,
+          "hash_and_rename_is_cas": false,
+          "fs_and_registry_cross_system_atomic": false,
+          "lease_blocks_rename_or_unlink": false,
+          "hostile_same_uid_immunity": false
+        },
+        "unsupported": [
+          "directories and recursive trees",
+          "ACL-bearing files",
+          "sparse or compressed files",
+          "device, fifo and socket nodes",
+          "symbolic links and hard-linked regular sources",
+          "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+          "automatic source deletion outside an explicitly authorized controlled move",
+          "atomic cross-filesystem rename",
+          "overwriting an existing target",
+          "immunity from malicious same-UID tampering with private state or journals"
+        ],
+        "source_retained": true,
+        "source_retention_reason": "copy does not delete its source; source cleanup is only part of an explicitly authorized controlled move",
+        "last_error": null,
+        "transitions": [
+          {
+            "state": "INTENT_DURABLE",
+            "at": "2026-10-25T21:51:12+08:00"
+          },
+          {
+            "state": "STAGING",
+            "at": "2026-10-25T21:51:12+08:00"
+          },
+          {
+            "state": "TARGET_PUBLISHED",
+            "at": "2026-10-25T21:51:12+08:00"
+          },
+          {
+            "state": "REGISTRY_COMMITTED",
+            "at": "2026-10-25T21:51:12+08:00"
+          },
+          {
+            "state": "DONE",
+            "at": "2026-10-25T21:51:12+08:00"
+          }
+        ],
+        "created_at": "2026-10-25T21:51:12+08:00",
+        "updated_at": "2026-10-25T21:51:12+08:00",
+        "finished_at": "2026-10-25T21:51:12+08:00",
+        "complete": true,
+        "real_paths": {
+          "source": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/935dcdda-3309-4141-b2a4-cdf367930618/mount/var/lib/unifier-view/payload.txt",
+          "target": "/dev/shm/unifier-d-view-blj4jzeu/宿主副本.txt",
+          "stage": "/dev/shm/unifier-d-view-blj4jzeu/.ml-stage-eb45417f-e03e-4a73-9650-d2616443bf3f-8750541942494cde9ded8d5d159d6fff"
+        },
+        "no_overwrite": true,
+        "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+        "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction",
+        "quarantine_path": null,
+        "source_cleanup_state": "not_requested"
+      },
+      "target_uid": 1000,
+      "revoked_source_refusal": "source read-only view is not registered: view 935dcdda-3309-4141-b2a4-cdf367930618 is not registered",
+      "environment_stayed_stopped": true,
+      "copied_bytes_match": true,
+      "source_fds_protect_busy_view": true,
+      "revoked_view_not_empty_fallback": true
+    },
+    "fedora44": {
+      "passed": true,
+      "view": {
+        "backend": "podman-overlay",
+        "broker_launcher_pid": 272527,
+        "broker_launcher_stamp": 21794470,
+        "broker_pid": 272539,
+        "broker_stamp": 21794473,
+        "cleanup_errors": [],
+        "control_socket": "/run/user/1000/unifier-views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/c",
+        "created_at": "2026-10-25T21:51:12+08:00",
+        "environment_binding": {
+          "container_id": "d119283c6ed00af2af35fb9f335fe496805282621e8ef9811ecf245570a62697",
+          "environment_id": "view-fedora44",
+          "environment_uuid": "7fb834dd-74b8-47f3-8a9b-7a3545526636",
+          "generation": 1
+        },
+        "environment_id": "view-fedora44",
+        "fuse_access_gid": 1000,
+        "fuse_access_uid": 1000,
+        "last_error": null,
+        "log_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/view.log",
+        "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/mount",
+        "namespace_caps": "not-assumed",
+        "owner_pid": 272209,
+        "owner_stamp": 21794376,
+        "raw_link_semantics": "projected-link",
+        "readonly": true,
+        "ready_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/ready.json",
+        "runtime_dev": 88,
+        "runtime_dir": "/run/user/1000/unifier-views/79ef8c3f-8aa8-41a5-aee3-5df250d169af",
+        "runtime_ino": 4491,
+        "schema_version": 1,
+        "spec_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/spec.json",
+        "state": "ready",
+        "storage_journal": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/storage.json",
+        "storage_nonce": "c8e4b8c2d9804194bb6e77bb67688a67",
+        "storage_ref_state": "mounted",
+        "storage_socket": "/run/user/1000/unifier-views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/s",
+        "uid_map": {
+          "container_gid": 0,
+          "container_uid": 0,
+          "gid_ranges": [
+            [
+              1000,
+              0,
+              1
+            ],
+            [
+              524288,
+              1,
+              65536
+            ]
+          ],
+          "host_gid": 1000,
+          "host_uid": 1000,
+          "subgid_count": 65536,
+          "subgid_start": 524288,
+          "subuid_count": 65536,
+          "subuid_start": 524288,
+          "uid_ranges": [
+            [
+              1000,
+              0,
+              1
+            ],
+            [
+              524288,
+              1,
+              65536
+            ]
+          ],
+          "user_namespace": "rootless-default"
+        },
+        "updated_at": "2026-10-25T21:51:12+08:00",
+        "view_dir": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/79ef8c3f-8aa8-41a5-aee3-5df250d169af",
+        "view_uuid": "79ef8c3f-8aa8-41a5-aee3-5df250d169af",
+        "worker_pid": 272568,
+        "worker_stamp": 21794487
+      },
+      "busy_revoke_error": "view revoke incomplete: view mountpoint is busy or could not be unmounted: fusermount3: failed to unmount /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/mount: Device or resource busy",
+      "operation": {
+        "schema_version": 1,
+        "operation_uuid": "be0e9f63-48cf-4fbf-bb73-6cad8bb166ed",
+        "operation": "copy",
+        "state": "DONE",
+        "source": {
+          "root_uuid": "3c8901ea-1a9f-4692-beb9-556635a35248",
+          "management_domain": "host-project",
+          "access_policy": "read-only",
+          "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/mount",
+          "relative_path": "var/lib/unifier-view/payload.txt",
+          "root_dev": 90,
+          "root_ino": 3192309,
+          "parent_parts": [
+            "var",
+            "lib",
+            "unifier-view"
+          ],
+          "observed_version": {
+            "dev": 90,
+            "ino": 3192483,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 0,
+            "gid": 0,
+            "size": 9,
+            "mtime_ns": 1792912433271054013,
+            "ctime_ns": 1792912433271054013,
+            "file_type": "regular",
+            "acl_check": "unavailable: [Errno 5] Input/output error: '/proc/self/fd/7'",
+            "xattrs_observed_but_not_copied": []
+          },
+          "sha256": "78316b63fe2936691ed02000d54fc319f86e2368f4b7300e62787ffed1fdfded",
+          "source_view": {
+            "environment_binding": {
+              "container_id": "d119283c6ed00af2af35fb9f335fe496805282621e8ef9811ecf245570a62697",
+              "environment_id": "view-fedora44",
+              "environment_uuid": "7fb834dd-74b8-47f3-8a9b-7a3545526636",
+              "generation": 1
+            },
+            "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/mount",
+            "view_uuid": "79ef8c3f-8aa8-41a5-aee3-5df250d169af"
+          },
+          "cleanup_policy": "retain",
+          "parent_dev": 90,
+          "parent_ino": 3192480,
+          "verified_size": 9
+        },
+        "target": {
+          "root_uuid": "4b5dccf0-4a29-48b2-8c69-b0fa1d0f501b",
+          "management_domain": "host-project",
+          "access_policy": "read-write",
+          "locator": "/dev/shm/unifier-d-view-2nij30fv",
+          "relative_path": "宿主副本.txt",
+          "root_dev": 27,
+          "root_ino": 1453,
+          "parent_parts": [],
+          "parent_dev": 27,
+          "parent_ino": 1453,
+          "overwrite": false
+        },
+        "stage": {
+          "name": ".ml-stage-be0e9f63-48cf-4fbf-bb73-6cad8bb166ed-4e3aa2a8005c4419a6deb05579bbcb32",
+          "nonce": "4e3aa2a8005c4419a6deb05579bbcb32",
+          "parent_dev": 27,
+          "parent_ino": 1453,
+          "dev": 27,
+          "ino": 1454,
+          "size": 9,
+          "mode": 33188,
+          "mtime_ns": 1792936272878340733,
+          "ctime_ns": 1792936272878340733,
+          "sha256": "78316b63fe2936691ed02000d54fc319f86e2368f4b7300e62787ffed1fdfded",
+          "ready": true,
+          "created": true,
+          "cleaned": true
+        },
+        "published": {
+          "dev": 27,
+          "ino": 1454,
+          "size": 9,
+          "sha256": "78316b63fe2936691ed02000d54fc319f86e2368f4b7300e62787ffed1fdfded",
+          "nlink": 1,
+          "published_at": "2026-10-25T21:51:12+08:00"
+        },
+        "registry": {
+          "committed": true,
+          "committed_at": "2026-10-25T21:51:12+08:00"
+        },
+        "provenance": {
+          "source_root_uuid": "3c8901ea-1a9f-4692-beb9-556635a35248",
+          "source_relative_path": "var/lib/unifier-view/payload.txt",
+          "source_management_domain": "host-project",
+          "source_view_uuid": "79ef8c3f-8aa8-41a5-aee3-5df250d169af",
+          "note": "target uses the destination management domain; source is independent provenance"
+        },
+        "management_domain": "host-project",
+        "execution": {
+          "authorized": false,
+          "interpreter": null,
+          "environment": null,
+          "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+        },
+        "source_cleanup": {
+          "requested": false,
+          "authorized": false,
+          "mode": "retain",
+          "policy_snapshot": "retain",
+          "root_uuid": "3c8901ea-1a9f-4692-beb9-556635a35248",
+          "root_dev": 90,
+          "root_ino": 3192309,
+          "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/mount",
+          "access_policy": "read-only",
+          "backend": "local-directory",
+          "source_view_present": true,
+          "authorized_at": null,
+          "state": "not_requested",
+          "performed": false,
+          "quarantine": {
+            "dir_name": null,
+            "dir_dev": null,
+            "dir_ino": null,
+            "dir_nonce": null,
+            "entry_name": "source",
+            "captured_dev": null,
+            "captured_ino": null,
+            "captured_size": null,
+            "captured_sha256": null,
+            "captured_ctime_ns": null
+          },
+          "captured": null,
+          "lease": {
+            "type": "write",
+            "acquired": false,
+            "broken": false
+          },
+          "deletion_intent": null,
+          "reason": null,
+          "removed_at": null
+        },
+        "capabilities": {
+          "regular_file_copy": true,
+          "move_copies_then_retains_source": true,
+          "controlled_move_source_delete": true,
+          "source_delete": false,
+          "atomic_cross_filesystem_move": false,
+          "universal_atomic_rename": false,
+          "directory_recursive": false,
+          "acl_preservation": false,
+          "sparse_file": false,
+          "device_or_special_file": false,
+          "symlink_follow": false,
+          "hardlink_source": false,
+          "xattr_or_selinux_preservation": false,
+          "full_metadata_preservation": false,
+          "overwrite_existing_target": false,
+          "hash_and_rename_is_cas": false,
+          "fs_and_registry_cross_system_atomic": false,
+          "lease_blocks_rename_or_unlink": false,
+          "hostile_same_uid_immunity": false
+        },
+        "unsupported": [
+          "directories and recursive trees",
+          "ACL-bearing files",
+          "sparse or compressed files",
+          "device, fifo and socket nodes",
+          "symbolic links and hard-linked regular sources",
+          "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+          "automatic source deletion outside an explicitly authorized controlled move",
+          "atomic cross-filesystem rename",
+          "overwriting an existing target",
+          "immunity from malicious same-UID tampering with private state or journals"
+        ],
+        "source_retained": true,
+        "source_retention_reason": "copy does not delete its source; source cleanup is only part of an explicitly authorized controlled move",
+        "last_error": null,
+        "transitions": [
+          {
+            "state": "INTENT_DURABLE",
+            "at": "2026-10-25T21:51:12+08:00"
+          },
+          {
+            "state": "STAGING",
+            "at": "2026-10-25T21:51:12+08:00"
+          },
+          {
+            "state": "TARGET_PUBLISHED",
+            "at": "2026-10-25T21:51:12+08:00"
+          },
+          {
+            "state": "REGISTRY_COMMITTED",
+            "at": "2026-10-25T21:51:12+08:00"
+          },
+          {
+            "state": "DONE",
+            "at": "2026-10-25T21:51:12+08:00"
+          }
+        ],
+        "created_at": "2026-10-25T21:51:12+08:00",
+        "updated_at": "2026-10-25T21:51:12+08:00",
+        "finished_at": "2026-10-25T21:51:12+08:00",
+        "complete": true,
+        "real_paths": {
+          "source": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/79ef8c3f-8aa8-41a5-aee3-5df250d169af/mount/var/lib/unifier-view/payload.txt",
+          "target": "/dev/shm/unifier-d-view-2nij30fv/宿主副本.txt",
+          "stage": "/dev/shm/unifier-d-view-2nij30fv/.ml-stage-be0e9f63-48cf-4fbf-bb73-6cad8bb166ed-4e3aa2a8005c4419a6deb05579bbcb32"
+        },
+        "no_overwrite": true,
+        "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+        "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction",
+        "quarantine_path": null,
+        "source_cleanup_state": "not_requested"
+      },
+      "target_uid": 1000,
+      "revoked_source_refusal": "source read-only view is not registered: view 79ef8c3f-8aa8-41a5-aee3-5df250d169af is not registered",
+      "environment_stayed_stopped": true,
+      "copied_bytes_match": true,
+      "source_fds_protect_busy_view": true,
+      "revoked_view_not_empty_fallback": true
+    },
+    "arch": {
+      "passed": true,
+      "view": {
+        "backend": "podman-overlay",
+        "broker_launcher_pid": 272649,
+        "broker_launcher_stamp": 21794531,
+        "broker_pid": 272662,
+        "broker_stamp": 21794533,
+        "cleanup_errors": [],
+        "control_socket": "/run/user/1000/unifier-views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/c",
+        "created_at": "2026-10-25T21:51:13+08:00",
+        "environment_binding": {
+          "container_id": "02d66ee68c031e92aa6077ac301bff73093b3d1fd1016f6f49dfc18ee169c74f",
+          "environment_id": "view-arch",
+          "environment_uuid": "d16d93ee-a529-4114-b37c-1885ec255a04",
+          "generation": 1
+        },
+        "environment_id": "view-arch",
+        "fuse_access_gid": 1000,
+        "fuse_access_uid": 1000,
+        "last_error": null,
+        "log_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/view.log",
+        "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/mount",
+        "namespace_caps": "not-assumed",
+        "owner_pid": 272209,
+        "owner_stamp": 21794376,
+        "raw_link_semantics": "projected-link",
+        "readonly": true,
+        "ready_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/ready.json",
+        "runtime_dev": 88,
+        "runtime_dir": "/run/user/1000/unifier-views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1",
+        "runtime_ino": 4496,
+        "schema_version": 1,
+        "spec_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/spec.json",
+        "state": "ready",
+        "storage_journal": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/storage.json",
+        "storage_nonce": "8cbe3d48acbb4e029f46dc1490beeb67",
+        "storage_ref_state": "mounted",
+        "storage_socket": "/run/user/1000/unifier-views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/s",
+        "uid_map": {
+          "container_gid": 1000,
+          "container_uid": 1000,
+          "gid_ranges": [
+            [
+              1000,
+              1000,
+              1
+            ],
+            [
+              524288,
+              0,
+              1000
+            ],
+            [
+              525288,
+              1001,
+              64536
+            ]
+          ],
+          "host_gid": 1000,
+          "host_uid": 1000,
+          "subgid_count": 65536,
+          "subgid_start": 524288,
+          "subuid_count": 65536,
+          "subuid_start": 524288,
+          "uid_ranges": [
+            [
+              1000,
+              1000,
+              1
+            ],
+            [
+              524288,
+              0,
+              1000
+            ],
+            [
+              525288,
+              1001,
+              64536
+            ]
+          ],
+          "user_namespace": "keep-id"
+        },
+        "updated_at": "2026-10-25T21:51:13+08:00",
+        "view_dir": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1",
+        "view_uuid": "ddcab087-d505-4056-ab8d-a7ca07c4e4b1",
+        "worker_pid": 272690,
+        "worker_stamp": 21794545
+      },
+      "busy_revoke_error": "view revoke incomplete: view mountpoint is busy or could not be unmounted: fusermount3: failed to unmount /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/mount: Device or resource busy",
+      "operation": {
+        "schema_version": 1,
+        "operation_uuid": "f3d333ee-a62d-4dad-9253-d39b57973de9",
+        "operation": "copy",
+        "state": "DONE",
+        "source": {
+          "root_uuid": "8d73e5aa-d059-435f-a176-ba39131a6dfa",
+          "management_domain": "host-project",
+          "access_policy": "read-only",
+          "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/mount",
+          "relative_path": "var/lib/unifier-view/payload.txt",
+          "root_dev": 90,
+          "root_ino": 3192513,
+          "parent_parts": [
+            "var",
+            "lib",
+            "unifier-view"
+          ],
+          "observed_version": {
+            "dev": 90,
+            "ino": 3192681,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 0,
+            "gid": 0,
+            "size": 5,
+            "mtime_ns": 1792912436288057758,
+            "ctime_ns": 1792912436288057758,
+            "file_type": "regular",
+            "acl_check": "unavailable: [Errno 5] Input/output error: '/proc/self/fd/7'",
+            "xattrs_observed_but_not_copied": []
+          },
+          "sha256": "075d30821bb0648d64d49e0259887f271796833a71b2da3d277ac37521562ecf",
+          "source_view": {
+            "environment_binding": {
+              "container_id": "02d66ee68c031e92aa6077ac301bff73093b3d1fd1016f6f49dfc18ee169c74f",
+              "environment_id": "view-arch",
+              "environment_uuid": "d16d93ee-a529-4114-b37c-1885ec255a04",
+              "generation": 1
+            },
+            "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/mount",
+            "view_uuid": "ddcab087-d505-4056-ab8d-a7ca07c4e4b1"
+          },
+          "cleanup_policy": "retain",
+          "parent_dev": 90,
+          "parent_ino": 3192678,
+          "verified_size": 5
+        },
+        "target": {
+          "root_uuid": "50e72609-94c9-4a05-9899-23be8b1825b1",
+          "management_domain": "host-project",
+          "access_policy": "read-write",
+          "locator": "/dev/shm/unifier-d-view-g6gzcnbv",
+          "relative_path": "宿主副本.txt",
+          "root_dev": 27,
+          "root_ino": 1455,
+          "parent_parts": [],
+          "parent_dev": 27,
+          "parent_ino": 1455,
+          "overwrite": false
+        },
+        "stage": {
+          "name": ".ml-stage-f3d333ee-a62d-4dad-9253-d39b57973de9-e86a67293c074db59da8a5f99daa6e69",
+          "nonce": "e86a67293c074db59da8a5f99daa6e69",
+          "parent_dev": 27,
+          "parent_ino": 1455,
+          "dev": 27,
+          "ino": 1456,
+          "size": 5,
+          "mode": 33188,
+          "mtime_ns": 1792936273465342457,
+          "ctime_ns": 1792936273465342457,
+          "sha256": "075d30821bb0648d64d49e0259887f271796833a71b2da3d277ac37521562ecf",
+          "ready": true,
+          "created": true,
+          "cleaned": true
+        },
+        "published": {
+          "dev": 27,
+          "ino": 1456,
+          "size": 5,
+          "sha256": "075d30821bb0648d64d49e0259887f271796833a71b2da3d277ac37521562ecf",
+          "nlink": 1,
+          "published_at": "2026-10-25T21:51:13+08:00"
+        },
+        "registry": {
+          "committed": true,
+          "committed_at": "2026-10-25T21:51:13+08:00"
+        },
+        "provenance": {
+          "source_root_uuid": "8d73e5aa-d059-435f-a176-ba39131a6dfa",
+          "source_relative_path": "var/lib/unifier-view/payload.txt",
+          "source_management_domain": "host-project",
+          "source_view_uuid": "ddcab087-d505-4056-ab8d-a7ca07c4e4b1",
+          "note": "target uses the destination management domain; source is independent provenance"
+        },
+        "management_domain": "host-project",
+        "execution": {
+          "authorized": false,
+          "interpreter": null,
+          "environment": null,
+          "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+        },
+        "source_cleanup": {
+          "requested": false,
+          "authorized": false,
+          "mode": "retain",
+          "policy_snapshot": "retain",
+          "root_uuid": "8d73e5aa-d059-435f-a176-ba39131a6dfa",
+          "root_dev": 90,
+          "root_ino": 3192513,
+          "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/mount",
+          "access_policy": "read-only",
+          "backend": "local-directory",
+          "source_view_present": true,
+          "authorized_at": null,
+          "state": "not_requested",
+          "performed": false,
+          "quarantine": {
+            "dir_name": null,
+            "dir_dev": null,
+            "dir_ino": null,
+            "dir_nonce": null,
+            "entry_name": "source",
+            "captured_dev": null,
+            "captured_ino": null,
+            "captured_size": null,
+            "captured_sha256": null,
+            "captured_ctime_ns": null
+          },
+          "captured": null,
+          "lease": {
+            "type": "write",
+            "acquired": false,
+            "broken": false
+          },
+          "deletion_intent": null,
+          "reason": null,
+          "removed_at": null
+        },
+        "capabilities": {
+          "regular_file_copy": true,
+          "move_copies_then_retains_source": true,
+          "controlled_move_source_delete": true,
+          "source_delete": false,
+          "atomic_cross_filesystem_move": false,
+          "universal_atomic_rename": false,
+          "directory_recursive": false,
+          "acl_preservation": false,
+          "sparse_file": false,
+          "device_or_special_file": false,
+          "symlink_follow": false,
+          "hardlink_source": false,
+          "xattr_or_selinux_preservation": false,
+          "full_metadata_preservation": false,
+          "overwrite_existing_target": false,
+          "hash_and_rename_is_cas": false,
+          "fs_and_registry_cross_system_atomic": false,
+          "lease_blocks_rename_or_unlink": false,
+          "hostile_same_uid_immunity": false
+        },
+        "unsupported": [
+          "directories and recursive trees",
+          "ACL-bearing files",
+          "sparse or compressed files",
+          "device, fifo and socket nodes",
+          "symbolic links and hard-linked regular sources",
+          "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+          "automatic source deletion outside an explicitly authorized controlled move",
+          "atomic cross-filesystem rename",
+          "overwriting an existing target",
+          "immunity from malicious same-UID tampering with private state or journals"
+        ],
+        "source_retained": true,
+        "source_retention_reason": "copy does not delete its source; source cleanup is only part of an explicitly authorized controlled move",
+        "last_error": null,
+        "transitions": [
+          {
+            "state": "INTENT_DURABLE",
+            "at": "2026-10-25T21:51:13+08:00"
+          },
+          {
+            "state": "STAGING",
+            "at": "2026-10-25T21:51:13+08:00"
+          },
+          {
+            "state": "TARGET_PUBLISHED",
+            "at": "2026-10-25T21:51:13+08:00"
+          },
+          {
+            "state": "REGISTRY_COMMITTED",
+            "at": "2026-10-25T21:51:13+08:00"
+          },
+          {
+            "state": "DONE",
+            "at": "2026-10-25T21:51:13+08:00"
+          }
+        ],
+        "created_at": "2026-10-25T21:51:13+08:00",
+        "updated_at": "2026-10-25T21:51:13+08:00",
+        "finished_at": "2026-10-25T21:51:13+08:00",
+        "complete": true,
+        "real_paths": {
+          "source": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-d-complete-2026-10-25/projection-fixtures/live-project/.lab/state/views/ddcab087-d505-4056-ab8d-a7ca07c4e4b1/mount/var/lib/unifier-view/payload.txt",
+          "target": "/dev/shm/unifier-d-view-g6gzcnbv/宿主副本.txt",
+          "stage": "/dev/shm/unifier-d-view-g6gzcnbv/.ml-stage-f3d333ee-a62d-4dad-9253-d39b57973de9-e86a67293c074db59da8a5f99daa6e69"
+        },
+        "no_overwrite": true,
+        "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+        "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction",
+        "quarantine_path": null,
+        "source_cleanup_state": "not_requested"
+      },
+      "target_uid": 1000,
+      "revoked_source_refusal": "source read-only view is not registered: view ddcab087-d505-4056-ab8d-a7ca07c4e4b1 is not registered",
+      "environment_stayed_stopped": true,
+      "copied_bytes_match": true,
+      "source_fds_protect_busy_view": true,
+      "revoked_view_not_empty_fallback": true
+    }
+  },
+  "source_sha256": {
+    "src/multilinux/__init__.py": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+    "src/multilinux/errors.py": "531a2ca4ce2056099a662eed98a6fa137013b99c7ea0a091fa3960279b92ca2a",
+    "src/multilinux/__main__.py": "8fc1fcde2cd1a30a9c1271714cbe49efd1b7ef1597ad4b0f16e1f84dc96ae2b8",
+    "src/multilinux/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+    "src/multilinux/store.py": "7a386a46239fcd010aa700f0454bf3929ffc27758ed1f8a17ea5e5d2c2f2b7dd",
+    "src/multilinux/desktop.py": "36382e7b385cc018ff179ec19e78ef652b90dafe56a6a78d646a93b3c157a7e7",
+    "src/multilinux/resources.py": "1269fc93c41febfc8932d57b805cd512b6fd6cbde109e5c6ca680725504ce4ec",
+    "src/multilinux/catalog.py": "a2704215ff0c3b04fe71b341eca876817888ffce8a51adf1779b67c407cab089",
+    "src/multilinux/on_demand.py": "ce441674a0f9f24e052f7f3e5278c66c629b08417b8fd5b98b7722f1b96f5d57",
+    "src/multilinux/packages.py": "34a37cb687c6a09d10e81348c22013a5fd2d8fb18229f07dc19d0525b4868668",
+    "src/multilinux/routing.py": "cd3f4ab38b50846d6b4c518b3d270428a52af19369f26ac85df9eac920b37fe7",
+    "src/multilinux/runtime.py": "b274a50b61e46bc7dc5696571451c44330f05872724b3fd118a3559f2133f42a",
+    "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+    "src/multilinux/service.py": "192981367cd5a08381713f9ab1e320eb198dff1cfc193078a822f69c420c2f69",
+    "src/multilinux/identity.py": "184f7fe3c3449b8f230b7a9615caacb0be1bbc9d6905150dbf85011789331c8f",
+    "src/multilinux/share_label.py": "dfd46c05c3d9d5d7239163b68c5284215833c885c3612d9d868b30b958979aee",
+    "src/multilinux/json_records.py": "e78b72caf5f2693f07995f065e6905f42685c2ce846617b9373ef51be416b906",
+    "src/multilinux/projects.py": "6a53b6175d7b6c7f3ea7dd2aba504966653bd6cfdf94de184c29d3e9d6819eed",
+    "src/multilinux/handlers.py": "1dfc87b8b593c35155a24eb3d55210318f00c45086cf6bd806e09a16657d58a0",
+    "src/multilinux/file_routes.py": "44d5a533de708cf03943d7443cf640dd271c828e8da868e424fcf0ac45afd280",
+    "src/multilinux/view_backend.py": "9b4245280119beac79eafaf5167cc2382d636d198f41bb28ca1ee3d051fa5e85",
+    "src/multilinux/view_journal.py": "e9dd7b6400206e7b773112100d62bee1f55bdabc6ef018abbd52938dc48ba66d",
+    "src/multilinux/view_broker.py": "c2eda675b0e73500227415f20f17d8d77816c172084d7a866a9afeecd31c28fa",
+    "src/multilinux/fuse_view.py": "67708fee1640d5122aaa10521d23f0fc825b1a849ca47cb531d891dc92dfe826",
+    "src/multilinux/views.py": "7ae705709bfdee3a2489e38a8d552cfad124ce71ab0166cc3839e754fede32e3",
+    "src/multilinux/registry.py": "1d1d042b081c766b25d1b3ca6fa066d39f089f1613f255e124c72ea69a28577e",
+    "src/multilinux/control.py": "0277e13eaebb1eb0c5653b6457ecb43c8301ed7db0ee383a0ede80fc194a9278",
+    "src/multilinux/cli.py": "4559befbea7d2705315025eb3b5142cbb80c2ef31993aa3c56d070e763e89b24",
+    "src/multilinux/lease.py": "80064e9c652cb733c686fd4535484fa62ea9aff3841d8bb1a619f1700a2a6d7b",
+    "src/multilinux/file_operations.py": "b4387fa6501409e4066224bcb288e54f0fa235b02856aa69272838587add4692"
+  },
+  "source_unchanged": true
+}

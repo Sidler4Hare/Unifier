@@ -1,0 +1,275 @@
+{
+  "completed": true,
+  "cases": {
+    "open_fd_across_replace": {
+      "expected": "old inode A bytes",
+      "observed_sha256": "766c00ba277e84ef9550596c7eda86bad4d66a3fee2255924e6388ee9c272792",
+      "old_sha256": "f8ca02c69621dd84cd1212ebfd7d6cdc9ba6ad658854f29567723531912d1a35",
+      "new_sha256": "766c00ba277e84ef9550596c7eda86bad4d66a3fee2255924e6388ee9c272792",
+      "posix_old_inode_preserved": false
+    },
+    "reopen_after_expiry": {
+      "new_bytes": true
+    },
+    "mmap": {
+      "bytes_match": true
+    },
+    "external_inotify": {
+      "watch_registered": true,
+      "external_event_delivered": false,
+      "raw_hex": "",
+      "interpretation": "external backend changes do not imply FUSE invalidation events"
+    }
+  },
+  "churn": [
+    {
+      "unique_paths": 0,
+      "pid": 395019,
+      "time": 1792973868.1587336,
+      "start": 25553781,
+      "pss_kib": 12839,
+      "fds": 7
+    },
+    {
+      "unique_paths": 2000,
+      "seconds": 3.125931586000661,
+      "pid": 395019,
+      "time": 1792973871.287945,
+      "start": 25553781,
+      "pss_kib": 13484,
+      "fds": 7
+    },
+    {
+      "unique_paths": 4000,
+      "seconds": 2.9409571479991428,
+      "pid": 395019,
+      "time": 1792973874.2311006,
+      "start": 25553781,
+      "pss_kib": 14280,
+      "fds": 7
+    },
+    {
+      "unique_paths": 6000,
+      "seconds": 2.4782819480024045,
+      "pid": 395019,
+      "time": 1792973876.7106287,
+      "start": 25553781,
+      "pss_kib": 15435,
+      "fds": 7
+    },
+    {
+      "unique_paths": 8000,
+      "seconds": 2.773860554996645,
+      "pid": 395019,
+      "time": 1792973879.4864109,
+      "start": 25553781,
+      "pss_kib": 16104,
+      "fds": 7
+    },
+    {
+      "unique_paths": 10000,
+      "seconds": 2.5864052990000346,
+      "pid": 395019,
+      "time": 1792973882.0740829,
+      "start": 25553781,
+      "pss_kib": 16771,
+      "fds": 7
+    },
+    {
+      "unique_paths": 12000,
+      "seconds": 4.209040257999732,
+      "pid": 395019,
+      "time": 1792973886.284741,
+      "start": 25553781,
+      "pss_kib": 17796,
+      "fds": 7
+    },
+    {
+      "unique_paths": 12000,
+      "after_idle_seconds": 3,
+      "pid": 395019,
+      "time": 1792973889.2861414,
+      "start": 25553781,
+      "pss_kib": 17796,
+      "fds": 7
+    }
+  ],
+  "scope": "external mutation of authorized shared bind only; no live rootfs mutation; bounded unique-path traversal",
+  "view": {
+    "backend": "podman-overlay",
+    "broker_launcher_pid": 394984,
+    "broker_launcher_stamp": 25553746,
+    "broker_pid": 394994,
+    "broker_stamp": 25553751,
+    "cleanup_errors": [],
+    "control_socket": "/run/user/1000/unifier-views/796715ef-ef2d-44a7-8b54-843422369f19/c",
+    "created_at": "2026-10-26T08:17:45+08:00",
+    "environment_binding": {
+      "container_id": "f31e73b27cda60ead284da13f53b29d137b0c92cee8fad68c5c2c0d94e7a4ec8",
+      "environment_id": "stagef-fedora44",
+      "environment_uuid": "e6d84418-44b4-42ca-85b2-83abe1848806",
+      "generation": 1
+    },
+    "environment_id": "stagef-fedora44",
+    "fuse_access_gid": 1000,
+    "fuse_access_uid": 1000,
+    "last_error": null,
+    "log_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19/view.log",
+    "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19/mount",
+    "namespace_caps": "not-assumed",
+    "owner_pid": 394934,
+    "owner_stamp": 25553674,
+    "raw_link_semantics": "projected-link",
+    "readonly": true,
+    "ready_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19/ready.json",
+    "runtime_dev": 88,
+    "runtime_dir": "/run/user/1000/unifier-views/796715ef-ef2d-44a7-8b54-843422369f19",
+    "runtime_ino": 6298,
+    "schema_version": 1,
+    "spec_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19/spec.json",
+    "state": "ready",
+    "storage_journal": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19/storage.json",
+    "storage_nonce": "a398727cb356424bb4874c12d1079fd4",
+    "storage_ref_state": "mounted",
+    "storage_socket": "/run/user/1000/unifier-views/796715ef-ef2d-44a7-8b54-843422369f19/s",
+    "uid_map": {
+      "container_gid": 1000,
+      "container_uid": 1000,
+      "gid_ranges": [
+        [
+          1000,
+          1000,
+          1
+        ],
+        [
+          524288,
+          0,
+          1000
+        ],
+        [
+          525288,
+          1001,
+          64536
+        ]
+      ],
+      "host_gid": 1000,
+      "host_uid": 1000,
+      "subgid_count": 65536,
+      "subgid_start": 524288,
+      "subuid_count": 65536,
+      "subuid_start": 524288,
+      "uid_ranges": [
+        [
+          1000,
+          1000,
+          1
+        ],
+        [
+          524288,
+          0,
+          1000
+        ],
+        [
+          525288,
+          1001,
+          64536
+        ]
+      ],
+      "user_namespace": "keep-id"
+    },
+    "updated_at": "2026-10-26T08:17:45+08:00",
+    "view_dir": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19",
+    "view_uuid": "796715ef-ef2d-44a7-8b54-843422369f19",
+    "worker_pid": 395019,
+    "worker_stamp": 25553781
+  },
+  "cleanup": {
+    "backend": "podman-overlay",
+    "broker_launcher_pid": 394984,
+    "broker_launcher_stamp": 25553746,
+    "broker_pid": 394994,
+    "broker_stamp": 25553751,
+    "cleanup_errors": [],
+    "control_socket": "/run/user/1000/unifier-views/796715ef-ef2d-44a7-8b54-843422369f19/c",
+    "created_at": "2026-10-26T08:17:45+08:00",
+    "environment_binding": {
+      "container_id": "f31e73b27cda60ead284da13f53b29d137b0c92cee8fad68c5c2c0d94e7a4ec8",
+      "environment_id": "stagef-fedora44",
+      "environment_uuid": "e6d84418-44b4-42ca-85b2-83abe1848806",
+      "generation": 1
+    },
+    "environment_id": "stagef-fedora44",
+    "fuse_access_gid": 1000,
+    "fuse_access_uid": 1000,
+    "last_error": null,
+    "log_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19/view.log",
+    "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19/mount",
+    "namespace_caps": "not-assumed",
+    "owner_pid": 394934,
+    "owner_stamp": 25553674,
+    "raw_link_semantics": "projected-link",
+    "readonly": true,
+    "ready_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19/ready.json",
+    "runtime_dev": 88,
+    "runtime_dir": "/run/user/1000/unifier-views/796715ef-ef2d-44a7-8b54-843422369f19",
+    "runtime_ino": 6298,
+    "schema_version": 1,
+    "spec_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19/spec.json",
+    "state": "revoking",
+    "storage_journal": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19/storage.json",
+    "storage_nonce": "a398727cb356424bb4874c12d1079fd4",
+    "storage_ref_state": "mounted",
+    "storage_socket": "/run/user/1000/unifier-views/796715ef-ef2d-44a7-8b54-843422369f19/s",
+    "uid_map": {
+      "container_gid": 1000,
+      "container_uid": 1000,
+      "gid_ranges": [
+        [
+          1000,
+          1000,
+          1
+        ],
+        [
+          524288,
+          0,
+          1000
+        ],
+        [
+          525288,
+          1001,
+          64536
+        ]
+      ],
+      "host_gid": 1000,
+      "host_uid": 1000,
+      "subgid_count": 65536,
+      "subgid_start": 524288,
+      "subuid_count": 65536,
+      "subuid_start": 524288,
+      "uid_ranges": [
+        [
+          1000,
+          1000,
+          1
+        ],
+        [
+          524288,
+          0,
+          1000
+        ],
+        [
+          525288,
+          1001,
+          64536
+        ]
+      ],
+      "user_namespace": "keep-id"
+    },
+    "updated_at": "2026-10-26T08:18:09+08:00",
+    "view_dir": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/796715ef-ef2d-44a7-8b54-843422369f19",
+    "view_uuid": "796715ef-ef2d-44a7-8b54-843422369f19",
+    "worker_pid": 395019,
+    "worker_stamp": 25553781
+  },
+  "unmounted": true
+}

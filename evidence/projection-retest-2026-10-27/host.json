@@ -1,0 +1,16 @@
+{
+  "client_date": "2026-10-27",
+  "timezone": "Asia/Shanghai",
+  "uname": {
+    "system": "Linux",
+    "node": "fedora",
+    "release": "7.2.11-200.fc44.x86_64",
+    "version": "#1 SMP PREEMPT_DYNAMIC Thu Oct 15 15:58:58 UTC 2026",
+    "machine": "x86_64",
+    "processor": ""
+  },
+  "podman": "podman version 5.8.9",
+  "temporary_backend_mount": "/tmp tmpfs rw,nosuid,nodev,seclabel,nr_inodes=1048576,inode64,usrquota",
+  "cpu0_governor": "powersave",
+  "note": "single Fedora host; Debian/Fedora/Arch are guests; other retest workloads finished before isolated performance samples"
+}

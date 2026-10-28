@@ -1,0 +1,492 @@
+{
+  "source": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-objects-2026-10-26/broker-final-v2/project/src",
+  "scope": "real kernel FUSE, isolated local backends",
+  "cases": [
+    {
+      "name": "replace-32-128-primed-False",
+      "passed": true,
+      "data": {
+        "old_size": 32,
+        "new_size": 128,
+        "primed": false,
+        "new_read_size": 128,
+        "held_read_size": 32,
+        "old_ino": 2,
+        "new_ino": 3,
+        "held_stat_size": 32
+      }
+    },
+    {
+      "name": "replace-32-128-primed-True",
+      "passed": true,
+      "data": {
+        "old_size": 32,
+        "new_size": 128,
+        "primed": true,
+        "new_read_size": 128,
+        "held_read_size": 32,
+        "old_ino": 4,
+        "new_ino": 5,
+        "held_stat_size": 32
+      }
+    },
+    {
+      "name": "replace-128-32-primed-False",
+      "passed": true,
+      "data": {
+        "old_size": 128,
+        "new_size": 32,
+        "primed": false,
+        "new_read_size": 32,
+        "held_read_size": 128,
+        "old_ino": 6,
+        "new_ino": 7,
+        "held_stat_size": 128
+      }
+    },
+    {
+      "name": "replace-128-32-primed-True",
+      "passed": true,
+      "data": {
+        "old_size": 128,
+        "new_size": 32,
+        "primed": true,
+        "new_read_size": 32,
+        "held_read_size": 128,
+        "old_ino": 8,
+        "new_ino": 9,
+        "held_stat_size": 128
+      }
+    },
+    {
+      "name": "replace-32-32-primed-False",
+      "passed": true,
+      "data": {
+        "old_size": 32,
+        "new_size": 32,
+        "primed": false,
+        "new_read_size": 32,
+        "held_read_size": 32,
+        "old_ino": 10,
+        "new_ino": 11,
+        "held_stat_size": 32
+      }
+    },
+    {
+      "name": "replace-32-32-primed-True",
+      "passed": true,
+      "data": {
+        "old_size": 32,
+        "new_size": 32,
+        "primed": true,
+        "new_read_size": 32,
+        "held_read_size": 32,
+        "old_ino": 12,
+        "new_ino": 14,
+        "held_stat_size": 32
+      }
+    },
+    {
+      "name": "unlink",
+      "passed": true,
+      "data": {
+        "old_fd_preserved": true,
+        "recreated_path_new_identity": true
+      }
+    },
+    {
+      "name": "hardlinks",
+      "passed": true,
+      "data": {
+        "alias_identity": true,
+        "independent_file_offsets": true
+      }
+    },
+    {
+      "name": "inplace",
+      "passed": true,
+      "data": {
+        "observations": [
+          {
+            "size": 128,
+            "sha256": "82de496da8dfbdad8389ec90d5074df304786ca62402b45ba7bd4746df0bbc57"
+          },
+          {
+            "size": 32,
+            "sha256": "60bf07c488aad18fda339df07e4fbc47b4f00be71711936f18d04d352ad01890"
+          },
+          {
+            "size": 32,
+            "sha256": "2cf2c6077769e8f910ed119ac8fa288d12817d4fdcef245576c752a076d3217a"
+          },
+          {
+            "size": 7,
+            "sha256": "ef65c09423796ffd32021091ab2761eb23bb9f534b61fa4d5280927aedc9e152"
+          }
+        ],
+        "same_inode_live_not_snapshot": true
+      }
+    },
+    {
+      "name": "mmap",
+      "passed": true,
+      "data": {
+        "readonly_mmap_supported": true,
+        "old_new_object_isolation": true,
+        "primed": true
+      }
+    },
+    {
+      "name": "mmap-unprimed",
+      "passed": true,
+      "data": {
+        "readonly_mmap_supported": true,
+        "old_new_object_isolation": true,
+        "primed": false
+      }
+    },
+    {
+      "name": "concurrent-replace",
+      "passed": true,
+      "data": {
+        "open_read_replays": 250,
+        "atomic_replacements": 739,
+        "coherent_objects": true
+      }
+    },
+    {
+      "name": "topology",
+      "passed": true,
+      "data": {
+        "missing_ancestors": true,
+        "overlay_types": true,
+        "provider_identity_separated": true
+      }
+    },
+    {
+      "name": "dirent-identity",
+      "passed": true,
+      "data": {
+        "one": 485,
+        "two": 486
+      }
+    },
+    {
+      "name": "directory-pagination",
+      "passed": true,
+      "data": {
+        "page1": [
+          {
+            "name": ".",
+            "cookie": 1,
+            "ino": 487,
+            "kind": 4
+          },
+          {
+            "name": "..",
+            "cookie": 2,
+            "ino": 487,
+            "kind": 4
+          },
+          {
+            "name": "a",
+            "cookie": 3,
+            "ino": 488,
+            "kind": 8
+          },
+          {
+            "name": "b",
+            "cookie": 4,
+            "ino": 489,
+            "kind": 8
+          }
+        ],
+        "rest": [
+          {
+            "name": "c",
+            "cookie": 5,
+            "ino": 490,
+            "kind": 8
+          },
+          {
+            "name": "d",
+            "cookie": 6,
+            "ino": 491,
+            "kind": 8
+          }
+        ],
+        "stable_seek_replay": true
+      }
+    },
+    {
+      "name": "directory-identity",
+      "passed": true,
+      "data": {
+        "held_directory_identity": true,
+        "new_path_new_directory": true
+      }
+    },
+    {
+      "name": "readonly",
+      "passed": true,
+      "data": {
+        "erofs": true
+      }
+    },
+    {
+      "name": "permissions",
+      "passed": true,
+      "data": {
+        "live_mode": 0,
+        "open_eacces": true,
+        "held_fd_preserved": true
+      }
+    },
+    {
+      "name": "resources",
+      "passed": true,
+      "data": {
+        "before": {
+          "ok": true,
+          "view_uuid": "fe0669ac-a3b8-4b17-b70d-692df44267ff",
+          "mountpoint": "/tmp/unifier-object-d22l5anz/view",
+          "worker_pid": 763222,
+          "worker_stamp": 30782637,
+          "initialized": true,
+          "readonly": true,
+          "allow_other": false,
+          "init_major": 7,
+          "init_minor": 31,
+          "consistency": {
+            "mode": "live-readonly",
+            "readonly": true,
+            "live": true,
+            "snapshot": false,
+            "watcher": false,
+            "cross_volume_consistent": false,
+            "entry_ttl": 0,
+            "attr_ttl": 0,
+            "direct_io": false,
+            "mmap": "page-cache",
+            "xattr": "unsupported",
+            "acl": "unknown",
+            "permissions": "not-default_permissions",
+            "auto_inval_data": true,
+            "kernel_offered_auto_inval_data": true
+          },
+          "counters": {
+            "nodes": 29,
+            "node_budget": 65536,
+            "handles": 0,
+            "file_handles": 0,
+            "dir_handles": 0,
+            "handle_budget": 1024,
+            "dir_entries": 0,
+            "dir_entry_budget": 65536,
+            "dir_bytes": 0,
+            "dir_bytes_budget": 8388608,
+            "next_nodeid": 498,
+            "next_handle": 285
+          }
+        },
+        "after": {
+          "ok": true,
+          "view_uuid": "fe0669ac-a3b8-4b17-b70d-692df44267ff",
+          "mountpoint": "/tmp/unifier-object-d22l5anz/view",
+          "worker_pid": 763222,
+          "worker_stamp": 30782637,
+          "initialized": true,
+          "readonly": true,
+          "allow_other": false,
+          "init_major": 7,
+          "init_minor": 31,
+          "consistency": {
+            "mode": "live-readonly",
+            "readonly": true,
+            "live": true,
+            "snapshot": false,
+            "watcher": false,
+            "cross_volume_consistent": false,
+            "entry_ttl": 0,
+            "attr_ttl": 0,
+            "direct_io": false,
+            "mmap": "page-cache",
+            "xattr": "unsupported",
+            "acl": "unknown",
+            "permissions": "not-default_permissions",
+            "auto_inval_data": true,
+            "kernel_offered_auto_inval_data": true
+          },
+          "counters": {
+            "nodes": 30,
+            "node_budget": 65536,
+            "handles": 0,
+            "file_handles": 0,
+            "dir_handles": 0,
+            "handle_budget": 1024,
+            "dir_entries": 0,
+            "dir_entry_budget": 65536,
+            "dir_bytes": 0,
+            "dir_bytes_budget": 8388608,
+            "next_nodeid": 1699,
+            "next_handle": 485
+          }
+        },
+        "baseline_fds": 37,
+        "after_fds": 38,
+        "exhaustion_errno": 24,
+        "held_count": 47,
+        "recovered": true
+      }
+    },
+    {
+      "name": "provider-resources",
+      "passed": true,
+      "data": {
+        "before": {
+          "ok": true,
+          "view_uuid": "fe0669ac-a3b8-4b17-b70d-692df44267ff",
+          "mountpoint": "/tmp/unifier-object-d22l5anz/view",
+          "worker_pid": 763222,
+          "worker_stamp": 30782637,
+          "initialized": true,
+          "readonly": true,
+          "allow_other": false,
+          "init_major": 7,
+          "init_minor": 31,
+          "consistency": {
+            "mode": "live-readonly",
+            "readonly": true,
+            "live": true,
+            "snapshot": false,
+            "watcher": false,
+            "cross_volume_consistent": false,
+            "entry_ttl": 0,
+            "attr_ttl": 0,
+            "direct_io": false,
+            "mmap": "page-cache",
+            "xattr": "unsupported",
+            "acl": "unknown",
+            "permissions": "not-default_permissions",
+            "auto_inval_data": true,
+            "kernel_offered_auto_inval_data": true
+          },
+          "counters": {
+            "nodes": 30,
+            "node_budget": 65536,
+            "handles": 0,
+            "file_handles": 0,
+            "dir_handles": 0,
+            "handle_budget": 1024,
+            "dir_entries": 0,
+            "dir_entry_budget": 65536,
+            "dir_bytes": 0,
+            "dir_bytes_budget": 8388608,
+            "next_nodeid": 1700,
+            "next_handle": 533
+          }
+        },
+        "after": {
+          "ok": true,
+          "view_uuid": "fe0669ac-a3b8-4b17-b70d-692df44267ff",
+          "mountpoint": "/tmp/unifier-object-d22l5anz/view",
+          "worker_pid": 763222,
+          "worker_stamp": 30782637,
+          "initialized": true,
+          "readonly": true,
+          "allow_other": false,
+          "init_major": 7,
+          "init_minor": 31,
+          "consistency": {
+            "mode": "live-readonly",
+            "readonly": true,
+            "live": true,
+            "snapshot": false,
+            "watcher": false,
+            "cross_volume_consistent": false,
+            "entry_ttl": 0,
+            "attr_ttl": 0,
+            "direct_io": false,
+            "mmap": "page-cache",
+            "xattr": "unsupported",
+            "acl": "unknown",
+            "permissions": "not-default_permissions",
+            "auto_inval_data": true,
+            "kernel_offered_auto_inval_data": true
+          },
+          "counters": {
+            "nodes": 31,
+            "node_budget": 65536,
+            "handles": 0,
+            "file_handles": 0,
+            "dir_handles": 0,
+            "handle_budget": 1024,
+            "dir_entries": 0,
+            "dir_entry_budget": 65536,
+            "dir_bytes": 0,
+            "dir_bytes_budget": 8388608,
+            "next_nodeid": 2901,
+            "next_handle": 733
+          }
+        },
+        "baseline_fds": 38,
+        "after_fds": 39,
+        "exhaustion_errno": 24,
+        "held_count": 47,
+        "recovered": true
+      }
+    },
+    {
+      "name": "unavailable-provider",
+      "passed": true,
+      "data": {
+        "new_lookups_and_directory_fail_closed": true,
+        "held_objects_preserved": true
+      }
+    }
+  ],
+  "started_at": 1793026154.2360148,
+  "initial_status": {
+    "ok": true,
+    "view_uuid": "fe0669ac-a3b8-4b17-b70d-692df44267ff",
+    "mountpoint": "/tmp/unifier-object-d22l5anz/view",
+    "worker_pid": 763222,
+    "worker_stamp": 30782637,
+    "initialized": true,
+    "readonly": true,
+    "allow_other": false,
+    "init_major": 7,
+    "init_minor": 31,
+    "consistency": {
+      "mode": "live-readonly",
+      "readonly": true,
+      "live": true,
+      "snapshot": false,
+      "watcher": false,
+      "cross_volume_consistent": false,
+      "entry_ttl": 0,
+      "attr_ttl": 0,
+      "direct_io": false,
+      "mmap": "page-cache",
+      "xattr": "unsupported",
+      "acl": "unknown",
+      "permissions": "not-default_permissions",
+      "auto_inval_data": true,
+      "kernel_offered_auto_inval_data": true
+    },
+    "counters": {
+      "nodes": 1,
+      "node_budget": 65536,
+      "handles": 0,
+      "file_handles": 0,
+      "dir_handles": 0,
+      "handle_budget": 1024,
+      "dir_entries": 0,
+      "dir_entry_budget": 65536,
+      "dir_bytes": 0,
+      "dir_bytes_budget": 8388608,
+      "next_nodeid": 2,
+      "next_handle": 1
+    }
+  }
+}

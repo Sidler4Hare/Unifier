@@ -1,0 +1,194 @@
+{
+  "status": "PASSED_MENU_REOPEN_AND_LIFECYCLE",
+  "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+  "cycles": [
+    {
+      "cycle": 1,
+      "window": {
+        "caption": "腾讯会议 <@b9dd15c5fccf>‎",
+        "resourceClass": "wemeetapp",
+        "pid": 841842,
+        "objectType": "KWin::X11Window(0x558c65d871a0)",
+        "wayland": null,
+        "x11": null,
+        "width": 376.79999999999995,
+        "height": 668.8,
+        "bufferWidth": 376.79999999999995,
+        "bufferHeight": 668.8,
+        "internalId": "{4fe2a0b4-ac19-492e-a2e6-cd1aacd5e414}",
+        "active": true
+      },
+      "screenshot": {
+        "before": {
+          "caption": "腾讯会议 <@b9dd15c5fccf>‎",
+          "resourceClass": "wemeetapp",
+          "pid": 841842,
+          "objectType": "KWin::X11Window(0x558c65d871a0)",
+          "wayland": null,
+          "x11": null,
+          "width": 376.79999999999995,
+          "height": 668.8,
+          "bufferWidth": 376.79999999999995,
+          "bufferHeight": 668.8,
+          "internalId": "{4fe2a0b4-ac19-492e-a2e6-cd1aacd5e414}",
+          "active": true
+        },
+        "after": {
+          "caption": "腾讯会议 <@b9dd15c5fccf>‎",
+          "resourceClass": "wemeetapp",
+          "pid": 841842,
+          "objectType": "KWin::X11Window(0x558c65d871a0)",
+          "wayland": null,
+          "x11": null,
+          "width": 376.79999999999995,
+          "height": 668.8,
+          "bufferWidth": 376.79999999999995,
+          "bufferHeight": 668.8,
+          "internalId": "{4fe2a0b4-ac19-492e-a2e6-cd1aacd5e414}",
+          "active": true
+        },
+        "path": "/home/omg/文档/多兼容linux机/evidence/runtime-consolidation-2026-10-27/wemeet-gui-attempt2/launch-1.png",
+        "capture": "active experiment window only"
+      },
+      "leases_during": {
+        "leases": {
+          "587dfac835ed4d5ead24a587986548c6": {
+            "pid": 841333,
+            "stamp": 36194042,
+            "app_id": "wemeet"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 841516,
+          "stamp": 36194116,
+          "socket": "/home/omg/.local/share/multilinux/apps/wemeet/.lab/desktop/meeting/bus"
+        },
+        "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+        "container_started_at": "2026-10-27T13:51:09.424854724+08:00"
+      },
+      "same_container": true,
+      "shared_session": {
+        "session_uuid": "b6260c26-e246-46c5-bee2-0b95877e8db0",
+        "actual_guest_pid": 96,
+        "same_container": true,
+        "leases_during": {
+          "leases": {
+            "587dfac835ed4d5ead24a587986548c6": {
+              "pid": 841333,
+              "stamp": 36194042,
+              "app_id": "wemeet"
+            },
+            "85f1a1c9061746448be53af860d6f0a2": {
+              "pid": 842125,
+              "stamp": 36195141,
+              "project_uuid": "f5840b15-a892-4fd2-92ae-545936a99410",
+              "kind": "project-session"
+            }
+          },
+          "auto_stop": true,
+          "bridge": {
+            "pid": 841516,
+            "stamp": 36194116,
+            "socket": "/home/omg/.local/share/multilinux/apps/wemeet/.lab/desktop/meeting/bus"
+          },
+          "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+          "container_started_at": "2026-10-27T13:51:09.424854724+08:00"
+        },
+        "cancel_exit": 0,
+        "session_exit": 143,
+        "application_survived_targeted_cancel": true
+      },
+      "host_writeback": {
+        "sha256": "9e66686e6e75f6e001cdc75f79609a7ff99ca9d17a866bbb8fdd6a7be0e1c94e",
+        "uid": 1000
+      },
+      "state_after_close": "stopped",
+      "leases_after": {
+        "leases": {},
+        "auto_stop": false,
+        "bridge": null,
+        "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+        "container_started_at": "2026-10-27T13:51:09.424854724+08:00"
+      }
+    },
+    {
+      "cycle": 2,
+      "window": {
+        "caption": "腾讯会议 <@b9dd15c5fccf>‎",
+        "resourceClass": "wemeetapp",
+        "pid": 843423,
+        "objectType": "KWin::X11Window(0x558c6753b630)",
+        "wayland": null,
+        "x11": null,
+        "width": 376.79999999999995,
+        "height": 668.8,
+        "bufferWidth": 376.79999999999995,
+        "bufferHeight": 668.8,
+        "internalId": "{325382a9-5804-42c9-ac7a-71ad94a7ea78}",
+        "active": true
+      },
+      "screenshot": {
+        "before": {
+          "caption": "腾讯会议 <@b9dd15c5fccf>‎",
+          "resourceClass": "wemeetapp",
+          "pid": 843423,
+          "objectType": "KWin::X11Window(0x558c6753b630)",
+          "wayland": null,
+          "x11": null,
+          "width": 376.79999999999995,
+          "height": 668.8,
+          "bufferWidth": 376.79999999999995,
+          "bufferHeight": 668.8,
+          "internalId": "{325382a9-5804-42c9-ac7a-71ad94a7ea78}",
+          "active": true
+        },
+        "after": {
+          "caption": "腾讯会议 <@b9dd15c5fccf>‎",
+          "resourceClass": "wemeetapp",
+          "pid": 843423,
+          "objectType": "KWin::X11Window(0x558c6753b630)",
+          "wayland": null,
+          "x11": null,
+          "width": 376.79999999999995,
+          "height": 668.8,
+          "bufferWidth": 376.79999999999995,
+          "bufferHeight": 668.8,
+          "internalId": "{325382a9-5804-42c9-ac7a-71ad94a7ea78}",
+          "active": true
+        },
+        "path": "/home/omg/文档/多兼容linux机/evidence/runtime-consolidation-2026-10-27/wemeet-gui-attempt2/launch-2.png",
+        "capture": "active experiment window only"
+      },
+      "leases_during": {
+        "leases": {
+          "7da915a564644ac28fc7d5d2816424fd": {
+            "pid": 842952,
+            "stamp": 36195679,
+            "app_id": "wemeet"
+          }
+        },
+        "auto_stop": true,
+        "bridge": {
+          "pid": 843043,
+          "stamp": 36195739,
+          "socket": "/home/omg/.local/share/multilinux/apps/wemeet/.lab/desktop/meeting/bus"
+        },
+        "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+        "container_started_at": "2026-10-27T13:51:25.638904346+08:00"
+      },
+      "same_container": true,
+      "shared_file_reopened_after_stop": true,
+      "state_after_close": "stopped",
+      "leases_after": {
+        "leases": {},
+        "auto_stop": false,
+        "bridge": null,
+        "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+        "container_started_at": "2026-10-27T13:51:25.638904346+08:00"
+      }
+    }
+  ],
+  "scope": "Real menu/window/normal WM close, shared data and lifecycle; no login, meeting or camera acceptance.",
+  "synthetic_shared_file": "/home/omg/.local/share/multilinux/documents/wemeet/.unifier-migration-20261027-133146.txt"
+}

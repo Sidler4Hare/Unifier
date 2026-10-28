@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "D_gate_passed": true,
+  "D_backup_verified": true,
+  "original_container_count": 27,
+  "state_count": 23,
+  "frozen_evidence_count": 13572
+}

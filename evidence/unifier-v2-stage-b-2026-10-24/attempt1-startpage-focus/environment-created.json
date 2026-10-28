@@ -1,0 +1,120 @@
+{
+  "schema_version": 2,
+  "id": "v2-freecad",
+  "target": "arch",
+  "distribution_id": "arch",
+  "version_track": "rolling",
+  "update_policy": "full-system-upgrade",
+  "architecture": "amd64",
+  "base_image": {
+    "source": "localhost/multilinux/installstatus-arch:20261022210845",
+    "manifest_digest": "sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+    "locked_reference": "localhost/multilinux/installstatus-arch@sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+    "image_version_label": "20261011.0.609700"
+  },
+  "writable_revision": "4b914a65c295d2ecf3ea3ec4f07955e500c548f3012192b5b743bae097c0c14a",
+  "content_revision": 1,
+  "runtime_state": "stopped",
+  "package_inventory_sha256": "5ad1fc5e88a014d94f458e1de7c64a23c6978b4fb837821b34feebcdfd7b67f1",
+  "package_inventory_count": 350,
+  "package_inventory_path": ".lab/state/environments/v2-freecad.packages.txt",
+  "shared_mounts": [
+    {
+      "host": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+      "container": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+      "options": ""
+    }
+  ],
+  "desktop": {
+    "selinux_label": "disable",
+    "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+    "env": {
+      "WAYLAND_DISPLAY": "wayland-0",
+      "XDG_RUNTIME_DIR": "/run/user/1000",
+      "DISPLAY": ":0",
+      "XAUTHORITY": "/tmp/ml-xauthority",
+      "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+      "PIPEWIRE_REMOTE": "pipewire-0",
+      "XDG_SESSION_TYPE": "wayland"
+    },
+    "mounts": [
+      {
+        "host": "/run/user/1000/wayland-0",
+        "container": "/run/user/1000/wayland-0",
+        "options": ""
+      },
+      {
+        "host": "/tmp/.X11-unix/X0",
+        "container": "/tmp/.X11-unix/X0",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/xauth_NCgtEd",
+        "container": "/tmp/ml-xauthority",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/pulse/native",
+        "container": "/run/user/1000/pulse/native",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/pipewire-0",
+        "container": "/run/user/1000/pipewire-0",
+        "options": ""
+      }
+    ]
+  },
+  "created_at": "2026-10-24T10:47:17+08:00",
+  "updated_at": "2026-10-24T10:47:17+08:00",
+  "arch": {
+    "image_version_label": "20261011.0.609700",
+    "os_release_version_id": "20261011.0.609700",
+    "os_release_build_id": "rolling",
+    "repository_updated_at": null,
+    "package_set_sha256": "5ad1fc5e88a014d94f458e1de7c64a23c6978b4fb837821b34feebcdfd7b67f1",
+    "keyring_initialized_at": null
+  },
+  "runtime": {
+    "backend": "podman",
+    "container_name": "ml-97880580-v2-freecad",
+    "container_id": "4b914a65c295d2ecf3ea3ec4f07955e500c548f3012192b5b743bae097c0c14a",
+    "project": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project",
+    "network": "none",
+    "share_label_policy": "preserve-host",
+    "selinux_label": "disable",
+    "full_init": false,
+    "user_namespace": "keep-id",
+    "devices": [
+      "/dev/dri/card1",
+      "/dev/dri/renderD128"
+    ],
+    "ipc": "host",
+    "rootless": true
+  },
+  "observed": {
+    "os_release_id": "arch",
+    "os_release_version_id": "20261011.0.609700",
+    "os_release_build_id": "rolling",
+    "os_release_pretty_name": "Arch Linux",
+    "kernel": "7.2.11-200.fc44.x86_64",
+    "machine": "x86_64"
+  },
+  "system": {
+    "family": "arch",
+    "libc": "glibc",
+    "layout": "fhs",
+    "package_driver": "pacman",
+    "package_format": "arch",
+    "runtime_backend": "podman-rootless",
+    "update_policy": "full-system-upgrade",
+    "package_change": "in-place",
+    "base_image_change": "replace",
+    "contract_change": "replace"
+  },
+  "created_by_uid": 1000,
+  "created_by_gid": 1000,
+  "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage.",
+  "environment_uuid": "2a27a2ab-5a13-4b81-9c04-138d0754afbb",
+  "generation": 1
+}

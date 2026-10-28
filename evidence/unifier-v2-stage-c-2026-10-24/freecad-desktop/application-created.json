@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "id": "freecad",
+  "app_instance_uuid": "3bab3a05-68ef-4da8-bf9c-69ed8f4db083",
+  "environment_id": "freecad-arch",
+  "environment_uuid": "1da35b87-4617-4953-bb03-0b55613a73a4",
+  "generation": 1,
+  "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+  "environment_binding": {
+    "environment_id": "freecad-arch",
+    "environment_uuid": "1da35b87-4617-4953-bb03-0b55613a73a4",
+    "generation": 1,
+    "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5"
+  },
+  "executable": "/usr/bin/FreeCAD",
+  "argv": [
+    "/usr/bin/FreeCAD"
+  ],
+  "workdir": "/home/omg/文档/Unifier-CAD",
+  "env": {
+    "WAYLAND_DISPLAY": "wayland-0",
+    "XDG_RUNTIME_DIR": "/run/user/1000",
+    "DISPLAY": ":0",
+    "XAUTHORITY": "/tmp/ml-xauthority",
+    "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+    "PIPEWIRE_REMOTE": "pipewire-0",
+    "XDG_SESSION_TYPE": "wayland",
+    "QT_QPA_PLATFORM": "wayland",
+    "LC_ALL": "C.UTF-8",
+    "HOME": "/home/multilinux-1000",
+    "USER": "omg",
+    "LOGNAME": "omg"
+  },
+  "user": "1000:1000",
+  "on_demand": true,
+  "package_origin": null,
+  "mounts": [
+    {
+      "host": "/run/user/1000/wayland-0",
+      "container": "/run/user/1000/wayland-0",
+      "options": ""
+    },
+    {
+      "host": "/tmp/.X11-unix/X0",
+      "container": "/tmp/.X11-unix/X0",
+      "options": ""
+    },
+    {
+      "host": "/run/user/1000/xauth_NCgtEd",
+      "container": "/tmp/ml-xauthority",
+      "options": ""
+    },
+    {
+      "host": "/run/user/1000/pulse/native",
+      "container": "/run/user/1000/pulse/native",
+      "options": ""
+    },
+    {
+      "host": "/run/user/1000/pipewire-0",
+      "container": "/run/user/1000/pipewire-0",
+      "options": ""
+    }
+  ],
+  "export": null,
+  "created_at": "2026-10-24T11:16:03+08:00",
+  "updated_at": "2026-10-24T11:16:03+08:00"
+}

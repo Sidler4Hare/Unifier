@@ -1,0 +1,6 @@
+{"at": "2026-10-26T08:19:59+08:00", "phase": "starting"}
+{"at": "2026-10-26T08:20:00+08:00", "phase": "wave", "level": 1, "wave": 0, "message": "Fedora N=1 wave 1"}
+{"at": "2026-10-26T08:20:06+08:00", "phase": "wave-complete", "target": "fedora44", "level": 1, "wave": 0, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T08:20:06+08:00", "phase": "wave", "level": 2, "wave": 0, "message": "Fedora N=2 wave 1"}
+{"at": "2026-10-26T08:20:13+08:00", "phase": "wave-complete", "target": "fedora44", "level": 2, "wave": 0, "message": "N sessions completed and auto-stopped"}
+{"at": "2026-10-26T08:20:13+08:00", "phase": "wave", "level": 4, "wave": 0, "message": "Fedora N=4 wave 1"}

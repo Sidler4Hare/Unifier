@@ -1,0 +1,34 @@
+{
+  "tool": "probe_projection",
+  "status": "failed",
+  "phase": "finished",
+  "acceptance": "pending-primary-review",
+  "started_at": "2026-10-26T16:41:19+08:00",
+  "updated_at": "2026-10-26T16:47:32+08:00",
+  "scope": {
+    "cycles": 15,
+    "reps": 30,
+    "targets": [
+      "debian13",
+      "fedora44",
+      "arch"
+    ]
+  },
+  "checks": {
+    "all_targets_have_5_plus_fuse_reps": true,
+    "host_and_container_reps": true,
+    "view_cleanup_clean": true,
+    "absolute_link_mapping": true,
+    "relative_link_mapping": false,
+    "container_absolute_link_control": true,
+    "readlink_raw_container_path": true,
+    "mmap_read_supported": true,
+    "write_open_refused": true,
+    "host_inotify_control": true,
+    "fuse_semantics_honest": true
+  },
+  "error": "ProbeError: one or more projection checks failed",
+  "target": "arch",
+  "message": "cycle 15/15",
+  "finished_at": "2026-10-26T16:47:32+08:00"
+}

@@ -1,0 +1,359 @@
+{
+  "status": "INVENTORY_COMPLETE_RELATIONSHIP_WORKFLOWS_NOT_RUN",
+  "date": "2026-10-27",
+  "scope": "Reuse installed Linux applications; preserve native installations and preferences. No new installs or launches in this inventory.",
+  "identity_proposal_not_current_api": {
+    "host_rpm": [
+      "name",
+      "epoch",
+      "version",
+      "release",
+      "arch",
+      "desktop_id",
+      "resolved_program",
+      "entry_role"
+    ],
+    "flatpak": [
+      "app_id",
+      "branch",
+      "installation",
+      "origin",
+      "desktop_id"
+    ],
+    "guest_managed": [
+      "environment_uuid",
+      "generation",
+      "container_id",
+      "app_instance_uuid",
+      "execution_fingerprint",
+      "entry_role"
+    ],
+    "rule": "Display name/type/MIME alone does not define identity or equal capability; common wrappers/interpreters are not an identity key."
+  },
+  "wps_same_build_reference": "wps-reuse-reference.json",
+  "relationship_families": [
+    {
+      "id": "IR01",
+      "relationship": "同名入口、同一安装：Chrome",
+      "subjects": [
+        "google-chrome.desktop",
+        "com.google.Chrome.desktop"
+      ],
+      "acceptance": "两个入口均由google-chrome-stable拥有，Exec相同，一个NoDisplay；展示可按产品归组，内部入口ID/默认值保留，不能计成两套安装或删除包文件",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR02",
+      "relationship": "套件、组件与入口别名：WPS",
+      "subjects": [
+        "wps-office-prometheus.desktop",
+        "wps-office-wps.desktop",
+        "wps-office-et.desktop",
+        "wps-office-wpp.desktop",
+        "wps-office-pdf.desktop"
+      ],
+      "acceptance": "Office/文字共用/usr/bin/wps但%F/%U不同；表格/演示/PDF是组件角色。不同文件类型与操作进入正确组件，保留总入口默认",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR03",
+      "relationship": "同名、多格式入口：Okular",
+      "subjects": [
+        "okularApplication_pdf.desktop",
+        "okularApplication_txt.desktop",
+        "org.kde.okular.desktop"
+      ],
+      "acceptance": "同一产品的格式入口不能仅凭Name互相覆盖；PDF默认入口保持精确ID，其他格式入口继续存在",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR04",
+      "relationship": "同类型不同产品：WPS与LibreOffice",
+      "subjects": [
+        "wps-office",
+        "libreoffice-writer",
+        "libreoffice-calc",
+        "libreoffice-impress"
+      ],
+      "acceptance": "DOCX/XLSX/PPTX打开方式、原路径保存、另存和重开逐项测；显式选用另一个应用不暗改全局默认。原生锁/格式损失与产品路由错误分开",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR05",
+      "relationship": "同产品同构建：宿主WPS与Fedora容器WPS",
+      "subjects": [
+        "host-rpm:wps-office",
+        "fedora44:wps-office"
+      ],
+      "acceptance": "使用已锁定本地同NEVRA/同不可变头RPM；窗口对应真实PID/namespace/CID，私有配置分开，共享数据一致，取消客体不影响宿主实例",
+      "phase": "R1",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR06",
+      "relationship": "同产品不同包格式/版本：WPS RPM与DEB",
+      "subjects": [
+        "host-rpm:wps-office",
+        "debian13:WPS-DEB"
+      ],
+      "acceptance": "Debian必须走真实DEB；优先同版本，没有同版本则记录构建差异，不把行为差异全归因于包格式，不转换RPM冒充DEB",
+      "phase": "R1",
+      "metadata_observation_available": false,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR07",
+      "relationship": "同名跨环境：微信原生与客体",
+      "subjects": [
+        "host-rpm:wechat",
+        "guest:wechat-pending-artifact"
+      ],
+      "acceptance": "客体包来源/版本先锁定；窗口、单实例IPC与URI交付必须进入目标，配置/登录状态分开，不以宿主现有安装代替客体验收；当前微信桌面未声明MIME/URI，按实际版本提供的能力测试，未提供时明确记录，不伪造处理器。",
+      "phase": "R2",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN",
+      "native_desktop_declared_mime_or_uri": []
+    },
+    {
+      "id": "IR08",
+      "relationship": "同类编辑器的不同身份",
+      "subjects": [
+        "code",
+        "zcode",
+        "qoder-cn",
+        "marktext",
+        "kwrite"
+      ],
+      "acceptance": "用合成TXT/Markdown/代码文件进行打开、保存、外部刷新、并发写；不按code字符串或相似界面合并产品，MIME声明不能代替编辑能力",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR09",
+      "relationship": "同名编辑器跨环境的执行上下文",
+      "subjects": [
+        "host-rpm:code",
+        "guest:code-pending-artifact"
+      ],
+      "acceptance": "项目终端/解释器/插件/依赖实际属于目标环境；专用测试配置与构建产物分离，不让请求被宿主单实例接走或宿主解释器兜底",
+      "phase": "R2",
+      "metadata_observation_available": false,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR10",
+      "relationship": "同格式不同能力：PDF应用",
+      "subjects": [
+        "okular",
+        "wpspdf",
+        "google-chrome-stable",
+        "libreoffice-draw"
+      ],
+      "acceptance": "当前默认Okular；view/edit/convert分别记录，Chrome可显示PDF不表示具备同等编辑/导出能力，不为测试抢默认",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR11",
+      "relationship": "同类型媒体应用",
+      "subjects": [
+        "mpv",
+        "haruna",
+        "dragon"
+      ],
+      "acceptance": "当前MP4默认Haruna；使用合成媒体测显式打开、可变化画面/声音、关闭和资源；共享库依赖不等于同一应用实例",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR12",
+      "relationship": "不同安装后端与文件入口",
+      "subjects": [
+        "host-rpm",
+        "user-flatpak:com.valvesoftware.Steam",
+        "user-flatpak:com.moonlight_stream.Moonlight",
+        "guest-app"
+      ],
+      "acceptance": "Flatpak按appID/branch/installation区分；实际传入路径/portal与文件权限单列。现有Steam不代表RPM版Steam已安装，不自动扩展到Windows游戏/Wine验收",
+      "phase": "R2",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR13",
+      "relationship": "主入口与协议处理器",
+      "subjects": [
+        "clash-verge.desktop",
+        "clash-verge-handler.desktop",
+        "code-url-handler.desktop",
+        "qoder-cn.desktop"
+      ],
+      "acceptance": "主入口/URI入口分别保留，协议进入其实际产品，受管导出/撤销不破坏外部已有URI处理器；不向外发送消息",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR14",
+      "relationship": "卸载、撤销和同名重建",
+      "subjects": [
+        "host-app",
+        "guest-app",
+        "desktop-integration"
+      ],
+      "acceptance": "只卸载可再生客体fixture，宿主软件/数据保留；旧UUID/gen/CID及app instance绑定拒绝新实例；默认关联按journal回滚或显式冲突",
+      "phase": "R1",
+      "metadata_observation_available": false,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR15",
+      "relationship": "当前命令搜索路径与真实执行来源",
+      "subjects": [
+        "soffice",
+        "libreoffice",
+        "code",
+        "qwen",
+        "guest-interpreter"
+      ],
+      "acceptance": "当前agent环境soffice命中内置runtime wrapper；宿主对照固定原生/usr/bin/libreoffice并记录上下文。不能把此PATH观察外推到桌面会话或客体",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR16",
+      "relationship": "安装包同名/重复内容与已安装版本",
+      "subjects": [
+        "local-chatgpt-rpms",
+        "local-chatbox-appimages",
+        "local-grok-bot-rpms"
+      ],
+      "acceptance": "相同文件名不等于同版本，相同SHA是同份artifact；下载包不等于已安装，不将旧包倒灌当前宿主应用。下载目录原件保留",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR17",
+      "relationship": "同名跨运行层的盘点反例：千问",
+      "subjects": [
+        "host-command:qwen",
+        "local-deb:com.qianwen.otohime"
+      ],
+      "acceptance": "现有qwen wrapper含Wine/Flatpak/.exe；不能算原生Linux DEB已安装。本轮只记录分类，不扩张为Windows兼容测试",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    },
+    {
+      "id": "IR18",
+      "relationship": "默认、候选、实际能力不一致",
+      "subjects": [
+        "GIO-defaults",
+        "GIO-handlers",
+        "desktop-capabilities"
+      ],
+      "acceptance": "OOXML默认WPS总入口不在本次候选枚举；保留实际默认并验证可启动性，不静默改成候选首项。Ark/导入工具声明相同MIME也不自动成为等价编辑器",
+      "phase": "R0",
+      "metadata_observation_available": true,
+      "workflow_status": "NOT_RUN"
+    }
+  ],
+  "relationship_family_count": 18,
+  "execution_order": [
+    {
+      "phase": "R0",
+      "name": "宿主已安装应用关系；先只读图谱，再隔离数据/XDG的实际工作流",
+      "new_host_installations": 0
+    },
+    {
+      "phase": "R1",
+      "name": "Fedora/WPS本地同构建RPM；再Debian/WPS与Arch/Zoom，接入原三发行版矩阵",
+      "fixture_policy": "最多复用三套编号测试环境，收尾恢复两个日常容器"
+    },
+    {
+      "phase": "R2",
+      "name": "微信、编辑器同名跨环境、Flatpak权限和URI；补齐账号/对应客体原始包后执行"
+    }
+  ],
+  "additional_local_trials": [
+    {
+      "id": "LOCAL-WPS-FEDORA44",
+      "target": "fedora44",
+      "artifact": {
+        "path": "/home/omg/下载/wps-office-12.1.2.28080.AK.preread.sw.Personal-1-765475.x86_64.rpm",
+        "bytes": 566909344,
+        "sha256": "a81e55e6b1f34d35422d7278b2fea3f04450ad6e87e6b761a63c2ff75cc7b696",
+        "kind": "rpm",
+        "package": {
+          "name": "wps-office",
+          "version": "12.1.2.28080.AK.preread.sw",
+          "release": "1",
+          "arch": "x86_64",
+          "license": "Proprietary",
+          "epoch": "0"
+        },
+        "installed_exact_nevra": true,
+        "rpm_immutable_header_sha256": "5db6aded58c0277c1155f0f7bf411456a95f42ccc953973823fb64d88c1c394f",
+        "immutable_header_matches_installed": true
+      },
+      "status": "NOT_RUN",
+      "purpose": "same-build native-host vs guest RPM control",
+      "reuse_of_existing_cell_id": "APP-WPS-FEDORA44",
+      "not_an_extra_duplicate_installation": true
+    },
+    {
+      "id": "LOCAL-DINGTALK-DEBIAN13",
+      "target": "debian13",
+      "artifact": {
+        "path": "/home/omg/下载/com.alibabainc.dingtalk_8.3.1.261008001_amd64.deb",
+        "bytes": 374001484,
+        "sha256": "35ab680ded104abcdc53a67fcfcff2b56479997f16e8abfe11c41fbf58f5825e",
+        "kind": "deb",
+        "package": {
+          "package": "com.alibabainc.dingtalk",
+          "version": "8.3.1.261008001",
+          "architecture": "amd64",
+          "maintainer": "dingtalk alibaba-inc",
+          "homepage": "https://gov.dingtalk.com"
+        },
+        "installed_by_host_rpm_not_inferred": true
+      },
+      "status": "OPTIONAL_NOT_RUN",
+      "purpose": "local DEB source/format-limited enterprise app trial; source URL authenticity not established by filename/header"
+    }
+  ],
+  "product_adapter_gate": {
+    "observed_handler_providers": [
+      "environment-app"
+    ],
+    "host_rpm_and_flatpak_unified_handler_provider": "NOT_IMPLEMENTED_IN_CURRENT_HANDLER_CONTRACT",
+    "required_action": "Distinguish native GIO baselines and product routing; inventory and implement a host adapter only when needed, without treating external relay as existing product support."
+  },
+  "global_default_policy": "Read and preserve current defaults; first use isolated XDG/test data. For later real journaled changes preserve exact before/after and restore or report conflict; do not uninstall native apps as a test shortcut.",
+  "evidence": [
+    "rpm-installed.json",
+    "desktop-entries.json",
+    "effective-gio-applications.json",
+    "flatpak-applications.json",
+    "mime-associations.json",
+    "command-resolution.json",
+    "local-installers.json",
+    "shared-launch-program-groups.json",
+    "duplicate-installer-content.json"
+  ],
+  "native_same_desktop_id_shadowing_observed": false
+}

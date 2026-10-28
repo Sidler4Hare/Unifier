@@ -1,0 +1,726 @@
+{
+  "targets": {
+    "debian13": {
+      "environment_id": "view-debian13",
+      "passed": true,
+      "view": {
+        "backend": "podman-overlay",
+        "broker_launcher_pid": 199874,
+        "broker_launcher_stamp": 13456746,
+        "broker_pid": 199886,
+        "broker_stamp": 13456748,
+        "cleanup_errors": [],
+        "control_socket": "/run/user/1000/unifier-views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/c",
+        "created_at": "2026-10-24T22:41:35+08:00",
+        "environment_binding": {
+          "container_id": "f68d2b1f9916b21133d7cff28274fb1d45a0508dd61d4f7bd1ece7e8a35782f3",
+          "environment_id": "view-debian13",
+          "environment_uuid": "dc462c9e-533e-4d6b-9fd4-6e6ecc35d461",
+          "generation": 1
+        },
+        "environment_id": "view-debian13",
+        "fuse_access_gid": 1000,
+        "fuse_access_uid": 1000,
+        "last_error": null,
+        "log_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/view.log",
+        "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount",
+        "namespace_caps": "not-assumed",
+        "owner_pid": 199795,
+        "owner_stamp": 13456716,
+        "raw_link_semantics": "projected-link",
+        "readonly": true,
+        "ready_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/ready.json",
+        "runtime_dev": 88,
+        "runtime_dir": "/run/user/1000/unifier-views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41",
+        "runtime_ino": 3500,
+        "schema_version": 1,
+        "spec_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/spec.json",
+        "state": "ready",
+        "storage_journal": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/storage.json",
+        "storage_nonce": "69ddcfcfa1c94a038bceb7fac151ace0",
+        "storage_ref_state": "mounted",
+        "storage_socket": "/run/user/1000/unifier-views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/s",
+        "uid_map": {
+          "container_gid": 0,
+          "container_uid": 0,
+          "gid_ranges": [
+            [
+              1000,
+              0,
+              1
+            ],
+            [
+              524288,
+              1,
+              65536
+            ]
+          ],
+          "host_gid": 1000,
+          "host_uid": 1000,
+          "subgid_count": 65536,
+          "subgid_start": 524288,
+          "subuid_count": 65536,
+          "subuid_start": 524288,
+          "uid_ranges": [
+            [
+              1000,
+              0,
+              1
+            ],
+            [
+              524288,
+              1,
+              65536
+            ]
+          ],
+          "user_namespace": "rootless-default"
+        },
+        "updated_at": "2026-10-24T22:41:35+08:00",
+        "view_dir": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41",
+        "view_uuid": "e6bc50f8-e857-4e4e-8adc-b96ff76f8e41",
+        "worker_pid": 199913,
+        "worker_stamp": 13456760
+      },
+      "top_level": [
+        "bin",
+        "boot",
+        "dev",
+        "etc",
+        "home",
+        "lib",
+        "lib64",
+        "media",
+        "mnt",
+        "opt",
+        "proc",
+        "root",
+        "run",
+        "sbin",
+        "srv",
+        "sys",
+        "tmp",
+        "usr",
+        "var"
+      ],
+      "host_links": {
+        "absolute": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/etc/os-release",
+        "upward": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/etc/os-release",
+        "relative": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/payload.txt"
+      },
+      "readlink_raw": {
+        "ok": true,
+        "raw": "/etc/os-release",
+        "projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/etc/os-release",
+        "semantics": "projected-link"
+      },
+      "host_escape": {
+        "refused": true,
+        "errno": 2,
+        "error": "[Errno 2] No such file or directory: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/host-escape'"
+      },
+      "runtime_unavailable": {
+        "proc": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/proc'"
+        },
+        "sys": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/sys'"
+        },
+        "dev": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/dev'"
+        },
+        "run": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/run'"
+        }
+      },
+      "uids": {
+        "0": {
+          "uid": 0,
+          "gid": 0
+        },
+        "1": {
+          "uid": 1,
+          "gid": 1
+        },
+        "1000": {
+          "uid": 1000,
+          "gid": 1000
+        },
+        "1001": {
+          "uid": 1001,
+          "gid": 1001
+        }
+      },
+      "write_refusals": {
+        "write": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/payload.txt'"
+        },
+        "create": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/new.txt'"
+        },
+        "delete": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/payload.txt'"
+        },
+        "rename": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/payload.txt' -> '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/renamed.txt'"
+        },
+        "chmod": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/payload.txt'"
+        },
+        "mkdir": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/new-dir'"
+        },
+        "symlink": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/etc/passwd' -> '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/new-link'"
+        },
+        "hardlink": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/payload.txt' -> '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-view/new-hardlink'"
+        }
+      },
+      "start_refused": {
+        "refused": true,
+        "errno": null,
+        "error": "environment view-debian13 has active read-only view e6bc50f8-e857-4e4e-8adc-b96ff76f8e41 at /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount; revoke it before start/remove"
+      },
+      "remove_refused": {
+        "refused": true,
+        "errno": null,
+        "error": "environment view-debian13 has active read-only view e6bc50f8-e857-4e4e-8adc-b96ff76f8e41 at /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount; revoke it before start/remove"
+      },
+      "second_view_refused": {
+        "refused": true,
+        "errno": null,
+        "error": "environment view-debian13 has active read-only view e6bc50f8-e857-4e4e-8adc-b96ff76f8e41 at /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount; revoke it before start/remove"
+      },
+      "os_release_sha256": "e249e69c32d81350fdd6b05ac5575255f14e380ba14b8454acea14e49f088bfa",
+      "missing_bind": {
+        "refused": true,
+        "exit": 1,
+        "stderr": "cat: /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/e6bc50f8-e857-4e4e-8adc-b96ff76f8e41/mount/var/lib/unifier-volume/nested/payload.txt: Input/output error\n"
+      },
+      "mount_revoked": true,
+      "worker_stopped": true,
+      "broker_stopped": true,
+      "never_started_by_view": true
+    },
+    "fedora44": {
+      "environment_id": "view-fedora44",
+      "passed": true,
+      "view": {
+        "backend": "podman-overlay",
+        "broker_launcher_pid": 200112,
+        "broker_launcher_stamp": 13456807,
+        "broker_pid": 200125,
+        "broker_stamp": 13456808,
+        "cleanup_errors": [],
+        "control_socket": "/run/user/1000/unifier-views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/c",
+        "created_at": "2026-10-24T22:41:35+08:00",
+        "environment_binding": {
+          "container_id": "79fb51b2be07cedfcb14df71c20f10b429921047a14ae56c656bf334b2d29f76",
+          "environment_id": "view-fedora44",
+          "environment_uuid": "6627e0e9-16f6-430f-a41a-261d6643038e",
+          "generation": 1
+        },
+        "environment_id": "view-fedora44",
+        "fuse_access_gid": 1000,
+        "fuse_access_uid": 1000,
+        "last_error": null,
+        "log_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/view.log",
+        "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount",
+        "namespace_caps": "not-assumed",
+        "owner_pid": 199795,
+        "owner_stamp": 13456716,
+        "raw_link_semantics": "projected-link",
+        "readonly": true,
+        "ready_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/ready.json",
+        "runtime_dev": 88,
+        "runtime_dir": "/run/user/1000/unifier-views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a",
+        "runtime_ino": 3505,
+        "schema_version": 1,
+        "spec_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/spec.json",
+        "state": "ready",
+        "storage_journal": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/storage.json",
+        "storage_nonce": "e066698e61f94da2a0f97bb0803d31b4",
+        "storage_ref_state": "mounted",
+        "storage_socket": "/run/user/1000/unifier-views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/s",
+        "uid_map": {
+          "container_gid": 0,
+          "container_uid": 0,
+          "gid_ranges": [
+            [
+              1000,
+              0,
+              1
+            ],
+            [
+              524288,
+              1,
+              65536
+            ]
+          ],
+          "host_gid": 1000,
+          "host_uid": 1000,
+          "subgid_count": 65536,
+          "subgid_start": 524288,
+          "subuid_count": 65536,
+          "subuid_start": 524288,
+          "uid_ranges": [
+            [
+              1000,
+              0,
+              1
+            ],
+            [
+              524288,
+              1,
+              65536
+            ]
+          ],
+          "user_namespace": "rootless-default"
+        },
+        "updated_at": "2026-10-24T22:41:36+08:00",
+        "view_dir": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a",
+        "view_uuid": "f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a",
+        "worker_pid": 200152,
+        "worker_stamp": 13456820
+      },
+      "top_level": [
+        ".profile",
+        "afs",
+        "bin",
+        "boot",
+        "dev",
+        "etc",
+        "home",
+        "lib",
+        "lib64",
+        "media",
+        "mnt",
+        "opt",
+        "proc",
+        "root",
+        "run",
+        "sbin",
+        "srv",
+        "sys",
+        "tmp",
+        "usr",
+        "var"
+      ],
+      "host_links": {
+        "absolute": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/etc/os-release",
+        "upward": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/etc/os-release",
+        "relative": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/payload.txt"
+      },
+      "readlink_raw": {
+        "ok": true,
+        "raw": "/etc/os-release",
+        "projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/etc/os-release",
+        "semantics": "projected-link"
+      },
+      "host_escape": {
+        "refused": true,
+        "errno": 2,
+        "error": "[Errno 2] No such file or directory: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/host-escape'"
+      },
+      "runtime_unavailable": {
+        "proc": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/proc'"
+        },
+        "sys": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/sys'"
+        },
+        "dev": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/dev'"
+        },
+        "run": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/run'"
+        }
+      },
+      "uids": {
+        "0": {
+          "uid": 0,
+          "gid": 0
+        },
+        "1": {
+          "uid": 1,
+          "gid": 1
+        },
+        "1000": {
+          "uid": 1000,
+          "gid": 1000
+        },
+        "1001": {
+          "uid": 1001,
+          "gid": 1001
+        }
+      },
+      "write_refusals": {
+        "write": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/payload.txt'"
+        },
+        "create": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/new.txt'"
+        },
+        "delete": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/payload.txt'"
+        },
+        "rename": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/payload.txt' -> '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/renamed.txt'"
+        },
+        "chmod": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/payload.txt'"
+        },
+        "mkdir": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/new-dir'"
+        },
+        "symlink": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/etc/passwd' -> '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/new-link'"
+        },
+        "hardlink": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/payload.txt' -> '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-view/new-hardlink'"
+        }
+      },
+      "start_refused": {
+        "refused": true,
+        "errno": null,
+        "error": "environment view-fedora44 has active read-only view f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a at /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount; revoke it before start/remove"
+      },
+      "remove_refused": {
+        "refused": true,
+        "errno": null,
+        "error": "environment view-fedora44 has active read-only view f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a at /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount; revoke it before start/remove"
+      },
+      "second_view_refused": {
+        "refused": true,
+        "errno": null,
+        "error": "environment view-fedora44 has active read-only view f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a at /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount; revoke it before start/remove"
+      },
+      "os_release_sha256": "2f6bf1f4e47d29ad351269e1fe4f56a9667f2f0c87dd0365c752948ee9dc1d8b",
+      "missing_bind": {
+        "refused": true,
+        "exit": 1,
+        "stderr": "cat: /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/f7caa0c8-8a88-4c17-b8d6-dadfda9a7d4a/mount/var/lib/unifier-volume/nested/payload.txt: Input/output error\n"
+      },
+      "mount_revoked": true,
+      "worker_stopped": true,
+      "broker_stopped": true,
+      "never_started_by_view": true
+    },
+    "arch": {
+      "environment_id": "view-arch",
+      "passed": true,
+      "view": {
+        "backend": "podman-overlay",
+        "broker_launcher_pid": 200287,
+        "broker_launcher_stamp": 13456866,
+        "broker_pid": 200299,
+        "broker_stamp": 13456868,
+        "cleanup_errors": [],
+        "control_socket": "/run/user/1000/unifier-views/686f73ae-6311-4780-bf6b-eeb3656c61b6/c",
+        "created_at": "2026-10-24T22:41:36+08:00",
+        "environment_binding": {
+          "container_id": "f5dc54cd711f9d7d5ff7ac89a16a14b71a0ff39aa75813fadea0ce95b3171804",
+          "environment_id": "view-arch",
+          "environment_uuid": "6aee93da-9861-4ae9-9d1c-e4290b888c3a",
+          "generation": 1
+        },
+        "environment_id": "view-arch",
+        "fuse_access_gid": 1000,
+        "fuse_access_uid": 1000,
+        "last_error": null,
+        "log_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/view.log",
+        "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount",
+        "namespace_caps": "not-assumed",
+        "owner_pid": 199795,
+        "owner_stamp": 13456716,
+        "raw_link_semantics": "projected-link",
+        "readonly": true,
+        "ready_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/ready.json",
+        "runtime_dev": 88,
+        "runtime_dir": "/run/user/1000/unifier-views/686f73ae-6311-4780-bf6b-eeb3656c61b6",
+        "runtime_ino": 3510,
+        "schema_version": 1,
+        "spec_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/spec.json",
+        "state": "ready",
+        "storage_journal": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/storage.json",
+        "storage_nonce": "b71b02fc572345b5a44a447ea622837e",
+        "storage_ref_state": "mounted",
+        "storage_socket": "/run/user/1000/unifier-views/686f73ae-6311-4780-bf6b-eeb3656c61b6/s",
+        "uid_map": {
+          "container_gid": 1000,
+          "container_uid": 1000,
+          "gid_ranges": [
+            [
+              1000,
+              1000,
+              1
+            ],
+            [
+              524288,
+              0,
+              1000
+            ],
+            [
+              525288,
+              1001,
+              64536
+            ]
+          ],
+          "host_gid": 1000,
+          "host_uid": 1000,
+          "subgid_count": 65536,
+          "subgid_start": 524288,
+          "subuid_count": 65536,
+          "subuid_start": 524288,
+          "uid_ranges": [
+            [
+              1000,
+              1000,
+              1
+            ],
+            [
+              524288,
+              0,
+              1000
+            ],
+            [
+              525288,
+              1001,
+              64536
+            ]
+          ],
+          "user_namespace": "keep-id"
+        },
+        "updated_at": "2026-10-24T22:41:36+08:00",
+        "view_dir": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6",
+        "view_uuid": "686f73ae-6311-4780-bf6b-eeb3656c61b6",
+        "worker_pid": 200326,
+        "worker_stamp": 13456879
+      },
+      "top_level": [
+        "bin",
+        "boot",
+        "dev",
+        "etc",
+        "home",
+        "lib",
+        "lib64",
+        "mnt",
+        "opt",
+        "proc",
+        "root",
+        "run",
+        "sbin",
+        "srv",
+        "sys",
+        "tmp",
+        "usr",
+        "var"
+      ],
+      "host_links": {
+        "absolute": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/etc/os-release",
+        "upward": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/etc/os-release",
+        "relative": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/payload.txt"
+      },
+      "readlink_raw": {
+        "ok": true,
+        "raw": "/etc/os-release",
+        "projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/etc/os-release",
+        "semantics": "projected-link"
+      },
+      "host_escape": {
+        "refused": true,
+        "errno": 2,
+        "error": "[Errno 2] No such file or directory: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/host-escape'"
+      },
+      "runtime_unavailable": {
+        "proc": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/proc'"
+        },
+        "sys": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/sys'"
+        },
+        "dev": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/dev'"
+        },
+        "run": {
+          "refused": true,
+          "errno": 95,
+          "error": "[Errno 95] Operation not supported: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/run'"
+        }
+      },
+      "uids": {
+        "0": {
+          "uid": 0,
+          "gid": 0
+        },
+        "1": {
+          "uid": 1,
+          "gid": 1
+        },
+        "1000": {
+          "uid": 1000,
+          "gid": 1000
+        },
+        "1001": {
+          "uid": 1001,
+          "gid": 1001
+        }
+      },
+      "write_refusals": {
+        "write": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/payload.txt'"
+        },
+        "create": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/new.txt'"
+        },
+        "delete": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/payload.txt'"
+        },
+        "rename": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/payload.txt' -> '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/renamed.txt'"
+        },
+        "chmod": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/payload.txt'"
+        },
+        "mkdir": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/new-dir'"
+        },
+        "symlink": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/etc/passwd' -> '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/new-link'"
+        },
+        "hardlink": {
+          "refused": true,
+          "errno": 30,
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/payload.txt' -> '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-view/new-hardlink'"
+        }
+      },
+      "start_refused": {
+        "refused": true,
+        "errno": null,
+        "error": "environment view-arch has active read-only view 686f73ae-6311-4780-bf6b-eeb3656c61b6 at /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount; revoke it before start/remove"
+      },
+      "remove_refused": {
+        "refused": true,
+        "errno": null,
+        "error": "environment view-arch has active read-only view 686f73ae-6311-4780-bf6b-eeb3656c61b6 at /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount; revoke it before start/remove"
+      },
+      "second_view_refused": {
+        "refused": true,
+        "errno": null,
+        "error": "environment view-arch has active read-only view 686f73ae-6311-4780-bf6b-eeb3656c61b6 at /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount; revoke it before start/remove"
+      },
+      "os_release_sha256": "9c2d77b2c2ac2f79b604d172d86f439684010d76c20f9cf5e07b0c7976121043",
+      "missing_bind": {
+        "refused": true,
+        "exit": 1,
+        "stderr": "cat: /home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/686f73ae-6311-4780-bf6b-eeb3656c61b6/mount/var/lib/unifier-volume/nested/payload.txt: Input/output error\n"
+      },
+      "mount_revoked": true,
+      "worker_stopped": true,
+      "broker_stopped": true,
+      "never_started_by_view": true
+    }
+  },
+  "source_sha256": {
+    "src/multilinux/__init__.py": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+    "src/multilinux/errors.py": "531a2ca4ce2056099a662eed98a6fa137013b99c7ea0a091fa3960279b92ca2a",
+    "src/multilinux/__main__.py": "8fc1fcde2cd1a30a9c1271714cbe49efd1b7ef1597ad4b0f16e1f84dc96ae2b8",
+    "src/multilinux/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+    "src/multilinux/store.py": "7a386a46239fcd010aa700f0454bf3929ffc27758ed1f8a17ea5e5d2c2f2b7dd",
+    "src/multilinux/desktop.py": "36382e7b385cc018ff179ec19e78ef652b90dafe56a6a78d646a93b3c157a7e7",
+    "src/multilinux/resources.py": "1269fc93c41febfc8932d57b805cd512b6fd6cbde109e5c6ca680725504ce4ec",
+    "src/multilinux/catalog.py": "a2704215ff0c3b04fe71b341eca876817888ffce8a51adf1779b67c407cab089",
+    "src/multilinux/cli.py": "eec4801bdd7d61834932fef22b884d81c2ae07a66f9303363b6501efa056f354",
+    "src/multilinux/on_demand.py": "ce441674a0f9f24e052f7f3e5278c66c629b08417b8fd5b98b7722f1b96f5d57",
+    "src/multilinux/packages.py": "34a37cb687c6a09d10e81348c22013a5fd2d8fb18229f07dc19d0525b4868668",
+    "src/multilinux/routing.py": "cd3f4ab38b50846d6b4c518b3d270428a52af19369f26ac85df9eac920b37fe7",
+    "src/multilinux/runtime.py": "b274a50b61e46bc7dc5696571451c44330f05872724b3fd118a3559f2133f42a",
+    "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+    "src/multilinux/service.py": "192981367cd5a08381713f9ab1e320eb198dff1cfc193078a822f69c420c2f69",
+    "src/multilinux/identity.py": "184f7fe3c3449b8f230b7a9615caacb0be1bbc9d6905150dbf85011789331c8f",
+    "src/multilinux/registry.py": "b163d0c885a1cb9d3164c35cca8fc6fe0fb045b22ae4f0444524e075902aca43",
+    "src/multilinux/control.py": "8c72e1601f9a640d2a432d675fc9954e26ed87ae91f1dc274edfb69e9fb515c1",
+    "src/multilinux/share_label.py": "dfd46c05c3d9d5d7239163b68c5284215833c885c3612d9d868b30b958979aee",
+    "src/multilinux/json_records.py": "e78b72caf5f2693f07995f065e6905f42685c2ce846617b9373ef51be416b906",
+    "src/multilinux/projects.py": "6a53b6175d7b6c7f3ea7dd2aba504966653bd6cfdf94de184c29d3e9d6819eed",
+    "src/multilinux/handlers.py": "1dfc87b8b593c35155a24eb3d55210318f00c45086cf6bd806e09a16657d58a0",
+    "src/multilinux/file_routes.py": "44d5a533de708cf03943d7443cf640dd271c828e8da868e424fcf0ac45afd280",
+    "src/multilinux/view_backend.py": "9b4245280119beac79eafaf5167cc2382d636d198f41bb28ca1ee3d051fa5e85",
+    "src/multilinux/view_journal.py": "e9dd7b6400206e7b773112100d62bee1f55bdabc6ef018abbd52938dc48ba66d",
+    "src/multilinux/view_broker.py": "c2eda675b0e73500227415f20f17d8d77816c172084d7a866a9afeecd31c28fa",
+    "src/multilinux/views.py": "e7b6ee3fd24f4ffa3e3c685b83ed29a69c0bf6270627358cdb42a40bd5f30f23",
+    "src/multilinux/fuse_view.py": "67708fee1640d5122aaa10521d23f0fc825b1a849ca47cb531d891dc92dfe826"
+  },
+  "passed": true,
+  "scope": "native rootless Podman overlay; actual host FUSE readonly access",
+  "source_unchanged": true
+}

@@ -1,0 +1,41 @@
+{
+  "source": "/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/accepted-source-v2/src",
+  "passed": true,
+  "listed_inode": 8282859567021287377,
+  "after_churn_stat_inode": 8282859567021287377,
+  "churn": 64,
+  "baseline": {
+    "nodes": 1,
+    "node_budget": 4,
+    "handles": 0,
+    "file_handles": 0,
+    "dir_handles": 0,
+    "handle_budget": 1024,
+    "dir_entries": 0,
+    "dir_entry_budget": 65536,
+    "dir_bytes": 0,
+    "dir_bytes_budget": 8388608,
+    "next_nodeid": 2,
+    "next_handle": 1,
+    "inode_ids": 1,
+    "attr_versions": 0,
+    "inode_collisions": 0
+  },
+  "after": {
+    "nodes": 1,
+    "node_budget": 4,
+    "handles": 0,
+    "file_handles": 0,
+    "dir_handles": 0,
+    "handle_budget": 1024,
+    "dir_entries": 0,
+    "dir_entry_budget": 65536,
+    "dir_bytes": 0,
+    "dir_bytes_budget": 8388608,
+    "next_nodeid": 68,
+    "next_handle": 2,
+    "inode_ids": 1,
+    "attr_versions": 0,
+    "inode_collisions": 0
+  }
+}

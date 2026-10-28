@@ -1,0 +1,168 @@
+{
+  "source_stat": {
+    "blocks": 8,
+    "size": 9,
+    "dev": 90
+  },
+  "operation": {
+    "schema_version": 1,
+    "operation_uuid": "c4a822e3-afe6-4cb0-bb4f-cd296155317d",
+    "operation": "copy",
+    "state": "DONE",
+    "source": {
+      "root_uuid": "b9795c15-6c4f-40c7-ac84-de33af46270a",
+      "management_domain": "host-project",
+      "access_policy": "read-only",
+      "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/eafebfe7-7ff5-4818-800b-6a3b0188d181/mount",
+      "relative_path": "var/lib/unifier-view/payload.txt",
+      "root_dev": 90,
+      "root_ino": 3178970,
+      "parent_parts": [
+        "var",
+        "lib",
+        "unifier-view"
+      ],
+      "observed_version": {
+        "dev": 90,
+        "ino": 3179141,
+        "mode": 33188,
+        "nlink": 1,
+        "uid": 0,
+        "gid": 0,
+        "size": 9,
+        "mtime_ns": 1792812948767903985,
+        "ctime_ns": 1792812948767903985,
+        "file_type": "regular",
+        "acl_check": "unavailable: [Errno 5] Input/output error: '/proc/self/fd/5'",
+        "xattrs_observed_but_not_copied": []
+      },
+      "sha256": "1efa5108e958ecae132bfccb6908fc2c576d561e9b2012424e418d3eb90847ac",
+      "source_view": {
+        "environment_binding": {
+          "container_id": "f68d2b1f9916b21133d7cff28274fb1d45a0508dd61d4f7bd1ece7e8a35782f3",
+          "environment_id": "view-debian13",
+          "environment_uuid": "dc462c9e-533e-4d6b-9fd4-6e6ecc35d461",
+          "generation": 1
+        },
+        "mountpoint": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/eafebfe7-7ff5-4818-800b-6a3b0188d181/mount",
+        "view_uuid": "eafebfe7-7ff5-4818-800b-6a3b0188d181"
+      },
+      "verified_size": 9
+    },
+    "target": {
+      "root_uuid": "ec1751de-ee05-4bda-8015-f42186ab7b22",
+      "management_domain": "host-project",
+      "access_policy": "read-write",
+      "locator": "/dev/shm/unifier-d-view-5fzo9ein",
+      "relative_path": "guest.txt",
+      "root_dev": 27,
+      "root_ino": 828,
+      "parent_parts": [],
+      "parent_dev": 27,
+      "parent_ino": 828,
+      "overwrite": false
+    },
+    "stage": {
+      "name": ".ml-stage-c4a822e3-afe6-4cb0-bb4f-cd296155317d-378b74ed6cb648908de8b9d4f19b2693",
+      "nonce": "378b74ed6cb648908de8b9d4f19b2693",
+      "parent_dev": 27,
+      "parent_ino": 828,
+      "dev": 27,
+      "ino": 829,
+      "size": 9,
+      "mode": 33188,
+      "mtime_ns": 1792854254787607903,
+      "ctime_ns": 1792854254787607903,
+      "sha256": "1efa5108e958ecae132bfccb6908fc2c576d561e9b2012424e418d3eb90847ac",
+      "ready": true,
+      "created": true,
+      "cleaned": true
+    },
+    "published": {
+      "dev": 27,
+      "ino": 829,
+      "size": 9,
+      "sha256": "1efa5108e958ecae132bfccb6908fc2c576d561e9b2012424e418d3eb90847ac",
+      "nlink": 1,
+      "published_at": "2026-10-24T23:04:14+08:00"
+    },
+    "registry": {
+      "committed": true,
+      "committed_at": "2026-10-24T23:04:14+08:00"
+    },
+    "provenance": {
+      "source_root_uuid": "b9795c15-6c4f-40c7-ac84-de33af46270a",
+      "source_relative_path": "var/lib/unifier-view/payload.txt",
+      "source_management_domain": "host-project",
+      "source_view_uuid": "eafebfe7-7ff5-4818-800b-6a3b0188d181",
+      "note": "target uses the destination management domain; source is independent provenance"
+    },
+    "management_domain": "host-project",
+    "capabilities": {
+      "regular_file_copy": true,
+      "move_copies_then_retains_source": true,
+      "source_delete": false,
+      "atomic_cross_filesystem_move": false,
+      "directory_recursive": false,
+      "acl_preservation": false,
+      "sparse_file": false,
+      "device_or_special_file": false,
+      "symlink_follow": false,
+      "hardlink_source": false,
+      "xattr_or_selinux_preservation": false,
+      "full_metadata_preservation": false,
+      "overwrite_existing_target": false,
+      "hash_and_rename_is_cas": false,
+      "fs_and_registry_cross_system_atomic": false
+    },
+    "unsupported": [
+      "directories and recursive trees",
+      "ACL-bearing files",
+      "sparse or compressed files",
+      "device, fifo and socket nodes",
+      "symbolic links and hard-linked regular sources",
+      "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+      "automatic source deletion for move",
+      "atomic cross-filesystem rename",
+      "overwriting an existing target"
+    ],
+    "source_retained": true,
+    "source_retention_reason": "copy does not delete its source; automatic source cleanup is outside this operation",
+    "last_error": null,
+    "transitions": [
+      {
+        "state": "INTENT_DURABLE",
+        "at": "2026-10-24T23:04:14+08:00"
+      },
+      {
+        "state": "STAGING",
+        "at": "2026-10-24T23:04:14+08:00"
+      },
+      {
+        "state": "TARGET_PUBLISHED",
+        "at": "2026-10-24T23:04:14+08:00"
+      },
+      {
+        "state": "REGISTRY_COMMITTED",
+        "at": "2026-10-24T23:04:14+08:00"
+      },
+      {
+        "state": "DONE",
+        "at": "2026-10-24T23:04:14+08:00"
+      }
+    ],
+    "created_at": "2026-10-24T23:04:14+08:00",
+    "updated_at": "2026-10-24T23:04:14+08:00",
+    "finished_at": "2026-10-24T23:04:14+08:00",
+    "complete": true,
+    "real_paths": {
+      "source": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-c-2026-10-24/live-project/.lab/state/views/eafebfe7-7ff5-4818-800b-6a3b0188d181/mount/var/lib/unifier-view/payload.txt",
+      "target": "/dev/shm/unifier-d-view-5fzo9ein/guest.txt",
+      "stage": "/dev/shm/unifier-d-view-5fzo9ein/.ml-stage-c4a822e3-afe6-4cb0-bb4f-cd296155317d-378b74ed6cb648908de8b9d4f19b2693"
+    },
+    "no_overwrite": true,
+    "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+    "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction"
+  },
+  "bytes": "b'debian13\\n'"
+}

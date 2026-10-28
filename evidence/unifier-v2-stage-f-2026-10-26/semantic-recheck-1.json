@@ -1,0 +1,450 @@
+{
+  "scope": "Three fresh real product projections; corrected projected-link contract; original formal failure retained",
+  "targets": {
+    "debian13": {
+      "target": "debian13",
+      "checks": {
+        "absolute_link_projected": true,
+        "absolute_link_guest_bytes": true,
+        "readlink_raw_container_path": true,
+        "relative_link_text": true,
+        "relative_link_bytes": true,
+        "mmap_read_supported": true,
+        "write_open_refused": true,
+        "host_inotify_control_observed": true,
+        "fuse_inotify_honest": true,
+        "native_unread_fd_control": true,
+        "size_change_eventual_freshness": true
+      },
+      "absolute_link": {
+        "raw_readlink": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/b701205a-88eb-4fca-88f7-ba94f3bd7fd7/mount/etc/os-release",
+        "expected_projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/b701205a-88eb-4fca-88f7-ba94f3bd7fd7/mount/etc/os-release",
+        "raw_is_container_path": true,
+        "target_sha256": "e249e69c32d81350fdd6b05ac5575255f14e380ba14b8454acea14e49f088bfa",
+        "target_bytes": 286
+      },
+      "readlink_raw": {
+        "ok": true,
+        "raw": "/etc/os-release",
+        "projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/b701205a-88eb-4fca-88f7-ba94f3bd7fd7/mount/etc/os-release",
+        "semantics": "projected-link"
+      },
+      "relative_link": {
+        "projected_readlink": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/b701205a-88eb-4fca-88f7-ba94f3bd7fd7/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/debian13/dataset/small/f0000",
+        "expected_projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/b701205a-88eb-4fca-88f7-ba94f3bd7fd7/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/debian13/dataset/small/f0000",
+        "raw_metadata": {
+          "ok": true,
+          "raw": "small/f0000",
+          "projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/b701205a-88eb-4fca-88f7-ba94f3bd7fd7/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/debian13/dataset/small/f0000",
+          "semantics": "projected-link"
+        },
+        "target_sha256": "3c7eac5ba933e1192fd994b4c2ee01ef8c4f7a2fcc9e7e88d3e85a969cd276d7"
+      },
+      "mmap": {
+        "read": {
+          "supported": true,
+          "bytes": 4096,
+          "sha256": "3c7eac5ba933e1192fd994b4c2ee01ef8c4f7a2fcc9e7e88d3e85a969cd276d7",
+          "matches": true
+        },
+        "write_open": {
+          "refused": true,
+          "errno": "EROFS",
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/b701205a-88eb-4fca-88f7-ba94f3bd7fd7/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/debian13/dataset/small/f0000'"
+        },
+        "write_mmap": null
+      },
+      "stale_replacement": {
+        "before_sha256": "843a655b77c809ebfdb87c6779c8053ae320874e95a68dc821f9725e82a68526",
+        "new_sha256": "0aa06b33121d056e883f24e08e6db1757f4f879d7f928ec34a87d591f81afec9",
+        "immediate_sha256": "0aa06b33121d056e883f24e08e6db1757f4f879d7f928ec34a87d591f81afec9",
+        "delayed_sha256": "0aa06b33121d056e883f24e08e6db1757f4f879d7f928ec34a87d591f81afec9",
+        "delayed_matches_new": true,
+        "immediate_matches_new": true,
+        "delayed_size": 37,
+        "verdict": "NEW_BYTES_AFTER_1.3S"
+      },
+      "open_fd_across_replace": {
+        "before_sha256": "5ffe22c7c526afb80e39fee3c06e3f0449bfad5f1b83ec68b47fcdf155904a01",
+        "new_sha256": "68ddc63c0585edfb5093c9bef9dca05eecf1b0c001d47c2ed8ca19c4a078d7ab",
+        "same_fd_after_sha256": "5ffe22c7c526afb80e39fee3c06e3f0449bfad5f1b83ec68b47fcdf155904a01",
+        "reopened_after_1.3s_sha256": "68ddc63c0585edfb5093c9bef9dca05eecf1b0c001d47c2ed8ca19c4a078d7ab",
+        "same_fd_preserved_old_inode": true,
+        "reopened_matches_new": true,
+        "verdict": "OLD_INODE_PRESERVED"
+      },
+      "inotify": {
+        "host_watch_added": true,
+        "host_watch_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/debian13/dataset",
+        "fuse_watch_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/b701205a-88eb-4fca-88f7-ba94f3bd7fd7/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/debian13/dataset",
+        "watch_mask": 4046,
+        "host_events": [
+          {
+            "wd": 1,
+            "mask": 256,
+            "cookie": 0,
+            "name": ".stagef-tmp-679478-1793009824861761642"
+          },
+          {
+            "wd": 1,
+            "mask": 2,
+            "cookie": 0,
+            "name": ".stagef-tmp-679478-1793009824861761642"
+          },
+          {
+            "wd": 1,
+            "mask": 8,
+            "cookie": 0,
+            "name": ".stagef-tmp-679478-1793009824861761642"
+          },
+          {
+            "wd": 1,
+            "mask": 64,
+            "cookie": 247663,
+            "name": ".stagef-tmp-679478-1793009824861761642"
+          },
+          {
+            "wd": 1,
+            "mask": 128,
+            "cookie": 247663,
+            "name": "notify.txt"
+          }
+        ],
+        "host_event_count": 5,
+        "fuse_add_error": null,
+        "fuse_events": [],
+        "fuse_event_count": 0,
+        "fuse_verdict": "NO_EVENT",
+        "note": "The host bind watcher is the control. FUSE watch creation success without an event is NO_EVENT, not a pass."
+      },
+      "unread_fd_control": {
+        "native_preserves_old_inode": true,
+        "projection_preserves_old_inode": false,
+        "projection_reads_replacement": true,
+        "projection_sha256": "766c00ba277e84ef9550596c7eda86bad4d66a3fee2255924e6388ee9c272792",
+        "old_sha256": "f8ca02c69621dd84cd1212ebfd7d6cdc9ba6ad658854f29567723531912d1a35",
+        "new_sha256": "766c00ba277e84ef9550596c7eda86bad4d66a3fee2255924e6388ee9c272792"
+      },
+      "size_change": {
+        "old_bytes": 32,
+        "expected_new_bytes": 128,
+        "immediate_bytes": 32,
+        "delayed_bytes": 128,
+        "immediate_matches_old": false,
+        "immediate_matches_new": false,
+        "immediate_matches_neither_version": true,
+        "delayed_matches_new": true
+      },
+      "cleanup": {
+        "registry_empty": true,
+        "not_mounted": true,
+        "mountpoint_gone": true,
+        "control_socket_gone": true,
+        "storage_socket_gone": true,
+        "worker_gone": true,
+        "broker_gone": true,
+        "launcher_gone": true,
+        "no_process_references": true,
+        "process_references": [],
+        "storage_journal_state": "absent"
+      }
+    },
+    "fedora44": {
+      "target": "fedora44",
+      "checks": {
+        "absolute_link_projected": true,
+        "absolute_link_guest_bytes": true,
+        "readlink_raw_container_path": true,
+        "relative_link_text": true,
+        "relative_link_bytes": true,
+        "mmap_read_supported": true,
+        "write_open_refused": true,
+        "host_inotify_control_observed": true,
+        "fuse_inotify_honest": true,
+        "native_unread_fd_control": true,
+        "size_change_eventual_freshness": true
+      },
+      "absolute_link": {
+        "raw_readlink": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/9b7d00af-99a9-47fc-b36e-478a55ca5138/mount/etc/os-release",
+        "expected_projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/9b7d00af-99a9-47fc-b36e-478a55ca5138/mount/etc/os-release",
+        "raw_is_container_path": true,
+        "target_sha256": "2f6bf1f4e47d29ad351269e1fe4f56a9667f2f0c87dd0365c752948ee9dc1d8b",
+        "target_bytes": 686
+      },
+      "readlink_raw": {
+        "ok": true,
+        "raw": "/etc/os-release",
+        "projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/9b7d00af-99a9-47fc-b36e-478a55ca5138/mount/etc/os-release",
+        "semantics": "projected-link"
+      },
+      "relative_link": {
+        "projected_readlink": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/9b7d00af-99a9-47fc-b36e-478a55ca5138/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/fedora44/dataset/small/f0000",
+        "expected_projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/9b7d00af-99a9-47fc-b36e-478a55ca5138/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/fedora44/dataset/small/f0000",
+        "raw_metadata": {
+          "ok": true,
+          "raw": "small/f0000",
+          "projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/9b7d00af-99a9-47fc-b36e-478a55ca5138/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/fedora44/dataset/small/f0000",
+          "semantics": "projected-link"
+        },
+        "target_sha256": "c5dfe5240899df410a089b225ce14e003fc2e9d35c303a81075059cbd09b5836"
+      },
+      "mmap": {
+        "read": {
+          "supported": true,
+          "bytes": 4096,
+          "sha256": "c5dfe5240899df410a089b225ce14e003fc2e9d35c303a81075059cbd09b5836",
+          "matches": true
+        },
+        "write_open": {
+          "refused": true,
+          "errno": "EROFS",
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/9b7d00af-99a9-47fc-b36e-478a55ca5138/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/fedora44/dataset/small/f0000'"
+        },
+        "write_mmap": null
+      },
+      "stale_replacement": {
+        "before_sha256": "2138306361eae4b8c9d074d9781dc9ec6646bd9caf5078f42e9f2d6b18b233ad",
+        "new_sha256": "4ab6b3769463230317a41c0063581bff0e12d7567fd9d6a25ffae9ea844d2271",
+        "immediate_sha256": "4ab6b3769463230317a41c0063581bff0e12d7567fd9d6a25ffae9ea844d2271",
+        "delayed_sha256": "4ab6b3769463230317a41c0063581bff0e12d7567fd9d6a25ffae9ea844d2271",
+        "delayed_matches_new": true,
+        "immediate_matches_new": true,
+        "delayed_size": 37,
+        "verdict": "NEW_BYTES_AFTER_1.3S"
+      },
+      "open_fd_across_replace": {
+        "before_sha256": "6b9bb5e38cfde2baf04f7883a08501edd752ebc706a8294d0d35014be0c09c92",
+        "new_sha256": "72d578103b803f722100cbaf24c286eaadb765952091a3139b66adb75c614456",
+        "same_fd_after_sha256": "6b9bb5e38cfde2baf04f7883a08501edd752ebc706a8294d0d35014be0c09c92",
+        "reopened_after_1.3s_sha256": "72d578103b803f722100cbaf24c286eaadb765952091a3139b66adb75c614456",
+        "same_fd_preserved_old_inode": true,
+        "reopened_matches_new": true,
+        "verdict": "OLD_INODE_PRESERVED"
+      },
+      "inotify": {
+        "host_watch_added": true,
+        "host_watch_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/fedora44/dataset",
+        "fuse_watch_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/9b7d00af-99a9-47fc-b36e-478a55ca5138/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/fedora44/dataset",
+        "watch_mask": 4046,
+        "host_events": [
+          {
+            "wd": 1,
+            "mask": 256,
+            "cookie": 0,
+            "name": ".stagef-tmp-679478-1793009831299801015"
+          },
+          {
+            "wd": 1,
+            "mask": 2,
+            "cookie": 0,
+            "name": ".stagef-tmp-679478-1793009831299801015"
+          },
+          {
+            "wd": 1,
+            "mask": 8,
+            "cookie": 0,
+            "name": ".stagef-tmp-679478-1793009831299801015"
+          },
+          {
+            "wd": 1,
+            "mask": 64,
+            "cookie": 247687,
+            "name": ".stagef-tmp-679478-1793009831299801015"
+          },
+          {
+            "wd": 1,
+            "mask": 128,
+            "cookie": 247687,
+            "name": "notify.txt"
+          }
+        ],
+        "host_event_count": 5,
+        "fuse_add_error": null,
+        "fuse_events": [],
+        "fuse_event_count": 0,
+        "fuse_verdict": "NO_EVENT",
+        "note": "The host bind watcher is the control. FUSE watch creation success without an event is NO_EVENT, not a pass."
+      },
+      "unread_fd_control": {
+        "native_preserves_old_inode": true,
+        "projection_preserves_old_inode": false,
+        "projection_reads_replacement": true,
+        "projection_sha256": "766c00ba277e84ef9550596c7eda86bad4d66a3fee2255924e6388ee9c272792",
+        "old_sha256": "f8ca02c69621dd84cd1212ebfd7d6cdc9ba6ad658854f29567723531912d1a35",
+        "new_sha256": "766c00ba277e84ef9550596c7eda86bad4d66a3fee2255924e6388ee9c272792"
+      },
+      "size_change": {
+        "old_bytes": 32,
+        "expected_new_bytes": 128,
+        "immediate_bytes": 32,
+        "delayed_bytes": 128,
+        "immediate_matches_old": false,
+        "immediate_matches_new": false,
+        "immediate_matches_neither_version": true,
+        "delayed_matches_new": true
+      },
+      "cleanup": {
+        "registry_empty": true,
+        "not_mounted": true,
+        "mountpoint_gone": true,
+        "control_socket_gone": true,
+        "storage_socket_gone": true,
+        "worker_gone": true,
+        "broker_gone": true,
+        "launcher_gone": true,
+        "no_process_references": true,
+        "process_references": [],
+        "storage_journal_state": "absent"
+      }
+    },
+    "arch": {
+      "target": "arch",
+      "checks": {
+        "absolute_link_projected": true,
+        "absolute_link_guest_bytes": true,
+        "readlink_raw_container_path": true,
+        "relative_link_text": true,
+        "relative_link_bytes": true,
+        "mmap_read_supported": true,
+        "write_open_refused": true,
+        "host_inotify_control_observed": true,
+        "fuse_inotify_honest": true,
+        "native_unread_fd_control": true,
+        "size_change_eventual_freshness": true
+      },
+      "absolute_link": {
+        "raw_readlink": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/5e638c37-6ac2-472f-b00a-0e75cdb04f17/mount/etc/os-release",
+        "expected_projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/5e638c37-6ac2-472f-b00a-0e75cdb04f17/mount/etc/os-release",
+        "raw_is_container_path": true,
+        "target_sha256": "9c2d77b2c2ac2f79b604d172d86f439684010d76c20f9cf5e07b0c7976121043",
+        "target_bytes": 411
+      },
+      "readlink_raw": {
+        "ok": true,
+        "raw": "/etc/os-release",
+        "projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/5e638c37-6ac2-472f-b00a-0e75cdb04f17/mount/etc/os-release",
+        "semantics": "projected-link"
+      },
+      "relative_link": {
+        "projected_readlink": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/5e638c37-6ac2-472f-b00a-0e75cdb04f17/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/arch/dataset/small/f0000",
+        "expected_projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/5e638c37-6ac2-472f-b00a-0e75cdb04f17/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/arch/dataset/small/f0000",
+        "raw_metadata": {
+          "ok": true,
+          "raw": "small/f0000",
+          "projected": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/5e638c37-6ac2-472f-b00a-0e75cdb04f17/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/arch/dataset/small/f0000",
+          "semantics": "projected-link"
+        },
+        "target_sha256": "3bbe4026b3864d6ab0a3d1f5d7f929289f541b343c204398ced6eba55939ed8e"
+      },
+      "mmap": {
+        "read": {
+          "supported": true,
+          "bytes": 4096,
+          "sha256": "3bbe4026b3864d6ab0a3d1f5d7f929289f541b343c204398ced6eba55939ed8e",
+          "matches": true
+        },
+        "write_open": {
+          "refused": true,
+          "errno": "EROFS",
+          "error": "[Errno 30] Read-only file system: '/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/5e638c37-6ac2-472f-b00a-0e75cdb04f17/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/arch/dataset/small/f0000'"
+        },
+        "write_mmap": null
+      },
+      "stale_replacement": {
+        "before_sha256": "581f7afba239e0a549251082ed394230707c70a21fd8942432035f8d67965cdb",
+        "new_sha256": "c127eb44f7f039faea4536bd0d39704eb1a0bf6353d85bffaa30ef1b8b53164c",
+        "immediate_sha256": "c127eb44f7f039faea4536bd0d39704eb1a0bf6353d85bffaa30ef1b8b53164c",
+        "delayed_sha256": "c127eb44f7f039faea4536bd0d39704eb1a0bf6353d85bffaa30ef1b8b53164c",
+        "delayed_matches_new": true,
+        "immediate_matches_new": true,
+        "delayed_size": 37,
+        "verdict": "NEW_BYTES_AFTER_1.3S"
+      },
+      "open_fd_across_replace": {
+        "before_sha256": "e50325d68e137686b9bbfebbc6bb579cbf471287758b4d84ed6fb2063eaf3b6f",
+        "new_sha256": "a943b995211e49bcf4ea1c1b2f330235962dcb0cc95b05b2cea61172970d8e54",
+        "same_fd_after_sha256": "e50325d68e137686b9bbfebbc6bb579cbf471287758b4d84ed6fb2063eaf3b6f",
+        "reopened_after_1.3s_sha256": "a943b995211e49bcf4ea1c1b2f330235962dcb0cc95b05b2cea61172970d8e54",
+        "same_fd_preserved_old_inode": true,
+        "reopened_matches_new": true,
+        "verdict": "OLD_INODE_PRESERVED"
+      },
+      "inotify": {
+        "host_watch_added": true,
+        "host_watch_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/arch/dataset",
+        "fuse_watch_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/.lab/state/views/5e638c37-6ac2-472f-b00a-0e75cdb04f17/mount/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/arch/dataset",
+        "watch_mask": 4046,
+        "host_events": [
+          {
+            "wd": 1,
+            "mask": 256,
+            "cookie": 0,
+            "name": ".stagef-tmp-679478-1793009837771097991"
+          },
+          {
+            "wd": 1,
+            "mask": 2,
+            "cookie": 0,
+            "name": ".stagef-tmp-679478-1793009837771097991"
+          },
+          {
+            "wd": 1,
+            "mask": 8,
+            "cookie": 0,
+            "name": ".stagef-tmp-679478-1793009837771097991"
+          },
+          {
+            "wd": 1,
+            "mask": 64,
+            "cookie": 247712,
+            "name": ".stagef-tmp-679478-1793009837771097991"
+          },
+          {
+            "wd": 1,
+            "mask": 128,
+            "cookie": 247712,
+            "name": "notify.txt"
+          }
+        ],
+        "host_event_count": 5,
+        "fuse_add_error": null,
+        "fuse_events": [],
+        "fuse_event_count": 0,
+        "fuse_verdict": "NO_EVENT",
+        "note": "The host bind watcher is the control. FUSE watch creation success without an event is NO_EVENT, not a pass."
+      },
+      "unread_fd_control": {
+        "native_preserves_old_inode": true,
+        "projection_preserves_old_inode": false,
+        "projection_reads_replacement": true,
+        "projection_sha256": "766c00ba277e84ef9550596c7eda86bad4d66a3fee2255924e6388ee9c272792",
+        "old_sha256": "f8ca02c69621dd84cd1212ebfd7d6cdc9ba6ad658854f29567723531912d1a35",
+        "new_sha256": "766c00ba277e84ef9550596c7eda86bad4d66a3fee2255924e6388ee9c272792"
+      },
+      "size_change": {
+        "old_bytes": 32,
+        "expected_new_bytes": 128,
+        "immediate_bytes": 32,
+        "delayed_bytes": 128,
+        "immediate_matches_old": false,
+        "immediate_matches_new": false,
+        "immediate_matches_neither_version": true,
+        "delayed_matches_new": true
+      },
+      "cleanup": {
+        "registry_empty": true,
+        "not_mounted": true,
+        "mountpoint_gone": true,
+        "control_socket_gone": true,
+        "storage_socket_gone": true,
+        "worker_gone": true,
+        "broker_gone": true,
+        "launcher_gone": true,
+        "no_process_references": true,
+        "process_references": [],
+        "storage_journal_state": "absent"
+      }
+    }
+  },
+  "passed": true
+}

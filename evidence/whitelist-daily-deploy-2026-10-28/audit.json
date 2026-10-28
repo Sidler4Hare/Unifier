@@ -1,0 +1,50 @@
+{
+  "status": "PASSED_DEPLOYMENT_AND_DATA_PRESERVATION",
+  "apps": {
+    "freecad": {
+      "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "container_id_image_mounts_config_preserved": true,
+      "environment_identity_and_contract_preserved": true,
+      "state_after": "exited",
+      "leases_empty": true,
+      "unchanged_registry_files": 10,
+      "desktop_unchanged": true,
+      "documents_unchanged": true,
+      "image_lock_preserved": true,
+      "whitelist_enabled": true,
+      "native_package_database_unchanged": true,
+      "package_entries": 1415,
+      "private_home_unexpected_original_files_missing": 0,
+      "historical_logs_preserved_in_zip": 0,
+      "retired_dynamic_cache_files_retained_in_backup": 0,
+      "private_home_before_backup_verified": true,
+      "private_home_normal_runtime_files_changed": 0,
+      "private_home_entries_added": 0,
+      "private_home_entries_after": 123,
+      "deployment_manifest_hashes_verified": true
+    },
+    "wemeet": {
+      "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "container_id_image_mounts_config_preserved": true,
+      "environment_identity_and_contract_preserved": true,
+      "state_after": "exited",
+      "leases_empty": true,
+      "unchanged_registry_files": 16,
+      "desktop_unchanged": true,
+      "documents_unchanged": true,
+      "image_lock_preserved": true,
+      "whitelist_enabled": true,
+      "native_package_database_unchanged": true,
+      "package_entries": 1998,
+      "private_home_unexpected_original_files_missing": 0,
+      "historical_logs_preserved_in_zip": 6,
+      "retired_dynamic_cache_files_retained_in_backup": 2,
+      "private_home_before_backup_verified": true,
+      "private_home_normal_runtime_files_changed": 13,
+      "private_home_entries_added": 18,
+      "private_home_entries_after": 746,
+      "deployment_manifest_hashes_verified": true
+    }
+  },
+  "only_two_daily_containers_remain": true
+}

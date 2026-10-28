@@ -1,0 +1,611 @@
+{
+  "passed": true,
+  "source_retained": true,
+  "limit_bytes": 262144,
+  "scope": "real tmpfs quota in a private user/mount namespace; not global shm exhaustion",
+  "operation": {
+    "schema_version": 1,
+    "operation_uuid": "944d4a58-1907-4bc2-8d49-234128cfbe60",
+    "operation": "copy",
+    "state": "NEEDS_RECONCILIATION",
+    "source": {
+      "root_uuid": "7f3be2a6-9512-44dc-b9ac-e83753713d77",
+      "management_domain": "host-project",
+      "access_policy": "read-only",
+      "locator": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/source",
+      "relative_path": "payload.bin",
+      "root_dev": 53,
+      "root_ino": 3183765,
+      "parent_parts": [],
+      "observed_version": {
+        "dev": 53,
+        "ino": 3183767,
+        "mode": 33188,
+        "nlink": 1,
+        "uid": 0,
+        "gid": 0,
+        "size": 2097152,
+        "mtime_ns": 1792854906164532850,
+        "ctime_ns": 1792854906164532850,
+        "file_type": "regular",
+        "acl_check": "checked",
+        "xattrs_observed_but_not_copied": [
+          "security.selinux"
+        ]
+      },
+      "sha256": null,
+      "source_view": null
+    },
+    "target": {
+      "root_uuid": "37070533-b79a-4b94-804f-2a1089662665",
+      "management_domain": "host-project",
+      "access_policy": "read-write",
+      "locator": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target",
+      "relative_path": "published.bin",
+      "root_dev": 86,
+      "root_ino": 1,
+      "parent_parts": [],
+      "parent_dev": 86,
+      "parent_ino": 1,
+      "overwrite": false
+    },
+    "stage": {
+      "name": ".ml-stage-944d4a58-1907-4bc2-8d49-234128cfbe60-d26daa13d34541cba3586514ee8de00d",
+      "nonce": "d26daa13d34541cba3586514ee8de00d",
+      "parent_dev": 86,
+      "parent_ino": 1,
+      "dev": 86,
+      "ino": 2,
+      "size": 0,
+      "mode": 33152,
+      "mtime_ns": 1792854906199398150,
+      "ctime_ns": 1792854906199398150,
+      "sha256": null,
+      "ready": false,
+      "created": true,
+      "cleaned": false
+    },
+    "published": {
+      "dev": null,
+      "ino": null,
+      "size": null,
+      "sha256": null,
+      "nlink": null,
+      "published_at": null
+    },
+    "registry": {
+      "committed": false,
+      "committed_at": null
+    },
+    "provenance": {
+      "source_root_uuid": "7f3be2a6-9512-44dc-b9ac-e83753713d77",
+      "source_relative_path": "payload.bin",
+      "source_management_domain": "host-project",
+      "source_view_uuid": null,
+      "note": "target uses the destination management domain; source is independent provenance"
+    },
+    "management_domain": "host-project",
+    "execution": {
+      "authorized": false,
+      "interpreter": null,
+      "environment": null,
+      "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+    },
+    "capabilities": {
+      "regular_file_copy": true,
+      "move_copies_then_retains_source": true,
+      "source_delete": false,
+      "atomic_cross_filesystem_move": false,
+      "directory_recursive": false,
+      "acl_preservation": false,
+      "sparse_file": false,
+      "device_or_special_file": false,
+      "symlink_follow": false,
+      "hardlink_source": false,
+      "xattr_or_selinux_preservation": false,
+      "full_metadata_preservation": false,
+      "overwrite_existing_target": false,
+      "hash_and_rename_is_cas": false,
+      "fs_and_registry_cross_system_atomic": false
+    },
+    "unsupported": [
+      "directories and recursive trees",
+      "ACL-bearing files",
+      "sparse or compressed files",
+      "device, fifo and socket nodes",
+      "symbolic links and hard-linked regular sources",
+      "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+      "automatic source deletion for move",
+      "atomic cross-filesystem rename",
+      "overwriting an existing target"
+    ],
+    "source_retained": true,
+    "source_retention_reason": null,
+    "last_error": "filesystem error after the operation became durable: [Errno 28] No space left on device",
+    "transitions": [
+      {
+        "state": "INTENT_DURABLE",
+        "at": "2026-10-24T23:15:06+08:00"
+      },
+      {
+        "state": "STAGING",
+        "at": "2026-10-24T23:15:06+08:00"
+      },
+      {
+        "state": "NEEDS_RECONCILIATION",
+        "at": "2026-10-24T23:15:06+08:00",
+        "reason": "filesystem error after the operation became durable: [Errno 28] No space left on device"
+      }
+    ],
+    "created_at": "2026-10-24T23:15:06+08:00",
+    "updated_at": "2026-10-24T23:15:06+08:00",
+    "complete": false,
+    "real_paths": {
+      "source": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/source/payload.bin",
+      "target": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target/published.bin",
+      "stage": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target/.ml-stage-944d4a58-1907-4bc2-8d49-234128cfbe60-d26daa13d34541cba3586514ee8de00d"
+    },
+    "no_overwrite": true,
+    "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+    "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction"
+  },
+  "partial_stage_bytes": 262144,
+  "recover_first": [
+    {
+      "capabilities": {
+        "acl_preservation": false,
+        "atomic_cross_filesystem_move": false,
+        "device_or_special_file": false,
+        "directory_recursive": false,
+        "fs_and_registry_cross_system_atomic": false,
+        "full_metadata_preservation": false,
+        "hardlink_source": false,
+        "hash_and_rename_is_cas": false,
+        "move_copies_then_retains_source": true,
+        "overwrite_existing_target": false,
+        "regular_file_copy": true,
+        "source_delete": false,
+        "sparse_file": false,
+        "symlink_follow": false,
+        "xattr_or_selinux_preservation": false
+      },
+      "created_at": "2026-10-24T23:15:06+08:00",
+      "execution": {
+        "authorized": false,
+        "environment": null,
+        "interpreter": null,
+        "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+      },
+      "last_error": "filesystem error after the operation became durable: [Errno 28] No space left on device",
+      "management_domain": "host-project",
+      "operation": "copy",
+      "operation_uuid": "944d4a58-1907-4bc2-8d49-234128cfbe60",
+      "provenance": {
+        "note": "target uses the destination management domain; source is independent provenance",
+        "source_management_domain": "host-project",
+        "source_relative_path": "payload.bin",
+        "source_root_uuid": "7f3be2a6-9512-44dc-b9ac-e83753713d77",
+        "source_view_uuid": null
+      },
+      "published": {
+        "dev": null,
+        "ino": null,
+        "nlink": null,
+        "published_at": null,
+        "sha256": null,
+        "size": null
+      },
+      "registry": {
+        "committed": false,
+        "committed_at": null
+      },
+      "schema_version": 1,
+      "source": {
+        "access_policy": "read-only",
+        "locator": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/source",
+        "management_domain": "host-project",
+        "observed_version": {
+          "acl_check": "checked",
+          "ctime_ns": 1792854906164532850,
+          "dev": 53,
+          "file_type": "regular",
+          "gid": 0,
+          "ino": 3183767,
+          "mode": 33188,
+          "mtime_ns": 1792854906164532850,
+          "nlink": 1,
+          "size": 2097152,
+          "uid": 0,
+          "xattrs_observed_but_not_copied": [
+            "security.selinux"
+          ]
+        },
+        "parent_parts": [],
+        "relative_path": "payload.bin",
+        "root_dev": 53,
+        "root_ino": 3183765,
+        "root_uuid": "7f3be2a6-9512-44dc-b9ac-e83753713d77",
+        "sha256": null,
+        "source_view": null
+      },
+      "source_retained": true,
+      "source_retention_reason": null,
+      "stage": {
+        "cleaned": false,
+        "created": true,
+        "ctime_ns": 1792854906199398150,
+        "dev": 86,
+        "ino": 2,
+        "mode": 33152,
+        "mtime_ns": 1792854906199398150,
+        "name": ".ml-stage-944d4a58-1907-4bc2-8d49-234128cfbe60-d26daa13d34541cba3586514ee8de00d",
+        "nonce": "d26daa13d34541cba3586514ee8de00d",
+        "parent_dev": 86,
+        "parent_ino": 1,
+        "ready": false,
+        "sha256": null,
+        "size": 0
+      },
+      "state": "NEEDS_RECONCILIATION",
+      "target": {
+        "access_policy": "read-write",
+        "locator": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target",
+        "management_domain": "host-project",
+        "overwrite": false,
+        "parent_dev": 86,
+        "parent_ino": 1,
+        "parent_parts": [],
+        "relative_path": "published.bin",
+        "root_dev": 86,
+        "root_ino": 1,
+        "root_uuid": "37070533-b79a-4b94-804f-2a1089662665"
+      },
+      "transitions": [
+        {
+          "at": "2026-10-24T23:15:06+08:00",
+          "state": "INTENT_DURABLE"
+        },
+        {
+          "at": "2026-10-24T23:15:06+08:00",
+          "state": "STAGING"
+        },
+        {
+          "at": "2026-10-24T23:15:06+08:00",
+          "reason": "filesystem error after the operation became durable: [Errno 28] No space left on device",
+          "state": "NEEDS_RECONCILIATION"
+        }
+      ],
+      "unsupported": [
+        "directories and recursive trees",
+        "ACL-bearing files",
+        "sparse or compressed files",
+        "device, fifo and socket nodes",
+        "symbolic links and hard-linked regular sources",
+        "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+        "automatic source deletion for move",
+        "atomic cross-filesystem rename",
+        "overwriting an existing target"
+      ],
+      "updated_at": "2026-10-24T23:15:06+08:00",
+      "complete": false,
+      "real_paths": {
+        "source": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/source/payload.bin",
+        "target": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target/published.bin",
+        "stage": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target/.ml-stage-944d4a58-1907-4bc2-8d49-234128cfbe60-d26daa13d34541cba3586514ee8de00d"
+      },
+      "no_overwrite": true,
+      "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+      "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction",
+      "recovery": {
+        "action": "terminal-noop",
+        "state_before": "NEEDS_RECONCILIATION",
+        "state_after": "NEEDS_RECONCILIATION"
+      }
+    }
+  ],
+  "recover_second": [
+    {
+      "capabilities": {
+        "acl_preservation": false,
+        "atomic_cross_filesystem_move": false,
+        "device_or_special_file": false,
+        "directory_recursive": false,
+        "fs_and_registry_cross_system_atomic": false,
+        "full_metadata_preservation": false,
+        "hardlink_source": false,
+        "hash_and_rename_is_cas": false,
+        "move_copies_then_retains_source": true,
+        "overwrite_existing_target": false,
+        "regular_file_copy": true,
+        "source_delete": false,
+        "sparse_file": false,
+        "symlink_follow": false,
+        "xattr_or_selinux_preservation": false
+      },
+      "created_at": "2026-10-24T23:15:06+08:00",
+      "execution": {
+        "authorized": false,
+        "environment": null,
+        "interpreter": null,
+        "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+      },
+      "last_error": "filesystem error after the operation became durable: [Errno 28] No space left on device",
+      "management_domain": "host-project",
+      "operation": "copy",
+      "operation_uuid": "944d4a58-1907-4bc2-8d49-234128cfbe60",
+      "provenance": {
+        "note": "target uses the destination management domain; source is independent provenance",
+        "source_management_domain": "host-project",
+        "source_relative_path": "payload.bin",
+        "source_root_uuid": "7f3be2a6-9512-44dc-b9ac-e83753713d77",
+        "source_view_uuid": null
+      },
+      "published": {
+        "dev": null,
+        "ino": null,
+        "nlink": null,
+        "published_at": null,
+        "sha256": null,
+        "size": null
+      },
+      "registry": {
+        "committed": false,
+        "committed_at": null
+      },
+      "schema_version": 1,
+      "source": {
+        "access_policy": "read-only",
+        "locator": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/source",
+        "management_domain": "host-project",
+        "observed_version": {
+          "acl_check": "checked",
+          "ctime_ns": 1792854906164532850,
+          "dev": 53,
+          "file_type": "regular",
+          "gid": 0,
+          "ino": 3183767,
+          "mode": 33188,
+          "mtime_ns": 1792854906164532850,
+          "nlink": 1,
+          "size": 2097152,
+          "uid": 0,
+          "xattrs_observed_but_not_copied": [
+            "security.selinux"
+          ]
+        },
+        "parent_parts": [],
+        "relative_path": "payload.bin",
+        "root_dev": 53,
+        "root_ino": 3183765,
+        "root_uuid": "7f3be2a6-9512-44dc-b9ac-e83753713d77",
+        "sha256": null,
+        "source_view": null
+      },
+      "source_retained": true,
+      "source_retention_reason": null,
+      "stage": {
+        "cleaned": false,
+        "created": true,
+        "ctime_ns": 1792854906199398150,
+        "dev": 86,
+        "ino": 2,
+        "mode": 33152,
+        "mtime_ns": 1792854906199398150,
+        "name": ".ml-stage-944d4a58-1907-4bc2-8d49-234128cfbe60-d26daa13d34541cba3586514ee8de00d",
+        "nonce": "d26daa13d34541cba3586514ee8de00d",
+        "parent_dev": 86,
+        "parent_ino": 1,
+        "ready": false,
+        "sha256": null,
+        "size": 0
+      },
+      "state": "NEEDS_RECONCILIATION",
+      "target": {
+        "access_policy": "read-write",
+        "locator": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target",
+        "management_domain": "host-project",
+        "overwrite": false,
+        "parent_dev": 86,
+        "parent_ino": 1,
+        "parent_parts": [],
+        "relative_path": "published.bin",
+        "root_dev": 86,
+        "root_ino": 1,
+        "root_uuid": "37070533-b79a-4b94-804f-2a1089662665"
+      },
+      "transitions": [
+        {
+          "at": "2026-10-24T23:15:06+08:00",
+          "state": "INTENT_DURABLE"
+        },
+        {
+          "at": "2026-10-24T23:15:06+08:00",
+          "state": "STAGING"
+        },
+        {
+          "at": "2026-10-24T23:15:06+08:00",
+          "reason": "filesystem error after the operation became durable: [Errno 28] No space left on device",
+          "state": "NEEDS_RECONCILIATION"
+        }
+      ],
+      "unsupported": [
+        "directories and recursive trees",
+        "ACL-bearing files",
+        "sparse or compressed files",
+        "device, fifo and socket nodes",
+        "symbolic links and hard-linked regular sources",
+        "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+        "automatic source deletion for move",
+        "atomic cross-filesystem rename",
+        "overwriting an existing target"
+      ],
+      "updated_at": "2026-10-24T23:15:06+08:00",
+      "complete": false,
+      "real_paths": {
+        "source": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/source/payload.bin",
+        "target": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target/published.bin",
+        "stage": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target/.ml-stage-944d4a58-1907-4bc2-8d49-234128cfbe60-d26daa13d34541cba3586514ee8de00d"
+      },
+      "no_overwrite": true,
+      "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+      "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction",
+      "recovery": {
+        "action": "terminal-noop",
+        "state_before": "NEEDS_RECONCILIATION",
+        "state_after": "NEEDS_RECONCILIATION"
+      }
+    }
+  ],
+  "cli_exit_after_real_enospc": 1,
+  "cli_operation": {
+    "schema_version": 1,
+    "operation_uuid": "9dc74d18-3582-4d86-8d41-a7f56472636c",
+    "operation": "copy",
+    "state": "NEEDS_RECONCILIATION",
+    "source": {
+      "root_uuid": "7f3be2a6-9512-44dc-b9ac-e83753713d77",
+      "management_domain": "host-project",
+      "access_policy": "read-only",
+      "locator": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/source",
+      "relative_path": "payload.bin",
+      "root_dev": 53,
+      "root_ino": 3183765,
+      "parent_parts": [],
+      "observed_version": {
+        "dev": 53,
+        "ino": 3183767,
+        "mode": 33188,
+        "nlink": 1,
+        "uid": 0,
+        "gid": 0,
+        "size": 2097152,
+        "mtime_ns": 1792854906164532850,
+        "ctime_ns": 1792854906164532850,
+        "file_type": "regular",
+        "acl_check": "checked",
+        "xattrs_observed_but_not_copied": [
+          "security.selinux"
+        ]
+      },
+      "sha256": null,
+      "source_view": null
+    },
+    "target": {
+      "root_uuid": "37070533-b79a-4b94-804f-2a1089662665",
+      "management_domain": "host-project",
+      "access_policy": "read-write",
+      "locator": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target",
+      "relative_path": "cli-published.bin",
+      "root_dev": 86,
+      "root_ino": 1,
+      "parent_parts": [],
+      "parent_dev": 86,
+      "parent_ino": 1,
+      "overwrite": false
+    },
+    "stage": {
+      "name": ".ml-stage-9dc74d18-3582-4d86-8d41-a7f56472636c-f1dc020a6ebc45a6bcb758ae1d68f21e",
+      "nonce": "f1dc020a6ebc45a6bcb758ae1d68f21e",
+      "parent_dev": 86,
+      "parent_ino": 1,
+      "dev": 86,
+      "ino": 3,
+      "size": 0,
+      "mode": 33152,
+      "mtime_ns": 1792854906249398305,
+      "ctime_ns": 1792854906249398305,
+      "sha256": null,
+      "ready": false,
+      "created": true,
+      "cleaned": false
+    },
+    "published": {
+      "dev": null,
+      "ino": null,
+      "size": null,
+      "sha256": null,
+      "nlink": null,
+      "published_at": null
+    },
+    "registry": {
+      "committed": false,
+      "committed_at": null
+    },
+    "provenance": {
+      "source_root_uuid": "7f3be2a6-9512-44dc-b9ac-e83753713d77",
+      "source_relative_path": "payload.bin",
+      "source_management_domain": "host-project",
+      "source_view_uuid": null,
+      "note": "target uses the destination management domain; source is independent provenance"
+    },
+    "management_domain": "host-project",
+    "execution": {
+      "authorized": false,
+      "interpreter": null,
+      "environment": null,
+      "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+    },
+    "capabilities": {
+      "regular_file_copy": true,
+      "move_copies_then_retains_source": true,
+      "source_delete": false,
+      "atomic_cross_filesystem_move": false,
+      "directory_recursive": false,
+      "acl_preservation": false,
+      "sparse_file": false,
+      "device_or_special_file": false,
+      "symlink_follow": false,
+      "hardlink_source": false,
+      "xattr_or_selinux_preservation": false,
+      "full_metadata_preservation": false,
+      "overwrite_existing_target": false,
+      "hash_and_rename_is_cas": false,
+      "fs_and_registry_cross_system_atomic": false
+    },
+    "unsupported": [
+      "directories and recursive trees",
+      "ACL-bearing files",
+      "sparse or compressed files",
+      "device, fifo and socket nodes",
+      "symbolic links and hard-linked regular sources",
+      "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+      "automatic source deletion for move",
+      "atomic cross-filesystem rename",
+      "overwriting an existing target"
+    ],
+    "source_retained": true,
+    "source_retention_reason": null,
+    "last_error": "filesystem error after the operation became durable: [Errno 28] No space left on device",
+    "transitions": [
+      {
+        "state": "INTENT_DURABLE",
+        "at": "2026-10-24T23:15:06+08:00"
+      },
+      {
+        "state": "STAGING",
+        "at": "2026-10-24T23:15:06+08:00"
+      },
+      {
+        "state": "NEEDS_RECONCILIATION",
+        "at": "2026-10-24T23:15:06+08:00",
+        "reason": "filesystem error after the operation became durable: [Errno 28] No space left on device"
+      }
+    ],
+    "created_at": "2026-10-24T23:15:06+08:00",
+    "updated_at": "2026-10-24T23:15:06+08:00",
+    "complete": false,
+    "real_paths": {
+      "source": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/source/payload.bin",
+      "target": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target/cli-published.bin",
+      "stage": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/enospc-kwb822n5/limited-target/.ml-stage-9dc74d18-3582-4d86-8d41-a7f56472636c-f1dc020a6ebc45a6bcb758ae1d68f21e"
+    },
+    "no_overwrite": true,
+    "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+    "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction"
+  },
+  "source_sha256": "4bbe3449f09a7fa4d3e57854373d4ae7069734ea38648ec0882ab113c15e0c5a",
+  "no_published_target": true,
+  "no_registration": true,
+  "partial_stage_retained": true,
+  "unmounted": true
+}

@@ -1,0 +1,22 @@
+{
+  "window": {
+    "caption": "FreeCAD 1.1.4",
+    "resourceClass": "org.freecad.FreeCAD",
+    "pid": 132752,
+    "internalId": "bb22b813-c359-4d5a-8d2a-7b1a83ca6ee1",
+    "width": 1100,
+    "height": 794.4,
+    "bufferWidth": 1100,
+    "bufferHeight": 760,
+    "active": false,
+    "visible": true,
+    "observation": "existing-KOS-KWin-bridge"
+  },
+  "normal_close_request": {
+    "ok": true,
+    "requestId": "unifier-480e1236c9df408d9727a10090f3689c",
+    "result": {},
+    "version": 1
+  },
+  "state_after": "exited"
+}

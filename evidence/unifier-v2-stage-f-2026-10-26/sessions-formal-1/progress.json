@@ -1,0 +1,41 @@
+{
+  "tool": "probe_sessions",
+  "status": "passed",
+  "phase": "finished",
+  "acceptance": "pending-primary-review",
+  "started_at": "2026-10-26T16:26:52+08:00",
+  "updated_at": "2026-10-26T16:39:02+08:00",
+  "scope": {
+    "levels": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "waves": 3,
+    "mixed_waves": 2
+  },
+  "checks": {
+    "fedora_levels_1_2_4_8": true,
+    "three_waves_each": true,
+    "same_cid_each_wave": true,
+    "container_create_delta_zero": true,
+    "cold_start_one_each_wave": true,
+    "lease_and_guest_peak_match": true,
+    "no_early_stop": true,
+    "final_auto_stop": true,
+    "no_unresolved_sessions": true,
+    "mixed_two_per_distro": true,
+    "mixed_no_early_stop": true,
+    "timings_exit_zero": true,
+    "prepare_never_started": true,
+    "no_new_containers": true,
+    "resource_sampler_not_aborted": true
+  },
+  "error": null,
+  "level": 8,
+  "wave": 1,
+  "message": "warm 30/30",
+  "target": "arch",
+  "finished_at": "2026-10-26T16:39:02+08:00"
+}

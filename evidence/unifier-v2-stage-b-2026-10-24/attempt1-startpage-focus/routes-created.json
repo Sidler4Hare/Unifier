@@ -1,0 +1,62 @@
+{
+  "root": {
+    "schema_version": 1,
+    "root_uuid": "688f0377-04f1-41fa-babb-7bee1d42c1e9",
+    "management_domain": "host-project",
+    "backend": "local-directory",
+    "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+    "access_policy": "read-write",
+    "root_dev": 53,
+    "root_ino": 3169315,
+    "created_at": "2026-10-24T10:48:04+08:00"
+  },
+  "handler": {
+    "schema_version": 1,
+    "handler_uuid": "66a2dcbc-c748-488b-9a20-6374616d4ade",
+    "alias": "freecad-edit",
+    "intent": "edit",
+    "provider": "environment-app",
+    "app_id": "freecad-b",
+    "app_instance_uuid": "21618057-9962-453a-a770-2ed1458cc22a",
+    "app_binding": {
+      "environment_id": "v2-freecad",
+      "environment_uuid": "2a27a2ab-5a13-4b81-9c04-138d0754afbb",
+      "generation": 1,
+      "container_id": "4b914a65c295d2ecf3ea3ec4f07955e500c548f3012192b5b743bae097c0c14a"
+    },
+    "execution_fingerprint": "759df9dfd5721a2def582709f39682d4138814f62416b5a6ce149919304ee182",
+    "file_argument": {
+      "mode": "append"
+    },
+    "save_capability": "explicit-path",
+    "created_at": "2026-10-24T10:48:05+08:00",
+    "updated_at": "2026-10-24T10:48:05+08:00"
+  },
+  "project": {
+    "schema_version": 1,
+    "project_uuid": "bcab01e6-aca8-47c6-8dfe-c88f36793bf8",
+    "alias": "cad-project",
+    "root_uuid": "688f0377-04f1-41fa-babb-7bee1d42c1e9",
+    "default_save_root": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+    "access_policy": "read-write",
+    "environment_binding": {
+      "environment_id": "v2-freecad",
+      "environment_uuid": "2a27a2ab-5a13-4b81-9c04-138d0754afbb",
+      "generation": 1,
+      "container_id": "4b914a65c295d2ecf3ea3ec4f07955e500c548f3012192b5b743bae097c0c14a"
+    },
+    "toolchain": {
+      "provider": "environment",
+      "target": "arch",
+      "environment_id": "v2-freecad",
+      "environment_uuid": "2a27a2ab-5a13-4b81-9c04-138d0754afbb",
+      "generation": 1,
+      "container_id": "4b914a65c295d2ecf3ea3ec4f07955e500c548f3012192b5b743bae097c0c14a"
+    },
+    "intent_handlers": {
+      "edit": "66a2dcbc-c748-488b-9a20-6374616d4ade"
+    },
+    "created_at": "2026-10-24T10:48:05+08:00",
+    "updated_at": "2026-10-24T10:48:05+08:00"
+  }
+}

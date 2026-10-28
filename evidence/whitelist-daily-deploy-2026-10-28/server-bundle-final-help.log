@@ -1,0 +1,8 @@
+usage: probe_headless.py [-h] --output OUTPUT
+                         [--target {debian13,fedora44,arch}]
+
+options:
+  -h, --help            show this help message and exit
+  --output OUTPUT
+  --target {debian13,fedora44,arch}
+

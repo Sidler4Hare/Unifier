@@ -1,0 +1,318 @@
+{
+  "cases": {
+    "small.txt": {
+      "source_dev": 53,
+      "target_dev": 27,
+      "size": 31,
+      "blocks": 8,
+      "result": {
+        "schema_version": 1,
+        "operation_uuid": "804383b2-9029-4254-8baf-217551dec8f3",
+        "operation": "copy",
+        "state": "DONE",
+        "source": {
+          "root_uuid": "9b78b4e9-f8ea-4408-bafa-cfe450641c41",
+          "management_domain": "host-project",
+          "access_policy": "read-write",
+          "locator": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/d-btrfs-7ke6is0a/source",
+          "relative_path": "small.txt",
+          "root_dev": 53,
+          "root_ino": 3182868,
+          "parent_parts": [],
+          "observed_version": {
+            "dev": 53,
+            "ino": 3182875,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "size": 31,
+            "mtime_ns": 1792854141358499617,
+            "ctime_ns": 1792854141358499617,
+            "file_type": "regular",
+            "acl_check": "checked",
+            "xattrs_observed_but_not_copied": [
+              "security.selinux"
+            ]
+          },
+          "sha256": "7ef408f4efc4ca16802dea1ab181a0ed3c9876b7017a6e418c0a53eb4e6a244d",
+          "source_view": null,
+          "verified_size": 31
+        },
+        "target": {
+          "root_uuid": "b38d533c-b7e9-4033-a565-8e287774a0de",
+          "management_domain": "host-project",
+          "access_policy": "read-write",
+          "locator": "/dev/shm/unifier-d-native-6o09eg6z",
+          "relative_path": "small.txt",
+          "root_dev": 27,
+          "root_ino": 808,
+          "parent_parts": [],
+          "parent_dev": 27,
+          "parent_ino": 808,
+          "overwrite": false
+        },
+        "stage": {
+          "name": ".ml-stage-804383b2-9029-4254-8baf-217551dec8f3-22e06e26ce2e4e3a9d8c895c4664e25e",
+          "nonce": "22e06e26ce2e4e3a9d8c895c4664e25e",
+          "parent_dev": 27,
+          "parent_ino": 808,
+          "dev": 27,
+          "ino": 809,
+          "size": 31,
+          "mode": 33188,
+          "mtime_ns": 1792854141376337731,
+          "ctime_ns": 1792854141376337731,
+          "sha256": "7ef408f4efc4ca16802dea1ab181a0ed3c9876b7017a6e418c0a53eb4e6a244d",
+          "ready": true,
+          "created": true,
+          "cleaned": true
+        },
+        "published": {
+          "dev": 27,
+          "ino": 809,
+          "size": 31,
+          "sha256": "7ef408f4efc4ca16802dea1ab181a0ed3c9876b7017a6e418c0a53eb4e6a244d",
+          "nlink": 1,
+          "published_at": "2026-10-24T23:02:21+08:00"
+        },
+        "registry": {
+          "committed": true,
+          "committed_at": "2026-10-24T23:02:21+08:00"
+        },
+        "provenance": {
+          "source_root_uuid": "9b78b4e9-f8ea-4408-bafa-cfe450641c41",
+          "source_relative_path": "small.txt",
+          "source_management_domain": "host-project",
+          "source_view_uuid": null,
+          "note": "target uses the destination management domain; source is independent provenance"
+        },
+        "management_domain": "host-project",
+        "capabilities": {
+          "regular_file_copy": true,
+          "move_copies_then_retains_source": true,
+          "source_delete": false,
+          "atomic_cross_filesystem_move": false,
+          "directory_recursive": false,
+          "acl_preservation": false,
+          "sparse_file": false,
+          "device_or_special_file": false,
+          "symlink_follow": false,
+          "hardlink_source": false,
+          "xattr_or_selinux_preservation": false,
+          "full_metadata_preservation": false,
+          "overwrite_existing_target": false,
+          "hash_and_rename_is_cas": false,
+          "fs_and_registry_cross_system_atomic": false
+        },
+        "unsupported": [
+          "directories and recursive trees",
+          "ACL-bearing files",
+          "sparse or compressed files",
+          "device, fifo and socket nodes",
+          "symbolic links and hard-linked regular sources",
+          "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+          "automatic source deletion for move",
+          "atomic cross-filesystem rename",
+          "overwriting an existing target"
+        ],
+        "source_retained": true,
+        "source_retention_reason": "copy does not delete its source; automatic source cleanup is outside this operation",
+        "last_error": null,
+        "transitions": [
+          {
+            "state": "INTENT_DURABLE",
+            "at": "2026-10-24T23:02:21+08:00"
+          },
+          {
+            "state": "STAGING",
+            "at": "2026-10-24T23:02:21+08:00"
+          },
+          {
+            "state": "TARGET_PUBLISHED",
+            "at": "2026-10-24T23:02:21+08:00"
+          },
+          {
+            "state": "REGISTRY_COMMITTED",
+            "at": "2026-10-24T23:02:21+08:00"
+          },
+          {
+            "state": "DONE",
+            "at": "2026-10-24T23:02:21+08:00"
+          }
+        ],
+        "created_at": "2026-10-24T23:02:21+08:00",
+        "updated_at": "2026-10-24T23:02:21+08:00",
+        "finished_at": "2026-10-24T23:02:21+08:00",
+        "complete": true,
+        "real_paths": {
+          "source": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/d-btrfs-7ke6is0a/source/small.txt",
+          "target": "/dev/shm/unifier-d-native-6o09eg6z/small.txt",
+          "stage": "/dev/shm/unifier-d-native-6o09eg6z/.ml-stage-804383b2-9029-4254-8baf-217551dec8f3-22e06e26ce2e4e3a9d8c895c4664e25e"
+        },
+        "no_overwrite": true,
+        "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+        "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction"
+      },
+      "target_equal": true,
+      "target_nlink": 1
+    },
+    "large.bin": {
+      "source_dev": 53,
+      "target_dev": 27,
+      "size": 1048576,
+      "blocks": 2048,
+      "result": {
+        "schema_version": 1,
+        "operation_uuid": "deccc60e-7362-4a8b-b0b7-b74e12cc9edb",
+        "operation": "copy",
+        "state": "DONE",
+        "source": {
+          "root_uuid": "9b78b4e9-f8ea-4408-bafa-cfe450641c41",
+          "management_domain": "host-project",
+          "access_policy": "read-write",
+          "locator": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/d-btrfs-7ke6is0a/source",
+          "relative_path": "large.bin",
+          "root_dev": 53,
+          "root_ino": 3182868,
+          "parent_parts": [],
+          "observed_version": {
+            "dev": 53,
+            "ino": 3182890,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "size": 1048576,
+            "mtime_ns": 1792854141415662089,
+            "ctime_ns": 1792854141415662089,
+            "file_type": "regular",
+            "acl_check": "checked",
+            "xattrs_observed_but_not_copied": [
+              "security.selinux"
+            ]
+          },
+          "sha256": "f5e2ac923a869bab0419d661e46f2fa3b0f90b4c6c78904939c3e9673dea587f",
+          "source_view": null,
+          "verified_size": 1048576
+        },
+        "target": {
+          "root_uuid": "b38d533c-b7e9-4033-a565-8e287774a0de",
+          "management_domain": "host-project",
+          "access_policy": "read-write",
+          "locator": "/dev/shm/unifier-d-native-6o09eg6z",
+          "relative_path": "large.bin",
+          "root_dev": 27,
+          "root_ino": 808,
+          "parent_parts": [],
+          "parent_dev": 27,
+          "parent_ino": 808,
+          "overwrite": false
+        },
+        "stage": {
+          "name": ".ml-stage-deccc60e-7362-4a8b-b0b7-b74e12cc9edb-bff4caf0104244978cef7de26bf4890f",
+          "nonce": "bff4caf0104244978cef7de26bf4890f",
+          "parent_dev": 27,
+          "parent_ino": 808,
+          "dev": 27,
+          "ino": 810,
+          "size": 1048576,
+          "mode": 33188,
+          "mtime_ns": 1792854141434337869,
+          "ctime_ns": 1792854141435337872,
+          "sha256": "f5e2ac923a869bab0419d661e46f2fa3b0f90b4c6c78904939c3e9673dea587f",
+          "ready": true,
+          "created": true,
+          "cleaned": true
+        },
+        "published": {
+          "dev": 27,
+          "ino": 810,
+          "size": 1048576,
+          "sha256": "f5e2ac923a869bab0419d661e46f2fa3b0f90b4c6c78904939c3e9673dea587f",
+          "nlink": 1,
+          "published_at": "2026-10-24T23:02:21+08:00"
+        },
+        "registry": {
+          "committed": true,
+          "committed_at": "2026-10-24T23:02:21+08:00"
+        },
+        "provenance": {
+          "source_root_uuid": "9b78b4e9-f8ea-4408-bafa-cfe450641c41",
+          "source_relative_path": "large.bin",
+          "source_management_domain": "host-project",
+          "source_view_uuid": null,
+          "note": "target uses the destination management domain; source is independent provenance"
+        },
+        "management_domain": "host-project",
+        "capabilities": {
+          "regular_file_copy": true,
+          "move_copies_then_retains_source": true,
+          "source_delete": false,
+          "atomic_cross_filesystem_move": false,
+          "directory_recursive": false,
+          "acl_preservation": false,
+          "sparse_file": false,
+          "device_or_special_file": false,
+          "symlink_follow": false,
+          "hardlink_source": false,
+          "xattr_or_selinux_preservation": false,
+          "full_metadata_preservation": false,
+          "overwrite_existing_target": false,
+          "hash_and_rename_is_cas": false,
+          "fs_and_registry_cross_system_atomic": false
+        },
+        "unsupported": [
+          "directories and recursive trees",
+          "ACL-bearing files",
+          "sparse or compressed files",
+          "device, fifo and socket nodes",
+          "symbolic links and hard-linked regular sources",
+          "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+          "automatic source deletion for move",
+          "atomic cross-filesystem rename",
+          "overwriting an existing target"
+        ],
+        "source_retained": true,
+        "source_retention_reason": "copy does not delete its source; automatic source cleanup is outside this operation",
+        "last_error": null,
+        "transitions": [
+          {
+            "state": "INTENT_DURABLE",
+            "at": "2026-10-24T23:02:21+08:00"
+          },
+          {
+            "state": "STAGING",
+            "at": "2026-10-24T23:02:21+08:00"
+          },
+          {
+            "state": "TARGET_PUBLISHED",
+            "at": "2026-10-24T23:02:21+08:00"
+          },
+          {
+            "state": "REGISTRY_COMMITTED",
+            "at": "2026-10-24T23:02:21+08:00"
+          },
+          {
+            "state": "DONE",
+            "at": "2026-10-24T23:02:21+08:00"
+          }
+        ],
+        "created_at": "2026-10-24T23:02:21+08:00",
+        "updated_at": "2026-10-24T23:02:21+08:00",
+        "finished_at": "2026-10-24T23:02:21+08:00",
+        "complete": true,
+        "real_paths": {
+          "source": "/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d-20261024/d-btrfs-7ke6is0a/source/large.bin",
+          "target": "/dev/shm/unifier-d-native-6o09eg6z/large.bin",
+          "stage": "/dev/shm/unifier-d-native-6o09eg6z/.ml-stage-deccc60e-7362-4a8b-b0b7-b74e12cc9edb-bff4caf0104244978cef7de26bf4890f"
+        },
+        "no_overwrite": true,
+        "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+        "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction"
+      },
+      "target_equal": true,
+      "target_nlink": 1
+    }
+  }
+}

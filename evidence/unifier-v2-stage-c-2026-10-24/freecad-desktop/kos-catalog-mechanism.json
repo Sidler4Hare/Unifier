@@ -1,0 +1,31 @@
+{
+  "shell_service": "kos-shell.service",
+  "shell_active": true,
+  "catalog_source": "DesktopEntries.applications via AppPresentationService.catalog()",
+  "updates": "DesktopEntries.applicationsChanged increments catalogRevision",
+  "ipc_snapshot_inventory": {
+    "applauncher-settings": {
+      "exit": 0,
+      "top_keys": [
+        "displayMode",
+        "layoutProfiles"
+      ],
+      "contains_freecad": false
+    },
+    "integration-status": {
+      "exit": 0,
+      "top_keys": [
+        "shellReady",
+        "platformConnected",
+        "dataConnected",
+        "outputAvailable",
+        "desktopSurfaceAvailable",
+        "desktopWidgetsVisible",
+        "desktopWidgetsEnabled",
+        "desktopFilesReady"
+      ],
+      "contains_freecad": false
+    }
+  },
+  "limit": "Existing snapshot APIs do not expose the installed-app catalogue itself; desktop ID is validated through the shared XDG entry and native launches."
+}

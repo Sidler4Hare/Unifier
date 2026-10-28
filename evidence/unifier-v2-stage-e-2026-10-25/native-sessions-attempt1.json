@@ -1,0 +1,147 @@
+{
+  "passed": false,
+  "source_sha256": {
+    "src/multilinux/__init__.py": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+    "src/multilinux/errors.py": "531a2ca4ce2056099a662eed98a6fa137013b99c7ea0a091fa3960279b92ca2a",
+    "src/multilinux/__main__.py": "8fc1fcde2cd1a30a9c1271714cbe49efd1b7ef1597ad4b0f16e1f84dc96ae2b8",
+    "src/multilinux/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+    "src/multilinux/store.py": "7a386a46239fcd010aa700f0454bf3929ffc27758ed1f8a17ea5e5d2c2f2b7dd",
+    "src/multilinux/resources.py": "1269fc93c41febfc8932d57b805cd512b6fd6cbde109e5c6ca680725504ce4ec",
+    "src/multilinux/catalog.py": "a2704215ff0c3b04fe71b341eca876817888ffce8a51adf1779b67c407cab089",
+    "src/multilinux/packages.py": "34a37cb687c6a09d10e81348c22013a5fd2d8fb18229f07dc19d0525b4868668",
+    "src/multilinux/routing.py": "cd3f4ab38b50846d6b4c518b3d270428a52af19369f26ac85df9eac920b37fe7",
+    "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+    "src/multilinux/identity.py": "184f7fe3c3449b8f230b7a9615caacb0be1bbc9d6905150dbf85011789331c8f",
+    "src/multilinux/share_label.py": "dfd46c05c3d9d5d7239163b68c5284215833c885c3612d9d868b30b958979aee",
+    "src/multilinux/json_records.py": "e78b72caf5f2693f07995f065e6905f42685c2ce846617b9373ef51be416b906",
+    "src/multilinux/projects.py": "6a53b6175d7b6c7f3ea7dd2aba504966653bd6cfdf94de184c29d3e9d6819eed",
+    "src/multilinux/handlers.py": "1dfc87b8b593c35155a24eb3d55210318f00c45086cf6bd806e09a16657d58a0",
+    "src/multilinux/view_backend.py": "9b4245280119beac79eafaf5167cc2382d636d198f41bb28ca1ee3d051fa5e85",
+    "src/multilinux/view_journal.py": "e9dd7b6400206e7b773112100d62bee1f55bdabc6ef018abbd52938dc48ba66d",
+    "src/multilinux/view_broker.py": "c2eda675b0e73500227415f20f17d8d77816c172084d7a866a9afeecd31c28fa",
+    "src/multilinux/fuse_view.py": "67708fee1640d5122aaa10521d23f0fc825b1a849ca47cb531d891dc92dfe826",
+    "src/multilinux/views.py": "7ae705709bfdee3a2489e38a8d552cfad124ce71ab0166cc3839e754fede32e3",
+    "src/multilinux/registry.py": "1d1d042b081c766b25d1b3ca6fa066d39f089f1613f255e124c72ea69a28577e",
+    "src/multilinux/control.py": "0277e13eaebb1eb0c5653b6457ecb43c8301ed7db0ee383a0ede80fc194a9278",
+    "src/multilinux/lease.py": "80064e9c652cb733c686fd4535484fa62ea9aff3841d8bb1a619f1700a2a6d7b",
+    "src/multilinux/file_operations.py": "b4387fa6501409e4066224bcb288e54f0fa235b02856aa69272838587add4692",
+    "src/multilinux/runtime.py": "15dc0c21e67e5a00c3b0df93d65115799f13691801f7ee153daa3dc9b2ea22a8",
+    "src/multilinux/on_demand.py": "cae859221e1e2edcd35613536bc4792aa8c276845b532d34213bfe54446cebba",
+    "src/multilinux/file_routes.py": "ee11aba1d91bccbedefa23ef37f5d5041d1fb6f3c8c32f6ec6a025b6b996e7a3",
+    "src/multilinux/project_sessions.py": "9abf3ce18fa4cb59fabd44485d0cf254daacd7ff297dcffcdb59da505d7f5bca",
+    "src/multilinux/service.py": "f401fd7b87f4e195f0f34fb9668dcb9584d8d94f1b3277d50802ce00af8d68df",
+    "src/multilinux/desktop.py": "15c619b0e59f3232974e7eabff19fb22127504fce8c283cf76a2eb255d5dd1ff",
+    "src/multilinux/desktop_integrations.py": "d7df7f6ffb0d047718a205cc67678fff55b0ebc419909c9991edf9c2427d31e3",
+    "src/multilinux/cli.py": "5374e3561509927647cec712f5feb7ae5c655aeacd956924b963a00d0880285a"
+  },
+  "targets": {
+    "debian13": {
+      "passed": false,
+      "project_uuid": "1591cc9e-1062-4a7f-8d3b-7f6c841d70f3",
+      "root_uuid": "3888a063-f615-47c2-9715-8bad37ac825a",
+      "container_id": "ea67adcc5e60f989473dd23c8b90ec209c8f862f2e8deed32d8879ab202a3db5",
+      "plan_did_not_start": true
+    }
+  },
+  "commands": [
+    {
+      "args": [
+        "root",
+        "list"
+      ],
+      "exit": 0,
+      "stdout": "[]\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "root",
+        "add",
+        "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"schema_version\": 1,\n  \"root_uuid\": \"3888a063-f615-47c2-9715-8bad37ac825a\",\n  \"management_domain\": \"host-project\",\n  \"backend\": \"local-directory\",\n  \"locator\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n  \"access_policy\": \"read-write\",\n  \"cleanup_policy\": \"retain\",\n  \"root_dev\": 53,\n  \"root_ino\": 3200429,\n  \"created_at\": \"2026-10-25T22:13:36+08:00\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "project",
+        "list"
+      ],
+      "exit": 0,
+      "stdout": "[]\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "project",
+        "add",
+        "--root",
+        "3888a063-f615-47c2-9715-8bad37ac825a",
+        "--environment",
+        "session-debian13",
+        "--alias",
+        "native-debian13"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"schema_version\": 1,\n  \"project_uuid\": \"1591cc9e-1062-4a7f-8d3b-7f6c841d70f3\",\n  \"alias\": \"native-debian13\",\n  \"root_uuid\": \"3888a063-f615-47c2-9715-8bad37ac825a\",\n  \"default_save_root\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n  \"access_policy\": \"read-write\",\n  \"environment_binding\": {\n    \"environment_id\": \"session-debian13\",\n    \"environment_uuid\": \"5be6dd4f-4483-4fb6-b62b-4f9c93cb4d47\",\n    \"generation\": 1,\n    \"container_id\": \"ea67adcc5e60f989473dd23c8b90ec209c8f862f2e8deed32d8879ab202a3db5\"\n  },\n  \"toolchain\": {\n    \"provider\": \"environment\",\n    \"target\": \"debian13\",\n    \"environment_id\": \"session-debian13\",\n    \"environment_uuid\": \"5be6dd4f-4483-4fb6-b62b-4f9c93cb4d47\",\n    \"generation\": 1,\n    \"container_id\": \"ea67adcc5e60f989473dd23c8b90ec209c8f862f2e8deed32d8879ab202a3db5\"\n  },\n  \"intent_handlers\": {},\n  \"created_at\": \"2026-10-25T22:13:36+08:00\",\n  \"updated_at\": \"2026-10-25T22:13:36+08:00\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "project",
+        "plan",
+        "1591cc9e-1062-4a7f-8d3b-7f6c841d70f3"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"schema_version\": 1,\n  \"operation\": \"project.plan\",\n  \"project_uuid\": \"1591cc9e-1062-4a7f-8d3b-7f6c841d70f3\",\n  \"project_alias\": \"native-debian13\",\n  \"root_uuid\": \"3888a063-f615-47c2-9715-8bad37ac825a\",\n  \"root_dev\": 53,\n  \"root_ino\": 3200429,\n  \"root_path\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n  \"environment_id\": \"session-debian13\",\n  \"environment_uuid\": \"5be6dd4f-4483-4fb6-b62b-4f9c93cb4d47\",\n  \"generation\": 1,\n  \"container_id\": \"ea67adcc5e60f989473dd23c8b90ec209c8f862f2e8deed32d8879ab202a3db5\",\n  \"environment_binding\": {\n    \"environment_id\": \"session-debian13\",\n    \"environment_uuid\": \"5be6dd4f-4483-4fb6-b62b-4f9c93cb4d47\",\n    \"generation\": 1,\n    \"container_id\": \"ea67adcc5e60f989473dd23c8b90ec209c8f862f2e8deed32d8879ab202a3db5\"\n  },\n  \"target\": \"debian13\",\n  \"cwd\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n  \"cwd_dev\": 53,\n  \"cwd_ino\": 3200429,\n  \"argv\": [],\n  \"env_keys\": [],\n  \"mode\": \"run\",\n  \"access_scope\": {\n    \"mode\": \"environment-shared-static-mounts\",\n    \"project_root\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n    \"file_path\": null,\n    \"cwd\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n    \"mappings\": {\n      \"project_root\": {\n        \"path\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n        \"mount\": {\n          \"host\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n          \"container\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n          \"options\": \"\",\n          \"same_absolute_path\": true\n        },\n        \"expected_host\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n        \"same_host_object\": true\n      },\n      \"cwd\": {\n        \"path\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n        \"mount\": {\n          \"host\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n          \"container\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n          \"options\": \"\",\n          \"same_absolute_path\": true\n        },\n        \"expected_host\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n        \"same_host_object\": true\n      }\n    },\n    \"selected_mount\": {\n      \"host\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n      \"container\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n      \"options\": \"\",\n      \"same_absolute_path\": true\n    },\n    \"used_mounts\": [\n      {\n        \"host\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n        \"container\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n        \"options\": \"\",\n        \"same_absolute_path\": true\n      }\n    ],\n    \"shared_mounts\": [\n      {\n        \"host\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n        \"container\": \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\",\n        \"options\": \"\",\n        \"same_absolute_path\": true\n      }\n    ],\n    \"runtime_read_only\": false,\n    \"any_used_mount_read_only\": false,\n    \"policy_enforcement\": \"routing-only\",\n    \"policy_note\": \"read-only is a routing decision; without an OS-level read-only mount it is not a filesystem write guarantee\",\n    \"warning\": \"All applications in this environment share every static mount. This route is not per-file or per-application isolation.\"\n  },\n  \"scope_sha256\": \"1979b2dbb4e18a932e98a2c1ce0bfb3e60ef4e4c72d036439e67e6bafe88ca4d\",\n  \"execution\": {\n    \"mode\": \"argv-array\",\n    \"shell\": false,\n    \"stdin\": \"pipe\",\n    \"tty\": \"explicit\",\n    \"lease\": \"shared-per-environment-launch-group\",\n    \"revalidate_on_start_and_exec\": true\n  }\n}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "project",
+        "run",
+        "native-debian13",
+        "--",
+        "./probe.sh",
+        "普通 参数';% value"
+      ],
+      "exit": 0,
+      "stdout": "parent:debian\nchild:debian:普通 参数';% value\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "project",
+        "run",
+        "native-debian13",
+        "--",
+        "/bin/sh",
+        "-c",
+        "cat; printf \"stderr-marker\\n\" >&2; exit 23"
+      ],
+      "exit": 23,
+      "stdout": "管道中文\n",
+      "stderr": "stderr-marker\n"
+    },
+    {
+      "args": [
+        "project",
+        "run",
+        "native-debian13",
+        "--",
+        "/bin/sh",
+        "-c",
+        "cat absolute-os-release; printf owned > \"$1\"; printf \"cwd:%s\\n\" \"$PWD\"",
+        "probe",
+        "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13/host-user-owned-output.txt"
+      ],
+      "exit": 0,
+      "stdout": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.7\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\"\ncwd:/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/workspace-debian13\n",
+      "stderr": ""
+    }
+  ],
+  "cases": {},
+  "scope": "isolated real containers, public CLI, actual pipes/signals/PTY; no host command interception",
+  "error": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/probe_native_sessions.py\", line 126, in main\n    assert marker.read_text() == \"owned\" and marker.stat().st_uid == os.getuid()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+}

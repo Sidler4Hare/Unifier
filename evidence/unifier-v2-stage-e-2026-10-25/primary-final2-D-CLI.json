@@ -1,0 +1,1133 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "src/multilinux/__init__.py": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+    "src/multilinux/errors.py": "531a2ca4ce2056099a662eed98a6fa137013b99c7ea0a091fa3960279b92ca2a",
+    "src/multilinux/__main__.py": "8fc1fcde2cd1a30a9c1271714cbe49efd1b7ef1597ad4b0f16e1f84dc96ae2b8",
+    "src/multilinux/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+    "src/multilinux/store.py": "7a386a46239fcd010aa700f0454bf3929ffc27758ed1f8a17ea5e5d2c2f2b7dd",
+    "src/multilinux/resources.py": "1269fc93c41febfc8932d57b805cd512b6fd6cbde109e5c6ca680725504ce4ec",
+    "src/multilinux/catalog.py": "a2704215ff0c3b04fe71b341eca876817888ffce8a51adf1779b67c407cab089",
+    "src/multilinux/packages.py": "34a37cb687c6a09d10e81348c22013a5fd2d8fb18229f07dc19d0525b4868668",
+    "src/multilinux/routing.py": "cd3f4ab38b50846d6b4c518b3d270428a52af19369f26ac85df9eac920b37fe7",
+    "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+    "src/multilinux/identity.py": "184f7fe3c3449b8f230b7a9615caacb0be1bbc9d6905150dbf85011789331c8f",
+    "src/multilinux/share_label.py": "dfd46c05c3d9d5d7239163b68c5284215833c885c3612d9d868b30b958979aee",
+    "src/multilinux/json_records.py": "e78b72caf5f2693f07995f065e6905f42685c2ce846617b9373ef51be416b906",
+    "src/multilinux/projects.py": "6a53b6175d7b6c7f3ea7dd2aba504966653bd6cfdf94de184c29d3e9d6819eed",
+    "src/multilinux/handlers.py": "1dfc87b8b593c35155a24eb3d55210318f00c45086cf6bd806e09a16657d58a0",
+    "src/multilinux/view_backend.py": "9b4245280119beac79eafaf5167cc2382d636d198f41bb28ca1ee3d051fa5e85",
+    "src/multilinux/view_journal.py": "e9dd7b6400206e7b773112100d62bee1f55bdabc6ef018abbd52938dc48ba66d",
+    "src/multilinux/view_broker.py": "c2eda675b0e73500227415f20f17d8d77816c172084d7a866a9afeecd31c28fa",
+    "src/multilinux/fuse_view.py": "67708fee1640d5122aaa10521d23f0fc825b1a849ca47cb531d891dc92dfe826",
+    "src/multilinux/views.py": "7ae705709bfdee3a2489e38a8d552cfad124ce71ab0166cc3839e754fede32e3",
+    "src/multilinux/registry.py": "1d1d042b081c766b25d1b3ca6fa066d39f089f1613f255e124c72ea69a28577e",
+    "src/multilinux/control.py": "0277e13eaebb1eb0c5653b6457ecb43c8301ed7db0ee383a0ede80fc194a9278",
+    "src/multilinux/lease.py": "80064e9c652cb733c686fd4535484fa62ea9aff3841d8bb1a619f1700a2a6d7b",
+    "src/multilinux/file_operations.py": "b4387fa6501409e4066224bcb288e54f0fa235b02856aa69272838587add4692",
+    "src/multilinux/file_routes.py": "ee11aba1d91bccbedefa23ef37f5d5041d1fb6f3c8c32f6ec6a025b6b996e7a3",
+    "src/multilinux/desktop.py": "fbb62f2b2f885ef86a6617dac65cabc7c674284c2ef6c13bbc05c4aea21f0858",
+    "src/multilinux/runtime.py": "d9b9e47e51455bf71ba36b721b3929ddd52a2d68191ef70ab35a0bba42b6f2a4",
+    "src/multilinux/service.py": "a8e113e0a0182bd1db9f5974ad9448e3c0591b14b5831fa5db6328ac8ff606c3",
+    "src/multilinux/cli.py": "9da9465fcdb0c0e887f8b3fe60cd3698ea72d7819cd68061023af24e70f718dd",
+    "src/multilinux/on_demand.py": "71fa484cc326c21dad0f083440386572d25eeb6dff2867edcd30f692439f4291",
+    "src/multilinux/desktop_integrations.py": "b55b97c7467cc2c5db2a322b217a5bc276c5d2c134e142aa994ebde582b63320",
+    "src/multilinux/project_sessions.py": "7d719d7d45361eb74f581f55267940f40c73f542bd6304e70b013f4bce9471aa"
+  },
+  "commands": [
+    {
+      "args": [
+        "root",
+        "add",
+        "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source",
+        "--cleanup-policy",
+        "controlled"
+      ],
+      "exit": 0,
+      "stderr": "",
+      "json": {
+        "schema_version": 1,
+        "root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+        "management_domain": "host-project",
+        "backend": "local-directory",
+        "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source",
+        "access_policy": "read-write",
+        "cleanup_policy": "controlled",
+        "root_dev": 53,
+        "root_ino": 3210761,
+        "created_at": "2026-10-25T23:04:55+08:00"
+      }
+    },
+    {
+      "args": [
+        "root",
+        "add",
+        "/dev/shm/unifier-cleanup-cli-h6qqheli"
+      ],
+      "exit": 0,
+      "stderr": "",
+      "json": {
+        "schema_version": 1,
+        "root_uuid": "5ce7c094-08b1-49b5-b294-46bd479c4784",
+        "management_domain": "host-project",
+        "backend": "local-directory",
+        "locator": "/dev/shm/unifier-cleanup-cli-h6qqheli",
+        "access_policy": "read-write",
+        "cleanup_policy": "retain",
+        "root_dev": 27,
+        "root_ino": 1702,
+        "created_at": "2026-10-25T23:04:55+08:00"
+      }
+    },
+    {
+      "args": [
+        "file",
+        "move",
+        "e08a3227-5312-4f65-852a-4d89c1979441",
+        "待移动 中文';%.bin",
+        "5ce7c094-08b1-49b5-b294-46bd479c4784",
+        "已移动 中文';%.bin",
+        "--cleanup-source"
+      ],
+      "exit": 0,
+      "stderr": "",
+      "json": {
+        "schema_version": 1,
+        "operation_uuid": "1ee33e62-041f-4137-8ea6-3e163e501138",
+        "operation": "move",
+        "state": "DONE",
+        "source": {
+          "root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+          "management_domain": "host-project",
+          "access_policy": "read-write",
+          "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source",
+          "relative_path": "待移动 中文';%.bin",
+          "root_dev": 53,
+          "root_ino": 3210761,
+          "parent_parts": [],
+          "observed_version": {
+            "dev": 53,
+            "ino": 3210762,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "size": 98304,
+            "mtime_ns": 1792940695522206220,
+            "ctime_ns": 1792940695522206220,
+            "file_type": "regular",
+            "acl_check": "checked",
+            "xattrs_observed_but_not_copied": [
+              "security.selinux"
+            ]
+          },
+          "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+          "source_view": null,
+          "cleanup_policy": "controlled",
+          "parent_dev": 53,
+          "parent_ino": 3210761,
+          "verified_size": 98304
+        },
+        "target": {
+          "root_uuid": "5ce7c094-08b1-49b5-b294-46bd479c4784",
+          "management_domain": "host-project",
+          "access_policy": "read-write",
+          "locator": "/dev/shm/unifier-cleanup-cli-h6qqheli",
+          "relative_path": "已移动 中文';%.bin",
+          "root_dev": 27,
+          "root_ino": 1702,
+          "parent_parts": [],
+          "parent_dev": 27,
+          "parent_ino": 1702,
+          "overwrite": false
+        },
+        "stage": {
+          "name": ".ml-stage-1ee33e62-041f-4137-8ea6-3e163e501138-271cc4ead1af4cddaa1c369a803819ba",
+          "nonce": "271cc4ead1af4cddaa1c369a803819ba",
+          "parent_dev": 27,
+          "parent_ino": 1702,
+          "dev": 27,
+          "ino": 1703,
+          "size": 98304,
+          "mode": 33188,
+          "mtime_ns": 1792940695806040903,
+          "ctime_ns": 1792940695806040903,
+          "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+          "ready": true,
+          "created": true,
+          "cleaned": true
+        },
+        "published": {
+          "dev": 27,
+          "ino": 1703,
+          "size": 98304,
+          "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+          "nlink": 1,
+          "published_at": "2026-10-25T23:04:55+08:00"
+        },
+        "registry": {
+          "committed": true,
+          "committed_at": "2026-10-25T23:04:55+08:00"
+        },
+        "provenance": {
+          "source_root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+          "source_relative_path": "待移动 中文';%.bin",
+          "source_management_domain": "host-project",
+          "source_view_uuid": null,
+          "note": "target uses the destination management domain; source is independent provenance"
+        },
+        "management_domain": "host-project",
+        "execution": {
+          "authorized": false,
+          "interpreter": null,
+          "environment": null,
+          "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+        },
+        "source_cleanup": {
+          "requested": true,
+          "authorized": true,
+          "mode": "controlled",
+          "policy_snapshot": "controlled",
+          "root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+          "root_dev": 53,
+          "root_ino": 3210761,
+          "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source",
+          "access_policy": "read-write",
+          "backend": "local-directory",
+          "source_view_present": false,
+          "authorized_at": "2026-10-25T23:04:55+08:00",
+          "state": "done",
+          "performed": true,
+          "quarantine": {
+            "dir_name": ".ml-quarantine-1ee33e62-041f-4137-8ea6-3e163e501138-9f67333469a44736a77af5134edd990d",
+            "dir_dev": 53,
+            "dir_ino": 3210796,
+            "dir_nonce": "9f67333469a44736a77af5134edd990d",
+            "entry_name": "source",
+            "captured_dev": 53,
+            "captured_ino": 3210762,
+            "captured_size": 98304,
+            "captured_sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+            "captured_ctime_ns": 1792940695874041068
+          },
+          "captured": {
+            "dev": 53,
+            "ino": 3210762,
+            "size": 98304,
+            "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+            "ctime_ns": 1792940695874041068,
+            "ctime_change_from_capture": true
+          },
+          "lease": {
+            "type": "write",
+            "acquired": false,
+            "broken": false,
+            "target": "source",
+            "target_acquired": true
+          },
+          "deletion_intent": {
+            "target_dev": 27,
+            "target_ino": 1703,
+            "target_sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+            "quarantine_dir_dev": 53,
+            "quarantine_dir_ino": 3210796,
+            "captured_dev": 53,
+            "captured_ino": 3210762,
+            "source_policy": "controlled",
+            "at": "2026-10-25T23:04:55+08:00"
+          },
+          "reason": null,
+          "removed_at": "2026-10-25T23:04:55+08:00",
+          "capture_intent": {
+            "source_dev": 53,
+            "source_ino": 3210762,
+            "quarantine_dir_dev": 53,
+            "quarantine_dir_ino": 3210796,
+            "at": "2026-10-25T23:04:55+08:00"
+          },
+          "original_path_repopulated": false
+        },
+        "capabilities": {
+          "regular_file_copy": true,
+          "move_copies_then_retains_source": true,
+          "controlled_move_source_delete": true,
+          "source_delete": false,
+          "atomic_cross_filesystem_move": false,
+          "universal_atomic_rename": false,
+          "directory_recursive": false,
+          "acl_preservation": false,
+          "sparse_file": false,
+          "device_or_special_file": false,
+          "symlink_follow": false,
+          "hardlink_source": false,
+          "xattr_or_selinux_preservation": false,
+          "full_metadata_preservation": false,
+          "overwrite_existing_target": false,
+          "hash_and_rename_is_cas": false,
+          "fs_and_registry_cross_system_atomic": false,
+          "lease_blocks_rename_or_unlink": false,
+          "hostile_same_uid_immunity": false
+        },
+        "unsupported": [
+          "directories and recursive trees",
+          "ACL-bearing files",
+          "sparse or compressed files",
+          "device, fifo and socket nodes",
+          "symbolic links and hard-linked regular sources",
+          "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+          "automatic source deletion outside an explicitly authorized controlled move",
+          "atomic cross-filesystem rename",
+          "overwriting an existing target",
+          "immunity from malicious same-UID tampering with private state or journals"
+        ],
+        "source_retained": false,
+        "source_retention_reason": null,
+        "last_error": null,
+        "transitions": [
+          {
+            "state": "INTENT_DURABLE",
+            "at": "2026-10-25T23:04:55+08:00"
+          },
+          {
+            "state": "STAGING",
+            "at": "2026-10-25T23:04:55+08:00"
+          },
+          {
+            "state": "TARGET_PUBLISHED",
+            "at": "2026-10-25T23:04:55+08:00"
+          },
+          {
+            "state": "REGISTRY_COMMITTED",
+            "at": "2026-10-25T23:04:55+08:00"
+          },
+          {
+            "state": "SOURCE_CLEANUP_INTENT",
+            "at": "2026-10-25T23:04:55+08:00"
+          },
+          {
+            "state": "DONE",
+            "at": "2026-10-25T23:04:55+08:00"
+          }
+        ],
+        "created_at": "2026-10-25T23:04:55+08:00",
+        "updated_at": "2026-10-25T23:04:55+08:00",
+        "finished_at": "2026-10-25T23:04:55+08:00",
+        "complete": true,
+        "copy_complete": true,
+        "real_paths": {
+          "source": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source/待移动 中文';%.bin",
+          "target": "/dev/shm/unifier-cleanup-cli-h6qqheli/已移动 中文';%.bin",
+          "stage": "/dev/shm/unifier-cleanup-cli-h6qqheli/.ml-stage-1ee33e62-041f-4137-8ea6-3e163e501138-271cc4ead1af4cddaa1c369a803819ba"
+        },
+        "no_overwrite": true,
+        "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+        "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction",
+        "quarantine_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source/.ml-quarantine-1ee33e62-041f-4137-8ea6-3e163e501138-9f67333469a44736a77af5134edd990d",
+        "source_cleanup_state": "done"
+      }
+    },
+    {
+      "args": [
+        "file",
+        "status",
+        "1ee33e62-041f-4137-8ea6-3e163e501138"
+      ],
+      "exit": 0,
+      "stderr": "",
+      "json": {
+        "capabilities": {
+          "acl_preservation": false,
+          "atomic_cross_filesystem_move": false,
+          "controlled_move_source_delete": true,
+          "device_or_special_file": false,
+          "directory_recursive": false,
+          "fs_and_registry_cross_system_atomic": false,
+          "full_metadata_preservation": false,
+          "hardlink_source": false,
+          "hash_and_rename_is_cas": false,
+          "hostile_same_uid_immunity": false,
+          "lease_blocks_rename_or_unlink": false,
+          "move_copies_then_retains_source": true,
+          "overwrite_existing_target": false,
+          "regular_file_copy": true,
+          "source_delete": false,
+          "sparse_file": false,
+          "symlink_follow": false,
+          "universal_atomic_rename": false,
+          "xattr_or_selinux_preservation": false
+        },
+        "complete": true,
+        "copy_complete": true,
+        "created_at": "2026-10-25T23:04:55+08:00",
+        "execution": {
+          "authorized": false,
+          "environment": null,
+          "interpreter": null,
+          "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+        },
+        "finished_at": "2026-10-25T23:04:55+08:00",
+        "last_error": null,
+        "management_domain": "host-project",
+        "operation": "move",
+        "operation_uuid": "1ee33e62-041f-4137-8ea6-3e163e501138",
+        "provenance": {
+          "note": "target uses the destination management domain; source is independent provenance",
+          "source_management_domain": "host-project",
+          "source_relative_path": "待移动 中文';%.bin",
+          "source_root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+          "source_view_uuid": null
+        },
+        "published": {
+          "dev": 27,
+          "ino": 1703,
+          "nlink": 1,
+          "published_at": "2026-10-25T23:04:55+08:00",
+          "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+          "size": 98304
+        },
+        "registry": {
+          "committed": true,
+          "committed_at": "2026-10-25T23:04:55+08:00"
+        },
+        "schema_version": 1,
+        "source": {
+          "access_policy": "read-write",
+          "cleanup_policy": "controlled",
+          "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source",
+          "management_domain": "host-project",
+          "observed_version": {
+            "acl_check": "checked",
+            "ctime_ns": 1792940695522206220,
+            "dev": 53,
+            "file_type": "regular",
+            "gid": 1000,
+            "ino": 3210762,
+            "mode": 33188,
+            "mtime_ns": 1792940695522206220,
+            "nlink": 1,
+            "size": 98304,
+            "uid": 1000,
+            "xattrs_observed_but_not_copied": [
+              "security.selinux"
+            ]
+          },
+          "parent_dev": 53,
+          "parent_ino": 3210761,
+          "parent_parts": [],
+          "relative_path": "待移动 中文';%.bin",
+          "root_dev": 53,
+          "root_ino": 3210761,
+          "root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+          "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+          "source_view": null,
+          "verified_size": 98304
+        },
+        "source_cleanup": {
+          "access_policy": "read-write",
+          "authorized": true,
+          "authorized_at": "2026-10-25T23:04:55+08:00",
+          "backend": "local-directory",
+          "capture_intent": {
+            "at": "2026-10-25T23:04:55+08:00",
+            "quarantine_dir_dev": 53,
+            "quarantine_dir_ino": 3210796,
+            "source_dev": 53,
+            "source_ino": 3210762
+          },
+          "captured": {
+            "ctime_change_from_capture": true,
+            "ctime_ns": 1792940695874041068,
+            "dev": 53,
+            "ino": 3210762,
+            "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+            "size": 98304
+          },
+          "deletion_intent": {
+            "at": "2026-10-25T23:04:55+08:00",
+            "captured_dev": 53,
+            "captured_ino": 3210762,
+            "quarantine_dir_dev": 53,
+            "quarantine_dir_ino": 3210796,
+            "source_policy": "controlled",
+            "target_dev": 27,
+            "target_ino": 1703,
+            "target_sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd"
+          },
+          "lease": {
+            "acquired": false,
+            "broken": false,
+            "target": "source",
+            "target_acquired": true,
+            "type": "write"
+          },
+          "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source",
+          "mode": "controlled",
+          "original_path_repopulated": false,
+          "performed": true,
+          "policy_snapshot": "controlled",
+          "quarantine": {
+            "captured_ctime_ns": 1792940695874041068,
+            "captured_dev": 53,
+            "captured_ino": 3210762,
+            "captured_sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+            "captured_size": 98304,
+            "dir_dev": 53,
+            "dir_ino": 3210796,
+            "dir_name": ".ml-quarantine-1ee33e62-041f-4137-8ea6-3e163e501138-9f67333469a44736a77af5134edd990d",
+            "dir_nonce": "9f67333469a44736a77af5134edd990d",
+            "entry_name": "source"
+          },
+          "reason": null,
+          "removed_at": "2026-10-25T23:04:55+08:00",
+          "requested": true,
+          "root_dev": 53,
+          "root_ino": 3210761,
+          "root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+          "source_view_present": false,
+          "state": "done"
+        },
+        "source_retained": false,
+        "source_retention_reason": null,
+        "stage": {
+          "cleaned": true,
+          "created": true,
+          "ctime_ns": 1792940695806040903,
+          "dev": 27,
+          "ino": 1703,
+          "mode": 33188,
+          "mtime_ns": 1792940695806040903,
+          "name": ".ml-stage-1ee33e62-041f-4137-8ea6-3e163e501138-271cc4ead1af4cddaa1c369a803819ba",
+          "nonce": "271cc4ead1af4cddaa1c369a803819ba",
+          "parent_dev": 27,
+          "parent_ino": 1702,
+          "ready": true,
+          "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+          "size": 98304
+        },
+        "state": "DONE",
+        "target": {
+          "access_policy": "read-write",
+          "locator": "/dev/shm/unifier-cleanup-cli-h6qqheli",
+          "management_domain": "host-project",
+          "overwrite": false,
+          "parent_dev": 27,
+          "parent_ino": 1702,
+          "parent_parts": [],
+          "relative_path": "已移动 中文';%.bin",
+          "root_dev": 27,
+          "root_ino": 1702,
+          "root_uuid": "5ce7c094-08b1-49b5-b294-46bd479c4784"
+        },
+        "transitions": [
+          {
+            "at": "2026-10-25T23:04:55+08:00",
+            "state": "INTENT_DURABLE"
+          },
+          {
+            "at": "2026-10-25T23:04:55+08:00",
+            "state": "STAGING"
+          },
+          {
+            "at": "2026-10-25T23:04:55+08:00",
+            "state": "TARGET_PUBLISHED"
+          },
+          {
+            "at": "2026-10-25T23:04:55+08:00",
+            "state": "REGISTRY_COMMITTED"
+          },
+          {
+            "at": "2026-10-25T23:04:55+08:00",
+            "state": "SOURCE_CLEANUP_INTENT"
+          },
+          {
+            "at": "2026-10-25T23:04:55+08:00",
+            "state": "DONE"
+          }
+        ],
+        "unsupported": [
+          "directories and recursive trees",
+          "ACL-bearing files",
+          "sparse or compressed files",
+          "device, fifo and socket nodes",
+          "symbolic links and hard-linked regular sources",
+          "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+          "automatic source deletion outside an explicitly authorized controlled move",
+          "atomic cross-filesystem rename",
+          "overwriting an existing target",
+          "immunity from malicious same-UID tampering with private state or journals"
+        ],
+        "updated_at": "2026-10-25T23:04:55+08:00",
+        "real_paths": {
+          "source": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source/待移动 中文';%.bin",
+          "target": "/dev/shm/unifier-cleanup-cli-h6qqheli/已移动 中文';%.bin",
+          "stage": "/dev/shm/unifier-cleanup-cli-h6qqheli/.ml-stage-1ee33e62-041f-4137-8ea6-3e163e501138-271cc4ead1af4cddaa1c369a803819ba"
+        },
+        "no_overwrite": true,
+        "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+        "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction",
+        "quarantine_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source/.ml-quarantine-1ee33e62-041f-4137-8ea6-3e163e501138-9f67333469a44736a77af5134edd990d",
+        "source_cleanup_state": "done"
+      }
+    },
+    {
+      "args": [
+        "file",
+        "recover",
+        "1ee33e62-041f-4137-8ea6-3e163e501138"
+      ],
+      "exit": 0,
+      "stderr": "",
+      "json": [
+        {
+          "capabilities": {
+            "acl_preservation": false,
+            "atomic_cross_filesystem_move": false,
+            "controlled_move_source_delete": true,
+            "device_or_special_file": false,
+            "directory_recursive": false,
+            "fs_and_registry_cross_system_atomic": false,
+            "full_metadata_preservation": false,
+            "hardlink_source": false,
+            "hash_and_rename_is_cas": false,
+            "hostile_same_uid_immunity": false,
+            "lease_blocks_rename_or_unlink": false,
+            "move_copies_then_retains_source": true,
+            "overwrite_existing_target": false,
+            "regular_file_copy": true,
+            "source_delete": false,
+            "sparse_file": false,
+            "symlink_follow": false,
+            "universal_atomic_rename": false,
+            "xattr_or_selinux_preservation": false
+          },
+          "complete": true,
+          "copy_complete": true,
+          "created_at": "2026-10-25T23:04:55+08:00",
+          "execution": {
+            "authorized": false,
+            "environment": null,
+            "interpreter": null,
+            "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+          },
+          "finished_at": "2026-10-25T23:04:55+08:00",
+          "last_error": null,
+          "management_domain": "host-project",
+          "operation": "move",
+          "operation_uuid": "1ee33e62-041f-4137-8ea6-3e163e501138",
+          "provenance": {
+            "note": "target uses the destination management domain; source is independent provenance",
+            "source_management_domain": "host-project",
+            "source_relative_path": "待移动 中文';%.bin",
+            "source_root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+            "source_view_uuid": null
+          },
+          "published": {
+            "dev": 27,
+            "ino": 1703,
+            "nlink": 1,
+            "published_at": "2026-10-25T23:04:55+08:00",
+            "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+            "size": 98304
+          },
+          "registry": {
+            "committed": true,
+            "committed_at": "2026-10-25T23:04:55+08:00"
+          },
+          "schema_version": 1,
+          "source": {
+            "access_policy": "read-write",
+            "cleanup_policy": "controlled",
+            "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source",
+            "management_domain": "host-project",
+            "observed_version": {
+              "acl_check": "checked",
+              "ctime_ns": 1792940695522206220,
+              "dev": 53,
+              "file_type": "regular",
+              "gid": 1000,
+              "ino": 3210762,
+              "mode": 33188,
+              "mtime_ns": 1792940695522206220,
+              "nlink": 1,
+              "size": 98304,
+              "uid": 1000,
+              "xattrs_observed_but_not_copied": [
+                "security.selinux"
+              ]
+            },
+            "parent_dev": 53,
+            "parent_ino": 3210761,
+            "parent_parts": [],
+            "relative_path": "待移动 中文';%.bin",
+            "root_dev": 53,
+            "root_ino": 3210761,
+            "root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+            "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+            "source_view": null,
+            "verified_size": 98304
+          },
+          "source_cleanup": {
+            "access_policy": "read-write",
+            "authorized": true,
+            "authorized_at": "2026-10-25T23:04:55+08:00",
+            "backend": "local-directory",
+            "capture_intent": {
+              "at": "2026-10-25T23:04:55+08:00",
+              "quarantine_dir_dev": 53,
+              "quarantine_dir_ino": 3210796,
+              "source_dev": 53,
+              "source_ino": 3210762
+            },
+            "captured": {
+              "ctime_change_from_capture": true,
+              "ctime_ns": 1792940695874041068,
+              "dev": 53,
+              "ino": 3210762,
+              "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+              "size": 98304
+            },
+            "deletion_intent": {
+              "at": "2026-10-25T23:04:55+08:00",
+              "captured_dev": 53,
+              "captured_ino": 3210762,
+              "quarantine_dir_dev": 53,
+              "quarantine_dir_ino": 3210796,
+              "source_policy": "controlled",
+              "target_dev": 27,
+              "target_ino": 1703,
+              "target_sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd"
+            },
+            "lease": {
+              "acquired": false,
+              "broken": false,
+              "target": "source",
+              "target_acquired": true,
+              "type": "write"
+            },
+            "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source",
+            "mode": "controlled",
+            "original_path_repopulated": false,
+            "performed": true,
+            "policy_snapshot": "controlled",
+            "quarantine": {
+              "captured_ctime_ns": 1792940695874041068,
+              "captured_dev": 53,
+              "captured_ino": 3210762,
+              "captured_sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+              "captured_size": 98304,
+              "dir_dev": 53,
+              "dir_ino": 3210796,
+              "dir_name": ".ml-quarantine-1ee33e62-041f-4137-8ea6-3e163e501138-9f67333469a44736a77af5134edd990d",
+              "dir_nonce": "9f67333469a44736a77af5134edd990d",
+              "entry_name": "source"
+            },
+            "reason": null,
+            "removed_at": "2026-10-25T23:04:55+08:00",
+            "requested": true,
+            "root_dev": 53,
+            "root_ino": 3210761,
+            "root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+            "source_view_present": false,
+            "state": "done"
+          },
+          "source_retained": false,
+          "source_retention_reason": null,
+          "stage": {
+            "cleaned": true,
+            "created": true,
+            "ctime_ns": 1792940695806040903,
+            "dev": 27,
+            "ino": 1703,
+            "mode": 33188,
+            "mtime_ns": 1792940695806040903,
+            "name": ".ml-stage-1ee33e62-041f-4137-8ea6-3e163e501138-271cc4ead1af4cddaa1c369a803819ba",
+            "nonce": "271cc4ead1af4cddaa1c369a803819ba",
+            "parent_dev": 27,
+            "parent_ino": 1702,
+            "ready": true,
+            "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+            "size": 98304
+          },
+          "state": "DONE",
+          "target": {
+            "access_policy": "read-write",
+            "locator": "/dev/shm/unifier-cleanup-cli-h6qqheli",
+            "management_domain": "host-project",
+            "overwrite": false,
+            "parent_dev": 27,
+            "parent_ino": 1702,
+            "parent_parts": [],
+            "relative_path": "已移动 中文';%.bin",
+            "root_dev": 27,
+            "root_ino": 1702,
+            "root_uuid": "5ce7c094-08b1-49b5-b294-46bd479c4784"
+          },
+          "transitions": [
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "INTENT_DURABLE"
+            },
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "STAGING"
+            },
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "TARGET_PUBLISHED"
+            },
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "REGISTRY_COMMITTED"
+            },
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "SOURCE_CLEANUP_INTENT"
+            },
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "DONE"
+            }
+          ],
+          "unsupported": [
+            "directories and recursive trees",
+            "ACL-bearing files",
+            "sparse or compressed files",
+            "device, fifo and socket nodes",
+            "symbolic links and hard-linked regular sources",
+            "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+            "automatic source deletion outside an explicitly authorized controlled move",
+            "atomic cross-filesystem rename",
+            "overwriting an existing target",
+            "immunity from malicious same-UID tampering with private state or journals"
+          ],
+          "updated_at": "2026-10-25T23:04:55+08:00",
+          "real_paths": {
+            "source": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source/待移动 中文';%.bin",
+            "target": "/dev/shm/unifier-cleanup-cli-h6qqheli/已移动 中文';%.bin",
+            "stage": "/dev/shm/unifier-cleanup-cli-h6qqheli/.ml-stage-1ee33e62-041f-4137-8ea6-3e163e501138-271cc4ead1af4cddaa1c369a803819ba"
+          },
+          "no_overwrite": true,
+          "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+          "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction",
+          "quarantine_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source/.ml-quarantine-1ee33e62-041f-4137-8ea6-3e163e501138-9f67333469a44736a77af5134edd990d",
+          "source_cleanup_state": "done",
+          "recovery": {
+            "action": "terminal-noop",
+            "state_before": "DONE",
+            "state_after": "DONE"
+          }
+        }
+      ]
+    },
+    {
+      "args": [
+        "file",
+        "recover",
+        "1ee33e62-041f-4137-8ea6-3e163e501138"
+      ],
+      "exit": 0,
+      "stderr": "",
+      "json": [
+        {
+          "capabilities": {
+            "acl_preservation": false,
+            "atomic_cross_filesystem_move": false,
+            "controlled_move_source_delete": true,
+            "device_or_special_file": false,
+            "directory_recursive": false,
+            "fs_and_registry_cross_system_atomic": false,
+            "full_metadata_preservation": false,
+            "hardlink_source": false,
+            "hash_and_rename_is_cas": false,
+            "hostile_same_uid_immunity": false,
+            "lease_blocks_rename_or_unlink": false,
+            "move_copies_then_retains_source": true,
+            "overwrite_existing_target": false,
+            "regular_file_copy": true,
+            "source_delete": false,
+            "sparse_file": false,
+            "symlink_follow": false,
+            "universal_atomic_rename": false,
+            "xattr_or_selinux_preservation": false
+          },
+          "complete": true,
+          "copy_complete": true,
+          "created_at": "2026-10-25T23:04:55+08:00",
+          "execution": {
+            "authorized": false,
+            "environment": null,
+            "interpreter": null,
+            "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+          },
+          "finished_at": "2026-10-25T23:04:55+08:00",
+          "last_error": null,
+          "management_domain": "host-project",
+          "operation": "move",
+          "operation_uuid": "1ee33e62-041f-4137-8ea6-3e163e501138",
+          "provenance": {
+            "note": "target uses the destination management domain; source is independent provenance",
+            "source_management_domain": "host-project",
+            "source_relative_path": "待移动 中文';%.bin",
+            "source_root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+            "source_view_uuid": null
+          },
+          "published": {
+            "dev": 27,
+            "ino": 1703,
+            "nlink": 1,
+            "published_at": "2026-10-25T23:04:55+08:00",
+            "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+            "size": 98304
+          },
+          "registry": {
+            "committed": true,
+            "committed_at": "2026-10-25T23:04:55+08:00"
+          },
+          "schema_version": 1,
+          "source": {
+            "access_policy": "read-write",
+            "cleanup_policy": "controlled",
+            "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source",
+            "management_domain": "host-project",
+            "observed_version": {
+              "acl_check": "checked",
+              "ctime_ns": 1792940695522206220,
+              "dev": 53,
+              "file_type": "regular",
+              "gid": 1000,
+              "ino": 3210762,
+              "mode": 33188,
+              "mtime_ns": 1792940695522206220,
+              "nlink": 1,
+              "size": 98304,
+              "uid": 1000,
+              "xattrs_observed_but_not_copied": [
+                "security.selinux"
+              ]
+            },
+            "parent_dev": 53,
+            "parent_ino": 3210761,
+            "parent_parts": [],
+            "relative_path": "待移动 中文';%.bin",
+            "root_dev": 53,
+            "root_ino": 3210761,
+            "root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+            "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+            "source_view": null,
+            "verified_size": 98304
+          },
+          "source_cleanup": {
+            "access_policy": "read-write",
+            "authorized": true,
+            "authorized_at": "2026-10-25T23:04:55+08:00",
+            "backend": "local-directory",
+            "capture_intent": {
+              "at": "2026-10-25T23:04:55+08:00",
+              "quarantine_dir_dev": 53,
+              "quarantine_dir_ino": 3210796,
+              "source_dev": 53,
+              "source_ino": 3210762
+            },
+            "captured": {
+              "ctime_change_from_capture": true,
+              "ctime_ns": 1792940695874041068,
+              "dev": 53,
+              "ino": 3210762,
+              "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+              "size": 98304
+            },
+            "deletion_intent": {
+              "at": "2026-10-25T23:04:55+08:00",
+              "captured_dev": 53,
+              "captured_ino": 3210762,
+              "quarantine_dir_dev": 53,
+              "quarantine_dir_ino": 3210796,
+              "source_policy": "controlled",
+              "target_dev": 27,
+              "target_ino": 1703,
+              "target_sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd"
+            },
+            "lease": {
+              "acquired": false,
+              "broken": false,
+              "target": "source",
+              "target_acquired": true,
+              "type": "write"
+            },
+            "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source",
+            "mode": "controlled",
+            "original_path_repopulated": false,
+            "performed": true,
+            "policy_snapshot": "controlled",
+            "quarantine": {
+              "captured_ctime_ns": 1792940695874041068,
+              "captured_dev": 53,
+              "captured_ino": 3210762,
+              "captured_sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+              "captured_size": 98304,
+              "dir_dev": 53,
+              "dir_ino": 3210796,
+              "dir_name": ".ml-quarantine-1ee33e62-041f-4137-8ea6-3e163e501138-9f67333469a44736a77af5134edd990d",
+              "dir_nonce": "9f67333469a44736a77af5134edd990d",
+              "entry_name": "source"
+            },
+            "reason": null,
+            "removed_at": "2026-10-25T23:04:55+08:00",
+            "requested": true,
+            "root_dev": 53,
+            "root_ino": 3210761,
+            "root_uuid": "e08a3227-5312-4f65-852a-4d89c1979441",
+            "source_view_present": false,
+            "state": "done"
+          },
+          "source_retained": false,
+          "source_retention_reason": null,
+          "stage": {
+            "cleaned": true,
+            "created": true,
+            "ctime_ns": 1792940695806040903,
+            "dev": 27,
+            "ino": 1703,
+            "mode": 33188,
+            "mtime_ns": 1792940695806040903,
+            "name": ".ml-stage-1ee33e62-041f-4137-8ea6-3e163e501138-271cc4ead1af4cddaa1c369a803819ba",
+            "nonce": "271cc4ead1af4cddaa1c369a803819ba",
+            "parent_dev": 27,
+            "parent_ino": 1702,
+            "ready": true,
+            "sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+            "size": 98304
+          },
+          "state": "DONE",
+          "target": {
+            "access_policy": "read-write",
+            "locator": "/dev/shm/unifier-cleanup-cli-h6qqheli",
+            "management_domain": "host-project",
+            "overwrite": false,
+            "parent_dev": 27,
+            "parent_ino": 1702,
+            "parent_parts": [],
+            "relative_path": "已移动 中文';%.bin",
+            "root_dev": 27,
+            "root_ino": 1702,
+            "root_uuid": "5ce7c094-08b1-49b5-b294-46bd479c4784"
+          },
+          "transitions": [
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "INTENT_DURABLE"
+            },
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "STAGING"
+            },
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "TARGET_PUBLISHED"
+            },
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "REGISTRY_COMMITTED"
+            },
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "SOURCE_CLEANUP_INTENT"
+            },
+            {
+              "at": "2026-10-25T23:04:55+08:00",
+              "state": "DONE"
+            }
+          ],
+          "unsupported": [
+            "directories and recursive trees",
+            "ACL-bearing files",
+            "sparse or compressed files",
+            "device, fifo and socket nodes",
+            "symbolic links and hard-linked regular sources",
+            "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+            "automatic source deletion outside an explicitly authorized controlled move",
+            "atomic cross-filesystem rename",
+            "overwriting an existing target",
+            "immunity from malicious same-UID tampering with private state or journals"
+          ],
+          "updated_at": "2026-10-25T23:04:55+08:00",
+          "real_paths": {
+            "source": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source/待移动 中文';%.bin",
+            "target": "/dev/shm/unifier-cleanup-cli-h6qqheli/已移动 中文';%.bin",
+            "stage": "/dev/shm/unifier-cleanup-cli-h6qqheli/.ml-stage-1ee33e62-041f-4137-8ea6-3e163e501138-271cc4ead1af4cddaa1c369a803819ba"
+          },
+          "no_overwrite": true,
+          "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+          "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction",
+          "quarantine_path": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/source/.ml-quarantine-1ee33e62-041f-4137-8ea6-3e163e501138-9f67333469a44736a77af5134edd990d",
+          "source_cleanup_state": "done",
+          "recovery": {
+            "action": "terminal-noop",
+            "state_before": "DONE",
+            "state_after": "DONE"
+          }
+        }
+      ]
+    },
+    {
+      "args": [
+        "file",
+        "resolve",
+        "5ce7c094-08b1-49b5-b294-46bd479c4784",
+        "已移动 中文';%.bin"
+      ],
+      "exit": 0,
+      "stderr": "",
+      "json": {
+        "schema_version": 1,
+        "root_uuid": "5ce7c094-08b1-49b5-b294-46bd479c4784",
+        "management_domain": "host-project",
+        "backend": "local-directory",
+        "access_policy": "read-write",
+        "relative_path": "已移动 中文';%.bin",
+        "role": "document",
+        "observed_version": {
+          "dev": 27,
+          "ino": 1703,
+          "mode": 33188,
+          "nlink": 1,
+          "uid": 1000,
+          "gid": 1000,
+          "size": 98304,
+          "mtime": 1792940695.806041,
+          "ctime": 1792940695.833041,
+          "mtime_ns": 1792940695806040903,
+          "ctime_ns": 1792940695833040968,
+          "file_type": "regular"
+        },
+        "capabilities": {
+          "observe": true,
+          "read": false,
+          "write": false,
+          "read_content": false,
+          "write_content": false,
+          "create": false,
+          "delete": false,
+          "copy": false,
+          "move": false,
+          "execute": false
+        },
+        "implemented_operations": [
+          "observe"
+        ],
+        "execution": {
+          "interpreter": null,
+          "environment": null,
+          "note": "role and management domain do not select executable context"
+        }
+      }
+    }
+  ],
+  "project": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/project",
+  "full_move_exit": 0,
+  "source_removed": true,
+  "target_sha256": "509b4fefda708de9149716428b1eafe83f2985f5a7c53db6c2eb7a1b23e713bd",
+  "source_and_target_different_devices": true,
+  "source_stage_quarantine_empty": true,
+  "path_characters_preserved": true
+}

@@ -1,0 +1,4 @@
+{"target": "debian13", "passed": true}
+{"target": "fedora44", "passed": true}
+{"target": "arch", "passed": true}
+{"passed": true, "out": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/evidence/projection-boundaries-2026-10-27/broker-final-v2"}

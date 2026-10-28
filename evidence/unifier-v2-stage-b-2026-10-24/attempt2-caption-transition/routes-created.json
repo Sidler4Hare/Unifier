@@ -1,0 +1,62 @@
+{
+  "root": {
+    "schema_version": 1,
+    "root_uuid": "5d05dab3-4bba-4f67-b662-700a56c36dd3",
+    "management_domain": "host-project",
+    "backend": "local-directory",
+    "locator": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+    "access_policy": "read-write",
+    "root_dev": 53,
+    "root_ino": 3171001,
+    "created_at": "2026-10-24T10:50:54+08:00"
+  },
+  "handler": {
+    "schema_version": 1,
+    "handler_uuid": "12575397-0f62-49f4-af9f-52b6ba88c217",
+    "alias": "freecad-edit",
+    "intent": "edit",
+    "provider": "environment-app",
+    "app_id": "freecad-b",
+    "app_instance_uuid": "786a098a-a567-4a1f-b12b-54f069d646c8",
+    "app_binding": {
+      "environment_id": "v2-freecad",
+      "environment_uuid": "bdcddc64-6670-4920-a6b9-6d83fbd4934b",
+      "generation": 1,
+      "container_id": "d80dae62a0ef0bf3335232e9eede1109f158854dce7218d8800fe90986275b67"
+    },
+    "execution_fingerprint": "7a757fb26be0940b91f835ea9b213a7a39ca3819d56cdf2254f66e5946db6bb7",
+    "file_argument": {
+      "mode": "append"
+    },
+    "save_capability": "explicit-path",
+    "created_at": "2026-10-24T10:50:54+08:00",
+    "updated_at": "2026-10-24T10:50:54+08:00"
+  },
+  "project": {
+    "schema_version": 1,
+    "project_uuid": "20acfba9-52ec-49f0-9b49-dccdd8855758",
+    "alias": "cad-project",
+    "root_uuid": "5d05dab3-4bba-4f67-b662-700a56c36dd3",
+    "default_save_root": "/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project",
+    "access_policy": "read-write",
+    "environment_binding": {
+      "environment_id": "v2-freecad",
+      "environment_uuid": "bdcddc64-6670-4920-a6b9-6d83fbd4934b",
+      "generation": 1,
+      "container_id": "d80dae62a0ef0bf3335232e9eede1109f158854dce7218d8800fe90986275b67"
+    },
+    "toolchain": {
+      "provider": "environment",
+      "target": "arch",
+      "environment_id": "v2-freecad",
+      "environment_uuid": "bdcddc64-6670-4920-a6b9-6d83fbd4934b",
+      "generation": 1,
+      "container_id": "d80dae62a0ef0bf3335232e9eede1109f158854dce7218d8800fe90986275b67"
+    },
+    "intent_handlers": {
+      "edit": "12575397-0f62-49f4-af9f-52b6ba88c217"
+    },
+    "created_at": "2026-10-24T10:50:55+08:00",
+    "updated_at": "2026-10-24T10:50:55+08:00"
+  }
+}

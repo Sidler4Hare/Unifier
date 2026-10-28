@@ -1,0 +1,253 @@
+{
+  "started_at": 1793066327.099749,
+  "other_retest_workloads_finished": true,
+  "source": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/projection-objects-20261026/baseline/src",
+  "uname": {
+    "system": "Linux",
+    "node": "fedora",
+    "release": "7.2.11-200.fc44.x86_64",
+    "version": "#1 SMP PREEMPT_DYNAMIC Thu Oct 15 15:58:58 UTC 2026",
+    "machine": "x86_64",
+    "processor": ""
+  },
+  "podman": "podman version 5.8.9",
+  "scope": "bounded local warm/uncontrolled-cache native vs persistent-provider FUSE; no benchmark SLO",
+  "initial_status": {
+    "ok": true,
+    "view_uuid": "3e81ad48-4205-40ef-b869-4f4dafa2b589",
+    "mountpoint": "/tmp/unifier-object-xv2conom/view",
+    "worker_pid": 783696,
+    "worker_stamp": 34799928,
+    "initialized": true,
+    "readonly": true,
+    "allow_other": false
+  },
+  "measurement": {
+    "workloads": {
+      "stat_2000": {
+        "samples": [
+          {
+            "native": {
+              "ms": 33.233855,
+              "value": 8192000
+            },
+            "fuse": {
+              "ms": 487.414943,
+              "value": 8192000
+            }
+          },
+          {
+            "fuse": {
+              "ms": 41.813945,
+              "value": 8192000
+            },
+            "native": {
+              "ms": 41.448152,
+              "value": 8192000
+            }
+          },
+          {
+            "native": {
+              "ms": 35.734902,
+              "value": 8192000
+            },
+            "fuse": {
+              "ms": 42.543513,
+              "value": 8192000
+            }
+          },
+          {
+            "fuse": {
+              "ms": 36.248136,
+              "value": 8192000
+            },
+            "native": {
+              "ms": 38.89645,
+              "value": 8192000
+            }
+          },
+          {
+            "native": {
+              "ms": 38.384301,
+              "value": 8192000
+            },
+            "fuse": {
+              "ms": 42.193256,
+              "value": 8192000
+            }
+          }
+        ],
+        "summary": {
+          "native": {
+            "count": 5,
+            "min_ms": 33.233855,
+            "p50_ms": 38.384301,
+            "max_ms": 41.448152
+          },
+          "fuse": {
+            "count": 5,
+            "min_ms": 36.248136,
+            "p50_ms": 42.193256,
+            "max_ms": 487.414943
+          }
+        },
+        "ratio_of_p50": 1.0992321053338967
+      },
+      "read_hash_2000x4KiB": {
+        "samples": [
+          {
+            "native": {
+              "ms": 66.515986,
+              "value": "40aa9ce7f9afccaf2530c9e78d2393e83a4c2a5af01c171233f1bfa5e0265399"
+            },
+            "fuse": {
+              "ms": 1371.128798,
+              "value": "40aa9ce7f9afccaf2530c9e78d2393e83a4c2a5af01c171233f1bfa5e0265399"
+            }
+          },
+          {
+            "fuse": {
+              "ms": 1302.650751,
+              "value": "40aa9ce7f9afccaf2530c9e78d2393e83a4c2a5af01c171233f1bfa5e0265399"
+            },
+            "native": {
+              "ms": 48.444821,
+              "value": "40aa9ce7f9afccaf2530c9e78d2393e83a4c2a5af01c171233f1bfa5e0265399"
+            }
+          },
+          {
+            "native": {
+              "ms": 48.779844,
+              "value": "40aa9ce7f9afccaf2530c9e78d2393e83a4c2a5af01c171233f1bfa5e0265399"
+            },
+            "fuse": {
+              "ms": 1170.674769,
+              "value": "40aa9ce7f9afccaf2530c9e78d2393e83a4c2a5af01c171233f1bfa5e0265399"
+            }
+          },
+          {
+            "fuse": {
+              "ms": 1086.011267,
+              "value": "40aa9ce7f9afccaf2530c9e78d2393e83a4c2a5af01c171233f1bfa5e0265399"
+            },
+            "native": {
+              "ms": 49.787645,
+              "value": "40aa9ce7f9afccaf2530c9e78d2393e83a4c2a5af01c171233f1bfa5e0265399"
+            }
+          },
+          {
+            "native": {
+              "ms": 49.194877,
+              "value": "40aa9ce7f9afccaf2530c9e78d2393e83a4c2a5af01c171233f1bfa5e0265399"
+            },
+            "fuse": {
+              "ms": 1116.715496,
+              "value": "40aa9ce7f9afccaf2530c9e78d2393e83a4c2a5af01c171233f1bfa5e0265399"
+            }
+          }
+        ],
+        "summary": {
+          "native": {
+            "count": 5,
+            "min_ms": 48.444821,
+            "p50_ms": 49.194877,
+            "max_ms": 66.515986
+          },
+          "fuse": {
+            "count": 5,
+            "min_ms": 1086.011267,
+            "p50_ms": 1170.674769,
+            "max_ms": 1371.128798
+          }
+        },
+        "ratio_of_p50": 23.79668047548935
+      },
+      "read_hash_16MiB": {
+        "samples": [
+          {
+            "native": {
+              "ms": 41.226096,
+              "value": "9811651fd540a638c75449d3bca781a67eed3732a7d35d7f92e57cdc0c42654e"
+            },
+            "fuse": {
+              "ms": 726.274311,
+              "value": "9811651fd540a638c75449d3bca781a67eed3732a7d35d7f92e57cdc0c42654e"
+            }
+          },
+          {
+            "fuse": {
+              "ms": 720.522078,
+              "value": "9811651fd540a638c75449d3bca781a67eed3732a7d35d7f92e57cdc0c42654e"
+            },
+            "native": {
+              "ms": 27.918985,
+              "value": "9811651fd540a638c75449d3bca781a67eed3732a7d35d7f92e57cdc0c42654e"
+            }
+          },
+          {
+            "native": {
+              "ms": 27.229293,
+              "value": "9811651fd540a638c75449d3bca781a67eed3732a7d35d7f92e57cdc0c42654e"
+            },
+            "fuse": {
+              "ms": 676.532377,
+              "value": "9811651fd540a638c75449d3bca781a67eed3732a7d35d7f92e57cdc0c42654e"
+            }
+          },
+          {
+            "fuse": {
+              "ms": 663.387439,
+              "value": "9811651fd540a638c75449d3bca781a67eed3732a7d35d7f92e57cdc0c42654e"
+            },
+            "native": {
+              "ms": 26.235338,
+              "value": "9811651fd540a638c75449d3bca781a67eed3732a7d35d7f92e57cdc0c42654e"
+            }
+          },
+          {
+            "native": {
+              "ms": 26.204577,
+              "value": "9811651fd540a638c75449d3bca781a67eed3732a7d35d7f92e57cdc0c42654e"
+            },
+            "fuse": {
+              "ms": 689.766196,
+              "value": "9811651fd540a638c75449d3bca781a67eed3732a7d35d7f92e57cdc0c42654e"
+            }
+          }
+        ],
+        "summary": {
+          "native": {
+            "count": 5,
+            "min_ms": 26.204577,
+            "p50_ms": 27.229293,
+            "max_ms": 41.226096
+          },
+          "fuse": {
+            "count": 5,
+            "min_ms": 663.387439,
+            "p50_ms": 689.766196,
+            "max_ms": 726.274311
+          }
+        },
+        "ratio_of_p50": 25.33177031074586
+      }
+    },
+    "note": "5 alternating native/FUSE pairs per workload; no dropped caches, uncontrolled desktop; current fixture only, not directly comparable to Stage F"
+  },
+  "final_status": {
+    "ok": true,
+    "view_uuid": "3e81ad48-4205-40ef-b869-4f4dafa2b589",
+    "mountpoint": "/tmp/unifier-object-xv2conom/view",
+    "worker_pid": 783696,
+    "worker_stamp": 34799928,
+    "initialized": true,
+    "readonly": true,
+    "allow_other": false
+  },
+  "cleanup": {
+    "not_mounted": true,
+    "worker_exit": 0,
+    "normal_unmount": true
+  },
+  "finished_at": 1793066338.221848
+}

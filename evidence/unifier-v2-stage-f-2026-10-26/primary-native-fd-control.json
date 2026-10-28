@@ -1,0 +1,5 @@
+{
+  "native_open_fd_preserves_old_inode": true,
+  "native_new_open_reads_new_inode": true,
+  "fs": "host temporary directory; control for file descriptor semantics"
+}

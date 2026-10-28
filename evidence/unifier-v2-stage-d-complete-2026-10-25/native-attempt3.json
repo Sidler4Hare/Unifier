@@ -1,0 +1,418 @@
+{
+  "passed": false,
+  "source_sha256": {
+    "src/multilinux/__init__.py": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+    "src/multilinux/errors.py": "531a2ca4ce2056099a662eed98a6fa137013b99c7ea0a091fa3960279b92ca2a",
+    "src/multilinux/__main__.py": "8fc1fcde2cd1a30a9c1271714cbe49efd1b7ef1597ad4b0f16e1f84dc96ae2b8",
+    "src/multilinux/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+    "src/multilinux/store.py": "7a386a46239fcd010aa700f0454bf3929ffc27758ed1f8a17ea5e5d2c2f2b7dd",
+    "src/multilinux/desktop.py": "36382e7b385cc018ff179ec19e78ef652b90dafe56a6a78d646a93b3c157a7e7",
+    "src/multilinux/resources.py": "1269fc93c41febfc8932d57b805cd512b6fd6cbde109e5c6ca680725504ce4ec",
+    "src/multilinux/catalog.py": "a2704215ff0c3b04fe71b341eca876817888ffce8a51adf1779b67c407cab089",
+    "src/multilinux/on_demand.py": "ce441674a0f9f24e052f7f3e5278c66c629b08417b8fd5b98b7722f1b96f5d57",
+    "src/multilinux/packages.py": "34a37cb687c6a09d10e81348c22013a5fd2d8fb18229f07dc19d0525b4868668",
+    "src/multilinux/routing.py": "cd3f4ab38b50846d6b4c518b3d270428a52af19369f26ac85df9eac920b37fe7",
+    "src/multilinux/runtime.py": "b274a50b61e46bc7dc5696571451c44330f05872724b3fd118a3559f2133f42a",
+    "src/multilinux/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+    "src/multilinux/service.py": "192981367cd5a08381713f9ab1e320eb198dff1cfc193078a822f69c420c2f69",
+    "src/multilinux/identity.py": "184f7fe3c3449b8f230b7a9615caacb0be1bbc9d6905150dbf85011789331c8f",
+    "src/multilinux/share_label.py": "dfd46c05c3d9d5d7239163b68c5284215833c885c3612d9d868b30b958979aee",
+    "src/multilinux/json_records.py": "e78b72caf5f2693f07995f065e6905f42685c2ce846617b9373ef51be416b906",
+    "src/multilinux/projects.py": "6a53b6175d7b6c7f3ea7dd2aba504966653bd6cfdf94de184c29d3e9d6819eed",
+    "src/multilinux/handlers.py": "1dfc87b8b593c35155a24eb3d55210318f00c45086cf6bd806e09a16657d58a0",
+    "src/multilinux/file_routes.py": "44d5a533de708cf03943d7443cf640dd271c828e8da868e424fcf0ac45afd280",
+    "src/multilinux/view_backend.py": "9b4245280119beac79eafaf5167cc2382d636d198f41bb28ca1ee3d051fa5e85",
+    "src/multilinux/view_journal.py": "e9dd7b6400206e7b773112100d62bee1f55bdabc6ef018abbd52938dc48ba66d",
+    "src/multilinux/view_broker.py": "c2eda675b0e73500227415f20f17d8d77816c172084d7a866a9afeecd31c28fa",
+    "src/multilinux/fuse_view.py": "67708fee1640d5122aaa10521d23f0fc825b1a849ca47cb531d891dc92dfe826",
+    "src/multilinux/views.py": "7ae705709bfdee3a2489e38a8d552cfad124ce71ab0166cc3839e754fede32e3",
+    "src/multilinux/registry.py": "1d1d042b081c766b25d1b3ca6fa066d39f089f1613f255e124c72ea69a28577e",
+    "src/multilinux/control.py": "0277e13eaebb1eb0c5653b6457ecb43c8301ed7db0ee383a0ede80fc194a9278",
+    "src/multilinux/cli.py": "4559befbea7d2705315025eb3b5142cbb80c2ef31993aa3c56d070e763e89b24",
+    "src/multilinux/lease.py": "80064e9c652cb733c686fd4535484fa62ea9aff3841d8bb1a619f1700a2a6d7b",
+    "src/multilinux/file_operations.py": "891d00d0f2e2894272f591a48375218b430b398e8c0258a5dc97dc8f5a618725"
+  },
+  "cases": {
+    "normal-btrfs-to-tmpfs": {
+      "passed": true,
+      "source_dev": 53,
+      "target_dev": 27,
+      "state": "DONE",
+      "source_removed": true,
+      "one_registration": true
+    },
+    "normal-same-fs": {
+      "passed": true,
+      "state": "DONE",
+      "source_removed": true
+    },
+    "normal-tmpfs-to-btrfs": {
+      "passed": true,
+      "state": "DONE",
+      "source_removed": true
+    },
+    "SIGKILL:INTENT_DURABLE": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "INTENT_DURABLE",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "resumed-before-publish",
+        "state_before": "INTENT_DURABLE",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:STAGING": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "STAGING",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "resumed-before-publish",
+        "state_before": "STAGING",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:STAGING_CREATED": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "STAGING",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "resumed-before-publish",
+        "state_before": "STAGING",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:STAGING_READY": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "STAGING",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "resumed-before-publish",
+        "state_before": "STAGING",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:TARGET_PUBLISHED": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "TARGET_PUBLISHED",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "committed-after-publish",
+        "state_before": "TARGET_PUBLISHED",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:REGISTRY_COMMITTED": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "REGISTRY_COMMITTED",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "finished-after-commit",
+        "state_before": "REGISTRY_COMMITTED",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:STAGE_CLEANED": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "REGISTRY_COMMITTED",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "finished-after-commit",
+        "state_before": "REGISTRY_COMMITTED",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:SOURCE_CLEANUP_INTENT": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "SOURCE_CLEANUP_INTENT",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "controlled-cleanup",
+        "state_before": "SOURCE_CLEANUP_INTENT",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:SOURCE_QUARANTINE_INTENT": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "SOURCE_QUARANTINE_INTENT",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "controlled-cleanup",
+        "state_before": "SOURCE_QUARANTINE_INTENT",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:SOURCE_QUARANTINE_READY": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "SOURCE_QUARANTINE_READY",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "controlled-cleanup",
+        "state_before": "SOURCE_QUARANTINE_READY",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:SOURCE_CAPTURE_INTENT": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "SOURCE_CAPTURE_INTENT",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "controlled-cleanup",
+        "state_before": "SOURCE_CAPTURE_INTENT",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:SOURCE_CAPTURED": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "SOURCE_CAPTURED",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "controlled-cleanup",
+        "state_before": "SOURCE_CAPTURED",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:SOURCE_ISOLATED": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "SOURCE_ISOLATED",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "controlled-cleanup",
+        "state_before": "SOURCE_ISOLATED",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:SOURCE_DELETION_INTENT": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "SOURCE_DELETION_INTENT",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "controlled-cleanup",
+        "state_before": "SOURCE_DELETION_INTENT",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:SOURCE_REMOVED": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "SOURCE_REMOVED",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "controlled-cleanup",
+        "state_before": "SOURCE_REMOVED",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "SIGKILL:DONE": {
+      "passed": true,
+      "worker_signal": "SIGKILL",
+      "before_state": "DONE",
+      "final_state": "DONE",
+      "recovered_twice": true,
+      "first_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      },
+      "second_action": {
+        "action": "terminal-noop",
+        "state_before": "DONE",
+        "state_after": "DONE"
+      }
+    },
+    "no-operation-delete-authorization": {
+      "passed": true,
+      "state": "SOURCE_CLEANUP_PENDING",
+      "source_preserved": true
+    },
+    "held-reader": {
+      "passed": true,
+      "state": "SOURCE_CLEANUP_PENDING",
+      "source_preserved": true
+    },
+    "held-writer": {
+      "passed": true,
+      "state": "SOURCE_CLEANUP_PENDING",
+      "source_preserved": true
+    },
+    "source-in-place-change": {
+      "passed": true,
+      "state": "SOURCE_CLEANUP_PENDING",
+      "source_preserved": true,
+      "foreign_bytes_preserved": true
+    },
+    "source-name-replacement": {
+      "passed": true,
+      "state": "NEEDS_RECONCILIATION",
+      "source_preserved": true,
+      "foreign_bytes_preserved": true
+    },
+    "target-name-replacement": {
+      "passed": true,
+      "state": "NEEDS_RECONCILIATION",
+      "source_preserved": true,
+      "foreign_bytes_preserved": true
+    },
+    "policy-revocation": {
+      "passed": true,
+      "state": "SOURCE_CLEANUP_PENDING",
+      "source_preserved": true,
+      "foreign_bytes_preserved": true
+    },
+    "late-policy-revocation": {
+      "passed": true,
+      "state": "SOURCE_CLEANUP_PENDING",
+      "source_bytes_preserved": true,
+      "late_guard_rejected": true,
+      "auxiliary": {}
+    },
+    "late-source-root-replacement": {
+      "passed": true,
+      "state": "NEEDS_RECONCILIATION",
+      "source_bytes_preserved": true,
+      "late_guard_rejected": true,
+      "auxiliary": {}
+    },
+    "late-target-replacement": {
+      "passed": true,
+      "state": "NEEDS_RECONCILIATION",
+      "source_bytes_preserved": true,
+      "late_guard_rejected": true,
+      "auxiliary": {}
+    },
+    "late-target-root-replacement": {
+      "passed": true,
+      "state": "NEEDS_RECONCILIATION",
+      "source_bytes_preserved": true,
+      "late_guard_rejected": true,
+      "auxiliary": {}
+    },
+    "late-source-hardlink": {
+      "passed": false,
+      "error": "2879cff8545f', 'source_relative_path': 'payload.bin', 'source_management_domain': 'host-project', 'source_view_uuid': None, 'note': 'target uses the destination management domain; source is independent provenance'}, 'management_domain': 'host-project', 'execution': {'authorized': False, 'interpreter': None, 'environment': None, 'note': 'a copy does not inherit source execution authorization, handler registration or project binding'}, 'source_cleanup': {'requested': True, 'authorized': True, 'mode': 'controlled', 'policy_snapshot': 'controlled', 'root_uuid': 'a9551aa1-f8a5-460f-ad8f-2879cff8545f', 'root_dev': 53, 'root_ino': 3194738, 'locator': '/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d2-20261025/cleanup-native-q2a1xue8/late-source-hardlink-source', 'access_policy': 'read-write', 'backend': 'local-directory', 'source_view_present': False, 'authorized_at': '2026-10-25T21:44:00+08:00', 'state': 'done', 'performed': True, 'quarantine': {'dir_name': '.ml-quarantine-2c408ddd-2712-425b-b2a1-7f1104c564cd-cd91027418a3430d83dcccc223cbe355', 'dir_dev': 53, 'dir_ino': 3194762, 'dir_nonce': 'cd91027418a3430d83dcccc223cbe355', 'entry_name': 'source', 'captured_dev': 53, 'captured_ino': 3194739, 'captured_size': 98304, 'captured_sha256': '8e5f51b720b257d9b2c162ef20215d668c70627fc3f29a7c6f44e103fe303b4c', 'captured_ctime_ns': 1792935840139261270}, 'captured': {'dev': 53, 'ino': 3194739, 'size': 98304, 'sha256': '8e5f51b720b257d9b2c162ef20215d668c70627fc3f29a7c6f44e103fe303b4c', 'ctime_ns': 1792935840139261270, 'ctime_change_from_capture': True}, 'lease': {'type': 'write', 'acquired': False, 'broken': False, 'target': 'source', 'target_acquired': True}, 'deletion_intent': {'target_dev': 27, 'target_ino': 1085, 'target_sha256': '8e5f51b720b257d9b2c162ef20215d668c70627fc3f29a7c6f44e103fe303b4c', 'quarantine_dir_dev': 53, 'quarantine_dir_ino': 3194762, 'captured_dev': 53, 'captured_ino': 3194739, 'source_policy': 'controlled', 'at': '2026-10-25T21:44:00+08:00'}, 'reason': None, 'removed_at': '2026-10-25T21:44:00+08:00', 'capture_intent': {'source_dev': 53, 'source_ino': 3194739, 'quarantine_dir_dev': 53, 'quarantine_dir_ino': 3194762, 'at': '2026-10-25T21:44:00+08:00'}, 'original_path_repopulated': False}, 'capabilities': {'regular_file_copy': True, 'move_copies_then_retains_source': True, 'controlled_move_source_delete': True, 'source_delete': False, 'atomic_cross_filesystem_move': False, 'universal_atomic_rename': False, 'directory_recursive': False, 'acl_preservation': False, 'sparse_file': False, 'device_or_special_file': False, 'symlink_follow': False, 'hardlink_source': False, 'xattr_or_selinux_preservation': False, 'full_metadata_preservation': False, 'overwrite_existing_target': False, 'hash_and_rename_is_cas': False, 'fs_and_registry_cross_system_atomic': False, 'lease_blocks_rename_or_unlink': False, 'hostile_same_uid_immunity': False}, 'unsupported': ['directories and recursive trees', 'ACL-bearing files', 'sparse or compressed files', 'device, fifo and socket nodes', 'symbolic links and hard-linked regular sources', 'copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set', 'automatic source deletion outside an explicitly authorized controlled move', 'atomic cross-filesystem rename', 'overwriting an existing target', 'immunity from malicious same-UID tampering with private state or journals'], 'source_retained': False, 'source_retention_reason': None, 'last_error': None, 'transitions': [{'state': 'INTENT_DURABLE', 'at': '2026-10-25T21:44:00+08:00'}, {'state': 'STAGING', 'at': '2026-10-25T21:44:00+08:00'}, {'state': 'TARGET_PUBLISHED', 'at': '2026-10-25T21:44:00+08:00'}, {'state': 'REGISTRY_COMMITTED', 'at': '2026-10-25T21:44:00+08:00'}, {'state': 'SOURCE_CLEANUP_INTENT', 'at': '2026-10-25T21:44:00+08:00'}, {'state': 'DONE', 'at': '2026-10-25T21:44:00+08:00'}], 'created_at': '2026-10-25T21:44:00+08:00', 'updated_at': '2026-10-25T21:44:00+08:00', 'finished_at': '2026-10-25T21:44:00+08:00', 'complete': True, 'copy_complete': True, 'real_paths': {'source': '/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d2-20261025/cleanup-native-q2a1xue8/late-source-hardlink-source/payload.bin', 'target': '/dev/shm/unifier-cleanup-0q1s5al4/late-source-hardlink-target/published.bin', 'stage': '/dev/shm/unifier-cleanup-0q1s5al4/late-source-hardlink-target/.ml-stage-2c408ddd-2712-425b-b2a1-7f1104c564cd-c57ed9e7a617489b9250c85bba985cb1'}, 'no_overwrite': True, 'overwrite_mechanism': 'O_EXCL staging in the target directory plus same-filesystem linkat', 'registry_transaction_note': 'filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction', 'quarantine_path': '/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d2-20261025/cleanup-native-q2a1xue8/late-source-hardlink-source/.ml-quarantine-2c408ddd-2712-425b-b2a1-7f1104c564cd-cd91027418a3430d83dcccc223cbe355', 'source_cleanup_state': 'done'}\n"
+    }
+  },
+  "scope": "actual host Btrfs/tmpfs ordinary files and process SIGKILL; no power-loss claim",
+  "observed_checkpoints": [
+    "INTENT_DURABLE",
+    "STAGING",
+    "STAGING_CREATED",
+    "STAGING_READY",
+    "TARGET_PUBLISHED",
+    "REGISTRY_COMMITTED",
+    "STAGE_CLEANED",
+    "SOURCE_CLEANUP_INTENT",
+    "SOURCE_QUARANTINE_INTENT",
+    "SOURCE_QUARANTINE_READY",
+    "SOURCE_CAPTURE_INTENT",
+    "SOURCE_CAPTURED",
+    "SOURCE_ISOLATED",
+    "SOURCE_DELETION_INTENT",
+    "SOURCE_REMOVED",
+    "DONE"
+  ],
+  "error": "2879cff8545f', 'source_relative_path': 'payload.bin', 'source_management_domain': 'host-project', 'source_view_uuid': None, 'note': 'target uses the destination management domain; source is independent provenance'}, 'management_domain': 'host-project', 'execution': {'authorized': False, 'interpreter': None, 'environment': None, 'note': 'a copy does not inherit source execution authorization, handler registration or project binding'}, 'source_cleanup': {'requested': True, 'authorized': True, 'mode': 'controlled', 'policy_snapshot': 'controlled', 'root_uuid': 'a9551aa1-f8a5-460f-ad8f-2879cff8545f', 'root_dev': 53, 'root_ino': 3194738, 'locator': '/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d2-20261025/cleanup-native-q2a1xue8/late-source-hardlink-source', 'access_policy': 'read-write', 'backend': 'local-directory', 'source_view_present': False, 'authorized_at': '2026-10-25T21:44:00+08:00', 'state': 'done', 'performed': True, 'quarantine': {'dir_name': '.ml-quarantine-2c408ddd-2712-425b-b2a1-7f1104c564cd-cd91027418a3430d83dcccc223cbe355', 'dir_dev': 53, 'dir_ino': 3194762, 'dir_nonce': 'cd91027418a3430d83dcccc223cbe355', 'entry_name': 'source', 'captured_dev': 53, 'captured_ino': 3194739, 'captured_size': 98304, 'captured_sha256': '8e5f51b720b257d9b2c162ef20215d668c70627fc3f29a7c6f44e103fe303b4c', 'captured_ctime_ns': 1792935840139261270}, 'captured': {'dev': 53, 'ino': 3194739, 'size': 98304, 'sha256': '8e5f51b720b257d9b2c162ef20215d668c70627fc3f29a7c6f44e103fe303b4c', 'ctime_ns': 1792935840139261270, 'ctime_change_from_capture': True}, 'lease': {'type': 'write', 'acquired': False, 'broken': False, 'target': 'source', 'target_acquired': True}, 'deletion_intent': {'target_dev': 27, 'target_ino': 1085, 'target_sha256': '8e5f51b720b257d9b2c162ef20215d668c70627fc3f29a7c6f44e103fe303b4c', 'quarantine_dir_dev': 53, 'quarantine_dir_ino': 3194762, 'captured_dev': 53, 'captured_ino': 3194739, 'source_policy': 'controlled', 'at': '2026-10-25T21:44:00+08:00'}, 'reason': None, 'removed_at': '2026-10-25T21:44:00+08:00', 'capture_intent': {'source_dev': 53, 'source_ino': 3194739, 'quarantine_dir_dev': 53, 'quarantine_dir_ino': 3194762, 'at': '2026-10-25T21:44:00+08:00'}, 'original_path_repopulated': False}, 'capabilities': {'regular_file_copy': True, 'move_copies_then_retains_source': True, 'controlled_move_source_delete': True, 'source_delete': False, 'atomic_cross_filesystem_move': False, 'universal_atomic_rename': False, 'directory_recursive': False, 'acl_preservation': False, 'sparse_file': False, 'device_or_special_file': False, 'symlink_follow': False, 'hardlink_source': False, 'xattr_or_selinux_preservation': False, 'full_metadata_preservation': False, 'overwrite_existing_target': False, 'hash_and_rename_is_cas': False, 'fs_and_registry_cross_system_atomic': False, 'lease_blocks_rename_or_unlink': False, 'hostile_same_uid_immunity': False}, 'unsupported': ['directories and recursive trees', 'ACL-bearing files', 'sparse or compressed files', 'device, fifo and socket nodes', 'symbolic links and hard-linked regular sources', 'copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set', 'automatic source deletion outside an explicitly authorized controlled move', 'atomic cross-filesystem rename', 'overwriting an existing target', 'immunity from malicious same-UID tampering with private state or journals'], 'source_retained': False, 'source_retention_reason': None, 'last_error': None, 'transitions': [{'state': 'INTENT_DURABLE', 'at': '2026-10-25T21:44:00+08:00'}, {'state': 'STAGING', 'at': '2026-10-25T21:44:00+08:00'}, {'state': 'TARGET_PUBLISHED', 'at': '2026-10-25T21:44:00+08:00'}, {'state': 'REGISTRY_COMMITTED', 'at': '2026-10-25T21:44:00+08:00'}, {'state': 'SOURCE_CLEANUP_INTENT', 'at': '2026-10-25T21:44:00+08:00'}, {'state': 'DONE', 'at': '2026-10-25T21:44:00+08:00'}], 'created_at': '2026-10-25T21:44:00+08:00', 'updated_at': '2026-10-25T21:44:00+08:00', 'finished_at': '2026-10-25T21:44:00+08:00', 'complete': True, 'copy_complete': True, 'real_paths': {'source': '/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d2-20261025/cleanup-native-q2a1xue8/late-source-hardlink-source/payload.bin', 'target': '/dev/shm/unifier-cleanup-0q1s5al4/late-source-hardlink-target/published.bin', 'stage': '/dev/shm/unifier-cleanup-0q1s5al4/late-source-hardlink-target/.ml-stage-2c408ddd-2712-425b-b2a1-7f1104c564cd-c57ed9e7a617489b9250c85bba985cb1'}, 'no_overwrite': True, 'overwrite_mechanism': 'O_EXCL staging in the target directory plus same-filesystem linkat', 'registry_transaction_note': 'filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction', 'quarantine_path': '/home/omg/文档/多兼容linux机/.lab/agents/unifier-v2-stage-d2-20261025/cleanup-native-q2a1xue8/late-source-hardlink-source/.ml-quarantine-2c408ddd-2712-425b-b2a1-7f1104c564cd-cd91027418a3430d83dcccc223cbe355', 'source_cleanup_state': 'done'}\n"
+}

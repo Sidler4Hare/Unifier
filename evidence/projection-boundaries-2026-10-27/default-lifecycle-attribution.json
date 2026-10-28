@@ -1,0 +1,28 @@
+{
+  "observed_wave": 1,
+  "observed_fuser": {
+    "stdout": "kernel 84487",
+    "stderr": "                     USER        PID ACCESS COMMAND\n/home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/default-lifecycle-final/project/.lab/state/views/1b61aea3-b4b4-40dc-84e7-38f56c322f93/mount:\n                     root      mount /home/omg/文档/多兼容linux机/evidence/projection-boundaries-2026-10-27/default-lifecycle-final/project/.lab/state/views/1b61aea3-b4b4-40dc-84e7-38f56c322f93/mount\n                     omg       f.... ChatGPT\n"
+  },
+  "observed_worker_counters": {
+    "nodes": 133,
+    "node_budget": 65536,
+    "handles": 3,
+    "file_handles": 0,
+    "dir_handles": 3,
+    "handle_budget": 1024,
+    "dir_entries": 85,
+    "dir_entry_budget": 65536,
+    "dir_bytes": 6002,
+    "dir_bytes_budget": 8388608,
+    "next_nodeid": 134,
+    "next_handle": 16,
+    "inode_ids": 133,
+    "attr_versions": 68,
+    "inode_collisions": 0
+  },
+  "normal_retry_success_after_seconds": 1.88511053599359,
+  "process_comm_now": "ChatGPT",
+  "interpretation": "This occurrence had an external ChatGPT open-file holder and live directory handles; historical EBUSY causes remain unproven.",
+  "action": "normal revoke retry only; no external process killed or handle forced closed"
+}
