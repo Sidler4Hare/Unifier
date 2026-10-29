@@ -1,0 +1,32 @@
+{
+  "scope": "Unifier repository and its two local worktrees",
+  "branch": "codex/unifier-v2-control",
+  "remote": "https://github.com/Sidler4Hare/Unifier.git",
+  "visibility": "private",
+  "base_commit": "bb38f7a3b9d6b6e5d4447c1461822796274097b1",
+  "before": {
+    "modified_tracked_files": 7,
+    "untracked_files": 80662,
+    "total_pending_files": 80669,
+    "branch_unpushed_commits": 0,
+    "commits_on_remote_feature_branch_not_in_main": 3,
+    "other_worktree_pending_files": 0
+  },
+  "generated_fixture_files_excluded": 80466,
+  "generated_fixture_groups": {
+    "evidence/projection-fd-repair-2026-10-29/broker/shared-arch": 13411,
+    "evidence/projection-fd-repair-2026-10-29/broker/shared-debian13": 13411,
+    "evidence/projection-fd-repair-2026-10-29/broker/shared-fedora44": 13411,
+    "evidence/projection-fd-repair-2026-10-29/broker-final/shared-arch": 13411,
+    "evidence/projection-fd-repair-2026-10-29/broker-final/shared-debian13": 13411,
+    "evidence/projection-fd-repair-2026-10-29/broker-final/shared-fedora44": 13411
+  },
+  "exclusion_pattern": "/evidence/projection-fd-repair-2026-10-29/broker*/shared-*/",
+  "local_fixture_originals_retained": true,
+  "backup": "/home/omg/文档/Unifier-backups/20261029-144634-before-fd-publication",
+  "backup_archive_verified_entries": 80670,
+  "backup_bundle_verified": true,
+  "backup_archive_sha256": "163bcb239150f00a269f6eca989142ed5eb0b4387ffea046fbaa18f66cd515f4",
+  "validation_reference": "unittest-final.log; source-frozen.json; acceptance-result.json",
+  "publication_receipt_directory": "/home/omg/文档/多兼容linux机/.lab/publications/20261029-144634"
+}

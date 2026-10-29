@@ -9,6 +9,12 @@ Unifier 是共享宿主内核、保留 Debian / Fedora / Arch 原生用户空间
 
 扩展测试先复用本机已安装应用：已只读确认 WPS、微信、VS Code/ZCode/Qoder CN、LibreOffice、Chrome、PDF/媒体与 Flatpak 对照，并找到与安装记录同构建的本地 WPS RPM；新增同名、同类型、组件/入口及默认关联等 18 组关系用例，实际工作流尚未执行。见[本机盘点与关系计划](evidence/installed-applications-2026-10-27/report.md)。原 WPS、Beyond Compare、Zoom、飞书的 9 个客体安装组合保留，Fedora/WPS 同构建对照优先，新下载顺延；另列 Agent 跨环境及文件系统实测，见[扩展测试计划](设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md)。既有投影验收状态如下。
 
+## 只读投影 FD 放大已修复（2026-10-29）
+
+目录名称清单不再为每个子项长期持有 FD，活跃 lookup/open 对象继续按原身份锚定；新增整个 worker 的 FD 准入、控制余量和资源计数。真实 worker 上限 256 时，300/3000/10000 条目纯目录浏览均通过，打开目录 FD 增量均为 2。大量 stat/索引仍受 lookup 锚点预算约束，超限明确拒绝，不能据此声称无限目录索引能力。
+
+456 项回归（452 通过、4 条件跳过）；真实 FUSE 核心 22 项、边界 9 项及低限额压力通过，三客体完整链路各 27 项通过。两个日常部署已备份并同步，在各自真实 broker/worker 下以 NOFILE=256 验证 3000 条目与正常撤销，原状态、CID/启停时间、菜单、配置和文档保持。见[设计](设计/投影FD预算修复-2026-10-29.md)及[本轮报告](evidence/projection-fd-repair-2026-10-29/report.md)。此前便携包是 10 月 28 日冻结版本，不包含本轮修复。本轮提交范围与可再生夹具规则见[发布说明](evidence/projection-fd-repair-2026-10-29/publication.md)。
+
 ## 投影三处语义缺口已修复并通过本机真实验收（2026-10-27）
 
 继续先备份、dsh Command Code / DeepSeek 施工、主控独立审查与真实挂载验证。恢复 mtime 的原地修改现在通过真实 ctime 重验证失效旧页；链接按组件处理 symlink/`..`；稳定对外 inode 与可回收 nodeid 分开，回收与预算仍有效。

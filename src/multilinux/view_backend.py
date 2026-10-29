@@ -20,7 +20,7 @@ import stat as stat_module
 
 from multilinux.projection import (
     DEFAULT_MAX_DIR_BYTES, DEFAULT_MAX_DIR_ENTRIES, DEFAULT_MAX_HANDLES,
-    DEFAULT_MAX_NODES, MountGraph, ProjectionObjects, Provider, Selection,
+    DEFAULT_MAX_NODES, FdBudget, MountGraph, ProjectionObjects, Provider, Selection,
     ViewError, kind_for_mode, normalize_container_path, path_depth,
     reopen_readonly, unavailable,
 )
@@ -215,6 +215,8 @@ class ViewBackend:
         self.mountpoint = mountpoint.rstrip("/") or "/"
         self.merged_fd = merged_fd
         self.merged_stat = merged_stat
+        self.fd_budget = FdBudget()
+        self.fd_budget.require()
         self.merged_mnt_id = _mnt_id(merged_fd)
         if self.merged_mnt_id is None:
             raise unavailable("cannot read mnt_id for the merged storage root")
@@ -227,6 +229,7 @@ class ViewBackend:
         providers: list[Provider] = []
         try:
             for index, item in enumerate(mounts):
+                self.fd_budget.require()
                 destination = normalize_container_path(item["destination"])
                 source = os.path.realpath(item["source"])
                 try:
@@ -270,7 +273,8 @@ class ViewBackend:
             self.objects = ProjectionObjects(
                 self.graph, view_uuid=self.view_uuid,
                 max_nodes=max_nodes, max_handles=max_handles,
-                max_dir_entries=max_dir_entries, max_dir_bytes=max_dir_bytes)
+                max_dir_entries=max_dir_entries, max_dir_bytes=max_dir_bytes,
+                fd_budget=self.fd_budget)
         except BaseException:
             for provider in providers:
                 try:
@@ -359,16 +363,11 @@ class ViewBackend:
                 raise ViewError(errno.EISDIR, "read requires a regular file")
             if node.anchor_fd is None:
                 raise ViewError(errno.EIO, "file has no pinned object")
-            descriptor = reopen_readonly(node.anchor_fd, os.O_RDONLY)
+            fh = self.objects.open_file(node.nodeid, os.O_RDONLY)
             try:
-                observed = os.fstat(descriptor)
-                if not stat_module.S_ISREG(observed.st_mode):
-                    raise ViewError(errno.EISDIR, "read requires a regular file")
-                return os.pread(descriptor, size, offset)
-            except OSError as exc:
-                raise ViewError(exc.errno or errno.EIO, str(exc)) from exc
+                return self.objects.read_file(fh, offset, size)
             finally:
-                os.close(descriptor)
+                self.objects.release(fh)
 
     def readdir(self, path: str) -> list[dict]:
         with self._hold_path(path) as node:

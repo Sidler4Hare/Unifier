@@ -303,7 +303,10 @@ class ControllerRegressions(unittest.TestCase):
             root = Path(temporary)
             for name in ("a", "b", "c"):
                 (root / name).write_text(name, encoding="utf-8")
-            with fixture(root, max_nodes=3) as (_root, backend, server):
+            with fixture(root, max_nodes=2) as (_root, backend, server):
+                # An actual kernel lookup consumes the last node slot; the
+                # lightweight directory still needs one temporary scan node.
+                held = server.lookup("c")
                 before_fds = open_fd_count()
                 reply = server.call(
                     fuse_view.FUSE_OPENDIR, 1,
@@ -311,10 +314,12 @@ class ControllerRegressions(unittest.TestCase):
                 self.assertEqual(reply[2], errno.ENOSPC)
                 self.assertEqual(open_fd_count(), before_fds)
                 stats = backend.stats()
-                self.assertEqual(stats["nodes"], 1)
+                self.assertEqual(stats["nodes"], 2)
                 self.assertEqual(stats["handles"], 0)
                 self.assertEqual(stats["dir_entries"], 0)
                 self.assertEqual(stats["dir_bytes"], 0)
+                self.assertEqual(stats["snapshot_identity_refs"], 0)
+                server.forget(held)
 
     def test_releasedir_reclaims_unlooked_up_entry_nodes(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -323,7 +328,8 @@ class ControllerRegressions(unittest.TestCase):
                 (root / name).write_text(name, encoding="utf-8")
             with fixture(root) as (_root, backend, server):
                 fh = server.opendir(1)
-                self.assertGreater(backend.stats()["nodes"], 1)
+                self.assertEqual(backend.stats()["nodes"], 1)
+                self.assertEqual(backend.stats()["snapshot_identity_refs"], 3)
                 self.assertGreater(backend.stats()["dir_entries"], 0)
                 server.releasedir(fh)
                 stats = backend.stats()
@@ -381,7 +387,8 @@ class ControllerRegressions(unittest.TestCase):
                     entries = {
                         item["name"]: item for item in _page(server, fh, 0)}
                     self.assertEqual(entries["a"]["ino"], entries["b"]["ino"])
-                    self.assertEqual(backend.stats()["nodes"], 2)
+                    self.assertEqual(backend.stats()["nodes"], 1)
+                    self.assertEqual(backend.stats()["snapshot_identity_refs"], 2)
                 finally:
                     server.releasedir(fh)
                 self.assertEqual(backend.stats()["nodes"], 1)

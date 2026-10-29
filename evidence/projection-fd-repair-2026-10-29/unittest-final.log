@@ -1,0 +1,19 @@
+..................debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn4e66a6ea34a0
+fedora44: dnf install -y hello
+fedora44: install completed txn16e3c8f1eeef
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn202ae0d51f47
+....................................................s..........................ml: remove deletes the environment's writable root; pass --yes
+.............s.............................................................................removed demo
+/usr/lib64/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=287860) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+..................................................................................s.................................................................................................s................/usr/lib64/python3.14/site-packages/gi/overrides/__init__.py:159: PyGIDeprecationWarning: GLib.unix_signal_add_full is deprecated; use GLibUnix.signal_add_full instead
+  value = getattr(proxy, attr)
+.......................................................................
+----------------------------------------------------------------------
+Ran 456 tests in 52.592s
+
+OK (skipped=4)

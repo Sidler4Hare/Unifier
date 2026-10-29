@@ -57,10 +57,14 @@ class RepairFailureBoundaries(unittest.TestCase):
         with fixture() as (root,b,server):
             (root/'file').touch();child=server.lookup('file');directory=server.opendir()
             server.forget(child)
-            self.assertEqual(b.stats()['nodes'],2)
-            self.assertEqual(server._status()['notifications']['tracked_inodes'],1)
+            # A name record keeps collision metadata, not the child's anchor
+            # or attributes: FORGET can collect it before RELEASEDIR.
+            self.assertEqual(b.stats()['nodes'],1)
+            self.assertEqual(b.stats()['snapshot_identity_refs'],1)
+            self.assertEqual(server._status()['notifications']['tracked_inodes'],0)
             server.releasedir(directory)
             self.assertEqual(b.stats()['nodes'],1)
+            self.assertEqual(b.stats()['snapshot_identity_refs'],0)
             self.assertEqual(server._status()['notifications']['tracked_inodes'],0)
 
     def test_failed_lookup_invalidation_does_not_leak_lookup_reference(self):

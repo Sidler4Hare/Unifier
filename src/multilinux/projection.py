@@ -21,6 +21,7 @@ import hashlib
 import os
 from pathlib import Path, PurePosixPath
 import posixpath
+import resource
 import stat as stat_module
 import threading
 
@@ -41,9 +42,70 @@ DEFAULT_MAX_HANDLES = 1024
 DEFAULT_MAX_DIR_ENTRIES = 65536
 DEFAULT_MAX_DIR_BYTES = 8 * 1024 * 1024
 
+
+class FdBudget:
+    """Admission against the worker's *whole process* FD usage and live limit.
+
+    Object operations are serialized by ProjectionObjects.lock. A lookup needs
+    at most four extra FDs: the directory stream, provider probe + fdinfo, or
+    two walk FDs. Walks close each previous component before advancing. Keep
+    sixteen further slots outside admission: one accepted control peer, status
+    procfs reads/journal writes, and socketpair/pipe/error-pipe FDs during
+    startup and normal teardown. This is headroom for our bounded call chains,
+    not protection against arbitrary foreign threads or a lowered OS limit.
+    """
+
+    reserve = 16
+
+    def __init__(self):
+        self.peak = 0
+        self.rejections = 0
+        self.last_error = None
+
+    def sample(self):
+        soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)
+        # scandir's own descriptor appears in the enumeration. Exclude it;
+        # descriptors above a newly lowered soft limit do not occupy slots
+        # available to the next open(2).
+        with os.scandir('/proc/self/fd') as scan:
+            descriptors = [int(item.name) for item in scan]
+        current = len(descriptors) - 1
+        below = sum(fd < soft for fd in descriptors) - 1 if soft >= 0 else current
+        self.peak = max(self.peak, current)
+        self.last_error = None
+        return soft, hard, current, below
+
+    def require(self, additional=4):
+        try:
+            soft, _hard, _current, below = self.sample()
+        except OSError as exc:
+            self.rejections += 1
+            self.last_error = exc.errno
+            raise ViewError(exc.errno or errno.EIO,
+                            f'cannot measure worker FD capacity: {exc}') from exc
+        if soft >= 0 and below + additional + self.reserve > soft:
+            self.rejections += 1
+            raise ViewError(errno.EMFILE, 'projection FD budget exhausted; '
+                            'control headroom reserved, release or forget objects')
+
+    def stats(self):
+        soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)
+        try:
+            soft, hard, current, below = self.sample()
+        except OSError as exc:
+            current = below = None
+            self.last_error = exc.errno
+        return dict(fd_soft_limit=soft, fd_hard_limit=hard,
+                    process_fds=current, process_fds_below_limit=below,
+                    process_fds_peak_sampled=self.peak,
+                    fd_control_reserve=self.reserve,
+                    fd_budget_rejections=self.rejections,
+                    fd_measurement_errno=self.last_error)
+
 # External inode numbers are a pure function of view salt plus object identity,
-# so they never depend on node/identity cache history. Only live nodes are kept
-# in the collision table; it is not a permanent identity catalogue. A 64-bit
+# so they never depend on node/identity cache history. Only live nodes and
+# directory records are kept in the collision table; it is not a permanent
+# identity catalogue. Directory claims retain identity metadata, never FDs. A 64-bit
 # BLAKE2 digest can collide (birthday bound), so simultaneous distinct keys are
 # rejected with EOVERFLOW rather than aliased. The same key may reuse the same
 # external number after its node is collected, matching native inode reuse.
@@ -365,7 +427,7 @@ class ProjectionObjects:
                  max_nodes=DEFAULT_MAX_NODES,
                  max_handles=DEFAULT_MAX_HANDLES,
                  max_dir_entries=DEFAULT_MAX_DIR_ENTRIES,
-                 max_dir_bytes=DEFAULT_MAX_DIR_BYTES):
+                 max_dir_bytes=DEFAULT_MAX_DIR_BYTES, fd_budget=None):
         self.graph = graph
         self.view_uuid = str(view_uuid)
         self.max_nodes = int(max_nodes)
@@ -373,12 +435,14 @@ class ProjectionObjects:
         self.max_dir_entries = int(max_dir_entries)
         self.max_dir_bytes = int(max_dir_bytes)
         self.lock = threading.RLock()
+        self.fd_budget = fd_budget if fd_budget is not None else FdBudget()
         self.nodes: dict[int, Node] = {}
         self.by_key: dict[tuple, Node] = {}
         self.handles: dict[int, OpenHandle] = {}
         self.next_nodeid = 1
         self.next_fh = 1
         self._inode_owners: dict[int, tuple] = {}
+        self._inode_refs: dict[int, int] = {}
         self.inode_collisions = 0
         self.dir_entry_count = 0
         self.dir_bytes_used = 0
@@ -403,6 +467,18 @@ class ProjectionObjects:
                 errno.EOVERFLOW,
                 "external inode hash collision between distinct live objects")
         return candidate
+
+    def _claim_inode(self, inode: int, key: tuple) -> None:
+        self._inode_owners[inode] = key
+        self._inode_refs[inode] = self._inode_refs.get(inode, 0) + 1
+
+    def _release_inode(self, inode: int) -> None:
+        refs = self._inode_refs[inode] - 1
+        if refs:
+            self._inode_refs[inode] = refs
+        else:
+            del self._inode_refs[inode]
+            del self._inode_owners[inode]
 
     def _allocate_node(self, key, anchor_fd, mode, path, provider,
                        *, synthetic=False, virtual=False, count_ref=False,
@@ -443,10 +519,11 @@ class ProjectionObjects:
         self.next_nodeid += 1
         self.nodes[node.nodeid] = node
         self.by_key[key] = node
-        self._inode_owners[inode] = key
+        self._claim_inode(inode, key)
         return node
 
     def _create_root(self) -> None:
+        self.fd_budget.require()
         provider = self.graph.root_mount() or self.graph.merged
         provider.verify()
         anchor = _dup_path_fd(provider.root_fd)
@@ -507,6 +584,7 @@ class ProjectionObjects:
                     raise ViewError(errno.ENOTDIR, "a file mount has no children")
                 raise ViewError(errno.ENOTDIR, "lookup parent is not a directory")
             kind, value, child_path = self.graph.lookup_context(parent.path, name)
+            self.fd_budget.require()
             if kind == "mount":
                 return self._mount_node(value, child_path, count_ref=count_ref)
             if kind == "required":
@@ -642,9 +720,13 @@ class ProjectionObjects:
         parts = [part for part in relative.split("/") if part]
         if not parts:
             anchor = _dup_path_fd(provider.root_fd)
-            return anchor, os.fstat(anchor)
+            try:
+                return anchor, os.fstat(anchor)
+            except BaseException:
+                os.close(anchor)
+                raise
         current = provider.root_fd
-        owned = []
+        owned = None
         try:
             for index, part in enumerate(parts):
                 flags = os.O_PATH | os.O_CLOEXEC | os.O_NOFOLLOW
@@ -661,12 +743,14 @@ class ProjectionObjects:
                         os.close(child)
                         raise
                     return child, observed
-                owned.append(child)
+                if owned is not None:
+                    os.close(owned)
+                owned = child
                 current = child
         finally:
-            for descriptor in reversed(owned):
+            if owned is not None:
                 try:
-                    os.close(descriptor)
+                    os.close(owned)
                 except OSError:
                     pass
         raise ViewError(errno.ENOENT, "empty path")
@@ -707,6 +791,7 @@ class ProjectionObjects:
                 raise ViewError(errno.EMFILE, "projection handle budget exhausted")
             if node.anchor_fd is None:
                 raise ViewError(errno.EIO, "node has no pinned object")
+            self.fd_budget.require(1)
             descriptor = reopen_readonly(
                 node.anchor_fd, os.O_RDONLY | os.O_NOCTTY)
             try:
@@ -811,7 +896,6 @@ class ProjectionObjects:
             {"name": "..", "kind": "dir", "ino": node.inode,
              "mode": parent_mode, "synthetic": True, "held": False},
         ]
-        held_nodeids = []
         try:
             for name in union:
                 try:
@@ -830,38 +914,38 @@ class ProjectionObjects:
                     if exc.errno in {errno.ENOENT, errno.EACCES}:
                         continue
                     raise ViewError(exc.errno or errno.EIO, str(exc)) from exc
-                child.internal += 1
-                held_nodeids.append(child.nodeid)
-                observed = None
-                mode = child.mode
-                if include_stat:
-                    observed = self.node_stat(child)
-                    if observed is not None and not child.synthetic:
-                        mode = observed.st_mode
-                entry = {
-                    "name": name, "kind": kind_for_mode(child.mode),
-                    "ino": child.inode, "mode": mode,
-                    "synthetic": child.synthetic, "held": True,
-                    "nodeid": child.nodeid,
-                }
-                if include_stat:
-                    entry["observed"] = observed
-                    if observed is not None and not child.synthetic:
-                        entry["stat"] = observed
-                entries.append(entry)
+                try:
+                    observed = None
+                    mode = child.mode
+                    if include_stat:
+                        observed = self.node_stat(child)
+                        if observed is not None and not child.synthetic:
+                            mode = observed.st_mode
+                    entry = {
+                        "name": name, "kind": kind_for_mode(child.mode),
+                        "ino": child.inode, "mode": mode,
+                        "synthetic": child.synthetic, "inode_held": True,
+                    }
+                    if include_stat:
+                        entry["observed"] = observed
+                        if observed is not None and not child.synthetic:
+                            entry["stat"] = observed
+                    entries.append(entry)
+                    # Keep collision ownership until RELEASEDIR even after
+                    # this temporary child node/anchor is immediately freed.
+                    self._claim_inode(child.inode, child.key)
+                finally:
+                    self._collect(child)
             return entries
         except BaseException:
-            for nodeid in reversed(held_nodeids):
-                self.release_internal(nodeid)
+            self._release_snapshot_refs(entries)
             raise
 
     def snapshot_entries(self, node: Node, *, include_stat=False):
         """Build a one-shot merged listing for the path-level compatibility API.
 
-        Entry nodes are retained while the snapshot is assembled, then the
-        temporary internal references are released before returning. This keeps
-        zero-lookup path calls from growing the node/anchor table while still
-        allowing a concurrent FUSE lookup to share the same projected inode.
+        Child anchors last for one entry only. Identity claims survive assembly
+        for collision checks, then are released before returning the records.
         """
         with self.lock:
             if not stat_module.S_ISDIR(node.mode):
@@ -872,12 +956,14 @@ class ProjectionObjects:
                         errno.ENOTDIR, "a file mount has no children")
                 raise ViewError(errno.ENOTDIR, "not a directory")
             descriptor = None
+            self.fd_budget.require()
             if node.anchor_fd is not None:
                 descriptor = reopen_readonly(
                     node.anchor_fd, os.O_RDONLY | os.O_DIRECTORY)
             try:
                 entries = self._snapshot(
-                    node, descriptor, include_stat=include_stat)
+                    node, descriptor, include_stat=include_stat,
+                    enforce_budget=True)
             finally:
                 if descriptor is not None:
                     try:
@@ -891,8 +977,8 @@ class ProjectionObjects:
 
     def _release_snapshot_refs(self, entries) -> None:
         for entry in reversed(entries):
-            if entry.get("held"):
-                self.release_internal(entry["nodeid"])
+            if entry.pop("inode_held", False):
+                self._release_inode(entry["ino"])
 
     def collect_unreferenced(self) -> None:
         with self.lock:
@@ -914,6 +1000,7 @@ class ProjectionObjects:
                 raise ViewError(errno.ENOTDIR, "not a directory")
             if len(self.handles) >= self.max_handles:
                 raise ViewError(errno.EMFILE, "projection handle budget exhausted")
+            self.fd_budget.require()
             descriptor = None
             if node.anchor_fd is not None:
                 descriptor = reopen_readonly(
@@ -1016,8 +1103,7 @@ class ProjectionObjects:
         if current is node:
             del self.by_key[node.key]
         self.nodes.pop(node.nodeid, None)
-        if self._inode_owners.get(node.inode) == node.key:
-            del self._inode_owners[node.inode]
+        self._release_inode(node.inode)
         if node.anchor_fd is not None:
             try:
                 os.close(node.anchor_fd)
@@ -1056,10 +1142,21 @@ class ProjectionObjects:
                 "next_nodeid": self.next_nodeid,
                 "next_handle": self.next_fh,
                 "inode_ids": len(self._inode_owners),
+                "snapshot_identity_refs": sum(self._inode_refs.values()) - len(self.nodes),
+                "snapshot_anchor_fds": 0,
+                "anchor_fds": sum(n.anchor_fd is not None for n in self.nodes.values()),
+                "handle_fds": sum(h.fd is not None for h in self.handles.values()),
+                "provider_fds": len({p.root_fd for p in
+                                      [self.graph.merged, *self.graph.mounts]}),
+                "lookup_only_nodes": sum(n.nlookup > 0 and not n.opens and not n.internal
+                                         for n in self.nodes.values()),
+                "lookup_refs": sum(n.nlookup for n in self.nodes.values()),
+                "internal_refs": sum(n.internal for n in self.nodes.values()),
                 "attr_versions": sum(
                     node.attr_signature is not None
                     for node in self.nodes.values()),
                 "inode_collisions": self.inode_collisions,
+                **self.fd_budget.stats(),
             }
 
     def close(self) -> None:
@@ -1086,4 +1183,5 @@ class ProjectionObjects:
             self.nodes.clear()
             self.by_key.clear()
             self._inode_owners.clear()
+            self._inode_refs.clear()
             self.root = None

@@ -7,3 +7,5 @@ __pycache__/
 build/
 dist/
 evidence/screencast-*/work/artifacts/
+# Recreated by the FD broker probes; keep local fixture data outside history.
+/evidence/projection-fd-repair-2026-10-29/broker*/shared-*/

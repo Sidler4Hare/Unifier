@@ -1,5 +1,15 @@
 # Unifier 当前接手入口
 
+## 最新：只读投影 FD 放大修复及部署（2026-10-29）
+
+依据 `evidence/projection-fd-analysis-2026-10-29/report.md`，已将目录清单与活对象分离：名称记录只保留属性与 inode 碰撞所有权，扫描临时 anchor 逐项回收，真正 lookup/open 对象不强制驱逐。共享 worker FD 准入读取实际进程使用量/动态 NOFILE，保留操作与控制余量；provider 深路径 walk 临时 FD 有界，控制 accept 资源错误可恢复。设计见 `设计/投影FD预算修复-2026-10-29.md`，完整证据见 `evidence/projection-fd-repair-2026-10-29/report.md`。
+
+456 项回归（452 通过、4 条件跳过），直接真实 FUSE 核心 22/22、边界 9/9，低限额纯目录/lookup/open 三组通过，三客体各 27/27。NOFILE=256 下 300/3000/10000 纯目录 FD 增量均 2。大量 stat/ls -l 仍会到达 lookup 锚点容量，明确 EMFILE 且控制/旧句柄可用；实际 open 压力关闭后恢复，lookup-only 节点仍等待内核 FORGET。不得宣称所有索引负载已解决。
+
+外部工作区备份 `/home/omg/文档/Unifier-backups/20261029-141151-before-projection-fd/`，36,060 条目校验，5 个历史 socket 仅元数据；未覆盖旧证据。日常部署备份 `/home/omg/.local/state/unifier-deployments/projection-fd-20261029-142459/`。3 个产品模块已原子同步 FreeCAD/腾讯会议，每个原部署完整视图链路均以 NOFILE=256 验证 3000 条目、只读、活动视图阻止启动与正常撤销。最终仅两个原日常容器且均停止，CID/启停时间、状态文件、配置、菜单、文档和旧证据校验保全。没有升级包、重建日常容器或更改全局限额。本轮按用户要求整理提交并同步云端，范围见[发布说明](evidence/projection-fd-repair-2026-10-29/publication.md)；历史段落的未提交状态仅代表当时。
+
+性能/长压、外部通知、严格快照/多卷、通用 IDE 和跨宿主仍开放；单一 Dolphin 文件夹检查不替代这些关口。此前 Ubuntu 便携包继续代表 10 月 28 日冻结版本，另机需取本轮源码。
+
 ## 最新：白名单已同步日常部署并通过菜单验收（2026-10-28）
 
 FreeCAD、腾讯会议已启用 `compatibility.mode=whitelist`，保留原 CID/镜像/包数据库、UUID/代际、应用实例、菜单、项目登记和文档。各连续两轮原菜单启动、完整窗口、正常 WM 关窗和自动停机通过；最终仅两个原日常容器，均停止、租约为空。见[本轮部署与保全报告](evidence/whitelist-daily-deploy-2026-10-28/report.md)。

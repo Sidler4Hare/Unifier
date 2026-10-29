@@ -493,7 +493,14 @@ class FuseServer:
             while not self.stop.is_set():
                 try:
                     client, _ = server.accept()
-                except OSError:
+                except OSError as exc:
+                    if exc.errno in {errno.EMFILE, errno.ENFILE, errno.ENOMEM,
+                                     errno.EINTR}:
+                        # An external limit change/system file-table shortage
+                        # can still beat admission. Resume accepting when it
+                        # clears; never permanently lose the control service.
+                        self.stop.wait(0.05)
+                        continue
                     break
                 try:
                     request = client.recv(65536).split(b"\n", 1)[0]
