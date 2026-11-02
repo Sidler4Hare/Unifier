@@ -1,0 +1,105 @@
+arch: pacman -Syu --noconfirm
+arch: pacman -U --noconfirm /tmp/ml-incoming/zoom_x86_64.pkg.tar.xz
+arch: install-local failed txnb2a31ca201c4
+{
+  "schema_version": 1,
+  "id": "txnb2a31ca201c4",
+  "environment_id": "arch",
+  "operation": "install-local",
+  "packages": [
+    "zoom"
+  ],
+  "use_command": [],
+  "local_file": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/downloads/zoom_x86_64.pkg.tar.xz",
+  "revision_before": {
+    "writable_revision": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+    "content_revision": 6,
+    "package_inventory_sha256": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88"
+  },
+  "native": [
+    {
+      "argv": [
+        "pacman",
+        "-Syu",
+        "--noconfirm"
+      ],
+      "exit_code": 0,
+      "stdout_tail": ":: Synchronizing package databases...\n core downloading...\n extra downloading...\n:: Starting full system upgrade...\n there is nothing to do\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "pacman",
+        "-U",
+        "--noconfirm",
+        "/tmp/ml-incoming/zoom_x86_64.pkg.tar.xz"
+      ],
+      "exit_code": 1,
+      "stdout_tail": "        1.5.5-1                   0.07 MiB       0.03 MiB\nextra/libxrender                     0.9.13-1                  0.10 MiB       0.03 MiB\nextra/libxshmfence                   1.3.3-1                   0.02 MiB       0.01 MiB\nextra/libxslt                        1.1.45-2                  0.78 MiB       0.20 MiB\nextra/libxtst                        1.2.6-1                   0.11 MiB       0.03 MiB\nextra/libxv                          1.0.13-1                  0.06 MiB       0.03 MiB\nextra/libxxf86vm                     1.1.7-1                   0.03 MiB       0.02 MiB\nextra/llvm-libs                      23.1.4-1                164.88 MiB      41.44 MiB\nextra/lm_sensors                     1:3.6.2-1                 0.48 MiB       0.13 MiB\ncore/lzo                             2.10-5                    0.38 MiB       0.09 MiB\nextra/mesa                           1:26.2.6-1               53.90 MiB      13.51 MiB\ncore/mpdecimal                       4.0.1-3                   0.32 MiB       0.10 MiB\nextra/mpg123                         1.33.7-1                  1.20 MiB       0.45 MiB\ncore/nspr                            4.40-1                    0.72 MiB       0.20 MiB\ncore/nss                             3.132-1                   5.44 MiB       1.72 MiB\nextra/numactl                        2.0.19-1                  0.24 MiB       0.08 MiB\nextra/opus                           1.6.1-1                   4.16 MiB       3.29 MiB\nextra/orc                            0.4.44-1                  1.45 MiB       0.34 MiB\nextra/pango                          1:1.58.2-1                2.38 MiB       0.43 MiB\nextra/pipewire                       1:1.6.10-1                1.30 MiB       0.27 MiB\nextra/pixman                         0.46.4-1                  0.74 MiB       0.28 MiB\nextra/pulseaudio-alsa                1:1.2.12-6                0.00 MiB       0.00 MiB\ncore/python                          3.14.8-1                 73.79 MiB      13.55 MiB\nextra/python-gobject                 3.58.1-1                  1.52 MiB       0.31 MiB\nextra/shared-mime-info               2.5.1-2                   5.83 MiB       0.75 MiB\nextra/spirv-tools                    1:1.4.363.0-1             8.16 MiB       2.12 MiB\nextra/tinysparql                     3.12.0-1                  3.92 MiB       1.06 MiB\nextra/vmaf                           3.2.1-1                   7.11 MiB       0.48 MiB\nextra/vulkan-icd-loader              1.4.363.0-1               0.67 MiB       0.18 MiB\nextra/wayland                        1.26.0-1                  0.86 MiB       0.15 MiB\nextra/xcb-proto                      1.17.0-4                  1.03 MiB       0.13 MiB\nextra/xcb-util                       0.4.1-2                   0.03 MiB       0.01 MiB\nextra/xcb-util-cursor                0.1.6-1                   0.03 MiB       0.01 MiB\nextra/xcb-util-image                 0.4.1-3                   0.05 MiB       0.02 MiB\nextra/xcb-util-keysyms               0.4.1-5                   0.02 MiB       0.01 MiB\nextra/xcb-util-renderutil            0.3.10-2                  0.03 MiB       0.01 MiB\nextra/xdg-desktop-portal             1.22.1-2                  1.83 MiB       0.44 MiB\nextra/xdg-desktop-portal-gtk         1.15.3-2                  0.42 MiB       0.10 MiB\nextra/xkeyboard-config               2.48-1                   10.24 MiB       0.87 MiB\nextra/xorg-xprop                     1.2.8-1                   0.05 MiB       0.03 MiB\nextra/xorgproto                      2026.1-1                  1.47 MiB       0.24 MiB\nzoom                                 7.2.1.5760-1            949.55 MiB               \n\nTotal Download Size:    165.28 MiB\nTotal Installed Size:  1796.77 MiB\n\n:: Proceed with installation? [Y/n] \n:: Retrieving packages...\n llvm-libs-23.1.4-1-x86_64 downloading...\n ibus-1.5.34-2-x86_64 downloading...\n python-3.14.8-1-x86_64 downloading...\n mesa-1:26.2.6-1-x86_64 downloading...\n gtk4-1:4.24.1-1-x86_64 downloading...\nErrors occurred, no packages were upgraded.\n",
+      "stderr_tail": "error: failed retrieving file 'ibus-1.5.34-2-x86_64.pkg.tar.zst.sig' from fastly.mirror.pkgbuild.com : Operation too slow. Less than 1 bytes/sec transferred the last 10 seconds\nerror: failed retrieving file 'python-3.14.8-1-x86_64.pkg.tar.zst.sig' from fastly.mirror.pkgbuild.com : Operation too slow. Less than 1 bytes/sec transferred the last 10 seconds\nerror: failed retrieving file 'mesa-1:26.2.6-1-x86_64.pkg.tar.zst.sig' from fastly.mirror.pkgbuild.com : Operation too slow. Less than 1 bytes/sec transferred the last 10 seconds\nwarning: too many errors from fastly.mirror.pkgbuild.com, skipping for the remainder of this transaction\nerror: failed retrieving file 'gtk4-1:4.24.1-1-x86_64.pkg.tar.zst.sig' from fastly.mirror.pkgbuild.com : Operation too slow. Less than 1 bytes/sec transferred the last 10 seconds\nwarning: failed to retrieve some files\nerror: failed to commit transaction (failed to retrieve some files)\n"
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "failed",
+  "verification": {
+    "ok": false,
+    "packages": {
+      "zoom": false
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": [
+      "native command failed"
+    ],
+    "isolation": [
+      "debian13 inventory changed"
+    ]
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "debian13": {
+      "before": "167c1876a497ea4c7be24b2c3371d4943d29f8c2a2cf8474c567ccf18050ed7a",
+      "after": "b7c9577a37f5a0fdce6446f786f049fd8ea314657db50845b9445ba838fd7dd3",
+      "probed_before": "167c1876a497ea4c7be24b2c3371d4943d29f8c2a2cf8474c567ccf18050ed7a",
+      "probed_after": "b7c9577a37f5a0fdce6446f786f049fd8ea314657db50845b9445ba838fd7dd3",
+      "unchanged": false,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+    "content_revision": 6,
+    "package_inventory_sha256": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88"
+  },
+  "phase": "failed",
+  "failure_phase": "native-command",
+  "started_at": "2026-10-31T12:51:35+08:00",
+  "finished_at": "2026-10-31T12:53:43+08:00"
+}

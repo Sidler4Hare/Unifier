@@ -1,0 +1,1 @@
+lab: compatibility whitelist refused: host 'ubuntu' and guest 'debian13' share the 'debian' family; same-family containers are forbidden

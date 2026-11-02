@@ -1,0 +1,108 @@
+{
+  "before": [
+    {
+      "id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "name": "ml-53c5c8a5-freecad-arch",
+      "status": "exited",
+      "started_at": "2026-10-28T20:45:24.43839611+08:00",
+      "finished_at": "2026-10-28T20:45:57.068551002+08:00"
+    },
+    {
+      "id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "name": "ml-6b061a2f-meeting",
+      "status": "exited",
+      "started_at": "2026-10-28T20:47:17.749622632+08:00",
+      "finished_at": "2026-10-28T20:47:51.415982474+08:00"
+    }
+  ],
+  "refusals": [
+    {
+      "entry": "/home/omg/文档/多兼容linux机/bin/unifier",
+      "exit_code": 1,
+      "error": "unifier: compatibility whitelist refused: host 'fedora' and guest 'fedora44' share the 'fedora' family; same-family containers are forbidden",
+      "isolated_root_absent": true
+    },
+    {
+      "entry": "/home/omg/文档/多兼容linux机/tools/ml.py",
+      "exit_code": 1,
+      "error": "unifier: compatibility whitelist refused: host 'fedora' and guest 'fedora44' share the 'fedora' family; same-family containers are forbidden",
+      "isolated_root_absent": true
+    },
+    {
+      "entry": "/home/omg/.local/share/multilinux/apps/freecad/tools/ml.py",
+      "exit_code": 1,
+      "error": "ml: compatibility whitelist refused: host 'fedora' and guest 'fedora44' share the 'fedora' family; same-family containers are forbidden",
+      "isolated_root_absent": true
+    },
+    {
+      "entry": "/home/omg/.local/share/multilinux/apps/wemeet/tools/ml.py",
+      "exit_code": 1,
+      "error": "ml: compatibility whitelist refused: host 'fedora' and guest 'fedora44' share the 'fedora' family; same-family containers are forbidden",
+      "isolated_root_absent": true
+    }
+  ],
+  "concurrent_create": {
+    "processes": [
+      {
+        "alias": "alpha",
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "unifier: target debian13 already has an environment: beta; only one environment per target is allowed in this installation\n"
+      },
+      {
+        "alias": "beta",
+        "exit_code": 0,
+        "stdout": "created beta (debian13) stopped\n",
+        "stderr": ""
+      }
+    ],
+    "record_count": 1,
+    "container_id": "be50bebfac7174290517712db9ff0a4f2fb95f9bb66a1c66839e9f50f7058706"
+  },
+  "daily_app_preflight": [
+    {
+      "application": "freecad",
+      "binding": {
+        "environment_id": "freecad-arch",
+        "environment_uuid": "1da35b87-4617-4953-bb03-0b55613a73a4",
+        "generation": 1,
+        "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+        "app_instance_uuid": "3bab3a05-68ef-4da8-bf9c-69ed8f4db083"
+      },
+      "policy_version": 2,
+      "runtime_state": "stopped",
+      "host_relationship": "cross-family"
+    },
+    {
+      "application": "wemeet",
+      "binding": {
+        "environment_id": "meeting",
+        "environment_uuid": "1968c461-29af-4197-9762-a4c0bd51be86",
+        "generation": 1,
+        "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+        "app_instance_uuid": "ef419e86-cb15-4589-b5fa-468bf8c624d6"
+      },
+      "policy_version": 2,
+      "runtime_state": "stopped",
+      "host_relationship": "cross-family"
+    }
+  ],
+  "after": [
+    {
+      "id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "name": "ml-53c5c8a5-freecad-arch",
+      "status": "exited",
+      "started_at": "2026-10-28T20:45:24.43839611+08:00",
+      "finished_at": "2026-10-28T20:45:57.068551002+08:00"
+    },
+    {
+      "id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "name": "ml-6b061a2f-meeting",
+      "status": "exited",
+      "started_at": "2026-10-28T20:47:17.749622632+08:00",
+      "finished_at": "2026-10-28T20:47:51.415982474+08:00"
+    }
+  ],
+  "existing_containers_preserved": true,
+  "passed": true
+}

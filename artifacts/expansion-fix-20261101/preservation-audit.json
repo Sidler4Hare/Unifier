@@ -1,0 +1,33 @@
+{
+  "containers_original_count": 8,
+  "original_container_differences": [],
+  "daily_changed_files": [
+    "/home/omg/.local/share/multilinux/apps/freecad/deployment-current.json",
+    "/home/omg/.local/share/multilinux/apps/freecad/tools/ml.py",
+    "/home/omg/.local/share/multilinux/apps/freecad/tools/unifier.py",
+    "/home/omg/.local/share/multilinux/apps/wemeet/deployment-current.json",
+    "/home/omg/.local/share/multilinux/apps/wemeet/tools/ml.py",
+    "/home/omg/.local/share/multilinux/apps/wemeet/tools/unifier.py"
+  ],
+  "only_expected_entrypoints_changed": true,
+  "git_index_bytes_unchanged": true,
+  "changed_existing_source_paths": [
+    "src/unifier/__init__.py",
+    "src/unifier/cli.py",
+    "src/unifier/native_io.py",
+    "src/unifier/packages.py",
+    "src/unifier/runtime.py",
+    "src/unifier/service.py",
+    "src/unifier/shortcuts.py",
+    "tests/test_dependencies.py",
+    "tests/test_native_io.py",
+    "tests/test_packages.py",
+    "docs/自动依赖与原生安装交互.md",
+    "HANDOFF.md",
+    "README.md"
+  ],
+  "new_source_paths": [
+    "tests/test_package_recovery.py",
+    "docs/v0.0.2.md"
+  ]
+}

@@ -15,8 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "tests"))
 
-from multilinux import fuse_view
-from multilinux.view_backend import ViewError
+from unifier import fuse_view
+from unifier.view_backend import ViewError
 from test_projection_support import (
     attr_from_payload, fixture, open_fd_count, parse_dirents)
 
@@ -349,7 +349,7 @@ class ControllerApiRegressions(unittest.TestCase):
                 self.assertEqual(reply[2], 0)
 
                 with mock.patch(
-                        "multilinux.projection.reopen_readonly",
+                        "unifier.projection.reopen_readonly",
                         side_effect=ViewError(
                             errno.EMFILE, "injected handle exhaustion")):
                     reply = server.call(
@@ -448,7 +448,7 @@ class ReferenceLifecycle(unittest.TestCase):
 
 class StableInodeIdentity(unittest.TestCase):
     def test_external_inode_is_pure_identity_and_rejects_live_collision(self):
-        from multilinux.projection import _external_inode
+        from unifier.projection import _external_inode
         key = ("mount:0", 42, 7, 9)
         first = _external_inode("view-a", key)
         self.assertEqual(first, _external_inode("view-a", key))
@@ -463,7 +463,7 @@ class StableInodeIdentity(unittest.TestCase):
             (root / "b").write_text("b", encoding="utf-8")
             with fixture(root) as (_root, backend, server):
                 with mock.patch(
-                        "multilinux.projection._external_inode",
+                        "unifier.projection._external_inode",
                         return_value=123456789):
                     node_a = server.lookup("a")
                     self.assertEqual(
@@ -547,11 +547,11 @@ class ResourceBudgets(unittest.TestCase):
 
 class LegacyEntryPoint(unittest.TestCase):
     def test_frozen_legacy_imports_its_own_backend_and_keeps_cli_arguments(self):
-        from multilinux import fuse_view_legacy
-        from multilinux import view_backend_legacy
+        from unifier import fuse_view_legacy
+        from unifier import view_backend_legacy
         self.assertEqual(
             fuse_view_legacy.ViewBackend.__module__,
-            "multilinux.view_backend_legacy")
+            "unifier.view_backend_legacy")
         self.assertIs(
             fuse_view_legacy.ViewBackend, view_backend_legacy.ViewBackend)
         self.assertNotEqual(
@@ -561,7 +561,7 @@ class LegacyEntryPoint(unittest.TestCase):
         environment = dict(os.environ)
         environment["PYTHONPATH"] = str(ROOT / "src")
         for module in (
-                "multilinux.fuse_view_legacy", "multilinux.fuse_view"):
+                "unifier.fuse_view_legacy", "unifier.fuse_view"):
             result = subprocess.run(
                 [sys.executable, "-m", module, "--help"],
                 cwd=str(ROOT), env=environment, capture_output=True,

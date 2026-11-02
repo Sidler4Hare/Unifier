@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "target": "debian13",
+  "environment_id": "debian13",
+  "source_root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+  "environment_uuid": "4e00e4c0-f686-4de5-99a5-cc96909a985f",
+  "generation": 1,
+  "container_id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+  "files_dir": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files",
+  "files_mounted": true,
+  "conflicts": []
+}

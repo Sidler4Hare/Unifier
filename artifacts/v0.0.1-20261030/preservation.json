@@ -1,0 +1,92 @@
+{
+  "backup": "/home/omg/文档/Unifier-backups/20261030-224546-before-v0.0.1-fixes",
+  "daily_state": [
+    {
+      "path": "freecad/.lab/state/environments/freecad-arch.json",
+      "same_bytes": false
+    },
+    {
+      "path": "freecad/.lab/state/launches/freecad.json",
+      "same_bytes": true
+    },
+    {
+      "path": "freecad/.lab/state/data-roots/registry.json",
+      "same_bytes": true
+    },
+    {
+      "path": "freecad/.lab/state/handlers/registry.json",
+      "same_bytes": true
+    },
+    {
+      "path": "freecad/.lab/state/projects/registry.json",
+      "same_bytes": true
+    },
+    {
+      "path": "freecad/.lab/state/views/registry.json",
+      "same_bytes": true
+    },
+    {
+      "path": "wemeet/.lab/state/environments/meeting.json",
+      "same_bytes": true
+    },
+    {
+      "path": "wemeet/.lab/state/launches/wemeet.json",
+      "same_bytes": true
+    },
+    {
+      "path": "wemeet/.lab/state/transactions/txn51dbd93687f9.json",
+      "same_bytes": true
+    },
+    {
+      "path": "wemeet/.lab/state/transactions/txn486c02ed4859.json",
+      "same_bytes": true
+    },
+    {
+      "path": "wemeet/.lab/state/transactions/txne56a79a9b81a.json",
+      "same_bytes": true
+    },
+    {
+      "path": "wemeet/.lab/state/transactions/txnf5bf27143ea4.json",
+      "same_bytes": true
+    },
+    {
+      "path": "wemeet/.lab/state/data-roots/registry.json",
+      "same_bytes": true
+    },
+    {
+      "path": "wemeet/.lab/state/projects/registry.json",
+      "same_bytes": true
+    },
+    {
+      "path": "wemeet/.lab/state/desktop-integrations/registry.json",
+      "same_bytes": true
+    },
+    {
+      "path": "wemeet/.lab/state/project-sessions/registry.json",
+      "same_bytes": true
+    },
+    {
+      "path": "wemeet/.lab/state/views/registry.json",
+      "same_bytes": true
+    }
+  ],
+  "environment_identity": [
+    {
+      "app": "freecad",
+      "same_uuid": true,
+      "same_generation": true,
+      "same_cid": true
+    },
+    {
+      "app": "wemeet",
+      "same_uuid": true,
+      "same_generation": true,
+      "same_cid": true
+    }
+  ],
+  "staged_entries_unchanged": true,
+  "containers": [
+    "ml-53c5c8a5-freecad-arch\t37daa7f7ff06\tExited (143) About a minute ago",
+    "ml-6b061a2f-meeting\tb9dd15c5fccf\tExited (143) 2 days ago"
+  ]
+}

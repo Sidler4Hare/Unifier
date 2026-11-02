@@ -1,0 +1,124 @@
+{
+  "schema": "unifier.remote-initial-validation.v1",
+  "run_id": "server-validation-20261030T204043+0800",
+  "captured_at": "2026-10-30T12:56:21.789824+00:00",
+  "source_bundle_sha256": "8b16f27702ad918dee9719ebb60784b3ebafd76413bc52eb0b44fd8dfe23fb20",
+  "overall_acceptance": "NOT_ACCEPTED",
+  "product_source_modified_by_this_run": false,
+  "hosts": {
+    "ubuntu": {
+      "hostname": "b0512",
+      "python": "3.12.3",
+      "kernel": "6.8.0-147-generic",
+      "login_user": "agent",
+      "source_files_verified": 202,
+      "offline_returncode": 1,
+      "offline_summary": [
+        "Ran 537 tests in 28.826s",
+        "FAILED (failures=9, errors=12, skipped=6)"
+      ],
+      "headless_targets": [
+        "debian13"
+      ],
+      "headless_passed": true,
+      "headless_receipt": "ubuntu/live-20261030T204909/headless.json",
+      "cli_receipt": "ubuntu/cli-20261030T205134/summary.json",
+      "private_bind_write_verified": true,
+      "stopped_etc_listing": "FAIL",
+      "original_container_ids": [],
+      "existing_containers_preserved": true,
+      "remaining_task_mounts": [],
+      "doctor_direct_script": "FAIL_IMPORT_SHADOWING",
+      "doctor_module_final": "PASS"
+    },
+    "arch-lab01": {
+      "hostname": "arch-lab01",
+      "python": "3.14.8",
+      "kernel": "7.2.11-arch1-1",
+      "login_user": "dev (via agent server SSH config)",
+      "source_files_verified": 202,
+      "offline_returncode": 1,
+      "offline_summary": [
+        "Ran 550 tests in 23.461s",
+        "FAILED (failures=1, skipped=4)"
+      ],
+      "headless_targets": [
+        "debian13",
+        "fedora44",
+        "arch"
+      ],
+      "headless_passed": true,
+      "headless_receipt": "arch-lab01/results-20261030T204352/headless.json",
+      "cli_receipt": "arch-lab01/cli-20261030T205134/summary.json",
+      "private_bind_write_verified": true,
+      "stopped_etc_listing": "FAIL",
+      "original_container_ids": [
+        "5e2d5d5b2b04a7e840755f747c96085ff8db11fd6b33584ef51c9e78e4e1871f"
+      ],
+      "existing_containers_preserved": true,
+      "remaining_task_mounts": [],
+      "doctor_direct_script": "FAIL_IMPORT_SHADOWING",
+      "doctor_module_final": "PASS"
+    },
+    "debian-lab01": {
+      "hostname": "debian-lab01",
+      "python": "3.13.5",
+      "kernel": "6.12.113+deb13-cloud-amd64",
+      "login_user": "dev (via agent server SSH config)",
+      "source_files_verified": 202,
+      "offline_returncode": 1,
+      "offline_summary": [
+        "Ran 537 tests in 17.641s",
+        "FAILED (failures=2, skipped=7)"
+      ],
+      "headless_targets": [
+        "debian13"
+      ],
+      "headless_passed": true,
+      "headless_receipt": "debian-lab01/results-20261030T204352/headless.json",
+      "cli_receipt": "debian-lab01/cli-20261030T205134/summary.json",
+      "private_bind_write_verified": true,
+      "stopped_etc_listing": "FAIL",
+      "original_container_ids": [
+        "944bacb5ed8e8c97e2081409959c2584df8eb39ac837fccc704634a168410d87"
+      ],
+      "existing_containers_preserved": true,
+      "remaining_task_mounts": [],
+      "doctor_direct_script": "FAIL_IMPORT_SHADOWING",
+      "doctor_module_final": "PASS"
+    }
+  },
+  "scope": "First actual-host round; five of nine host/guest lifecycle cells, offline regression and headless CLI. GUI applications, media, complete app/Agent expansion and performance remain unaccepted.",
+  "findings": [
+    {
+      "id": "R01",
+      "status": "REPRODUCED",
+      "scope": "Ubuntu Python 3.12 controlled move",
+      "detail": "fcntl.F_SETOWN_EX is absent; direct reference in lease._set_owner_tid raises AttributeError during controlled source cleanup. Baseline has 9 failures and 12 errors including subtests; do not count them as distinct root causes."
+    },
+    {
+      "id": "R02",
+      "status": "REPRODUCED",
+      "scope": "All five tested host/guest stopped-view cells",
+      "detail": "unifier ls TARGET /etc --json aborts at /etc/mtab -> /proc/mounts with EOPNOTSUPP. Running /etc and stopped / and /usr list successfully."
+    },
+    {
+      "id": "R03",
+      "status": "REPRODUCED",
+      "scope": "tools/lab.py direct script on all three hosts",
+      "detail": "tools/unifier.py shadows src/unifier when the legacy alias imports the renamed package. Documented direct doctor invocation fails. PYTHONPATH=src python3 -m tools.lab doctor works; final module-doctor passes all three after prerequisite installation."
+    },
+    {
+      "id": "R04",
+      "status": "MECHANISM_REPRODUCED_LIVE_CACHE_IMPACT_NOT_RUN",
+      "scope": "Ubuntu and Debian rapid same-size writes with mtime restored",
+      "detail": "Unchanged size/mtime/ctime signature despite changed bytes: Ubuntu 47/50, Debian 48/50, Arch 0/50. With 25ms delay, all 0/50. Protocol lookup notification expectation is timing dependent; this does not establish real mounted stale-cache frequency."
+    },
+    {
+      "id": "E01",
+      "status": "UNSUPPORTED_ENVIRONMENT_NOT_ACCEPTED",
+      "scope": "Arch VM virtual render node",
+      "detail": "Synthetic DMA-BUF fixture returns status=unsupported at gbm_alloc; linear XRGB8888 dumb-buffer allocation permission denied. No GPU round trip or physical V100 acceptance."
+    }
+  ]
+}

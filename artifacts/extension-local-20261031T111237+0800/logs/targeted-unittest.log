@@ -1,0 +1,28 @@
+refusing to overwrite an unknown file: /tmp/tmplt7eyjkc/unifier
+use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txne5a6fe583ec3
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnb6ecb2cb54c9
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn0322c85a8707
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txna625e4cec921
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn106dd5caa53f
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn6495ede638bb
+fedora44: dnf install -y hello
+fedora44: install completed txn7088bcd59842
+----------------------------------------------------------------------
+Ran 97 tests in 10.257s
+
+OK

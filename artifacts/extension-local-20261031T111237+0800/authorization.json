@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-31",
+  "timezone": "Asia/Shanghai",
+  "scope": "Local Fedora workstation expansion tests under revision 3",
+  "user_authorization": "允许开展本机的扩展测试。和之前一样你来指挥DeepSeek开工。可以随便下载东西，目前我在白嫖wifi",
+  "supersedes": "Earlier local slice download restrictions and 80 MiB cap; does not authorize remote hosts or bypass policy v2",
+  "downloads": "Required official packages/images/dependencies allowed, no artificial traffic cap",
+  "daily_containers_preserved": [
+    "ml-53c5c8a5-freecad-arch",
+    "ml-6b061a2f-meeting"
+  ],
+  "provider": "command-code",
+  "model": "deepseek/deepseek-v4.1-flash",
+  "backup": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/source-before.tar.gz",
+  "baseline": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/baseline.json"
+}

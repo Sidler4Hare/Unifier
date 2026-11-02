@@ -1,0 +1,6 @@
+arch: installing package(s) through the native transaction: htop.
+arch: pacman -Syu --noconfirm --needed htop
+arch: install completed txn7dcb9785c5c1
+Native package transaction completed: txn7dcb9785c5c1. A successful package transaction does not prove the application entry works.
+arch: using explicit entry /usr/bin/htop.
+Registered application htop (target arch, environment arch).

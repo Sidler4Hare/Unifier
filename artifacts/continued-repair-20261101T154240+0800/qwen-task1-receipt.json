@@ -1,0 +1,56 @@
+{
+  "provider": "local-server",
+  "provider_display_name": "Local qwen server",
+  "model": "swift-1.5-iq3_s",
+  "display_name": "qwen 3.8 flash",
+  "reasoning_effort": "max",
+  "session_id": "session-750d3832-ae6b-4c9e-86a4-b8d29338109a",
+  "dsh_turn_completed": true,
+  "source_files": [
+    "src/unifier/packages.py",
+    "tests/test_app_entries.py"
+  ],
+  "independent_verification": {
+    "old_parser_replayed_from": "before-local-model.tar.gz",
+    "tests": 2,
+    "expected_failures": 17,
+    "errors": 0,
+    "new_parser_controller_tests": 37,
+    "new_parser_controller_result": "passed"
+  },
+  "real_guest_package_lists": {
+    "passed": true,
+    "targets": [
+      {
+        "target": "debian13",
+        "package": "base-files",
+        "file_count": 100,
+        "passed": true,
+        "preview": [
+          "/.",
+          "/boot",
+          "/dev",
+          "/etc",
+          "/etc/debian_version"
+        ],
+        "restored_stopped": true
+      },
+      {
+        "target": "arch",
+        "package": "filesystem",
+        "file_count": 127,
+        "passed": true,
+        "preview": [
+          "/bin",
+          "/boot/",
+          "/dev/",
+          "/etc/",
+          "/etc/arch-release"
+        ],
+        "restored_stopped": true
+      }
+    ]
+  },
+  "raw_events": ".lab/agents/continued-repair-20261101T154240+0800/qwen-task1-attempt2.jsonl",
+  "private_provider_config_excluded": true
+}

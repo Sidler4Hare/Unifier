@@ -1,0 +1,7 @@
+{
+  "old_helper_tests": 3,
+  "expected_failures": 2,
+  "errors": 0,
+  "new_helper_tests": 6,
+  "new_helper_result": "passed"
+}

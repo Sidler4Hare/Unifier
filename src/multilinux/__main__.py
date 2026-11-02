@@ -1,3 +1,4 @@
-from multilinux.cli import main
+"""Old ``python -m multilinux`` entry. Prefer ``python -m unifier``."""
+import runpy
 
-raise SystemExit(main())
+runpy.run_module("unifier", run_name="__main__")

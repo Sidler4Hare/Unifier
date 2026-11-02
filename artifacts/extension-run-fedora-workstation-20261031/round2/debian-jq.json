@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "install_ok": true,
+  "oracle": [
+    "jq-1.7",
+    "5",
+    "bad_exit=5"
+  ]
+}

@@ -1,0 +1,1304 @@
+--- /dev/null
++++ b/src/multilinux/app_entries.py
+@@ -0,0 +1,86 @@
++"""Pure parsing of package paths and desktop launch candidates.
++
++No runtime or environment service is imported here. Candidates describe a
++literal argv; the service still resolves guest commands and validates every
++launch binding before execution.
++"""
++
++import re
++import shlex
++
++from multilinux.errors import MultilinuxError
++
++
++_EXECUTABLE_DIRS = (
++    "/usr/bin/", "/bin/", "/usr/sbin/", "/sbin/",
++    "/usr/local/bin/", "/usr/local/sbin/",
++)
++_APPLICATION_DIRS = ("/usr/share/applications/", "/usr/local/share/applications/")
++
++
++_DESKTOP_DROP_FIELD_CODES = {
++    "%f", "%F", "%u", "%U", "%i", "%c", "%k", "%d", "%D", "%n", "%N", "%v", "%m",
++}
++_DESKTOP_UNSUPPORTED_FIRST = {
++    "sh", "bash", "dash", "zsh", "env", "/bin/sh", "/usr/bin/sh",
++    "/bin/bash", "/usr/bin/bash", "/usr/bin/env", "/bin/env",
++}
++
++
++def parse_desktop_exec(value: str) -> dict:
++    """Parse one desktop Exec value into a literal argv.
++
++    Field codes that name a file/URL/icon are removed; ``%%`` becomes one
++    literal percent.  A shell wrapper or a first token that is not a plain
++    command is reported as unsupported so the caller can demand --exec rather
++    than suggest a wrong launch.  No process is started here.
++    """
++    try:
++        tokens = shlex.split(value, posix=True)
++    except ValueError as exc:
++        raise MultilinuxError(f"desktop Exec cannot be parsed: {exc}") from exc
++    argv = []
++    for token in tokens:
++        if token in _DESKTOP_DROP_FIELD_CODES:
++            continue
++        if token == "%%":
++            token = "%"
++        elif token.startswith("%"):
++            raise MultilinuxError(f"unsupported desktop Exec field code: {token}")
++        else:
++            token = token.replace("%%", "%")
++        if re.search(r"%[A-Za-z]", token):
++            raise MultilinuxError(f"unsupported desktop Exec field code in {token!r}")
++        if not token:
++            continue
++        argv.append(token)
++    if not argv:
++        raise MultilinuxError("desktop Exec has no launchable argv")
++    first = argv[0]
++    if first in _DESKTOP_UNSUPPORTED_FIRST or "=" in first:
++        raise MultilinuxError(
++            "desktop Exec uses a shell/wrapper form; pass --exec explicitly")
++    if not first.startswith("/") and not re.fullmatch(r"[A-Za-z0-9._+-]+", first):
++        raise MultilinuxError(
++            "desktop Exec first component is not a plain command or absolute path")
++    return {"argv": argv, "executable": first}
++
++
++def package_entry_kind(path: str) -> str | None:
++    if any(path.startswith(prefix) and path.count("/") == prefix.count("/")
++           for prefix in _EXECUTABLE_DIRS):
++        return "executable"
++    if path.endswith(".desktop") and path.startswith(_APPLICATION_DIRS):
++        return "desktop"
++    return None
++
++
++def desktop_exec_argv(text: str) -> list[str] | None:
++    """Read the first Exec line; unsupported entries require explicit --exec."""
++    for line in text.splitlines():
++        if line.startswith("Exec="):
++            try:
++                return parse_desktop_exec(line[5:].strip())["argv"]
++            except MultilinuxError:
++                return None
++    return None
+--- a/src/multilinux/file_operations.py
++++ b/src/multilinux/file_operations.py
+@@ -9,9 +9,9 @@
+ The journal is deliberately per operation.  A long copy never holds the global
+ operation registry lock.  Publication uses an O_EXCL staging file in the target
+ directory and a same-filesystem ``linkat`` (``os.link``) without overwrite.
+-The source is never deleted.  A move therefore stops at
+-``SOURCE_CLEANUP_PENDING`` and says that the destination is copied while the
+-source is retained.
++By default a move retains the source at ``SOURCE_CLEANUP_PENDING``.  Explicit
++``cleanup_source`` authorization on a controlled root enables pinned source
++capture and deletion, with durable recovery at every cleanup stage.
+ 
+ This module does not claim a cross-system transaction between the filesystem
+ and the operation registry, a content-addressed CAS, full metadata fidelity, or
+@@ -21,6 +21,7 @@
+ from __future__ import annotations
+ 
+ from contextlib import contextmanager
++from dataclasses import dataclass
+ import datetime as dt
+ import errno
+ import fcntl
+@@ -119,6 +120,15 @@
+ _DIR_FLAGS = os.O_RDONLY | os.O_DIRECTORY | os.O_CLOEXEC | os.O_NOFOLLOW
+ 
+ 
++def _close_fds(*descriptors: int | None) -> None:
++    for descriptor in descriptors:
++        if descriptor is not None and descriptor >= 0:
++            try:
++                os.close(descriptor)
++            except OSError:
++                pass
++
++
+ def _now() -> str:
+     return dt.datetime.now(ZoneInfo("Asia/Shanghai")).isoformat(timespec="seconds")
+ 
+@@ -421,12 +431,6 @@
+         self.reason = reason
+ 
+ 
+-class _LeaseLost(Exception):
+-    def __init__(self, reason: str):
+-        super().__init__(reason)
+-        self.reason = reason
+-
+-
+ def _version_without_ctime_matches(stored: dict, observed: os.stat_result) -> bool:
+     if not isinstance(stored, dict):
+         return False
+@@ -441,6 +445,38 @@
+     # checks rather than weakening them.
+     old_ctime = stored.get("ctime_ns")
+     return isinstance(old_ctime, int) and observed.st_ctime_ns >= old_ctime
++
++
++@dataclass
++class _CleanupResources:
++    """FDs and leases owned by one controlled-cleanup attempt.
++
++    The coordinator releases target then source leases before closing any FD,
++    including when a stage exits early or fails while writing its journal.
++    """
++
++    root_fd: int | None = None
++    parent_fd: int | None = None
++    qfd: int | None = None
++    entry_fd: int | None = None
++    source_fd: int | None = None
++    target_root_fd: int | None = None
++    target_parent_fd: int | None = None
++    target_fd: int | None = None
++    root_stat: os.stat_result | None = None
++    qstat: os.stat_result | None = None
++    entry_stat: os.stat_result | None = None
++    lease: WriteLease | None = None
++    target_lease: WriteLease | None = None
++
++    def close(self) -> None:
++        if self.target_lease is not None:
++            self.target_lease.release()
++        if self.lease is not None:
++            self.lease.release()
++        _close_fds(
++            self.entry_fd, self.source_fd, self.qfd, self.parent_fd, self.root_fd,
++            self.target_fd, self.target_parent_fd, self.target_root_fd)
+ 
+ 
+ class FileOperations:
+@@ -1199,22 +1235,13 @@
+             self._verify_target_held(record, target_fd, opened)
+             return root_fd, parent_fd, target_fd, target_name, opened
+         except BaseException:
+-            for descriptor in (target_fd, parent_fd, root_fd):
+-                if descriptor is not None:
+-                    try:
+-                        os.close(descriptor)
+-                    except OSError:
+-                        pass
++            _close_fds(target_fd, parent_fd, root_fd)
+             raise
+ 
+     def _verify_cleanup_target_once(self, record: dict) -> None:
+         root_fd, parent_fd, target_fd, _name, _stat_result = \
+             self._open_cleanup_target_held(record)
+-        for descriptor in (target_fd, parent_fd, root_fd):
+-            try:
+-                os.close(descriptor)
+-            except OSError:
+-                pass
++        _close_fds(target_fd, parent_fd, root_fd)
+         self._verify_registry_once(record)
+ 
+     def _verify_cleanup_authorization(self, record: dict,
+@@ -1563,7 +1590,6 @@
+                         qfd: int, source_fd: int, source_stat: os.stat_result,
+                         lease: WriteLease) -> None:
+         block = record["source_cleanup"]
+-        source = record["source"]
+         observed = self._lstat_at(parent_fd, entry_name)
+         if observed is None or (observed.st_dev, observed.st_ino) != (
+                 source_stat.st_dev, source_stat.st_ino):
+@@ -1625,7 +1651,6 @@
+         record["state"] = "SOURCE_CAPTURED"
+         self._write_journal(record)
+         self._fault("SOURCE_CAPTURED")
+-        _ = source
+ 
+     def _handle_foreign_capture(self, record: dict, source_fd, parent_fd: int,
+                                 entry_name: str, qfd: int, root_fd: int) -> None:
+@@ -1711,6 +1736,225 @@
+                 "the target pathname no longer names the held published inode")
+         return held
+ 
++    def _acquire_cleanup_lease(self, record: dict, lease: WriteLease,
++                               problem_state: str) -> bool:
++        try:
++            lease.acquire()
++        except LeaseError as exc:
++            self._cleanup_problem(record, problem_state, str(exc))
++            return False
++        return True
++
++    def _mark_source_isolated(self, record: dict, parent_fd: int,
++                              entry_name: str) -> None:
++        block = record["source_cleanup"]
++        block["original_path_repopulated"] = self._check_original_after_capture(
++            record, parent_fd, entry_name)
++        block["state"] = "isolated"
++        record["state"] = "SOURCE_ISOLATED"
++        self._write_journal(record)
++        self._fault("SOURCE_ISOLATED")
++
++    def _verify_cleanup_bindings(self, record: dict, handles: _CleanupResources,
++                                target_name: str) -> dict:
++        source_record, target_record = self._load_records(record)
++        self._verify_cleanup_authorization(record, source_record)
++        self._verify_source_anchor_paths(
++            record, source_record, handles.root_fd, handles.parent_fd,
++            handles.root_stat)
++        self._verify_target_anchor_paths(
++            record, target_record, handles.target_root_fd, handles.target_parent_fd,
++            handles.target_fd, target_name)
++        self._verify_registry_once(record)
++        return source_record
++
++    def _resume_removed_cleanup(self, record: dict, handles: _CleanupResources) -> None:
++        block = record["source_cleanup"]
++        # Journal written after the private unlink.  A missing empty
++        # quarantine is expected if the process died after rmdir.
++        source_record = self._root_record(
++            record["source"]["root_uuid"], "source", recovery=True)
++        handles.root_fd, handles.root_stat, _ = self._open_root_fd(
++            source_record, "source")
++        name = block.get("quarantine", {}).get("dir_name")
++        observed = self._lstat_at(handles.root_fd, name) if name else None
++        if observed is not None:
++            if not stat.S_ISDIR(observed.st_mode):
++                raise _Reconcile(
++                    "the quarantine path is no longer a directory")
++            handles.qfd = os.open(name, _DIR_FLAGS, dir_fd=handles.root_fd)
++            handles.qstat = os.fstat(handles.qfd)
++            if (handles.qstat.st_dev, handles.qstat.st_ino) != (
++                    block["quarantine"].get("dir_dev"),
++                    block["quarantine"].get("dir_ino")):
++                raise _Reconcile(
++                    "the quarantine path was replaced after source removal")
++            self._remove_quarantine_dir(
++                record, handles.root_fd, handles.qfd, handles.qstat)
++        self._cleanup_done(record)
++
++    def _isolate_cleanup_source(self, record: dict, handles: _CleanupResources) -> bool:
++        state = record.get("state")
++        (_, handles.root_fd, handles.parent_fd, handles.root_stat,
++         root_mount) = self._open_source_anchor(record)
++        create = state not in {
++            "SOURCE_CAPTURED", "SOURCE_ISOLATED", "SOURCE_DELETION_INTENT"}
++        handles.qfd, handles.qstat = self._ensure_quarantine(
++            record, handles.root_fd, handles.root_stat, root_mount, create=create)
++        handles.entry_fd, handles.entry_stat = self._open_quarantine_entry(handles.qfd)
++
++        if handles.entry_fd is not None:
++            source_identity = (
++                record["source"]["observed_version"].get("dev"),
++                record["source"]["observed_version"].get("ino"))
++            if (handles.entry_stat.st_dev, handles.entry_stat.st_ino) != source_identity:
++                self._handle_foreign_capture(
++                    record, None, handles.parent_fd, self._source_entry_name(record),
++                    handles.qfd, handles.root_fd)
++                return False
++            handles.lease = WriteLease(handles.entry_fd, "captured source")
++            if not self._acquire_cleanup_lease(
++                    record, handles.lease, "NEEDS_RECONCILIATION"):
++                return False
++            record["source_cleanup"]["lease"] = {
++                "type": "write", "acquired": True, "broken": False,
++                "target": "captured-source",
++            }
++            self._verify_captured_source(record, handles.entry_fd, handles.entry_stat)
++            if state in {"SOURCE_CAPTURED", "SOURCE_CAPTURE_INTENT"}:
++                self._mark_source_isolated(
++                    record, handles.parent_fd, self._source_entry_name(record))
++            elif state == "SOURCE_DELETION_INTENT":
++                repopulated = self._check_original_after_capture(
++                    record, handles.parent_fd, self._source_entry_name(record))
++                record["source_cleanup"]["original_path_repopulated"] = repopulated
++        else:
++            if state in {"SOURCE_CAPTURED", "SOURCE_ISOLATED"}:
++                raise _Reconcile(
++                    "the captured inode is missing from the pinned quarantine; "
++                    "refusing to infer deletion from a missing path")
++            if state == "SOURCE_DELETION_INTENT":
++                # Durable unlink intent plus a pinned, private, empty
++                # quarantine is the proof domain for an unrecorded unlink.
++                if os.listdir(handles.qfd):
++                    raise _Reconcile(
++                        "the quarantine is not empty and the captured entry is "
++                        "missing; refusing to infer deletion")
++                self._finish_after_removal(
++                    record, handles.root_fd, handles.qfd, handles.qstat)
++                return False
++            # Before capture: the original name must still hold the exact
++            # opened source object.
++            entry_name = self._source_entry_name(record)
++            handles.source_fd = os.open(
++                entry_name, _READ_FLAGS, dir_fd=handles.parent_fd)
++            source_stat = os.fstat(handles.source_fd)
++            if (source_stat.st_dev, source_stat.st_ino) != (
++                    record["source"]["observed_version"].get("dev"),
++                    record["source"]["observed_version"].get("ino")):
++                raise _Reconcile(
++                    "the original source name now names a different inode; "
++                    "refusing to capture or delete it")
++            self._verify_source_original(record, handles.source_fd, source_stat)
++            handles.lease = WriteLease(handles.source_fd, "source")
++            if not self._acquire_cleanup_lease(
++                    record, handles.lease, "SOURCE_CLEANUP_PENDING"):
++                return False
++            record["source_cleanup"]["lease"] = {
++                "type": "write", "acquired": True, "broken": False,
++                "target": "source",
++            }
++            self._capture_source(
++                record, handles.parent_fd, entry_name, handles.qfd,
++                handles.source_fd, source_stat, handles.lease)
++            captured_stat = self._lstat_at(handles.qfd, "source")
++            if captured_stat is None:
++                raise _Reconcile(
++                    "the captured entry vanished immediately after capture")
++            source_identity = (
++                record["source"]["observed_version"].get("dev"),
++                record["source"]["observed_version"].get("ino"))
++            if (captured_stat.st_dev, captured_stat.st_ino) != source_identity:
++                self._handle_foreign_capture(
++                    record, handles.source_fd, handles.parent_fd, entry_name,
++                    handles.qfd, handles.root_fd)
++                return False
++            # Reuse the already-leased open file description.  Opening the
++            # captured pathname again would be a second open description
++            # and would self-break the kernel write lease.
++            handles.entry_fd = handles.source_fd
++            handles.entry_stat = os.fstat(handles.entry_fd)
++            handles.source_fd = None
++            if (handles.entry_stat.st_dev, handles.entry_stat.st_ino) != source_identity:
++                raise _Reconcile(
++                    "the captured inode does not match the held source FD")
++            self._verify_captured_source(record, handles.entry_fd, handles.entry_stat)
++            self._mark_source_isolated(record, handles.parent_fd, entry_name)
++        return True
++
++    def _delete_cleanup_source(self, record: dict, handles: _CleanupResources) -> None:
++        block = record["source_cleanup"]
++        # Target and authorization are rechecked with the target inode
++        # held open.  Acquire an exclusive write lease on the target too:
++        # this is a content-writer barrier, not a rename barrier, so the
++        # pathname/root/parent checks below are still required.
++        (handles.target_root_fd, handles.target_parent_fd, handles.target_fd,
++         target_name, target_stat) = self._open_cleanup_target_held(record)
++        handles.target_lease = WriteLease(handles.target_fd, "published target")
++        if not self._acquire_cleanup_lease(
++                record, handles.target_lease, "NEEDS_RECONCILIATION"):
++            return
++        block["lease"]["target_acquired"] = True
++        fresh_source = self._verify_cleanup_bindings(record, handles, target_name)
++        block["deletion_intent"] = {
++            "target_dev": target_stat.st_dev,
++            "target_ino": target_stat.st_ino,
++            "target_sha256": record["published"].get("sha256"),
++            "quarantine_dir_dev": block["quarantine"].get("dir_dev"),
++            "quarantine_dir_ino": block["quarantine"].get("dir_ino"),
++            "captured_dev": block["quarantine"].get("captured_dev"),
++            "captured_ino": block["quarantine"].get("captured_ino"),
++            "source_policy": fresh_source.get("cleanup_policy", "retain"),
++            "at": self.clock(),
++        }
++        block["state"] = "deletion_intent"
++        record["state"] = "SOURCE_DELETION_INTENT"
++        self._write_journal(record)
++        self._fault("SOURCE_DELETION_INTENT")
++
++        # Final pinned checks use fresh registrations and fresh fstat data,
++        # never the cached plan object or an earlier target stat.  Then the
++        # only unlink of the captured private entry is performed.
++        self._verify_cleanup_bindings(record, handles, target_name)
++        self._verify_target_held(record, handles.target_fd, os.fstat(handles.target_fd))
++        observed_dir = self._lstat_at(
++            handles.root_fd, block["quarantine"]["dir_name"])
++        if observed_dir is None or (observed_dir.st_dev, observed_dir.st_ino) != (
++                handles.qstat.st_dev, handles.qstat.st_ino):
++            raise _Reconcile(
++                "the quarantine directory path was replaced before deletion")
++        current_entry = self._lstat_at(handles.qfd, "source")
++        if current_entry is None or (current_entry.st_dev, current_entry.st_ino) != (
++                handles.entry_stat.st_dev, handles.entry_stat.st_ino):
++            raise _Reconcile(
++                "the captured quarantine entry changed before deletion")
++        # A hard link can be added anywhere on the same filesystem without
++        # changing the quarantine name; revalidate the captured inode (and
++        # in particular nlink == 1 plus its content hash) at this last
++        # deletion boundary, not only immediately after capture.
++        self._verify_captured_source(record, handles.entry_fd, current_entry)
++        self._check_original_after_capture(
++            record, handles.parent_fd, self._source_entry_name(record))
++        if handles.lease is not None:
++            handles.lease.assert_held()
++        if handles.target_lease is not None:
++            handles.target_lease.assert_held()
++        os.unlink("source", dir_fd=handles.qfd)
++        os.fsync(handles.qfd)
++        os.fsync(handles.root_fd)
++        self._finish_after_removal(
++            record, handles.root_fd, handles.qfd, handles.qstat, just_removed=True)
++
+     def _cleanup_run(self, record: dict) -> None:
+         """Drive a pinned controlled cleanup to DONE or an explicit problem."""
+         block = record.get("source_cleanup")
+@@ -1721,279 +1965,36 @@
+             return
+         if record.get("state") == "DONE" or block.get("state") == "done":
+             return
+-        root_fd = parent_fd = qfd = entry_fd = target_root_fd = None
+-        target_parent_fd = target_fd = None
+-        lease = None
+-        target_lease = None
+-        source_fd = None
+-        try:
+-            source_record, target_record = self._load_records(record)
++        handles = _CleanupResources()
++        try:
++            source_record, _ = self._load_records(record)
+             self._verify_cleanup_authorization(record, source_record)
+             self._verify_cleanup_target_once(record)
+-            state = record.get("state")
+-
+-            if state == "SOURCE_REMOVED":
+-                # Journal written after the private unlink.  A missing empty
+-                # quarantine is expected if the process died after rmdir.
+-                source_record = self._root_record(
+-                    record["source"]["root_uuid"], "source", recovery=True)
+-                root_fd, root_stat, root_mount = self._open_root_fd(
+-                    source_record, "source")
+-                name = block.get("quarantine", {}).get("dir_name")
+-                observed = self._lstat_at(root_fd, name) if name else None
+-                if observed is not None:
+-                    if not stat.S_ISDIR(observed.st_mode):
+-                        raise _Reconcile(
+-                            "the quarantine path is no longer a directory")
+-                    qfd = os.open(name, _DIR_FLAGS, dir_fd=root_fd)
+-                    qstat = os.fstat(qfd)
+-                    if (qstat.st_dev, qstat.st_ino) != (
+-                            block["quarantine"].get("dir_dev"),
+-                            block["quarantine"].get("dir_ino")):
+-                        raise _Reconcile(
+-                            "the quarantine path was replaced after source removal")
+-                    self._remove_quarantine_dir(record, root_fd, qfd, qstat)
+-                self._cleanup_done(record)
+-                return
+-
+-            source_record, root_fd, parent_fd, root_stat, root_mount = \
+-                self._open_source_anchor(record)
+-            create = state not in {
+-                "SOURCE_CAPTURED", "SOURCE_ISOLATED", "SOURCE_DELETION_INTENT"}
+-            qfd, qstat = self._ensure_quarantine(
+-                record, root_fd, root_stat, root_mount, create=create)
+-            entry_fd, entry_stat = self._open_quarantine_entry(qfd)
+-
+-            if entry_fd is not None:
+-                source_identity = (
+-                    record["source"]["observed_version"].get("dev"),
+-                    record["source"]["observed_version"].get("ino"))
+-                if (entry_stat.st_dev, entry_stat.st_ino) != source_identity:
+-                    self._handle_foreign_capture(
+-                        record, None, parent_fd, self._source_entry_name(record),
+-                        qfd, root_fd)
+-                    return
+-                lease = WriteLease(entry_fd, "captured source")
+-                try:
+-                    lease.acquire()
+-                except LeaseBusy as exc:
+-                    self._cleanup_problem(
+-                        record, "NEEDS_RECONCILIATION", str(exc))
+-                    return
+-                except (LeaseUnsupported, LeaseError) as exc:
+-                    self._cleanup_problem(
+-                        record, "NEEDS_RECONCILIATION", str(exc))
+-                    return
+-                record["source_cleanup"]["lease"] = {
+-                    "type": "write", "acquired": True, "broken": False,
+-                    "target": "captured-source",
+-                }
+-                self._verify_captured_source(record, entry_fd, entry_stat)
+-                if state in {"SOURCE_CAPTURED", "SOURCE_CAPTURE_INTENT"}:
+-                    repopulated = self._check_original_after_capture(
+-                        record, parent_fd, self._source_entry_name(record))
+-                    record["source_cleanup"]["original_path_repopulated"] = repopulated
+-                    record["source_cleanup"]["state"] = "isolated"
+-                    record["state"] = "SOURCE_ISOLATED"
+-                    self._write_journal(record)
+-                    self._fault("SOURCE_ISOLATED")
+-                elif state == "SOURCE_DELETION_INTENT":
+-                    repopulated = self._check_original_after_capture(
+-                        record, parent_fd, self._source_entry_name(record))
+-                    record["source_cleanup"]["original_path_repopulated"] = repopulated
+-            else:
+-                if state in {"SOURCE_CAPTURED", "SOURCE_ISOLATED"}:
+-                    raise _Reconcile(
+-                        "the captured inode is missing from the pinned quarantine; "
+-                        "refusing to infer deletion from a missing path")
+-                if state == "SOURCE_DELETION_INTENT":
+-                    # Durable unlink intent plus a pinned, private, empty
+-                    # quarantine is the proof domain for an unrecorded unlink.
+-                    if os.listdir(qfd):
+-                        raise _Reconcile(
+-                            "the quarantine is not empty and the captured entry is "
+-                            "missing; refusing to infer deletion")
+-                    self._finish_after_removal(record, root_fd, qfd, qstat)
+-                    return
+-                # Before capture: the original name must still hold the exact
+-                # opened source object.
+-                entry_name = self._source_entry_name(record)
+-                source_fd = os.open(
+-                    entry_name, _READ_FLAGS, dir_fd=parent_fd)
+-                source_stat = os.fstat(source_fd)
+-                if (source_stat.st_dev, source_stat.st_ino) != (
+-                        record["source"]["observed_version"].get("dev"),
+-                        record["source"]["observed_version"].get("ino")):
+-                    raise _Reconcile(
+-                        "the original source name now names a different inode; "
+-                        "refusing to capture or delete it")
+-                self._verify_source_original(record, source_fd, source_stat)
+-                lease = WriteLease(source_fd, "source")
+-                try:
+-                    lease.acquire()
+-                except LeaseBusy as exc:
+-                    self._cleanup_problem(
+-                        record, "SOURCE_CLEANUP_PENDING", str(exc))
+-                    return
+-                except (LeaseUnsupported, LeaseError) as exc:
+-                    self._cleanup_problem(
+-                        record, "SOURCE_CLEANUP_PENDING", str(exc))
+-                    return
+-                record["source_cleanup"]["lease"] = {
+-                    "type": "write", "acquired": True, "broken": False,
+-                    "target": "source",
+-                }
+-                self._capture_source(
+-                    record, parent_fd, entry_name, qfd, source_fd, source_stat,
+-                    lease)
+-                captured_stat = self._lstat_at(qfd, "source")
+-                if captured_stat is None:
+-                    raise _Reconcile(
+-                        "the captured entry vanished immediately after capture")
+-                source_identity = (
+-                    record["source"]["observed_version"].get("dev"),
+-                    record["source"]["observed_version"].get("ino"))
+-                if (captured_stat.st_dev, captured_stat.st_ino) != source_identity:
+-                    self._handle_foreign_capture(
+-                        record, source_fd, parent_fd, entry_name, qfd, root_fd)
+-                    return
+-                # Reuse the already-leased open file description.  Opening the
+-                # captured pathname again would be a second open description
+-                # and would self-break the kernel write lease.
+-                entry_fd = source_fd
+-                entry_stat = os.fstat(entry_fd)
+-                source_fd = None
+-                if (entry_stat.st_dev, entry_stat.st_ino) != source_identity:
+-                    raise _Reconcile(
+-                        "the captured inode does not match the held source FD")
+-                self._verify_captured_source(record, entry_fd, entry_stat)
+-                repopulated = self._check_original_after_capture(
+-                    record, parent_fd, entry_name)
+-                record["source_cleanup"]["original_path_repopulated"] = repopulated
+-                record["source_cleanup"]["state"] = "isolated"
+-                record["state"] = "SOURCE_ISOLATED"
+-                self._write_journal(record)
+-                self._fault("SOURCE_ISOLATED")
+-
+-            # Target and authorization are rechecked with the target inode
+-            # held open.  Acquire an exclusive write lease on the target too:
+-            # this is a content-writer barrier, not a rename barrier, so the
+-            # pathname/root/parent checks below are still required.
+-            target_root_fd, target_parent_fd, target_fd, target_name, target_stat = \
+-                self._open_cleanup_target_held(record)
+-            target_lease = WriteLease(target_fd, "published target")
+-            try:
+-                target_lease.acquire()
+-            except LeaseBusy as exc:
+-                self._cleanup_problem(record, "NEEDS_RECONCILIATION", str(exc))
+-                return
+-            except (LeaseUnsupported, LeaseError) as exc:
+-                self._cleanup_problem(record, "NEEDS_RECONCILIATION", str(exc))
+-                return
+-            block["lease"]["target_acquired"] = True
+-            fresh_source, fresh_target = self._load_records(record)
+-            self._verify_cleanup_authorization(record, fresh_source)
+-            self._verify_source_anchor_paths(
+-                record, fresh_source, root_fd, parent_fd, root_stat)
+-            self._verify_target_anchor_paths(
+-                record, fresh_target, target_root_fd, target_parent_fd,
+-                target_fd, target_name)
+-            self._verify_registry_once(record)
+-            block["deletion_intent"] = {
+-                "target_dev": target_stat.st_dev,
+-                "target_ino": target_stat.st_ino,
+-                "target_sha256": record["published"].get("sha256"),
+-                "quarantine_dir_dev": block["quarantine"].get("dir_dev"),
+-                "quarantine_dir_ino": block["quarantine"].get("dir_ino"),
+-                "captured_dev": block["quarantine"].get("captured_dev"),
+-                "captured_ino": block["quarantine"].get("captured_ino"),
+-                "source_policy": fresh_source.get("cleanup_policy", "retain"),
+-                "at": self.clock(),
+-            }
+-            block["state"] = "deletion_intent"
+-            record["state"] = "SOURCE_DELETION_INTENT"
+-            self._write_journal(record)
+-            self._fault("SOURCE_DELETION_INTENT")
+-
+-            # Final pinned checks use fresh registrations and fresh fstat data,
+-            # never the cached plan object or an earlier target stat.  Then the
+-            # only unlink of the captured private entry is performed.
+-            fresh_source, fresh_target = self._load_records(record)
+-            self._verify_cleanup_authorization(record, fresh_source)
+-            self._verify_source_anchor_paths(
+-                record, fresh_source, root_fd, parent_fd, root_stat)
+-            self._verify_target_anchor_paths(
+-                record, fresh_target, target_root_fd, target_parent_fd,
+-                target_fd, target_name)
+-            self._verify_registry_once(record)
+-            self._verify_target_held(record, target_fd, os.fstat(target_fd))
+-            observed_dir = self._lstat_at(
+-                root_fd, block["quarantine"]["dir_name"])
+-            if observed_dir is None or (observed_dir.st_dev, observed_dir.st_ino) != (
+-                    qstat.st_dev, qstat.st_ino):
+-                raise _Reconcile(
+-                    "the quarantine directory path was replaced before deletion")
+-            current_entry = self._lstat_at(qfd, "source")
+-            if current_entry is None or (current_entry.st_dev, current_entry.st_ino) != (
+-                    entry_stat.st_dev, entry_stat.st_ino):
+-                raise _Reconcile(
+-                    "the captured quarantine entry changed before deletion")
+-            # A hard link can be added anywhere on the same filesystem without
+-            # changing the quarantine name; revalidate the captured inode (and
+-            # in particular nlink == 1 plus its content hash) at this last
+-            # deletion boundary, not only immediately after capture.
+-            self._verify_captured_source(record, entry_fd, current_entry)
+-            self._check_original_after_capture(
+-                record, parent_fd, self._source_entry_name(record))
+-            if lease is not None:
+-                lease.assert_held()
+-            if target_lease is not None:
+-                target_lease.assert_held()
+-            os.unlink("source", dir_fd=qfd)
+-            os.fsync(qfd)
+-            os.fsync(root_fd)
+-            block["performed"] = True
+-            block["removed_at"] = self.clock()
+-            block["state"] = "source_removed"
+-            record["source_retained"] = False
+-            record["state"] = "SOURCE_REMOVED"
+-            self._write_journal(record)
+-            self._fault("SOURCE_REMOVED")
+-            self._remove_quarantine_dir(record, root_fd, qfd, qstat)
+-            self._cleanup_done(record)
++            if record.get("state") == "SOURCE_REMOVED":
++                self._resume_removed_cleanup(record, handles)
++            elif self._isolate_cleanup_source(record, handles):
++                self._delete_cleanup_source(record, handles)
+         except _CleanupRefused as exc:
+             self._cleanup_problem(record, "SOURCE_CLEANUP_PENDING", exc.reason)
+-        except _Reconcile as exc:
+-            self._cleanup_problem(
+-                record, "NEEDS_RECONCILIATION", exc.reason)
++        except (_Reconcile, _MediaUnavailable) as exc:
++            self._cleanup_problem(record, "NEEDS_RECONCILIATION", exc.reason)
+         except LeaseBroken as exc:
+             self._cleanup_problem(record, "NEEDS_RECONCILIATION", str(exc))
+-        except (LeaseUnsupported, LeaseBusy, LeaseError) as exc:
++        except LeaseError as exc:
+             self._cleanup_problem(record, "SOURCE_CLEANUP_PENDING", str(exc))
+-        except _MediaUnavailable as exc:
+-            self._cleanup_problem(record, "NEEDS_RECONCILIATION", exc.reason)
+         except OSError as exc:
+             self._cleanup_problem(
+                 record, "NEEDS_RECONCILIATION",
+                 f"filesystem error during controlled cleanup: {exc}")
+         finally:
+-            if target_lease is not None:
+-                target_lease.release()
+-            if lease is not None:
+-                lease.release()
+-            for descriptor in (entry_fd, source_fd, qfd, parent_fd, root_fd,
+-                               target_fd, target_parent_fd, target_root_fd):
+-                if descriptor is not None and descriptor >= 0:
+-                    try:
+-                        os.close(descriptor)
+-                    except OSError:
+-                        pass
++            handles.close()
+ 
+     def _finish_after_removal(self, record: dict, root_fd: int, qfd: int,
+-                              qstat: os.stat_result) -> None:
++                              qstat: os.stat_result, *, just_removed: bool = False) -> None:
+         block = record["source_cleanup"]
+         block["performed"] = True
+-        block["removed_at"] = block.get("removed_at") or self.clock()
++        block["removed_at"] = (self.clock() if just_removed else
++                               block.get("removed_at") or self.clock())
+         block["state"] = "source_removed"
+         record["source_retained"] = False
+         record["state"] = "SOURCE_REMOVED"
+@@ -2171,12 +2172,7 @@
+                     "staging inode evidence is missing before registration; refusing "
+                     "to register a target that cannot be tied to this operation")
+         finally:
+-            for descriptor in (parent_fd, root_fd):
+-                if descriptor is not None:
+-                    try:
+-                        os.close(descriptor)
+-                    except OSError:
+-                        pass
++            _close_fds(parent_fd, root_fd)
+ 
+     def _finish_committed(self, record: dict, *,
+                           verify_content: bool = False) -> None:
+@@ -2316,12 +2312,7 @@
+                 # The controlled-cleanup lease fails while any second open
+                 # description of the source inode exists.  The copy is done, so
+                 # close our copy source FD before the cleanup phase.
+-                for descriptor in (source_fd, source_parent_fd, source_root_fd):
+-                    if descriptor is not None and descriptor >= 0:
+-                        try:
+-                            os.close(descriptor)
+-                        except OSError:
+-                            pass
++                _close_fds(source_fd, source_parent_fd, source_root_fd)
+                 source_fd = source_parent_fd = source_root_fd = None
+                 self._finish_committed(record)
+             except _Conflict as exc:
+@@ -2343,13 +2334,9 @@
+                     record, "NEEDS_RECONCILIATION",
+                     f"filesystem error after the operation became durable: {exc}")
+             finally:
+-                for descriptor in (stage_fd, source_fd, source_parent_fd,
+-                                   source_root_fd, target_parent_fd, target_root_fd):
+-                    if descriptor is not None and descriptor >= 0:
+-                        try:
+-                            os.close(descriptor)
+-                        except OSError:
+-                            pass
++                _close_fds(
++                    stage_fd, source_fd, source_parent_fd, source_root_fd,
++                    target_parent_fd, target_root_fd)
+         return self._public(record) if record is not None else record
+ 
+     def _open_source_for_new(self, source_record: dict, parts: list[str]):
+@@ -2458,12 +2445,7 @@
+                     self._verify_published_ownership(
+                         record, require_stage=True, verify_content=True)
+                     self._commit_registry(record, require_existing=False)
+-                    for descriptor in (source_fd, source_parent_fd, source_root_fd):
+-                        if descriptor is not None and descriptor >= 0:
+-                            try:
+-                                os.close(descriptor)
+-                            except OSError:
+-                                pass
++                    _close_fds(source_fd, source_parent_fd, source_root_fd)
+                     source_fd = source_parent_fd = source_root_fd = None
+                     self._finish_committed(record)
+                     return
+@@ -2540,12 +2522,7 @@
+             self._verify_published_ownership(
+                 record, require_stage=True, verify_content=True)
+             self._commit_registry(record, require_existing=False)
+-            for descriptor in (source_fd, source_parent_fd, source_root_fd):
+-                if descriptor is not None and descriptor >= 0:
+-                    try:
+-                        os.close(descriptor)
+-                    except OSError:
+-                        pass
++            _close_fds(source_fd, source_parent_fd, source_root_fd)
+             source_fd = source_parent_fd = source_root_fd = None
+             self._finish_committed(record)
+         finally:
+@@ -2554,13 +2531,8 @@
+                     os.close(stage_writable)
+                 except OSError:
+                     pass
+-            for descriptor in (source_fd, source_parent_fd, source_root_fd,
+-                               target_parent_fd, target_root_fd):
+-                if descriptor is not None:
+-                    try:
+-                        os.close(descriptor)
+-                    except OSError:
+-                        pass
++            _close_fds(
++                source_fd, source_parent_fd, source_root_fd, target_parent_fd, target_root_fd)
+ 
+     def _recover_locked(self, record: dict) -> tuple[dict, str]:
+         state = record["state"]
+--- a/src/multilinux/packages.py
++++ b/src/multilinux/packages.py
+@@ -92,6 +92,19 @@
+             "package name must start with a letter or digit and contain only "
+             "letters, digits, dots, underscores, plus signs and hyphens")
+     return name
++
++
++def parse_package_files(package: str, text: str) -> list[str]:
++    """Read dpkg/rpm paths or pacman's package-prefixed file listing."""
++    files = []
++    for line in text.splitlines():
++        line = line.strip()
++        if not line:
++            continue
++        path = line.rsplit(" ", 1)[-1] if line.startswith(package + " ") else line
++        if path.startswith("/"):
++            files.append(path)
++    return files
+ 
+ 
+ def validate_use_argv(argv: list[str] | None) -> list[str]:
+--- a/src/multilinux/service.py
++++ b/src/multilinux/service.py
+@@ -15,7 +15,6 @@
+ import pwd
+ from pathlib import Path, PurePosixPath
+ import re
+-import shlex
+ import stat
+ import sys
+ import tempfile
+@@ -23,6 +22,10 @@
+ import uuid
+ from zoneinfo import ZoneInfo
+ 
++# Keep the historical service.parse_desktop_exec import available to callers.
++from multilinux.app_entries import (
++    desktop_exec_argv, package_entry_kind, parse_desktop_exec,
++)
+ from multilinux.catalog import (
+     plan_change,
+     resolve_record_contract,
+@@ -56,6 +59,7 @@
+     maintenance_findings,
+     merge_maintenance_findings,
+     native_env,
++    parse_package_files,
+     query_argv,
+     transaction_verdict,
+     validate_package_name,
+@@ -198,54 +202,6 @@
+     if path in {"/", "/home"}:
+         return True
+     return any(path == prefix or path.startswith(prefix + "/") for prefix in SYSTEM_PREFIXES)
+-
+-
+-_DESKTOP_DROP_FIELD_CODES = {
+-    "%f", "%F", "%u", "%U", "%i", "%c", "%k", "%d", "%D", "%n", "%N", "%v", "%m",
+-}
+-_DESKTOP_UNSUPPORTED_FIRST = {
+-    "sh", "bash", "dash", "zsh", "env", "/bin/sh", "/usr/bin/sh",
+-    "/bin/bash", "/usr/bin/bash", "/usr/bin/env", "/bin/env",
+-}
+-
+-
+-def parse_desktop_exec(value: str) -> dict:
+-    """Parse one desktop Exec value into a literal argv.
+-
+-    Field codes that name a file/URL/icon are removed; ``%%`` becomes one
+-    literal percent.  A shell wrapper or a first token that is not a plain
+-    command is reported as unsupported so the caller can demand --exec rather
+-    than suggest a wrong launch.  No process is started here.
+-    """
+-    try:
+-        tokens = shlex.split(value, posix=True)
+-    except ValueError as exc:
+-        raise MultilinuxError(f"desktop Exec cannot be parsed: {exc}") from exc
+-    argv = []
+-    for token in tokens:
+-        if token in _DESKTOP_DROP_FIELD_CODES:
+-            continue
+-        if token == "%%":
+-            token = "%"
+-        elif token.startswith("%"):
+-            raise MultilinuxError(f"unsupported desktop Exec field code: {token}")
+-        else:
+-            token = token.replace("%%", "%")
+-        if re.search(r"%[A-Za-z]", token):
+-            raise MultilinuxError(f"unsupported desktop Exec field code in {token!r}")
+-        if not token:
+-            continue
+-        argv.append(token)
+-    if not argv:
+-        raise MultilinuxError("desktop Exec has no launchable argv")
+-    first = argv[0]
+-    if first in _DESKTOP_UNSUPPORTED_FIRST or "=" in first:
+-        raise MultilinuxError(
+-            "desktop Exec uses a shell/wrapper form; pass --exec explicitly")
+-    if not first.startswith("/") and not re.fullmatch(r"[A-Za-z0-9._+-]+", first):
+-        raise MultilinuxError(
+-            "desktop Exec first component is not a plain command or absolute path")
+-    return {"argv": argv, "executable": first}
+ 
+ 
+ def validate_env_id(env_id: str) -> str:
+@@ -1102,6 +1058,18 @@
+             self.unexport_app(app_id)
+         self.store.delete_launch(app_id)
+ 
++    def _capture_discovery(self, env_id: str, argv: list[str], *,
++                           timeout: int = 60) -> ExecResult:
++        """Run one discovery query and release only a runtime started here."""
++        was_running = self._ensure_running(env_id)
++        try:
++            return self._exec_record(
++                self.store.load(env_id), argv, timeout=timeout, native=False)
++        finally:
++            if not was_running:
++                with contextlib.suppress(Exception):
++                    self.stop(env_id)
++
+     def list_package_files(self, env_id: str, package: str) -> dict:
+         """List files owned by one installed package with fixed native argv.
+ 
+@@ -1118,28 +1086,14 @@
+         }.get(record["target"])
+         if argv is None:
+             raise MultilinuxError(f"no package-file query for target {record['target']}")
+-        was_running = self._ensure_running(record["id"])
+-        try:
+-            result = self._exec_record(
+-                self.store.load(record["id"]), argv, timeout=60, native=False)
+-        finally:
+-            if not was_running:
+-                with contextlib.suppress(Exception):
+-                    self.stop(record["id"])
++        result = self._capture_discovery(record["id"], argv)
+         if result.returncode != 0:
+             return {
+                 "package": name, "present": False, "files": [],
+                 "error": _tail((result.stderr or result.stdout or "").strip(), 1500),
+             }
+-        files = []
+-        for line in (result.stdout or "").splitlines():
+-            line = line.strip()
+-            if not line:
+-                continue
+-            path = line.rsplit(" ", 1)[-1] if line.startswith(name + " ") else line
+-            if path.startswith("/"):
+-                files.append(path)
+-        return {"package": name, "present": True, "files": files, "error": None}
++        return {"package": name, "present": True,
++                "files": parse_package_files(name, result.stdout or ""), "error": None}
+ 
+     def local_package_name(self, env_id: str, host_file: str) -> str:
+         """Read package identity with the selected guest's native reader."""
+@@ -1184,16 +1138,9 @@
+             raise MultilinuxError(
+                 "executable must be an absolute path or a plain command name")
+         record = self.store.load(validate_env_id(env_id))
+-        was_running = self._ensure_running(record["id"])
+-        try:
+-            result = self._exec_record(
+-                self.store.load(record["id"]),
+-                ["/bin/sh", "-c", 'command -v -- "$1"', "unifier-which", executable],
+-                timeout=60, native=False)
+-        finally:
+-            if not was_running:
+-                with contextlib.suppress(Exception):
+-                    self.stop(record["id"])
++        result = self._capture_discovery(
++            record["id"],
++            ["/bin/sh", "-c", 'command -v -- "$1"', "unifier-which", executable])
+         resolved = (result.stdout or "").strip()
+         if result.returncode != 0 or not resolved.startswith("/"):
+             detail = (result.stderr or result.stdout or "").strip()[-1000:]
+@@ -1212,68 +1159,37 @@
+         omitted; the caller must then ask for an explicit --exec instead of
+         receiving a wrong launch.
+         """
+-        executable_dirs = ("/usr/bin/", "/bin/", "/usr/sbin/", "/sbin/",
+-                           "/usr/local/bin/", "/usr/local/sbin/")
+-        candidates = []
+-        seen = set()
+-
+-        def add(argv, source, path, desktop_id=None):
+-            if not argv:
+-                return
+-            key = tuple(argv)
+-            if key in seen:
+-                return
+-            seen.add(key)
+-            candidates.append({
+-                "argv": list(argv),
+-                "executable": argv[0],
+-                "source": source,
+-                "path": path,
+-                "desktop_id": desktop_id,
+-            })
+-
++        candidates = {}
+         for package in packages:
+             if not package:
+                 continue
+             listing = self.list_package_files(env_id, package)
+             for path in listing.get("files") or []:
+-                if any(path.startswith(prefix) and path.count("/") == prefix.count("/")
+-                       for prefix in executable_dirs):
+-                    add([path], f"package-file:{package}", path)
+-                elif (path.endswith(".desktop")
+-                      and (path.startswith("/usr/share/applications/")
+-                           or path.startswith("/usr/local/share/applications/"))):
++                kind = package_entry_kind(path)
++                if kind == "executable":
++                    argv, source, desktop_id = [path], f"package-file:{package}", None
++                elif kind == "desktop":
+                     record = self.store.load(validate_env_id(env_id))
+-                    was_running = self._ensure_running(record["id"])
+-                    try:
+-                        result = self._exec_record(
+-                            self.store.load(record["id"]), ["cat", path],
+-                            timeout=30, native=False)
+-                    finally:
+-                        if not was_running:
+-                            with contextlib.suppress(Exception):
+-                                self.stop(record["id"])
++                    result = self._capture_discovery(record["id"], ["cat", path], timeout=30)
+                     if result.returncode != 0:
+                         continue
+-                    for line in (result.stdout or "").splitlines():
+-                        if not line.startswith("Exec="):
++                    argv = desktop_exec_argv(result.stdout or "")
++                    if not argv:
++                        continue
++                    if not argv[0].startswith("/"):
++                        try:
++                            argv[0] = self.resolve_executable(env_id, argv[0])
++                        except MultilinuxError:
+                             continue
+-                        try:
+-                            parsed = parse_desktop_exec(line[5:].strip())
+-                        except MultilinuxError:
+-                            break
+-                        first = parsed["executable"]
+-                        argv = list(parsed["argv"])
+-                        if not first.startswith("/"):
+-                            try:
+-                                resolved = self.resolve_executable(env_id, first)
+-                            except MultilinuxError:
+-                                break
+-                            argv[0] = resolved
+-                        add(argv, f"desktop:{path}", path,
+-                            desktop_id=Path(path).stem)
+-                        break
+-        return candidates
++                    source, desktop_id = f"desktop:{path}", Path(path).stem
++                else:
++                    continue
++                # First occurrence wins; arguments distinguish app components.
++                candidates.setdefault(tuple(argv), {
++                    "argv": list(argv), "executable": argv[0], "source": source,
++                    "path": path, "desktop_id": desktop_id,
++                })
++        return list(candidates.values())
+ 
+     def query_package(self, env_id: str, name: str) -> dict:
+         name = validate_package_name(name)
+--- /dev/null
++++ b/tests/test_app_entries.py
+@@ -0,0 +1,106 @@
++"""Application discovery preserves literal arguments and runtime ownership."""
++
++from pathlib import Path
++import sys
++import tempfile
++import unittest
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
++
++from multilinux.app_entries import desktop_exec_argv, parse_desktop_exec
++from multilinux.errors import MultilinuxError
++from multilinux.packages import parse_package_files
++from multilinux.runtime import ExecResult
++from multilinux.service import parse_desktop_exec as legacy_parse_desktop_exec
++from test_cli_shortcuts import ready_context
++
++
++class AppEntries(unittest.TestCase):
++    def test_native_package_list_formats_preserve_order_and_path_spaces(self):
++        for text in (" /usr/bin/app\n\n/usr/share/data/app sample\nrelative\n",
++                     "app /usr/bin/app\napp /usr/share/applications/app.desktop\n"):
++            with self.subTest(text=text):
++                expected = (["/usr/bin/app", "/usr/share/applications/app.desktop"]
++                            if text.startswith("app ") else
++                            ["/usr/bin/app", "/usr/share/data/app sample"])
++                self.assertEqual(parse_package_files("app", text), expected)
++
++    def test_first_desktop_exec_remains_authoritative(self):
++        self.assertEqual(desktop_exec_argv(
++            '[Desktop Entry]\nExec=app "a b" "literal;arg" 50%% %F\nExec=other'),
++            ["app", "a b", "literal;arg", "50%"])
++        self.assertIsNone(desktop_exec_argv('Exec=sh -c "app"\nExec=other'))
++        self.assertIsNone(desktop_exec_argv('Exec=app %z\nExec=other'))
++        self.assertIsNone(desktop_exec_argv('Name=Missing Exec\n'))
++        self.assertIs(legacy_parse_desktop_exec, parse_desktop_exec)
++
++    def test_discovery_deduplicates_argv_and_keeps_first_source_and_components(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            ctx, runtime = ready_context(Path(temporary))
++            service = ctx.service_for("debian13")
++            runtime.package_files = {"app": (
++                "/usr/bin/app\n/usr/bin/subdir/ignored\n"
++                "/usr/share/applications/alias.desktop\n"
++                "/usr/share/applications/second.desktop\n"
++                "/usr/local/share/applications/third.desktop\n"
++                "/usr/share/applications/wrapper.desktop\n")}
++            runtime.desktop_files = {
++                "/usr/share/applications/alias.desktop": "Exec=app %F\n",
++                "/usr/share/applications/second.desktop": "Exec=app --component=writer %U\n",
++                "/usr/local/share/applications/third.desktop": "Exec=app --component=sheets %f\n",
++                "/usr/share/applications/wrapper.desktop": 'Exec=sh -c "app"\n',
++            }
++            candidates = service.discover_app_entries("debian13", ["", "app", "app"])
++            self.assertEqual([item["argv"] for item in candidates], [
++                ["/usr/bin/app"], ["/usr/bin/app", "--component=writer"],
++                ["/usr/bin/app", "--component=sheets"]])
++            self.assertEqual(candidates[0]["source"], "package-file:app")
++            self.assertIsNone(candidates[0]["desktop_id"])
++            self.assertEqual(candidates[1]["desktop_id"], "second")
++            self.assertEqual(service.inspect("debian13")["runtime_state"], "stopped")
++
++    def test_discovery_queries_restore_initial_running_state_on_failure(self):
++        for running in (False, True):
++            for query in ("files", "resolve", "desktop"):
++                with self.subTest(running=running, query=query), tempfile.TemporaryDirectory() as temporary:
++                    ctx, runtime = ready_context(Path(temporary))
++                    service = ctx.service_for("debian13")
++                    if running:
++                        service.start("debian13")
++                    runtime.package_files = {"app": "/usr/share/applications/app.desktop\n"}
++
++                    def fail_query(_name, argv, _env):
++                        if ((query == "files" and argv[:2] == ["dpkg-query", "-L"])
++                                or (query == "resolve" and argv[:2] == ["/bin/sh", "-c"])
++                                or (query == "desktop" and argv == ["cat", "/usr/share/applications/app.desktop"])):
++                            raise MultilinuxError("injected discovery failure")
++                        return None
++
++                    runtime.exec_handler = fail_query
++                    runtime.events.clear()
++                    with self.assertRaisesRegex(MultilinuxError, "injected discovery failure"):
++                        if query == "files":
++                            service.list_package_files("debian13", "app")
++                        elif query == "resolve":
++                            service.resolve_executable("debian13", "app")
++                        else:
++                            service.discover_app_entries("debian13", ["app"])
++                    self.assertEqual(service.inspect("debian13")["runtime_state"],
++                                     "running" if running else "stopped")
++                    lifecycle = [event[0] for event in runtime.events if event[0] in {"start", "stop"}]
++                    self.assertEqual(lifecycle, [] if running else
++                                     ["start", "stop"] * (2 if query == "desktop" else 1))
++
++    def test_unreadable_desktop_is_not_a_launch_candidate(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            ctx, runtime = ready_context(Path(temporary))
++            service = ctx.service_for("debian13")
++            runtime.package_files = {"app": "/usr/share/applications/app.desktop\n"}
++            runtime.exec_handler = lambda _name, argv, _env: (
++                ExecResult(1, "", "unreadable") if argv[0] == "cat" else None)
++            self.assertEqual(service.discover_app_entries("debian13", ["app"]), [])
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- a/tests/test_controlled_move.py
++++ b/tests/test_controlled_move.py
+@@ -18,13 +18,14 @@
+ import tempfile
+ import time
+ import unittest
++from unittest.mock import patch
+ 
+ ROOT = Path(__file__).resolve().parents[1]
+ sys.path[:0] = [str(ROOT / "src")]
+ 
+ from multilinux.control import Control
+ from multilinux.errors import MultilinuxError
+-from multilinux.lease import LeaseBroken, WriteLease
++from multilinux.lease import LeaseBroken, LeaseUnsupported, WriteLease
+ 
+ 
+ PAYLOAD = (b"controlled move payload\n" * 4096)[:98304]
+@@ -347,6 +348,78 @@
+         self.assertEqual(digest(self.target / "published.bin"), self.expected)
+         self.assertFalse(list(self.source.glob(".ml-quarantine-*")))
+ 
++    def test_recovery_at_each_cleanup_journal_boundary(self):
++        for phase in ("SOURCE_CLEANUP_INTENT", "SOURCE_QUARANTINE_INTENT",
++                      "SOURCE_QUARANTINE_READY", "SOURCE_CAPTURE_INTENT",
++                      "SOURCE_CAPTURED", "SOURCE_ISOLATED",
++                      "SOURCE_DELETION_INTENT", "SOURCE_REMOVED", "DONE"):
++            with self.subTest(phase=phase), tempfile.TemporaryDirectory() as temporary:
++                root = Path(temporary)
++                source, target = root / "source", root / "target"
++                source.mkdir()
++                target.mkdir()
++                (source / "payload.bin").write_bytes(PAYLOAD)
++                control = Control(root)
++                sr = control.add_root(str(source), access_policy="read-write",
++                                      cleanup_policy="controlled")
++                tr = control.add_root(str(target), access_policy="read-write")
++                _crash_move(root, sr["root_uuid"], tr["root_uuid"], phase)
++                pending, = control.list_file_operations()
++                self.assertEqual(pending["state"], phase)
++                recovered, = control.recover_file_operations(pending["operation_uuid"])
++                self.assertEqual(recovered["state"], "DONE")
++                self.assertTrue(recovered["source_cleanup"]["performed"])
++                self.assertFalse((source / "payload.bin").exists())
++                self.assertFalse(list(source.glob(".ml-quarantine-*")))
++                self.assertEqual(digest(target / "published.bin"), self.expected)
++                again, = control.recover_file_operations(pending["operation_uuid"])
++                self.assertEqual(again["recovery"]["action"], "terminal-noop")
++                self.assertEqual(digest(target / "published.bin"), self.expected)
++
++    def test_cleanup_lease_failures_preserve_bytes_and_release_resources(self):
++        acquire = WriteLease.acquire
++        for label in ("source", "captured source", "published target"):
++            with self.subTest(label=label), tempfile.TemporaryDirectory() as temporary:
++                root = Path(temporary)
++                source, target = root / "source", root / "target"
++                source.mkdir()
++                target.mkdir()
++                (source / "payload.bin").write_bytes(PAYLOAD)
++                control = Control(root)
++                sr = control.add_root(str(source), access_policy="read-write",
++                                      cleanup_policy="controlled")
++                tr = control.add_root(str(target), access_policy="read-write")
++                if label == "captured source":
++                    _crash_move(root, sr["root_uuid"], tr["root_uuid"], "SOURCE_CAPTURED")
++
++                def fail_lease(lease):
++                    if lease.label == label:
++                        raise LeaseUnsupported("injected lease failure")
++                    return acquire(lease)
++
++                before_fds = set(os.listdir("/proc/self/fd"))
++                before_mask = signal.pthread_sigmask(signal.SIG_BLOCK, set())
++                with patch.object(WriteLease, "acquire", fail_lease):
++                    if label == "captured source":
++                        pending, = control.list_file_operations()
++                        record, = control.recover_file_operations(pending["operation_uuid"])
++                    else:
++                        record = control.move_file(
++                            sr["root_uuid"], "payload.bin", tr["root_uuid"],
++                            "published.bin", cleanup_source=True)
++                self.assertEqual(record["state"], "SOURCE_CLEANUP_PENDING"
++                                 if label == "source" else "NEEDS_RECONCILIATION")
++                self.assertFalse(record["source_cleanup"]["performed"])
++                self.assertTrue(_files_with_digest(source, self.expected))
++                self.assertEqual(digest(target / "published.bin"), self.expected)
++                self.assertEqual(set(os.listdir("/proc/self/fd")), before_fds)
++                self.assertEqual(signal.pthread_sigmask(signal.SIG_BLOCK, set()), before_mask)
++                # Opening every remaining file would self-break or block if
++                # this attempt had leaked one of its kernel write leases.
++                for path in source.rglob("*"):
++                    if path.is_file():
++                        self.assertEqual(digest(path), self.expected)
++
+     def test_pinned_quarantine_identity_cannot_be_reused_by_a_new_directory(self):
+         _crash_move(
+             self.root, self.source_root["root_uuid"], self.target_root["root_uuid"],

@@ -1,0 +1,3 @@
+debian13: apt-get update
+debian13: apt-get install -y libasound2t64
+debian13: install completed txn0f40e45dd5ff

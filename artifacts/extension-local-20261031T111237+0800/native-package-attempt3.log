@@ -1,0 +1,6 @@
+arch-local-install 0
+arch-local-oracle 0
+debian13-local-install 0
+debian13-local-oracle 0
+wrong-target-before-mutation 1
+unknown-alpine-target 1

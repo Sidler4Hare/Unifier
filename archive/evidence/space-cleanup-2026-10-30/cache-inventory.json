@@ -1,0 +1,4582 @@
+[
+  {
+    "path": "src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 359,
+    "allocated": 4096
+  },
+  {
+    "path": "src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13850,
+    "allocated": 16384
+  },
+  {
+    "path": "src/multilinux/__pycache__/compatibility.cpython-314.pyc",
+    "bytes": 12166,
+    "allocated": 12288
+  },
+  {
+    "path": "src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21452,
+    "allocated": 24576
+  },
+  {
+    "path": "src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 28336,
+    "allocated": 28672
+  },
+  {
+    "path": "src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 447,
+    "allocated": 4096
+  },
+  {
+    "path": "src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29350,
+    "allocated": 32768
+  },
+  {
+    "path": "src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 42829,
+    "allocated": 45056
+  },
+  {
+    "path": "src/multilinux/__pycache__/fuse_view_legacy.cpython-314.pyc",
+    "bytes": 34622,
+    "allocated": 36864
+  },
+  {
+    "path": "src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17510,
+    "allocated": 20480
+  },
+  {
+    "path": "src/multilinux/__pycache__/install.cpython-314.pyc",
+    "bytes": 12252,
+    "allocated": 12288
+  },
+  {
+    "path": "src/multilinux/__pycache__/install_state.cpython-314.pyc",
+    "bytes": 11163,
+    "allocated": 12288
+  },
+  {
+    "path": "src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13489,
+    "allocated": 16384
+  },
+  {
+    "path": "src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40105,
+    "allocated": 40960
+  },
+  {
+    "path": "src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1195,
+    "allocated": 4096
+  },
+  {
+    "path": "src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 84787,
+    "allocated": 86016
+  },
+  {
+    "path": "src/multilinux/__pycache__/resources.cpython-314.pyc",
+    "bytes": 34129,
+    "allocated": 36864
+  },
+  {
+    "path": "src/multilinux/__pycache__/root_identity.cpython-314.pyc",
+    "bytes": 6407,
+    "allocated": 8192
+  },
+  {
+    "path": "src/multilinux/__pycache__/routing.cpython-314.pyc",
+    "bytes": 4111,
+    "allocated": 8192
+  },
+  {
+    "path": "src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 52527,
+    "allocated": 53248
+  },
+  {
+    "path": "src/multilinux/__pycache__/screencast.cpython-314.pyc",
+    "bytes": 44473,
+    "allocated": 45056
+  },
+  {
+    "path": "src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4662,
+    "allocated": 8192
+  },
+  {
+    "path": "src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 40671,
+    "allocated": 40960
+  },
+  {
+    "path": "src/multilinux/__pycache__/view_backend_legacy.cpython-314.pyc",
+    "bytes": 37868,
+    "allocated": 40960
+  },
+  {
+    "path": "src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12337,
+    "allocated": 16384
+  },
+  {
+    "path": "src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23889,
+    "allocated": 24576
+  },
+  {
+    "path": "src/multilinux/__pycache__/guest_paths.cpython-314.pyc",
+    "bytes": 13370,
+    "allocated": 16384
+  },
+  {
+    "path": "src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 92205,
+    "allocated": 94208
+  },
+  {
+    "path": "src/multilinux/__pycache__/__main__.cpython-314.pyc",
+    "bytes": 561,
+    "allocated": 4096
+  },
+  {
+    "path": "src/multilinux/__pycache__/i18n.cpython-314.pyc",
+    "bytes": 38234,
+    "allocated": 40960
+  },
+  {
+    "path": "src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 16702,
+    "allocated": 20480
+  },
+  {
+    "path": "src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 14787,
+    "allocated": 16384
+  },
+  {
+    "path": "src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 92822,
+    "allocated": 94208
+  },
+  {
+    "path": "src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78242,
+    "allocated": 81920
+  },
+  {
+    "path": "src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 148167,
+    "allocated": 151552
+  },
+  {
+    "path": "src/multilinux/__pycache__/shortcuts.cpython-314.pyc",
+    "bytes": 131884,
+    "allocated": 135168
+  },
+  {
+    "path": "src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 7621,
+    "allocated": 8192
+  },
+  {
+    "path": "src/multilinux/__pycache__/atomic_io.cpython-314.pyc",
+    "bytes": 2568,
+    "allocated": 4096
+  },
+  {
+    "path": "src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17917,
+    "allocated": 20480
+  },
+  {
+    "path": "src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 2181,
+    "allocated": 4096
+  },
+  {
+    "path": "src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 165393,
+    "allocated": 167936
+  },
+  {
+    "path": "src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 23500,
+    "allocated": 24576
+  },
+  {
+    "path": "src/multilinux/__pycache__/desktop_integrations.cpython-314.pyc",
+    "bytes": 38066,
+    "allocated": 40960
+  },
+  {
+    "path": "tests/__pycache__/test_app_binding.cpython-314.pyc",
+    "bytes": 13274,
+    "allocated": 16384
+  },
+  {
+    "path": "tests/__pycache__/test_app_user.cpython-314.pyc",
+    "bytes": 8071,
+    "allocated": 8192
+  },
+  {
+    "path": "tests/__pycache__/test_audio_route.cpython-314.pyc",
+    "bytes": 5502,
+    "allocated": 8192
+  },
+  {
+    "path": "tests/__pycache__/test_catalog.cpython-314.pyc",
+    "bytes": 19660,
+    "allocated": 20480
+  },
+  {
+    "path": "tests/__pycache__/test_data_roots.cpython-314.pyc",
+    "bytes": 16109,
+    "allocated": 16384
+  },
+  {
+    "path": "tests/__pycache__/test_desktop.cpython-314.pyc",
+    "bytes": 18266,
+    "allocated": 20480
+  },
+  {
+    "path": "tests/__pycache__/test_desktop_integration.cpython-314.pyc",
+    "bytes": 23201,
+    "allocated": 24576
+  },
+  {
+    "path": "tests/__pycache__/test_dmabuf_roundtrip.cpython-314.pyc",
+    "bytes": 17526,
+    "allocated": 20480
+  },
+  {
+    "path": "tests/__pycache__/test_env_integration.cpython-314.pyc",
+    "bytes": 12439,
+    "allocated": 16384
+  },
+  {
+    "path": "tests/__pycache__/test_file_control.cpython-314.pyc",
+    "bytes": 18130,
+    "allocated": 20480
+  },
+  {
+    "path": "tests/__pycache__/test_file_routes.cpython-314.pyc",
+    "bytes": 61904,
+    "allocated": 65536
+  },
+  {
+    "path": "tests/__pycache__/test_identity_migration.cpython-314.pyc",
+    "bytes": 30041,
+    "allocated": 32768
+  },
+  {
+    "path": "tests/__pycache__/test_install_status.cpython-314.pyc",
+    "bytes": 33550,
+    "allocated": 36864
+  },
+  {
+    "path": "tests/__pycache__/test_lab.cpython-314.pyc",
+    "bytes": 8069,
+    "allocated": 8192
+  },
+  {
+    "path": "tests/__pycache__/test_lifecycle_contracts.cpython-314.pyc",
+    "bytes": 51334,
+    "allocated": 53248
+  },
+  {
+    "path": "tests/__pycache__/test_on_demand.cpython-314.pyc",
+    "bytes": 13201,
+    "allocated": 16384
+  },
+  {
+    "path": "tests/__pycache__/test_pkg_integration.cpython-314.pyc",
+    "bytes": 16450,
+    "allocated": 20480
+  },
+  {
+    "path": "tests/__pycache__/test_portal_bridge.cpython-314.pyc",
+    "bytes": 4614,
+    "allocated": 8192
+  },
+  {
+    "path": "tests/__pycache__/test_resources.cpython-314.pyc",
+    "bytes": 24221,
+    "allocated": 24576
+  },
+  {
+    "path": "tests/__pycache__/test_resources_integration.cpython-314.pyc",
+    "bytes": 9138,
+    "allocated": 12288
+  },
+  {
+    "path": "tests/__pycache__/test_screencast.cpython-314.pyc",
+    "bytes": 45369,
+    "allocated": 49152
+  },
+  {
+    "path": "tests/__pycache__/test_screencast_contract.cpython-314.pyc",
+    "bytes": 3242,
+    "allocated": 4096
+  },
+  {
+    "path": "tests/__pycache__/test_screencast_native.cpython-314.pyc",
+    "bytes": 18077,
+    "allocated": 20480
+  },
+  {
+    "path": "tests/__pycache__/test_share_label.cpython-314.pyc",
+    "bytes": 15805,
+    "allocated": 16384
+  },
+  {
+    "path": "tests/__pycache__/test_startup_trace.cpython-314.pyc",
+    "bytes": 4366,
+    "allocated": 8192
+  },
+  {
+    "path": "tests/__pycache__/test_views.cpython-314.pyc",
+    "bytes": 44768,
+    "allocated": 45056
+  },
+  {
+    "path": "tests/__pycache__/test_file_operations.cpython-314.pyc",
+    "bytes": 49094,
+    "allocated": 49152
+  },
+  {
+    "path": "tests/__pycache__/test_controlled_move.cpython-314.pyc",
+    "bytes": 30879,
+    "allocated": 32768
+  },
+  {
+    "path": "tests/__pycache__/test_desktop_recovery_authority.cpython-314.pyc",
+    "bytes": 7722,
+    "allocated": 8192
+  },
+  {
+    "path": "tests/__pycache__/test_desktop_integrations.cpython-314.pyc",
+    "bytes": 39095,
+    "allocated": 40960
+  },
+  {
+    "path": "tests/__pycache__/test_project_sessions.cpython-314.pyc",
+    "bytes": 71921,
+    "allocated": 73728
+  },
+  {
+    "path": "tests/__pycache__/test_session_recovery_contract.cpython-314.pyc",
+    "bytes": 6209,
+    "allocated": 8192
+  },
+  {
+    "path": "tests/__pycache__/test_projection_controller.cpython-314.pyc",
+    "bytes": 10100,
+    "allocated": 12288
+  },
+  {
+    "path": "tests/__pycache__/test_projection_support.cpython-314.pyc",
+    "bytes": 12337,
+    "allocated": 16384
+  },
+  {
+    "path": "tests/__pycache__/test_projection_objects.cpython-314.pyc",
+    "bytes": 44121,
+    "allocated": 45056
+  },
+  {
+    "path": "tests/__pycache__/test_fuse_view.cpython-314.pyc",
+    "bytes": 36843,
+    "allocated": 36864
+  },
+  {
+    "path": "tests/__pycache__/test_view_backend.cpython-314.pyc",
+    "bytes": 22265,
+    "allocated": 24576
+  },
+  {
+    "path": "tests/__pycache__/test_root_identity.cpython-314.pyc",
+    "bytes": 21494,
+    "allocated": 24576
+  },
+  {
+    "path": "tests/__pycache__/test_env.cpython-314.pyc",
+    "bytes": 38817,
+    "allocated": 40960
+  },
+  {
+    "path": "tests/__pycache__/test_packages.cpython-314.pyc",
+    "bytes": 51830,
+    "allocated": 53248
+  },
+  {
+    "path": "tests/__pycache__/test_compatibility.cpython-314.pyc",
+    "bytes": 30354,
+    "allocated": 32768
+  },
+  {
+    "path": "tests/__pycache__/test_xauthority_mount.cpython-314.pyc",
+    "bytes": 9051,
+    "allocated": 12288
+  },
+  {
+    "path": "tests/__pycache__/test_projection_boundaries.cpython-314.pyc",
+    "bytes": 20112,
+    "allocated": 20480
+  },
+  {
+    "path": "tests/__pycache__/test_projection_directory.cpython-314.pyc",
+    "bytes": 45628,
+    "allocated": 49152
+  },
+  {
+    "path": "tests/__pycache__/test_projection_fd.cpython-314.pyc",
+    "bytes": 22071,
+    "allocated": 24576
+  },
+  {
+    "path": "tests/__pycache__/test_cli_guest_paths.cpython-314.pyc",
+    "bytes": 9018,
+    "allocated": 12288
+  },
+  {
+    "path": "tests/__pycache__/test_cli_shortcuts.cpython-314.pyc",
+    "bytes": 98128,
+    "allocated": 98304
+  },
+  {
+    "path": "tests/__pycache__/test_cli_primary_acceptance.cpython-314.pyc",
+    "bytes": 12057,
+    "allocated": 12288
+  },
+  {
+    "path": "tests/__pycache__/test_quality_regressions.cpython-314.pyc",
+    "bytes": 9539,
+    "allocated": 12288
+  },
+  {
+    "path": "tests/__pycache__/test_atomic_io.cpython-314.pyc",
+    "bytes": 8698,
+    "allocated": 12288
+  },
+  {
+    "path": "tools/__pycache__/collect_host_baseline.cpython-314.pyc",
+    "bytes": 11533,
+    "allocated": 12288
+  },
+  {
+    "path": "tools/__pycache__/ml.cpython-314.pyc",
+    "bytes": 798,
+    "allocated": 4096
+  },
+  {
+    "path": "tools/__pycache__/probe_file_sharing.cpython-314.pyc",
+    "bytes": 11676,
+    "allocated": 12288
+  },
+  {
+    "path": "tools/__pycache__/probe_resources.cpython-314.pyc",
+    "bytes": 58981,
+    "allocated": 61440
+  },
+  {
+    "path": "tools/__pycache__/probe_desktop_apps.cpython-314.pyc",
+    "bytes": 33045,
+    "allocated": 36864
+  },
+  {
+    "path": "tools/__pycache__/audio_route.cpython-314.pyc",
+    "bytes": 2525,
+    "allocated": 4096
+  },
+  {
+    "path": "tools/__pycache__/probe_wayland_media.cpython-314.pyc",
+    "bytes": 39261,
+    "allocated": 40960
+  },
+  {
+    "path": "tools/__pycache__/probe_desktop_protocols.cpython-314.pyc",
+    "bytes": 21487,
+    "allocated": 24576
+  },
+  {
+    "path": "tools/__pycache__/prepare_startup.cpython-314.pyc",
+    "bytes": 10307,
+    "allocated": 12288
+  },
+  {
+    "path": "tools/__pycache__/probe_startup_failures.cpython-314.pyc",
+    "bytes": 13936,
+    "allocated": 16384
+  },
+  {
+    "path": "tools/__pycache__/probe_arch_complex.cpython-314.pyc",
+    "bytes": 6482,
+    "allocated": 8192
+  },
+  {
+    "path": "tools/__pycache__/probe_freecad_macro.cpython-314.pyc",
+    "bytes": 7237,
+    "allocated": 8192
+  },
+  {
+    "path": "tools/__pycache__/prepare_install_status.cpython-314.pyc",
+    "bytes": 14304,
+    "allocated": 16384
+  },
+  {
+    "path": "tools/__pycache__/probe_install_status.cpython-314.pyc",
+    "bytes": 24343,
+    "allocated": 24576
+  },
+  {
+    "path": "tools/__pycache__/prepare_lifecycle.cpython-314.pyc",
+    "bytes": 30391,
+    "allocated": 32768
+  },
+  {
+    "path": "tools/__pycache__/probe_lifecycle.cpython-314.pyc",
+    "bytes": 210077,
+    "allocated": 212992
+  },
+  {
+    "path": "tools/__pycache__/prepare_concurrency.cpython-314.pyc",
+    "bytes": 25170,
+    "allocated": 28672
+  },
+  {
+    "path": "tools/__pycache__/probe_concurrency.cpython-314.pyc",
+    "bytes": 240847,
+    "allocated": 241664
+  },
+  {
+    "path": "tools/__pycache__/probe_screencast.cpython-314.pyc",
+    "bytes": 38316,
+    "allocated": 40960
+  },
+  {
+    "path": "tools/__pycache__/probe_startup.cpython-314.pyc",
+    "bytes": 30598,
+    "allocated": 32768
+  },
+  {
+    "path": "tools/__pycache__/startup_observer.cpython-314.pyc",
+    "bytes": 30753,
+    "allocated": 32768
+  },
+  {
+    "path": "tools/__pycache__/unifier.cpython-314.pyc",
+    "bytes": 803,
+    "allocated": 4096
+  },
+  {
+    "path": "tools/__pycache__/kwin_window_probe.cpython-314.pyc",
+    "bytes": 9343,
+    "allocated": 12288
+  },
+  {
+    "path": "tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 29262,
+    "allocated": 32768
+  },
+  {
+    "path": "tools/__pycache__/install_unifier.cpython-314.pyc",
+    "bytes": 5494,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/gui-apps-2026-10-22T081145+0800/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 446,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/gui-apps-2026-10-22T081145+0800/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 30853,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/gui-apps-2026-10-22T081145+0800/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 534,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/gui-apps-2026-10-22T081145+0800/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 86574,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/gui-apps-2026-10-22T081145+0800/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 20049,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/gui-apps-2026-10-22T081145+0800/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 17991,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/gui-apps-2026-10-22T081145+0800/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 22664,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/gui-apps-2026-10-22T081145+0800/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 13044,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/gui-apps-2026-10-22T081145+0800/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1282,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/gui-apps-2026-10-22T081145+0800/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 26683,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 451,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 30858,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 539,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 86579,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 20054,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 17996,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 22669,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 13049,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1287,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 26688,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/user-project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 456,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/user-project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 31436,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/user-project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 544,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/user-project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 89249,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/user-project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 20059,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/user-project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 18001,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/user-project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 23415,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/user-project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 13054,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/user-project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1292,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/wayland-media-2026-10-22T082942+0800/user-project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 26693,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/screencast-2026-10-22T155700+0800/work/source/src/multilinux/__pycache__/screencast.cpython-313.pyc",
+    "bytes": 43350,
+    "allocated": 45056
+  },
+  {
+    "path": "evidence/startup-2026-10-22T182400+0800/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 445,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/startup-2026-10-22T182400+0800/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 34238,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/startup-2026-10-22T182400+0800/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 533,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/startup-2026-10-22T182400+0800/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 95997,
+    "allocated": 98304
+  },
+  {
+    "path": "evidence/startup-2026-10-22T182400+0800/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 20048,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/startup-2026-10-22T182400+0800/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 19371,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/startup-2026-10-22T182400+0800/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 24211,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/startup-2026-10-22T182400+0800/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 13043,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/startup-2026-10-22T182400+0800/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1281,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/startup-2026-10-22T182400+0800/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 11509,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/startup-2026-10-22T182400+0800/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 26682,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/__pycache__/freecad_save.cpython-314.pyc",
+    "bytes": 1862,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/__pycache__/freecad_reopen.cpython-314.pyc",
+    "bytes": 1145,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/__pycache__/freecad_default.cpython-314.pyc",
+    "bytes": 2197,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/work/cross-save-2026-10-23/__pycache__/readback.cpython-314.pyc",
+    "bytes": 1318,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 450,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 34243,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 538,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 96002,
+    "allocated": 98304
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 20053,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 19376,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 24216,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 13048,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1286,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/src/multilinux/__pycache__/routing.cpython-314.pyc",
+    "bytes": 2696,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 11514,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/arch-complex-2026-10-22T202359+0800/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 26687,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/install-status-2026-10-22T2108+0800/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 450,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/install-status-2026-10-22T2108+0800/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 37539,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/install-status-2026-10-22T2108+0800/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 538,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/install-status-2026-10-22T2108+0800/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 26898,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/install-status-2026-10-22T2108+0800/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 100620,
+    "allocated": 102400
+  },
+  {
+    "path": "evidence/install-status-2026-10-22T2108+0800/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 19376,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/install-status-2026-10-22T2108+0800/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 24551,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/install-status-2026-10-22T2108+0800/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 13048,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/install-status-2026-10-22T2108+0800/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1286,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/install-status-2026-10-22T2108+0800/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 26687,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T212236+0800/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 447,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T212236+0800/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 37536,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T212236+0800/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 535,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T212236+0800/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 26895,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T212236+0800/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 100617,
+    "allocated": 102400
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T212236+0800/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 19373,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T212236+0800/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 24548,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T212236+0800/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 13045,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T212236+0800/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1283,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T212236+0800/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 18933,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T212236+0800/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 26684,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T213032+0800/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 447,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T213032+0800/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 37536,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T213032+0800/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 535,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T213032+0800/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 26895,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T213032+0800/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 100617,
+    "allocated": 102400
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T213032+0800/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 19373,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T213032+0800/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 24548,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T213032+0800/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 13045,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T213032+0800/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1283,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T213032+0800/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 18933,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/lifecycle-2026-10-22T213032+0800/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 26684,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/concurrency-2026-10-22T220318+0800/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 449,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/concurrency-2026-10-22T220318+0800/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 37538,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/concurrency-2026-10-22T220318+0800/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 537,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/concurrency-2026-10-22T220318+0800/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 26897,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/concurrency-2026-10-22T220318+0800/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 100619,
+    "allocated": 102400
+  },
+  {
+    "path": "evidence/concurrency-2026-10-22T220318+0800/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 19375,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/concurrency-2026-10-22T220318+0800/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 24550,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/concurrency-2026-10-22T220318+0800/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 13047,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/concurrency-2026-10-22T220318+0800/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1285,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/concurrency-2026-10-22T220318+0800/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 18935,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/concurrency-2026-10-22T220318+0800/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 26686,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/env-view-2026-10-23/__pycache__/probe.cpython-314.pyc",
+    "bytes": 46833,
+    "allocated": 49152
+  },
+  {
+    "path": "evidence/env-view-2026-10-23/__pycache__/probe_save.cpython-314.pyc",
+    "bytes": 11128,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/cross-save-2026-10-23/__pycache__/probe.cpython-314.pyc",
+    "bytes": 37942,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/cross-save-2026-10-23/__pycache__/probe_followup.cpython-314.pyc",
+    "bytes": 15788,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 446,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 39918,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 534,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40192,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 104781,
+    "allocated": 106496
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13515,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 19372,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 24547,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 13044,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1282,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 18932,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27735,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/contract-freecad-gui-2026-10-23/__pycache__/gui_command.cpython-314.pyc",
+    "bytes": 2519,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/__pycache__/prepare_live.cpython-314.pyc",
+    "bytes": 9198,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/__pycache__/run_acceptance.cpython-314.pyc",
+    "bytes": 18387,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/__pycache__/run_gui_steps.cpython-314.pyc",
+    "bytes": 8931,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/__pycache__/gui_command.cpython-314.pyc",
+    "bytes": 2492,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 457,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 20811,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 545,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 24876,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4760,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 20410,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 120597,
+    "allocated": 122880
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13948,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17015,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17608,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9271,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15148,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40203,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 19450,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17898,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 58618,
+    "allocated": 61440
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 17089,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1293,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 27880,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt1-startpage-focus/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27746,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 457,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 20811,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 545,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 24876,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4760,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 20410,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 120597,
+    "allocated": 122880
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13948,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17015,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17608,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9271,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15148,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40203,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 19450,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17898,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 58618,
+    "allocated": 61440
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 17089,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1293,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 27880,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27746,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/attempt2-caption-transition/__pycache__/gui_command.cpython-314.pyc",
+    "bytes": 2530,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 457,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 20811,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 545,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 24876,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4760,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 20410,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 120597,
+    "allocated": 122880
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13948,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17015,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17608,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9271,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15148,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40203,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 19450,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17898,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 58618,
+    "allocated": 61440
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 17089,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1293,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 27880,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27746,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/unifier-v2-stage-b-2026-10-24/live-freecad/__pycache__/gui_command.cpython-314.pyc",
+    "bytes": 2530,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-c-2026-10-24/freecad-desktop/__pycache__/verify_menu.cpython-314.pyc",
+    "bytes": 10067,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-2026-10-24/cli-project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 448,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-2026-10-24/cli-project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 68477,
+    "allocated": 69632
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-2026-10-24/cli-project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 536,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-2026-10-24/cli-project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40194,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-2026-10-24/cli-project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21258,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-2026-10-24/cli-project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 99692,
+    "allocated": 102400
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-2026-10-24/cli-project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9262,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-2026-10-24/cli-project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 21737,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-2026-10-24/cli-project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1284,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-controlled-cli/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 482,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-controlled-cli/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 69384,
+    "allocated": 69632
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-controlled-cli/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 570,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-controlled-cli/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40228,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-controlled-cli/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21575,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-controlled-cli/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168906,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-controlled-cli/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9296,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-controlled-cli/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13612,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-controlled-cli/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22653,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-controlled-cli/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1318,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-legacy-cli/cli-project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 482,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-legacy-cli/cli-project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 69384,
+    "allocated": 69632
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-legacy-cli/cli-project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 570,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-legacy-cli/cli-project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40228,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-legacy-cli/cli-project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21575,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-legacy-cli/cli-project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168906,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-legacy-cli/cli-project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9296,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-legacy-cli/cli-project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13612,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-legacy-cli/cli-project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22653,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-d-complete-2026-10-25/primary-final-legacy-cli/cli-project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1318,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27740,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 451,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87758,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 539,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40197,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21544,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168875,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9265,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13581,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22622,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1287,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29321,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17009,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17602,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4754,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15142,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23768,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51832,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122974,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13942,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23325,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17892,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94019,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 37953,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3688,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78180,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/native-project/src/multilinux/__pycache__/desktop_integrations.cpython-314.pyc",
+    "bytes": 38908,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 465,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87772,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 553,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40211,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21558,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168889,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9279,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13595,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22636,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-CLI/project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1301,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-legacy-CLI/cli-project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 476,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-legacy-CLI/cli-project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87783,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-legacy-CLI/cli-project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 564,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-legacy-CLI/cli-project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40222,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-legacy-CLI/cli-project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21569,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-legacy-CLI/cli-project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168900,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-legacy-CLI/cli-project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9290,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-legacy-CLI/cli-project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13606,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-legacy-CLI/cli-project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22647,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/primary-final2-D-legacy-CLI/cli-project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1312,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-e-2026-10-25/__pycache__/probe_native_desktop.cpython-314.pyc",
+    "bytes": 18646,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/__pycache__/primary_cache_probe.cpython-314.pyc",
+    "bytes": 10919,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/__pycache__/cleanup_fixtures.cpython-314.pyc",
+    "bytes": 22586,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/__pycache__/common.cpython-314.pyc",
+    "bytes": 52236,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/__pycache__/prepare_fixtures.cpython-314.pyc",
+    "bytes": 24276,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/__pycache__/probe_sessions.cpython-314.pyc",
+    "bytes": 63322,
+    "allocated": 65536
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/__pycache__/resource_sampler.cpython-314.pyc",
+    "bytes": 51918,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/__pycache__/run_all.cpython-314.pyc",
+    "bytes": 7601,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/__pycache__/selftest.cpython-314.pyc",
+    "bytes": 17158,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/__pycache__/probe_soak.cpython-314.pyc",
+    "bytes": 29081,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/__pycache__/probe_projection.cpython-314.pyc",
+    "bytes": 53941,
+    "allocated": 57344
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 467,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51848,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 555,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4770,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122990,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13958,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17025,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17618,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9281,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15158,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40213,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23341,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17908,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94035,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23784,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 37969,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3704,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22638,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87774,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12445,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 34716,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78196,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29337,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21560,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168891,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13597,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/resources.cpython-314.pyc",
+    "bytes": 34237,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1303,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/unifier-v2-stage-f-2026-10-26/implementation/stage-f-project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27756,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/__pycache__/real_broker_matrix.cpython-314.pyc",
+    "bytes": 14389,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/__pycache__/real_fuse_probe.cpython-314.pyc",
+    "bytes": 51753,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 460,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51841,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 548,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4763,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122983,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13951,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17018,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17611,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9274,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15151,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40206,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23334,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17901,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94028,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23777,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 35598,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 68819,
+    "allocated": 69632
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3697,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87767,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12438,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 37385,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78189,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29330,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21553,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168884,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13590,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22631,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-attempt1/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27749,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 457,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51838,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 545,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4760,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122980,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13948,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17015,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17608,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9271,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15148,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40203,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23331,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17898,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94025,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23774,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 36188,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 72905,
+    "allocated": 73728
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3694,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87764,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12435,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 37496,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78186,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29327,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21550,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168881,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13587,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22628,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27746,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 460,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51841,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 548,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4763,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122983,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13951,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17018,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17611,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9274,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15151,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40206,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23334,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17901,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94028,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23777,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 36599,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 72908,
+    "allocated": 73728
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3697,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87767,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12438,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 37499,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78189,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29330,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21553,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168884,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13590,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22631,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-final-v2/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27749,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 460,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51841,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 548,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4763,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122983,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13951,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17018,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17611,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9274,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15151,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40206,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23334,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17901,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94028,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23777,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 36599,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 72908,
+    "allocated": 73728
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3697,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 37844,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87767,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12438,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78189,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29330,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21553,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168884,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13590,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22631,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-objects-2026-10-26/broker-accepted/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27749,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 444,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 37828,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23761,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 532,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17595,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4747,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51825,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 36583,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 72892,
+    "allocated": 73728
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3681,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122967,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13935,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17002,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9258,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15135,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40190,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23318,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17885,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94012,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87751,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12422,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78173,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29314,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21537,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168868,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13574,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22615,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/snapshot/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27733,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 450,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51831,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 538,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4753,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122973,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13941,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17008,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17601,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9264,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15141,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40196,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23324,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17891,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94018,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23767,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 36589,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 72898,
+    "allocated": 73728
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3687,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87757,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12428,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 37834,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78179,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29320,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21543,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168874,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13580,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22621,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/broker/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27739,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/__pycache__/extra_probe.cpython-314.pyc",
+    "bytes": 33384,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/__pycache__/boundary_broker.cpython-314.pyc",
+    "bytes": 17853,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/__pycache__/real_fuse_probe.cpython-314.pyc",
+    "bytes": 51752,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 459,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51840,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 547,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4762,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122982,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13950,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17017,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17610,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9273,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15150,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40205,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23333,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17900,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94027,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23776,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 36598,
+    "allocated": 36864
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 72907,
+    "allocated": 73728
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3696,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87766,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12437,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 37843,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78188,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29329,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21552,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168883,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13589,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22630,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-retest-2026-10-27/boundary-broker/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27748,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/__pycache__/boundary_cases.cpython-314.pyc",
+    "bytes": 19630,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/__pycache__/real_broker_boundaries.cpython-314.pyc",
+    "bytes": 17565,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 460,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51841,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 548,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4763,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122983,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13951,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17018,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17611,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9274,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15151,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40206,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23334,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17901,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94028,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23777,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 40902,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 76963,
+    "allocated": 77824
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3697,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87767,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12438,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 42246,
+    "allocated": 45056
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78189,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29330,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21553,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168884,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13590,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22631,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27749,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27747,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 458,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 42568,
+    "allocated": 45056
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23775,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 546,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17609,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4761,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51839,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 40900,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 76961,
+    "allocated": 77824
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3695,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122981,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13949,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17016,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9272,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15149,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40204,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23332,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17899,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94026,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87765,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12436,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78187,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29328,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21551,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168882,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13588,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source-v2/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22629,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 455,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 42241,
+    "allocated": 45056
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23772,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 543,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17606,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4758,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51836,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 40897,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3692,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/accepted-source/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 76958,
+    "allocated": 77824
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 463,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51844,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 551,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4766,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122986,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13954,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17021,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17614,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9277,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15154,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40209,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23337,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17904,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94031,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23780,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 40905,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 76966,
+    "allocated": 77824
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3700,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87770,
+    "allocated": 90112
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12441,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 42573,
+    "allocated": 45056
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78192,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29333,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21556,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168887,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13593,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22634,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-boundaries-2026-10-27/broker-final-v2/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 27752,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/runtime-consolidation-2026-10-27/__pycache__/backup_runtime.cpython-314.pyc",
+    "bytes": 18609,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/runtime-consolidation-2026-10-27/__pycache__/sync_freecad_code.cpython-314.pyc",
+    "bytes": 7737,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/runtime-consolidation-2026-10-27/__pycache__/retire_test_containers.cpython-314.pyc",
+    "bytes": 4928,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/runtime-consolidation-2026-10-27/__pycache__/migrate_wemeet.cpython-314.pyc",
+    "bytes": 18105,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/runtime-consolidation-2026-10-27/__pycache__/verify_deployed_views.cpython-314.pyc",
+    "bytes": 6802,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/runtime-consolidation-2026-10-27/__pycache__/finish_retirement.cpython-314.pyc",
+    "bytes": 10337,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/runtime-consolidation-2026-10-27/__pycache__/verify_daily.cpython-314.pyc",
+    "bytes": 16279,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/whitelist-daily-deploy-2026-10-28/__pycache__/backup.cpython-314.pyc",
+    "bytes": 9681,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/whitelist-daily-deploy-2026-10-28/__pycache__/sync.cpython-314.pyc",
+    "bytes": 10082,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/whitelist-daily-deploy-2026-10-28/__pycache__/kos_windows.cpython-314.pyc",
+    "bytes": 7057,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/__pycache__/real_fd_probe.cpython-314.pyc",
+    "bytes": 13485,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 453,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51834,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 541,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4756,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 126151,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13944,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/compatibility.cpython-314.pyc",
+    "bytes": 12260,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17011,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17604,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9267,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15144,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40199,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 28430,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17894,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94021,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23770,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 40765,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 84748,
+    "allocated": 86016
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3690,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 91555,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12431,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 42563,
+    "allocated": 45056
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78283,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29323,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21546,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168877,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13583,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 25338,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/src/multilinux/__pycache__/root_identity.cpython-314.pyc",
+    "bytes": 6501,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 28584,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 459,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51840,
+    "allocated": 53248
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 547,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4762,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 126157,
+    "allocated": 126976
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13950,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/compatibility.cpython-314.pyc",
+    "bytes": 12266,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17017,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17610,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9273,
+    "allocated": 12288
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15150,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40205,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 28436,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17900,
+    "allocated": 20480
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94027,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23776,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 40771,
+    "allocated": 40960
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 84887,
+    "allocated": 86016
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3696,
+    "allocated": 4096
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 91561,
+    "allocated": 94208
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12437,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 42929,
+    "allocated": 45056
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78289,
+    "allocated": 81920
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29329,
+    "allocated": 32768
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21552,
+    "allocated": 24576
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168883,
+    "allocated": 172032
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13589,
+    "allocated": 16384
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 25344,
+    "allocated": 28672
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/src/multilinux/__pycache__/root_identity.cpython-314.pyc",
+    "bytes": 6507,
+    "allocated": 8192
+  },
+  {
+    "path": "evidence/projection-fd-repair-2026-10-29/broker-final/project/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 28590,
+    "allocated": 28672
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/__main__.cpython-314.pyc",
+    "bytes": 217,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13850,
+    "allocated": 16384
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 87666,
+    "allocated": 90112
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21452,
+    "allocated": 24576
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 23233,
+    "allocated": 24576
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/desktop_integrations.cpython-314.pyc",
+    "bytes": 38854,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168783,
+    "allocated": 172032
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29229,
+    "allocated": 32768
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 16917,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9173,
+    "allocated": 12288
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13489,
+    "allocated": 16384
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40105,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1195,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78126,
+    "allocated": 81920
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15050,
+    "allocated": 16384
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 22530,
+    "allocated": 24576
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/resources.cpython-314.pyc",
+    "bytes": 34129,
+    "allocated": 36864
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/routing.cpython-314.pyc",
+    "bytes": 4111,
+    "allocated": 8192
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/screencast.cpython-314.pyc",
+    "bytes": 44473,
+    "allocated": 45056
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 122882,
+    "allocated": 126976
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17800,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/view_broker.cpython-314.pyc",
+    "bytes": 12337,
+    "allocated": 16384
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 93927,
+    "allocated": 94208
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 446,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 34695,
+    "allocated": 36864
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23763,
+    "allocated": 24576
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 534,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17597,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4749,
+    "allocated": 8192
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51827,
+    "allocated": 53248
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 37948,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/baseline/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3683,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt1/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 446,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt1/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 37298,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt1/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23763,
+    "allocated": 24576
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt1/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 534,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt1/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17597,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt1/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4749,
+    "allocated": 8192
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt1/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51827,
+    "allocated": 53248
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt1/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 33464,
+    "allocated": 36864
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt1/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 66065,
+    "allocated": 69632
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt1/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3683,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt2/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 446,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt2/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 37485,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt2/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23763,
+    "allocated": 24576
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt2/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 534,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt2/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17597,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt2/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4749,
+    "allocated": 8192
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt2/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51827,
+    "allocated": 53248
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt2/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 36065,
+    "allocated": 36864
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt2/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 72337,
+    "allocated": 73728
+  },
+  {
+    "path": ".lab/agents/projection-objects-20261026/attempt2/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3683,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/baseline/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 449,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/baseline/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 37833,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/baseline/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23766,
+    "allocated": 24576
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/baseline/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 537,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/baseline/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17600,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/baseline/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4752,
+    "allocated": 8192
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/baseline/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51830,
+    "allocated": 53248
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/baseline/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 36588,
+    "allocated": 36864
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/baseline/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 72897,
+    "allocated": 73728
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/baseline/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3686,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt1/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 449,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt1/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 40620,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt1/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 76531,
+    "allocated": 77824
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt2/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 449,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt2/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 40654,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt2/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 76292,
+    "allocated": 77824
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt2/src/multilinux/__pycache__/fuse_view.cpython-314.pyc",
+    "bytes": 42809,
+    "allocated": 45056
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt2/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23766,
+    "allocated": 24576
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt2/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 537,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt2/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17600,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt2/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4752,
+    "allocated": 8192
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt2/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51830,
+    "allocated": 53248
+  },
+  {
+    "path": ".lab/agents/projection-boundaries-20261027/attempt2/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3686,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 456,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 544,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1292,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51837,
+    "allocated": 53248
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4759,
+    "allocated": 8192
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 126154,
+    "allocated": 126976
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13947,
+    "allocated": 16384
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/compatibility.cpython-314.pyc",
+    "bytes": 12263,
+    "allocated": 12288
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17014,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17607,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9270,
+    "allocated": 12288
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15147,
+    "allocated": 16384
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40202,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 28433,
+    "allocated": 28672
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17897,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94024,
+    "allocated": 94208
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23773,
+    "allocated": 24576
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 40898,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 76959,
+    "allocated": 77824
+  },
+  {
+    "path": ".lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3693,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/__init__.cpython-314.pyc",
+    "bytes": 456,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/errors.cpython-314.pyc",
+    "bytes": 544,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/project.cpython-314.pyc",
+    "bytes": 1292,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/runtime.cpython-314.pyc",
+    "bytes": 51837,
+    "allocated": 53248
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/share_label.cpython-314.pyc",
+    "bytes": 4759,
+    "allocated": 8192
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/service.cpython-314.pyc",
+    "bytes": 126154,
+    "allocated": 126976
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/catalog.cpython-314.pyc",
+    "bytes": 13947,
+    "allocated": 16384
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/compatibility.cpython-314.pyc",
+    "bytes": 12263,
+    "allocated": 12288
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/handlers.cpython-314.pyc",
+    "bytes": 17014,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/identity.cpython-314.pyc",
+    "bytes": 17607,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/json_records.cpython-314.pyc",
+    "bytes": 9270,
+    "allocated": 12288
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/projects.cpython-314.pyc",
+    "bytes": 15147,
+    "allocated": 16384
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/packages.cpython-314.pyc",
+    "bytes": 40202,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/desktop.cpython-314.pyc",
+    "bytes": 28433,
+    "allocated": 28672
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/store.cpython-314.pyc",
+    "bytes": 17897,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/views.cpython-314.pyc",
+    "bytes": 94024,
+    "allocated": 94208
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/on_demand.cpython-314.pyc",
+    "bytes": 23773,
+    "allocated": 24576
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/view_backend.cpython-314.pyc",
+    "bytes": 40898,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/projection.cpython-314.pyc",
+    "bytes": 76959,
+    "allocated": 77824
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/view_journal.cpython-314.pyc",
+    "bytes": 3693,
+    "allocated": 4096
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/cli.cpython-314.pyc",
+    "bytes": 91558,
+    "allocated": 94208
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/project_sessions.cpython-314.pyc",
+    "bytes": 78286,
+    "allocated": 81920
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/file_routes.cpython-314.pyc",
+    "bytes": 29326,
+    "allocated": 32768
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/control.cpython-314.pyc",
+    "bytes": 21549,
+    "allocated": 24576
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/file_operations.cpython-314.pyc",
+    "bytes": 168880,
+    "allocated": 172032
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/lease.cpython-314.pyc",
+    "bytes": 13586,
+    "allocated": 16384
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/registry.cpython-314.pyc",
+    "bytes": 25341,
+    "allocated": 28672
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/src/multilinux/__pycache__/root_identity.cpython-314.pyc",
+    "bytes": 6504,
+    "allocated": 8192
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/tests/__pycache__/test_compatibility.cpython-314.pyc",
+    "bytes": 30413,
+    "allocated": 32768
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/tests/__pycache__/test_env.cpython-314.pyc",
+    "bytes": 38876,
+    "allocated": 40960
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/tests/__pycache__/test_app_binding.cpython-314.pyc",
+    "bytes": 13371,
+    "allocated": 16384
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/tests/__pycache__/test_desktop.cpython-314.pyc",
+    "bytes": 18363,
+    "allocated": 20480
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/tests/__pycache__/test_project_sessions.cpython-314.pyc",
+    "bytes": 71980,
+    "allocated": 73728
+  },
+  {
+    "path": ".lab/ubuntu-bundle-l4ogzoje/unifier-ubuntu-server-20261028/tools/__pycache__/lab.cpython-314.pyc",
+    "bytes": 28587,
+    "allocated": 28672
+  }
+]

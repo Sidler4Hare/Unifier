@@ -13,8 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "tests"))
 
-from multilinux import fuse_view
-from multilinux.view_backend import ViewError
+from unifier import fuse_view
+from unifier.view_backend import ViewError
 from test_projection_support import fixture, open_fd_count, parse_dirents
 
 
@@ -441,7 +441,7 @@ class ControllerRegressions(unittest.TestCase):
                     return real_open(path, flags, *args, **kwargs)
 
                 with mock.patch(
-                        "multilinux.projection.os.open", side_effect=denied):
+                        "unifier.projection.os.open", side_effect=denied):
                     reply = server.call(
                         fuse_view.FUSE_LOOKUP, outer_node, b"deep\x00")
                 self.assertEqual(reply[2], errno.EACCES)
@@ -463,9 +463,9 @@ class ControllerRegressions(unittest.TestCase):
 
                 before_fds = open_fd_count()
                 with mock.patch(
-                        "multilinux.projection.os.open",
+                        "unifier.projection.os.open",
                         side_effect=tracked_open), mock.patch(
-                        "multilinux.projection.os.fstat",
+                        "unifier.projection.os.fstat",
                         side_effect=failing_fstat):
                     reply = server.call(
                         fuse_view.FUSE_LOOKUP, outer_node, b"deep\x00")

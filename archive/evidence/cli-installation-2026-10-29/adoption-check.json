@@ -1,0 +1,51 @@
+[
+  {
+    "args": [
+      "adopt",
+      "--target",
+      "arch",
+      "--root",
+      "/home/omg/.local/share/multilinux/apps/freecad",
+      "--environment",
+      "freecad-arch",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"schema_version\": 1,\n  \"target\": \"arch\",\n  \"environment_id\": \"freecad-arch\",\n  \"source_root\": \"/home/omg/.local/share/multilinux/apps/freecad\",\n  \"environment_uuid\": \"1da35b87-4617-4953-bb03-0b55613a73a4\",\n  \"generation\": 1,\n  \"container_id\": \"37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5\",\n  \"files_dir\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/adoption-check/containers/arch/files\",\n  \"files_mounted\": false,\n  \"conflicts\": []\n}\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "adopt",
+      "--target",
+      "debian13",
+      "--root",
+      "/home/omg/.local/share/multilinux/apps/wemeet",
+      "--environment",
+      "meeting",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"schema_version\": 1,\n  \"target\": \"debian13\",\n  \"environment_id\": \"meeting\",\n  \"source_root\": \"/home/omg/.local/share/multilinux/apps/wemeet\",\n  \"environment_uuid\": \"1968c461-29af-4197-9762-a4c0bd51be86\",\n  \"generation\": 1,\n  \"container_id\": \"b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb\",\n  \"files_dir\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/adoption-check/containers/debian13/files\",\n  \"files_mounted\": false,\n  \"conflicts\": []\n}\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "list",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"schema_version\": 1,\n  \"enabled\": [\n    \"debian13\",\n    \"arch\"\n  ],\n  \"retained\": [\n    \"debian13\",\n    \"arch\"\n  ],\n  \"failed\": [],\n  \"targets\": [\n    {\n      \"target\": \"debian13\",\n      \"display_name\": \"Debian 13\",\n      \"selected\": true,\n      \"configured\": true,\n      \"state\": \"adopted\",\n      \"environment_id\": \"meeting\",\n      \"container_state\": \"stopped\",\n      \"container_label\": \"stopped\",\n      \"directory\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/adoption-check/containers/debian13\",\n      \"files_dir\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/adoption-check/containers/debian13/files\",\n      \"files_mounted\": false,\n      \"source\": \"adopted\",\n      \"source_root\": \"/home/omg/.local/share/multilinux/apps/wemeet\",\n      \"source_environment\": \"meeting\",\n      \"failure\": null,\n      \"error\": null\n    },\n    {\n      \"target\": \"fedora44\",\n      \"display_name\": \"Fedora 44\",\n      \"selected\": false,\n      \"configured\": false,\n      \"state\": \"not_configured\",\n      \"environment_id\": \"fedora44\",\n      \"container_state\": null,\n      \"container_label\": \"—\",\n      \"directory\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/adoption-check/containers/fedora44\",\n      \"files_dir\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/adoption-check/containers/fedora44/files\",\n      \"files_mounted\": false,\n      \"source\": \"new\",\n      \"source_root\": null,\n      \"source_environment\": null,\n      \"failure\": null,\n      \"error\": null\n    },\n    {\n      \"target\": \"arch\",\n      \"display_name\": \"Arch Linux rolling\",\n      \"selected\": true,\n      \"configured\": true,\n      \"state\": \"adopted\",\n      \"environment_id\": \"freecad-arch\",\n      \"container_state\": \"stopped\",\n      \"container_label\": \"stopped\",\n      \"directory\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/adoption-check/containers/arch\",\n      \"files_dir\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/adoption-check/containers/arch/files\",\n      \"files_mounted\": false,\n      \"source\": \"adopted\",\n      \"source_root\": \"/home/omg/.local/share/multilinux/apps/freecad\",\n      \"source_environment\": \"freecad-arch\",\n      \"failure\": null,\n      \"error\": null\n    }\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "dirs",
+      "arch",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"schema_version\": 1,\n  \"targets\": [\n    {\n      \"target\": \"arch\",\n      \"display_name\": \"Arch Linux rolling\",\n      \"configured\": true,\n      \"state\": \"adopted\",\n      \"container_state\": \"stopped\",\n      \"container_label\": \"stopped\",\n      \"directory\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/adoption-check/containers/arch\",\n      \"files_dir\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/adoption-check/containers/arch/files\",\n      \"files_mounted\": false,\n      \"view_state\": \"not mounted\",\n      \"view_path\": null,\n      \"source\": \"adopted\",\n      \"source_root\": \"/home/omg/.local/share/multilinux/apps/freecad\",\n      \"source_environment\": \"freecad-arch\",\n      \"error\": null\n    }\n  ]\n}\n",
+    "stderr": ""
+  }
+]

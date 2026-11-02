@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "versions": [
+    "Unifier 0.0.1",
+    "Unifier 0.0.2",
+    "Unifier 0.0.1",
+    "Unifier 0.0.2"
+  ],
+  "data_preserved_after_uninstall": true
+}

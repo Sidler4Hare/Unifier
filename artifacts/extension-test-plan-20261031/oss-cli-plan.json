@@ -1,0 +1,831 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-31",
+  "parent_revision": 3,
+  "addendum": 1,
+  "status": "PLANNED_NOT_RUN",
+  "sources": "oss-sources.json",
+  "parent_plan": "plan.json",
+  "scope": "6 open-source CLI projects / 18 project-target cells, separate from 9 closed-source GUI cells; KeePassXC is boundary-only",
+  "projects": [
+    {
+      "id": "jq",
+      "phase": "C0",
+      "sources": [
+        "jq-upstream",
+        "jq-debian",
+        "jq-fedora",
+        "jq-arch"
+      ],
+      "workflow_oracle": "JSON 文件求和/选择字段，中文字符串、非法 JSON、-e 真/假/空输出，stdout/stderr 与原生退出码一致",
+      "package_and_executable_mapping": "distribution package baseline; upstream artifacts may differ",
+      "license_note": "open-source upstream; record actual package license files at acquisition"
+    },
+    {
+      "id": "ripgrep",
+      "phase": "C1",
+      "sources": [
+        "ripgrep"
+      ],
+      "workflow_oracle": "固定文本树命中/无命中/错误，空格/中文/以 - 开头的文件名，-- 分隔与字面量 argv；按原生返回 0/1/2 对照",
+      "package_and_executable_mapping": "distribution package baseline; upstream artifacts may differ",
+      "license_note": "open-source upstream; record actual package license files at acquisition"
+    },
+    {
+      "id": "fd",
+      "phase": "C1",
+      "sources": [
+        "fd",
+        "fd-debian"
+      ],
+      "workflow_oracle": "固定目录树匹配及 -0 输出按集合比较；默认隐藏/忽略规则单列；验证包名、可执行名和应用 alias 不相同",
+      "package_and_executable_mapping": "distribution package baseline; upstream artifacts may differ",
+      "license_note": "open-source upstream; record actual package license files at acquisition"
+    },
+    {
+      "id": "bat",
+      "phase": "C1",
+      "sources": [
+        "bat",
+        "bat-debian-files"
+      ],
+      "workflow_oracle": "关闭颜色/分页后的字节对照；单列 PTY 分页/退出与 TERM；不创建宿主 alias 掩盖入口差异",
+      "package_and_executable_mapping": "distribution package baseline; upstream artifacts may differ",
+      "license_note": "open-source upstream; record actual package license files at acquisition"
+    },
+    {
+      "id": "sqlite",
+      "phase": "C1",
+      "sources": [
+        "sqlite",
+        "sqlite-license",
+        "sqlite-debian",
+        "sqlite-fedora",
+        "sqlite-arch"
+      ],
+      "workflow_oracle": "共享可写 fixture 建库/事务/查询/CSV，关闭应用及环境后两次重开，行数/内容与 integrity_check；只读 FUSE 不作可写数据库",
+      "package_and_executable_mapping": "distribution package baseline; upstream artifacts may differ",
+      "license_note": "public domain core; inspect bundled license files"
+    },
+    {
+      "id": "htop",
+      "phase": "C2",
+      "sources": [
+        "htop",
+        "htop-fedora",
+        "htop-arch"
+      ],
+      "workflow_oracle": "真实 PTY 启动/刷新/调整终端大小/q 退出；普通用户，不发送进程终止指令；取消当前会话而不误停另一个会话",
+      "package_and_executable_mapping": "distribution package baseline; upstream artifacts may differ",
+      "license_note": "open-source upstream; record actual package license files at acquisition"
+    }
+  ],
+  "installation_cells": [
+    {
+      "id": "OSS-JQ-DEBIAN13",
+      "project": "jq",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "jq",
+      "executable_hint": "/usr/bin/jq",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name",
+        "local-native-file"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-JQ-FEDORA44",
+      "project": "jq",
+      "target": "fedora44",
+      "native_format": "rpm",
+      "package_name": "jq",
+      "executable_hint": "/usr/bin/jq",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "ubuntu-server",
+        "debian-server",
+        "arch-server"
+      ],
+      "preferred_host_context": "ubuntu-server",
+      "install_lanes": [
+        "repository-name",
+        "local-native-file"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-JQ-ARCH",
+      "project": "jq",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "jq",
+      "executable_hint": "/usr/bin/jq",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name",
+        "local-native-file"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-RIPGREP-DEBIAN13",
+      "project": "ripgrep",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "ripgrep",
+      "executable_hint": "/usr/bin/rg",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-RIPGREP-FEDORA44",
+      "project": "ripgrep",
+      "target": "fedora44",
+      "native_format": "rpm",
+      "package_name": "ripgrep",
+      "executable_hint": "/usr/bin/rg",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "ubuntu-server",
+        "debian-server",
+        "arch-server"
+      ],
+      "preferred_host_context": "ubuntu-server",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-RIPGREP-ARCH",
+      "project": "ripgrep",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "ripgrep",
+      "executable_hint": "/usr/bin/rg",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-FD-DEBIAN13",
+      "project": "fd",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "fd-find",
+      "executable_hint": "/usr/bin/fdfind",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-FD-FEDORA44",
+      "project": "fd",
+      "target": "fedora44",
+      "native_format": "rpm",
+      "package_name": "fd-find",
+      "executable_hint": "/usr/bin/fd",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "ubuntu-server",
+        "debian-server",
+        "arch-server"
+      ],
+      "preferred_host_context": "ubuntu-server",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-FD-ARCH",
+      "project": "fd",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "fd",
+      "executable_hint": "/usr/bin/fd",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-BAT-DEBIAN13",
+      "project": "bat",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "bat",
+      "executable_hint": "/usr/bin/batcat",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-BAT-FEDORA44",
+      "project": "bat",
+      "target": "fedora44",
+      "native_format": "rpm",
+      "package_name": "bat",
+      "executable_hint": "/usr/bin/bat",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "ubuntu-server",
+        "debian-server",
+        "arch-server"
+      ],
+      "preferred_host_context": "ubuntu-server",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-BAT-ARCH",
+      "project": "bat",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "bat",
+      "executable_hint": "/usr/bin/bat",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-SQLITE-DEBIAN13",
+      "project": "sqlite",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "sqlite3",
+      "executable_hint": "/usr/bin/sqlite3",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-SQLITE-FEDORA44",
+      "project": "sqlite",
+      "target": "fedora44",
+      "native_format": "rpm",
+      "package_name": "sqlite",
+      "executable_hint": "/usr/bin/sqlite3",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "ubuntu-server",
+        "debian-server",
+        "arch-server"
+      ],
+      "preferred_host_context": "ubuntu-server",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-SQLITE-ARCH",
+      "project": "sqlite",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "sqlite",
+      "executable_hint": "/usr/bin/sqlite3",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-HTOP-DEBIAN13",
+      "project": "htop",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "htop",
+      "executable_hint": "/usr/bin/htop",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-HTOP-FEDORA44",
+      "project": "htop",
+      "target": "fedora44",
+      "native_format": "rpm",
+      "package_name": "htop",
+      "executable_hint": "/usr/bin/htop",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "ubuntu-server",
+        "debian-server",
+        "arch-server"
+      ],
+      "preferred_host_context": "ubuntu-server",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    },
+    {
+      "id": "OSS-HTOP-ARCH",
+      "project": "htop",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "htop",
+      "executable_hint": "/usr/bin/htop",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "NOT_RUN",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED"
+    }
+  ],
+  "cell_count": 18,
+  "headless_policy": "No G-DESKTOP requirement. PTY needs a terminal, including SSH PTY. Fedora RPM cells can use an admitted remote headless host; this plan dispatches no remote work.",
+  "artifact_lock_fields": [
+    "upstream_or_distribution_source",
+    "release_or_repository_snapshot",
+    "package_name",
+    "epoch_version_release",
+    "architecture",
+    "libc_or_interpreter_requirements",
+    "native_file_list",
+    "download_url",
+    "size_bytes",
+    "sha256",
+    "signature_or_authenticated_repository_metadata",
+    "dependency_closure",
+    "acquisition_date"
+  ],
+  "version_policy": "Do not force cross-distro version equality; compare stable common behavior and keep differences. Each installed artifact and native dependency closure locked at execution.",
+  "entrypoint_policy": "Use install/run for app lane; explicit --exec from native file list for stable baseline, auto-discovery tested separately. project run --tty is PTY lane; do not invent unifier run --tty. Pipe/EOF must be tested on exact entrypoint, not inherited from project run result.",
+  "budget_policy": "Inventory cache first. Package names and local artifacts both may refresh indexes and resolve dependencies; Arch local -U is preceded by full -Syu. No offline/low-byte guarantee from small payload.",
+  "format_cases": [
+    {
+      "id": "FMT01",
+      "suffix_or_kind": ".deb",
+      "target": "debian13",
+      "capability": "SUPPORTED_NATIVE",
+      "sample": "jq distribution DEB; optional upstream ripgrep/fd/bat DEB",
+      "oracle": "file query + native install/run/remove; compare upstream and distro names separately",
+      "status": "NOT_RUN",
+      "artifact_locked": false
+    },
+    {
+      "id": "FMT02",
+      "suffix_or_kind": ".rpm",
+      "target": "fedora44",
+      "capability": "SUPPORTED_NATIVE",
+      "sample": "jq Fedora 44 RPM",
+      "oracle": "non-Fedora admitted headless host; native rpm identity/architecture/dependencies",
+      "status": "NOT_RUN",
+      "artifact_locked": false
+    },
+    {
+      "id": "FMT03",
+      "suffix_or_kind": ".pkg.tar.zst",
+      "target": "arch",
+      "capability": "SUPPORTED_NATIVE",
+      "sample": "jq official Arch repository package",
+      "oracle": "native pacman package metadata and signatures; full upgrade before local install",
+      "status": "NOT_RUN",
+      "artifact_locked": false
+    },
+    {
+      "id": "FMT04",
+      "suffix_or_kind": ".pkg.tar.xz",
+      "target": "arch",
+      "capability": "SUPPORTED_NATIVE_CONTROLLED_BUILD",
+      "sample": "own minimal licensed CLI fixture built with makepkg and PKGEXT",
+      "oracle": "preserve build recipe/source hash/.PKGINFO/payload; local trust policy explicit; not an upstream official package",
+      "status": "NOT_RUN",
+      "artifact_locked": false
+    },
+    {
+      "id": "FMT05",
+      "suffix_or_kind": ".pkg.tar.gz",
+      "target": "arch",
+      "capability": "SUPPORTED_NATIVE_CONTROLLED_BUILD",
+      "sample": "same fixture as FMT04 with gzip compression",
+      "oracle": "native metadata and executable oracle; not filename-only recompression; trust preserved",
+      "status": "NOT_RUN",
+      "artifact_locked": false
+    },
+    {
+      "id": "FMT06",
+      "suffix_or_kind": ".tar.gz / .tar.xz / .zip",
+      "target": null,
+      "capability": "UNSUPPORTED_INSTALL_BOUNDARY",
+      "sample": "ripgrep binary archive or upstream source archive",
+      "oracle": "plain archive is not Arch native package; reject native install, no extraction/execution fallback",
+      "status": "NOT_RUN",
+      "artifact_locked": false
+    },
+    {
+      "id": "FMT07",
+      "suffix_or_kind": "standalone ELF",
+      "target": null,
+      "capability": "UNSUPPORTED_INSTALL_BOUNDARY",
+      "sample": "jq official Linux standalone executable",
+      "oracle": "raw binary is not native package; manual guest execution if separately tested is native control only",
+      "status": "NOT_RUN",
+      "artifact_locked": false
+    },
+    {
+      "id": "FMT08",
+      "suffix_or_kind": ".AppImage",
+      "target": null,
+      "capability": "UNSUPPORTED_INSTALL_BOUNDARY",
+      "sample": "KeePassXC official AppImage",
+      "oracle": "reject native install; no mounting/running or automatic host fallback",
+      "status": "NOT_RUN",
+      "artifact_locked": false
+    },
+    {
+      "id": "FMT09",
+      "suffix_or_kind": ".flatpakref / .flatpak",
+      "target": null,
+      "capability": "UNSUPPORTED_INSTALL_BOUNDARY",
+      "sample": "KeePassXC official-linked Flatpak reference; bundle only if explicitly obtained",
+      "oracle": "reference and bundle not interchangeable; no automatic remote add or Flatpak install",
+      "status": "NOT_RUN",
+      "artifact_locked": false
+    },
+    {
+      "id": "FMT10",
+      "suffix_or_kind": ".snap",
+      "target": null,
+      "capability": "UNSUPPORTED_INSTALL_BOUNDARY",
+      "sample": "KeePassXC official-linked Snap artifact, acquisition pending",
+      "oracle": "no snapd install or host fallback; acquisition/provider capability separate",
+      "status": "NOT_RUN",
+      "artifact_locked": false
+    }
+  ],
+  "cli_package_cases": [
+    {
+      "id": "PKG01",
+      "name": "真实安装双入口",
+      "oracle": "jq 每个 target 分别以仓库包名、本地原生包走 install，核对包数据库、依赖、app alias 与实际执行；不是只跑 --version",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG02",
+      "name": "包名/命令名/多入口",
+      "oracle": "fd-find/fdfind/fd、bat/batcat、sqlite/sqlite3；基线显式 --exec 后另跑自动发现，零或多入口不得随机选；原生安装完成但注册失败要如实报告并可恢复",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG03",
+      "name": "自动路由与错误 target",
+      "oracle": "pkg route 只证明格式候选；install 检查已启用目标、同派系拒绝、无 TTY 多目标明确选择；错配在包事务前拒绝，不静默安装到宿主",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG04",
+      "name": "伪后缀/头/元数据",
+      "oracle": "空文件、截断包、改后缀、假 gzip Arch 包缺 .PKGINFO；预路由与 native metadata/install 分层报告，头通过不等于真实包或成功安装",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG05",
+      "name": "错误架构与信任",
+      "oracle": "arm64 包到 amd64；损坏 payload/签名、缺依赖、不支持 libc。保留原生失败，不关闭校验补通过；索引/缓存可能变化，按失败阶段核对包状态而非笼统保证原子回滚",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG06",
+      "name": "参数/输出/管道",
+      "oracle": "--、空参数、引号、中文/空格路径、字面 $ 和分号；jq/rg stdout/stderr/退出码及 stdin/EOF/管道分别比原生；快捷 run 与 project run 单列结果",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG07",
+      "name": "PTY 生命周期",
+      "oracle": "htop/bat 通过已登记 project run --tty 测 TERM、resize、正常退出/定向取消；快捷 run 不支持 --tty 参数，不让低层通过冒充快捷交互已验收",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG08",
+      "name": "同名跨 target",
+      "oracle": "两个准入客体登记同 alias；不指定目标明确歧义，指定目标证实 UUID/CID/executable；不得混用另一客体或宿主 PATH",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG09",
+      "name": "重复安装/升级",
+      "oracle": "同版本重复安装、同名包不同来源、旧→新 fixture 版本，检验原生版本排序/配置文件/包事务；pkg update 为环境级升级，先存整个包集，Arch 不用 -Sy 单包局部升级",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG10",
+      "name": "卸载/重装/旧登记",
+      "oracle": "只卸本轮包，项目与日常文件保留；旧 alias 不得执行另一个同名程序，登记是否残留按现实现记录；重装验证 executable identity；不自动认定状态回滚",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG11",
+      "name": "中断/并发/钩子",
+      "oracle": "专用最小 fixture 测同目标包锁、其他 target 隔离、中断和再次查询/恢复；脚本钩子失败即使原生退出 0 也不得算 completed；只允许修改 fixture 标记",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG12",
+      "name": "不支持格式",
+      "oracle": "FMT06–FMT10 明确错误和无副作用，记 PASS_EXPECTED_REJECTION；不计 CLI 应用可用率，不自动加 provider、解压执行、安装 Flatpak/Snap 或重打包",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG13",
+      "name": "直接原生包管理命令",
+      "oracle": "In isolated guests, apt/apt-get, dnf and pacman query/install/run/update/remove under explicit native maintenance authority; ordinary-user permission rejection separate. Direct changes need explicit app registration; no automatic Unifier transaction/lock assumed. Native locks versus managed operations only in disposable fixture.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PKG14",
+      "name": "apk/Alpine 能力边界",
+      "oracle": "No prepared Alpine guest/image or apk driver; unsupported target and .apk input reject, no host fallback. Alpine musl host refusal is a separate policy boundary. Positive lifecycle waits for implementation, not installing apk on a glibc guest.",
+      "status": "NOT_RUN",
+      "capability_state": "NOT_IMPLEMENTED",
+      "positive_lane_status": "BLOCKED_IMPLEMENTATION"
+    }
+  ],
+  "execution_order": [
+    "C0: jq × 3 admitted target placements, repo and local-native lanes; policy, route and failure controls",
+    "C1: ripgrep/fd/bat/SQLite × 3 targets; aliases, files, stdout and reopen",
+    "C2: htop × 3 targets through actual PTY; repeat and package lifecycle fixture tests",
+    "C3: native compression variants and unsupported formats; acquired samples only, do not install unsupported providers"
+  ],
+  "performed_this_addendum": [
+    "official documentation browsing",
+    "local source read",
+    "download-directory filename inventory",
+    "plan and matrix edits only"
+  ],
+  "not_performed": [
+    "installer downloads",
+    "dependency downloads",
+    "package installs",
+    "remote access",
+    "new runtime tests",
+    "container lifecycle changes"
+  ],
+  "package_manager_lanes": [
+    {
+      "target": "debian13",
+      "managed_driver": "apt-get",
+      "native_direct_commands": [
+        "apt",
+        "apt-get",
+        "dpkg-query"
+      ],
+      "managed_status": "IMPLEMENTED_WITH_PRIOR_TESTS",
+      "new_workflow_status": "NOT_RUN",
+      "direct_status": "NOT_RUN"
+    },
+    {
+      "target": "fedora44",
+      "managed_driver": "dnf",
+      "native_direct_commands": [
+        "dnf",
+        "rpm"
+      ],
+      "managed_status": "IMPLEMENTED_WITH_PRIOR_TESTS",
+      "new_workflow_status": "NOT_RUN",
+      "direct_status": "NOT_RUN"
+    },
+    {
+      "target": "arch",
+      "managed_driver": "pacman",
+      "native_direct_commands": [
+        "pacman"
+      ],
+      "managed_status": "IMPLEMENTED_WITH_PRIOR_TESTS",
+      "new_workflow_status": "NOT_RUN",
+      "direct_status": "NOT_RUN"
+    },
+    {
+      "target": "alpine",
+      "managed_driver": null,
+      "native_direct_commands": [
+        "apk"
+      ],
+      "managed_status": "NOT_IMPLEMENTED",
+      "new_workflow_status": "NOT_RUN",
+      "positive_lane_status": "BLOCKED_IMPLEMENTATION",
+      "policy_boundary": "guest catalog absent; Alpine host musl admission also absent"
+    }
+  ],
+  "prior_tests": {
+    "offline": "../../tests/test_packages.py",
+    "conditional_integration": "../../tests/test_pkg_integration.py",
+    "note": "Existence/skips not current runtime acceptance; host policy must filter old all-three-target scenarios."
+  }
+}

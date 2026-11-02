@@ -1,0 +1,1225 @@
+--- before/HANDOFF.md
++++ after/HANDOFF.md
+@@ -5,6 +5,8 @@
+ 分支是 `codex/unifier-v2-control`。产品行为以仓库根 [README.md](README.md) 和 `设计/` 里留下的六份说明为准。
+ 
+ ## 接手时先记住
++
++- 2026-11-01 续修：用户指定通过 dsh 的 `Local qwen server` / `swift-1.5-iq3_s` / `max` 负责编码。已独立验收包文件路径保真、实机默认回执保全两项本地模型补丁；另复核保留包 CID、递归补库和进程组清理修复，更新宿主准入与隔离集成测试。本轮 633 项离线检查（628 通过、5 条件跳过）及 Debian/Arch 真实有界探针通过，9 个原容器状态不变；仅工作树，尚未部署。身份、备份、补丁和边界见 [续修回执](artifacts/continued-repair-20261101T154240+0800/report.md)。
+ 
+ - 2026-11-01：v0.0.2 补齐包事务执行前日志、SIGTERM/HUP/INT、跨会话子进程树清理、超时后的清单重核验和 `pkg recover`。不明状态或原生数据库未修好会挡住下一次包变更。回执、精确构建身份、部署和回退入口见 [本轮报告](artifacts/expansion-fix-20261101/report.md)。原生中断测试用独立 `ml-26942dd5-interrupt-debian`，不属于日常环境；未检查精确 CID 前不要删除或复用。
+ 
+--- before/src/unifier/dependencies.py
++++ after/src/unifier/dependencies.py
+@@ -77,13 +77,19 @@
+ 
+ 
+ def parse_scan(output: str) -> list[dict]:
+-    if not output.rstrip().endswith("UNIFIER_SCAN_DONE"):
++    lines = output.removesuffix("\n").split("\n")
++    if lines[-1] != "UNIFIER_SCAN_DONE" or lines.count("UNIFIER_SCAN_DONE") != 1:
+         raise UnifierError("ELF inspection did not complete")
++    prefix, *blocks = re.split(r"(?m)^UNIFIER_ELF\t", "\n".join(lines[:-1]))
++    if prefix.strip():
++        raise UnifierError("unexpected ELF inspection output")
+     objects = []
+-    for block in output.split("UNIFIER_ELF\t")[1:]:
++    for block in blocks:
+         path, _, body = block.partition("\n")
+-        if not re.search(r"Class:\s+ELF64", body) or not re.search(
+-                r"Machine:\s+Advanced Micro Devices X86-64", body):
++        if not path.startswith("/") or any(ord(c) < 32 or ord(c) == 127 for c in path):
++            raise UnifierError("ambiguous ELF inspection path")
++        if not re.search(r"(?m)^\s*Class:\s+ELF64\s*$", body) or not re.search(
++                r"(?m)^\s*Machine:\s+Advanced Micro Devices X86-64\s*$", body):
+             raise UnifierError(f"dependency inspection supports x86_64 ELF64 only: {path}")
+         needed = re.findall(r"\(NEEDED\).*?Shared library: \[([^\]]+)\]", body)
+         sonames = re.findall(r"\(SONAME\).*?Library soname: \[([^\]]+)\]", body)
+@@ -97,6 +103,7 @@
+         self.service, self.record, self.txn = service, record, transaction
+         self.driver = driver_for(record)
+         self.target = record["target"]
++        self.readelf_ready = False
+         self.report = {"status": "checking", "scope": "package-elf-needed",
+                        "objects": 0, "rounds": [], "unresolved": [],
+                        "bundled_candidates": [], "installed": [],
+@@ -123,8 +130,7 @@
+             self.report["error"] = str(exc)
+             raise
+ 
+-    def _run(self, packages: list[str], libraries) -> dict:
+-        hints = {validate_library(name) for name in libraries}
++    def inspect_packages(self, packages: list[str]) -> list[dict]:
+         files = set()
+         for package in packages:
+             package = validate_package_name(package)
+@@ -137,32 +143,53 @@
+         if any(any(ord(c) < 32 or ord(c) == 127 for c in path) for path in paths):
+             raise UnifierError("ambiguous package file list")
+         objects = []
+-        if paths:
++        if paths and not self.readelf_ready:
+             probe = self.capture(["/bin/sh", "-c", "command -v readelf"], accepted=(0, 1, 127))
+             if probe.returncode != 0:
+                 self.change(self.driver.install(["binutils"]))
++            self.readelf_ready = True
++        if paths:
+             for start in range(0, len(paths), 128):
+-                output = self.capture(["/bin/sh", "-c", SCAN, "unifier-elf", *paths[start:start + 128]],
++                chunk = paths[start:start + 128]
++                output = self.capture(["/bin/sh", "-c", SCAN, "unifier-elf", *chunk],
+                                       timeout=180).stdout
+-                objects.extend(parse_scan(output))
+-        self.report["objects"] = len(objects)
+-        required = hints | {name for obj in objects for name in obj["needed"]}
+-        bundled = {name for obj in objects for name in obj["sonames"]}
+-        bundled.update(PurePosixPath(obj["path"]).name for obj in objects)
++                inspected = parse_scan(output)
++                if any(obj["path"] not in chunk for obj in inspected):
++                    raise UnifierError("ELF inspection returned an unrequested path")
++                objects.extend(inspected)
++        return objects
++
++    def _run(self, packages: list[str], libraries) -> dict:
++        hints = {validate_library(name) for name in libraries}
++        packages = {validate_package_name(package) for package in packages}
++        # A repository provider must appear in the loader cache. Once repair
++        # selects it, its newly scanned SONAME cannot count as a bundled copy
++        # and mask an ineffective installation.
++        repository_required = set(hints)
+         provider_ready = False
+         for attempt in range(3):
++            # Native installation may upgrade original files, and providers
++            # can themselves have undeclared dependencies. Re-read both.
++            scope = sorted(packages | set(self.report["installed"]))
++            objects = self.inspect_packages(scope)
++            self.report["objects"] = len(objects)
++            self.report["packages"] = scope
++            required = hints | {name for obj in objects for name in obj["needed"]}
++            bundled = {name for obj in objects for name in obj["sonames"]}
++            bundled.update(PurePosixPath(obj["path"]).name for obj in objects)
+             available = set()
+             if required:
+                 cache = self.capture(["/bin/sh", "-c", CACHE, "unifier-cache"]).stdout
+                 available = {line.split()[0] for line in cache.splitlines() if " => " in line}
+-            self.report["bundled_candidates"] = sorted((required - available) & bundled - hints)
+-            missing = sorted(required - available - (bundled - hints))
++            self.report["bundled_candidates"] = sorted((required - available) & bundled - repository_required)
++            missing = sorted(required - available - (bundled - repository_required))
+             self.report["unresolved"] = missing
+             if not missing:
+                 self.report["status"] = "repaired" if self.report["installed"] else "no-missing-elf-dependencies"
+                 return self.report
+             if attempt == 2:
+                 raise UnifierError("dependency repair did not converge: " + ", ".join(missing))
++            repository_required.update(missing)
+             if not provider_ready:
+                 if self.target == "debian13":
+                     probe = self.capture(["/bin/sh", "-c", "command -v apt-file"], accepted=(0, 1, 127))
+@@ -172,10 +199,15 @@
+                 elif self.target == "arch":
+                     self.change([(["pacman", "-Fy"], 900)])
+                 provider_ready = True
+-            resolution = {"missing": missing, "providers": {}, "selected": []}
++            resolution = {"missing": missing, "providers": {}, "selected": [], "queries": {}}
+             self.report["rounds"].append(resolution)
+             for library in missing:
+                 result = self.capture(provider_command(self.target, library), accepted=(0, 1), timeout=180)
++                resolution["queries"][library] = {"exit_code": result.returncode,
++                                                   "stderr_tail": result.stderr[-1500:]}
++                if result.returncode and result.stdout.strip():
++                    raise UnifierError("dependency provider query failed with partial output: "
++                                       + library + ": " + result.stderr[-1500:])
+                 candidates = provider_names(self.target, result.stdout)
+                 resolution["providers"][library] = candidates
+                 if len(candidates) != 1:
+--- before/src/unifier/native_io.py
++++ after/src/unifier/native_io.py
+@@ -72,6 +72,65 @@
+ def _write(fd: int, data: bytes) -> None:
+     while data:
+         data = data[os.write(fd, data):]
++
++
++def _process_group_active(group: int) -> bool | None:
++    """Check live members, including children whose group leader has exited.
++
++    A zombie retains its process group until its parent reaps it, but cannot
++    continue a command or hold its output pipes open. Unreadable process state
++    is not evidence that cleanup succeeded.
++    """
++    try:
++        os.killpg(group, 0)
++    except ProcessLookupError:
++        return False
++    except OSError:
++        return None
++    unknown = False
++    try:
++        with os.scandir("/proc") as entries:
++            for entry in entries:
++                if not entry.name.isdecimal():
++                    continue
++                try:
++                    with open(f"/proc/{entry.name}/stat") as source:
++                        fields = source.read().rsplit(") ", 1)[1].split()
++                    if int(fields[2]) == group and fields[0] != "Z":
++                        return True
++                except (FileNotFoundError, ProcessLookupError):
++                    continue
++                except (OSError, ValueError, IndexError):
++                    unknown = True
++    except OSError:
++        return None
++    return None if unknown else False
++
++
++def _terminate_process_group(process) -> str:
++    # The leader can already be reaped while its descendants still hold the
++    # pipes. Always address the group we created, not just a running leader.
++    for number, grace in ((signal.SIGTERM, 1), (signal.SIGKILL, 1)):
++        try:
++            os.killpg(process.pid, number)
++        except ProcessLookupError:
++            break
++        except OSError:
++            return "unknown"
++        deadline = time.monotonic() + grace
++        while time.monotonic() < deadline:
++            process.poll()
++            if _process_group_active(process.pid) is False:
++                break
++            time.sleep(.01)
++        else:
++            continue
++        break
++    try:
++        process.wait(timeout=1)
++    except subprocess.TimeoutExpired:
++        return "unknown"
++    return "gone" if _process_group_active(process.pid) is False else "unknown"
+ 
+ 
+ def run_native(argv: list[str], *, interactive: bool, stream: bool,
+@@ -162,17 +221,11 @@
+                     cleanup = abort()
+                 except Exception as exc:
+                     failure = UnifierError(f"{failure}; guest cleanup failed: {exc}")
+-            if process is not None and process.poll() is None:
+-                with contextlib.suppress(ProcessLookupError):
+-                    os.killpg(process.pid, signal.SIGTERM)
+-                try:
+-                    process.wait(timeout=5)
+-                except subprocess.TimeoutExpired:
+-                    with contextlib.suppress(ProcessLookupError):
+-                        os.killpg(process.pid, signal.SIGKILL)
+-                    process.wait()
++            local_cleanup = "gone"
++            if process is not None and (failure is not None or process.poll() is None):
++                local_cleanup = _terminate_process_group(process)
+             if failure is not None and abort is None:
+-                cleanup = "gone" if process is None or process.poll() is not None else "unknown"
++                cleanup = local_cleanup
+         finally:
+             selector.close()
+             if previous is not None:
+--- before/src/unifier/packages.py
++++ after/src/unifier/packages.py
+@@ -95,15 +95,31 @@
+ 
+ 
+ def parse_package_files(package: str, text: str) -> list[str]:
+-    """Read dpkg/rpm paths or pacman's package-prefixed file listing."""
++    """Read dpkg/rpm paths or pacman's package-prefixed file listing.
++
++    The native tools separate records with LF only, so LF is the single record
++    boundary and every other byte of a record is file-name data: a trailing
++    space, U+00A0, U+2028, U+0085 and shell metacharacters survive untouched,
++    and nothing is executed or expanded.  A leading space or tab is layout in
++    front of an absolute path, so it is the only thing removed.  A C0/DEL
++    control byte cannot be carried inside an LF record, so a path record that
++    holds one is refused instead of being stripped or split into a different
++    path.  File names that themselves contain LF stay ambiguous: such a listing
++    is still read as two records and is not claimed to round-trip.
++    """
+     files = []
+-    for line in text.splitlines():
+-        line = line.strip()
+-        if not line:
++    for line in text.split("\n"):
++        # LF is the only separator; only layout before a path is removed.
++        record = line.lstrip(" \t")
++        if record.startswith(package + " "):
++            record = record[len(package) + 1:]
++        if not record.startswith("/"):
+             continue
+-        path = line[len(package) + 1:] if line.startswith(package + " ") else line
+-        if path.startswith("/"):
+-            files.append(path)
++        if any(ord(char) < 32 or ord(char) == 127 for char in record):
++            raise UnifierError(
++                f"package {package} file list has a control character in "
++                f"the path record {record!r}")
++        files.append(record)
+     return files
+ 
+ 
+--- before/src/unifier/service.py
++++ after/src/unifier/service.py
+@@ -661,7 +661,8 @@
+             # so subsequent explicit native repair may start it again without
+             # losing the proof that the old execution cannot still be alive.
+             stopped = self._require_owned(record)
+-            if not stopped.running:
++            if (not stopped.running
++                    and stopped.container_id == record["runtime"]["container_id"]):
+                 for txn in self._pending_package_transactions(env_id):
+                     if txn.get("environment_binding") != binding_for(record):
+                         continue
+@@ -1349,7 +1350,7 @@
+         argv = {"debian13": ["dpkg", "--audit"],
+                 "fedora44": ["rpm", "--verifydb"],
+                 "arch": ["pacman", "-Dk"]}[record["target"]]
+-        result = self._exec_record(record, argv, timeout=60, native=True)
++        result = self._exec_record(record, argv, timeout=60, native=True, pin_package=True)
+         txn["database_audit"] = {"argv": argv, "exit_code": result.returncode,
+                                  "stdout_tail": _tail(result.stdout or ""),
+                                  "stderr_tail": _tail(result.stderr or "")}
+@@ -1432,6 +1433,7 @@
+                                     stream=False, repair_dependencies=False, libraries=()) -> dict:
+         record = self.store.load(validate_env_id(env_id))
+         self._require_host_compatibility(record)
++        self._package_container_ref(record)
+         decision = plan_change(record, operation="package-change")
+         if decision["action"] != "upgrade":
+             raise UnifierError(decision.get("reason") or "this environment cannot be upgraded in place")
+@@ -1554,6 +1556,7 @@
+             # Preflight failures leave the previous runtime state unknown.
+             if was_running is False and not uncertain:
+                 with contextlib.suppress(Exception):
++                    self._package_container_ref(record)
+                     self.stop(record["id"], package_lock_held=True)
+             record = self.store.load(record["id"])
+             if inventory_text is not None or _syu_succeeded(txn["native"]):
+@@ -1616,15 +1619,17 @@
+ 
+     def _stage_local(self, record: dict, local_path: Path) -> str:
+         container_path = f"{INCOMING_DIR}/{local_path.name}"
+-        self._exec_record(record, ["mkdir", "-p", INCOMING_DIR], timeout=30, native=False)
++        self._exec_record(record, ["mkdir", "-p", INCOMING_DIR], timeout=30,
++                          native=False, pin_package=True)
+         runtime = record["runtime"]
+         self.runtime.copy_in(
+-            runtime["container_name"], str(local_path), container_path,
++            self._package_container_ref(record), str(local_path), container_path,
+             project=runtime["project"], env_id=record["id"])
+         return container_path
+ 
+     def _run_native(self, record: dict, txn: dict, steps: list[tuple[list[str], int]]) -> None:
+         for argv, timeout in steps:
++            container = self._package_container_ref(record)
+             interactive = bool(txn.get("interactive"))
+             argv = package_command(argv, interactive=interactive)
+             self.log(f"{record['id']}: {' '.join(argv)}")
+@@ -1642,14 +1647,15 @@
+                     runtime = record["runtime"]
+                     tracking = {"on_guest": ready} if isinstance(self.runtime, PodmanRuntime) else {}
+                     result = self.runtime.package_exec(
+-                        runtime["container_name"], argv, project=runtime["project"],
++                        container, argv, project=runtime["project"],
+                         env_id=record["id"], env=package_environment(record, interactive=interactive),
+                         interactive=interactive, stream=bool(txn.get("stream")), timeout=timeout,
+                         **tracking)
+                 elif interactive:
+                     raise UnifierError("runtime does not support native interactive package commands")
+                 else:
+-                    result = self._exec_record(record, argv, timeout=timeout, native=True)
++                    result = self._exec_record(record, argv, timeout=timeout,
++                                               native=True, pin_package=True)
+             except BaseException as exc:
+                 step.update(state="interrupted", cleanup=getattr(exc, "cleanup", "unknown"),
+                             exit_code=getattr(exc, "returncode", None),
+@@ -1913,17 +1919,26 @@
+         self.start(env_id)
+         return False
+ 
+-    def _exec_record(self, record: dict, argv: list[str], *, timeout: int | None, native: bool):
++    def _package_container_ref(self, record: dict) -> str:
++        """Validate the journal's instance and pin real Podman calls to its CID."""
++        info = self._require_owned(record)
++        if info.container_id != record["runtime"]["container_id"]:
++            raise UnifierError("package container identity changed; refusing to use a replacement")
++        return info.container_id if isinstance(self.runtime, PodmanRuntime) else info.name
++
++    def _exec_record(self, record: dict, argv: list[str], *, timeout: int | None, native: bool,
++                     pin_package: bool = False):
+         self._require_host_compatibility(record)
+         runtime = record["runtime"]
+         return self.runtime.exec(
+-            runtime["container_name"], argv, project=runtime["project"], env_id=record["id"],
++            self._package_container_ref(record) if pin_package else runtime["container_name"],
++            argv, project=runtime["project"], env_id=record["id"],
+             workdir=None, env=driver_for(record).native_env() if native else {},
+             capture=True, timeout=timeout)
+ 
+     def _read_inventory_record(self, record: dict) -> str:
+         spec = CreateSpec(
+-            name=record["runtime"]["container_name"],
++            name=self._package_container_ref(record),
+             env_id=record["id"],
+             project=record["runtime"]["project"],
+             image=record["base_image"]["locked_reference"],
+--- before/tests/podman_test_support.py
++++ after/tests/podman_test_support.py
+@@ -0,0 +1,60 @@
++"""Fresh, policy-aware roots for opt-in Podman integration tests."""
++
++from pathlib import Path
++import shutil
++import tempfile
++import unittest
++
++from unifier.compatibility import observe_host, relationship_plan
++from unifier.project import load_project
++from unifier.runtime import PodmanRuntime
++from unifier.service import EnvironmentService
++
++# Opt-in guests write their receipt to <root>/evidence when MULTILINUX_EVIDENCE=1 and
++# UNIFIER_TEST_EVIDENCE is unset.  This repo-side home keeps that receipt after the
++# temporary root is removed; offline tests patch it so nothing lands in real artifacts.
++EVIDENCE_ROOT = Path(__file__).resolve().parents[1] / "artifacts" / "integration-runs"
++DEFAULT_EVIDENCE_DIR = "evidence"
++
++
++def admitted_targets(config, targets, *, host_facts=None):
++    facts = observe_host() if host_facts is None else host_facts
++    plans = {item[1]: relationship_plan(facts, item[1], config["targets"][item[1]])
++             for item in targets}
++    selected = tuple(item for item in targets if plans[item[1]]["allowed"])
++    if not selected:
++        reasons = "; ".join(reason for plan in plans.values() for reason in plan["reasons"])
++        raise unittest.SkipTest(f"no admitted integration guests: {reasons}")
++    return selected, plans
++
++
++def preserve_default_evidence(root):
++    """Copy a default-receipt directory out before its temporary root is removed."""
++    source = Path(root) / DEFAULT_EVIDENCE_DIR
++    if not source.is_dir():
++        return None
++    destination = EVIDENCE_ROOT / Path(root).name
++    try:
++        EVIDENCE_ROOT.mkdir(parents=True, exist_ok=True)
++        # An existing run directory is never replaced.
++        shutil.copytree(source, destination)
++    except (OSError, shutil.Error) as exc:
++        raise RuntimeError(f"integration evidence could not be preserved at {destination}; "
++                           f"temporary root retained at {root}") from exc
++    return destination
++
++
++def isolated_service(testcase, label):
++    config, lock, _ = load_project()
++    root = Path(tempfile.mkdtemp(prefix=f"unifier-{label}-"))
++    runtime = PodmanRuntime()
++    service = EnvironmentService(root, runtime, config, lock)
++
++    def cleanup():
++        if service.store.all():
++            raise RuntimeError(f"integration cleanup incomplete; state retained at {root}")
++        preserve_default_evidence(root)
++        shutil.rmtree(root)
++
++    testcase.addCleanup(cleanup)
++    return service, runtime, root
+--- before/tests/test_app_entries.py
++++ after/tests/test_app_entries.py
+@@ -25,6 +25,51 @@
+                             if text.startswith("app ") else
+                             ["/usr/bin/app", "/usr/share/data/app sample"])
+                 self.assertEqual(parse_package_files("app", text), expected)
++
++    def test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes(self):
++        cases = [
++            # dpkg-query / rpm listings: literal absolute paths, one per LF.
++            ("app", "/usr/bin/app\n/usr/share/applications/app.desktop\n",
++             ["/usr/bin/app", "/usr/share/applications/app.desktop"]),
++            # pacman prefixes every record with the package name and one space.
++            ("app", "app /usr/bin/app\napp /usr/share/applications/app.desktop\n",
++             ["/usr/bin/app", "/usr/share/applications/app.desktop"]),
++            # A leading space or tab is layout, never part of an absolute path.
++            ("app", " /usr/bin/app\n\t/usr/bin/tab\n \nrelative\n",
++             ["/usr/bin/app", "/usr/bin/tab"]),
++            # A trailing space is a legal byte of the file name, not padding.
++            ("app", "/usr/share/data/app sample \n", ["/usr/share/data/app sample "]),
++            ("app", "app /usr/share/data/app sample \n", ["/usr/share/data/app sample "]),
++            # Non-ASCII whitespace and separators are file-name bytes too: the old
++            # strip() dropped a trailing U+00A0/U+3000 and splitlines() cut the
++            # U+2028, U+2029 and U+0085 records into two fake paths each.
++            ("app", "/usr/share/data/app\u00a0\n", ["/usr/share/data/app\u00a0"]),
++            ("app", "/usr/share/data/app\u3000\n", ["/usr/share/data/app\u3000"]),
++            ("app", "/usr/share/data/a\u2028b\n", ["/usr/share/data/a\u2028b"]),
++            ("app", "/usr/share/data/a\u2029b\n", ["/usr/share/data/a\u2029b"]),
++            ("app", "/usr/share/data/a\u0085b\n", ["/usr/share/data/a\u0085b"]),
++            # Shell metacharacters are data: nothing is executed or expanded.
++            ("app", "/opt/a b'$c`d`{e}(f);g<h>i|j&k#l?m*n[p]\\q\n",
++             ["/opt/a b'$c`d`{e}(f);g<h>i|j&k#l?m*n[p]\\q"]),
++            ("app", "app /opt/a b'$c`d`{e}(f);g<h>i|j&k#l?m*n[p]\\q\n",
++             ["/opt/a b'$c`d`{e}(f);g<h>i|j&k#l?m*n[p]\\q"]),
++        ]
++        for package, text, expected in cases:
++            with self.subTest(text=text):
++                self.assertEqual(parse_package_files(package, text), expected)
++
++    def test_package_file_listing_refuses_inline_control_characters(self):
++        # A C0/DEL byte inside one record cannot be carried by an LF-only list.
++        # Reading it as padding or as a line break invents a different path, so
++        # it is refused.  File names that themselves contain LF stay ambiguous:
++        # such input is still read as two records and is not claimed to round-trip.
++        for text in ("/usr/bin/app\x01\n", "/usr/bin/app\x00\n", "/usr/bin/app\x7f\n",
++                     "/usr/bin/a\tb\n", "/usr/bin/a\x0bb\n", "/usr/bin/a\x0cb\n",
++                     "/usr/bin/a\x1cb/usr/bin/b\n", "/usr/bin/a\x1eb\n",
++                     "app /usr/bin/a\x1db\n", "/usr/bin/app\r\n"):
++            with self.subTest(text=text):
++                with self.assertRaisesRegex(UnifierError, "control"):
++                    parse_package_files("app", text)
+ 
+     def test_first_desktop_exec_remains_authoritative(self):
+         self.assertEqual(desktop_exec_argv(
+--- before/tests/test_dependencies.py
++++ after/tests/test_dependencies.py
+@@ -56,6 +56,53 @@
+         return super()._answer(info, argv)
+ 
+ 
++def elf_record(path, needed=(), sonames=()):
++    return (f"UNIFIER_ELF\t{path}\n"
++            "  Class:                             ELF64\n"
++            "  Machine:                           Advanced Micro Devices X86-64\n"
++            + "".join(f" (NEEDED) Shared library: [{name}]\n" for name in needed)
++            + "".join(f" (SONAME) Library soname: [{name}]\n" for name in sonames))
++
++
++class RecursivePluginBoxes(PluginBoxes):
++    """Repository packages can themselves omit ELF dependencies."""
++
++    package_paths = {"vendor": "/opt/vendor/libframe.so",
++                     "libasound2t64": "/usr/lib/libasound.so.2",
++                     "codec-runtime": "/usr/lib/libcodec.so.1"}
++
++    def __init__(self):
++        super().__init__()
++        self.last_needed = []
++        self.scans = []
++
++    def _answer(self, info, argv):
++        if argv[:2] == ["dpkg-query", "-L"]:
++            path = self.package_paths.get(argv[2])
++            return ExecResult(0, path + "\n" if path else "", "")
++        if argv[:3] == ["/bin/sh", "-c", SCAN]:
++            self.scans.append(argv[4:])
++            records = {
++                self.package_paths["vendor"]: elf_record(self.package_paths["vendor"], ["libasound.so.2"]),
++                self.package_paths["libasound2t64"]: elf_record(
++                    self.package_paths["libasound2t64"], ["libcodec.so.1"], ["libasound.so.2"]),
++                self.package_paths["codec-runtime"]: elf_record(
++                    self.package_paths["codec-runtime"], self.last_needed, ["libcodec.so.1"]),
++            }
++            return ExecResult(0, "".join(records[path] for path in argv[4:]) + "UNIFIER_SCAN_DONE\n", "")
++        if argv[:3] == ["/bin/sh", "-c", CACHE]:
++            installed = self.installed.get(info.env_id, set())
++            return ExecResult(0, "".join(
++                f"{library} (libc6,x86-64) => {self.package_paths[package]}\n"
++                for package, library in (("libasound2t64", "libasound.so.2"),
++                                         ("codec-runtime", "libcodec.so.1"))
++                if package in installed and self.repair_effective), "")
++        if argv[:1] == ["apt-file"] and argv[1:2] != ["update"]:
++            package = "codec-runtime" if "libcodec" in argv[-1] else "libasound2t64"
++            return ExecResult(0, package + "\n", "")
++        return super()._answer(info, argv)
++
++
+ class DependencyTransactions(unittest.TestCase):
+     def transaction(self, runtime, **kwargs):
+         tmp = tempfile.TemporaryDirectory()
+@@ -112,6 +159,51 @@
+         self.assertEqual(txn["failure_phase"], "native-command")
+         self.assertEqual(txn["dependency_repair"]["status"], "unresolved")
+ 
++    def test_installed_provider_elf_dependencies_are_recursively_rechecked(self):
++        runtime = RecursivePluginBoxes()
++        service, txn = self.transaction(runtime)
++        report = txn["dependency_repair"]
++        self.assertEqual(txn["phase"], "completed", txn)
++        self.assertEqual(report["installed"], ["libasound2t64", "codec-runtime"])
++        self.assertEqual(report["objects"], 3)
++        self.assertEqual([round_["missing"] for round_ in report["rounds"]],
++                         [["libasound.so.2"], ["libcodec.so.1"]])
++        self.assertEqual(runtime.scans[-1], sorted(runtime.package_paths.values()))
++        self.assertEqual(service.show_transaction(txn["id"])["dependency_repair"], report)
++
++    def test_recursive_repair_limit_keeps_the_last_missing_library(self):
++        runtime = RecursivePluginBoxes()
++        runtime.last_needed = ["libthird.so.1"]
++        _, txn = self.transaction(runtime)
++        self.assertEqual(txn["failure_phase"], "dependency-repair", txn)
++        report = txn["dependency_repair"]
++        self.assertEqual(report["status"], "unresolved")
++        self.assertEqual(report["unresolved"], ["libthird.so.1"])
++        self.assertEqual(len(report["rounds"]), 2)
++        self.assertIn("did not converge", report["error"])
++
++    def test_new_provider_soname_cannot_hide_an_ineffective_install(self):
++        runtime = RecursivePluginBoxes()
++        runtime.repair_effective = False
++        _, txn = self.transaction(runtime)
++        self.assertEqual(txn["failure_phase"], "dependency-repair", txn)
++        self.assertIn("libasound.so.2", txn["dependency_repair"]["unresolved"])
++
++    def test_partial_provider_output_on_query_failure_is_never_installed(self):
++        runtime = PluginBoxes()
++        answer = runtime._answer
++
++        def failed_query(info, argv):
++            if argv[:1] == ["apt-file"] and argv[1:2] != ["update"]:
++                return ExecResult(1, "libasound2t64\n", "Contents index could not be read")
++            return answer(info, argv)
++
++        with patch.object(runtime, "_answer", side_effect=failed_query):
++            _, txn = self.transaction(runtime)
++        self.assertEqual(txn["failure_phase"], "dependency-repair", txn)
++        self.assertNotIn("libasound2t64", runtime.installed["deps"])
++        self.assertIn("Contents index could not be read", txn["dependency_repair"]["error"])
++
+ 
+ class DependencyParsing(unittest.TestCase):
+     def test_all_native_provider_commands_are_literal_and_architecture_scoped(self):
+@@ -130,6 +222,14 @@
+         with self.assertRaises(UnifierError):
+             provider_names("debian13", "-o APT::Get::AllowUnauthenticated=true")
+ 
++    def test_scan_requires_exact_framing_and_complete_abi_fields(self):
++        for output in ("unexpected output UNIFIER_SCAN_DONE\n",
++                       "UNIFIER_SCAN_DONE\nUNIFIER_SCAN_DONE\n",
++                       PLUGIN.replace("ELF64", "ELF640"),
++                       PLUGIN.replace("X86-64", "X86-64-corrupt")):
++            with self.subTest(output=output), self.assertRaises(UnifierError):
++                parse_scan(output)
++
+     def test_native_questions_and_noninteractive_modes_remain_distinct(self):
+         self.assertEqual(package_command(["pacman", "-Syu", "--noconfirm", "foo"], interactive=True),
+                          ["pacman", "-Syu", "foo"])
+--- before/tests/test_env_integration.py
++++ after/tests/test_env_integration.py
+@@ -1,6 +1,5 @@
+ """Rootless Podman checks for the M1 lifecycle. Opt in with MULTILINUX_INTEGRATION=1."""
+ 
+-import hashlib
+ import json
+ import os
+ from pathlib import Path
+@@ -14,9 +13,9 @@
+ sys.path.insert(0, str(ROOT))
+ 
+ from unifier.errors import UnifierError
+-from unifier.project import load_project
+-from unifier.runtime import PodmanRuntime, container_name, project_label
+-from unifier.service import EnvironmentService, now
++from podman_test_support import admitted_targets, isolated_service
++from unifier.runtime import container_name, project_label
++from unifier.service import now
+ 
+ 
+ TARGETS = (
+@@ -40,10 +39,9 @@
+ @unittest.skipUnless(os.environ.get("MULTILINUX_INTEGRATION") == "1",
+                      "set MULTILINUX_INTEGRATION=1 to use rootless Podman")
+ class PodmanLifecycle(unittest.TestCase):
+-    def test_three_environments_execute_in_their_own_roots(self):
+-        config, lock, root = load_project()
+-        runtime = PodmanRuntime()
+-        service = EnvironmentService(root, runtime, config, lock)
++    def test_admitted_environments_execute_in_their_own_roots(self):
++        service, runtime, root = isolated_service(self, "m1")
++        targets, plans = admitted_targets(service.config, TARGETS)
+         share = Path(tempfile.mkdtemp(prefix="ml-m1-"))
+         cleanup_errors = []
+         evidence = {
+@@ -53,6 +51,7 @@
+             "host_uid": os.getuid(),
+             "host_gid": os.getgid(),
+             "targets": {},
++            "admission": plans,
+             "passed": False,
+             "settings": {
+                 "rootless": True,
+@@ -65,10 +64,11 @@
+             "scope": "M1 lifecycle on the current host. Not package install, GUI, full init, or another host.",
+         }
+         try:
+-            for env_id, _target, _distribution in TARGETS:
++            for env_id, _target, _distribution in targets:
+                 _reset(service, runtime, env_id)
+-            for env_id, target, distribution in TARGETS:
+-                record = service.create(target, env_id, [str(share)])
++            for env_id, target, distribution in targets:
++                record = service.create(target, env_id, [str(share)],
++                                        share_label_policy="shared-relabel")
+                 self.assertEqual(record["runtime_state"], "stopped")
+                 self.assertEqual(record["distribution_id"], distribution)
+                 service.start(env_id)
+@@ -89,8 +89,8 @@
+                 self.assertEqual(view["runtime_state"], "running")
+                 self.assertTrue(view["kernel_matches_current_host"])
+                 self.assertGreater(view["package_inventory_count"], 0)
+-                smoke = root / "evidence/lab-smoke-2026-10-18.packages" / f"{target}.txt"
+-                self.assertEqual(view["package_inventory_sha256"], _sorted_sha256(smoke))
++                self.assertEqual(view["package_inventory_sha256"],
++                                 record["package_inventory_sha256"])
+                 evidence["targets"][env_id] = {
+                     "target": target,
+                     "distribution_id": distribution,
+@@ -102,49 +102,46 @@
+                     "base_image_digest": view["base_image"]["manifest_digest"],
+                     "exit_code_17": True,
+                     "workdir": "/usr",
+-                    "sorted_inventory_matches_m0_smoke": True,
++                    "inventory_unchanged_after_commands": True,
+                 }
+ 
++            primary = targets[0][0]
++            for env_id, _target, _distribution in targets:
++                self.assertEqual(service.run(
++                    env_id, ["sh", "-c", 'test ! -e /var/tmp/ml-origin'],
++                    workdir="/", env_keys=[]), 0)
+             self.assertEqual(service.run(
+-                "m1debian", ["sh", "-c", "printf debian-only > /var/tmp/ml-origin"],
++                primary, ["sh", "-c", "printf isolated > /var/tmp/ml-origin"],
+                 workdir="/", env_keys=[]), 0)
+-            self.assertEqual(service.run(
+-                "m1fedora", ["sh", "-c", "test ! -e /var/tmp/ml-origin"],
+-                workdir="/", env_keys=[]), 0)
+-            self.assertEqual(service.run(
+-                "m1arch", ["sh", "-c", "test ! -e /var/tmp/ml-origin"],
+-                workdir="/", env_keys=[]), 0)
+-            self.assertEqual(service.run(
+-                "m1fedora", ["sh", "-c", "printf fedora-only > /var/tmp/ml-origin"],
+-                workdir="/", env_keys=[]), 0)
+-            self.assertEqual(service.run(
+-                "m1debian", ["sh", "-c", 'test "$(cat /var/tmp/ml-origin)" = debian-only'],
+-                workdir="/", env_keys=[]), 0)
++            for env_id, _target, _distribution in targets[1:]:
++                self.assertEqual(service.run(
++                    env_id, ["sh", "-c", "test ! -e /var/tmp/ml-origin"],
++                    workdir="/", env_keys=[]), 0)
+             owned = share / "owned.txt"
+             self.assertEqual(service.run(
+-                "m1debian", ["sh", "-c", f"printf hi > {owned}"], workdir=str(share),
++                primary, ["sh", "-c", f"printf hi > {owned}"], workdir=str(share),
+                 env_keys=[]), 0)
+             self.assertEqual(owned.read_text(), "hi")
+             self.assertEqual(owned.stat().st_uid, os.getuid())
+             self.assertEqual(owned.stat().st_gid, os.getgid())
+ 
+-            service.stop("m1debian")
++            service.stop(primary)
+             with self.assertRaises(UnifierError):
+-                service.run("m1debian", ["true"], workdir="/", env_keys=[])
+-            service.start("m1debian")
+-            self.assertEqual(service.run("m1debian", ["true"], workdir="/", env_keys=[]), 0)
+-            self.assertEqual(service.stop("m1debian")["runtime_state"], "stopped")
+-            self.assertEqual(service.stop("m1debian")["runtime_state"], "stopped")
++                service.run(primary, ["true"], workdir="/", env_keys=[])
++            service.start(primary)
++            self.assertEqual(service.run(primary, ["true"], workdir="/", env_keys=[]), 0)
++            self.assertEqual(service.stop(primary)["runtime_state"], "stopped")
++            self.assertEqual(service.stop(primary)["runtime_state"], "stopped")
+ 
+             listed = subprocess_list(root)
+-            self.assertEqual({item["id"] for item in listed}, {item[0] for item in TARGETS})
++            self.assertEqual({item["id"] for item in listed}, {item[0] for item in targets})
+             evidence["source_isolation"] = True
+             evidence["shared_file_owned_by_host_user"] = True
+             evidence["restart_after_stop"] = True
+             evidence["passed"] = True
+             evidence["finished_at"] = now()
+         finally:
+-            for env_id, _target, _distribution in TARGETS:
++            for env_id, _target, _distribution in targets:
+                 try:
+                     _reset(service, runtime, env_id)
+                 except (UnifierError, OSError) as exc:
+@@ -152,25 +149,22 @@
+             shutil.rmtree(share, ignore_errors=True)
+         if evidence["passed"]:
+             self.assertEqual(cleanup_errors, [])
+-            for env_id, _target, _distribution in TARGETS:
++            for env_id, _target, _distribution in targets:
+                 self.assertFalse(service.store.exists(env_id))
+                 self.assertIsNone(runtime.inspect(container_name(root, env_id)))
+             evidence["containers_removed_after_acceptance"] = True
+             if os.environ.get("MULTILINUX_EVIDENCE") == "1":
+                 from tools import lab
+-                lab.save_json(root / "evidence/m1-lifecycle-2026-10-19.json", evidence)
+-
+-
+-def _sorted_sha256(path: Path) -> str:
+-    lines = [line.strip() for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+-    return hashlib.sha256(("\n".join(sorted(lines)) + "\n").encode()).hexdigest()
++                lab.save_json(Path(os.environ.get("UNIFIER_TEST_EVIDENCE", root / "evidence"))
++                              / "m1-lifecycle.json", evidence)
+ 
+ 
+ def subprocess_list(root: Path):
+     import subprocess
++    environment = dict(os.environ, UNIFIER_HOME=str(root))
+     completed = subprocess.run(
+-        [sys.executable, str(root / "tools/unifier.py"), "env", "list"],
+-        cwd=root, capture_output=True, text=True, check=False)
++        [sys.executable, str(ROOT / "tools/unifier.py"), "env", "list"],
++        cwd=ROOT, env=environment, capture_output=True, text=True, check=False, timeout=60)
+     if completed.returncode:
+         raise AssertionError(completed.stderr)
+     return json.loads(completed.stdout)
+--- before/tests/test_integration_policy.py
++++ after/tests/test_integration_policy.py
+@@ -0,0 +1,130 @@
++"""Opt-in tests must use admitted guests without sharing daily state."""
++
++from pathlib import Path
++import shutil
++import sys
++import tempfile
++import unittest
++from unittest.mock import patch
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
++
++from podman_test_support import admitted_targets, isolated_service
++from unifier.install import load_catalog
++from unifier.runtime import container_name
++
++
++class _CleanupSink:
++    """Minimal addCleanup sink so a test can run a helper cleanup and see its error."""
++
++    def __init__(self):
++        self.pending = []
++
++    def addCleanup(self, function, *args, **kwargs):
++        self.pending.append((function, args, kwargs))
++
++    def run(self):
++        for function, args, kwargs in self.pending:
++            function(*args, **kwargs)
++
++
++class IntegrationPolicyTests(unittest.TestCase):
++    def test_guest_matrix_follows_current_host_family(self):
++        config, _lock = load_catalog()
++        targets = tuple((name, name) for name in config["targets"])
++        for host, expected in (
++                ("fedora", {"debian13", "arch"}),
++                ("debian", {"fedora44", "arch"}),
++                ("ubuntu", {"fedora44", "arch"}),
++                ("arch", {"debian13", "fedora44"}),
++                ("rocky", {"debian13", "fedora44", "arch"})):
++            with self.subTest(host=host):
++                facts = {"os_release": {"ID": host}, "system": "Linux",
++                         "machine": "x86_64", "libc": "glibc"}
++                selected, plans = admitted_targets(config, targets, host_facts=facts)
++                self.assertEqual({item[1] for item in selected}, expected)
++                self.assertEqual({name for name, plan in plans.items() if plan["allowed"]}, expected)
++                for name in set(plans) - expected:
++                    self.assertIn("same-family containers are forbidden", "; ".join(plans[name]["reasons"]))
++
++    def test_unsupported_host_skips_before_creating_guests(self):
++        config, _lock = load_catalog()
++        facts = {"os_release": {"ID": "alpine"}, "system": "Linux",
++                 "machine": "x86_64", "libc": "musl"}
++        with self.assertRaisesRegex(unittest.SkipTest, "no admitted integration guests"):
++            admitted_targets(config, (("demo", "debian13"),), host_facts=facts)
++
++    def test_new_roots_have_distinct_container_and_state_identities(self):
++        # Merely constructing the context must never query or mutate Podman.
++        with patch("podman_test_support.PodmanRuntime"):
++            first, _runtime, first_root = isolated_service(self, "policy")
++            second, _runtime, second_root = isolated_service(self, "policy")
++        self.assertNotEqual(first_root, second_root)
++        self.assertNotEqual(first_root, ROOT)
++        self.assertEqual(first.store.all(), [])
++        self.assertEqual(second.store.all(), [])
++        self.assertNotEqual(container_name(first.root, "demo"),
++                            container_name(second.root, "demo"))
++
++    def test_default_evidence_receipt_survives_temp_root_cleanup(self):
++        # The opt-in guests default to <root>/evidence when MULTILINUX_EVIDENCE=1 and
++        # UNIFIER_TEST_EVIDENCE is unset, so a cleanup that only removes the fresh
++        # root throws away the receipt of a run that already passed.
++        with tempfile.TemporaryDirectory() as box:
++            evidence_root = Path(box) / "integration-runs"
++            with patch("podman_test_support.PodmanRuntime"), \
++                    patch("podman_test_support.EVIDENCE_ROOT", evidence_root, create=True):
++                service, _runtime, root = isolated_service(self, "evidence")
++                receipt = root / "evidence" / "m1-lifecycle.json"
++                receipt.parent.mkdir(parents=True)
++                receipt.write_text('{"passed": true}\n', encoding="utf-8")
++                self.doCleanups()
++            self.assertEqual(service.store.all(), [])
++            self.assertFalse(root.exists(), "temporary install root must still go away")
++            preserved = evidence_root / root.name / "m1-lifecycle.json"
++            self.assertTrue(preserved.is_file(),
++                            f"default receipt was deleted with the temporary root {root}")
++            self.assertEqual(preserved.read_text(encoding="utf-8"), '{"passed": true}\n')
++
++    def test_preservation_conflict_keeps_temp_root_and_existing_target(self):
++        sink = _CleanupSink()
++        with tempfile.TemporaryDirectory() as box:
++            evidence_root = Path(box) / "integration-runs"
++            with patch("podman_test_support.PodmanRuntime"), \
++                    patch("podman_test_support.EVIDENCE_ROOT", evidence_root, create=True):
++                _service, _runtime, root = isolated_service(sink, "evidence")
++                receipt = root / "evidence" / "m4-resources.json"
++                receipt.parent.mkdir(parents=True)
++                receipt.write_text('{"passed": true}\n', encoding="utf-8")
++                target = evidence_root / root.name
++                target.mkdir(parents=True)
++                sentinel = target / "m4-resources.json"
++                sentinel.write_text("earlier run\n", encoding="utf-8")
++                with self.assertRaisesRegex(RuntimeError, "evidence could not be preserved"):
++                    sink.run()
++                self.assertEqual(sentinel.read_text(encoding="utf-8"), "earlier run\n")
++                self.assertTrue(root.exists(), "failed preservation keeps the temporary root")
++                self.assertTrue(receipt.is_file(), "failed preservation keeps the original receipt")
++            shutil.rmtree(root, ignore_errors=True)
++
++    def test_explicit_external_evidence_stays_outside_the_preserved_run(self):
++        sink = _CleanupSink()
++        with tempfile.TemporaryDirectory() as box:
++            evidence_root = Path(box) / "integration-runs"
++            external = Path(box) / "external"
++            with patch("podman_test_support.PodmanRuntime"), \
++                    patch("podman_test_support.EVIDENCE_ROOT", evidence_root, create=True):
++                _service, _runtime, root = isolated_service(sink, "evidence")
++                receipt = external / "m2-packages.json"
++                receipt.parent.mkdir(parents=True)
++                receipt.write_text('{"passed": true}\n', encoding="utf-8")
++                sink.run()
++            self.assertFalse(root.exists())
++            self.assertEqual(receipt.read_text(encoding="utf-8"), '{"passed": true}\n')
++            self.assertFalse(evidence_root.exists(),
++                             "an explicit external output needs no preserved run directory")
++
++
++if __name__ == "__main__":
++    unittest.main()
+--- before/tests/test_native_io.py
++++ after/tests/test_native_io.py
+@@ -22,6 +22,57 @@
+ 
+ 
+ class NativeIO(unittest.TestCase):
++    def test_timeout_cleans_descendants_after_group_leader_exits(self):
++        for leader_exits, ignore_term in ((True, False), (True, True), (False, True)):
++            with self.subTest(leader_exits=leader_exits, ignore_term=ignore_term), \
++                    tempfile.TemporaryDirectory() as temporary:
++                marker = Path(temporary) / "child"
++                child = """
++import os, signal, time
++from pathlib import Path
++if %r:
++    signal.signal(signal.SIGTERM, signal.SIG_IGN)
++Path(%r).write_text(str(os.getpid()))
++print('descendant ready', flush=True)
++time.sleep(30)
++""" % (ignore_term, str(marker))
++                parent = """
++import subprocess, sys, time
++from pathlib import Path
++subprocess.Popen([sys.executable, '-c', %r])
++while not Path(%r).exists():
++    time.sleep(.01)
++if not %r:
++    time.sleep(30)
++""" % (child, str(marker), leader_exits)
++                def spawn(*args, **kwargs):
++                    process = subprocess.Popen(*args, **kwargs)
++                    deadline = time.monotonic() + 5
++                    while not marker.exists() and time.monotonic() < deadline:
++                        time.sleep(.01)
++                    if not marker.exists():
++                        os.killpg(process.pid, signal.SIGKILL)
++                        process.wait(timeout=2)
++                        self.fail("descendant did not become ready")
++                    return process
++
++                try:
++                    with self.assertRaises(NativeCommandError) as caught:
++                        run_native([sys.executable, "-c", parent], interactive=False,
++                                   stream=False, timeout=.2, spawn=spawn)
++                    self.assertTrue(marker.exists())
++                    self.assertEqual(caught.exception.cleanup, "gone")
++                    self.assertIn("descendant ready", caught.exception.stdout)
++                    stat = Path(f"/proc/{int(marker.read_text())}/stat")
++                    self.assertTrue(not stat.exists() or
++                                    stat.read_text().rsplit(") ", 1)[1].split()[0] == "Z")
++                finally:
++                    if marker.exists():
++                        try:
++                            os.kill(int(marker.read_text()), signal.SIGKILL)
++                        except ProcessLookupError:
++                            pass
++
+     def test_package_cancellation_includes_descendant_in_another_session(self):
+         with tempfile.TemporaryDirectory() as temporary:
+             marker = Path(temporary) / "child"
+--- before/tests/test_package_recovery.py
++++ after/tests/test_package_recovery.py
+@@ -1,8 +1,10 @@
+ """Interrupted writes, durable command journals and conservative recovery."""
++from dataclasses import replace
+ import hashlib
+ from pathlib import Path
+ import tempfile
+ import unittest
++from unittest.mock import patch
+ 
+ from unifier.errors import UnifierError
+ from unifier.native_io import NativeCommandError
+@@ -102,6 +104,51 @@
+         with self.assertRaises(UnifierError):
+             service.recover_packages("probe")
+ 
++    def test_replaced_container_is_rejected_before_package_transaction(self):
++        service, runtime = self.fixture()
++        record = service.store.load("probe")
++        name = record["runtime"]["container_name"]
++        runtime.containers[name] = replace(runtime.containers[name], container_id="replacement")
++        before = list(runtime.events)
++        with self.assertRaisesRegex(UnifierError, "container identity changed"):
++            service.install_packages("probe", ["other"])
++        self.assertEqual(runtime.events, before)
++        self.assertEqual(service.transactions_for("probe"), [])
++
++    def test_replacement_between_native_steps_stays_unmodified_and_requires_recovery(self):
++        service, runtime = self.fixture()
++        record = service.store.load("probe")
++        name = record["runtime"]["container_name"]
++        original = runtime.package_exec
++
++        def replacing(*args, **options):
++            result = original(*args, **options)
++            runtime.containers[name] = replace(runtime.containers[name], container_id="replacement")
++            return result
++
++        with patch.object(runtime, "package_exec", side_effect=replacing):
++            txn = service.install_packages("probe", ["other"])
++        self.assertEqual(txn["phase"], "needs-recovery")
++        self.assertEqual([step["argv"] for step in txn["native"]], [["apt-get", "update"]])
++        self.assertNotIn("other", runtime.installed.get("probe", set()))
++        self.assertTrue(runtime.containers[name].running)
++        self.assertEqual(service.store.load("probe")["package_inventory_sha256"],
++                         record["package_inventory_sha256"])
++        with self.assertRaisesRegex(UnifierError, "container identity changed"):
++            service.recover_packages("probe")
++
++    def test_stopping_replacement_does_not_prove_old_execution_ended(self):
++        service, runtime = self.fixture()
++        runtime.cleanup = "unknown"
++        txn = service.install_packages("probe", ["hello"])
++        record = service.store.load("probe")
++        name = record["runtime"]["container_name"]
++        runtime.containers[name] = replace(runtime.containers[name], container_id="replacement")
++        service.stop("probe")
++        saved = service.show_transaction(txn["id"])
++        self.assertEqual(saved["native"][-1]["cleanup"], "unknown")
++        self.assertNotIn("container_stopped_at", saved)
++
+ 
+ if __name__ == "__main__":
+     unittest.main()
+--- before/tests/test_pkg_integration.py
++++ after/tests/test_pkg_integration.py
+@@ -20,9 +20,9 @@
+ 
+ from unifier.errors import UnifierError
+ from unifier.packages import HostObserver
+-from unifier.project import load_project
+-from unifier.runtime import PodmanRuntime, container_name, project_label
+-from unifier.service import EnvironmentService, now
++from podman_test_support import admitted_targets, isolated_service
++from unifier.runtime import container_name, project_label
++from unifier.service import now
+ 
+ 
+ TARGETS = (
+@@ -103,9 +103,8 @@
+                      "set MULTILINUX_INTEGRATION=1 to install packages with rootless Podman")
+ class PodmanPackages(unittest.TestCase):
+     def test_hello_install_update_and_remove_stay_inside_one_environment(self):
+-        config, lock, root = load_project()
+-        runtime = PodmanRuntime()
+-        service = EnvironmentService(root, runtime, config, lock)
++        service, runtime, root = isolated_service(self, "m2")
++        targets, plans = admitted_targets(service.config, TARGETS)
+         observer = HostObserver()
+         host_before = observer.snapshot()
+         self.assertTrue(host_before["packages"]["available"], host_before["packages"].get("error"))
+@@ -119,6 +118,7 @@
+             "experimental_package": "tree",
+             "host_packages_before": host_before["packages"],
+             "targets": {},
++            "admission": plans,
+             "transactions": [],
+             "passed": False,
+             "settings": {
+@@ -135,9 +135,9 @@
+             ),
+         }
+         try:
+-            for env_id, _target in TARGETS:
++            for env_id, _target in targets:
+                 _reset(service, runtime, env_id)
+-            for env_id, target in TARGETS:
++            for env_id, target in targets:
+                 record = service.create(target, env_id, [], "pasta")
+                 self.assertEqual(record["runtime"]["network"], "pasta")
+                 self.assertEqual(record["runtime_state"], "stopped")
+@@ -150,18 +150,18 @@
+                     "writable_revision": record["writable_revision"],
+                 }
+ 
+-            base_debian = evidence["targets"]["m2debian"]["base_inventory_sha256"]
+-            failed = service.install_packages("m2debian", ["missing-pkg-ml"])
++            primary = targets[0][0]
++            base_inventory = evidence["targets"][primary]["base_inventory_sha256"]
++            failed = service.install_packages(primary, ["missing-pkg-ml"])
+             evidence["transactions"].append(_brief(failed))
+             self.assertEqual(failed["phase"], "failed", _detail(failed))
+             self.assertEqual(failed["failure_phase"], "native-command", _detail(failed))
+-            self.assertIn("index", failed["native_error"] or "", _detail(failed))
+-            debian = service.inspect("m2debian")
++            debian = service.inspect(primary)
+             self.assertEqual(debian["content_revision"], 1)
+-            self.assertEqual(debian["package_inventory_sha256"], base_debian)
++            self.assertEqual(debian["package_inventory_sha256"], base_inventory)
+ 
+             installed = {}
+-            for env_id, _target in TARGETS:
++            for env_id, _target in targets:
+                 txn = service.install_packages(env_id, ["tree"], use_argv=["tree", "--version"])
+                 evidence["transactions"].append(_brief(txn))
+                 self.assertEqual(txn["phase"], "completed", _detail(txn))
+@@ -184,11 +184,13 @@
+                                  evidence["targets"][env_id]["writable_revision"])
+                 self.assertGreater(view["content_revision"], 1)
+ 
+-            if evidence["targets"]["m2arch"]["after_install"]["repository_updated_at"] is None:
++            if ("m2arch" in evidence["targets"] and
++                    evidence["targets"]["m2arch"]["after_install"]["repository_updated_at"] is None):
+                 self.fail("Arch install did not record repository_updated_at")
+-            self.assertIsNotNone(evidence["targets"]["m2arch"]["after_install"]["keyring_initialized_at"])
+-
+-            for env_id, _target in TARGETS:
++            if "m2arch" in evidence["targets"]:
++                self.assertIsNotNone(evidence["targets"]["m2arch"]["after_install"]["keyring_initialized_at"])
++
++            for env_id, _target in targets:
+                 txn = service.update_packages(env_id)
+                 evidence["transactions"].append(_brief(txn))
+                 self.assertEqual(txn["phase"], "completed", _detail(txn))
+@@ -201,7 +203,7 @@
+                     "repository_updated_at": (view.get("arch") or {}).get("repository_updated_at"),
+                 }
+ 
+-            for env_id, _target in TARGETS:
++            for env_id, _target in targets:
+                 txn = service.remove_packages(env_id, ["tree"], use_argv=["tree", "--version"])
+                 evidence["transactions"].append(_brief(txn))
+                 self.assertEqual(txn["phase"], "completed", _detail(txn))
+@@ -226,21 +228,22 @@
+             evidence["passed"] = True
+             evidence["finished_at"] = now()
+         finally:
+-            for env_id, _target in TARGETS:
++            for env_id, _target in targets:
+                 try:
+                     _reset(service, runtime, env_id)
+                 except (UnifierError, OSError) as exc:
+                     cleanup_errors.append(f"{env_id}: {exc}")
+         if evidence["passed"]:
+             self.assertEqual(cleanup_errors, [])
+-            for env_id, _target in TARGETS:
++            for env_id, _target in targets:
+                 self.assertFalse(service.store.exists(env_id))
+                 self.assertIsNone(runtime.inspect(container_name(root, env_id)))
+             evidence["containers_removed_after_acceptance"] = True
+             evidence["cleaned_at"] = now()
+             if os.environ.get("MULTILINUX_EVIDENCE") == "1":
+                 from tools import lab
+-                lab.save_json(root / "evidence/m2-packages-2026-10-19.json", evidence)
++                lab.save_json(Path(os.environ.get("UNIFIER_TEST_EVIDENCE", root / "evidence"))
++                              / "m2-packages.json", evidence)
+ 
+     def _assert_isolated(self, txn, env_id, host_before):
+         for other_id, item in txn["other_environments"].items():
+--- before/tests/test_resources_integration.py
++++ after/tests/test_resources_integration.py
+@@ -12,10 +12,10 @@
+ sys.path.insert(0, str(ROOT / "src"))
+ sys.path.insert(0, str(ROOT))
+ 
+-from unifier.project import load_project
++from podman_test_support import admitted_targets, isolated_service
+ from unifier.resources import ResourceProbe
+-from unifier.runtime import PodmanRuntime, container_name, project_label
+-from unifier.service import EnvironmentService, now
++from unifier.runtime import container_name, project_label
++from unifier.service import now
+ 
+ 
+ ENV_ID = "m4resources"
+@@ -36,9 +36,10 @@
+                      "set MULTILINUX_INTEGRATION=1 to use rootless Podman")
+ class ResourceSampling(unittest.TestCase):
+     def test_running_idle_and_stopped_states_are_sampled(self):
+-        config, lock, root = load_project()
+-        runtime = PodmanRuntime()
+-        service = EnvironmentService(root, runtime, config, lock)
++        service, runtime, root = isolated_service(self, "m4")
++        targets, plans = admitted_targets(service.config,
++            tuple((ENV_ID, name) for name in ("debian13", "fedora44", "arch")))
++        target = targets[0][1]
+         share = Path(tempfile.mkdtemp(prefix="ml-m4res-"))
+         probe = ResourceProbe(service)
+         evidence = {
+@@ -47,14 +48,16 @@
+             "host_kernel": os.uname().release,
+             "scope": "Resource readability and one short idle series; not a cross-host benchmark.",
+             "environment_id": ENV_ID,
+-            "target": "debian13",
++            "target": target,
++            "admission": plans,
+             "states": {},
+             "passed": False,
+         }
+         cleanup_errors = []
+         try:
+             _reset(service, runtime)
+-            service.create("debian13", ENV_ID, [str(share)])
++            service.create(target, ENV_ID, [str(share)],
++                           share_label_policy="shared-relabel")
+             stopped = probe.sample(ENV_ID)
+             self.assertEqual(stopped["runtime_state"], "stopped")
+             self.assertIsNone(stopped["cgroup"])
+@@ -134,7 +137,8 @@
+         }
+         if os.environ.get("MULTILINUX_EVIDENCE") == "1":
+             from tools import lab
+-            lab.save_json(root / "evidence/m4-resources-integration-2026-10-21.json", evidence)
++            lab.save_json(Path(os.environ.get("UNIFIER_TEST_EVIDENCE", root / "evidence"))
++                          / "m4-resources.json", evidence)
+ 
+ 
+ if __name__ == "__main__":

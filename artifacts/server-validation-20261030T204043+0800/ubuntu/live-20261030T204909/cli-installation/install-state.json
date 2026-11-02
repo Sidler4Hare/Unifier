@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "initialized": true,
+  "updated_at": "2026-10-30T20:49:21+08:00",
+  "enabled": [
+    "debian13"
+  ],
+  "targets": {
+    "debian13": {
+      "selected": true,
+      "state": "ready",
+      "environment_id": "debian13",
+      "container_retained": true,
+      "files_mounted": true,
+      "source": "new",
+      "failure": null,
+      "files_dir": "/home/agent/server-validation-20261030T204043+0800/live-20261030T204909/cli-installation/containers/debian13/files",
+      "image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "image_reference": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "image_id": "567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c",
+      "updated_at": "2026-10-30T20:49:21+08:00",
+      "pending_phase": "container-create",
+      "identity": {
+        "environment_uuid": "7043bbdc-9a00-4489-8b7f-7d37a4805ef1",
+        "generation": 1,
+        "container_id": "1ab67965d6e2a2cb5c306fbde116548cad9db394dedaab3e2cf9c880e886bfc0"
+      },
+      "real_runtime_state": "stopped"
+    },
+    "fedora44": {
+      "selected": false,
+      "state": "not_configured",
+      "environment_id": "fedora44",
+      "container_retained": false,
+      "files_mounted": false,
+      "source": "new",
+      "failure": null
+    },
+    "arch": {
+      "selected": false,
+      "state": "not_configured",
+      "environment_id": "arch",
+      "container_retained": false,
+      "files_mounted": false,
+      "source": "new",
+      "failure": null
+    }
+  }
+}

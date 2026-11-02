@@ -1,0 +1,81 @@
+{
+  "scope": "retained Arch FreeCAD, exact release CLI/worker, native GUI macro save/reopen; Qt-visible/exposed and client capture; not compositor capture, fresh install or general app acceptance",
+  "work": "/home/omg/文档/Unifier-CAD/v0.0.1-acceptance-20261031T101657",
+  "sessions": [
+    {
+      "phase": "build",
+      "result": {
+        "phase": "build",
+        "passed": true,
+        "version": [
+          "1",
+          "1",
+          "4",
+          "45040 (Git)",
+          "/srcdest/freecad",
+          "2026/09/28 13:46:34",
+          "makepkg",
+          "4fd3bf320d9566a27e60069fc8387448aaa3a094"
+        ],
+        "uid": 1000,
+        "parameter_recompute": {
+          "before_volume": 22429.203673205102,
+          "after_volume": 21738.05328941535
+        },
+        "volume": 21738.05328941535,
+        "expected_volume": 21738.053289415348,
+        "step_volume": 21738.05328941535,
+        "solids": 1,
+        "valid": true,
+        "qt_platform": "wayland"
+      },
+      "client": {
+        "visible": true,
+        "exposed": true,
+        "qt_platform": "wayland",
+        "screenshot_saved": true
+      },
+      "normal_exit": 0,
+      "stopped_same_cid": true,
+      "screenshot": "/home/omg/文档/Unifier-CAD/v0.0.1-acceptance-20261031T101657/build-client.png"
+    },
+    {
+      "phase": "reopen",
+      "result": {
+        "phase": "reopen",
+        "passed": true,
+        "version": [
+          "1",
+          "1",
+          "4",
+          "45040 (Git)",
+          "/srcdest/freecad",
+          "2026/09/28 13:46:34",
+          "makepkg",
+          "4fd3bf320d9566a27e60069fc8387448aaa3a094"
+        ],
+        "uid": 1000,
+        "volume": 21738.05328941535,
+        "expected_volume": 21738.053289415348,
+        "step_volume": 21738.05328941535,
+        "solids": 1,
+        "valid": true,
+        "qt_platform": "wayland"
+      },
+      "client": {
+        "visible": true,
+        "exposed": true,
+        "qt_platform": "wayland",
+        "screenshot_saved": true
+      },
+      "normal_exit": 0,
+      "stopped_same_cid": true,
+      "screenshot": "/home/omg/文档/Unifier-CAD/v0.0.1-acceptance-20261031T101657/reopen-client.png"
+    }
+  ],
+  "launch_record_before": "41982dc9f1c3244b095a8772b889d4f3ce7b5fda76016af14f3d53ae7686d326",
+  "launch_record_after": "41982dc9f1c3244b095a8772b889d4f3ce7b5fda76016af14f3d53ae7686d326",
+  "launch_record_preserved": true,
+  "final_state": "stopped",
+  "passed": true
+}

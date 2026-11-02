@@ -8,8 +8,8 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
-from multilinux.view_backend import IdMap, ViewBackend, ViewError
-from multilinux import fuse_view
+from unifier.view_backend import IdMap, ViewBackend, ViewError
+from unifier import fuse_view
 
 
 class ProjectionFailureCleanup(unittest.TestCase):
@@ -53,7 +53,7 @@ class ProjectionFailureCleanup(unittest.TestCase):
                         if str(path)==str(source):
                             raise OSError(code,'source verification resource pressure')
                         return original_open(path,*args,**kwargs)
-                    with patch('multilinux.projection.os.open',side_effect=limited):
+                    with patch('unifier.projection.os.open',side_effect=limited):
                         with self.assertRaises(ViewError) as caught:
                             backend.lookup_node(1,'mount')
                         self.assertEqual(caught.exception.errno,code)

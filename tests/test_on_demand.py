@@ -9,10 +9,10 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'tests')]
-from multilinux.errors import MultilinuxError
-from multilinux.on_demand import LaunchGroup, live_leases, managed_open, process_stamp
-from multilinux.routing import route_package
-from multilinux.runtime import CreateSpec, creation_argv
+from unifier.errors import UnifierError
+from unifier.on_demand import LaunchGroup, live_leases, managed_open, process_stamp
+from unifier.routing import route_package
+from unifier.runtime import CreateSpec, creation_argv
 from test_desktop import desktop_service, SESSION
 
 
@@ -80,7 +80,7 @@ class DesktopAndRouting(unittest.TestCase):
             service, _runtime = ready(Path(temporary))
             path = service.host_desktop.applications / 'wemeetapp.desktop'
             path.parent.mkdir(parents=True);path.write_text('foreign application\n')
-            with self.assertRaisesRegex(MultilinuxError, 'refusing to replace'):
+            with self.assertRaisesRegex(UnifierError, 'refusing to replace'):
                 service.export_app('notes', menu_only=True, desktop_alias='wemeetapp')
             self.assertEqual(path.read_text(), 'foreign application\n')
 
@@ -95,14 +95,14 @@ class DesktopAndRouting(unittest.TestCase):
                 self.assertEqual(result['target'], expected)
                 self.assertEqual(result['validation'], 'native-package-manager-required')
             bad = root / 'bad.deb';bad.write_bytes(b'not a package')
-            with self.assertRaisesRegex(MultilinuxError, 'mismatch'):
+            with self.assertRaisesRegex(UnifierError, 'mismatch'):
                 route_package(bad)
 
     def test_camera_is_explicit_and_host_session_directory_is_not_mounted(self):
         spec = CreateSpec('name', 'id', '/project', 'repo@sha256:' + 'a'*64, (), devices=('/dev/video0',))
         command = creation_argv(spec)
         self.assertIn('/dev/video0:/dev/video0:rw', command)
-        with self.assertRaises(MultilinuxError):
+        with self.assertRaises(UnifierError):
             creation_argv(replace(spec, devices=('/dev/sda',)))
         with tempfile.TemporaryDirectory() as temporary:
             service, _runtime = desktop_service(Path(temporary))
@@ -119,7 +119,7 @@ class DesktopAndRouting(unittest.TestCase):
         self.assertIn('/dev/dri/renderD128:/dev/dri/renderD128:rw', command)
         with tempfile.TemporaryDirectory() as temporary:
             service, _runtime = desktop_service(Path(temporary))
-            with self.assertRaisesRegex(MultilinuxError, 'require --desktop'):
+            with self.assertRaisesRegex(UnifierError, 'require --desktop'):
                 service.create('debian13', None, [], desktop=False, gpu=True)
             record = service.create('debian13', None, [], desktop=True, session=SESSION, gpu=True)
             self.assertEqual(record['runtime']['ipc'], 'host')

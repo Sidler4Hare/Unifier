@@ -1,0 +1,6 @@
+arch: installing package(s) through the native transaction: fd.
+arch: pacman -Syu --noconfirm --needed fd
+arch: install completed txn7fd3afad5815
+Native package transaction completed: txn7fd3afad5815. A successful package transaction does not prove the application entry works.
+arch: using explicit entry /usr/bin/fd.
+Registered application fd (target arch, environment arch).

@@ -1,0 +1,40 @@
+time="2026-10-30T21:18:35+08:00" level=warning msg="The cgroupv2 manager is set to systemd but there is no systemd user session available"
+time="2026-10-30T21:18:35+08:00" level=warning msg="For using systemd, you may need to log in using a user session"
+time="2026-10-30T21:18:35+08:00" level=warning msg="Alternatively, you can enable lingering with: `loginctl enable-linger 1000` (possibly as root)"
+time="2026-10-30T21:18:35+08:00" level=warning msg="Falling back to --cgroup-manager=cgroupfs"
+time="2026-10-30T21:18:35+08:00" level=warning msg="The cgroupv2 manager is set to systemd but there is no systemd user session available"
+time="2026-10-30T21:18:35+08:00" level=warning msg="For using systemd, you may need to log in using a user session"
+time="2026-10-30T21:18:35+08:00" level=warning msg="Alternatively, you can enable lingering with: `loginctl enable-linger 1000` (possibly as root)"
+time="2026-10-30T21:18:35+08:00" level=warning msg="Falling back to --cgroup-manager=cgroupfs"
+{"step": "matrix", "argv": ["/usr/bin/python3", "tools/unifier.py", "compat", "matrix"], "returncode": 1, "expected": 1, "matched_expected": true}
+{"step": "doctor-direct", "argv": ["/usr/bin/python3", "tools/lab.py", "doctor", "--output", "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/doctor.json"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "refuse-init-debian13", "argv": ["/usr/bin/python3", "tools/unifier.py", "init", "--target", "debian13", "--yes"], "returncode": 1, "expected": 1, "matched_expected": true}
+{"step": "refuse-create-debian13", "argv": ["/usr/bin/python3", "tools/unifier.py", "env", "create", "--target", "debian13", "--id", "debian13"], "returncode": 1, "expected": 1, "matched_expected": true}
+{"step": "refuse-pull-debian13", "argv": ["/usr/bin/python3", "tools/lab.py", "pull", "--target", "debian13"], "returncode": 1, "expected": 1, "matched_expected": true}
+{"step": "refuse-probe-debian13", "argv": ["/usr/bin/python3", "tools/probe_headless.py", "--target", "debian13", "--output", "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/forbidden-headless.json"], "returncode": 2, "expected": 2, "matched_expected": true}
+{"step": "legacy-refuse-start", "argv": ["/usr/bin/python3", "tools/unifier.py", "env", "start", "debian13"], "returncode": 1, "expected": 1, "matched_expected": true}
+{"step": "legacy-refuse-run", "argv": ["/usr/bin/python3", "tools/unifier.py", "env", "run", "debian13", "--workdir", "/", "--", "true"], "returncode": 1, "expected": 1, "matched_expected": true}
+{"step": "policy-unit-tests", "argv": ["/usr/bin/python3", "-m", "unittest", "-q", "test_compatibility", "test_lab", "test_cli_shortcuts.InitAndConfigure.test_same_family_selection_refuses_before_image_or_container_side_effects", "test_cli_shortcuts.InitAndConfigure.test_interactive_selection_omits_host_family_and_keeps_legacy_data", "test_cli_shortcuts.InitAndConfigure.test_start_cannot_acknowledge_an_already_running_same_family_environment"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "headless-default", "argv": ["/usr/bin/python3", "tools/probe_headless.py", "--output", "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/headless.json"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "positive-init", "argv": ["/usr/bin/python3", "tools/unifier.py", "init", "--network", "none", "--yes", "--target", "fedora44", "--target", "arch"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "fedora44-files", "argv": ["/usr/bin/python3", "tools/unifier.py", "path", "fedora44", "--files"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "fedora44-start", "argv": ["/usr/bin/python3", "tools/unifier.py", "start", "fedora44"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "fedora44-write", "argv": ["/usr/bin/python3", "tools/unifier.py", "env", "run", "fedora44", "--workdir", "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/positive-installation/containers/fedora44/files", "--", "sh", "-c", "test \"$(cat host-marker.txt)\" = host && printf guest > guest-marker.txt"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "fedora44-exit17", "argv": ["/usr/bin/python3", "tools/unifier.py", "env", "run", "fedora44", "--workdir", "/", "--", "sh", "-c", "exit 17"], "returncode": 17, "expected": 17, "matched_expected": true}
+{"step": "arch-files", "argv": ["/usr/bin/python3", "tools/unifier.py", "path", "arch", "--files"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "arch-start", "argv": ["/usr/bin/python3", "tools/unifier.py", "start", "arch"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "arch-write", "argv": ["/usr/bin/python3", "tools/unifier.py", "env", "run", "arch", "--workdir", "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/positive-installation/containers/arch/files", "--", "sh", "-c", "test \"$(cat host-marker.txt)\" = host && printf guest > guest-marker.txt"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "arch-exit17", "argv": ["/usr/bin/python3", "tools/unifier.py", "env", "run", "arch", "--workdir", "/", "--", "sh", "-c", "exit 17"], "returncode": 17, "expected": 17, "matched_expected": true}
+{"step": "fedora44-cleanup-stop", "argv": ["/usr/bin/python3", "tools/unifier.py", "stop", "fedora44"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "fedora44-cleanup-remove", "argv": ["/usr/bin/python3", "tools/unifier.py", "env", "remove", "fedora44", "--yes"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "arch-cleanup-stop", "argv": ["/usr/bin/python3", "tools/unifier.py", "stop", "arch"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "arch-cleanup-remove", "argv": ["/usr/bin/python3", "tools/unifier.py", "env", "remove", "arch", "--yes"], "returncode": 0, "expected": 0, "matched_expected": true}
+time="2026-10-30T21:19:35+08:00" level=warning msg="The cgroupv2 manager is set to systemd but there is no systemd user session available"
+time="2026-10-30T21:19:35+08:00" level=warning msg="For using systemd, you may need to log in using a user session"
+time="2026-10-30T21:19:35+08:00" level=warning msg="Alternatively, you can enable lingering with: `loginctl enable-linger 1000` (possibly as root)"
+time="2026-10-30T21:19:35+08:00" level=warning msg="Falling back to --cgroup-manager=cgroupfs"
+time="2026-10-30T21:19:35+08:00" level=warning msg="The cgroupv2 manager is set to systemd but there is no systemd user session available"
+time="2026-10-30T21:19:35+08:00" level=warning msg="For using systemd, you may need to log in using a user session"
+time="2026-10-30T21:19:35+08:00" level=warning msg="Alternatively, you can enable lingering with: `loginctl enable-linger 1000` (possibly as root)"
+time="2026-10-30T21:19:35+08:00" level=warning msg="Falling back to --cgroup-manager=cgroupfs"
+{"results": "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry", "passed_scope": true}

@@ -12,10 +12,10 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
 
-from multilinux import cli
-from multilinux.control import Control
-from multilinux.errors import MultilinuxError
-from multilinux.registry import DataRootRegistry
+from unifier import cli
+from unifier.control import Control
+from unifier.errors import UnifierError
+from unifier.registry import DataRootRegistry
 from test_env import service_in
 
 
@@ -65,9 +65,9 @@ class Registration(unittest.TestCase):
             os.symlink(data, alias)
             registry = DataRootRegistry(root)
             first = registry.add(str(data))
-            with self.assertRaisesRegex(MultilinuxError, first["root_uuid"]):
+            with self.assertRaisesRegex(UnifierError, first["root_uuid"]):
                 registry.add(str(data))
-            with self.assertRaisesRegex(MultilinuxError, first["root_uuid"]):
+            with self.assertRaisesRegex(UnifierError, first["root_uuid"]):
                 registry.add(str(alias))
             self.assertEqual([item["root_uuid"] for item in registry.list()],
                              [first["root_uuid"]])
@@ -107,7 +107,7 @@ class Registration(unittest.TestCase):
                 {"access_policy": "append-only"},
             )
             for options in cases:
-                with self.subTest(options=options), self.assertRaises(MultilinuxError):
+                with self.subTest(options=options), self.assertRaises(UnifierError):
                     registry.add(str(data), **options)
             self.assertFalse(registry.path.exists())
             self.assertEqual(registry.list(), [])
@@ -132,7 +132,7 @@ class Registration(unittest.TestCase):
                     payload["roots"][0][field] = value
                     registry_path.write_text(json.dumps(payload), encoding="utf-8")
                     malformed = registry_path.read_bytes()
-                    with self.assertRaises(MultilinuxError):
+                    with self.assertRaises(UnifierError):
                         control.list_roots()
                     self.assertEqual(registry_path.read_bytes(), malformed)
                     registry_path.write_bytes(original)
@@ -148,7 +148,7 @@ class Registration(unittest.TestCase):
                 {"management_domain": []}, {"access_policy": {}},
             )
             for options in cases:
-                with self.subTest(options=options), self.assertRaises(MultilinuxError):
+                with self.subTest(options=options), self.assertRaises(UnifierError):
                     control.add_root(str(data), **options)
             self.assertFalse(control.registry.path.exists())
 
@@ -165,7 +165,7 @@ class Registration(unittest.TestCase):
             code, out, err = _run(["root", "list"], control)
             self.assertEqual(code, 1)
             self.assertEqual(out, "")
-            self.assertIn("ml:", err)
+            self.assertIn("unifier:", err)
             self.assertNotIn("Traceback", err)
 
     def test_cli_root_and_file_commands_are_usable(self):

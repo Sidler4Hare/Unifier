@@ -1,0 +1,71 @@
+..................debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn70896c2872ea
+fedora44: dnf install -y hello
+fedora44: install completed txn888ed4263162
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txnfc657eba73e6
+....................EE.........refusing to overwrite an unknown file: /tmp/tmp3ka86eaf/unifier
+remove or rename it explicitly, then rerun this installer
+..................debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txne6e4f0489cfc
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txna814f63cdbff
+...Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+........debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnfde2debb1dd7
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn3d8a8504b2bb
+..debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn99f447968122
+...debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnc7a59c9827ef
+fedora44: dnf install -y hello
+fedora44: install completed txn499d6d926358
+......................................................s..........................ml: remove deletes the environment's writable root; pass --yes
+.............s.............................................................................removed demo
+/usr/lib64/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=377287) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+..................................................................................s.................................................................................................s................/usr/lib64/python3.14/site-packages/gi/overrides/__init__.py:159: PyGIDeprecationWarning: GLib.unix_signal_add_full is deprecated; use GLibUnix.signal_add_full instead
+  value = getattr(proxy, attr)
+.......................................................................
+======================================================================
+ERROR: test_failed_native_metadata_query_releases_its_started_environment (test_cli_primary_acceptance.ControllerCounterexamples.test_failed_native_metadata_query_releases_its_started_environment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_cli_primary_acceptance.py", line 44, in test_failed_native_metadata_query_releases_its_started_environment
+    service.local_package_name("debian13", str(package))
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/src/multilinux/service.py", line 1154, in local_package_name
+    incoming = self._stage_local(record, local)
+  File "/home/omg/文档/多兼容linux机/src/multilinux/service.py", line 1483, in _stage_local
+    self.runtime.copy_in(
+    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ShortcutRuntime' object has no attribute 'copy_in'
+
+======================================================================
+ERROR: test_local_package_name_comes_from_native_metadata_not_filename (test_cli_primary_acceptance.ControllerCounterexamples.test_local_package_name_comes_from_native_metadata_not_filename)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_cli_primary_acceptance.py", line 29, in test_local_package_name_comes_from_native_metadata_not_filename
+    self.assertEqual(service.local_package_name("debian13", str(package)),
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/src/multilinux/service.py", line 1154, in local_package_name
+    incoming = self._stage_local(record, local)
+  File "/home/omg/文档/多兼容linux机/src/multilinux/service.py", line 1483, in _stage_local
+    self.runtime.copy_in(
+    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ShortcutRuntime' object has no attribute 'copy_in'
+
+----------------------------------------------------------------------
+Ran 523 tests in 31.486s
+
+FAILED (errors=2, skipped=4)

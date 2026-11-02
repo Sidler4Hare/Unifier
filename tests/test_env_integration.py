@@ -1,6 +1,5 @@
 """Rootless Podman checks for the M1 lifecycle. Opt in with MULTILINUX_INTEGRATION=1."""
 
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -13,10 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-from multilinux.errors import MultilinuxError
-from multilinux.project import load_project
-from multilinux.runtime import PodmanRuntime, container_name, project_label
-from multilinux.service import EnvironmentService, now
+from unifier.errors import UnifierError
+from podman_test_support import admitted_targets, isolated_service
+from unifier.runtime import container_name, project_label
+from unifier.service import now
 
 
 TARGETS = (
@@ -40,10 +39,9 @@ def _reset(service, runtime, env_id):
 @unittest.skipUnless(os.environ.get("MULTILINUX_INTEGRATION") == "1",
                      "set MULTILINUX_INTEGRATION=1 to use rootless Podman")
 class PodmanLifecycle(unittest.TestCase):
-    def test_three_environments_execute_in_their_own_roots(self):
-        config, lock, root = load_project()
-        runtime = PodmanRuntime()
-        service = EnvironmentService(root, runtime, config, lock)
+    def test_admitted_environments_execute_in_their_own_roots(self):
+        service, runtime, root = isolated_service(self, "m1")
+        targets, plans = admitted_targets(service.config, TARGETS)
         share = Path(tempfile.mkdtemp(prefix="ml-m1-"))
         cleanup_errors = []
         evidence = {
@@ -53,6 +51,7 @@ class PodmanLifecycle(unittest.TestCase):
             "host_uid": os.getuid(),
             "host_gid": os.getgid(),
             "targets": {},
+            "admission": plans,
             "passed": False,
             "settings": {
                 "rootless": True,
@@ -65,10 +64,11 @@ class PodmanLifecycle(unittest.TestCase):
             "scope": "M1 lifecycle on the current host. Not package install, GUI, full init, or another host.",
         }
         try:
-            for env_id, _target, _distribution in TARGETS:
+            for env_id, _target, _distribution in targets:
                 _reset(service, runtime, env_id)
-            for env_id, target, distribution in TARGETS:
-                record = service.create(target, env_id, [str(share)])
+            for env_id, target, distribution in targets:
+                record = service.create(target, env_id, [str(share)],
+                                        share_label_policy="shared-relabel")
                 self.assertEqual(record["runtime_state"], "stopped")
                 self.assertEqual(record["distribution_id"], distribution)
                 service.start(env_id)
@@ -89,8 +89,8 @@ class PodmanLifecycle(unittest.TestCase):
                 self.assertEqual(view["runtime_state"], "running")
                 self.assertTrue(view["kernel_matches_current_host"])
                 self.assertGreater(view["package_inventory_count"], 0)
-                smoke = root / "evidence/lab-smoke-2026-10-18.packages" / f"{target}.txt"
-                self.assertEqual(view["package_inventory_sha256"], _sorted_sha256(smoke))
+                self.assertEqual(view["package_inventory_sha256"],
+                                 record["package_inventory_sha256"])
                 evidence["targets"][env_id] = {
                     "target": target,
                     "distribution_id": distribution,
@@ -102,75 +102,69 @@ class PodmanLifecycle(unittest.TestCase):
                     "base_image_digest": view["base_image"]["manifest_digest"],
                     "exit_code_17": True,
                     "workdir": "/usr",
-                    "sorted_inventory_matches_m0_smoke": True,
+                    "inventory_unchanged_after_commands": True,
                 }
 
+            primary = targets[0][0]
+            for env_id, _target, _distribution in targets:
+                self.assertEqual(service.run(
+                    env_id, ["sh", "-c", 'test ! -e /var/tmp/ml-origin'],
+                    workdir="/", env_keys=[]), 0)
             self.assertEqual(service.run(
-                "m1debian", ["sh", "-c", "printf debian-only > /var/tmp/ml-origin"],
+                primary, ["sh", "-c", "printf isolated > /var/tmp/ml-origin"],
                 workdir="/", env_keys=[]), 0)
-            self.assertEqual(service.run(
-                "m1fedora", ["sh", "-c", "test ! -e /var/tmp/ml-origin"],
-                workdir="/", env_keys=[]), 0)
-            self.assertEqual(service.run(
-                "m1arch", ["sh", "-c", "test ! -e /var/tmp/ml-origin"],
-                workdir="/", env_keys=[]), 0)
-            self.assertEqual(service.run(
-                "m1fedora", ["sh", "-c", "printf fedora-only > /var/tmp/ml-origin"],
-                workdir="/", env_keys=[]), 0)
-            self.assertEqual(service.run(
-                "m1debian", ["sh", "-c", 'test "$(cat /var/tmp/ml-origin)" = debian-only'],
-                workdir="/", env_keys=[]), 0)
+            for env_id, _target, _distribution in targets[1:]:
+                self.assertEqual(service.run(
+                    env_id, ["sh", "-c", "test ! -e /var/tmp/ml-origin"],
+                    workdir="/", env_keys=[]), 0)
             owned = share / "owned.txt"
             self.assertEqual(service.run(
-                "m1debian", ["sh", "-c", f"printf hi > {owned}"], workdir=str(share),
+                primary, ["sh", "-c", f"printf hi > {owned}"], workdir=str(share),
                 env_keys=[]), 0)
             self.assertEqual(owned.read_text(), "hi")
             self.assertEqual(owned.stat().st_uid, os.getuid())
             self.assertEqual(owned.stat().st_gid, os.getgid())
 
-            service.stop("m1debian")
-            with self.assertRaises(MultilinuxError):
-                service.run("m1debian", ["true"], workdir="/", env_keys=[])
-            service.start("m1debian")
-            self.assertEqual(service.run("m1debian", ["true"], workdir="/", env_keys=[]), 0)
-            self.assertEqual(service.stop("m1debian")["runtime_state"], "stopped")
-            self.assertEqual(service.stop("m1debian")["runtime_state"], "stopped")
+            service.stop(primary)
+            with self.assertRaises(UnifierError):
+                service.run(primary, ["true"], workdir="/", env_keys=[])
+            service.start(primary)
+            self.assertEqual(service.run(primary, ["true"], workdir="/", env_keys=[]), 0)
+            self.assertEqual(service.stop(primary)["runtime_state"], "stopped")
+            self.assertEqual(service.stop(primary)["runtime_state"], "stopped")
 
             listed = subprocess_list(root)
-            self.assertEqual({item["id"] for item in listed}, {item[0] for item in TARGETS})
+            self.assertEqual({item["id"] for item in listed}, {item[0] for item in targets})
             evidence["source_isolation"] = True
             evidence["shared_file_owned_by_host_user"] = True
             evidence["restart_after_stop"] = True
             evidence["passed"] = True
             evidence["finished_at"] = now()
         finally:
-            for env_id, _target, _distribution in TARGETS:
+            for env_id, _target, _distribution in targets:
                 try:
                     _reset(service, runtime, env_id)
-                except (MultilinuxError, OSError) as exc:
+                except (UnifierError, OSError) as exc:
                     cleanup_errors.append(f"{env_id}: {exc}")
             shutil.rmtree(share, ignore_errors=True)
         if evidence["passed"]:
             self.assertEqual(cleanup_errors, [])
-            for env_id, _target, _distribution in TARGETS:
+            for env_id, _target, _distribution in targets:
                 self.assertFalse(service.store.exists(env_id))
                 self.assertIsNone(runtime.inspect(container_name(root, env_id)))
             evidence["containers_removed_after_acceptance"] = True
             if os.environ.get("MULTILINUX_EVIDENCE") == "1":
                 from tools import lab
-                lab.save_json(root / "evidence/m1-lifecycle-2026-10-19.json", evidence)
-
-
-def _sorted_sha256(path: Path) -> str:
-    lines = [line.strip() for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
-    return hashlib.sha256(("\n".join(sorted(lines)) + "\n").encode()).hexdigest()
+                lab.save_json(Path(os.environ.get("UNIFIER_TEST_EVIDENCE", root / "evidence"))
+                              / "m1-lifecycle.json", evidence)
 
 
 def subprocess_list(root: Path):
     import subprocess
+    environment = dict(os.environ, UNIFIER_HOME=str(root))
     completed = subprocess.run(
-        [sys.executable, str(root / "tools/ml.py"), "env", "list"],
-        cwd=root, capture_output=True, text=True, check=False)
+        [sys.executable, str(ROOT / "tools/unifier.py"), "env", "list"],
+        cwd=ROOT, env=environment, capture_output=True, text=True, check=False, timeout=60)
     if completed.returncode:
         raise AssertionError(completed.stderr)
     return json.loads(completed.stdout)

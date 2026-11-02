@@ -1,0 +1,208 @@
+[
+  {
+    "AutoRemove": false,
+    "Command": [
+      "infinity"
+    ],
+    "CreatedAt": "7 days ago",
+    "CIDFile": "",
+    "Exited": true,
+    "ExitedAt": 1793413102,
+    "ExitCode": 143,
+    "ExposedPorts": null,
+    "Id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+    "Image": "localhost/multilinux/installstatus-arch@sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+    "ImageID": "e6edccdadc8fd38b9b984d7da2667c4faf4e04878f6b1f4f3271536c968de080",
+    "IsInfra": false,
+    "Labels": {
+      "multilinux.env": "freecad-arch",
+      "multilinux.project": "/home/omg/.local/share/multilinux/apps/freecad",
+      "multilinux.role": "environment",
+      "org.opencontainers.image.authors": "Santiago Torres-Arias \u003csantiago@archlinux.org\u003e (@SantiagoTorres), Christian Rebischke \u003cChris.Rebischke@archlinux.org\u003e (@shibumi), Justin Kromlinger \u003chashworks@archlinux.org\u003e (@hashworks)",
+      "org.opencontainers.image.created": "2026-10-11T00:09:32+00:00",
+      "org.opencontainers.image.description": "Official containerd image of Arch Linux, a simple, lightweight Linux distribution aimed for flexibility.",
+      "org.opencontainers.image.documentation": "https://wiki.archlinux.org/title/Docker#Arch_Linux",
+      "org.opencontainers.image.licenses": "GPL-3.0-or-later",
+      "org.opencontainers.image.revision": "34b87485162b028c8d957bdcd2674359d883cd21",
+      "org.opencontainers.image.source": "https://gitlab.archlinux.org/archlinux/archlinux-docker",
+      "org.opencontainers.image.title": "Arch Linux base Image",
+      "org.opencontainers.image.url": "https://gitlab.archlinux.org/archlinux/archlinux-docker/-/blob/master/README.md",
+      "org.opencontainers.image.version": "20261011.0.609700"
+    },
+    "Mounts": [
+      "/run/user/1000/pulse/native",
+      "/run/user/1000/pipewire-0",
+      "/home/omg/文档/Unifier-CAD",
+      "/run/user/1000/wayland-0",
+      "/tmp/.X11-unix/X0",
+      "/tmp/ml-xauthority"
+    ],
+    "Names": [
+      "ml-53c5c8a5-freecad-arch"
+    ],
+    "Namespaces": {
+      
+    },
+    "Networks": [],
+    "Pid": 0,
+    "Pod": "",
+    "PodName": "",
+    "Ports": null,
+    "Restarts": 0,
+    "Size": null,
+    "StartedAt": 1793413064,
+    "State": "exited",
+    "Status": "Exited (143) 11 hours ago",
+    "Created": 1792811760
+  },
+  {
+    "AutoRemove": false,
+    "Command": [
+      "infinity"
+    ],
+    "CreatedAt": "4 days ago",
+    "CIDFile": "",
+    "Exited": true,
+    "ExitedAt": 1793191671,
+    "ExitCode": 143,
+    "ExposedPorts": null,
+    "Id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+    "Image": "localhost/unifier/wemeet-current@sha256:4abbc8621397cdaf0ad326970d0cba5777dfd60c315cc5ddfb050cd8bcfbd8e1",
+    "ImageID": "789bf6e9461fefef84e8dec9e2d27623ed8100e51d31f99fe313461e50d91651",
+    "IsInfra": false,
+    "Labels": {
+      "multilinux.env": "meeting",
+      "multilinux.project": "/home/omg/.local/share/multilinux/apps/wemeet",
+      "multilinux.role": "environment"
+    },
+    "Mounts": [
+      "/home/omg/.local/share/multilinux/documents/wemeet",
+      "/run/user/1000/wayland-0",
+      "/tmp/.X11-unix/X0",
+      "/run/user/1000/pulse/native",
+      "/run/user/1000/pipewire-0",
+      "/run/multilinux-portal"
+    ],
+    "Names": [
+      "ml-6b061a2f-meeting"
+    ],
+    "Namespaces": {
+      
+    },
+    "Networks": [],
+    "Pid": 0,
+    "Pod": "",
+    "PodName": "",
+    "Ports": null,
+    "Restarts": 0,
+    "Size": null,
+    "StartedAt": 1793191637,
+    "State": "exited",
+    "Status": "Exited (143) 3 days ago",
+    "Created": 1793080122
+  },
+  {
+    "AutoRemove": false,
+    "Command": [
+      "infinity"
+    ],
+    "CreatedAt": "10 hours ago",
+    "CIDFile": "",
+    "Exited": true,
+    "ExitedAt": 1793434681,
+    "ExitCode": 143,
+    "ExposedPorts": null,
+    "Id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "Image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+    "ImageID": "567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c",
+    "IsInfra": false,
+    "Labels": {
+      "multilinux.env": "debian13",
+      "multilinux.project": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+      "multilinux.role": "environment"
+    },
+    "Mounts": [
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files",
+      "/run/user/1000/wayland-0",
+      "/tmp/.X11-unix/X0",
+      "/tmp/ml-xauthority",
+      "/run/user/1000/pulse/native",
+      "/run/user/1000/pipewire-0"
+    ],
+    "Names": [
+      "ml-104d8e92-debian13"
+    ],
+    "Namespaces": {
+      
+    },
+    "Networks": [],
+    "Pid": 0,
+    "Pod": "",
+    "PodName": "",
+    "Ports": null,
+    "Restarts": 0,
+    "Size": null,
+    "StartedAt": 1793418639,
+    "State": "exited",
+    "Status": "Exited (143) 5 hours ago",
+    "Created": 1793418173
+  },
+  {
+    "AutoRemove": false,
+    "Command": [
+      "infinity"
+    ],
+    "CreatedAt": "10 hours ago",
+    "CIDFile": "",
+    "Exited": true,
+    "ExitedAt": 1793434687,
+    "ExitCode": 143,
+    "ExposedPorts": null,
+    "Id": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+    "Image": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+    "ImageID": "5a30b4acc83ff841682eb21795e00f7ff030796f5e6fd2a127decd7a45ba7cef",
+    "IsInfra": false,
+    "Labels": {
+      "multilinux.env": "arch",
+      "multilinux.project": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+      "multilinux.role": "environment",
+      "org.opencontainers.image.authors": "Santiago Torres-Arias \u003csantiago@archlinux.org\u003e (@SantiagoTorres), Christian Rebischke \u003cChris.Rebischke@archlinux.org\u003e (@shibumi), Justin Kromlinger \u003chashworks@archlinux.org\u003e (@hashworks)",
+      "org.opencontainers.image.created": "2026-10-11T00:09:32+00:00",
+      "org.opencontainers.image.description": "Official containerd image of Arch Linux, a simple, lightweight Linux distribution aimed for flexibility.",
+      "org.opencontainers.image.documentation": "https://wiki.archlinux.org/title/Docker#Arch_Linux",
+      "org.opencontainers.image.licenses": "GPL-3.0-or-later",
+      "org.opencontainers.image.revision": "34b87485162b028c8d957bdcd2674359d883cd21",
+      "org.opencontainers.image.source": "https://gitlab.archlinux.org/archlinux/archlinux-docker",
+      "org.opencontainers.image.title": "Arch Linux base Image",
+      "org.opencontainers.image.url": "https://gitlab.archlinux.org/archlinux/archlinux-docker/-/blob/master/README.md",
+      "org.opencontainers.image.version": "20261011.0.609700"
+    },
+    "Mounts": [
+      "/run/user/1000/pulse/native",
+      "/run/user/1000/pipewire-0",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files",
+      "/run/user/1000/wayland-0",
+      "/tmp/.X11-unix/X0",
+      "/tmp/ml-xauthority"
+    ],
+    "Names": [
+      "ml-104d8e92-arch"
+    ],
+    "Namespaces": {
+      
+    },
+    "Networks": [],
+    "Pid": 0,
+    "Pod": "",
+    "PodName": "",
+    "Ports": null,
+    "Restarts": 0,
+    "Size": null,
+    "StartedAt": 1793422296,
+    "State": "exited",
+    "Status": "Exited (143) 5 hours ago",
+    "Created": 1793418175
+  }
+]

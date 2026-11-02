@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "target": "debian13",
+  "via": "view",
+  "view_uuid": "3da7815c-ba4c-4be1-873e-618ee6ee286e",
+  "mountpoint": "/home/dev/unifier-v001-validation-20261030T230003/results/installation/.lab/state/views/3da7815c-ba4c-4be1-873e-618ee6ee286e/mount",
+  "path": "/usr",
+  "entries": [
+    "bin",
+    "games",
+    "include",
+    "lib",
+    "lib64",
+    "libexec",
+    "local",
+    "sbin",
+    "share",
+    "src"
+  ]
+}

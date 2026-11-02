@@ -21,8 +21,8 @@ for _path in (ROOT / "src", ROOT, ROOT / "tests"):
     if str(_path) not in sys.path:
         sys.path.insert(0, str(_path))
 
-from multilinux import cli
-from multilinux.packages import (
+from unifier import cli
+from unifier.packages import (
     MAINTENANCE_LINE_LIMIT,
     maintenance_findings,
     merge_maintenance_findings,

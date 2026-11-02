@@ -1,0 +1,15 @@
+======================================================================
+ERROR: test_launcher_relays_winch_to_detached_worker_and_restores_handler (tests.test_project_resize.ProjectResize.test_launcher_relays_winch_to_detached_worker_and_restores_handler)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_project_resize.py", line 58, in test_launcher_relays_winch_to_detached_worker_and_restores_handler
+    result = ProjectSessions._wait_forwarding(None, Worker(), tty=True)
+  File "/home/omg/文档/多兼容linux机/src/unifier/project_sessions.py", line 569, in _wait_forwarding
+    saved_termios = (sys.stdin.fileno(), termios.tcgetattr(sys.stdin.fileno()))
+                                         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+termios.error: (25, 'Inappropriate ioctl for device')
+
+----------------------------------------------------------------------
+Ran 35 tests in 11.934s
+
+FAILED (errors=1)

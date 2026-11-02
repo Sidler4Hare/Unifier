@@ -1,0 +1,11 @@
+test_default_evidence_receipt_survives_temp_root_cleanup (test_integration_policy.IntegrationPolicyTests.test_default_evidence_receipt_survives_temp_root_cleanup) ... ok
+test_explicit_external_evidence_stays_outside_the_preserved_run (test_integration_policy.IntegrationPolicyTests.test_explicit_external_evidence_stays_outside_the_preserved_run) ... ok
+test_guest_matrix_follows_current_host_family (test_integration_policy.IntegrationPolicyTests.test_guest_matrix_follows_current_host_family) ... ok
+test_new_roots_have_distinct_container_and_state_identities (test_integration_policy.IntegrationPolicyTests.test_new_roots_have_distinct_container_and_state_identities) ... ok
+test_preservation_conflict_keeps_temp_root_and_existing_target (test_integration_policy.IntegrationPolicyTests.test_preservation_conflict_keeps_temp_root_and_existing_target) ... ok
+test_unsupported_host_skips_before_creating_guests (test_integration_policy.IntegrationPolicyTests.test_unsupported_host_skips_before_creating_guests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.016s
+
+OK

@@ -1,0 +1,15 @@
+{
+  "status": "WINDOW_VERIFIED_ACCOUNT_BLOCKED",
+  "window": "0x2400004",
+  "guest_pid": 12085,
+  "host_pid": 781016,
+  "container_id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+  "wm_class": "Bytedance-feishu",
+  "mapped": true,
+  "width": 1648,
+  "height": 940,
+  "capture_scope": "Exact X11 client drawable after _NET_WM_PID and WM_CLASS verification; no desktop capture, not compositor-focus acceptance",
+  "capture": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/feishu-owned-client.png",
+  "sha256": "1e974157d3b464df91e9ab475b4f21e9a1e08a2341bbc45a53b47c4d0adc80c6",
+  "visual_inspection": "Real Feishu Log In With QR Code screen, expired QR challenge. No account login, attachment, collaboration, meeting or media acceptance."
+}

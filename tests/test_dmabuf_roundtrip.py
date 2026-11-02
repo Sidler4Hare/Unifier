@@ -199,6 +199,8 @@ class DmaBufRoundtripTests(unittest.TestCase):
         self.assertFalse(summary["readback"]["cpu_readback_performed"])
         self.assertTrue(summary["resources_released"])
 
+    @unittest.skipUnless(os.environ.get("MULTILINUX_INTEGRATION") == "1",
+                         "real GPU roundtrip requires MULTILINUX_INTEGRATION=1")
     def test_gpu_dmabuf_roundtrip_when_render_node_is_accessible(self) -> None:
         node = self._require_render_node()
         width, height = 96, 53

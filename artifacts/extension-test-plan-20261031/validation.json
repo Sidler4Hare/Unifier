@@ -1,0 +1,249 @@
+{
+  "scope": "plan consistency and preserved local baseline only; no expanded workflow or regression execution",
+  "passed": true,
+  "checks": [
+    {
+      "name": "primary_installation_cells retained IDs",
+      "passed": true
+    },
+    {
+      "name": "agent_contract_families retained IDs",
+      "passed": true
+    },
+    {
+      "name": "filesystem_families retained IDs",
+      "passed": true
+    },
+    {
+      "name": "agent_origin_target_cells retained IDs",
+      "passed": true
+    },
+    {
+      "name": "18 relationship IDs",
+      "passed": true
+    },
+    {
+      "name": "12 historical shared edges retained as templates",
+      "passed": true
+    },
+    {
+      "name": "historical 12/12 are not executable",
+      "passed": true
+    },
+    {
+      "name": "CLI01-CLI14",
+      "passed": true
+    },
+    {
+      "name": "REG01-REG05",
+      "passed": true
+    },
+    {
+      "name": "policy version matches code",
+      "passed": true
+    },
+    {
+      "name": "four explicit host contexts",
+      "passed": true
+    },
+    {
+      "name": "fedora-workstation placement matches real policy implementation",
+      "passed": true
+    },
+    {
+      "name": "fedora-workstation six shared directions",
+      "passed": true
+    },
+    {
+      "name": "fedora-workstation six Agent controls",
+      "passed": true
+    },
+    {
+      "name": "fedora-workstation 54 deterministic replays",
+      "passed": true
+    },
+    {
+      "name": "fedora-workstation controls gated",
+      "passed": true
+    },
+    {
+      "name": "ubuntu-server placement matches real policy implementation",
+      "passed": true
+    },
+    {
+      "name": "ubuntu-server six shared directions",
+      "passed": true
+    },
+    {
+      "name": "ubuntu-server six Agent controls",
+      "passed": true
+    },
+    {
+      "name": "ubuntu-server 54 deterministic replays",
+      "passed": true
+    },
+    {
+      "name": "ubuntu-server controls gated",
+      "passed": true
+    },
+    {
+      "name": "debian-server placement matches real policy implementation",
+      "passed": true
+    },
+    {
+      "name": "debian-server six shared directions",
+      "passed": true
+    },
+    {
+      "name": "debian-server six Agent controls",
+      "passed": true
+    },
+    {
+      "name": "debian-server 54 deterministic replays",
+      "passed": true
+    },
+    {
+      "name": "debian-server controls gated",
+      "passed": true
+    },
+    {
+      "name": "arch-server placement matches real policy implementation",
+      "passed": true
+    },
+    {
+      "name": "arch-server six shared directions",
+      "passed": true
+    },
+    {
+      "name": "arch-server six Agent controls",
+      "passed": true
+    },
+    {
+      "name": "arch-server 54 deterministic replays",
+      "passed": true
+    },
+    {
+      "name": "arch-server controls gated",
+      "passed": true
+    },
+    {
+      "name": "9 applications placed only on eligible hosts",
+      "passed": true
+    },
+    {
+      "name": "four Fedora RPM cells wait for desktop",
+      "passed": true
+    },
+    {
+      "name": "new workflows not upgraded by prior evidence",
+      "passed": true
+    },
+    {
+      "name": "server scope updated, November unscheduled",
+      "passed": true
+    },
+    {
+      "name": "all structured gate references resolve",
+      "passed": true
+    },
+    {
+      "name": "JSON relative references exist",
+      "passed": true
+    },
+    {
+      "name": "Markdown local links exist",
+      "passed": true
+    },
+    {
+      "name": "historical JSON inputs unchanged",
+      "passed": true
+    },
+    {
+      "name": "product source/tests/tools/config/fixtures unchanged",
+      "passed": true
+    },
+    {
+      "name": "formal release package unchanged",
+      "passed": true
+    },
+    {
+      "name": "Git staged entries unchanged",
+      "passed": true
+    },
+    {
+      "name": "container identities/state/start-stop times unchanged",
+      "passed": true
+    },
+    {
+      "name": "ubuntu imported driver commands passed",
+      "passed": true
+    },
+    {
+      "name": "arch imported driver commands passed",
+      "passed": true
+    },
+    {
+      "name": "debian imported driver commands passed",
+      "passed": true
+    },
+    {
+      "name": "FreeCAD prior scoped workflow passed",
+      "passed": true
+    },
+    {
+      "name": "targeted diff whitespace",
+      "passed": true
+    },
+    {
+      "name": "six open-source CLI projects",
+      "passed": true
+    },
+    {
+      "name": "18 independent OSS project-target cells",
+      "passed": true
+    },
+    {
+      "name": "OSS placements admit actual target and need no desktop",
+      "passed": true
+    },
+    {
+      "name": "jq repository and local-native lanes",
+      "passed": true
+    },
+    {
+      "name": "ten format cases with five native and five unsupported",
+      "passed": true
+    },
+    {
+      "name": "native suffixes match current driver source",
+      "passed": true
+    },
+    {
+      "name": "PKG01-PKG14",
+      "passed": true
+    },
+    {
+      "name": "three implemented package managers plus explicit apk gap",
+      "passed": true
+    },
+    {
+      "name": "project evidence IDs resolve",
+      "passed": true
+    },
+    {
+      "name": "packages not locked or tested by browsing",
+      "passed": true
+    },
+    {
+      "name": "OSS local references and gate IDs resolve",
+      "passed": true
+    }
+  ],
+  "counts": {
+    "checks": 59,
+    "json_relative_references": 52,
+    "markdown_local_links": 40
+  },
+  "missing_references": [],
+  "missing_gates": []
+}

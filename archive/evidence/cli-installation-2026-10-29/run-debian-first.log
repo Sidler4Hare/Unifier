@@ -1,0 +1,3 @@
+UNIFIER_CLI_PROBE
+中文 空格
+a;$(not-a-command)

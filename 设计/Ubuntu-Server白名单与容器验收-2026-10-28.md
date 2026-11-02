@@ -2,16 +2,18 @@
 
 本说明用于下一台 Ubuntu Server 的第一次真实宿主验证。当前 Fedora 结果不能提前计作 Ubuntu 通过。先验证宿主准入、容器创建/启动/执行/停机重开；不要求安装桌面、Wayland、X11、摄像头或音频服务，也不启用 `--desktop`、GPU、portal 或文件投影。
 
+2026-10-30 修订：同派系容器禁止，Ubuntu 上只测试 Fedora 44 与 Arch。10 月 28 日便携包和历史说明不能代表当前策略，执行时使用新版源码。
+
 ## 准备当前源码
 
-本轮生成便携源码包 `artifacts/unifier-ubuntu-server-20261028.tar.gz` 及旁边的 SHA-256 文件，包含当前 `src/`、`tools/`、`config/`、`fixtures/`、`tests/` 和说明；不包含本机 `.lab`、容器数据、私有 HOME、登录信息或日常应用安装镜像。
+当前便携源码包为 `artifacts/unifier-0.0.1.tar.gz` 及旁边的 SHA-256 文件，包含当前 `src/`、`tools/`、`config/`、`fixtures/`、`tests/`、`bin/` 和说明；不包含本机 `.lab`、容器数据、私有 HOME、登录信息或日常应用安装镜像。10 月 28 日包和三宿主首轮测试包只保留作历史证据。
 
 将源码包和校验文件传到服务器后，在普通用户拥有的新目录里操作：
 
 ```bash
-sha256sum -c unifier-ubuntu-server-20261028.tar.gz.sha256
-tar -xzf unifier-ubuntu-server-20261028.tar.gz
-cd unifier-ubuntu-server-20261028
+sha256sum -c unifier-0.0.1.tar.gz.sha256
+tar -xzf unifier-0.0.1.tar.gz
+cd unifier-0.0.1
 ```
 
 这里的内容来自当前工作区，不依赖尚未提交/推送的远端分支。`BUNDLE-MANIFEST.json` 给出逐文件 SHA-256。
@@ -29,20 +31,20 @@ Podman 可从 Ubuntu 官方仓库安装，参见 [Podman 安装说明](https://p
 
 ```bash
 mkdir -p evidence/ubuntu-server
-python3 tools/unifier.py compat check --target debian13
+python3 tools/unifier.py compat check --target fedora44
 python3 tools/unifier.py compat matrix > evidence/ubuntu-server/compat-matrix.json
 python3 tools/lab.py doctor --output evidence/ubuntu-server/doctor.json
 ```
 
-应观察到真实 `host.id=ubuntu`、`family=debian`、`observation=live-host`；Ubuntu → Debian 13 为 `same-family`，→ Fedora/Arch 为 `cross-family`。`allowed=true` 只代表策略准入；还要核对 `doctor` 中 rootless、cgroup v2、工具和镜像锁检查。未通过时保留失败输出，先定位具体能力，不把模拟 os-release 文件当作真实宿主通过。
+应观察到真实 `host.id=ubuntu`、`family=debian`、`observation=live-host`；Ubuntu → Debian 13 为 `same-family` 且 `allowed=false`，→ Fedora/Arch 为 `cross-family` 且准入。`matrix` 因存在准入的跨派系目标返回 0；单独检查 Debian 目标应返回 1。`allowed=true` 只代表策略准入；还要核对 `doctor` 中 rootless、cgroup v2、工具和镜像锁检查。未通过时保留失败输出，先定位具体能力，不把模拟 os-release 文件当作真实宿主通过。
 
-## 第二步：准备三套锁定镜像
+## 第二步：准备准入的锁定镜像
 
 ```bash
 python3 tools/lab.py pull --output evidence/ubuntu-server/pull.json
 ```
 
-使用包内既有 digest 锁；首次下载不需要 `lock --refresh`。这三套是 Debian 13、Fedora 44、Arch 基础镜像，不是本机已装 FreeCAD/腾讯会议的日常镜像。
+使用包内既有 digest 锁；首次下载不需要 `lock --refresh`。`pull` 默认只准备宿主准入的 Fedora 44、Arch，不拉取被拒绝的 Debian 目标。
 
 ## 第三步：隔离的无桌面验收
 
@@ -59,10 +61,10 @@ python3 tools/probe_headless.py --output evidence/ubuntu-server/headless-first.j
 5. 停止后重新启动，确认 CID 不变且还能执行。
 6. 停止并精确删除本轮环境；核对既有容器的 CID、状态和启停时间未变。
 
-需要先只测 Debian 时：
+需要先只测 Fedora 时：
 
 ```bash
-python3 tools/probe_headless.py --target debian13 --output evidence/ubuntu-server/debian-first.json
+python3 tools/probe_headless.py --target fedora44 --output evidence/ubuntu-server/fedora-first.json
 ```
 
 成功回执应为 `passed=true`、`errors=[]`、各目标 `restart_after_stop=true`、`existing_containers_preserved=true`。后续重跑选择新的输出文件名。失败时保留 JSON、报错和工具给出的临时 registry 路径；不要全局 prune 或删除原有容器来消除现场。

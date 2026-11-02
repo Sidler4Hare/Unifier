@@ -1,0 +1,167 @@
+[
+  {
+    "name": "init",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "init",
+      "--target",
+      "debian13",
+      "--target",
+      "arch",
+      "--yes",
+      "--desktop",
+      "--network",
+      "pasta",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 4.553,
+    "ok": true
+  },
+  {
+    "name": "debian13-root",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "root",
+      "add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary/containers/debian13/files"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.24,
+    "ok": true
+  },
+  {
+    "name": "debian13-project",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "add",
+      "--root",
+      "61aed1d3-f1d1-4750-9af4-cdb7d1ac365c",
+      "--environment",
+      "debian13",
+      "--alias",
+      "canary-debian13"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.582,
+    "ok": true
+  },
+  {
+    "name": "debian13-write-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "canary-debian13",
+      "--",
+      "sh",
+      "-c",
+      "test \"$(id -u)\" = 1000 && printf %s 'debian13 cycle 1 中文\n' > '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary/containers/debian13/files/中文 save $; sample.txt'"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.29,
+    "ok": true
+  },
+  {
+    "name": "debian13-owner-1",
+    "ok": true,
+    "uid": 1000,
+    "expected_uid": 1000
+  },
+  {
+    "name": "debian13-stop-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "stop",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.759,
+    "ok": true
+  },
+  {
+    "name": "debian13-stopped-ls-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "ls",
+      "debian13",
+      "/",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary",
+    "exit": 1,
+    "expected_exit": 0,
+    "seconds": 0.678,
+    "ok": false
+  },
+  {
+    "name": "cleanup-stop-debian13",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "stop",
+      "debian13"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary",
+    "exit": 0,
+    "expected_exit": null,
+    "seconds": 0.601,
+    "ok": true
+  },
+  {
+    "name": "cleanup-remove-debian13",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "remove",
+      "debian13",
+      "--yes"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.728,
+    "ok": true
+  },
+  {
+    "name": "cleanup-stop-arch",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "stop",
+      "arch"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary",
+    "exit": 0,
+    "expected_exit": null,
+    "seconds": 0.646,
+    "ok": true
+  },
+  {
+    "name": "cleanup-remove-arch",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "remove",
+      "arch",
+      "--yes"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.707,
+    "ok": true
+  }
+]

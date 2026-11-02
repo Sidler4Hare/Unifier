@@ -1,0 +1,11 @@
+{
+  "scope": "retained Arch FreeCAD, exact release CLI/worker, native GUI macro save/reopen; not fresh install or general app acceptance",
+  "work": "/home/omg/文档/Unifier-CAD/v0.0.1-acceptance-20261030T230159",
+  "sessions": [],
+  "launch_record_before": "41982dc9f1c3244b095a8772b889d4f3ce7b5fda76016af14f3d53ae7686d326",
+  "error": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/artifacts/v0.0.1-20261030/probe_freecad.py\", line 60, in <module>\n    windows = window_info(OUT / 'observer', 'Multilinux FreeCAD ' + phase, pids=pids, resource_hint='freecad')\n  File \"/tmp/unifier-v001-app-29xnpmev/unifier-0.0.1/tools/kwin_window_probe.py\", line 74, in window_info\n    raise RuntimeError(\"KWin window probe did not return a result\")\nRuntimeError: KWin window probe did not return a result\n",
+  "launch_record_after": "41982dc9f1c3244b095a8772b889d4f3ce7b5fda76016af14f3d53ae7686d326",
+  "launch_record_preserved": true,
+  "final_state": "stopped",
+  "passed": false
+}

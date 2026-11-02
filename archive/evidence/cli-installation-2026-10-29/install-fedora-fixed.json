@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "target": "fedora44",
+  "environment_id": "fedora44",
+  "transaction": {
+    "schema_version": 1,
+    "id": "txn01278ede19f2",
+    "environment_id": "fedora44",
+    "operation": "install-local",
+    "packages": [
+      "unifier-cli-probe"
+    ],
+    "use_command": [],
+    "local_file": "/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/packages/unifier-cli-probe-1.0-1.noarch.rpm",
+    "revision_before": {
+      "writable_revision": "5881b9c0ad664918cd27626c1dbc38f7e1ee7846ba35e3140f4d807db99eb895",
+      "content_revision": 2,
+      "package_inventory_sha256": "719a318e3db7c4ae406e20d472a489aab914fa5295453dea5c2477b439932019"
+    },
+    "native": [
+      {
+        "argv": [
+          "dnf",
+          "install",
+          "-y",
+          "/tmp/ml-incoming/unifier-cli-probe-1.0-1.noarch.rpm"
+        ],
+        "exit_code": 0,
+        "stdout_tail": "Nothing to do.\n",
+        "stderr_tail": "Updating and loading repositories:\nRepositories loaded.\nPackage \"unifier-cli-probe-1.0-1.noarch\" is already installed.\n\n"
+      }
+    ],
+    "native_error": null,
+    "maintenance": {
+      "status": "ok",
+      "items": [],
+      "system_integration": "unverified",
+      "full_init": false
+    },
+    "verdict": "verified",
+    "verification": {
+      "ok": true,
+      "packages": {
+        "unifier-cli-probe": true
+      },
+      "command": null,
+      "command_exit_code": null,
+      "stdout_preview": null,
+      "stdout_sha256": null,
+      "problems": []
+    },
+    "host_entries": {
+      "added": [],
+      "removed": []
+    },
+    "host_packages": {
+      "before": {
+        "available": true,
+        "tool": "rpm",
+        "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+        "count": 2530,
+        "error": null
+      },
+      "after": {
+        "available": true,
+        "tool": "rpm",
+        "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+        "count": 2530,
+        "error": null
+      }
+    },
+    "other_environments": {
+      "arch": {
+        "before": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+        "after": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+        "probed_before": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+        "probed_after": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+        "unchanged": true,
+        "error": null
+      },
+      "debian13": {
+        "before": "5c6b1e0d0a8a056a2c423b8471968eda5413e3e5f95fcc0a1d9f548a67bcb6f2",
+        "after": "5c6b1e0d0a8a056a2c423b8471968eda5413e3e5f95fcc0a1d9f548a67bcb6f2",
+        "probed_before": "5c6b1e0d0a8a056a2c423b8471968eda5413e3e5f95fcc0a1d9f548a67bcb6f2",
+        "probed_after": "5c6b1e0d0a8a056a2c423b8471968eda5413e3e5f95fcc0a1d9f548a67bcb6f2",
+        "unchanged": true,
+        "error": null
+      }
+    },
+    "revision_after": {
+      "writable_revision": "5881b9c0ad664918cd27626c1dbc38f7e1ee7846ba35e3140f4d807db99eb895",
+      "content_revision": 2,
+      "package_inventory_sha256": "719a318e3db7c4ae406e20d472a489aab914fa5295453dea5c2477b439932019"
+    },
+    "phase": "completed",
+    "failure_phase": null,
+    "started_at": "2026-10-29T19:52:54+08:00",
+    "finished_at": "2026-10-29T19:53:01+08:00"
+  },
+  "app": "probe",
+  "app_id": "probe-965489",
+  "executable": "/usr/bin/unifier-cli-probe",
+  "argv": [
+    "/usr/bin/unifier-cli-probe"
+  ],
+  "entry_source": "explicit"
+}

@@ -6,6 +6,12 @@ __pycache__/
 *.egg-info/
 build/
 dist/
+# evidence/ at the repo root is a symlink to archive/evidence/.
 evidence/screencast-*/work/artifacts/
+archive/evidence/screencast-*/work/artifacts/
 # Recreated by the FD broker probes; keep local fixture data outside history.
 /evidence/projection-fd-repair-2026-10-29/broker*/shared-*/
+/archive/evidence/projection-fd-repair-2026-10-29/broker*/shared-*/
+# Restorable workload bytes are stored as verified .xz copies.
+/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/*/dataset/sequential.bin
+/archive/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/*/dataset/sequential.bin

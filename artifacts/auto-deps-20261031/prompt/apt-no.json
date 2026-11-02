@@ -1,0 +1,31 @@
+{
+  "command": [
+    "bin/unifier",
+    "pkg",
+    "install",
+    "deps-debian",
+    "--interactive",
+    "cowsay"
+  ],
+  "exit": 1,
+  "events": [
+    {
+      "prompt": "[Y/n]",
+      "answer": "n",
+      "resize": [
+        38,
+        120
+      ]
+    },
+    {
+      "prompt": "[Y/n]",
+      "answer": "n",
+      "resize": [
+        38,
+        120
+      ]
+    }
+  ],
+  "native_prompt_observed": true,
+  "bytes": 6353
+}

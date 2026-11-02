@@ -8,6 +8,7 @@ import unittest
 from unittest.mock import patch
 
 from tools import lab
+from test_compatibility import host
 
 
 class ManifestContracts(unittest.TestCase):
@@ -49,6 +50,44 @@ class ManifestContracts(unittest.TestCase):
 
 
 class ExecutionBoundaryContracts(unittest.TestCase):
+    def test_default_targets_exclude_the_whole_host_family(self):
+        for distro, expected in (("ubuntu", ["fedora44", "arch"]),
+                                 ("debian", ["fedora44", "arch"]),
+                                 ("arch", ["debian13", "fedora44"]),
+                                 ("fedora", ["debian13", "arch"])):
+            with self.subTest(distro=distro), \
+                    patch("unifier.compatibility.observe_host", return_value=host(distro)):
+                selected, excluded = lab.admitted_targets(lab.targets())
+                self.assertEqual(selected, expected)
+                self.assertEqual(set(excluded), set(lab.targets()["targets"]) - set(expected))
+
+    def test_explicit_same_family_pull_is_refused_before_runtime_or_download(self):
+        from types import SimpleNamespace
+        with patch("unifier.compatibility.observe_host", return_value=host("ubuntu")), \
+                patch.object(lab, "require_rootless", side_effect=AssertionError("runtime reached")), \
+                patch.object(lab, "command", side_effect=AssertionError("download reached")):
+            with self.assertRaisesRegex(lab.LabError, "same-family containers are forbidden"):
+                lab.pull_images(SimpleNamespace(target=["debian13"], output=None))
+
+    def test_headless_explicit_same_family_refuses_before_inventory_or_create(self):
+        import contextlib
+        import io
+        from tools import probe_headless
+        with tempfile.TemporaryDirectory() as temporary, \
+                patch.object(probe_headless, "observe_host", return_value=host("ubuntu")), \
+                patch.object(probe_headless.subprocess, "run",
+                             side_effect=AssertionError("runtime reached")), \
+                patch.object(probe_headless, "inventory",
+                             side_effect=AssertionError("inventory reached")), \
+                patch("sys.argv", ["probe_headless.py", "--target", "debian13",
+                                   "--output", str(Path(temporary) / "receipt.json")]), \
+                contextlib.redirect_stderr(io.StringIO()) as error:
+            with self.assertRaises(SystemExit) as stopped:
+                probe_headless.main()
+            self.assertEqual(stopped.exception.code, 2)
+            self.assertIn("same-family containers are forbidden", error.getvalue())
+            self.assertFalse((Path(temporary) / "receipt.json").exists())
+
     def probe(self):
         return {"ID": "debian", "VERSION_ID": "13", "UID": "1000", "GID": "1000",
                 "KERNEL": "host-kernel", "ARCH": "x86_64", "INPUT_SHA256": "expected"}

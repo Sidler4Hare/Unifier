@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "target": "arch",
+  "environment_id": "arch",
+  "source_root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+  "environment_uuid": "d6baad54-16dd-4d84-80cd-0ced7e30bc7f",
+  "generation": 1,
+  "container_id": "0c509b782f65fe2b878dd004ae7ce0e675b431092121877b82b006be4e7a733e",
+  "files_dir": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files",
+  "files_mounted": true,
+  "conflicts": []
+}

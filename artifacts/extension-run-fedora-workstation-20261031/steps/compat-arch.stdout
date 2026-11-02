@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "policy_version": 2,
+  "mode": "whitelist",
+  "host": {
+    "id": "fedora",
+    "version_id": "44",
+    "variant_id": "kde",
+    "id_like": [],
+    "family": "fedora",
+    "reference_host": "fedora",
+    "integration_profile": "fedora",
+    "package_driver": "dnf",
+    "base_package_driver": "dnf",
+    "package_format": "rpm",
+    "system": "Linux",
+    "machine": "x86_64",
+    "libc": "glibc",
+    "atomic": false,
+    "admitted": true,
+    "reasons": [],
+    "observation": "live-host"
+  },
+  "target": "arch",
+  "container_family": "arch",
+  "container_contract": {
+    "family": "arch",
+    "libc": "glibc",
+    "layout": "fhs",
+    "package_driver": "pacman",
+    "package_format": "arch",
+    "runtime_backend": "podman-rootless",
+    "update_policy": "full-system-upgrade"
+  },
+  "allowed": true,
+  "relationship": "cross-family",
+  "reasons": [],
+  "execution_domain": "isolated-container",
+  "host_authority": true,
+  "shared_kernel": true,
+  "share_system_trees": false,
+  "share_package_databases": false,
+  "native_package_validation": "required-even-within-family",
+  "requirements": [
+    "rootless-podman",
+    "cgroup-v2",
+    "locked-linux-amd64-image",
+    "guest-identity-and-shared-kernel-check",
+    "host-security-policy",
+    "desktop-session-and-devices-if-requested"
+  ],
+  "validation_scope": "policy-only"
+}

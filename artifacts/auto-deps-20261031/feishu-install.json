@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "id": "txn65925cc5d3fd",
+  "environment_id": "deps-debian",
+  "operation": "install-local",
+  "packages": [
+    "bytedance-feishu-stable"
+  ],
+  "interactive": false,
+  "stream": false,
+  "dependency_repair": {
+    "status": "unresolved",
+    "scope": "package-elf-needed",
+    "objects": 38,
+    "rounds": [
+      {
+        "missing": [
+          "libXdamage.so.1",
+          "libasound.so.2",
+          "libatk-1.0.so.0",
+          "libatk-bridge-2.0.so.0",
+          "libatspi.so.0",
+          "libcairo.so.2",
+          "libcups.so.2",
+          "libgcrypt.so.20",
+          "libgdk-3.so.0",
+          "libgdk_pixbuf-2.0.so.0",
+          "libgnutls.so.30",
+          "libgtk-3.so.0",
+          "libpango-1.0.so.0",
+          "libpixman-1.so.0",
+          "libxkbcommon.so.0"
+        ],
+        "providers": {},
+        "selected": []
+      }
+    ],
+    "unresolved": [
+      "libXdamage.so.1",
+      "libasound.so.2",
+      "libatk-1.0.so.0",
+      "libatk-bridge-2.0.so.0",
+      "libatspi.so.0",
+      "libcairo.so.2",
+      "libcups.so.2",
+      "libgcrypt.so.20",
+      "libgdk-3.so.0",
+      "libgdk_pixbuf-2.0.so.0",
+      "libgnutls.so.30",
+      "libgtk-3.so.0",
+      "libpango-1.0.so.0",
+      "libpixman-1.so.0",
+      "libxkbcommon.so.0"
+    ],
+    "bundled_candidates": [
+      "libEffectPlatform.so",
+      "libEmbedTextWM_shared.so",
+      "libRTCFFmpeg.so",
+      "libVolcEngineRTC.so",
+      "lib_lightgbm.so",
+      "libbv-screen-capture.so",
+      "libbv_p2p.so",
+      "libbytenn.so",
+      "libffmpeg.so",
+      "libipmb_ffi.so",
+      "libmfx.so",
+      "librust_ffmpeg.so",
+      "libsscronet.so"
+    ],
+    "installed": [],
+    "error": "dependency query failed: apt-file --architecture amd64: E: Unknown switch condition (?(...)) in regex; marked by <-- HERE in m/^(?(? <-- HERE :usr/)?lib/(?:x86_64-linux-gnu/)?libXdamage\\.so\\.1)\\s+(\\S+)\\s*$/ at /usr/bin/apt-file line 294.\n\n"
+  },
+  "use_command": [],
+  "local_file": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/downloads/feishu.deb",
+  "revision_before": {
+    "writable_revision": "8399ccd38b137d9283b6587007a43744e8d334809ed4864f002f091009ca555e",
+    "content_revision": 1,
+    "package_inventory_sha256": "fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Get:1 http://deb.debian.org/debian trixie InRelease [140 kB]\nGet:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]\nGet:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]\nGet:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]\nGet:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [1108 B]\nGet:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [292 kB]\nFetched 10.2 MB in 38s (272 kB/s)\nReading package lists...\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "/tmp/ml-incoming/feishu.deb"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "g1:amd64 (2.15.0-2.3) ...\r\nSetting up libsndfile1:amd64 (1.2.2-2+deb13u1) ...\r\nSetting up libsm6:amd64 (2:1.2.6-1) ...\r\nSetting up liburi-perl (5.30-1) ...\r\nSetting up libx11-protocol-perl (0.56-9) ...\r\nSetting up libdrm-amdgpu1:amd64 (2.4.124-2) ...\r\nSetting up libnet-ssleay-perl:amd64 (1.94-3) ...\r\nSetting up cpp-x86-64-linux-gnu (4:14.2.0-1) ...\r\nSetting up mesa-vulkan-drivers:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libhttp-date-perl (6.06-1) ...\r\nSetting up libxft2:amd64 (2.3.6-1+b4) ...\r\nSetting up libfile-basedir-perl (0.09-2) ...\r\nSetting up libtie-ixhash-perl (1.23-4) ...\r\nSetting up libfile-listing-perl (6.16-1) ...\r\nSetting up libxi6:amd64 (2:1.8.2-1) ...\r\nSetting up libfont-afm-perl (1.20-4) ...\r\nSetting up libpulse0:amd64 (17.0+dfsg1-2+b1) ...\r\nSetting up libclone-perl:amd64 (0.47-1+b1) ...\r\nSetting up libio-stringy-perl (2.113-2) ...\r\nSetting up libxtst6:amd64 (2:1.2.5-1) ...\r\nSetting up libhtml-tagset-perl (3.24-1) ...\r\nSetting up libauthen-sasl-perl (2.1700-1) ...\r\nSetting up libu2f-udev (1.1.10-3.2) ...\r\nSetting up libxcursor1:amd64 (1:1.2.3-1) ...\r\nSetting up libdrm-intel1:amd64 (2.4.124-2) ...\r\nSetting up liblwp-mediatypes-perl (6.04-2) ...\r\nSetting up libtry-tiny-perl (0.32-1) ...\r\nSetting up libxxf86dga1:amd64 (2:1.1.5-1+b3) ...\r\nSetting up libnet-http-perl (6.23-1) ...\r\nSetting up libpulsedsp:amd64 (17.0+dfsg1-2+b1) ...\r\nSetting up libencode-locale-perl (1.05-3) ...\r\nSetting up pulseaudio-utils (17.0+dfsg1-2+b1) ...\r\nSetting up libxt6t64:amd64 (1:1.2.1-1.2+b2) ...\r\nSetting up libfile-desktopentry-perl (0.22-3) ...\r\nSetting up libwww-robotrules-perl (6.02-1) ...\r\nSetting up cpp (4:14.2.0-1) ...\r\nSetting up libhtml-parser-perl:amd64 (3.83-2~deb13u1) ...\r\nSetting up libio-socket-ssl-perl (2.089-1) ...\r\nSetting up libhttp-message-perl (7.00-2) ...\r\nSetting up libhtml-form-perl (6.12-1) ...\r\nSetting up libfile-mimeinfo-perl (0.35-1) ...\r\nSetting up libhttp-negotiate-perl (6.01-2) ...\r\nSetting up mesa-libgallium:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libxmu6:amd64 (2:1.1.3-3+b4) ...\r\nSetting up libgbm1:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libhttp-cookies-perl (6.11-1) ...\r\nSetting up libhtml-tree-perl (5.07-3) ...\r\nSetting up libgl1-mesa-dri:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up bytedance-feishu-stable (7.72.23-0) ...\r\nupdate-alternatives: using /usr/bin/bytedance-feishu-stable to provide /usr/bin/bytedance-feishu (bytedance-feishu) in auto mode\r\nSetting up libhtml-format-perl (2.16-2) ...\r\nSetting up libxaw7:amd64 (2:1.0.16-1) ...\r\nSetting up x11-xserver-utils (7.7+11) ...\r\nSetting up libegl-mesa0:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libnet-smtp-ssl-perl (1.04-2) ...\r\nSetting up libmailtools-perl (2.22-1) ...\r\nSetting up libhttp-daemon-perl (6.16-1+deb13u1) ...\r\nSetting up libegl1:amd64 (1.7.0-1+b2) ...\r\nSetting up libglx-mesa0:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libglx0:amd64 (1.7.0-1+b2) ...\r\nSetting up libgl1:amd64 (1.7.0-1+b2) ...\r\nSetting up zutty (0.16.2.20241020+dfsg1-1) ...\r\nupdate-alternatives: using /usr/bin/zutty to provide /usr/bin/x-terminal-emulator (x-terminal-emulator) in auto mode\r\nupdate-alternatives: warning: skip creation of /usr/share/man/man1/x-terminal-emulator.1.gz because associated file /usr/share/man/man1/zutty.1.gz (of link group x-terminal-emulator) doesn't exist\r\nSetting up x11-utils (7.7+7) ...\r\nSetting up dmsetup (2:1.02.205-2) ...\r\nSetting up liblwp-protocol-https-perl (6.14-1) ...\r\nSetting up libwww-perl (6.78-1) ...\r\nSetting up libdevmapper1.02.1:amd64 (2:1.02.205-2) ...\r\nSetting up libcryptsetup12:amd64 (2:2.7.5-2) ...\r\nSetting up libxml-parser-perl (2.47-2~deb13u1) ...\r\nSetting up libxml-twig-perl (1:3.52-3) ...\r\nSetting up libnet-dbus-perl (1.2.0-2+b3) ...\r\nSetting up systemd-cryptsetup (257.13-1~deb13u1) ...\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\nProcessing triggers for ca-certificates (20250419+deb13u1) ...\r\nUpdating certificates in /etc/ssl/certs...\r\n0 added, 0 removed; done.\r\nRunning hooks in /etc/ca-certificates/update.d...\r\ndone.\r\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\nReading package lists...\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "binutils"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "...\nBuilding dependency tree...\nReading state information...\nThe following additional packages will be installed:\n  binutils-common binutils-x86-64-linux-gnu libbinutils libctf-nobfd0 libctf0\n  libgprofng0 libjansson4 libsframe1\nSuggested packages:\n  binutils-doc gprofng-gui binutils-gold\nThe following NEW packages will be installed:\n  binutils binutils-common binutils-x86-64-linux-gnu libbinutils libctf-nobfd0\n  libctf0 libgprofng0 libjansson4 libsframe1\n0 upgraded, 9 newly installed, 0 to remove and 2 not upgraded.\nNeed to get 5493 kB of archives.\nAfter this operation, 31.0 MB of additional disk space will be used.\nGet:1 http://deb.debian.org/debian trixie/main amd64 libsframe1 amd64 2.44-3 [78.4 kB]\nGet:2 http://deb.debian.org/debian trixie/main amd64 binutils-common amd64 2.44-3 [2509 kB]\nGet:3 http://deb.debian.org/debian trixie/main amd64 libbinutils amd64 2.44-3 [534 kB]\nGet:4 http://deb.debian.org/debian trixie/main amd64 libgprofng0 amd64 2.44-3 [808 kB]\nGet:5 http://deb.debian.org/debian trixie/main amd64 libctf-nobfd0 amd64 2.44-3 [156 kB]\nGet:6 http://deb.debian.org/debian trixie/main amd64 libctf0 amd64 2.44-3 [88.6 kB]\nGet:7 http://deb.debian.org/debian trixie/main amd64 libjansson4 amd64 2.14-2+b3 [39.8 kB]\nGet:8 http://deb.debian.org/debian trixie/main amd64 binutils-x86-64-linux-gnu amd64 2.44-3 [1014 kB]\nGet:9 http://deb.debian.org/debian trixie/main amd64 binutils amd64 2.44-3 [265 kB]\nFetched 5493 kB in 34s (162 kB/s)\nSelecting previously unselected package libsframe1:amd64.\r\n(Reading database ... \r(Reading database ... 5%\r(Reading database ... 10%\r(Reading database ... 15%\r(Reading database ... 20%\r(Reading database ... 25%\r(Reading database ... 30%\r(Reading database ... 35%\r(Reading database ... 40%\r(Reading database ... 45%\r(Reading database ... 50%\r(Reading database ... 55%\r(Reading database ... 60%\r(Reading database ... 65%\r(Reading database ... 70%\r(Reading database ... 75%\r(Reading database ... 80%\r(Reading database ... 85%\r(Reading database ... 90%\r(Reading database ... 95%\r(Reading database ... 100%\r(Reading database ... 15923 files and directories currently installed.)\r\nPreparing to unpack .../0-libsframe1_2.44-3_amd64.deb ...\r\nUnpacking libsframe1:amd64 (2.44-3) ...\r\nSelecting previously unselected package binutils-common:amd64.\r\nPreparing to unpack .../1-binutils-common_2.44-3_amd64.deb ...\r\nUnpacking binutils-common:amd64 (2.44-3) ...\r\nSelecting previously unselected package libbinutils:amd64.\r\nPreparing to unpack .../2-libbinutils_2.44-3_amd64.deb ...\r\nUnpacking libbinutils:amd64 (2.44-3) ...\r\nSelecting previously unselected package libgprofng0:amd64.\r\nPreparing to unpack .../3-libgprofng0_2.44-3_amd64.deb ...\r\nUnpacking libgprofng0:amd64 (2.44-3) ...\r\nSelecting previously unselected package libctf-nobfd0:amd64.\r\nPreparing to unpack .../4-libctf-nobfd0_2.44-3_amd64.deb ...\r\nUnpacking libctf-nobfd0:amd64 (2.44-3) ...\r\nSelecting previously unselected package libctf0:amd64.\r\nPreparing to unpack .../5-libctf0_2.44-3_amd64.deb ...\r\nUnpacking libctf0:amd64 (2.44-3) ...\r\nSelecting previously unselected package libjansson4:amd64.\r\nPreparing to unpack .../6-libjansson4_2.14-2+b3_amd64.deb ...\r\nUnpacking libjansson4:amd64 (2.14-2+b3) ...\r\nSelecting previously unselected package binutils-x86-64-linux-gnu.\r\nPreparing to unpack .../7-binutils-x86-64-linux-gnu_2.44-3_amd64.deb ...\r\nUnpacking binutils-x86-64-linux-gnu (2.44-3) ...\r\nSelecting previously unselected package binutils.\r\nPreparing to unpack .../8-binutils_2.44-3_amd64.deb ...\r\nUnpacking binutils (2.44-3) ...\r\nSetting up binutils-common:amd64 (2.44-3) ...\r\nSetting up libctf-nobfd0:amd64 (2.44-3) ...\r\nSetting up libsframe1:amd64 (2.44-3) ...\r\nSetting up libjansson4:amd64 (2.14-2+b3) ...\r\nSetting up libbinutils:amd64 (2.44-3) ...\r\nSetting up libctf0:amd64 (2.44-3) ...\r\nSetting up libgprofng0:amd64 (2.44-3) ...\r\nSetting up binutils-x86-64-linux-gnu (2.44-3) ...\r\nSetting up binutils (2.44-3) ...\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\nReading package lists...\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "apt-file"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Reading package lists...\nBuilding dependency tree...\nReading state information...\nThe following additional packages will be installed:\n  libapt-pkg-perl libregexp-assemble-perl\nThe following NEW packages will be installed:\n  apt-file libapt-pkg-perl libregexp-assemble-perl\n0 upgraded, 3 newly installed, 0 to remove and 2 not upgraded.\nNeed to get 185 kB of archives.\nAfter this operation, 561 kB of additional disk space will be used.\nGet:1 http://deb.debian.org/debian trixie/main amd64 libapt-pkg-perl amd64 0.1.42 [68.3 kB]\nGet:2 http://deb.debian.org/debian trixie/main amd64 libregexp-assemble-perl all 0.38-2 [77.8 kB]\nGet:3 http://deb.debian.org/debian trixie/main amd64 apt-file all 3.3 [39.1 kB]\nFetched 185 kB in 4s (44.1 kB/s)\nSelecting previously unselected package libapt-pkg-perl.\r\n(Reading database ... \r(Reading database ... 5%\r(Reading database ... 10%\r(Reading database ... 15%\r(Reading database ... 20%\r(Reading database ... 25%\r(Reading database ... 30%\r(Reading database ... 35%\r(Reading database ... 40%\r(Reading database ... 45%\r(Reading database ... 50%\r(Reading database ... 55%\r(Reading database ... 60%\r(Reading database ... 65%\r(Reading database ... 70%\r(Reading database ... 75%\r(Reading database ... 80%\r(Reading database ... 85%\r(Reading database ... 90%\r(Reading database ... 95%\r(Reading database ... 100%\r(Reading database ... 16334 files and directories currently installed.)\r\nPreparing to unpack .../libapt-pkg-perl_0.1.42_amd64.deb ...\r\nUnpacking libapt-pkg-perl (0.1.42) ...\r\nSelecting previously unselected package libregexp-assemble-perl.\r\nPreparing to unpack .../libregexp-assemble-perl_0.38-2_all.deb ...\r\nUnpacking libregexp-assemble-perl (0.38-2) ...\r\nSelecting previously unselected package apt-file.\r\nPreparing to unpack .../archives/apt-file_3.3_all.deb ...\r\nUnpacking apt-file (3.3) ...\r\nSetting up libapt-pkg-perl (0.1.42) ...\r\nSetting up libregexp-assemble-perl (0.38-2) ...\r\nSetting up apt-file (3.3) ...\r\nThe system-wide cache is empty. You may want to run 'apt-file update'\r\nas root to update the cache.\r\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-file",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\nGet:4 http://deb.debian.org/debian trixie/main amd64 Contents (deb) [12.7 MB]\nGet:5 http://deb.debian.org/debian trixie/main all Contents (deb) [38.2 MB]\nGet:6 http://deb.debian.org/debian trixie-updates/main all Contents (deb) [11.7 kB]\nFetched 50.9 MB in 1min 32s (554 kB/s)\nReading package lists...\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": "dependency query failed: apt-file --architecture amd64: E: Unknown switch condition (?(...)) in regex; marked by <-- HERE in m/^(?(? <-- HERE :usr/)?lib/(?:x86_64-linux-gnu/)?libXdamage\\.so\\.1)\\s+(\\S+)\\s*$/ at /usr/bin/apt-file line 294.\n\n",
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "failed",
+  "verification": {
+    "ok": false,
+    "packages": {
+      "bytedance-feishu-stable": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": [],
+    "isolation": [
+      "deps-arch inventory changed"
+    ]
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "deps-arch": {
+      "before": null,
+      "after": "c6a5332804f04ac191457e24ada3a9622a4ab8d6d5c593ed228948f57448b92e",
+      "probed_before": null,
+      "probed_after": "c6a5332804f04ac191457e24ada3a9622a4ab8d6d5c593ed228948f57448b92e",
+      "unchanged": false,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "8399ccd38b137d9283b6587007a43744e8d334809ed4864f002f091009ca555e",
+    "content_revision": 2,
+    "package_inventory_sha256": "3b402332b31d968c0e8d2a1a7017f3b70995128a3a122aac1780e6ab5f621e96"
+  },
+  "phase": "failed",
+  "failure_phase": "dependency-repair",
+  "started_at": "2026-10-31T21:27:06+08:00",
+  "finished_at": "2026-10-31T21:34:23+08:00"
+}

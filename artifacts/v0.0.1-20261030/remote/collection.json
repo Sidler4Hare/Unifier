@@ -1,0 +1,26 @@
+[
+  {
+    "host": "ubuntu",
+    "sha256": "13fc9dac05609014242c50d160704865a712383cfad0eebbcaf901646e04c84b",
+    "passed": true,
+    "files_passed": true,
+    "python": "3.12.3",
+    "preserved": true
+  },
+  {
+    "host": "arch",
+    "sha256": "5f3e28deb30b6eed51d2bdf9e02fad7cd385e3504964242f2b3b3c14ac0789cf",
+    "passed": true,
+    "files_passed": true,
+    "python": "3.14.8",
+    "preserved": true
+  },
+  {
+    "host": "debian",
+    "sha256": "0880105d10271f54525beb67c9b27ea28ec1068da103c7beadfb86752da46f77",
+    "passed": true,
+    "files_passed": true,
+    "python": "3.13.5",
+    "preserved": true
+  }
+]

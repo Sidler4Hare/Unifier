@@ -1,0 +1,107 @@
+{
+  "schema": "unifier.family-policy-correction.v1",
+  "policy_version": 2,
+  "source_bundle_sha256": "f4f84fc72261385097b0a12712eb36cd72d622c085484bc89515244252729552",
+  "same_family_containers_allowed": false,
+  "supersedes_acceptance_from": "server-validation-20261030T204043+0800",
+  "invalidated_previous_cells": [
+    [
+      "ubuntu",
+      "debian13"
+    ],
+    [
+      "debian-lab01",
+      "debian13"
+    ],
+    [
+      "arch-lab01",
+      "arch"
+    ]
+  ],
+  "hosts": {
+    "ubuntu": {
+      "allowed_targets": [
+        "fedora44",
+        "arch"
+      ],
+      "blocked_targets": [
+        "debian13"
+      ],
+      "positive_headless_passed": true,
+      "private_files_and_exit17_passed": true,
+      "same_family_negative_passed": true,
+      "receipt": "ubuntu/results/summary.json",
+      "headless_receipt": "ubuntu/results/headless.json",
+      "create_supplement": "ubuntu/same-family-create-recheck.json",
+      "invalid_driver_attempts_preserved_not_counted": [
+        "refuse-create-debian13"
+      ],
+      "policy_unittest_summary": [
+        "Ran 34 tests in 0.329s",
+        "OK"
+      ],
+      "existing_containers_preserved": true,
+      "remaining_task_mounts": []
+    },
+    "arch-lab01": {
+      "allowed_targets": [
+        "debian13",
+        "fedora44"
+      ],
+      "blocked_targets": [
+        "arch"
+      ],
+      "positive_headless_passed": true,
+      "private_files_and_exit17_passed": true,
+      "same_family_negative_passed": true,
+      "receipt": "arch-lab01/results/summary.json",
+      "headless_receipt": "arch-lab01/results/headless.json",
+      "create_supplement": "arch-lab01/same-family-create-recheck.json",
+      "invalid_driver_attempts_preserved_not_counted": [
+        "refuse-create-arch"
+      ],
+      "policy_unittest_summary": [
+        "Ran 34 tests in 0.243s",
+        "OK"
+      ],
+      "existing_containers_preserved": true,
+      "remaining_task_mounts": []
+    },
+    "debian-lab01": {
+      "allowed_targets": [
+        "fedora44",
+        "arch"
+      ],
+      "blocked_targets": [
+        "debian13"
+      ],
+      "positive_headless_passed": true,
+      "private_files_and_exit17_passed": true,
+      "same_family_negative_passed": true,
+      "receipt": "debian-lab01/results-retry/summary.json",
+      "headless_receipt": "debian-lab01/results-retry/headless.json",
+      "create_supplement": null,
+      "invalid_driver_attempts_preserved_not_counted": [],
+      "policy_unittest_summary": [
+        "Ran 34 tests in 0.249s",
+        "OK"
+      ],
+      "existing_containers_preserved": true,
+      "remaining_task_mounts": []
+    }
+  },
+  "scope_acceptance": "SAME_FAMILY_REFUSAL_AND_SIX_CROSS_FAMILY_HEADLESS_CELLS_PASSED",
+  "full_product_acceptance": "NOT_ACCEPTED",
+  "remaining_previous_findings": [
+    "Python 3.12 F_SETOWN_EX",
+    "stopped /etc /mtab projection error",
+    "metadata-signature timing collisions",
+    "Arch virtual GPU unsupported"
+  ],
+  "resolved_previous_findings": [
+    "direct tools/lab.py doctor import shadowing"
+  ],
+  "old_deployments_replaced": false,
+  "git_index_preserved": true,
+  "captured_at": "2026-10-30T13:24:05.219153+00:00"
+}

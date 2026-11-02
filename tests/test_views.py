@@ -16,11 +16,11 @@ from unittest import mock
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
 
-from multilinux.errors import MultilinuxError
-from multilinux.identity import binding_for
-from multilinux.on_demand import process_stamp
-from multilinux.view_journal import read_journal, write_journal
-from multilinux.views import (
+from unifier.errors import UnifierError
+from unifier.identity import binding_for
+from unifier.on_demand import process_stamp
+from unifier.view_journal import read_journal, write_journal
+from unifier.views import (
     ViewManager,
     _runtime_dir_for,
     _verify_broker_ready,
@@ -85,10 +85,10 @@ class LeaseConflicts(unittest.TestCase):
             record = _view_record(root, service)
             registry.add(record)
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "active read-only view"):
+            with self.assertRaisesRegex(UnifierError, "active read-only view"):
                 service.start("debian13")
             self.assertEqual(runtime.events, [])
-            with self.assertRaisesRegex(MultilinuxError, "active read-only view"):
+            with self.assertRaisesRegex(UnifierError, "active read-only view"):
                 service.remove("debian13")
             self.assertTrue(service.store.exists("debian13"))
             self.assertTrue(Path(record["mountpoint"]).is_dir())
@@ -219,7 +219,7 @@ class ScmRights(unittest.TestCase):
                     [b'{"ok": true}\n'],
                     [(socket.SOL_SOCKET, socket.SCM_RIGHTS,
                       array.array("i", [first, second]))])
-                with self.assertRaisesRegex(MultilinuxError, "expected one"):
+                with self.assertRaisesRegex(UnifierError, "expected one"):
                     receive_scm_fd(receiver)
             finally:
                 os.close(first)
@@ -296,15 +296,15 @@ class BrokerIdentity(unittest.TestCase):
                 _verify_broker_ready(left, payload, nonce="view-nonce",
                                      launcher_pid=pid),
                 (pid, process_stamp(pid)))
-            with self.assertRaisesRegex(MultilinuxError, "nonce"):
+            with self.assertRaisesRegex(UnifierError, "nonce"):
                 _verify_broker_ready(
                     left, {**payload, "nonce": "other"}, nonce="view-nonce",
                     launcher_pid=pid)
-            with self.assertRaisesRegex(MultilinuxError, "SO_PEERCRED|PID"):
+            with self.assertRaisesRegex(UnifierError, "SO_PEERCRED|PID"):
                 _verify_broker_ready(
                     left, {**payload, "broker_pid": pid + 1}, nonce="view-nonce",
                     launcher_pid=pid)
-            with self.assertRaisesRegex(MultilinuxError, "start stamp|live"):
+            with self.assertRaisesRegex(UnifierError, "start stamp|live"):
                 _verify_broker_ready(
                     left, {**payload, "broker_stamp": (payload["broker_stamp"] or 0) + 1},
                     nonce="view-nonce", launcher_pid=pid)
@@ -405,7 +405,7 @@ class StorageJournalOwnership(unittest.TestCase):
             spec = Path(view["spec_path"])
             spec.write_text("{}\n", encoding="utf-8")
             ViewRegistry(root).add(view)
-            with self.assertRaisesRegex(MultilinuxError, "revoke incomplete"):
+            with self.assertRaisesRegex(UnifierError, "revoke incomplete"):
                 manager.revoke(view["view_uuid"])
             records = ViewRegistry(root).list()
             self.assertEqual(len(records), 1)
@@ -467,11 +467,11 @@ class CleanupOrder(unittest.TestCase):
                     attempts.append("unmount")
                     return False, "Device or resource busy"
 
-                with mock.patch("multilinux.views.is_mounted",
+                with mock.patch("unifier.views.is_mounted",
                                 side_effect=lambda _path: mounted[0]), \
-                        mock.patch("multilinux.views._unmount_fuse",
+                        mock.patch("unifier.views._unmount_fuse",
                                    side_effect=busy_unmount):
-                    with self.assertRaisesRegex(MultilinuxError, "revoke incomplete"):
+                    with self.assertRaisesRegex(UnifierError, "revoke incomplete"):
                         manager.revoke(view["view_uuid"])
                     self.assertEqual(attempts, ["unmount"])
                     self.assertEqual(process_stamp(worker.pid), view["worker_stamp"])
@@ -485,7 +485,7 @@ class CleanupOrder(unittest.TestCase):
                         mounted[0] = False
                         return True, ""
 
-                    with mock.patch("multilinux.views._unmount_fuse",
+                    with mock.patch("unifier.views._unmount_fuse",
                                     side_effect=successful_unmount):
                         manager.revoke(view["view_uuid"])
                 self.assertEqual(ViewRegistry(root).list(), [])
@@ -519,9 +519,9 @@ class CleanupOrder(unittest.TestCase):
                     mounted[0] = False
                     return True, ""
 
-                with mock.patch("multilinux.views.is_mounted",
+                with mock.patch("unifier.views.is_mounted",
                                 side_effect=lambda _path: mounted[0]), \
-                        mock.patch("multilinux.views._unmount_fuse",
+                        mock.patch("unifier.views._unmount_fuse",
                                    side_effect=ordered_unmount):
                     manager.revoke(view["view_uuid"])
                 self.assertEqual(observed, [(True, True)])

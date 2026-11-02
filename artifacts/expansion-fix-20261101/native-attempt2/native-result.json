@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "exit_code": 143,
+  "cleanup": "gone",
+  "recovery_blocked_dirty_database": true,
+  "upgrade_remove_reinstall": true,
+  "fixture_retained_stopped": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b"
+}

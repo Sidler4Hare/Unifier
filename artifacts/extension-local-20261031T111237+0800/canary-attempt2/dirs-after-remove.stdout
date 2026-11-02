@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "targets": [
+    {
+      "target": "debian13",
+      "display_name": "Debian 13",
+      "configured": true,
+      "state": "missing",
+      "container_state": "missing",
+      "container_label": "—",
+      "directory": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/debian13",
+      "files_dir": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/debian13/files",
+      "files_mounted": false,
+      "view_state": "not mounted",
+      "view_path": null,
+      "source": "new",
+      "source_root": null,
+      "source_environment": null,
+      "error": "environment record is missing"
+    },
+    {
+      "target": "arch",
+      "display_name": "Arch Linux rolling",
+      "configured": true,
+      "state": "missing",
+      "container_state": "missing",
+      "container_label": "—",
+      "directory": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/arch",
+      "files_dir": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/arch/files",
+      "files_mounted": false,
+      "view_state": "not mounted",
+      "view_path": null,
+      "source": "new",
+      "source_root": null,
+      "source_environment": null,
+      "error": "environment record is missing"
+    }
+  ]
+}

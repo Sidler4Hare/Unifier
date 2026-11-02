@@ -1,0 +1,47 @@
+Checking working tree
+PASS Python syntax: 180 files
+PASS legacy module aliases: 42
+PASS five CLI entry points
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn30e23c967302
+fedora44: dnf install -y hello
+fedora44: install completed txn06c9d2d987d6
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txne2fb8a61c6a7
+refusing to overwrite an unknown file: /tmp/tmpepujv31s/unifier
+use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn1fa407e67b2c
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn498c4cb195dc
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnb3a85074e88b
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn1680e652dcc8
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn915942587fe7
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn92049a6fa2b0
+fedora44: dnf install -y hello
+fedora44: install completed txn9f307fe1d495
+unifier: remove deletes the environment's writable root; pass --yes
+removed demo
+/usr/lib64/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=519398) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+/usr/lib64/python3.14/site-packages/gi/overrides/__init__.py:159: PyGIDeprecationWarning: GLib.unix_signal_add_full is deprecated; use GLibUnix.signal_add_full instead
+  value = getattr(proxy, attr)
+----------------------------------------------------------------------
+Ran 575 tests in 53.065s
+
+OK (skipped=4)
+PASS repository check

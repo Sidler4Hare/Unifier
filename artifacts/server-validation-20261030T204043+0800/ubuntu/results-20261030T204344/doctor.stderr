@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tools/lab.py", line 398, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tools/lab.py", line 391, in main
+    return args.func(args)
+           ^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tools/lab.py", line 156, in doctor
+    config = targets()
+             ^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tools/lab.py", line 80, in targets
+    prepared = _prepared_catalog()
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tools/lab.py", line 102, in _prepared_catalog
+    from multilinux.catalog import PREPARED
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/multilinux/catalog.py", line 8, in <module>
+    from unifier import catalog as _module
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tools/unifier.py", line 14, in <module>
+    from unifier.cli import main
+ModuleNotFoundError: No module named 'unifier.cli'; 'unifier' is not a package

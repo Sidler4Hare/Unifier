@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-01",
+  "release": "0.0.2",
+  "confirmed_defects": {
+    "interrupted_inventory": "FIXED_OFFLINE_AND_REAL_DEBIAN_VERIFIED",
+    "termination_and_nested_sessions": "FIXED_OFFLINE_AND_REAL_DEBIAN_VERIFIED",
+    "crash_reentry_and_recovery": "FIXED_REAL_SIGKILL_VERIFIED",
+    "apt_postinst_resize": "FIXED_REAL_PTY_VERIFIED",
+    "deployment_drift": "FIXED_FROZEN_RELEASE_DEPLOYED"
+  },
+  "expansion_status": "PARTIAL",
+  "gui_workflows_fully_accepted": 0,
+  "feishu_manual_repair_fixture": {
+    "status": "WINDOW_VERIFIED_ACCOUNT_BLOCKED",
+    "source": "../extension-local-20261031T111237+0800/resume-20261031T153259+0800/feishu/result.json"
+  },
+  "feishu_auto_repair_fixture": {
+    "dependency_repair": "VERIFIED",
+    "runtime_loading": "unverified",
+    "source": "../auto-deps-20261031/report.md"
+  },
+  "guest_origin_bridge": "NOT_IMPLEMENTED",
+  "fedora_dependency_repair_real_guest": "NOT_RUN",
+  "gui_media_ide_soak": "NOT_RUN_THIS_REPAIR"
+}

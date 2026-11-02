@@ -1,0 +1,202 @@
+[
+  {
+    "args": [
+      "init",
+      "--target",
+      "debian13",
+      "--target",
+      "fedora44",
+      "--target",
+      "arch",
+      "--yes",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"schema_version\": 1,\n  \"enabled\": [\n    \"debian13\",\n    \"fedora44\",\n    \"arch\"\n  ],\n  \"retained\": [\n    \"debian13\",\n    \"fedora44\",\n    \"arch\"\n  ],\n  \"failed\": [],\n  \"targets\": [\n    {\n      \"target\": \"debian13\",\n      \"display_name\": \"Debian 13\",\n      \"selected\": true,\n      \"configured\": true,\n      \"state\": \"ready\",\n      \"environment_id\": \"debian13\",\n      \"container_state\": \"stopped\",\n      \"container_label\": \"stopped\",\n      \"directory\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/debian13\",\n      \"files_dir\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/debian13/files\",\n      \"files_mounted\": true,\n      \"source\": \"new\",\n      \"source_root\": null,\n      \"source_environment\": null,\n      \"failure\": null,\n      \"error\": null\n    },\n    {\n      \"target\": \"fedora44\",\n      \"display_name\": \"Fedora 44\",\n      \"selected\": true,\n      \"configured\": true,\n      \"state\": \"ready\",\n      \"environment_id\": \"fedora44\",\n      \"container_state\": \"stopped\",\n      \"container_label\": \"stopped\",\n      \"directory\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/fedora44\",\n      \"files_dir\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/fedora44/files\",\n      \"files_mounted\": true,\n      \"source\": \"new\",\n      \"source_root\": null,\n      \"source_environment\": null,\n      \"failure\": null,\n      \"error\": null\n    },\n    {\n      \"target\": \"arch\",\n      \"display_name\": \"Arch Linux rolling\",\n      \"selected\": true,\n      \"configured\": true,\n      \"state\": \"ready\",\n      \"environment_id\": \"arch\",\n      \"container_state\": \"stopped\",\n      \"container_label\": \"stopped\",\n      \"directory\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/arch\",\n      \"files_dir\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/arch/files\",\n      \"files_mounted\": true,\n      \"source\": \"new\",\n      \"source_root\": null,\n      \"source_environment\": null,\n      \"failure\": null,\n      \"error\": null\n    }\n  ]\n}\n",
+    "stderr": "Preparing distributions: Debian 13, Fedora 44, Arch Linux rolling\ndebian13: unique environment debian13 exists; reusing it.\nfedora44: unique environment fedora44 exists; reusing it.\narch: unique environment arch exists; reusing it.\n",
+    "json": {
+      "schema_version": 1,
+      "enabled": [
+        "debian13",
+        "fedora44",
+        "arch"
+      ],
+      "retained": [
+        "debian13",
+        "fedora44",
+        "arch"
+      ],
+      "failed": [],
+      "targets": [
+        {
+          "target": "debian13",
+          "display_name": "Debian 13",
+          "selected": true,
+          "configured": true,
+          "state": "ready",
+          "environment_id": "debian13",
+          "container_state": "stopped",
+          "container_label": "stopped",
+          "directory": "/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/debian13",
+          "files_dir": "/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/debian13/files",
+          "files_mounted": true,
+          "source": "new",
+          "source_root": null,
+          "source_environment": null,
+          "failure": null,
+          "error": null
+        },
+        {
+          "target": "fedora44",
+          "display_name": "Fedora 44",
+          "selected": true,
+          "configured": true,
+          "state": "ready",
+          "environment_id": "fedora44",
+          "container_state": "stopped",
+          "container_label": "stopped",
+          "directory": "/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/fedora44",
+          "files_dir": "/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/fedora44/files",
+          "files_mounted": true,
+          "source": "new",
+          "source_root": null,
+          "source_environment": null,
+          "failure": null,
+          "error": null
+        },
+        {
+          "target": "arch",
+          "display_name": "Arch Linux rolling",
+          "selected": true,
+          "configured": true,
+          "state": "ready",
+          "environment_id": "arch",
+          "container_state": "stopped",
+          "container_label": "stopped",
+          "directory": "/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/arch",
+          "files_dir": "/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/containers/arch/files",
+          "files_mounted": true,
+          "source": "new",
+          "source_root": null,
+          "source_environment": null,
+          "failure": null,
+          "error": null
+        }
+      ]
+    }
+  },
+  {
+    "args": [
+      "install",
+      "--target",
+      "arch",
+      "--help"
+    ],
+    "returncode": 0,
+    "stdout": "install help\n\nUsage: unifier install [--target TARGET] [--exec PATH] [--app ID] [--package NAME] [--gui] FILE|PACKAGE ... [-- ARGS]\n\nOptions:\n  --target           only an enabled distribution is used; otherwise configure is required and no instance is created.\n  --exec PATH        explicit application entry; a path or guest command name.\n  --app ID           registered application id; defaults to the entry basename.\n  --package NAME     installed package name for a local file, used for entry discovery.\n  --gui              declare a desktop application; a headless container is refused rather than run silently.\n\nExamples:\n  unifier install ./software.deb --exec /usr/bin/freecad\n  unifier install --target arch freecad --exec /usr/bin/freecad\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "ls",
+      "debian13",
+      "/bin",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"schema_version\": 1,\n  \"target\": \"debian13\",\n  \"via\": \"view\",\n  \"view_uuid\": \"be8929bb-e858-4b07-bea0-da7fb8a07fa9\",\n  \"mountpoint\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/.lab/state/views/be8929bb-e858-4b07-bea0-da7fb8a07fa9/mount\",\n  \"path\": \"/usr/bin\",\n  \"entries\": []\n}\n",
+    "stderr": "debian13: container is stopped; listing /bin through a read-only view\ndebian13: opening a short-lived read-only view be8929bb-e858-4b07-bea0-da7fb8a07fa9; only this view is released afterwards.\n",
+    "json": {
+      "schema_version": 1,
+      "target": "debian13",
+      "via": "view",
+      "view_uuid": "be8929bb-e858-4b07-bea0-da7fb8a07fa9",
+      "mountpoint": "/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/.lab/state/views/be8929bb-e858-4b07-bea0-da7fb8a07fa9/mount",
+      "path": "/usr/bin",
+      "entries": []
+    }
+  },
+  {
+    "args": [
+      "ls",
+      "debian13",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"schema_version\": 1,\n  \"target\": \"debian13\",\n  \"via\": \"view\",\n  \"view_uuid\": \"ca9dff95-0a13-4c2e-9687-08fcd2f60450\",\n  \"mountpoint\": \"/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/.lab/state/views/ca9dff95-0a13-4c2e-9687-08fcd2f60450/mount\",\n  \"path\": \"/\",\n  \"entries\": [\n    \"bin\",\n    \"boot\",\n    \"etc\",\n    \"home\",\n    \"lib\",\n    \"lib64\",\n    \"media\",\n    \"mnt\",\n    \"opt\",\n    \"root\",\n    \"sbin\",\n    \"srv\",\n    \"tmp\",\n    \"usr\",\n    \"var\"\n  ]\n}\n",
+    "stderr": "debian13: container is stopped; listing / through a read-only view\ndebian13: opening a short-lived read-only view ca9dff95-0a13-4c2e-9687-08fcd2f60450; only this view is released afterwards.\n",
+    "json": {
+      "schema_version": 1,
+      "target": "debian13",
+      "via": "view",
+      "view_uuid": "ca9dff95-0a13-4c2e-9687-08fcd2f60450",
+      "mountpoint": "/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/live-first/.lab/state/views/ca9dff95-0a13-4c2e-9687-08fcd2f60450/mount",
+      "path": "/",
+      "entries": [
+        "bin",
+        "boot",
+        "etc",
+        "home",
+        "lib",
+        "lib64",
+        "media",
+        "mnt",
+        "opt",
+        "root",
+        "sbin",
+        "srv",
+        "tmp",
+        "usr",
+        "var"
+      ]
+    }
+  },
+  {
+    "args": [
+      "start",
+      "fedora44"
+    ],
+    "returncode": 0,
+    "stdout": "fedora44: started (container fedora44).\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "ls",
+      "fedora44",
+      "/usr",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"schema_version\": 1,\n  \"target\": \"fedora44\",\n  \"via\": \"runtime\",\n  \"path\": \"/usr\",\n  \"entries\": [\n    \"bin\",\n    \"games\",\n    \"include\",\n    \"lib\",\n    \"lib64\",\n    \"libexec\",\n    \"local\",\n    \"sbin\",\n    \"share\",\n    \"src\",\n    \"tmp\"\n  ]\n}\n",
+    "stderr": "fedora44: listing /usr through the running container's execution namespace\n",
+    "json": {
+      "schema_version": 1,
+      "target": "fedora44",
+      "via": "runtime",
+      "path": "/usr",
+      "entries": [
+        "bin",
+        "games",
+        "include",
+        "lib",
+        "lib64",
+        "libexec",
+        "local",
+        "sbin",
+        "share",
+        "src",
+        "tmp"
+      ]
+    }
+  },
+  {
+    "args": [
+      "stop",
+      "fedora44"
+    ],
+    "returncode": 0,
+    "stdout": "fedora44: stopped (container fedora44).\n",
+    "stderr": ""
+  }
+]

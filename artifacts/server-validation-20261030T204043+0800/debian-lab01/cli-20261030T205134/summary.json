@@ -1,0 +1,192 @@
+{
+  "scope": "Headless CLI, cached images, private bind read/write, exit17, running/stopped guest listing; no GUI-app launch acceptance",
+  "commands": {
+    "init": {
+      "argv": [
+        "init",
+        "--network",
+        "none",
+        "--yes",
+        "--target",
+        "debian13"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-files": {
+      "argv": [
+        "path",
+        "debian13",
+        "--files"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-start": {
+      "argv": [
+        "start",
+        "debian13"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-write": {
+      "argv": [
+        "env",
+        "run",
+        "debian13",
+        "--workdir",
+        "/home/dev/server-validation-20261030T204043+0800/cli-20261030T205134/installation/containers/debian13/files",
+        "--",
+        "sh",
+        "-c",
+        "test \"$(cat host-marker.txt)\" = host && printf guest > guest-marker.txt"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-exit17": {
+      "argv": [
+        "env",
+        "run",
+        "debian13",
+        "--workdir",
+        "/",
+        "--",
+        "sh",
+        "-c",
+        "exit 17"
+      ],
+      "returncode": 17,
+      "expected": 17,
+      "matched_expected": true
+    },
+    "debian13-ls-running": {
+      "argv": [
+        "ls",
+        "debian13",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-stop": {
+      "argv": [
+        "stop",
+        "debian13"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-ls-stopped-_": {
+      "argv": [
+        "ls",
+        "debian13",
+        "/",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-ls-stopped-_usr": {
+      "argv": [
+        "ls",
+        "debian13",
+        "/usr",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-ls-stopped-_etc": {
+      "argv": [
+        "ls",
+        "debian13",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false
+    },
+    "debian13-cleanup-stop": {
+      "argv": [
+        "stop",
+        "debian13"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-cleanup-remove": {
+      "argv": [
+        "env",
+        "remove",
+        "debian13",
+        "--yes"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    }
+  },
+  "targets": {
+    "debian13": {
+      "private_bind_write_verified": true
+    }
+  },
+  "before": [
+    {
+      "id": "944bacb5ed8e8c97e2081409959c2584df8eb39ac837fccc704634a168410d87",
+      "name": "ml-05abfab9-debian13",
+      "state": {
+        "OciVersion": "1.2.0",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-29T23:00:19.939896503+08:00",
+        "FinishedAt": "2026-10-29T23:00:21.688782114+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      }
+    }
+  ],
+  "after": [
+    {
+      "id": "944bacb5ed8e8c97e2081409959c2584df8eb39ac837fccc704634a168410d87",
+      "name": "ml-05abfab9-debian13",
+      "state": {
+        "OciVersion": "1.2.0",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-29T23:00:19.939896503+08:00",
+        "FinishedAt": "2026-10-29T23:00:21.688782114+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      }
+    }
+  ],
+  "existing_containers_preserved": true
+}

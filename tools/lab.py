@@ -25,6 +25,8 @@ from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[1]
+# Keep tools/unifier.py from shadowing the package in direct script entrypoints.
+sys.path.insert(0, str(ROOT / "src"))
 DIGEST = re.compile(r"sha256:[0-9a-f]{64}\Z")
 PROJECT_LABEL = "multilinux.lab"
 
@@ -237,12 +239,36 @@ def lock_images(args):
     return 0
 
 
+def admitted_targets(config, requested=()):
+    from unifier.compatibility import observe_host, relationship_plan
+    facts = observe_host()
+    plans = {name: relationship_plan(facts, name, target)
+             for name, target in config["targets"].items()}
+    selected = list(dict.fromkeys(requested)) if requested else list(plans)
+    unknown = [name for name in selected if name not in plans]
+    if unknown:
+        raise LabError("unknown pull target(s): " + ", ".join(unknown))
+    if requested:
+        for name in selected:
+            if not plans[name]["allowed"]:
+                raise LabError("compatibility whitelist refused: "
+                               + "; ".join(plans[name]["reasons"]))
+    allowed = [name for name in selected if plans[name]["allowed"]]
+    if not allowed:
+        raise LabError("no container targets are admitted on this host")
+    return allowed, {name: plan for name, plan in plans.items() if not plan["allowed"]}
+
+
 def pull_images(args):
     config = targets()
     lock = read_lock(config)
+    requested = list(getattr(args, "target", None) or [])
+    selected, excluded = admitted_targets(config, requested)
     require_rootless()
-    result = {"schema_version": 1, "started_at": now(), "targets": {}}
-    for name, item in lock["targets"].items():
+    result = {"schema_version": 1, "started_at": now(),
+              "requested_targets": selected, "excluded_targets": excluded, "targets": {}}
+    for name in selected:
+        item = lock["targets"][name]
         print(f"Pulling {name}: {item['locked_reference']}", flush=True)
         started = time.monotonic()
         command(["podman", "pull", "--platform", config["platform"],
@@ -278,6 +304,7 @@ def validate_probe(probe, target, expected_hash, uid, gid, kernel):
 def smoke(args):
     config = targets()
     lock = read_lock(config)
+    selected, excluded = admitted_targets(config)
     require_rootless()
     run_id = uuid.uuid4().hex[:12]
     shared = ROOT / ".lab/runs" / run_id
@@ -294,13 +321,15 @@ def smoke(args):
     report = {"schema_version": 1, "run_id": run_id, "started_at": now(),
               "lock_resolved_at": lock["resolved_at"], "host_kernel": kernel,
               "host_uid": uid, "host_gid": gid, "targets": {}, "passed": False,
+              "excluded_targets": excluded,
               "scope": "Ephemeral CLI base-image probes; not package-install, GUI, service or cross-host acceptance.",
               "settings": {"rootless": True, "user_namespace": "keep-id", "network": "none",
                            "rootfs": "read-only", "full_init": False,
                            "shared_path_mode": "same absolute host/container path", "volume_label": "z"}}
     failure = None
     try:
-        for name, target in config["targets"].items():
+        for name in selected:
+            target = config["targets"][name]
             item = lock["targets"][name]
             ref = item["locked_reference"]
             # Inspection must succeed locally; --pull=never prevents tag/network fallback.
@@ -339,7 +368,7 @@ def smoke(args):
                 # Only this run's uniquely named probe container can be removed.
                 command(["podman", "rm", "--force", "--ignore", container_name], timeout=20)
         seen = (shared / "cross-environment.txt").read_text().splitlines()
-        if seen != list(config["targets"]):
+        if seen != selected:
             raise LabError("Cross-environment shared-file sequence is incorrect")
         report["cross_environment_shared_file_verified"] = True
         report["passed"] = True
@@ -352,7 +381,7 @@ def smoke(args):
         save_json(evidence_path, report)
     if failure:
         raise LabError(str(failure))
-    print(f"All three base-image probes passed; report: {evidence_path}")
+    print(f"All {len(selected)} admitted base-image probes passed; report: {evidence_path}")
     return 0
 
 
@@ -365,7 +394,9 @@ def main():
     p = sub.add_parser("lock", help="Resolve all three sources to immutable linux/amd64 digests")
     p.add_argument("--refresh", action="store_true")
     p.set_defaults(func=lock_images)
-    p = sub.add_parser("pull", help="Sequentially pull the locked images into rootless Podman")
+    p = sub.add_parser("pull", help="Pull only the selected locked images into rootless Podman")
+    p.add_argument("--target", action="append", default=[],
+                   help="debian13, fedora44 or arch; repeatable; default admitted cross-family targets")
     p.add_argument("--output", type=Path)
     p.set_defaults(func=pull_images)
     p = sub.add_parser("smoke", help="Verify identity, native package inventories and shared files")

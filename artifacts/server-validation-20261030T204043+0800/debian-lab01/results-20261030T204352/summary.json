@@ -1,0 +1,195 @@
+{
+  "started_at": "2026-10-30T12:43:52.422592+00:00",
+  "hostname": "debian-lab01",
+  "kernel": "6.12.113+deb13-cloud-amd64",
+  "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+  "uid": 1000,
+  "nofile": [
+    1024,
+    524288
+  ],
+  "source_root": "/home/dev/server-validation-20261030T204043+0800/unifier-current",
+  "scope": "Per-host offline regression, policy preflight and cached-image headless lifecycle; no application/GUI/performance acceptance",
+  "commands": {
+    "identity": {
+      "argv": [
+        "id"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.004
+    },
+    "virtualization": {
+      "argv": [
+        "systemd-detect-virt"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.008
+    },
+    "mounts": {
+      "argv": [
+        "findmnt",
+        "--json",
+        "--target",
+        "/home/dev/server-validation-20261030T204043+0800"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.007
+    },
+    "user-session": {
+      "argv": [
+        "loginctl",
+        "show-user",
+        "1000",
+        "-p",
+        "Linger",
+        "-p",
+        "RuntimePath",
+        "-p",
+        "State"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.017
+    },
+    "offline": {
+      "argv": [
+        "/usr/bin/python3",
+        "-c",
+        "from pathlib import Path; from tools.check_repo import check; check(Path.cwd(), quick=False)"
+      ],
+      "returncode": 1,
+      "elapsed_seconds": 20.329
+    },
+    "compatibility": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "compat",
+        "matrix"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.193
+    },
+    "doctor": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/lab.py",
+        "doctor",
+        "--output",
+        "/home/dev/server-validation-20261030T204043+0800/results-20261030T204352/doctor.json"
+      ],
+      "returncode": 1,
+      "elapsed_seconds": 0.122
+    },
+    "cli-none": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "init",
+        "--none",
+        "--yes"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.179
+    },
+    "cli-status": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "status"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.3
+    },
+    "podman-info": {
+      "argv": [
+        "podman",
+        "info",
+        "--format",
+        "json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.711
+    },
+    "containers-before": {
+      "argv": [
+        "podman",
+        "ps",
+        "-a",
+        "--format",
+        "json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.071
+    },
+    "images": {
+      "argv": [
+        "podman",
+        "images",
+        "--format",
+        "json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.064
+    },
+    "image-debian13": {
+      "argv": [
+        "podman",
+        "image",
+        "exists",
+        "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.072
+    },
+    "image-fedora44": {
+      "argv": [
+        "podman",
+        "image",
+        "exists",
+        "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011"
+      ],
+      "returncode": 1,
+      "elapsed_seconds": 0.062
+    },
+    "image-arch": {
+      "argv": [
+        "podman",
+        "image",
+        "exists",
+        "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722"
+      ],
+      "returncode": 1,
+      "elapsed_seconds": 0.058
+    },
+    "headless": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/probe_headless.py",
+        "--output",
+        "/home/dev/server-validation-20261030T204043+0800/results-20261030T204352/headless.json",
+        "--target",
+        "debian13"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 7.044
+    },
+    "containers-after": {
+      "argv": [
+        "podman",
+        "ps",
+        "-a",
+        "--format",
+        "json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.078
+    }
+  },
+  "source_manifest_sha256": "97d0f0a9a61422edceb4d8c077d73ff4df0bcb946dcc970a333adbb8ede137ab",
+  "source_files_verified": 202,
+  "os_release": "PRETTY_NAME=\"Debian GNU/Linux 13 (trixie)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"13\"\nVERSION=\"13 (trixie)\"\nVERSION_CODENAME=trixie\nDEBIAN_VERSION_FULL=13.7\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\"\n",
+  "cached_targets": [
+    "debian13"
+  ],
+  "completed_at": "2026-10-30T12:44:21.783681+00:00"
+}

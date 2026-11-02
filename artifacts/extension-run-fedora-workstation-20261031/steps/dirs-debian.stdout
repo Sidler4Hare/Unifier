@@ -1,0 +1,4 @@
+debian13	/home/omg/.local/share/unifier-extension-20261031/containers/debian13	stopped
+  private files: /home/omg/.local/share/unifier-extension-20261031/containers/debian13/files
+  private files mount: mounted in the current container
+  system view: not mounted (rootfs is not a copied tree; ls uses a read-only view)

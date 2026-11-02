@@ -1,0 +1,6 @@
+arch: installing package(s) through the native transaction: sqlite.
+arch: pacman -Syu --noconfirm --needed sqlite
+arch: install completed txn6e0b375d56ca
+Native package transaction completed: txn6e0b375d56ca. A successful package transaction does not prove the application entry works.
+arch: using explicit entry /usr/bin/sqlite3.
+Registered application sqlite (target arch, environment arch).

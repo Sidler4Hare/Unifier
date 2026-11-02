@@ -1,0 +1,1094 @@
+[
+  {
+    "name": "debian13-install-jq",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "debian13",
+      "--exec",
+      "/usr/bin/jq",
+      "--app",
+      "jq",
+      "--json",
+      "jq"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 52.775,
+    "ok": true
+  },
+  {
+    "name": "debian13-install-rg",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "debian13",
+      "--exec",
+      "/usr/bin/rg",
+      "--app",
+      "rg",
+      "--json",
+      "ripgrep"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 31.149,
+    "ok": true
+  },
+  {
+    "name": "debian13-install-fd",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "debian13",
+      "--exec",
+      "/usr/bin/fdfind",
+      "--app",
+      "fd",
+      "--json",
+      "fd-find"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 18.015,
+    "ok": true
+  },
+  {
+    "name": "debian13-install-bat",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "debian13",
+      "--exec",
+      "/usr/bin/batcat",
+      "--app",
+      "bat",
+      "--json",
+      "bat"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 20.035,
+    "ok": true
+  },
+  {
+    "name": "debian13-install-sqlite",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "debian13",
+      "--exec",
+      "/usr/bin/sqlite3",
+      "--app",
+      "sqlite",
+      "--json",
+      "sqlite3"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 13.973,
+    "ok": true
+  },
+  {
+    "name": "debian13-install-htop",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "debian13",
+      "--exec",
+      "/usr/bin/htop",
+      "--app",
+      "htop",
+      "--json",
+      "htop"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 14.682,
+    "ok": true
+  },
+  {
+    "name": "debian13-jq-sum",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "jq",
+      "-r",
+      "map(.n)|add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.265,
+    "ok": true
+  },
+  {
+    "name": "debian13-jq-sum-oracle",
+    "ok": true,
+    "stdout": "5\n",
+    "expected": "5\n"
+  },
+  {
+    "name": "debian13-jq-string",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "jq",
+      "-r",
+      ".[0].name",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.755,
+    "ok": true
+  },
+  {
+    "name": "debian13-jq-string-oracle",
+    "ok": true,
+    "stdout": "中文\n",
+    "expected": "中文\n"
+  },
+  {
+    "name": "debian13-jq-false",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "jq",
+      "-e",
+      "false",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 1,
+    "expected_exit": 1,
+    "seconds": 3.19,
+    "ok": true
+  },
+  {
+    "name": "debian13-jq-false-oracle",
+    "ok": true,
+    "stdout": "false\n",
+    "expected": "false\n"
+  },
+  {
+    "name": "debian13-jq-empty",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "jq",
+      "-e",
+      "empty",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 4,
+    "expected_exit": 4,
+    "seconds": 2.419,
+    "ok": true
+  },
+  {
+    "name": "debian13-jq-empty-oracle",
+    "ok": true,
+    "stdout": "",
+    "expected": ""
+  },
+  {
+    "name": "debian13-jq-bad",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "jq",
+      "-e",
+      ".",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/invalid.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 5,
+    "expected_exit": 5,
+    "seconds": 2.318,
+    "ok": true
+  },
+  {
+    "name": "debian13-rg-match",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "rg",
+      "--no-heading",
+      "--color",
+      "never",
+      "-F",
+      "--",
+      "中文",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/中文 sample.txt"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.453,
+    "ok": true
+  },
+  {
+    "name": "debian13-rg-match-oracle",
+    "ok": true,
+    "stdout": "alpha 中文\n",
+    "expected": "alpha 中文\n"
+  },
+  {
+    "name": "debian13-rg-none",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "rg",
+      "--",
+      "not-in-file",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/中文 sample.txt"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 1,
+    "expected_exit": 1,
+    "seconds": 2.357,
+    "ok": true
+  },
+  {
+    "name": "debian13-rg-none-oracle",
+    "ok": true,
+    "stdout": "",
+    "expected": ""
+  },
+  {
+    "name": "debian13-rg-error",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "rg",
+      "--",
+      "x",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/absent"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 2,
+    "expected_exit": 2,
+    "seconds": 2.308,
+    "ok": true
+  },
+  {
+    "name": "debian13-fd-zero",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "/usr/bin/fdfind",
+      "--max-depth",
+      "1",
+      "--type",
+      "f",
+      "--print0",
+      "--",
+      "^中文 sample\\.txt$",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.364,
+    "ok": true
+  },
+  {
+    "name": "debian13-fd-set",
+    "ok": true,
+    "stdout": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/中文 sample.txt\u0000"
+  },
+  {
+    "name": "debian13-bat-bytes",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "/usr/bin/batcat",
+      "--color=never",
+      "--paging=never",
+      "--style=plain",
+      "--",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/中文 sample.txt"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.368,
+    "ok": true
+  },
+  {
+    "name": "debian13-bat-bytes-oracle",
+    "ok": true,
+    "stdout": "alpha 中文\nbeta space\nalpha last\n",
+    "expected": "alpha 中文\nbeta space\nalpha last\n"
+  },
+  {
+    "name": "debian13-sqlite-create",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "sqlite3",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/debian13 中文.db",
+      "CREATE TABLE sample(n INTEGER, label TEXT); BEGIN; INSERT INTO sample VALUES(2,'中文'),(3,'space'); COMMIT; SELECT sum(n) FROM sample;"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.083,
+    "ok": true
+  },
+  {
+    "name": "debian13-sqlite-create-oracle",
+    "ok": true,
+    "stdout": "5\n",
+    "expected": "5\n"
+  },
+  {
+    "name": "debian13-stop-db-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "stop",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.102,
+    "ok": true
+  },
+  {
+    "name": "debian13-sqlite-reopen-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "sqlite3",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/debian13 中文.db",
+      "PRAGMA integrity_check; SELECT count(*),sum(n) FROM sample;"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.037,
+    "ok": true
+  },
+  {
+    "name": "debian13-sqlite-reopen-1-oracle",
+    "ok": true,
+    "stdout": "ok\n2|5\n",
+    "expected": "ok\n2|5\n"
+  },
+  {
+    "name": "debian13-start-after-db-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "start",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.114,
+    "ok": true
+  },
+  {
+    "name": "debian13-stop-db-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "stop",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.074,
+    "ok": true
+  },
+  {
+    "name": "debian13-sqlite-reopen-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "sqlite3",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/debian13 中文.db",
+      "PRAGMA integrity_check; SELECT count(*),sum(n) FROM sample;"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.787,
+    "ok": true
+  },
+  {
+    "name": "debian13-sqlite-reopen-2-oracle",
+    "ok": true,
+    "stdout": "ok\n2|5\n",
+    "expected": "ok\n2|5\n"
+  },
+  {
+    "name": "debian13-start-after-db-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "start",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.145,
+    "ok": true
+  },
+  {
+    "name": "debian13-jq-version",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "jq",
+      "--version"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.748,
+    "ok": true
+  },
+  {
+    "name": "debian13-shortcut-run",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "run",
+      "--target",
+      "debian13",
+      "jq",
+      "--",
+      "-r",
+      "map(.n)|add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.909,
+    "ok": true
+  },
+  {
+    "name": "debian13-shortcut-oracle",
+    "ok": true
+  },
+  {
+    "name": "arch-install-jq",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "arch",
+      "--exec",
+      "/usr/bin/jq",
+      "--app",
+      "jq",
+      "--json",
+      "jq"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 43.309,
+    "ok": true
+  },
+  {
+    "name": "arch-install-rg",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "arch",
+      "--exec",
+      "/usr/bin/rg",
+      "--app",
+      "rg",
+      "--json",
+      "ripgrep"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 10.724,
+    "ok": true
+  },
+  {
+    "name": "arch-install-fd",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "arch",
+      "--exec",
+      "/usr/bin/fd",
+      "--app",
+      "fd",
+      "--json",
+      "fd"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 14.062,
+    "ok": true
+  },
+  {
+    "name": "arch-install-bat",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "arch",
+      "--exec",
+      "/usr/bin/bat",
+      "--app",
+      "bat",
+      "--json",
+      "bat"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 15.27,
+    "ok": true
+  },
+  {
+    "name": "arch-install-sqlite",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "arch",
+      "--exec",
+      "/usr/bin/sqlite3",
+      "--app",
+      "sqlite",
+      "--json",
+      "sqlite"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 8.52,
+    "ok": true
+  },
+  {
+    "name": "arch-install-htop",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "arch",
+      "--exec",
+      "/usr/bin/htop",
+      "--app",
+      "htop",
+      "--json",
+      "htop"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 10.086,
+    "ok": true
+  },
+  {
+    "name": "arch-jq-sum",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "jq",
+      "-r",
+      "map(.n)|add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.841,
+    "ok": true
+  },
+  {
+    "name": "arch-jq-sum-oracle",
+    "ok": true,
+    "stdout": "5\n",
+    "expected": "5\n"
+  },
+  {
+    "name": "arch-jq-string",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "jq",
+      "-r",
+      ".[0].name",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.881,
+    "ok": true
+  },
+  {
+    "name": "arch-jq-string-oracle",
+    "ok": true,
+    "stdout": "中文\n",
+    "expected": "中文\n"
+  },
+  {
+    "name": "arch-jq-false",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "jq",
+      "-e",
+      "false",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 1,
+    "expected_exit": 1,
+    "seconds": 2.777,
+    "ok": true
+  },
+  {
+    "name": "arch-jq-false-oracle",
+    "ok": true,
+    "stdout": "false\n",
+    "expected": "false\n"
+  },
+  {
+    "name": "arch-jq-empty",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "jq",
+      "-e",
+      "empty",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 4,
+    "expected_exit": 4,
+    "seconds": 2.463,
+    "ok": true
+  },
+  {
+    "name": "arch-jq-empty-oracle",
+    "ok": true,
+    "stdout": "",
+    "expected": ""
+  },
+  {
+    "name": "arch-jq-bad",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "jq",
+      "-e",
+      ".",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/invalid.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 5,
+    "expected_exit": 5,
+    "seconds": 2.642,
+    "ok": true
+  },
+  {
+    "name": "arch-rg-match",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "rg",
+      "--no-heading",
+      "--color",
+      "never",
+      "-F",
+      "--",
+      "中文",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/中文 sample.txt"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.589,
+    "ok": true
+  },
+  {
+    "name": "arch-rg-match-oracle",
+    "ok": true,
+    "stdout": "alpha 中文\n",
+    "expected": "alpha 中文\n"
+  },
+  {
+    "name": "arch-rg-none",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "rg",
+      "--",
+      "not-in-file",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/中文 sample.txt"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 1,
+    "expected_exit": 1,
+    "seconds": 2.407,
+    "ok": true
+  },
+  {
+    "name": "arch-rg-none-oracle",
+    "ok": true,
+    "stdout": "",
+    "expected": ""
+  },
+  {
+    "name": "arch-rg-error",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "rg",
+      "--",
+      "x",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/absent"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 2,
+    "expected_exit": 2,
+    "seconds": 2.5,
+    "ok": true
+  },
+  {
+    "name": "arch-fd-zero",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "/usr/bin/fd",
+      "--max-depth",
+      "1",
+      "--type",
+      "f",
+      "--print0",
+      "--",
+      "^中文 sample\\.txt$",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.467,
+    "ok": true
+  },
+  {
+    "name": "arch-fd-set",
+    "ok": true,
+    "stdout": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/中文 sample.txt\u0000"
+  },
+  {
+    "name": "arch-bat-bytes",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "/usr/bin/bat",
+      "--color=never",
+      "--paging=never",
+      "--style=plain",
+      "--",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/中文 sample.txt"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.394,
+    "ok": true
+  },
+  {
+    "name": "arch-bat-bytes-oracle",
+    "ok": true,
+    "stdout": "alpha 中文\nbeta space\nalpha last\n",
+    "expected": "alpha 中文\nbeta space\nalpha last\n"
+  },
+  {
+    "name": "arch-sqlite-create",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "sqlite3",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/arch 中文.db",
+      "CREATE TABLE sample(n INTEGER, label TEXT); BEGIN; INSERT INTO sample VALUES(2,'中文'),(3,'space'); COMMIT; SELECT sum(n) FROM sample;"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.431,
+    "ok": true
+  },
+  {
+    "name": "arch-sqlite-create-oracle",
+    "ok": true,
+    "stdout": "5\n",
+    "expected": "5\n"
+  },
+  {
+    "name": "arch-stop-db-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "stop",
+      "arch",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.078,
+    "ok": true
+  },
+  {
+    "name": "arch-sqlite-reopen-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "sqlite3",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/arch 中文.db",
+      "PRAGMA integrity_check; SELECT count(*),sum(n) FROM sample;"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.215,
+    "ok": true
+  },
+  {
+    "name": "arch-sqlite-reopen-1-oracle",
+    "ok": true,
+    "stdout": "ok\n2|5\n",
+    "expected": "ok\n2|5\n"
+  },
+  {
+    "name": "arch-start-after-db-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "start",
+      "arch",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.26,
+    "ok": true
+  },
+  {
+    "name": "arch-stop-db-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "stop",
+      "arch",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.148,
+    "ok": true
+  },
+  {
+    "name": "arch-sqlite-reopen-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "sqlite3",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/arch 中文.db",
+      "PRAGMA integrity_check; SELECT count(*),sum(n) FROM sample;"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.909,
+    "ok": true
+  },
+  {
+    "name": "arch-sqlite-reopen-2-oracle",
+    "ok": true,
+    "stdout": "ok\n2|5\n",
+    "expected": "ok\n2|5\n"
+  },
+  {
+    "name": "arch-start-after-db-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "start",
+      "arch",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.251,
+    "ok": true
+  },
+  {
+    "name": "arch-jq-version",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "jq",
+      "--version"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.904,
+    "ok": true
+  },
+  {
+    "name": "arch-shortcut-run",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "run",
+      "--target",
+      "arch",
+      "jq",
+      "--",
+      "-r",
+      "map(.n)|add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.26,
+    "ok": true
+  },
+  {
+    "name": "arch-shortcut-oracle",
+    "ok": true
+  },
+  {
+    "name": "ambiguous-alias",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "run",
+      "jq",
+      "--",
+      "--version"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 1,
+    "expected_exit": 1,
+    "seconds": 0.508,
+    "ok": true
+  },
+  {
+    "name": "noninteractive-oss-complete",
+    "ok": true,
+    "scope": "6 project repository installs per target, 5 noninteractive workflows; htop/bat PTY and local-file acquisition are separate next-stage checks"
+  }
+]

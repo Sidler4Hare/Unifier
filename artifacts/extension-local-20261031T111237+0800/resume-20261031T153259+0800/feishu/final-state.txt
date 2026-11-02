@@ -1,0 +1,19 @@
+checked_at=2026-10-31T16:11:46+08:00
+--- containers
+37daa7f7ff06 ml-53c5c8a5-freecad-arch Exited (143) 6 hours ago
+b9dd15c5fccf ml-6b061a2f-meeting Exited (143) 2 days ago
+076f6017d2a4 ml-104d8e92-debian13 Up 4 hours
+ca04aa07e2aa ml-104d8e92-arch Up 3 hours
+--- feishu processes (must be empty)
+--- lease
+{
+  "leases": {},
+  "auto_stop": false,
+  "bridge": null,
+  "container_id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+  "container_started_at": "2026-10-31T11:50:39.256267308+08:00"
+}
+--- launch hashes
+44fa8b69fbe95cd3862202d776e1d47ca1823db7dc66bef9f301f32db33e1ffd  /home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments/.lab/state/launches/feishu.json
+166385ab9c910a996d53c746706963752c4114f91a4e4f8c5cdb7460c30a374e  /home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments/.lab/state/launches/feishu-fixed.json
+--- tool diff (must be empty)

@@ -1,0 +1,6 @@
+fedora44: dnf install -y /tmp/ml-incoming/unifier-cli-probe-1.0-1.noarch.rpm
+fedora44: install-local completed txn5dd0896bf0ee
+unifier: application probe already exists in another environment
+fedora44: installing local package /home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/packages/unifier-cli-probe-1.0-1.noarch.rpm through the native transaction.
+Native package transaction completed: txn5dd0896bf0ee. A successful package transaction does not prove the application entry works.
+fedora44: using explicit entry /usr/bin/unifier-cli-probe.

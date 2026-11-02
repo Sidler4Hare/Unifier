@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "target": "fedora44",
+  "via": "view",
+  "view_uuid": "137c1bfa-aea7-4d46-acce-c661bbd3248f",
+  "mountpoint": "/home/agent/unifier-v001-validation-20261030T230003/results/installation/.lab/state/views/137c1bfa-aea7-4d46-acce-c661bbd3248f/mount",
+  "path": "/usr",
+  "entries": [
+    "bin",
+    "games",
+    "include",
+    "lib",
+    "lib64",
+    "libexec",
+    "local",
+    "sbin",
+    "share",
+    "src",
+    "tmp"
+  ]
+}

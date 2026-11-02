@@ -1,0 +1,68 @@
+{
+  "status": "READ_ONLY_PLAN_REVISION_PREFLIGHT",
+  "recorded_at": "2026-10-29T21:48:55+08:00",
+  "code_root": "/home/omg/文档/多兼容linux机",
+  "base_commit": "5e13d0df1222c0385dd67d23532d4d9cbe53fb1c",
+  "branch": "codex/unifier-v2-control",
+  "working_tree_has_uncommitted_cli": true,
+  "source_reference": "../cli-installation-2026-10-29/source-frozen.json",
+  "source_reference_sha256": "def159a7af457122a89e448d1f3ecc517f3e401cf989cbc46794114d7d502ebf",
+  "source_files_verified": 123,
+  "source_reference_matches": true,
+  "local_containers": [
+    {
+      "id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "names": [
+        "ml-53c5c8a5-freecad-arch"
+      ],
+      "state": "exited",
+      "image": "localhost/multilinux/installstatus-arch@sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6"
+    },
+    {
+      "id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "names": [
+        "ml-6b061a2f-meeting"
+      ],
+      "state": "exited",
+      "image": "localhost/unifier/wemeet-current@sha256:4abbc8621397cdaf0ad326970d0cba5777dfd60c315cc5ddfb050cd8bcfbd8e1"
+    }
+  ],
+  "local_container_count": 2,
+  "local_baseline_scope": "this workstation only; each server must capture its own baseline",
+  "server_tests": {
+    "status": "IN_PROGRESS_USER_REPORTED",
+    "host_count": 3,
+    "reported_date": "2026-10-29",
+    "per_host_metadata": null,
+    "results_imported": false,
+    "source": "current user conversation"
+  },
+  "expanded_test_schedule": {
+    "month": "2026-11",
+    "day": null,
+    "status": "SCHEDULED_NOT_STARTED",
+    "reason": "user monthly traffic budget"
+  },
+  "historical_inputs_sha256": {
+    "evidence/extension-test-plan-2026-10-27/plan.json": "054362c248cbe05cef0dd3145da2cbb27245067a8cfac15fb4d39d5c0b4dbc86",
+    "evidence/extension-test-plan-2026-10-27/preflight.json": "c7f6f29ca102dc1a11f9b34ffc41273aa1e12774348557c20fce980e4542e9d4",
+    "evidence/extension-test-plan-2026-10-27/sources.json": "e11e46a1e02a815afb70993016bf2609663526f6ab51487f0930706ad96fafe0",
+    "evidence/installed-applications-2026-10-27/relationship-plan.json": "6a6d5f5d85e5522f3f5e3582e0374ea5b6dac68c8566068821eb6a765df36d79"
+  },
+  "backup": "/home/omg/文档/多兼容linux机/.lab/backups/extension-plan-20261029-214855",
+  "performed": [
+    "local source hash verification",
+    "read-only local container inventory",
+    "historical plan and capability contract review"
+  ],
+  "not_performed": [
+    "downloads or source-page refresh",
+    "container create/start/stop/remove",
+    "package installation/update/removal",
+    "server access or test dispatch",
+    "agent or application launch",
+    "filesystem mounting or formatting",
+    "messages or uploads",
+    "product source modification"
+  ]
+}

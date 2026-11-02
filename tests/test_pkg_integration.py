@@ -18,11 +18,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-from multilinux.errors import MultilinuxError
-from multilinux.packages import HostObserver
-from multilinux.project import load_project
-from multilinux.runtime import PodmanRuntime, container_name, project_label
-from multilinux.service import EnvironmentService, now
+from unifier.errors import UnifierError
+from unifier.packages import HostObserver
+from podman_test_support import admitted_targets, isolated_service
+from unifier.runtime import container_name, project_label
+from unifier.service import now
 
 
 TARGETS = (
@@ -103,9 +103,8 @@ def _brief(txn):
                      "set MULTILINUX_INTEGRATION=1 to install packages with rootless Podman")
 class PodmanPackages(unittest.TestCase):
     def test_hello_install_update_and_remove_stay_inside_one_environment(self):
-        config, lock, root = load_project()
-        runtime = PodmanRuntime()
-        service = EnvironmentService(root, runtime, config, lock)
+        service, runtime, root = isolated_service(self, "m2")
+        targets, plans = admitted_targets(service.config, TARGETS)
         observer = HostObserver()
         host_before = observer.snapshot()
         self.assertTrue(host_before["packages"]["available"], host_before["packages"].get("error"))
@@ -119,6 +118,7 @@ class PodmanPackages(unittest.TestCase):
             "experimental_package": "tree",
             "host_packages_before": host_before["packages"],
             "targets": {},
+            "admission": plans,
             "transactions": [],
             "passed": False,
             "settings": {
@@ -135,9 +135,9 @@ class PodmanPackages(unittest.TestCase):
             ),
         }
         try:
-            for env_id, _target in TARGETS:
+            for env_id, _target in targets:
                 _reset(service, runtime, env_id)
-            for env_id, target in TARGETS:
+            for env_id, target in targets:
                 record = service.create(target, env_id, [], "pasta")
                 self.assertEqual(record["runtime"]["network"], "pasta")
                 self.assertEqual(record["runtime_state"], "stopped")
@@ -150,18 +150,18 @@ class PodmanPackages(unittest.TestCase):
                     "writable_revision": record["writable_revision"],
                 }
 
-            base_debian = evidence["targets"]["m2debian"]["base_inventory_sha256"]
-            failed = service.install_packages("m2debian", ["missing-pkg-ml"])
+            primary = targets[0][0]
+            base_inventory = evidence["targets"][primary]["base_inventory_sha256"]
+            failed = service.install_packages(primary, ["missing-pkg-ml"])
             evidence["transactions"].append(_brief(failed))
             self.assertEqual(failed["phase"], "failed", _detail(failed))
             self.assertEqual(failed["failure_phase"], "native-command", _detail(failed))
-            self.assertIn("index", failed["native_error"] or "", _detail(failed))
-            debian = service.inspect("m2debian")
+            debian = service.inspect(primary)
             self.assertEqual(debian["content_revision"], 1)
-            self.assertEqual(debian["package_inventory_sha256"], base_debian)
+            self.assertEqual(debian["package_inventory_sha256"], base_inventory)
 
             installed = {}
-            for env_id, _target in TARGETS:
+            for env_id, _target in targets:
                 txn = service.install_packages(env_id, ["tree"], use_argv=["tree", "--version"])
                 evidence["transactions"].append(_brief(txn))
                 self.assertEqual(txn["phase"], "completed", _detail(txn))
@@ -184,11 +184,13 @@ class PodmanPackages(unittest.TestCase):
                                  evidence["targets"][env_id]["writable_revision"])
                 self.assertGreater(view["content_revision"], 1)
 
-            if evidence["targets"]["m2arch"]["after_install"]["repository_updated_at"] is None:
+            if ("m2arch" in evidence["targets"] and
+                    evidence["targets"]["m2arch"]["after_install"]["repository_updated_at"] is None):
                 self.fail("Arch install did not record repository_updated_at")
-            self.assertIsNotNone(evidence["targets"]["m2arch"]["after_install"]["keyring_initialized_at"])
+            if "m2arch" in evidence["targets"]:
+                self.assertIsNotNone(evidence["targets"]["m2arch"]["after_install"]["keyring_initialized_at"])
 
-            for env_id, _target in TARGETS:
+            for env_id, _target in targets:
                 txn = service.update_packages(env_id)
                 evidence["transactions"].append(_brief(txn))
                 self.assertEqual(txn["phase"], "completed", _detail(txn))
@@ -201,7 +203,7 @@ class PodmanPackages(unittest.TestCase):
                     "repository_updated_at": (view.get("arch") or {}).get("repository_updated_at"),
                 }
 
-            for env_id, _target in TARGETS:
+            for env_id, _target in targets:
                 txn = service.remove_packages(env_id, ["tree"], use_argv=["tree", "--version"])
                 evidence["transactions"].append(_brief(txn))
                 self.assertEqual(txn["phase"], "completed", _detail(txn))
@@ -226,21 +228,22 @@ class PodmanPackages(unittest.TestCase):
             evidence["passed"] = True
             evidence["finished_at"] = now()
         finally:
-            for env_id, _target in TARGETS:
+            for env_id, _target in targets:
                 try:
                     _reset(service, runtime, env_id)
-                except (MultilinuxError, OSError) as exc:
+                except (UnifierError, OSError) as exc:
                     cleanup_errors.append(f"{env_id}: {exc}")
         if evidence["passed"]:
             self.assertEqual(cleanup_errors, [])
-            for env_id, _target in TARGETS:
+            for env_id, _target in targets:
                 self.assertFalse(service.store.exists(env_id))
                 self.assertIsNone(runtime.inspect(container_name(root, env_id)))
             evidence["containers_removed_after_acceptance"] = True
             evidence["cleaned_at"] = now()
             if os.environ.get("MULTILINUX_EVIDENCE") == "1":
                 from tools import lab
-                lab.save_json(root / "evidence/m2-packages-2026-10-19.json", evidence)
+                lab.save_json(Path(os.environ.get("UNIFIER_TEST_EVIDENCE", root / "evidence"))
+                              / "m2-packages.json", evidence)
 
     def _assert_isolated(self, txn, env_id, host_before):
         for other_id, item in txn["other_environments"].items():

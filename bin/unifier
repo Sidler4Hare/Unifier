@@ -1,0 +1,10 @@
+#!/bin/sh
+# Unifier launcher.  Installed as a symlink to <checkout>/bin/unifier, so
+# readlink -f resolves the code root even when ~/.local/bin/unifier is used.
+set -eu
+SELF=$(readlink -f -- "$0")
+ROOT=$(CDPATH= cd -- "$(dirname -- "$SELF")/.." && pwd)
+PYTHON=${PYTHON:-python3}
+PYTHONPATH="$ROOT/src:$ROOT${PYTHONPATH:+:$PYTHONPATH}"
+export PYTHONPATH
+exec "$PYTHON" -m unifier "$@"

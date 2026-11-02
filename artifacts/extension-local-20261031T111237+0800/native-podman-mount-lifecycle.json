@@ -1,0 +1,160 @@
+{
+  "argv": [
+    "podman",
+    "create",
+    "--pull=never",
+    "--name",
+    "unifier-ext-native-lifecycle-111237",
+    "--network",
+    "none",
+    "--userns",
+    "keep-id",
+    "--user",
+    "0",
+    "--init",
+    "--entrypoint",
+    "/usr/bin/sleep",
+    "--security-opt",
+    "label=disable",
+    "-v",
+    "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/lifecycle:/probe:z",
+    "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+    "infinity"
+  ],
+  "cid": "27a40bea447d62c5adf74b45ad7600e5a6ec9e896d8a2c014cc7b53e7d3ff9af",
+  "cases": [
+    {
+      "stage": "created",
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/lifecycle",
+          "Destination": "/probe",
+          "Driver": "",
+          "Mode": "z",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "Binds": [
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/lifecycle:/probe:z,rprivate,rbind"
+      ],
+      "CreateCommand": [
+        "podman",
+        "create",
+        "--pull=never",
+        "--name",
+        "unifier-ext-native-lifecycle-111237",
+        "--network",
+        "none",
+        "--userns",
+        "keep-id",
+        "--user",
+        "0",
+        "--init",
+        "--entrypoint",
+        "/usr/bin/sleep",
+        "--security-opt",
+        "label=disable",
+        "-v",
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/lifecycle:/probe:z",
+        "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "infinity"
+      ],
+      "ProcessLabel": "",
+      "MountLabel": "system_u:object_r:container_file_t:s0:c1022,c1023"
+    },
+    {
+      "stage": "running",
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/lifecycle",
+          "Destination": "/probe",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "Binds": [
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/lifecycle:/probe:rprivate,rbind"
+      ],
+      "CreateCommand": [
+        "podman",
+        "create",
+        "--pull=never",
+        "--name",
+        "unifier-ext-native-lifecycle-111237",
+        "--network",
+        "none",
+        "--userns",
+        "keep-id",
+        "--user",
+        "0",
+        "--init",
+        "--entrypoint",
+        "/usr/bin/sleep",
+        "--security-opt",
+        "label=disable",
+        "-v",
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/lifecycle:/probe:z",
+        "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "infinity"
+      ],
+      "ProcessLabel": "",
+      "MountLabel": "system_u:object_r:container_file_t:s0:c1022,c1023"
+    },
+    {
+      "stage": "stopped",
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/lifecycle",
+          "Destination": "/probe",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "Binds": [
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/lifecycle:/probe:rprivate,rbind"
+      ],
+      "CreateCommand": [
+        "podman",
+        "create",
+        "--pull=never",
+        "--name",
+        "unifier-ext-native-lifecycle-111237",
+        "--network",
+        "none",
+        "--userns",
+        "keep-id",
+        "--user",
+        "0",
+        "--init",
+        "--entrypoint",
+        "/usr/bin/sleep",
+        "--security-opt",
+        "label=disable",
+        "-v",
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/lifecycle:/probe:z",
+        "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "infinity"
+      ],
+      "ProcessLabel": "",
+      "MountLabel": "system_u:object_r:container_file_t:s0:c1022,c1023"
+    }
+  ],
+  "cleaned": true
+}

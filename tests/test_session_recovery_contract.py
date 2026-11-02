@@ -9,8 +9,8 @@ import unittest
 from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from multilinux.on_demand import LaunchGroup, process_stamp
-from multilinux.project_sessions import assert_environment_not_live
+from unifier.on_demand import LaunchGroup, process_stamp
+from unifier.project_sessions import assert_environment_not_live
 
 
 class UnresolvedProjectLeaseTests(unittest.TestCase):
@@ -52,7 +52,7 @@ class UnresolvedProjectLeaseTests(unittest.TestCase):
                   "state": "interrupted", "guest_state": "gone", "lease_token": None,
                   "guest_pid": 2, "guest_start": 3, "guest_pgrp": 2, "guest_sid": 2,
                   "guest_token": "a" * 32, "session_user": "1000:1000"}
-        with patch("multilinux.project_sessions.SessionStore") as store:
+        with patch("unifier.project_sessions.SessionStore") as store:
             store.return_value.list.return_value = [record]
             assert_environment_not_live(self.root, "fixture", self.service)
         self.service.runtime.probe_guest.assert_not_called()

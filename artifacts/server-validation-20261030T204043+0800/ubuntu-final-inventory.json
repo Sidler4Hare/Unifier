@@ -1,0 +1,86 @@
+{
+  "identity": {
+    "argv": [
+      "id"
+    ],
+    "returncode": 0,
+    "stdout": "uid=1001(agent) gid=1001(agent) groups=1001(agent),4(adm),114(libvirt),988(docker),994(kvm),999(systemd-journal)\n",
+    "stderr": ""
+  },
+  "podman-version": {
+    "argv": [
+      "podman",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "podman version 4.9.3\n",
+    "stderr": ""
+  },
+  "skopeo-version": {
+    "argv": [
+      "skopeo",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "skopeo version 1.13.3\n",
+    "stderr": ""
+  },
+  "containers": {
+    "argv": [
+      "podman",
+      "ps",
+      "-a",
+      "--format",
+      "json"
+    ],
+    "returncode": 0,
+    "stdout": "[]\n",
+    "stderr": ""
+  },
+  "virtualization": {
+    "argv": [
+      "systemd-detect-virt"
+    ],
+    "returncode": 1,
+    "stdout": "none\n",
+    "stderr": ""
+  },
+  "doctor_module": {
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\n  \"schema_version\": 1,\n  \"captured_at\": \"2026-10-30T20:54:09+08:00\",\n  \"ready_for_image_preparation\": true,\n  \"kernel\": \"6.8.0-147-generic\",\n  \"uid\": 1001,\n  \"gid\": 1001,\n  \"runtime\": {\n    \"rootless\": true,\n    \"cgroup_version\": \"v2\",\n    \"cgroup_manager\": \"systemd\",\n    \"oci_runtime\": \"runc\",\n    \"storage_driver\": \"overlay\"\n  },\n  \"checks\": [\n    {\n      \"name\": \"host-whitelist\",\n      \"ok\": true,\n      \"detail\": {\n        \"id\": \"ubuntu\",\n        \"version_id\": \"24.04\",\n        \"variant_id\": \"\",\n        \"id_like\": [\n          \"debian\"\n        ],\n        \"family\": \"debian\",\n        \"reference_host\": \"debian\",\n        \"integration_profile\": \"debian\",\n        \"package_driver\": \"apt\",\n        \"base_package_driver\": \"apt\",\n        \"package_format\": \"deb\",\n        \"system\": \"Linux\",\n        \"machine\": \"x86_64\",\n        \"libc\": \"glibc\",\n        \"atomic\": false,\n        \"admitted\": true,\n        \"reasons\": [],\n        \"observation\": \"live-host\"\n      }\n    },\n    {\n      \"name\": \"python\",\n      \"ok\": true,\n      \"detail\": \"3.12.3\"\n    },\n    {\n      \"name\": \"linux-amd64\",\n      \"ok\": true,\n      \"detail\": \"x86_64\"\n    },\n    {\n      \"name\": \"podman\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"skopeo\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"rootless-runtime\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"cgroup-v2\",\n      \"ok\": true\n    }\n  ],\n  \"image_lock\": \"valid\",\n  \"compatibility\": {\n    \"debian13\": {\n      \"schema_version\": 1,\n      \"policy_version\": 1,\n      \"mode\": \"whitelist\",\n      \"host\": {\n        \"id\": \"ubuntu\",\n        \"version_id\": \"24.04\",\n        \"variant_id\": \"\",\n        \"id_like\": [\n          \"debian\"\n        ],\n        \"family\": \"debian\",\n        \"reference_host\": \"debian\",\n        \"integration_profile\": \"debian\",\n        \"package_driver\": \"apt\",\n        \"base_package_driver\": \"apt\",\n        \"package_format\": \"deb\",\n        \"system\": \"Linux\",\n        \"machine\": \"x86_64\",\n        \"libc\": \"glibc\",\n        \"atomic\": false,\n        \"admitted\": true,\n        \"reasons\": [],\n        \"observation\": \"live-host\"\n      },\n      \"target\": \"debian13\",\n      \"container_family\": \"debian\",\n      \"container_contract\": {\n        \"family\": \"debian\",\n        \"libc\": \"glibc\",\n        \"layout\": \"fhs\",\n        \"package_driver\": \"apt\",\n        \"package_format\": \"deb\",\n        \"runtime_backend\": \"podman-rootless\",\n        \"update_policy\": \"versioned-release\"\n      },\n      \"allowed\": true,\n      \"relationship\": \"same-family\",\n      \"reasons\": [],\n      \"execution_domain\": \"isolated-container\",\n      \"host_authority\": true,\n      \"shared_kernel\": true,\n      \"share_system_trees\": false,\n      \"share_package_databases\": false,\n      \"native_package_validation\": \"required-even-within-family\",\n      \"requirements\": [\n        \"rootless-podman\",\n        \"cgroup-v2\",\n        \"locked-linux-amd64-image\",\n        \"guest-identity-and-shared-kernel-check\",\n        \"host-security-policy\",\n        \"desktop-session-and-devices-if-requested\"\n      ],\n      \"validation_scope\": \"policy-only\"\n    },\n    \"fedora44\": {\n      \"schema_version\": 1,\n      \"policy_version\": 1,\n      \"mode\": \"whitelist\",\n      \"host\": {\n        \"id\": \"ubuntu\",\n        \"version_id\": \"24.04\",\n        \"variant_id\": \"\",\n        \"id_like\": [\n          \"debian\"\n        ],\n        \"family\": \"debian\",\n        \"reference_host\": \"debian\",\n        \"integration_profile\": \"debian\",\n        \"package_driver\": \"apt\",\n        \"base_package_driver\": \"apt\",\n        \"package_format\": \"deb\",\n        \"system\": \"Linux\",\n        \"machine\": \"x86_64\",\n        \"libc\": \"glibc\",\n        \"atomic\": false,\n        \"admitted\": true,\n        \"reasons\": [],\n        \"observation\": \"live-host\"\n      },\n      \"target\": \"fedora44\",\n      \"container_family\": \"fedora\",\n      \"container_contract\": {\n        \"family\": \"fedora\",\n        \"libc\": \"glibc\",\n        \"layout\": \"fhs\",\n        \"package_driver\": \"dnf\",\n        \"package_format\": \"rpm\",\n        \"runtime_backend\": \"podman-rootless\",\n        \"update_policy\": \"versioned-release\"\n      },\n      \"allowed\": true,\n      \"relationship\": \"cross-family\",\n      \"reasons\": [],\n      \"execution_domain\": \"isolated-container\",\n      \"host_authority\": true,\n      \"shared_kernel\": true,\n      \"share_system_trees\": false,\n      \"share_package_databases\": false,\n      \"native_package_validation\": \"required-even-within-family\",\n      \"requirements\": [\n        \"rootless-podman\",\n        \"cgroup-v2\",\n        \"locked-linux-amd64-image\",\n        \"guest-identity-and-shared-kernel-check\",\n        \"host-security-policy\",\n        \"desktop-session-and-devices-if-requested\"\n      ],\n      \"validation_scope\": \"policy-only\"\n    },\n    \"arch\": {\n      \"schema_version\": 1,\n      \"policy_version\": 1,\n      \"mode\": \"whitelist\",\n      \"host\": {\n        \"id\": \"ubuntu\",\n        \"version_id\": \"24.04\",\n        \"variant_id\": \"\",\n        \"id_like\": [\n          \"debian\"\n        ],\n        \"family\": \"debian\",\n        \"reference_host\": \"debian\",\n        \"integration_profile\": \"debian\",\n        \"package_driver\": \"apt\",\n        \"base_package_driver\": \"apt\",\n        \"package_format\": \"deb\",\n        \"system\": \"Linux\",\n        \"machine\": \"x86_64\",\n        \"libc\": \"glibc\",\n        \"atomic\": false,\n        \"admitted\": true,\n        \"reasons\": [],\n        \"observation\": \"live-host\"\n      },\n      \"target\": \"arch\",\n      \"container_family\": \"arch\",\n      \"container_contract\": {\n        \"family\": \"arch\",\n        \"libc\": \"glibc\",\n        \"layout\": \"fhs\",\n        \"package_driver\": \"pacman\",\n        \"package_format\": \"arch\",\n        \"runtime_backend\": \"podman-rootless\",\n        \"update_policy\": \"full-system-upgrade\"\n      },\n      \"allowed\": true,\n      \"relationship\": \"cross-family\",\n      \"reasons\": [],\n      \"execution_domain\": \"isolated-container\",\n      \"host_authority\": true,\n      \"shared_kernel\": true,\n      \"share_system_trees\": false,\n      \"share_package_databases\": false,\n      \"native_package_validation\": \"required-even-within-family\",\n      \"requirements\": [\n        \"rootless-podman\",\n        \"cgroup-v2\",\n        \"locked-linux-amd64-image\",\n        \"guest-identity-and-shared-kernel-check\",\n        \"host-security-policy\",\n        \"desktop-session-and-devices-if-requested\"\n      ],\n      \"validation_scope\": \"policy-only\"\n    }\n  },\n  \"scope\": \"Runtime preflight; does not prove any target application is compatible.\"\n}\n"
+  },
+  "remaining_task_mounts": [],
+  "vm_domains": {
+    "argv": [
+      "virsh",
+      "-c",
+      "qemu:///system",
+      "list",
+      "--all"
+    ],
+    "returncode": 0,
+    "stdout": " Id   Name           State\n------------------------------\n 1    debian-lab01   running\n 2    arch-lab01     running\n\n",
+    "stderr": ""
+  },
+  "gpu": {
+    "argv": [
+      "nvidia-smi",
+      "--query-gpu=index,name,utilization.gpu,power.draw,temperature.gpu",
+      "--format=csv,noheader"
+    ],
+    "returncode": 0,
+    "stdout": "0, Tesla V100-SXM2-16GB, 0 %, 24.20 W, 34\n1, Tesla V100-SXM2-16GB, 0 %, 23.24 W, 30\n",
+    "stderr": ""
+  },
+  "gpu_clients": {
+    "argv": [
+      "nvidia-smi",
+      "--query-compute-apps=pid,process_name,used_gpu_memory",
+      "--format=csv,noheader"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+}

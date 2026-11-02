@@ -1,0 +1,93 @@
+{
+  "ubuntu_podman": {
+    "argv": [
+      "podman",
+      "ps",
+      "-a",
+      "--format",
+      "json"
+    ],
+    "returncode": 0,
+    "stdout": "[]\n",
+    "stderr": ""
+  },
+  "ubuntu_docker": {
+    "argv": [
+      "docker",
+      "ps",
+      "-a",
+      "--format",
+      "json"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "ubuntu_docker_images": {
+    "argv": [
+      "docker",
+      "images",
+      "--format",
+      "json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"Containers\":\"0\",\"CreatedAt\":\"2026-10-22 04:47:08 +0800 CST\",\"CreatedSince\":\"8 days ago\",\"Digest\":\"\\u003cnone\\u003e\",\"ID\":\"2e0b81d60597\",\"Repository\":\"alpine\",\"SharedSize\":\"N/A\",\"Size\":\"12.9MB\",\"Tag\":\"3.22\",\"UniqueSize\":\"N/A\"}\n{\"Containers\":\"0\",\"CreatedAt\":\"2026-03-24 05:33:59 +0800 CST\",\"CreatedSince\":\"7 months ago\",\"Digest\":\"\\u003cnone\\u003e\",\"ID\":\"c567b231f656\",\"Repository\":\"hello-world\",\"SharedSize\":\"N/A\",\"Size\":\"25.9kB\",\"Tag\":\"latest\",\"UniqueSize\":\"N/A\"}\n",
+    "stderr": ""
+  },
+  "arch-lab01_podman": {
+    "argv": [
+      "ssh",
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "StrictHostKeyChecking=yes",
+      "arch-lab01",
+      "podman ps -a --format json"
+    ],
+    "returncode": 0,
+    "stdout": "[\n  {\n    \"AutoRemove\": false,\n    \"Command\": [\n      \"infinity\"\n    ],\n    \"CreatedAt\": \"47 hours ago\",\n    \"CIDFile\": \"\",\n    \"Exited\": true,\n    \"ExitedAt\": 1793233600,\n    \"ExitCode\": 143,\n    \"ExposedPorts\": null,\n    \"Id\": \"5e2d5d5b2b04a7e840755f747c96085ff8db11fd6b33584ef51c9e78e4e1871f\",\n    \"Image\": \"docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483\",\n    \"ImageID\": \"567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c\",\n    \"IsInfra\": false,\n    \"Labels\": {\n      \"multilinux.env\": \"archdemo-deb\",\n      \"multilinux.project\": \"/home/dev/unifier\",\n      \"multilinux.role\": \"environment\"\n    },\n    \"Mounts\": [\n      \"/run/user/1000/wayland-0\",\n      \"/tmp/.X11-unix/X0\",\n      \"/run/user/1000/pulse/native\",\n      \"/run/user/1000/pipewire-0\",\n      \"/home/dev/UnifierDemo\"\n    ],\n    \"Names\": [\n      \"ml-b22ecff5-archdemo-deb\"\n    ],\n    \"Namespaces\": {\n      \n    },\n    \"Networks\": [],\n    \"Pid\": 0,\n    \"Pod\": \"\",\n    \"PodName\": \"\",\n    \"Ports\": null,\n    \"Restarts\": 0,\n    \"Size\": null,\n    \"StartedAt\": 1793233596,\n    \"State\": \"exited\",\n    \"Status\": \"Exited (143) 37 hours ago\",\n    \"Created\": 1793197795\n  }\n]\n",
+    "stderr": ""
+  },
+  "arch-lab01_docker": {
+    "argv": [
+      "ssh",
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "StrictHostKeyChecking=yes",
+      "arch-lab01",
+      "docker ps -a --format json"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "debian-lab01_podman": {
+    "argv": [
+      "ssh",
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "StrictHostKeyChecking=yes",
+      "debian-lab01",
+      "podman ps -a --format json"
+    ],
+    "returncode": 0,
+    "stdout": "[\n  {\n    \"AutoRemove\": false,\n    \"Command\": [\n      \"infinity\"\n    ],\n    \"CreatedAt\": \"22 hours ago\",\n    \"CIDFile\": \"\",\n    \"Exited\": true,\n    \"ExitedAt\": 1793286021,\n    \"ExitCode\": 143,\n    \"ExposedPorts\": null,\n    \"Id\": \"944bacb5ed8e8c97e2081409959c2584df8eb39ac837fccc704634a168410d87\",\n    \"Image\": \"docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483\",\n    \"ImageID\": \"567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c\",\n    \"IsInfra\": false,\n    \"Labels\": {\n      \"multilinux.env\": \"debian13\",\n      \"multilinux.project\": \"/home/dev/.local/share/unifier\",\n      \"multilinux.role\": \"environment\"\n    },\n    \"Mounts\": [\n      \"/home/dev/.local/share/unifier/containers/debian13/files\"\n    ],\n    \"Names\": [\n      \"ml-05abfab9-debian13\"\n    ],\n    \"Namespaces\": {\n      \n    },\n    \"Networks\": [],\n    \"Pid\": 0,\n    \"Pod\": \"\",\n    \"PodName\": \"\",\n    \"Ports\": null,\n    \"Restarts\": 0,\n    \"Size\": null,\n    \"StartedAt\": 1793286019,\n    \"State\": \"exited\",\n    \"Status\": \"Exited (143) 22 hours ago\",\n    \"Created\": 1793286010\n  }\n]\n",
+    "stderr": "time=\"2026-10-30T21:03:38+08:00\" level=warning msg=\"The cgroupv2 manager is set to systemd but there is no systemd user session available\"\ntime=\"2026-10-30T21:03:38+08:00\" level=warning msg=\"For using systemd, you may need to log in using a user session\"\ntime=\"2026-10-30T21:03:38+08:00\" level=warning msg=\"Alternatively, you can enable lingering with: `loginctl enable-linger 1000` (possibly as root)\"\ntime=\"2026-10-30T21:03:38+08:00\" level=warning msg=\"Falling back to --cgroup-manager=cgroupfs\"\n"
+  },
+  "debian-lab01_docker": {
+    "argv": [
+      "ssh",
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "StrictHostKeyChecking=yes",
+      "debian-lab01",
+      "docker ps -a --format json"
+    ],
+    "returncode": 127,
+    "stdout": "",
+    "stderr": "bash: line 1: docker: command not found\n"
+  }
+}

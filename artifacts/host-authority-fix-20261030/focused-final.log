@@ -1,0 +1,28 @@
+refusing to overwrite an unknown file: /tmp/tmpb07g6e_p/unifier
+remove or rename it explicitly, then rerun this installer
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnf8102d0e66e1
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnbbeecfc3a1dc
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn27bb798de961
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn119c2da0cd97
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn66565c0a829f
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn238072035654
+fedora44: dnf install -y hello
+fedora44: install completed txnd5dad055f054
+----------------------------------------------------------------------
+Ran 77 tests in 8.912s
+
+OK

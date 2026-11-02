@@ -17,12 +17,12 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
 
-from multilinux import cli
-from multilinux.control import Control
-from multilinux.errors import MultilinuxError
-from multilinux.identity import binding_for
-from multilinux.on_demand import process_stamp
-from multilinux.views import ViewRegistry
+from unifier import cli
+from unifier.control import Control
+from unifier.errors import UnifierError
+from unifier.identity import binding_for
+from unifier.on_demand import process_stamp
+from unifier.views import ViewRegistry
 from test_env import service_in
 
 
@@ -32,7 +32,7 @@ def _crash_copy(root, source_uuid, target_uuid, phase, *, operation="copy",
 import os, sys
 sys.path.insert(0, {str(ROOT / 'src')!r})
 from pathlib import Path
-from multilinux.control import Control
+from unifier.control import Control
 control = Control(Path({str(root)!r}))
 def hook(point):
     if point == {phase!r}:
@@ -172,7 +172,7 @@ class Rejections(OperationFixture):
         read_only_path.mkdir()
         read_only = self.control.add_root(
             str(read_only_path), access_policy="read-only")
-        with self.assertRaisesRegex(MultilinuxError, "read-only"):
+        with self.assertRaisesRegex(UnifierError, "read-only"):
             self.control.copy_file(
                 self.source_root["root_uuid"], "a.txt",
                 read_only["root_uuid"], "b.txt")
@@ -185,7 +185,7 @@ class Rejections(OperationFixture):
         os.symlink(self.source / "a.txt", self.source / "link")
         os.link(self.source / "a.txt", self.source / "hard")
         for relative in ("dir", "link", "hard"):
-            with self.subTest(relative=relative), self.assertRaises(MultilinuxError):
+            with self.subTest(relative=relative), self.assertRaises(UnifierError):
                 self.control.copy_file(
                     self.source_root["root_uuid"], relative,
                     self.target_root["root_uuid"], relative + ".out")
@@ -193,15 +193,15 @@ class Rejections(OperationFixture):
         self.assertEqual(self.control.list_file_operations(), [])
 
     def test_unknown_target_policy_and_unregistered_roots_are_refused(self):
-        with self.assertRaises(MultilinuxError):
+        with self.assertRaises(UnifierError):
             self.control.copy_file(
                 str(uuid.uuid4()), "a.txt",
                 self.target_root["root_uuid"], "b.txt")
-        with self.assertRaises(MultilinuxError):
+        with self.assertRaises(UnifierError):
             self.control.copy_file(
                 self.source_root["root_uuid"], "a.txt",
                 str(uuid.uuid4()), "b.txt")
-        with self.assertRaises(MultilinuxError):
+        with self.assertRaises(UnifierError):
             self.control.copy_file(
                 self.source_root["root_uuid"], "../a.txt",
                 self.target_root["root_uuid"], "b.txt")
@@ -404,9 +404,9 @@ class SchemaAndFilesystemBoundaries(OperationFixture):
         payload = json.loads(original)
         payload["schema_version"] = 99
         journal.write_text(json.dumps(payload), encoding="utf-8")
-        with self.assertRaisesRegex(MultilinuxError, "not supported"):
+        with self.assertRaisesRegex(UnifierError, "not supported"):
             self.control.list_file_operations()
-        with self.assertRaisesRegex(MultilinuxError, "not supported"):
+        with self.assertRaisesRegex(UnifierError, "not supported"):
             self.control.recover_file_operations(record["operation_uuid"])
         self.assertEqual(self.control.operations.registry_collection.list(), [])
 
@@ -428,7 +428,7 @@ class SchemaAndFilesystemBoundaries(OperationFixture):
             control.operations.registry_collection.path.write_text(
                 json.dumps({"schema_version": 99, "records": []}),
                 encoding="utf-8")
-            with self.assertRaisesRegex(MultilinuxError, "not supported"):
+            with self.assertRaisesRegex(UnifierError, "not supported"):
                 control.recover_file_operations(
                     control.list_file_operations()[0]["operation_uuid"])
             self.assertEqual(journal.read_bytes(), before)
@@ -538,6 +538,6 @@ class FuseSourceRootRegistration(unittest.TestCase):
             view = self._view(root, service, mount)
             ViewRegistry(root).add(view)
             control = Control(root)
-            with self.assertRaisesRegex(MultilinuxError, "not a live FUSE mount"):
+            with self.assertRaisesRegex(UnifierError, "not a live FUSE mount"):
                 control.add_root(str(mount), source_view_uuid=view["view_uuid"])
             self.assertEqual(control.list_roots(), [])

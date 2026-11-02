@@ -15,9 +15,9 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
 
-from multilinux import cli
-from multilinux.errors import MultilinuxError
-from multilinux.service import EnvironmentService
+from unifier import cli
+from unifier.errors import UnifierError
+from unifier.service import EnvironmentService
 from test_env import CONFIG, LOCK, service_in
 
 
@@ -193,7 +193,7 @@ class ExplicitMigration(unittest.TestCase):
                 before = source.read_bytes()
                 events = list(runtime.events)
                 migration = _migration_service(root)
-                with self.assertRaises(MultilinuxError):
+                with self.assertRaises(UnifierError):
                     migration.migrate_environment("debian13")
                 self.assertEqual(source.read_bytes(), before)
                 self.assertEqual(_backups(migration.store), [])
@@ -221,7 +221,7 @@ class ExplicitMigration(unittest.TestCase):
                 cli.service_factory = original
             self.assertEqual(code, 1)
             self.assertEqual(stdout.getvalue(), "")
-            self.assertIn("ml:", stderr.getvalue())
+            self.assertIn("unifier:", stderr.getvalue())
             self.assertNotIn("Traceback", stderr.getvalue())
             self.assertEqual(source.read_bytes(), before)
             self.assertEqual(_backups(migration.store), [])
@@ -302,7 +302,7 @@ class ExplicitMigration(unittest.TestCase):
             source.write_text("{not json", encoding="utf-8")
             before = source.read_bytes()
             migration = _migration_service(root)
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 migration.migrate_environment("debian13")
             self.assertEqual(source.read_bytes(), before)
             self.assertEqual(_backups(migration.store), [])

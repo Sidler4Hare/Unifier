@@ -1,0 +1,20 @@
+{
+  "version": "0.0.1",
+  "release": "/home/omg/.local/share/unifier-code/releases/0.0.1-b463bddede2f",
+  "bundle_sha256": "b463bddede2f6f1b12d469369d74a1fb8eef9df752fd59fc3b6b6eb72b8e497c",
+  "backup": "/home/omg/文档/Unifier-backups/20261030-224546-before-v0.0.1-fixes/release-entrypoints-before.tar.gz",
+  "deployments": {
+    "freecad": {
+      "binding_preflight": "passed",
+      "both_entrypoints_version": "Unifier 0.0.1"
+    },
+    "wemeet": {
+      "binding_preflight": "passed",
+      "both_entrypoints_version": "Unifier 0.0.1"
+    }
+  },
+  "user_launcher_install_output": "rollback launcher: /home/omg/.local/bin/.unifier-gprm8yd4.rollback\ninstalled /home/omg/.local/bin/unifier -> /home/omg/.local/share/unifier-code/releases/0.0.1-b463bddede2f/bin/unifier\n",
+  "user_launcher_previous_target": "/home/omg/文档/多兼容linux机/bin/unifier",
+  "user_launcher_version": "Unifier 0.0.1",
+  "passed": true
+}

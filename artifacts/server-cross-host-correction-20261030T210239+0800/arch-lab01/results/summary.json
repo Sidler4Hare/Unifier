@@ -1,0 +1,332 @@
+{
+  "started_at": "2026-10-30T13:15:49.430527+00:00",
+  "hostname": "arch-lab01",
+  "policy_version": 2,
+  "commands": {
+    "matrix": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "compat",
+        "matrix"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "doctor-direct": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/lab.py",
+        "doctor",
+        "--output",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results/doctor.json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "refuse-init-arch": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "init",
+        "--target",
+        "arch",
+        "--yes"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "refuse-create-arch": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "create",
+        "arch",
+        "arch"
+      ],
+      "returncode": 2,
+      "expected": 1,
+      "matched_expected": false
+    },
+    "refuse-pull-arch": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/lab.py",
+        "pull",
+        "--target",
+        "arch"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "refuse-probe-arch": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/probe_headless.py",
+        "--target",
+        "arch",
+        "--output",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results/forbidden-headless.json"
+      ],
+      "returncode": 2,
+      "expected": 2,
+      "matched_expected": true
+    },
+    "policy-unit-tests": {
+      "argv": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "-q",
+        "test_compatibility",
+        "test_lab",
+        "test_cli_shortcuts.InitAndConfigure.test_same_family_selection_refuses_before_image_or_container_side_effects",
+        "test_cli_shortcuts.InitAndConfigure.test_interactive_selection_omits_host_family_and_keeps_legacy_data",
+        "test_cli_shortcuts.InitAndConfigure.test_start_cannot_acknowledge_an_already_running_same_family_environment"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "headless-default": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/probe_headless.py",
+        "--output",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results/headless.json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "positive-init": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "init",
+        "--network",
+        "none",
+        "--yes",
+        "--target",
+        "debian13",
+        "--target",
+        "fedora44"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-files": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "path",
+        "debian13",
+        "--files"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-start": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "start",
+        "debian13"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-write": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "debian13",
+        "--workdir",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results/positive-installation/containers/debian13/files",
+        "--",
+        "sh",
+        "-c",
+        "test \"$(cat host-marker.txt)\" = host && printf guest > guest-marker.txt"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-exit17": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "debian13",
+        "--workdir",
+        "/",
+        "--",
+        "sh",
+        "-c",
+        "exit 17"
+      ],
+      "returncode": 17,
+      "expected": 17,
+      "matched_expected": true
+    },
+    "fedora44-files": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "path",
+        "fedora44",
+        "--files"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "fedora44-start": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "start",
+        "fedora44"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "fedora44-write": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "fedora44",
+        "--workdir",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results/positive-installation/containers/fedora44/files",
+        "--",
+        "sh",
+        "-c",
+        "test \"$(cat host-marker.txt)\" = host && printf guest > guest-marker.txt"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "fedora44-exit17": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "fedora44",
+        "--workdir",
+        "/",
+        "--",
+        "sh",
+        "-c",
+        "exit 17"
+      ],
+      "returncode": 17,
+      "expected": 17,
+      "matched_expected": true
+    },
+    "debian13-cleanup-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "debian13"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "debian13-cleanup-remove": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "remove",
+        "debian13",
+        "--yes"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "fedora44-cleanup-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "fedora44"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "fedora44-cleanup-remove": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "remove",
+        "fedora44",
+        "--yes"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    }
+  },
+  "positive_cli": {
+    "debian13": {
+      "private_bind_write_verified": true
+    },
+    "fedora44": {
+      "private_bind_write_verified": true
+    }
+  },
+  "scope": "Live cross-family lifecycle and private files, same-family rejection before creation, policy regressions; not complete GUI/Agent/application acceptance",
+  "source_files_verified": 200,
+  "before": [
+    {
+      "id": "5e2d5d5b2b04a7e840755f747c96085ff8db11fd6b33584ef51c9e78e4e1871f",
+      "name": "ml-b22ecff5-archdemo-deb",
+      "status": "exited",
+      "started_at": "2026-10-29T08:26:36.98367951+08:00",
+      "finished_at": "2026-10-29T08:26:40.691012863+08:00"
+    }
+  ],
+  "allowed_targets": [
+    "debian13",
+    "fedora44"
+  ],
+  "blocked_targets": [
+    "arch"
+  ],
+  "same_family_rejection_without_registration": true,
+  "headless_passed": true,
+  "after": [
+    {
+      "id": "5e2d5d5b2b04a7e840755f747c96085ff8db11fd6b33584ef51c9e78e4e1871f",
+      "name": "ml-b22ecff5-archdemo-deb",
+      "status": "exited",
+      "started_at": "2026-10-29T08:26:36.98367951+08:00",
+      "finished_at": "2026-10-29T08:26:40.691012863+08:00"
+    }
+  ],
+  "existing_containers_preserved": true,
+  "remaining_task_mounts": [],
+  "passed_scope": false,
+  "completed_at": "2026-10-30T13:16:47.133435+00:00"
+}

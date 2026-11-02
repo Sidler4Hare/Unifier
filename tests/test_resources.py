@@ -11,8 +11,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-from multilinux import cli
-from multilinux.resources import (
+from unifier import cli
+from unifier.resources import (
     parse_kv_int,
     parse_pressure,
     parse_smaps_rollup,
@@ -184,7 +184,7 @@ class SampleContract(unittest.TestCase):
             self.assertTrue(result["ok"])
             self.assertEqual(int((cgroup / "memory.peak").read_text()), 0)
             _write(cgroup / "memory.peak", "1234\n")
-            with mock.patch("multilinux.resources.os.write", return_value=1):
+            with mock.patch("unifier.resources.os.write", return_value=1):
                 result = probe.reset_peak("demo")
             self.assertFalse(result["ok"])
             self.assertIn("did not decrease", result["error"])

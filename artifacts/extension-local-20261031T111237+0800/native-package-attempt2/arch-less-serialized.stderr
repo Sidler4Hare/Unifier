@@ -1,0 +1,2 @@
+arch: pacman -Syu --noconfirm --needed less
+arch: install completed txnfb49d6bd6198

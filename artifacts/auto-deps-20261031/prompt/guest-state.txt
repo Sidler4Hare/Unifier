@@ -1,0 +1,6 @@
+cowsay install ok installed
+sl install ok installed
+figlet install ok installed
+unifier-native-prompt install ok installed
+hello
+24 80

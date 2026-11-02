@@ -1,0 +1,78 @@
+[
+  {
+    "argv": [
+      "env",
+      "inspect",
+      "interrupt-debian"
+    ],
+    "code": 0,
+    "stdout": "{\n  \"schema_version\": 2,\n  \"id\": \"interrupt-debian\",\n  \"target\": \"debian13\",\n  \"distribution_id\": \"debian\",\n  \"version_track\": \"13\",\n  \"update_policy\": \"versioned-release\",\n  \"architecture\": \"amd64\",\n  \"base_image\": {\n    \"source\": \"docker.io/library/debian:13-slim\",\n    \"manifest_digest\": \"sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483\",\n    \"locked_reference\": \"docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483\",\n    \"image_version_label\": null\n  },\n  \"writable_revision\": \"d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b\",\n  \"content_revision\": 10,\n  \"runtime_state\": \"running\",\n  \"package_inventory_sha256\": \"978bb2ecbddbf431ea8e6cd15d8280cce312481d51278cf6a672a1d3139659ea\",\n  \"package_inventory_count\": 79,\n  \"package_inventory_path\": \".lab/state/environments/interrupt-debian.packages.txt\",\n  \"shared_mounts\": [],\n  \"desktop\": null,\n  \"created_at\": \"2026-11-01T10:12:44+08:00\",\n  \"updated_at\": \"2026-11-01T10:18:44+08:00\",\n  \"arch\": null,\n  \"runtime\": {\n    \"backend\": \"podman\",\n    \"container_name\": \"ml-26942dd5-interrupt-debian\",\n    \"container_id\": \"d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b\",\n    \"project\": \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/expansion-fix-20261101/environment\",\n    \"network\": \"pasta\",\n    \"share_label_policy\": \"preserve-host\",\n    \"selinux_label\": \"default\",\n    \"full_init\": false,\n    \"user_namespace\": \"keep-id\",\n    \"devices\": [],\n    \"ipc\": \"private\",\n    \"rootless\": true\n  },\n  \"observed\": {\n    \"os_release_id\": \"debian\",\n    \"os_release_version_id\": \"13\",\n    \"os_release_build_id\": null,\n    \"os_release_pretty_name\": \"Debian GNU/Linux 13 (trixie)\",\n    \"kernel\": \"7.2.11-200.fc44.x86_64\",\n    \"machine\": \"x86_64\"\n  },\n  \"system\": {\n    \"family\": \"debian\",\n    \"libc\": \"glibc\",\n    \"layout\": \"fhs\",\n    \"package_driver\": \"apt\",\n    \"package_format\": \"deb\",\n    \"runtime_backend\": \"podman-rootless\",\n    \"update_policy\": \"versioned-release\",\n    \"package_change\": \"in-place\",\n    \"base_image_change\": \"replace\",\n    \"contract_change\": \"replace\"\n  },\n  \"created_by_uid\": 1000,\n  \"created_by_gid\": 1000,\n  \"scope\": \"Ordinary application environment. Native package transactions are recorded separately. Host desktop sockets are not mounted.\",\n  \"environment_uuid\": \"9997bea3-892a-463e-b1ba-3effdbdb8dcb\",\n  \"generation\": 1,\n  \"compatibility_at_creation\": {\n    \"schema_version\": 1,\n    \"policy_version\": 2,\n    \"mode\": \"whitelist\",\n    \"host\": {\n      \"id\": \"fedora\",\n      \"version_id\": \"44\",\n      \"variant_id\": \"kde\",\n      \"id_like\": [],\n      \"family\": \"fedora\",\n      \"reference_host\": \"fedora\",\n      \"integration_profile\": \"fedora\",\n      \"package_driver\": \"dnf\",\n      \"base_package_driver\": \"dnf\",\n      \"package_format\": \"rpm\",\n      \"system\": \"Linux\",\n      \"machine\": \"x86_64\",\n      \"libc\": \"glibc\",\n      \"atomic\": false,\n      \"admitted\": true,\n      \"reasons\": [],\n      \"observation\": \"live-host\"\n    },\n    \"target\": \"debian13\",\n    \"container_family\": \"debian\",\n    \"container_contract\": {\n      \"family\": \"debian\",\n      \"libc\": \"glibc\",\n      \"layout\": \"fhs\",\n      \"package_driver\": \"apt\",\n      \"package_format\": \"deb\",\n      \"runtime_backend\": \"podman-rootless\",\n      \"update_policy\": \"versioned-release\"\n    },\n    \"allowed\": true,\n    \"relationship\": \"cross-family\",\n    \"reasons\": [],\n    \"execution_domain\": \"isolated-container\",\n    \"host_authority\": true,\n    \"shared_kernel\": true,\n    \"share_system_trees\": false,\n    \"share_package_databases\": false,\n    \"native_package_validation\": \"required-even-within-family\",\n    \"requirements\": [\n      \"rootless-podman\",\n      \"cgroup-v2\",\n      \"locked-linux-amd64-image\",\n      \"guest-identity-and-shared-kernel-check\",\n      \"host-security-policy\",\n      \"desktop-session-and-devices-if-requested\"\n    ],\n    \"validation_scope\": \"policy-only\"\n  },\n  \"package_inventory_status\": \"unknown\",\n  \"package_recovery_required\": true,\n  \"pending_package_transactions\": [\n    \"txnd5fe78e3d43d\"\n  ],\n  \"share_label_policy\": \"preserve-host\",\n  \"compatibility\": {\n    \"schema_version\": 1,\n    \"policy_version\": 2,\n    \"mode\": \"whitelist\",\n    \"host\": {\n      \"id\": \"fedora\",\n      \"version_id\": \"44\",\n      \"variant_id\": \"kde\",\n      \"id_like\": [],\n      \"family\": \"fedora\",\n      \"reference_host\": \"fedora\",\n      \"integration_profile\": \"fedora\",\n      \"package_driver\": \"dnf\",\n      \"base_package_driver\": \"dnf\",\n      \"package_format\": \"rpm\",\n      \"system\": \"Linux\",\n      \"machine\": \"x86_64\",\n      \"libc\": \"glibc\",\n      \"atomic\": false,\n      \"admitted\": true,\n      \"reasons\": [],\n      \"observation\": \"live-host\"\n    },\n    \"target\": \"debian13\",\n    \"container_family\": \"debian\",\n    \"container_contract\": {\n      \"family\": \"debian\",\n      \"libc\": \"glibc\",\n      \"layout\": \"fhs\",\n      \"package_driver\": \"apt\",\n      \"package_format\": \"deb\",\n      \"runtime_backend\": \"podman-rootless\",\n      \"update_policy\": \"versioned-release\"\n    },\n    \"allowed\": true,\n    \"relationship\": \"cross-family\",\n    \"reasons\": [],\n    \"execution_domain\": \"isolated-container\",\n    \"host_authority\": true,\n    \"shared_kernel\": true,\n    \"share_system_trees\": false,\n    \"share_package_databases\": false,\n    \"native_package_validation\": \"required-even-within-family\",\n    \"requirements\": [\n      \"rootless-podman\",\n      \"cgroup-v2\",\n      \"locked-linux-amd64-image\",\n      \"guest-identity-and-shared-kernel-check\",\n      \"host-security-policy\",\n      \"desktop-session-and-devices-if-requested\"\n    ],\n    \"validation_scope\": \"policy-only\"\n  },\n  \"resources\": {\n    \"status\": \"running\",\n    \"pid\": 956716,\n    \"conmon_pid\": 956713,\n    \"started_at\": \"2026-11-01T10:18:44.305630345+08:00\",\n    \"finished_at\": \"2026-11-01T10:17:36.730514215+08:00\",\n    \"oom_killed\": false,\n    \"exit_code\": 0\n  },\n  \"host_kernel\": \"7.2.11-200.fc44.x86_64\",\n  \"kernel_matches_current_host\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pkg",
+      "remove",
+      "interrupt-debian",
+      "unifier-interrupt-probe",
+      "--yes"
+    ],
+    "code": 1,
+    "stdout": "",
+    "stderr": "unifier: package state for interrupt-debian needs recovery; run 'unifier pkg recover interrupt-debian' before another package change\n"
+  },
+  {
+    "argv": [
+      "pkg",
+      "recover",
+      "interrupt-debian"
+    ],
+    "code": 1,
+    "stdout": "",
+    "stderr": "unifier: package execution cleanup is unverified; explicitly stop this environment before package recovery\n"
+  },
+  {
+    "argv": [
+      "env",
+      "stop",
+      "interrupt-debian"
+    ],
+    "code": 0,
+    "stdout": "stopped interrupt-debian (stopped)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "env",
+      "start",
+      "interrupt-debian"
+    ],
+    "code": 0,
+    "stdout": "started interrupt-debian (running)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "env",
+      "run",
+      "interrupt-debian",
+      "--",
+      "/bin/sh",
+      "-c",
+      "sed -i '/sleep 60/d' /var/lib/dpkg/info/unifier-interrupt-probe.postinst; dpkg --configure -a"
+    ],
+    "code": 0,
+    "stdout": "Setting up unifier-interrupt-probe (6.0) ...\nCRASH_READY\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pkg",
+      "recover",
+      "interrupt-debian"
+    ],
+    "code": 1,
+    "stdout": "",
+    "stderr": "unifier: package execution cleanup is unverified; explicitly stop this environment before package recovery\n"
+  }
+]

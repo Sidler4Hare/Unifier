@@ -1,0 +1,105 @@
+                             Class      App      Lib Possible Culprit Flags
+                resip::Connection      696      696 
+                      resip::Data       36       36 
+                 resip::DnsResult     1080     1080 
+                   resip::Headers        1        1 
+          resip::MsgHeaderScanner       40       40 
+                resip::SipMessage     5224     5224 
+         resip::TransportSelector      896      896 
+                     resip::Tuple      128      128 
+              resip::UdpTransport     1144     1144 
+          resip::GenericIPAddress       28       28 
+
+zoom started.
+socket file dir: $HOME/.config/zoom 1
+socket file path: $HOME/.config/zoom/qtsingleapp-zoom-3e8
+lock file path: $HOME/.config/zoom/qtsingleapp-zoom-3e8-lockfile
+zoom highDpiScaleFactorRoundingPolicy is 5--devicePixelRatio is 1.250000
+loadZoomWebviewHostProcess newPath is /opt/zoom/ZoomWebviewHost
+loadZoomWebviewHostProcess libpath is /opt/zoom/Qt/lib:/opt/zoom/cef:/opt/zoom,webview channelname is webview:f1bcc951-b4b7-4cb1-b4f0-744533adf52c
+Start subprocess: /opt/zoom/ZoomWebviewHost sucessfully,  process pid: 973 
+[05:04:53.820][973:973]ZoomCollabHost started,isSupportCef=1
+Received webviewipcchannelname: webview:f1bcc951-b4b7-4cb1-b4f0-744533adf52c
+CCefManager::initializeCef ExeDir is /opt/zoom
+[05:04:53.836][973:973]CefInitialize init --
+Interface: ipv4 wlp0s20f3, IP Address: 172.16.68.14
+[05:04:54.60][1:1]ZoomCollabHost started,isSupportCef=1
+[05:04:54.61][997:997]ZoomCollabHost started,isSupportCef=1
+MESA: error: Failed to query drm device.
+glx: failed to create dri3 screen
+failed to load driver: iris
+[05:04:54.562][1027:1027]ZoomCollabHost started,isSupportCef=1
+[webviewClientIpcChannel:onChannelConnected channel=webview:f1bcc951-b4b7-4cb1-b4f0-744533adf52c
+05:04:54.602][973:1061]UnifyWebViewIpcServer:onChannelConnected channel=webview:f1bcc951-b4b7-4cb1-b4f0-744533adf52c
+MESA: error: Failed to query drm device.
+glx: failed to create dri3 screen
+failed to load driver: iris
+MESA: error: Failed to query drm device.
+MESA: error: Failed to query drm device.
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+MESA: error: Failed to query drm device.
+glx: failed to create dri3 screen
+failed to load driver: iris
+getServiceHub
+Linux Client Version is 7.2.1 (5760)
+QSG_RENDER_LOOP is 
+XDG_CURRENT_DESKTOP = ;  DESKTOP_SESSION = ; XDG_SESSION_TYPE = wayland
+[xdg-desktop-portal info]:
+   xdg-desktop-portal: xdg-desktop-portal 1.22.1
+   can not find 'xdg-desktop-portal-gnome' command
+   can not find 'xdg-desktop-portal-kde' command
+   find 'xdg-desktop-portal-gtk'
+   can not find 'xdg-desktop-portal-hyprland' command
+   can not find 'xdg-desktop-portal-lxqt' command
+   can not find 'xdg-desktop-portal-wlr' command
+   can not find 'xdg-desktop-portal-xapp' command
+[portal info] :
+   gtk.portal
+[pipewire info] :
+   pipewire
+   Compiled with libpipewire 1.6.10
+   Linked with libpipewire 1.6.10
+
+Graphics Card Info:: 00:02.0 VGA compatible controller: Intel Corporation TigerLake-LP GT2 [Iris Xe Graphics] (rev 01)
+Zoom package arch is 64bit, runing OS arch is x86_64, snap package 0
+platformName: xcb isNativeWayland: 0
+ZoomWebviewHost finally lanuch state is true

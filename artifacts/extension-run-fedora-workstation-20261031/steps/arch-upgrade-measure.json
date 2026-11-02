@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "measured": false,
+  "download_bytes": null,
+  "package_lines": 18,
+  "allowed": false,
+  "threshold_bytes": 83886080,
+  "stderr_tail": []
+}

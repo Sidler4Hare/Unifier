@@ -1,0 +1,238 @@
+[
+  {
+    "name": "debian13-create",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "create",
+      "--target",
+      "debian13",
+      "--id",
+      "debian13",
+      "--network",
+      "pasta",
+      "--share",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+      "--share",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files",
+      "--share-label",
+      "preserve-host",
+      "--desktop",
+      "--userns",
+      "keep-id"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.302,
+    "ok": true
+  },
+  {
+    "name": "debian13-adopt",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "adopt",
+      "--target",
+      "debian13",
+      "--root",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+      "--environment",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.556,
+    "ok": true
+  },
+  {
+    "name": "arch-create",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "create",
+      "--target",
+      "arch",
+      "--id",
+      "arch",
+      "--network",
+      "pasta",
+      "--share",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+      "--share",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files",
+      "--share-label",
+      "preserve-host",
+      "--desktop",
+      "--userns",
+      "keep-id"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.215,
+    "ok": true
+  },
+  {
+    "name": "arch-adopt",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "adopt",
+      "--target",
+      "arch",
+      "--root",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+      "--environment",
+      "arch",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.516,
+    "ok": true
+  },
+  {
+    "name": "shared-root",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "root",
+      "add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.21,
+    "ok": true
+  },
+  {
+    "name": "debian13-project",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "add",
+      "--root",
+      "9e5dd1bc-a203-413a-ba53-53879d06d602",
+      "--environment",
+      "debian13",
+      "--alias",
+      "shared-debian13"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.519,
+    "ok": true
+  },
+  {
+    "name": "debian13-start",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "start",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.343,
+    "ok": true
+  },
+  {
+    "name": "debian13-identity",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "sh",
+      "-c",
+      "printf \"uid=\"; id -u; printf \"gid=\"; id -g; printf \"home=%s\\n\" \"$HOME\"; printf \"mnt=\"; readlink /proc/self/ns/mnt; printf \"pidns=\"; readlink /proc/self/ns/pid; cat /etc/os-release"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.362,
+    "ok": true
+  },
+  {
+    "name": "arch-project",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "add",
+      "--root",
+      "9e5dd1bc-a203-413a-ba53-53879d06d602",
+      "--environment",
+      "arch",
+      "--alias",
+      "shared-arch"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 1,
+    "expected_exit": 0,
+    "seconds": 0.53,
+    "ok": false
+  },
+  {
+    "name": "cleanup-stop-debian13",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "stop",
+      "debian13"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": null,
+    "seconds": 1.051,
+    "ok": true
+  },
+  {
+    "name": "cleanup-remove-debian13",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "remove",
+      "debian13",
+      "--yes"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.949,
+    "ok": true
+  },
+  {
+    "name": "cleanup-stop-arch",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "stop",
+      "arch"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": null,
+    "seconds": 0.666,
+    "ok": true
+  },
+  {
+    "name": "cleanup-remove-arch",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "remove",
+      "arch",
+      "--yes"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.718,
+    "ok": true
+  }
+]

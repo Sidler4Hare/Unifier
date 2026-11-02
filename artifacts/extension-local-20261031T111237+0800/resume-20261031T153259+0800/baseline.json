@@ -1,0 +1,1779 @@
+{
+  "recorded_at": "20261031T153259+0800",
+  "source_sha256": {
+    "src/unifier/__init__.py": "e4903e829e01305fb4eb3d396778ebf13581b6e717007bf2ff6498df8e6aeb74",
+    "src/unifier/errors.py": "99359638f45cceca7135627f73b1a974e9ab94f5365c1ff116de5b6ff6015f4c",
+    "src/unifier/__main__.py": "345f257f19d37df49b9f11da876b949d57b390e73e213c54b7dc612fafe74795",
+    "src/unifier/project.py": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+    "src/unifier/store.py": "b3dc6486f4fa02325e32a926b4ec91a35299bd521934dfb6e22a21b9334c7418",
+    "src/unifier/resources.py": "b4eebe0a022ef36b31274c1dc125752869c7692b117e22ae2741980278921c37",
+    "src/unifier/catalog.py": "24515c3b29eb66f64272f74307bff0bf0f1f1f65c8fadb51ca7635c38ef9d63f",
+    "src/unifier/packages.py": "969af42e0a91d8c6255db5b42daad920fdac2b1fa06b3fce65a86fe1baf45852",
+    "src/unifier/routing.py": "e6f6d19655327065f95f4959f1d3bfd31c4118ea410762f4bf6de4362c33e999",
+    "src/unifier/screencast.py": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+    "src/unifier/identity.py": "8a40db1943f7dc2330ec07b12475fe9da066378628f6da1c8d61be2d1684337b",
+    "src/unifier/share_label.py": "27121400e19b7e3611557e09abf44b4dee0dd3a33ff908402f1abf9a8720dc29",
+    "src/unifier/json_records.py": "704042860044c1f1f854b851990aa9a3b71b2851f28bb2b9a0b6f2202ecb33a1",
+    "src/unifier/projects.py": "2260721149600183eb6c42286ba191eb60b9d869a094c72c13516af196699170",
+    "src/unifier/handlers.py": "8ebd1ae4bd7f9a5dbaa7688325144caf081f3b43195823c3720d0202f4c6b873",
+    "src/unifier/view_journal.py": "9820024bc09bd0c0f8ad3ef7755d8310b220ca15f4e5062e179bf172bf40e344",
+    "src/unifier/view_broker.py": "19702664adc70e1c3fd49f35a84f45c75cf759a6e952b5b918d0294284bf6219",
+    "src/unifier/views.py": "80770656f4c7cae98b31fcc61874acf74ac6cb27c087adda327f8678551609cc",
+    "src/unifier/registry.py": "4602c2ef6c9acea5d8aaed7cac22f7c1504f6d6d37a455f6b517f528d7602e82",
+    "src/unifier/control.py": "b7f8b23a7a66dac1e6ae07e5b9dcc116e8819287317c84c8191ff723e467e4c2",
+    "src/unifier/lease.py": "92f5902ed59a6ce69ff003ed784b2a5d865134c9ca746e35f0468aafb4320dc5",
+    "src/unifier/file_routes.py": "8ed8e7b5080da145189842128dcd6a2043518e923815239e4408c485dddb18a8",
+    "src/unifier/desktop.py": "6a30d002ef29c4ec3c9ffeeb2ee4cf8fd623c53a6abfc3884d1123e0e825da02",
+    "src/unifier/runtime.py": "f1390cbb26545f78d94be5c8fd1721b579647b8a15eba1177f3dab6da72bfd0a",
+    "src/unifier/service.py": "2a392887177bc5134d357b50fbdf37d82ba5e43f7ea1fceb3bfd921dda531034",
+    "src/unifier/cli.py": "9bf5033e94d13573b6fcb9ac1c897138a07c472a6124566fb5d42a3fd7494fbd",
+    "src/unifier/on_demand.py": "c96254e90a072b7873cc12c359d1f12d6fe29756534ded1fa1489adcf87fa738",
+    "src/unifier/desktop_integrations.py": "16b02877697f9b94b03e1949b38b57740482b22d727fab9b3af7c376b3c0aba6",
+    "src/unifier/project_sessions.py": "ce456daeb32680fcbbdd543395a885841ed69cce75ae6eef1677e0c4fc5b25a8",
+    "src/unifier/view_backend_legacy.py": "9b4245280119beac79eafaf5167cc2382d636d198f41bb28ca1ee3d051fa5e85",
+    "src/unifier/fuse_view_legacy.py": "d28b63b3f1abc0e36f84ca0eca592c5406928a3503e58e122376dc794225287e",
+    "src/unifier/view_backend.py": "20302b58a73d207822ff356a07243036cd2e7a2801aea462e73f4d0552d17bc4",
+    "src/unifier/root_identity.py": "58da4de1dc47a01ef017c7234a8878358f8f1d6af628df4f375755dede247dbf",
+    "src/unifier/compatibility.py": "ab61d7065b5cefcf155a5e51222f78e2d236a8128377ab004a9bed1b1a15cf30",
+    "src/unifier/install.py": "44b5da9de16fba961db1d73628aba3d8fcf8c17bfbeb4b84eee011fd71531cdd",
+    "src/unifier/i18n.py": "5800edfcef0dcc4d8dbe939d7d716c3cc163e831b25fff7eb926a4f9260a2e4a",
+    "src/unifier/guest_paths.py": "0c0db0078bde92277aa4923e1e780b9e52a69c5b34d8895532f3bfada623a3f2",
+    "src/unifier/install_state.py": "d6796640e867ede10c6e395c502325ad6d64bebdee11a59d04d2e07ebb6a0fe0",
+    "src/unifier/shortcuts.py": "e9fdf8a165cbad0a97298767280d822dac6949e96df54696d3d579bcbb6236f1",
+    "src/unifier/atomic_io.py": "6fbf5531b14bffbbc98c5c27b12a2843a7fb2278f41c8f81e1273460bef680b2",
+    "src/unifier/app_entries.py": "496e2f35c453e8d4d3437577e6cc5f543a3e41e3bcb0f3ab5c3e1fd994b1f5e6",
+    "src/unifier/projection.py": "724a0e6981c14dda97176e9bf1456797b7b1f2feae070b5f97afa1a8b99bc256",
+    "src/unifier/fuse_view.py": "b9a38f19e576c0a6be0e58f240da5523c6e49699560dd46d364b15dbc2be4180",
+    "src/unifier/file_operation_journal.py": "181f751074ec7d70095556be62d54c12b5a679a74b8cd39cd9091c2756f7a090",
+    "src/unifier/file_operation_publish.py": "84f96c3138859c330fb7f8bd1584144b2c27491437b9821ff125b20d47ca9774",
+    "src/unifier/file_operations.py": "5af75437b5aceab78492cc0dfe8079f06c7f1804064a2c587052570b756e78f3",
+    "src/unifier/file_operation_cleanup.py": "f02bfee2a7fe807a93ce706aaaf8eb6c8b79817e9f92fa020e54363818fdf36b"
+  },
+  "index_sha256": "cd64beb829e5a8730e6854b0d3dbb83dac4306e02701057a76aa978165100245",
+  "containers": [
+    {
+      "Id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "Created": "2026-10-24T11:16:00.693509117+08:00",
+      "Path": "/run/podman-init",
+      "Args": [
+        "--",
+        "/usr/bin/sleep",
+        "infinity"
+      ],
+      "State": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-31T10:17:44.182630074+08:00",
+        "FinishedAt": "2026-10-31T10:18:22.918733124+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "Image": "e6edccdadc8fd38b9b984d7da2667c4faf4e04878f6b1f4f3271536c968de080",
+      "ImageDigest": "sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+      "ImageName": "localhost/multilinux/installstatus-arch@sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+      "Rootfs": "",
+      "Pod": "",
+      "ResolvConfPath": "",
+      "HostnamePath": "/run/user/1000/containers/overlay-containers/37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5/userdata/hostname",
+      "HostsPath": "/run/user/1000/containers/overlay-containers/37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5/userdata/hosts",
+      "StaticDir": "/home/omg/.local/share/containers/storage/overlay-containers/37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5/userdata",
+      "OCIConfigPath": "/home/omg/.local/share/containers/storage/overlay-containers/37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5/userdata/config.json",
+      "OCIRuntime": "crun",
+      "ConmonPidFile": "/run/user/1000/containers/overlay-containers/37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5/userdata/conmon.pid",
+      "PidFile": "/run/user/1000/containers/overlay-containers/37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5/userdata/pidfile",
+      "Name": "ml-53c5c8a5-freecad-arch",
+      "RestartCount": 0,
+      "Driver": "overlay",
+      "MountLabel": "system_u:object_r:container_file_t:s0:c1022,c1023",
+      "ProcessLabel": "",
+      "AppArmorProfile": "",
+      "EffectiveCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "BoundingCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "ExecIDs": [],
+      "GraphDriver": {
+        "Name": "overlay",
+        "Data": {
+          "LowerDir": "/home/omg/.local/share/containers/storage/overlay/c89c9180a270009e21e84f9e34190d04b4cdb8f2fd0aebdd992847dec0a0e149/diff:/home/omg/.local/share/containers/storage/overlay/c3e28a894cf440b81481dcfeca199e6154ff8fdced24dcddd8c40cd61333c9da/diff:/home/omg/.local/share/containers/storage/overlay/26173f0e358e5782c3cbb3b728523b8a80369e85a41df29f9dfe4543def54d33/diff:/home/omg/.local/share/containers/storage/overlay/8beafa1582622f514d7271539dc9037c6ad015404f7ba4bd2c6d157f6ecb7b26/diff",
+          "UpperDir": "/home/omg/.local/share/containers/storage/overlay/b305af1e6f0a2be18542c3695e18c3a4c18a94a4d855b0527a68e60e2eed97c4/diff",
+          "WorkDir": "/home/omg/.local/share/containers/storage/overlay/b305af1e6f0a2be18542c3695e18c3a4c18a94a4d855b0527a68e60e2eed97c4/work"
+        }
+      },
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/pulse/native",
+          "Destination": "/run/user/1000/pulse/native",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/pipewire-0",
+          "Destination": "/run/user/1000/pipewire-0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/Unifier-CAD",
+          "Destination": "/home/omg/文档/Unifier-CAD",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/wayland-0",
+          "Destination": "/run/user/1000/wayland-0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/tmp/.X11-unix/X0",
+          "Destination": "/tmp/.X11-unix/X0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/xauth_NCgtEd",
+          "Destination": "/tmp/ml-xauthority",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "Dependencies": [],
+      "NetworkSettings": {
+        "EndpointID": "",
+        "Gateway": "",
+        "IPAddress": "",
+        "IPPrefixLen": 0,
+        "IPv6Gateway": "",
+        "GlobalIPv6Address": "",
+        "GlobalIPv6PrefixLen": 0,
+        "MacAddress": "",
+        "Bridge": "",
+        "SandboxID": "",
+        "HairpinMode": false,
+        "LinkLocalIPv6Address": "",
+        "LinkLocalIPv6PrefixLen": 0,
+        "Ports": {},
+        "SandboxKey": "",
+        "Networks": {
+          "none": {
+            "EndpointID": "",
+            "Gateway": "",
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "MacAddress": "",
+            "NetworkID": "none",
+            "DriverOpts": null,
+            "IPAMConfig": null,
+            "Links": null
+          }
+        }
+      },
+      "Namespace": "",
+      "IsInfra": false,
+      "IsService": false,
+      "KubeExitCodePropagation": "invalid",
+      "lockNumber": 26,
+      "Config": {
+        "Hostname": "37daa7f7ff06",
+        "Domainname": "",
+        "User": "0",
+        "AttachStdin": false,
+        "AttachStdout": false,
+        "AttachStderr": false,
+        "Tty": false,
+        "OpenStdin": false,
+        "StdinOnce": false,
+        "Env": [
+          "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "container=podman",
+          "LANG=C.UTF-8",
+          "HOME=/root",
+          "HOSTNAME=37daa7f7ff06"
+        ],
+        "Cmd": [
+          "infinity"
+        ],
+        "Image": "localhost/multilinux/installstatus-arch@sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+        "Volumes": null,
+        "WorkingDir": "/",
+        "Entrypoint": [
+          "/usr/bin/sleep"
+        ],
+        "OnBuild": null,
+        "Labels": {
+          "multilinux.env": "freecad-arch",
+          "multilinux.project": "/home/omg/.local/share/multilinux/apps/freecad",
+          "multilinux.role": "environment",
+          "org.opencontainers.image.authors": "Santiago Torres-Arias <santiago@archlinux.org> (@SantiagoTorres), Christian Rebischke <Chris.Rebischke@archlinux.org> (@shibumi), Justin Kromlinger <hashworks@archlinux.org> (@hashworks)",
+          "org.opencontainers.image.created": "2026-10-11T00:09:32+00:00",
+          "org.opencontainers.image.description": "Official containerd image of Arch Linux, a simple, lightweight Linux distribution aimed for flexibility.",
+          "org.opencontainers.image.documentation": "https://wiki.archlinux.org/title/Docker#Arch_Linux",
+          "org.opencontainers.image.licenses": "GPL-3.0-or-later",
+          "org.opencontainers.image.revision": "34b87485162b028c8d957bdcd2674359d883cd21",
+          "org.opencontainers.image.source": "https://gitlab.archlinux.org/archlinux/archlinux-docker",
+          "org.opencontainers.image.title": "Arch Linux base Image",
+          "org.opencontainers.image.url": "https://gitlab.archlinux.org/archlinux/archlinux-docker/-/blob/master/README.md",
+          "org.opencontainers.image.version": "20261011.0.609700"
+        },
+        "Annotations": {
+          "io.container.manager": "libpod",
+          "io.podman.annotations.init": "TRUE",
+          "io.podman.annotations.label": "disable",
+          "io.podman.annotations.userns": "keep-id",
+          "org.opencontainers.image.stopSignal": "15",
+          "org.systemd.property.KillSignal": "15",
+          "org.systemd.property.TimeoutStopUSec": "uint64 8000000"
+        },
+        "StopSignal": "SIGTERM",
+        "HealthcheckOnFailureAction": "none",
+        "HealthLogDestination": "local",
+        "HealthcheckMaxLogCount": 5,
+        "HealthcheckMaxLogSize": 500,
+        "CreateCommand": [
+          "podman",
+          "create",
+          "--name",
+          "ml-53c5c8a5-freecad-arch",
+          "--label",
+          "multilinux.project=/home/omg/.local/share/multilinux/apps/freecad",
+          "--label",
+          "multilinux.env=freecad-arch",
+          "--label",
+          "multilinux.role=environment",
+          "--pull=never",
+          "--network=none",
+          "--http-proxy=false",
+          "--restart=no",
+          "--init",
+          "--stop-timeout=8",
+          "--entrypoint",
+          "/usr/bin/sleep",
+          "--ipc=host",
+          "--userns=keep-id",
+          "--user",
+          "0",
+          "--passwd-entry",
+          "$USERNAME:*:$UID:$GID:$NAME:/home/multilinux-$UID:/bin/sh",
+          "--device",
+          "/dev/dri/card1:/dev/dri/card1:rw",
+          "--device",
+          "/dev/dri/renderD128:/dev/dri/renderD128:rw",
+          "--volume",
+          "/home/omg/文档/Unifier-CAD:/home/omg/文档/Unifier-CAD",
+          "--volume",
+          "/run/user/1000/wayland-0:/run/user/1000/wayland-0",
+          "--volume",
+          "/tmp/.X11-unix/X0:/tmp/.X11-unix/X0",
+          "--volume",
+          "/run/user/1000/xauth_NCgtEd:/tmp/ml-xauthority",
+          "--volume",
+          "/run/user/1000/pulse/native:/run/user/1000/pulse/native",
+          "--volume",
+          "/run/user/1000/pipewire-0:/run/user/1000/pipewire-0",
+          "--security-opt",
+          "label=disable",
+          "localhost/multilinux/installstatus-arch@sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+          "infinity"
+        ],
+        "Umask": "0022",
+        "Timeout": 0,
+        "StopTimeout": 8,
+        "Passwd": true,
+        "sdNotifyMode": "container"
+      },
+      "HostConfig": {
+        "Binds": [
+          "/run/user/1000/pulse/native:/run/user/1000/pulse/native:rprivate,nosuid,nodev,rbind",
+          "/run/user/1000/pipewire-0:/run/user/1000/pipewire-0:rprivate,nosuid,nodev,rbind",
+          "/home/omg/文档/Unifier-CAD:/home/omg/文档/Unifier-CAD:rprivate,rbind",
+          "/run/user/1000/wayland-0:/run/user/1000/wayland-0:rprivate,nosuid,nodev,rbind",
+          "/tmp/.X11-unix/X0:/tmp/.X11-unix/X0:rprivate,nosuid,nodev,rbind",
+          "/run/user/1000/xauth_NCgtEd:/tmp/ml-xauthority:rprivate,nosuid,nodev,rbind"
+        ],
+        "CgroupManager": "systemd",
+        "CgroupMode": "private",
+        "ContainerIDFile": "",
+        "LogConfig": {
+          "Type": "journald",
+          "Config": null,
+          "Path": "",
+          "Tag": "",
+          "Size": "-1B"
+        },
+        "NetworkMode": "none",
+        "PortBindings": {},
+        "RestartPolicy": {
+          "Name": "no",
+          "MaximumRetryCount": 0
+        },
+        "AutoRemove": false,
+        "AutoRemoveImage": false,
+        "Annotations": {
+          "io.container.manager": "libpod",
+          "io.podman.annotations.init": "TRUE",
+          "io.podman.annotations.label": "disable",
+          "io.podman.annotations.userns": "keep-id",
+          "org.opencontainers.image.stopSignal": "15",
+          "org.systemd.property.KillSignal": "15",
+          "org.systemd.property.TimeoutStopUSec": "uint64 8000000"
+        },
+        "VolumeDriver": "",
+        "VolumesFrom": null,
+        "CapAdd": [],
+        "CapDrop": [],
+        "Dns": [],
+        "DnsOptions": [],
+        "DnsSearch": [],
+        "ExtraHosts": [],
+        "HostsFile": "",
+        "GroupAdd": [],
+        "IpcMode": "host",
+        "Cgroup": "",
+        "Cgroups": "default",
+        "Links": null,
+        "OomScoreAdj": 0,
+        "PidMode": "private",
+        "Privileged": false,
+        "PublishAllPorts": false,
+        "ReadonlyRootfs": false,
+        "SecurityOpt": [
+          "label=disable"
+        ],
+        "Tmpfs": {},
+        "UTSMode": "private",
+        "UsernsMode": "private",
+        "IDMappings": {
+          "UidMap": [
+            "0:1:1000",
+            "1000:0:1",
+            "1001:1001:64536"
+          ],
+          "GidMap": [
+            "0:1:1000",
+            "1000:0:1",
+            "1001:1001:64536"
+          ]
+        },
+        "ShmSize": 65536000,
+        "Runtime": "oci",
+        "ConsoleSize": [
+          0,
+          0
+        ],
+        "Isolation": "",
+        "CpuShares": 0,
+        "Memory": 0,
+        "NanoCpus": 0,
+        "CgroupParent": "user.slice",
+        "BlkioWeight": 0,
+        "BlkioWeightDevice": null,
+        "BlkioDeviceReadBps": null,
+        "BlkioDeviceWriteBps": null,
+        "BlkioDeviceReadIOps": null,
+        "BlkioDeviceWriteIOps": null,
+        "CpuPeriod": 0,
+        "CpuQuota": 0,
+        "CpuRealtimePeriod": 0,
+        "CpuRealtimeRuntime": 0,
+        "CpusetCpus": "",
+        "CpusetMems": "",
+        "Devices": [],
+        "DiskQuota": 0,
+        "KernelMemory": 0,
+        "MemoryReservation": 0,
+        "MemorySwap": 0,
+        "MemorySwappiness": 0,
+        "OomKillDisable": false,
+        "Init": true,
+        "PidsLimit": 2048,
+        "Ulimits": [
+          {
+            "Name": "RLIMIT_NOFILE",
+            "Soft": 524288,
+            "Hard": 524288
+          },
+          {
+            "Name": "RLIMIT_NPROC",
+            "Soft": 30211,
+            "Hard": 30211
+          }
+        ],
+        "CpuCount": 0,
+        "CpuPercent": 0,
+        "IOMaximumIOps": 0,
+        "IOMaximumBandwidth": 0,
+        "CgroupConf": null
+      },
+      "UseImageHosts": false,
+      "UseImageHostname": false
+    },
+    {
+      "Id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "Created": "2026-10-27T13:48:42.30714529+08:00",
+      "Path": "/run/podman-init",
+      "Args": [
+        "--",
+        "/usr/bin/sleep",
+        "infinity"
+      ],
+      "State": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-28T20:47:17.749622632+08:00",
+        "FinishedAt": "2026-10-28T20:47:51.415982474+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "Image": "789bf6e9461fefef84e8dec9e2d27623ed8100e51d31f99fe313461e50d91651",
+      "ImageDigest": "sha256:4abbc8621397cdaf0ad326970d0cba5777dfd60c315cc5ddfb050cd8bcfbd8e1",
+      "ImageName": "localhost/unifier/wemeet-current@sha256:4abbc8621397cdaf0ad326970d0cba5777dfd60c315cc5ddfb050cd8bcfbd8e1",
+      "Rootfs": "",
+      "Pod": "",
+      "ResolvConfPath": "/run/user/1000/containers/overlay-containers/b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb/userdata/resolv.conf",
+      "HostnamePath": "/run/user/1000/containers/overlay-containers/b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb/userdata/hostname",
+      "HostsPath": "/run/user/1000/containers/overlay-containers/b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb/userdata/hosts",
+      "StaticDir": "/home/omg/.local/share/containers/storage/overlay-containers/b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb/userdata",
+      "OCIConfigPath": "/home/omg/.local/share/containers/storage/overlay-containers/b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb/userdata/config.json",
+      "OCIRuntime": "crun",
+      "ConmonPidFile": "/run/user/1000/containers/overlay-containers/b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb/userdata/conmon.pid",
+      "PidFile": "/run/user/1000/containers/overlay-containers/b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb/userdata/pidfile",
+      "Name": "ml-6b061a2f-meeting",
+      "RestartCount": 0,
+      "Driver": "overlay",
+      "MountLabel": "system_u:object_r:container_file_t:s0:c1022,c1023",
+      "ProcessLabel": "",
+      "AppArmorProfile": "",
+      "EffectiveCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "BoundingCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "ExecIDs": [],
+      "GraphDriver": {
+        "Name": "overlay",
+        "Data": {
+          "LowerDir": "/home/omg/.local/share/containers/storage/overlay/f2dc74d0b22454b34b3c0f298a84eeac231fce67097f8495ccccab8b8246f2f2/diff:/home/omg/.local/share/containers/storage/overlay/b5465e6276c5d0e980a05928fc5bbb0d2ab6daf38bbe225c2e94083b84833d70/diff:/home/omg/.local/share/containers/storage/overlay/327a110afe5089cb9643dadfd7236bf8fe4be6737bb2fa2646a663d9666d1412/diff:/home/omg/.local/share/containers/storage/overlay/15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62/diff",
+          "UpperDir": "/home/omg/.local/share/containers/storage/overlay/74da6538922fb9616648cf33b9a0ce2c3f3d417607765df00c7f48b53b7169b7/diff",
+          "WorkDir": "/home/omg/.local/share/containers/storage/overlay/74da6538922fb9616648cf33b9a0ce2c3f3d417607765df00c7f48b53b7169b7/work"
+        }
+      },
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/omg/.local/share/multilinux/documents/wemeet",
+          "Destination": "/home/omg/.local/share/multilinux/documents/wemeet",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/wayland-0",
+          "Destination": "/run/user/1000/wayland-0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/tmp/.X11-unix/X0",
+          "Destination": "/tmp/.X11-unix/X0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/pulse/native",
+          "Destination": "/run/user/1000/pulse/native",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/pipewire-0",
+          "Destination": "/run/user/1000/pipewire-0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/omg/.local/share/multilinux/apps/wemeet/.lab/desktop/meeting",
+          "Destination": "/run/multilinux-portal",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "Dependencies": [],
+      "NetworkSettings": {
+        "EndpointID": "",
+        "Gateway": "",
+        "IPAddress": "",
+        "IPPrefixLen": 0,
+        "IPv6Gateway": "",
+        "GlobalIPv6Address": "",
+        "GlobalIPv6PrefixLen": 0,
+        "MacAddress": "",
+        "Bridge": "",
+        "SandboxID": "",
+        "HairpinMode": false,
+        "LinkLocalIPv6Address": "",
+        "LinkLocalIPv6PrefixLen": 0,
+        "Ports": {},
+        "SandboxKey": "",
+        "Networks": {
+          "pasta": {
+            "EndpointID": "",
+            "Gateway": "",
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "MacAddress": "",
+            "NetworkID": "pasta",
+            "DriverOpts": null,
+            "IPAMConfig": null,
+            "Links": null
+          }
+        }
+      },
+      "Namespace": "",
+      "IsInfra": false,
+      "IsService": false,
+      "KubeExitCodePropagation": "invalid",
+      "lockNumber": 0,
+      "Config": {
+        "Hostname": "b9dd15c5fccf",
+        "Domainname": "",
+        "User": "0",
+        "AttachStdin": false,
+        "AttachStdout": false,
+        "AttachStderr": false,
+        "Tty": false,
+        "OpenStdin": false,
+        "StdinOnce": false,
+        "Env": [
+          "container=podman",
+          "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "HOME=/root",
+          "HOSTNAME=b9dd15c5fccf"
+        ],
+        "Cmd": [
+          "infinity"
+        ],
+        "Image": "localhost/unifier/wemeet-current@sha256:4abbc8621397cdaf0ad326970d0cba5777dfd60c315cc5ddfb050cd8bcfbd8e1",
+        "Volumes": null,
+        "WorkingDir": "/",
+        "Entrypoint": [
+          "/usr/bin/sleep"
+        ],
+        "OnBuild": null,
+        "Labels": {
+          "multilinux.env": "meeting",
+          "multilinux.project": "/home/omg/.local/share/multilinux/apps/wemeet",
+          "multilinux.role": "environment"
+        },
+        "Annotations": {
+          "io.container.manager": "libpod",
+          "io.podman.annotations.init": "TRUE",
+          "io.podman.annotations.label": "disable",
+          "io.podman.annotations.userns": "keep-id",
+          "org.opencontainers.image.stopSignal": "15",
+          "org.systemd.property.KillSignal": "15",
+          "org.systemd.property.TimeoutStopUSec": "uint64 8000000"
+        },
+        "StopSignal": "SIGTERM",
+        "HealthcheckOnFailureAction": "none",
+        "HealthLogDestination": "local",
+        "HealthcheckMaxLogCount": 5,
+        "HealthcheckMaxLogSize": 500,
+        "CreateCommand": [
+          "podman",
+          "create",
+          "--name",
+          "ml-6b061a2f-meeting",
+          "--label",
+          "multilinux.project=/home/omg/.local/share/multilinux/apps/wemeet",
+          "--label",
+          "multilinux.env=meeting",
+          "--label",
+          "multilinux.role=environment",
+          "--pull=never",
+          "--network=pasta",
+          "--http-proxy=false",
+          "--restart=no",
+          "--init",
+          "--stop-timeout=8",
+          "--entrypoint",
+          "/usr/bin/sleep",
+          "--ipc=host",
+          "--userns=keep-id",
+          "--user",
+          "0",
+          "--passwd-entry",
+          "$USERNAME:*:$UID:$GID:$NAME:/home/multilinux-$UID:/bin/sh",
+          "--device",
+          "/dev/video0:/dev/video0:rw",
+          "--device",
+          "/dev/dri/card1:/dev/dri/card1:rw",
+          "--device",
+          "/dev/dri/renderD128:/dev/dri/renderD128:rw",
+          "--volume",
+          "/home/omg/.local/share/multilinux/documents/wemeet:/home/omg/.local/share/multilinux/documents/wemeet",
+          "--volume",
+          "/run/user/1000/wayland-0:/run/user/1000/wayland-0",
+          "--volume",
+          "/tmp/.X11-unix/X0:/tmp/.X11-unix/X0",
+          "--volume",
+          "/run/user/1000/pulse/native:/run/user/1000/pulse/native",
+          "--volume",
+          "/run/user/1000/pipewire-0:/run/user/1000/pipewire-0",
+          "--volume",
+          "/home/omg/.local/share/multilinux/apps/wemeet/.lab/desktop/meeting:/run/multilinux-portal",
+          "--security-opt",
+          "label=disable",
+          "localhost/unifier/wemeet-current@sha256:4abbc8621397cdaf0ad326970d0cba5777dfd60c315cc5ddfb050cd8bcfbd8e1",
+          "infinity"
+        ],
+        "Umask": "0022",
+        "Timeout": 0,
+        "StopTimeout": 8,
+        "Passwd": true,
+        "sdNotifyMode": "container"
+      },
+      "HostConfig": {
+        "Binds": [
+          "/home/omg/.local/share/multilinux/documents/wemeet:/home/omg/.local/share/multilinux/documents/wemeet:rprivate,rbind",
+          "/run/user/1000/wayland-0:/run/user/1000/wayland-0:rprivate,nosuid,nodev,rbind",
+          "/tmp/.X11-unix/X0:/tmp/.X11-unix/X0:rprivate,nosuid,nodev,rbind",
+          "/run/user/1000/pulse/native:/run/user/1000/pulse/native:rprivate,nosuid,nodev,rbind",
+          "/run/user/1000/pipewire-0:/run/user/1000/pipewire-0:rprivate,nosuid,nodev,rbind",
+          "/home/omg/.local/share/multilinux/apps/wemeet/.lab/desktop/meeting:/run/multilinux-portal:rprivate,rbind"
+        ],
+        "CgroupManager": "systemd",
+        "CgroupMode": "private",
+        "ContainerIDFile": "",
+        "LogConfig": {
+          "Type": "journald",
+          "Config": null,
+          "Path": "",
+          "Tag": "",
+          "Size": "-1B"
+        },
+        "NetworkMode": "pasta",
+        "PortBindings": {},
+        "RestartPolicy": {
+          "Name": "no",
+          "MaximumRetryCount": 0
+        },
+        "AutoRemove": false,
+        "AutoRemoveImage": false,
+        "Annotations": {
+          "io.container.manager": "libpod",
+          "io.podman.annotations.init": "TRUE",
+          "io.podman.annotations.label": "disable",
+          "io.podman.annotations.userns": "keep-id",
+          "org.opencontainers.image.stopSignal": "15",
+          "org.systemd.property.KillSignal": "15",
+          "org.systemd.property.TimeoutStopUSec": "uint64 8000000"
+        },
+        "VolumeDriver": "",
+        "VolumesFrom": null,
+        "CapAdd": [],
+        "CapDrop": [],
+        "Dns": [],
+        "DnsOptions": [],
+        "DnsSearch": [],
+        "ExtraHosts": [],
+        "HostsFile": "",
+        "GroupAdd": [],
+        "IpcMode": "host",
+        "Cgroup": "",
+        "Cgroups": "default",
+        "Links": null,
+        "OomScoreAdj": 0,
+        "PidMode": "private",
+        "Privileged": false,
+        "PublishAllPorts": false,
+        "ReadonlyRootfs": false,
+        "SecurityOpt": [
+          "label=disable"
+        ],
+        "Tmpfs": {},
+        "UTSMode": "private",
+        "UsernsMode": "private",
+        "IDMappings": {
+          "UidMap": [
+            "0:1:1000",
+            "1000:0:1",
+            "1001:1001:64536"
+          ],
+          "GidMap": [
+            "0:1:1000",
+            "1000:0:1",
+            "1001:1001:64536"
+          ]
+        },
+        "ShmSize": 65536000,
+        "Runtime": "oci",
+        "ConsoleSize": [
+          0,
+          0
+        ],
+        "Isolation": "",
+        "CpuShares": 0,
+        "Memory": 0,
+        "NanoCpus": 0,
+        "CgroupParent": "user.slice",
+        "BlkioWeight": 0,
+        "BlkioWeightDevice": null,
+        "BlkioDeviceReadBps": null,
+        "BlkioDeviceWriteBps": null,
+        "BlkioDeviceReadIOps": null,
+        "BlkioDeviceWriteIOps": null,
+        "CpuPeriod": 0,
+        "CpuQuota": 0,
+        "CpuRealtimePeriod": 0,
+        "CpuRealtimeRuntime": 0,
+        "CpusetCpus": "",
+        "CpusetMems": "",
+        "Devices": [],
+        "DiskQuota": 0,
+        "KernelMemory": 0,
+        "MemoryReservation": 0,
+        "MemorySwap": 0,
+        "MemorySwappiness": 0,
+        "OomKillDisable": false,
+        "Init": true,
+        "PidsLimit": 2048,
+        "Ulimits": [
+          {
+            "Name": "RLIMIT_NOFILE",
+            "Soft": 524288,
+            "Hard": 524288
+          },
+          {
+            "Name": "RLIMIT_NPROC",
+            "Soft": 30211,
+            "Hard": 30211
+          }
+        ],
+        "CpuCount": 0,
+        "CpuPercent": 0,
+        "IOMaximumIOps": 0,
+        "IOMaximumBandwidth": 0,
+        "CgroupConf": null
+      },
+      "UseImageHosts": false,
+      "UseImageHostname": false
+    },
+    {
+      "Id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+      "Created": "2026-10-31T11:42:53.03374139+08:00",
+      "Path": "/run/podman-init",
+      "Args": [
+        "--",
+        "/usr/bin/sleep",
+        "infinity"
+      ],
+      "State": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 631040,
+        "ConmonPid": 631037,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-31T11:50:39.256267308+08:00",
+        "FinishedAt": "2026-10-31T11:50:38.102199269+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "Image": "567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c",
+      "ImageDigest": "sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f",
+      "ImageName": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "Rootfs": "",
+      "Pod": "",
+      "ResolvConfPath": "/run/user/1000/containers/overlay-containers/076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7/userdata/resolv.conf",
+      "HostnamePath": "/run/user/1000/containers/overlay-containers/076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7/userdata/hostname",
+      "HostsPath": "/run/user/1000/containers/overlay-containers/076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7/userdata/hosts",
+      "StaticDir": "/home/omg/.local/share/containers/storage/overlay-containers/076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7/userdata",
+      "OCIConfigPath": "/home/omg/.local/share/containers/storage/overlay-containers/076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7/userdata/config.json",
+      "OCIRuntime": "crun",
+      "ConmonPidFile": "/run/user/1000/containers/overlay-containers/076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7/userdata/conmon.pid",
+      "PidFile": "/run/user/1000/containers/overlay-containers/076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7/userdata/pidfile",
+      "Name": "ml-104d8e92-debian13",
+      "RestartCount": 0,
+      "Driver": "overlay",
+      "MountLabel": "system_u:object_r:container_file_t:s0:c1022,c1023",
+      "ProcessLabel": "",
+      "AppArmorProfile": "",
+      "EffectiveCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "BoundingCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "ExecIDs": [
+        "1c88f9c0782d631799bdb1f6a0341ce0b86ec9e506a4ddc538a0bb1621a3b147"
+      ],
+      "GraphDriver": {
+        "Name": "overlay",
+        "Data": {
+          "LowerDir": "/home/omg/.local/share/containers/storage/overlay/6cb78344730e97eb175b5bba6833db43aed0bcaf8821864173e96d74b5404e9b/diff:/home/omg/.local/share/containers/storage/overlay/15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62/diff",
+          "MergedDir": "/home/omg/.local/share/containers/storage/overlay/8b03cd72254de69be207069132342fe084cbe14f1911739cc506034a8ef9aae9/merged",
+          "UpperDir": "/home/omg/.local/share/containers/storage/overlay/8b03cd72254de69be207069132342fe084cbe14f1911739cc506034a8ef9aae9/diff",
+          "WorkDir": "/home/omg/.local/share/containers/storage/overlay/8b03cd72254de69be207069132342fe084cbe14f1911739cc506034a8ef9aae9/work"
+        }
+      },
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+          "Destination": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files",
+          "Destination": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/wayland-0",
+          "Destination": "/run/user/1000/wayland-0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/tmp/.X11-unix/X0",
+          "Destination": "/tmp/.X11-unix/X0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/xauth_dnPjwq",
+          "Destination": "/tmp/ml-xauthority",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/pulse/native",
+          "Destination": "/run/user/1000/pulse/native",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/pipewire-0",
+          "Destination": "/run/user/1000/pipewire-0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "Dependencies": [],
+      "NetworkSettings": {
+        "EndpointID": "",
+        "Gateway": "",
+        "IPAddress": "",
+        "IPPrefixLen": 0,
+        "IPv6Gateway": "",
+        "GlobalIPv6Address": "",
+        "GlobalIPv6PrefixLen": 0,
+        "MacAddress": "",
+        "Bridge": "",
+        "SandboxID": "",
+        "HairpinMode": false,
+        "LinkLocalIPv6Address": "",
+        "LinkLocalIPv6PrefixLen": 0,
+        "Ports": {},
+        "SandboxKey": "/run/user/1000/netns/netns-0db9ed5b-4fb7-2de0-33ab-3537da8488a0"
+      },
+      "Namespace": "",
+      "IsInfra": false,
+      "IsService": false,
+      "KubeExitCodePropagation": "invalid",
+      "lockNumber": 1,
+      "Config": {
+        "Hostname": "076f6017d2a4",
+        "Domainname": "",
+        "User": "0",
+        "AttachStdin": false,
+        "AttachStdout": false,
+        "AttachStderr": false,
+        "Tty": false,
+        "OpenStdin": false,
+        "StdinOnce": false,
+        "Env": [
+          "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "container=podman",
+          "HOME=/root",
+          "HOSTNAME=076f6017d2a4"
+        ],
+        "Cmd": [
+          "infinity"
+        ],
+        "Image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "Volumes": null,
+        "WorkingDir": "/",
+        "Entrypoint": [
+          "/usr/bin/sleep"
+        ],
+        "OnBuild": null,
+        "Labels": {
+          "multilinux.env": "debian13",
+          "multilinux.project": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+          "multilinux.role": "environment"
+        },
+        "Annotations": {
+          "io.container.manager": "libpod",
+          "io.podman.annotations.init": "TRUE",
+          "io.podman.annotations.label": "disable",
+          "io.podman.annotations.userns": "keep-id",
+          "org.opencontainers.image.stopSignal": "15",
+          "org.systemd.property.KillSignal": "15",
+          "org.systemd.property.TimeoutStopUSec": "uint64 8000000"
+        },
+        "StopSignal": "SIGTERM",
+        "HealthcheckOnFailureAction": "none",
+        "HealthLogDestination": "local",
+        "HealthcheckMaxLogCount": 5,
+        "HealthcheckMaxLogSize": 500,
+        "CreateCommand": [
+          "podman",
+          "create",
+          "--name",
+          "ml-104d8e92-debian13",
+          "--label",
+          "multilinux.project=/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+          "--label",
+          "multilinux.env=debian13",
+          "--label",
+          "multilinux.role=environment",
+          "--pull=never",
+          "--network=pasta",
+          "--http-proxy=false",
+          "--restart=no",
+          "--init",
+          "--stop-timeout=8",
+          "--entrypoint",
+          "/usr/bin/sleep",
+          "--ipc=host",
+          "--userns=keep-id",
+          "--user",
+          "0",
+          "--passwd-entry",
+          "$USERNAME:*:$UID:$GID:$NAME:/home/multilinux-$UID:/bin/sh",
+          "--volume",
+          "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project:/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+          "--volume",
+          "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files:/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files",
+          "--volume",
+          "/run/user/1000/wayland-0:/run/user/1000/wayland-0",
+          "--volume",
+          "/tmp/.X11-unix/X0:/tmp/.X11-unix/X0",
+          "--volume",
+          "/run/user/1000/xauth_dnPjwq:/tmp/ml-xauthority",
+          "--volume",
+          "/run/user/1000/pulse/native:/run/user/1000/pulse/native",
+          "--volume",
+          "/run/user/1000/pipewire-0:/run/user/1000/pipewire-0",
+          "--security-opt",
+          "label=disable",
+          "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+          "infinity"
+        ],
+        "Umask": "0022",
+        "Timeout": 0,
+        "StopTimeout": 8,
+        "Passwd": true,
+        "sdNotifyMode": "container"
+      },
+      "HostConfig": {
+        "Binds": [
+          "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project:/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project:rprivate,rbind",
+          "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files:/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files:rprivate,rbind",
+          "/run/user/1000/wayland-0:/run/user/1000/wayland-0:rprivate,nosuid,nodev,rbind",
+          "/tmp/.X11-unix/X0:/tmp/.X11-unix/X0:rprivate,nosuid,nodev,rbind",
+          "/run/user/1000/xauth_dnPjwq:/tmp/ml-xauthority:rprivate,nosuid,nodev,rbind",
+          "/run/user/1000/pulse/native:/run/user/1000/pulse/native:rprivate,nosuid,nodev,rbind",
+          "/run/user/1000/pipewire-0:/run/user/1000/pipewire-0:rprivate,nosuid,nodev,rbind"
+        ],
+        "CgroupManager": "systemd",
+        "CgroupMode": "private",
+        "ContainerIDFile": "",
+        "LogConfig": {
+          "Type": "journald",
+          "Config": null,
+          "Path": "",
+          "Tag": "",
+          "Size": "-1B"
+        },
+        "NetworkMode": "pasta",
+        "PortBindings": {},
+        "RestartPolicy": {
+          "Name": "no",
+          "MaximumRetryCount": 0
+        },
+        "AutoRemove": false,
+        "AutoRemoveImage": false,
+        "Annotations": {
+          "io.container.manager": "libpod",
+          "io.podman.annotations.init": "TRUE",
+          "io.podman.annotations.label": "disable",
+          "io.podman.annotations.userns": "keep-id",
+          "org.opencontainers.image.stopSignal": "15",
+          "org.systemd.property.KillSignal": "15",
+          "org.systemd.property.TimeoutStopUSec": "uint64 8000000"
+        },
+        "VolumeDriver": "",
+        "VolumesFrom": null,
+        "CapAdd": [],
+        "CapDrop": [],
+        "Dns": [],
+        "DnsOptions": [],
+        "DnsSearch": [],
+        "ExtraHosts": [],
+        "HostsFile": "",
+        "GroupAdd": [],
+        "IpcMode": "host",
+        "Cgroup": "",
+        "Cgroups": "default",
+        "Links": null,
+        "OomScoreAdj": 0,
+        "PidMode": "private",
+        "Privileged": false,
+        "PublishAllPorts": false,
+        "ReadonlyRootfs": false,
+        "SecurityOpt": [
+          "label=disable"
+        ],
+        "Tmpfs": {},
+        "UTSMode": "private",
+        "UsernsMode": "private",
+        "IDMappings": {
+          "UidMap": [
+            "0:1:1000",
+            "1000:0:1",
+            "1001:1001:64536"
+          ],
+          "GidMap": [
+            "0:1:1000",
+            "1000:0:1",
+            "1001:1001:64536"
+          ]
+        },
+        "ShmSize": 65536000,
+        "Runtime": "oci",
+        "ConsoleSize": [
+          0,
+          0
+        ],
+        "Isolation": "",
+        "CpuShares": 0,
+        "Memory": 0,
+        "NanoCpus": 0,
+        "CgroupParent": "user.slice",
+        "BlkioWeight": 0,
+        "BlkioWeightDevice": null,
+        "BlkioDeviceReadBps": null,
+        "BlkioDeviceWriteBps": null,
+        "BlkioDeviceReadIOps": null,
+        "BlkioDeviceWriteIOps": null,
+        "CpuPeriod": 0,
+        "CpuQuota": 0,
+        "CpuRealtimePeriod": 0,
+        "CpuRealtimeRuntime": 0,
+        "CpusetCpus": "",
+        "CpusetMems": "",
+        "Devices": [],
+        "DiskQuota": 0,
+        "KernelMemory": 0,
+        "MemoryReservation": 0,
+        "MemorySwap": 0,
+        "MemorySwappiness": 0,
+        "OomKillDisable": false,
+        "Init": true,
+        "PidsLimit": 2048,
+        "Ulimits": [
+          {
+            "Name": "RLIMIT_NOFILE",
+            "Soft": 524288,
+            "Hard": 524288
+          },
+          {
+            "Name": "RLIMIT_NPROC",
+            "Soft": 30211,
+            "Hard": 30211
+          }
+        ],
+        "CpuCount": 0,
+        "CpuPercent": 0,
+        "IOMaximumIOps": 0,
+        "IOMaximumBandwidth": 0,
+        "CgroupConf": null
+      },
+      "UseImageHosts": false,
+      "UseImageHostname": false
+    },
+    {
+      "Id": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+      "Created": "2026-10-31T11:42:55.596702985+08:00",
+      "Path": "/run/podman-init",
+      "Args": [
+        "--",
+        "/usr/bin/sleep",
+        "infinity"
+      ],
+      "State": {
+        "OciVersion": "1.2.1",
+        "Status": "running",
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 676460,
+        "ConmonPid": 676457,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2026-10-31T12:51:36.0752321+08:00",
+        "FinishedAt": "2026-10-31T12:48:47.640025241+08:00",
+        "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa.scope",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "Image": "5a30b4acc83ff841682eb21795e00f7ff030796f5e6fd2a127decd7a45ba7cef",
+      "ImageDigest": "sha256:3c64b538588416593f69a1aebd2f2ec0f2541b29159f32556fa7def2167147a0",
+      "ImageName": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "Rootfs": "",
+      "Pod": "",
+      "ResolvConfPath": "/run/user/1000/containers/overlay-containers/ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa/userdata/resolv.conf",
+      "HostnamePath": "/run/user/1000/containers/overlay-containers/ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa/userdata/hostname",
+      "HostsPath": "/run/user/1000/containers/overlay-containers/ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa/userdata/hosts",
+      "StaticDir": "/home/omg/.local/share/containers/storage/overlay-containers/ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa/userdata",
+      "OCIConfigPath": "/home/omg/.local/share/containers/storage/overlay-containers/ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa/userdata/config.json",
+      "OCIRuntime": "crun",
+      "ConmonPidFile": "/run/user/1000/containers/overlay-containers/ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa/userdata/conmon.pid",
+      "PidFile": "/run/user/1000/containers/overlay-containers/ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa/userdata/pidfile",
+      "Name": "ml-104d8e92-arch",
+      "RestartCount": 0,
+      "Driver": "overlay",
+      "MountLabel": "system_u:object_r:container_file_t:s0:c1022,c1023",
+      "ProcessLabel": "",
+      "AppArmorProfile": "",
+      "EffectiveCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "BoundingCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "ExecIDs": [
+        "9d5c92b09022ce977683fe28b34c4a3fb0d309d5625e6bdb40f70d8b865d5854"
+      ],
+      "GraphDriver": {
+        "Name": "overlay",
+        "Data": {
+          "LowerDir": "/home/omg/.local/share/containers/storage/overlay/b76170a3ebaaf558ebad66db90a942b48e7e896c39b3428474195d251cabdf34/diff:/home/omg/.local/share/containers/storage/overlay/26173f0e358e5782c3cbb3b728523b8a80369e85a41df29f9dfe4543def54d33/diff:/home/omg/.local/share/containers/storage/overlay/8beafa1582622f514d7271539dc9037c6ad015404f7ba4bd2c6d157f6ecb7b26/diff",
+          "MergedDir": "/home/omg/.local/share/containers/storage/overlay/bf1268f3de5ebe8be67908267ef571c9979379a4f347321fba970c92ae009206/merged",
+          "UpperDir": "/home/omg/.local/share/containers/storage/overlay/bf1268f3de5ebe8be67908267ef571c9979379a4f347321fba970c92ae009206/diff",
+          "WorkDir": "/home/omg/.local/share/containers/storage/overlay/bf1268f3de5ebe8be67908267ef571c9979379a4f347321fba970c92ae009206/work"
+        }
+      },
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/pulse/native",
+          "Destination": "/run/user/1000/pulse/native",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/pipewire-0",
+          "Destination": "/run/user/1000/pipewire-0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+          "Destination": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files",
+          "Destination": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/wayland-0",
+          "Destination": "/run/user/1000/wayland-0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/tmp/.X11-unix/X0",
+          "Destination": "/tmp/.X11-unix/X0",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        },
+        {
+          "Type": "bind",
+          "Source": "/run/user/1000/xauth_dnPjwq",
+          "Destination": "/tmp/ml-xauthority",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "nosuid",
+            "nodev",
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "Dependencies": [],
+      "NetworkSettings": {
+        "EndpointID": "",
+        "Gateway": "",
+        "IPAddress": "",
+        "IPPrefixLen": 0,
+        "IPv6Gateway": "",
+        "GlobalIPv6Address": "",
+        "GlobalIPv6PrefixLen": 0,
+        "MacAddress": "",
+        "Bridge": "",
+        "SandboxID": "",
+        "HairpinMode": false,
+        "LinkLocalIPv6Address": "",
+        "LinkLocalIPv6PrefixLen": 0,
+        "Ports": {},
+        "SandboxKey": "/run/user/1000/netns/netns-ab5ac867-1d56-ff97-7a5c-3bd9b0cb7f6f"
+      },
+      "Namespace": "",
+      "IsInfra": false,
+      "IsService": false,
+      "KubeExitCodePropagation": "invalid",
+      "lockNumber": 2,
+      "Config": {
+        "Hostname": "ca04aa07e2aa",
+        "Domainname": "",
+        "User": "0",
+        "AttachStdin": false,
+        "AttachStdout": false,
+        "AttachStderr": false,
+        "Tty": false,
+        "OpenStdin": false,
+        "StdinOnce": false,
+        "Env": [
+          "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "container=podman",
+          "LANG=C.UTF-8",
+          "HOME=/root",
+          "HOSTNAME=ca04aa07e2aa"
+        ],
+        "Cmd": [
+          "infinity"
+        ],
+        "Image": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+        "Volumes": null,
+        "WorkingDir": "/",
+        "Entrypoint": [
+          "/usr/bin/sleep"
+        ],
+        "OnBuild": null,
+        "Labels": {
+          "multilinux.env": "arch",
+          "multilinux.project": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+          "multilinux.role": "environment",
+          "org.opencontainers.image.authors": "Santiago Torres-Arias <santiago@archlinux.org> (@SantiagoTorres), Christian Rebischke <Chris.Rebischke@archlinux.org> (@shibumi), Justin Kromlinger <hashworks@archlinux.org> (@hashworks)",
+          "org.opencontainers.image.created": "2026-10-11T00:09:32+00:00",
+          "org.opencontainers.image.description": "Official containerd image of Arch Linux, a simple, lightweight Linux distribution aimed for flexibility.",
+          "org.opencontainers.image.documentation": "https://wiki.archlinux.org/title/Docker#Arch_Linux",
+          "org.opencontainers.image.licenses": "GPL-3.0-or-later",
+          "org.opencontainers.image.revision": "34b87485162b028c8d957bdcd2674359d883cd21",
+          "org.opencontainers.image.source": "https://gitlab.archlinux.org/archlinux/archlinux-docker",
+          "org.opencontainers.image.title": "Arch Linux base Image",
+          "org.opencontainers.image.url": "https://gitlab.archlinux.org/archlinux/archlinux-docker/-/blob/master/README.md",
+          "org.opencontainers.image.version": "20261011.0.609700"
+        },
+        "Annotations": {
+          "io.container.manager": "libpod",
+          "io.podman.annotations.init": "TRUE",
+          "io.podman.annotations.label": "disable",
+          "io.podman.annotations.userns": "keep-id",
+          "org.opencontainers.image.stopSignal": "15",
+          "org.systemd.property.KillSignal": "15",
+          "org.systemd.property.TimeoutStopUSec": "uint64 8000000"
+        },
+        "StopSignal": "SIGTERM",
+        "HealthcheckOnFailureAction": "none",
+        "HealthLogDestination": "local",
+        "HealthcheckMaxLogCount": 5,
+        "HealthcheckMaxLogSize": 500,
+        "CreateCommand": [
+          "podman",
+          "create",
+          "--name",
+          "ml-104d8e92-arch",
+          "--label",
+          "multilinux.project=/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+          "--label",
+          "multilinux.env=arch",
+          "--label",
+          "multilinux.role=environment",
+          "--pull=never",
+          "--network=pasta",
+          "--http-proxy=false",
+          "--restart=no",
+          "--init",
+          "--stop-timeout=8",
+          "--entrypoint",
+          "/usr/bin/sleep",
+          "--ipc=host",
+          "--userns=keep-id",
+          "--user",
+          "0",
+          "--passwd-entry",
+          "$USERNAME:*:$UID:$GID:$NAME:/home/multilinux-$UID:/bin/sh",
+          "--volume",
+          "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project:/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+          "--volume",
+          "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files:/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files",
+          "--volume",
+          "/run/user/1000/wayland-0:/run/user/1000/wayland-0",
+          "--volume",
+          "/tmp/.X11-unix/X0:/tmp/.X11-unix/X0",
+          "--volume",
+          "/run/user/1000/xauth_dnPjwq:/tmp/ml-xauthority",
+          "--volume",
+          "/run/user/1000/pulse/native:/run/user/1000/pulse/native",
+          "--volume",
+          "/run/user/1000/pipewire-0:/run/user/1000/pipewire-0",
+          "--security-opt",
+          "label=disable",
+          "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+          "infinity"
+        ],
+        "Umask": "0022",
+        "Timeout": 0,
+        "StopTimeout": 8,
+        "Passwd": true,
+        "sdNotifyMode": "container"
+      },
+      "HostConfig": {
+        "Binds": [
+          "/run/user/1000/pulse/native:/run/user/1000/pulse/native:rprivate,nosuid,nodev,rbind",
+          "/run/user/1000/pipewire-0:/run/user/1000/pipewire-0:rprivate,nosuid,nodev,rbind",
+          "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project:/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project:rprivate,rbind",
+          "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files:/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files:rprivate,rbind",
+          "/run/user/1000/wayland-0:/run/user/1000/wayland-0:rprivate,nosuid,nodev,rbind",
+          "/tmp/.X11-unix/X0:/tmp/.X11-unix/X0:rprivate,nosuid,nodev,rbind",
+          "/run/user/1000/xauth_dnPjwq:/tmp/ml-xauthority:rprivate,nosuid,nodev,rbind"
+        ],
+        "CgroupManager": "systemd",
+        "CgroupMode": "private",
+        "ContainerIDFile": "",
+        "LogConfig": {
+          "Type": "journald",
+          "Config": null,
+          "Path": "",
+          "Tag": "",
+          "Size": "-1B"
+        },
+        "NetworkMode": "pasta",
+        "PortBindings": {},
+        "RestartPolicy": {
+          "Name": "no",
+          "MaximumRetryCount": 0
+        },
+        "AutoRemove": false,
+        "AutoRemoveImage": false,
+        "Annotations": {
+          "io.container.manager": "libpod",
+          "io.podman.annotations.init": "TRUE",
+          "io.podman.annotations.label": "disable",
+          "io.podman.annotations.userns": "keep-id",
+          "org.opencontainers.image.stopSignal": "15",
+          "org.systemd.property.KillSignal": "15",
+          "org.systemd.property.TimeoutStopUSec": "uint64 8000000"
+        },
+        "VolumeDriver": "",
+        "VolumesFrom": null,
+        "CapAdd": [],
+        "CapDrop": [],
+        "Dns": [],
+        "DnsOptions": [],
+        "DnsSearch": [],
+        "ExtraHosts": [],
+        "HostsFile": "",
+        "GroupAdd": [],
+        "IpcMode": "host",
+        "Cgroup": "",
+        "Cgroups": "default",
+        "Links": null,
+        "OomScoreAdj": 0,
+        "PidMode": "private",
+        "Privileged": false,
+        "PublishAllPorts": false,
+        "ReadonlyRootfs": false,
+        "SecurityOpt": [
+          "label=disable"
+        ],
+        "Tmpfs": {},
+        "UTSMode": "private",
+        "UsernsMode": "private",
+        "IDMappings": {
+          "UidMap": [
+            "0:1:1000",
+            "1000:0:1",
+            "1001:1001:64536"
+          ],
+          "GidMap": [
+            "0:1:1000",
+            "1000:0:1",
+            "1001:1001:64536"
+          ]
+        },
+        "ShmSize": 65536000,
+        "Runtime": "oci",
+        "ConsoleSize": [
+          0,
+          0
+        ],
+        "Isolation": "",
+        "CpuShares": 0,
+        "Memory": 0,
+        "NanoCpus": 0,
+        "CgroupParent": "user.slice",
+        "BlkioWeight": 0,
+        "BlkioWeightDevice": null,
+        "BlkioDeviceReadBps": null,
+        "BlkioDeviceWriteBps": null,
+        "BlkioDeviceReadIOps": null,
+        "BlkioDeviceWriteIOps": null,
+        "CpuPeriod": 0,
+        "CpuQuota": 0,
+        "CpuRealtimePeriod": 0,
+        "CpuRealtimeRuntime": 0,
+        "CpusetCpus": "",
+        "CpusetMems": "",
+        "Devices": [],
+        "DiskQuota": 0,
+        "KernelMemory": 0,
+        "MemoryReservation": 0,
+        "MemorySwap": 0,
+        "MemorySwappiness": 0,
+        "OomKillDisable": false,
+        "Init": true,
+        "PidsLimit": 2048,
+        "Ulimits": [
+          {
+            "Name": "RLIMIT_NOFILE",
+            "Soft": 524288,
+            "Hard": 524288
+          },
+          {
+            "Name": "RLIMIT_NPROC",
+            "Soft": 30211,
+            "Hard": 30211
+          }
+        ],
+        "CpuCount": 0,
+        "CpuPercent": 0,
+        "IOMaximumIOps": 0,
+        "IOMaximumBandwidth": 0,
+        "CgroupConf": null
+      },
+      "UseImageHosts": false,
+      "UseImageHostname": false
+    }
+  ]
+}

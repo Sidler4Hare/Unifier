@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "after": {
+    "ml-53c5c8a5-freecad-arch": {
+      "exit": 0,
+      "line": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5|exited|2026-10-31 10:17:44.182630074 +0800 CST|2026-10-31 10:18:22.918733124 +0800 CST"
+    },
+    "ml-6b061a2f-meeting": {
+      "exit": 0,
+      "line": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb|exited|2026-10-28 20:47:17.749622632 +0800 CST|2026-10-28 20:47:51.415982474 +0800 CST"
+    }
+  }
+}

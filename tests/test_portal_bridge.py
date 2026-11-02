@@ -8,7 +8,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
-from multilinux.on_demand import start_bridge, stop_bridge
+from unifier.on_demand import start_bridge, stop_bridge
 
 
 class LongPortalDirectory(unittest.TestCase):
@@ -30,8 +30,8 @@ class LongPortalDirectory(unittest.TestCase):
             self.assertGreater(len(os.fsencode(directory / 'bus')), 107)
             record = {'desktop': {'portal_proxy': {'directory': str(directory)}}}
             try:
-                with patch('multilinux.on_demand.subprocess.Popen', side_effect=spawn), \
-                     patch('multilinux.on_demand.shutil.which', return_value='/test/proxy'), \
+                with patch('unifier.on_demand.subprocess.Popen', side_effect=spawn), \
+                     patch('unifier.on_demand.shutil.which', return_value='/test/proxy'), \
                      patch.dict(os.environ, {'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/unused',
                                              'XAUTHORITY': ''}):
                     bridge = start_bridge(record)

@@ -1,0 +1,1007 @@
+{
+  "run_id": "server-cross-host-correction-20261030T210239+0800",
+  "policy_version": 2,
+  "created_at": "2026-10-30T13:13:56.930139+00:00",
+  "source_files": {
+    "src/unifier/__init__.py": {
+      "kind": "file",
+      "sha256": "a03afbf0e3628d64c96f3fcdb364a1d0895779eeedd5b80c817c37872ace1519",
+      "mode": "0o644"
+    },
+    "src/unifier/errors.py": {
+      "kind": "file",
+      "sha256": "99359638f45cceca7135627f73b1a974e9ab94f5365c1ff116de5b6ff6015f4c",
+      "mode": "0o644"
+    },
+    "src/unifier/__main__.py": {
+      "kind": "file",
+      "sha256": "345f257f19d37df49b9f11da876b949d57b390e73e213c54b7dc612fafe74795",
+      "mode": "0o644"
+    },
+    "src/unifier/project.py": {
+      "kind": "file",
+      "sha256": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102",
+      "mode": "0o644"
+    },
+    "src/unifier/store.py": {
+      "kind": "file",
+      "sha256": "b3dc6486f4fa02325e32a926b4ec91a35299bd521934dfb6e22a21b9334c7418",
+      "mode": "0o644"
+    },
+    "src/unifier/resources.py": {
+      "kind": "file",
+      "sha256": "b4eebe0a022ef36b31274c1dc125752869c7692b117e22ae2741980278921c37",
+      "mode": "0o644"
+    },
+    "src/unifier/catalog.py": {
+      "kind": "file",
+      "sha256": "24515c3b29eb66f64272f74307bff0bf0f1f1f65c8fadb51ca7635c38ef9d63f",
+      "mode": "0o644"
+    },
+    "src/unifier/packages.py": {
+      "kind": "file",
+      "sha256": "969af42e0a91d8c6255db5b42daad920fdac2b1fa06b3fce65a86fe1baf45852",
+      "mode": "0o644"
+    },
+    "src/unifier/routing.py": {
+      "kind": "file",
+      "sha256": "e6f6d19655327065f95f4959f1d3bfd31c4118ea410762f4bf6de4362c33e999",
+      "mode": "0o644"
+    },
+    "src/unifier/screencast.py": {
+      "kind": "file",
+      "sha256": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f",
+      "mode": "0o644"
+    },
+    "src/unifier/identity.py": {
+      "kind": "file",
+      "sha256": "8a40db1943f7dc2330ec07b12475fe9da066378628f6da1c8d61be2d1684337b",
+      "mode": "0o644"
+    },
+    "src/unifier/share_label.py": {
+      "kind": "file",
+      "sha256": "27121400e19b7e3611557e09abf44b4dee0dd3a33ff908402f1abf9a8720dc29",
+      "mode": "0o644"
+    },
+    "src/unifier/json_records.py": {
+      "kind": "file",
+      "sha256": "704042860044c1f1f854b851990aa9a3b71b2851f28bb2b9a0b6f2202ecb33a1",
+      "mode": "0o644"
+    },
+    "src/unifier/projects.py": {
+      "kind": "file",
+      "sha256": "2260721149600183eb6c42286ba191eb60b9d869a094c72c13516af196699170",
+      "mode": "0o644"
+    },
+    "src/unifier/handlers.py": {
+      "kind": "file",
+      "sha256": "8ebd1ae4bd7f9a5dbaa7688325144caf081f3b43195823c3720d0202f4c6b873",
+      "mode": "0o644"
+    },
+    "src/unifier/view_journal.py": {
+      "kind": "file",
+      "sha256": "9820024bc09bd0c0f8ad3ef7755d8310b220ca15f4e5062e179bf172bf40e344",
+      "mode": "0o644"
+    },
+    "src/unifier/view_broker.py": {
+      "kind": "file",
+      "sha256": "19702664adc70e1c3fd49f35a84f45c75cf759a6e952b5b918d0294284bf6219",
+      "mode": "0o644"
+    },
+    "src/unifier/views.py": {
+      "kind": "file",
+      "sha256": "c376ed0bbb94152b41e699fe30363cec18607a6cfe90c8d7cb22abacb39a7f45",
+      "mode": "0o644"
+    },
+    "src/unifier/registry.py": {
+      "kind": "file",
+      "sha256": "4602c2ef6c9acea5d8aaed7cac22f7c1504f6d6d37a455f6b517f528d7602e82",
+      "mode": "0o644"
+    },
+    "src/unifier/control.py": {
+      "kind": "file",
+      "sha256": "b7f8b23a7a66dac1e6ae07e5b9dcc116e8819287317c84c8191ff723e467e4c2",
+      "mode": "0o644"
+    },
+    "src/unifier/lease.py": {
+      "kind": "file",
+      "sha256": "80064e9c652cb733c686fd4535484fa62ea9aff3841d8bb1a619f1700a2a6d7b",
+      "mode": "0o600"
+    },
+    "src/unifier/file_routes.py": {
+      "kind": "file",
+      "sha256": "8ed8e7b5080da145189842128dcd6a2043518e923815239e4408c485dddb18a8",
+      "mode": "0o644"
+    },
+    "src/unifier/desktop.py": {
+      "kind": "file",
+      "sha256": "6a30d002ef29c4ec3c9ffeeb2ee4cf8fd623c53a6abfc3884d1123e0e825da02",
+      "mode": "0o644"
+    },
+    "src/unifier/runtime.py": {
+      "kind": "file",
+      "sha256": "f1390cbb26545f78d94be5c8fd1721b579647b8a15eba1177f3dab6da72bfd0a",
+      "mode": "0o644"
+    },
+    "src/unifier/service.py": {
+      "kind": "file",
+      "sha256": "b08e09d48791a2d86a8831914d84d61e87dc0af14db63fbf09b3508c1f19a98a",
+      "mode": "0o644"
+    },
+    "src/unifier/cli.py": {
+      "kind": "file",
+      "sha256": "95de2ceb05b9364c6b596dea48cfc75785155646b15ddbc8b7067e2448ce8c13",
+      "mode": "0o644"
+    },
+    "src/unifier/on_demand.py": {
+      "kind": "file",
+      "sha256": "c96254e90a072b7873cc12c359d1f12d6fe29756534ded1fa1489adcf87fa738",
+      "mode": "0o644"
+    },
+    "src/unifier/desktop_integrations.py": {
+      "kind": "file",
+      "sha256": "16b02877697f9b94b03e1949b38b57740482b22d727fab9b3af7c376b3c0aba6",
+      "mode": "0o644"
+    },
+    "src/unifier/project_sessions.py": {
+      "kind": "file",
+      "sha256": "ce456daeb32680fcbbdd543395a885841ed69cce75ae6eef1677e0c4fc5b25a8",
+      "mode": "0o644"
+    },
+    "src/unifier/view_backend_legacy.py": {
+      "kind": "file",
+      "sha256": "9b4245280119beac79eafaf5167cc2382d636d198f41bb28ca1ee3d051fa5e85",
+      "mode": "0o644"
+    },
+    "src/unifier/fuse_view_legacy.py": {
+      "kind": "file",
+      "sha256": "d28b63b3f1abc0e36f84ca0eca592c5406928a3503e58e122376dc794225287e",
+      "mode": "0o644"
+    },
+    "src/unifier/view_backend.py": {
+      "kind": "file",
+      "sha256": "23a39dfa6a417f41ca38248390b1c44494eff83f9edeb140cb9b64b0d44b554b",
+      "mode": "0o644"
+    },
+    "src/unifier/root_identity.py": {
+      "kind": "file",
+      "sha256": "58da4de1dc47a01ef017c7234a8878358f8f1d6af628df4f375755dede247dbf",
+      "mode": "0o644"
+    },
+    "src/unifier/compatibility.py": {
+      "kind": "file",
+      "sha256": "ab61d7065b5cefcf155a5e51222f78e2d236a8128377ab004a9bed1b1a15cf30",
+      "mode": "0o644"
+    },
+    "src/unifier/install.py": {
+      "kind": "file",
+      "sha256": "44b5da9de16fba961db1d73628aba3d8fcf8c17bfbeb4b84eee011fd71531cdd",
+      "mode": "0o644"
+    },
+    "src/unifier/i18n.py": {
+      "kind": "file",
+      "sha256": "63123efb956b1c2a6f6c5ff4ab91d0c6ed3751ae6de54b2aee769098fe28783d",
+      "mode": "0o644"
+    },
+    "src/unifier/guest_paths.py": {
+      "kind": "file",
+      "sha256": "9f7717764c1da01ef73765aa1d380ae24a6d347a51a31e41e360f46caf0cbf68",
+      "mode": "0o644"
+    },
+    "src/unifier/install_state.py": {
+      "kind": "file",
+      "sha256": "d6796640e867ede10c6e395c502325ad6d64bebdee11a59d04d2e07ebb6a0fe0",
+      "mode": "0o644"
+    },
+    "src/unifier/shortcuts.py": {
+      "kind": "file",
+      "sha256": "96b376bbe9a3c723f0eb43b244b66c4fa2fcf2fbabfe072c9c1535945d58da98",
+      "mode": "0o644"
+    },
+    "src/unifier/atomic_io.py": {
+      "kind": "file",
+      "sha256": "6fbf5531b14bffbbc98c5c27b12a2843a7fb2278f41c8f81e1273460bef680b2",
+      "mode": "0o644"
+    },
+    "src/unifier/app_entries.py": {
+      "kind": "file",
+      "sha256": "496e2f35c453e8d4d3437577e6cc5f543a3e41e3bcb0f3ab5c3e1fd994b1f5e6",
+      "mode": "0o644"
+    },
+    "src/unifier/projection.py": {
+      "kind": "file",
+      "sha256": "724a0e6981c14dda97176e9bf1456797b7b1f2feae070b5f97afa1a8b99bc256",
+      "mode": "0o600"
+    },
+    "src/unifier/fuse_view.py": {
+      "kind": "file",
+      "sha256": "17fbd299b9a9c302d8302910d2aa8cafe4804f7ed16c5696023d4229e1fbca9f",
+      "mode": "0o644"
+    },
+    "src/unifier/file_operation_journal.py": {
+      "kind": "file",
+      "sha256": "181f751074ec7d70095556be62d54c12b5a679a74b8cd39cd9091c2756f7a090",
+      "mode": "0o644"
+    },
+    "src/unifier/file_operation_publish.py": {
+      "kind": "file",
+      "sha256": "84f96c3138859c330fb7f8bd1584144b2c27491437b9821ff125b20d47ca9774",
+      "mode": "0o644"
+    },
+    "src/unifier/file_operations.py": {
+      "kind": "file",
+      "sha256": "5af75437b5aceab78492cc0dfe8079f06c7f1804064a2c587052570b756e78f3",
+      "mode": "0o644"
+    },
+    "src/unifier/file_operation_cleanup.py": {
+      "kind": "file",
+      "sha256": "f02bfee2a7fe807a93ce706aaaf8eb6c8b79817e9f92fa020e54363818fdf36b",
+      "mode": "0o644"
+    },
+    "src/multilinux/__init__.py": {
+      "kind": "file",
+      "sha256": "fca4d0c801efe7d6d4fc8145e82f8a6111f5d91379be29b420fcddfa1081eb7d",
+      "mode": "0o644"
+    },
+    "src/multilinux/__main__.py": {
+      "kind": "file",
+      "sha256": "7de165a644b3769993fe09a0dd2a3a4385aa912db895413b0377de2377d59bc1",
+      "mode": "0o644"
+    },
+    "src/multilinux/app_entries.py": {
+      "kind": "file",
+      "sha256": "9c107214749ddc14c6033c5e0920bf93e691d48d57e68b66e82437ba68c9a32f",
+      "mode": "0o644"
+    },
+    "src/multilinux/atomic_io.py": {
+      "kind": "file",
+      "sha256": "dca1e27ee0af6f567fe2815cbb172dc8b8bf067b2090352ced6189590e338425",
+      "mode": "0o644"
+    },
+    "src/multilinux/catalog.py": {
+      "kind": "file",
+      "sha256": "fadd45cca9903cacd7e4bf1332c6cc8bc511991e5d09317aa287bac4f8eb6dff",
+      "mode": "0o644"
+    },
+    "src/multilinux/cli.py": {
+      "kind": "file",
+      "sha256": "89bffcc864296f724de3dd09ef967ea39b08ea9ce57bb35e21f0430ba640a41d",
+      "mode": "0o644"
+    },
+    "src/multilinux/compatibility.py": {
+      "kind": "file",
+      "sha256": "c2c56a4485738594dc856e1bed13ace633a26d75773d52f12225131aab7d33c0",
+      "mode": "0o644"
+    },
+    "src/multilinux/control.py": {
+      "kind": "file",
+      "sha256": "8319413ca4f89b47609fffd11bb80d10bed75636c0f26af93386707ff07fec70",
+      "mode": "0o644"
+    },
+    "src/multilinux/desktop.py": {
+      "kind": "file",
+      "sha256": "5acd564eb4fea6006aea466527d4fd0def22a67e280edcdb988a781853f31cad",
+      "mode": "0o644"
+    },
+    "src/multilinux/desktop_integrations.py": {
+      "kind": "file",
+      "sha256": "36c9ba8468456352403ae6e5847254ffb2b8db59437a387e8e239179788df65d",
+      "mode": "0o644"
+    },
+    "src/multilinux/errors.py": {
+      "kind": "file",
+      "sha256": "9adb7e28bafe05598e0f10ff964d87da05f97bfd3beb5171234ac0502be42489",
+      "mode": "0o644"
+    },
+    "src/multilinux/file_operations.py": {
+      "kind": "file",
+      "sha256": "3c2579bea2ae55c89aee4540444b2f72171a1f3a3e8af8a1e9c332698026ce26",
+      "mode": "0o644"
+    },
+    "src/multilinux/file_routes.py": {
+      "kind": "file",
+      "sha256": "069c32c85abedee0b25ed50169d8e01acb39dc2e9673d7af787fe4904dc3abe8",
+      "mode": "0o644"
+    },
+    "src/multilinux/fuse_view.py": {
+      "kind": "file",
+      "sha256": "04c0fc33257dd5a6b138e2b763c657aade6490cbba05e6bf1db79558487f26d9",
+      "mode": "0o644"
+    },
+    "src/multilinux/fuse_view_legacy.py": {
+      "kind": "file",
+      "sha256": "3aee0eac91df8cf55410161aab88cb0e2acd349d7c8c31289b6ee755c8865cf6",
+      "mode": "0o644"
+    },
+    "src/multilinux/guest_paths.py": {
+      "kind": "file",
+      "sha256": "47e2ee97cd2c09b870e89c71e0037d872bd45edbd9091697f3248b219271da55",
+      "mode": "0o644"
+    },
+    "src/multilinux/handlers.py": {
+      "kind": "file",
+      "sha256": "d4899ad292ac9498a537985998fa1a9e3240f40ce7b01eb1a1e678d3e159fe28",
+      "mode": "0o644"
+    },
+    "src/multilinux/i18n.py": {
+      "kind": "file",
+      "sha256": "abbbcb070d00ed85d3b1e80a637d1cb4bbc9b21826a00198733b1272a2539a4f",
+      "mode": "0o644"
+    },
+    "src/multilinux/identity.py": {
+      "kind": "file",
+      "sha256": "efc73a9a9eeac6039e35d86896865dca65a82e441c613d9c3180b1acf2c7e3ff",
+      "mode": "0o644"
+    },
+    "src/multilinux/install.py": {
+      "kind": "file",
+      "sha256": "4638d7513bc1e220ff926656079df6f48a09649bcc2b914ebb3e7a774c357969",
+      "mode": "0o644"
+    },
+    "src/multilinux/install_state.py": {
+      "kind": "file",
+      "sha256": "dbda890a906947ab85209e4c20d763e2093e87b126675a074419545bd256fc4c",
+      "mode": "0o644"
+    },
+    "src/multilinux/json_records.py": {
+      "kind": "file",
+      "sha256": "627e6195dbf7a04e34e806d325ace0e4ea5f11b82f0ac13c3998853d086c89db",
+      "mode": "0o644"
+    },
+    "src/multilinux/lease.py": {
+      "kind": "file",
+      "sha256": "0e19cffd1b7c2eb822ff3fdc89a2f6c71817d75438462cfc6f718181101fae41",
+      "mode": "0o644"
+    },
+    "src/multilinux/on_demand.py": {
+      "kind": "file",
+      "sha256": "6b4ec2ff05093ba108f18eb3e15cda97f926aecfaf21b35eae44e0b55b446cd4",
+      "mode": "0o644"
+    },
+    "src/multilinux/packages.py": {
+      "kind": "file",
+      "sha256": "a2d2c0f5e4428b0429bcbc6d291b7986835a80a92568bd64b13528d6d38db7cb",
+      "mode": "0o644"
+    },
+    "src/multilinux/project.py": {
+      "kind": "file",
+      "sha256": "05cc81aa7117a57bc938d1cb7630bf365335df2d5cb865adbd6d5c53a86e0d5e",
+      "mode": "0o644"
+    },
+    "src/multilinux/project_sessions.py": {
+      "kind": "file",
+      "sha256": "1c57289bbc878ee79ed8f56042b6a07fa73d7bb926f1f8ba72e2214f87e1be23",
+      "mode": "0o644"
+    },
+    "src/multilinux/projection.py": {
+      "kind": "file",
+      "sha256": "9666ea3e10ec914fc502ab010f16b72664e09dad0f0a679cfc4cd7ec5b84cb95",
+      "mode": "0o644"
+    },
+    "src/multilinux/projects.py": {
+      "kind": "file",
+      "sha256": "df6e9c9c637a3ba0c4e9d541e273b94df88e62f7cfac65ae378c2b9ff4e72cd7",
+      "mode": "0o644"
+    },
+    "src/multilinux/registry.py": {
+      "kind": "file",
+      "sha256": "7f20bc2e1dbb0b90cb2f510f13bb33c05c1400c43bfbd47704a4727bb9cae0db",
+      "mode": "0o644"
+    },
+    "src/multilinux/resources.py": {
+      "kind": "file",
+      "sha256": "9bf320f68a3061549555b6e651dbde4afd4cc09a952a90d76b608687bdf0180b",
+      "mode": "0o644"
+    },
+    "src/multilinux/root_identity.py": {
+      "kind": "file",
+      "sha256": "59a43ecb7b00460c00b3d79e02ac83c4088694be3263ac1ba1d39616b9a71315",
+      "mode": "0o644"
+    },
+    "src/multilinux/routing.py": {
+      "kind": "file",
+      "sha256": "a81371947333a4abe05da87e869be3965dad7b7891df1ad7586f60055c8b6743",
+      "mode": "0o644"
+    },
+    "src/multilinux/runtime.py": {
+      "kind": "file",
+      "sha256": "58c705d05552802fc9f0679944967cd42c33c1e9d5a991c3e9e2aa340af7b404",
+      "mode": "0o644"
+    },
+    "src/multilinux/screencast.py": {
+      "kind": "file",
+      "sha256": "2e485d64046868b63bf376d585cde23642fbad0086932b368cb41c3e0713ab3a",
+      "mode": "0o644"
+    },
+    "src/multilinux/service.py": {
+      "kind": "file",
+      "sha256": "76108c852e52166472bb2125610f0f6f2ca7597709047948e200cbab4d9dc46f",
+      "mode": "0o644"
+    },
+    "src/multilinux/share_label.py": {
+      "kind": "file",
+      "sha256": "5d072c4eb979855543761537e7861b5b0d4f80d3cf80817f1f6a876ced346f81",
+      "mode": "0o644"
+    },
+    "src/multilinux/shortcuts.py": {
+      "kind": "file",
+      "sha256": "170bc9b672b9f4c39d21afaca40b516d835bbb5b9da9e6458982dd41044731c2",
+      "mode": "0o644"
+    },
+    "src/multilinux/store.py": {
+      "kind": "file",
+      "sha256": "7cf3cc80f37c6b7b811486b780d0e0f7a2149c4db77558ae97b3f0b91793aa38",
+      "mode": "0o644"
+    },
+    "src/multilinux/view_backend.py": {
+      "kind": "file",
+      "sha256": "653c5212c4071dfabdb14cb534c3659cda094ab27f1e34ac41e542136b10642c",
+      "mode": "0o644"
+    },
+    "src/multilinux/view_backend_legacy.py": {
+      "kind": "file",
+      "sha256": "bc8bad726a737ee4055c19b5b16155ceaf8bdfc8032c918a80d12dacf4bf5efb",
+      "mode": "0o644"
+    },
+    "src/multilinux/view_broker.py": {
+      "kind": "file",
+      "sha256": "75ccfa709c77b4a816aef47936e7f9f1e2f4d1bc048d0297c0d43de9a60c100e",
+      "mode": "0o644"
+    },
+    "src/multilinux/view_journal.py": {
+      "kind": "file",
+      "sha256": "0c88e10f27a142614f3984fa5fbb3ce11e1d81514602a9684b2071305fb16ef8",
+      "mode": "0o644"
+    },
+    "src/multilinux/views.py": {
+      "kind": "file",
+      "sha256": "0830d263418b8c0f0a0fba2f88b5b5871f1b0fa0d2d68b7cf6bb071e70b8127d",
+      "mode": "0o644"
+    },
+    "tests/test_lab.py": {
+      "kind": "file",
+      "sha256": "ca6194c33ad2d1e256ec011a04ad37c2b621172c369363e92e7aee897927081f",
+      "mode": "0o644"
+    },
+    "tests/test_env.py": {
+      "kind": "file",
+      "sha256": "6b4922e2eb5b7ad761619b60a386089eaefa1921434e84f58662c5ab43ef09c9",
+      "mode": "0o644"
+    },
+    "tests/test_env_integration.py": {
+      "kind": "file",
+      "sha256": "c855600bd20e981003e948280f18929cb1ca0b83bab5b134d9fd7f51a2f0d0c0",
+      "mode": "0o644"
+    },
+    "tests/test_pkg_integration.py": {
+      "kind": "file",
+      "sha256": "7b3f745adb57fb616ef5d9dc3f29424ab18d4642caacb4a285c68af5dd429672",
+      "mode": "0o644"
+    },
+    "tests/test_desktop_integration.py": {
+      "kind": "file",
+      "sha256": "c839388fdc8e5503b239517e2e9b22d3ee7865e88fd6b1017282cb0c1b5c36be",
+      "mode": "0o644"
+    },
+    "tests/test_desktop.py": {
+      "kind": "file",
+      "sha256": "dfec79888eed9f71b0e5f76eb826886a5bf2f6e32b6c01198a7d6c6ae240ec30",
+      "mode": "0o644"
+    },
+    "tests/test_resources_integration.py": {
+      "kind": "file",
+      "sha256": "392aa4d152bd5baa228e499a5de5ab864cd24d399b8157ca0b6e64d4b6a7eddf",
+      "mode": "0o644"
+    },
+    "tests/test_resources.py": {
+      "kind": "file",
+      "sha256": "544eb7fac4b8e339f237b9e10d6fe9a647f666004e9d0341a11295d347c1eaf1",
+      "mode": "0o644"
+    },
+    "tests/test_audio_route.py": {
+      "kind": "file",
+      "sha256": "e3cbc5e46c5f97b0f625aaace00ab8026d802f58c85990f69c29e8b2c69e2e4a",
+      "mode": "0o644"
+    },
+    "tests/test_app_user.py": {
+      "kind": "file",
+      "sha256": "487b2aca893749a9098681bb1553bbcf797f7c6383f2d89476adfc5868efd74d",
+      "mode": "0o644"
+    },
+    "tests/test_on_demand.py": {
+      "kind": "file",
+      "sha256": "e5db547299d0b6e1e35dea8d175078b6a5844f639826eee21fe7a51239bbed13",
+      "mode": "0o644"
+    },
+    "tests/test_catalog.py": {
+      "kind": "file",
+      "sha256": "e6833626ef4600a2aafe648c2eacae1d62654d5231d18b94f05fecb985892ef2",
+      "mode": "0o644"
+    },
+    "tests/test_install_status.py": {
+      "kind": "file",
+      "sha256": "e2876ee0293d875f7557e981b63a536354d57765bbb4e82ffa46e0045fa8a67e",
+      "mode": "0o644"
+    },
+    "tests/test_lifecycle_contracts.py": {
+      "kind": "file",
+      "sha256": "9af01894a585fd492cfd86da66402dc4bdb1a6ad1621d51866aefc7d9c6160ce",
+      "mode": "0o644"
+    },
+    "tests/test_packages.py": {
+      "kind": "file",
+      "sha256": "156675a98d85d38b801fa41778fc283e45fead01d3cbfb8f2e7462fff2da8936",
+      "mode": "0o644"
+    },
+    "tests/test_portal_bridge.py": {
+      "kind": "file",
+      "sha256": "d7769919825c4f01e3e924867296b9d1d27eb4a62974cda2d75011d87b8022a2",
+      "mode": "0o644"
+    },
+    "tests/test_screencast.py": {
+      "kind": "file",
+      "sha256": "79fc1d36ae7fc3af9945af9ad493d3e56ff574e6e2582347c0d2f9037e5e1caa",
+      "mode": "0o644"
+    },
+    "tests/test_screencast_contract.py": {
+      "kind": "file",
+      "sha256": "c046d579b37503083a53286ad32bb39b317268cd70288830bfdca194c1097b68",
+      "mode": "0o644"
+    },
+    "tests/test_screencast_native.py": {
+      "kind": "file",
+      "sha256": "32297fcb01ec2c160e5dc5ad9baf4385e3cc67aa014582d606147d567bc4f00e",
+      "mode": "0o644"
+    },
+    "tests/test_startup_trace.py": {
+      "kind": "file",
+      "sha256": "ed6cbf086b3c12b6265b6c00454dc0244877ceba16c908fcefdda451ea4f1723",
+      "mode": "0o644"
+    },
+    "tests/test_identity_migration.py": {
+      "kind": "file",
+      "sha256": "daa1b1ab1b39566538b786fa772893f40c2b4b020b70bdd50d2c7512113caf93",
+      "mode": "0o644"
+    },
+    "tests/test_app_binding.py": {
+      "kind": "file",
+      "sha256": "ec9a454e65ff99c678a48388556bcd747ea5b74980a490d21f70a55f32031c54",
+      "mode": "0o644"
+    },
+    "tests/test_data_roots.py": {
+      "kind": "file",
+      "sha256": "479df15b7552f010c869db5d9dfe99ba5aedcaaed01aa7a78f21ab601883f3fb",
+      "mode": "0o644"
+    },
+    "tests/test_file_control.py": {
+      "kind": "file",
+      "sha256": "345fd7ea2d267996930956d589f26979d13c3a35702dfcea24c84b506dbdd27f",
+      "mode": "0o644"
+    },
+    "tests/test_share_label.py": {
+      "kind": "file",
+      "sha256": "6f93078af72fce5a8c0f7d7ee2b182a59af715d5732822fd80a988ce50e537df",
+      "mode": "0o644"
+    },
+    "tests/test_file_routes.py": {
+      "kind": "file",
+      "sha256": "0be2aca077d5071f1d14dcd7a17c0ec12fbb2d21e472780b368b66488666e95d",
+      "mode": "0o644"
+    },
+    "tests/test_views.py": {
+      "kind": "file",
+      "sha256": "06a7438352e25c94276605910d274ee6f65f6f4e82363aeea06d49c58afa1562",
+      "mode": "0o644"
+    },
+    "tests/test_file_operations.py": {
+      "kind": "file",
+      "sha256": "bcfdc85abb8edb476115f6942038428e755fd53e7af1bc6f0c8bf1859ea41bbc",
+      "mode": "0o644"
+    },
+    "tests/test_controlled_move.py": {
+      "kind": "file",
+      "sha256": "3366b436f782f02e4afcd6c41a597dab4c1e81e272503530a671410c7158b2c3",
+      "mode": "0o600"
+    },
+    "tests/test_session_recovery_contract.py": {
+      "kind": "file",
+      "sha256": "938c4faef3c84b5a6fa336f78bffa66a2b3c406c85fb1c67c7bed7502eda811a",
+      "mode": "0o644"
+    },
+    "tests/test_project_sessions.py": {
+      "kind": "file",
+      "sha256": "f41b9c4ca14c1165688d928d746aaa384195d0a3a3e19de28b1aee8e29bea1b7",
+      "mode": "0o644"
+    },
+    "tests/test_desktop_integrations.py": {
+      "kind": "file",
+      "sha256": "80ac86454a06522e49a4c2df9a09a90c118e1599be7eef7de66e99d4a25461b4",
+      "mode": "0o644"
+    },
+    "tests/test_desktop_recovery_authority.py": {
+      "kind": "file",
+      "sha256": "b5374ae4a401c4dd581fdd1b2e74adb139cf060c11e444a230f4cb8418073a1b",
+      "mode": "0o644"
+    },
+    "tests/test_projection_controller.py": {
+      "kind": "file",
+      "sha256": "13f7ea1e81348a59091eeb80db1d0d4ab1bf51bff1e93b63f5fa51571ccff113",
+      "mode": "0o644"
+    },
+    "tests/test_projection_support.py": {
+      "kind": "file",
+      "sha256": "4cd37292d3d0977eb2f0d6d1b543540c7fb80d99896380ec9280c62c0c7a53e9",
+      "mode": "0o600"
+    },
+    "tests/test_projection_objects.py": {
+      "kind": "file",
+      "sha256": "957a6e23dce536d257a88b6797afb66629b0f53848ede98510a159067719cd82",
+      "mode": "0o600"
+    },
+    "tests/test_projection_directory.py": {
+      "kind": "file",
+      "sha256": "5f6252ad20b123da0cdd8760c36e05b1a464d2588f550611159884e07d7fc517",
+      "mode": "0o600"
+    },
+    "tests/test_fuse_view.py": {
+      "kind": "file",
+      "sha256": "cdee2188394972683aef0abfbc322ede4a3b5d107783cfdb78081ababaa493e3",
+      "mode": "0o644"
+    },
+    "tests/test_view_backend.py": {
+      "kind": "file",
+      "sha256": "d579fbfceae36380967527725d4d46f072c558f9443d91c7a9608f5e9374ada2",
+      "mode": "0o644"
+    },
+    "tests/test_projection_boundaries.py": {
+      "kind": "file",
+      "sha256": "81b88b5f0fb4f3fbe6be930e7fa45878bd4cc08107aded4d17bbb02677444d2b",
+      "mode": "0o644"
+    },
+    "tests/test_root_identity.py": {
+      "kind": "file",
+      "sha256": "9f0fb4e8234d37d4df7cde393a57aad664bb5a7146b2082b1fea758bc921faa8",
+      "mode": "0o644"
+    },
+    "tests/test_compatibility.py": {
+      "kind": "file",
+      "sha256": "bc31398b2e31586665f5f9ceee80fee863cd53f74ce01c1e63e0c88f3805d32f",
+      "mode": "0o644"
+    },
+    "tests/test_xauthority_mount.py": {
+      "kind": "file",
+      "sha256": "57ad1b131caa969c7dbeddd91385f5a1008bb8c9c2c7a73a342333e361aae68c",
+      "mode": "0o644"
+    },
+    "tests/test_projection_fd.py": {
+      "kind": "file",
+      "sha256": "a8327af71d546f9e2869ff2276ce168f6a8c55bc4f6e65b15604eda5a500c0e2",
+      "mode": "0o644"
+    },
+    "tests/test_cli_shortcuts.py": {
+      "kind": "file",
+      "sha256": "342502354bc711d601e6680db3d8ce5f87f725e62d110886b624e1db69af2e8a",
+      "mode": "0o600"
+    },
+    "tests/test_cli_guest_paths.py": {
+      "kind": "file",
+      "sha256": "5934c26102e079bdeb45331f11132e99cba25ebd34c11470b7bcf8cd1ed7fe5f",
+      "mode": "0o644"
+    },
+    "tests/test_cli_primary_acceptance.py": {
+      "kind": "file",
+      "sha256": "d0d5429141cdc9654b444c325b9b586915c90b7c03035c29da2e4248e04e9f7b",
+      "mode": "0o644"
+    },
+    "tests/test_quality_regressions.py": {
+      "kind": "file",
+      "sha256": "88d85f25816f056bc81ccfcb815ae25f4690f343fd13a64bfddd6cf382017b22",
+      "mode": "0o644"
+    },
+    "tests/test_atomic_io.py": {
+      "kind": "file",
+      "sha256": "0b3b1c6827c965b901d6120dfcb1497930cf99e2b8fc270d9b4ae31a1d08f57a",
+      "mode": "0o644"
+    },
+    "tests/test_app_entries.py": {
+      "kind": "file",
+      "sha256": "a6b46f59657bd1461120c5a2cd3febb2046058c87f72fc6147ac6288c2c1a933",
+      "mode": "0o644"
+    },
+    "tests/test_package_alias.py": {
+      "kind": "file",
+      "sha256": "bde953db04212e2be036f7600bc090d156c2fc27ce7e4a900c4ce57bdc4884bf",
+      "mode": "0o644"
+    },
+    "tests/test_dmabuf_roundtrip.py": {
+      "kind": "file",
+      "sha256": "25fe8f44146315e64e474c385c4ecfef7e0d833124ee3c187b11e891321884fc",
+      "mode": "0o644"
+    },
+    "tests/test_repo_tools.py": {
+      "kind": "file",
+      "sha256": "f0cedc233bae0f66e7ac348c0422edb46d2090e8c10591e53e777ea18bdbc2e8",
+      "mode": "0o644"
+    },
+    "tests/test_projection_rename.py": {
+      "kind": "file",
+      "sha256": "71a280fed8d83349b6b9b4a40416317ee2e26e8a638b5e7b05eb2ec39f0b0ed2",
+      "mode": "0o644"
+    },
+    "tools/collect_host_baseline.py": {
+      "kind": "file",
+      "sha256": "03677ad71234be7743a61463b3570952f6b82d5d0f7341ba4fe74f3fa00a3449",
+      "mode": "0o644"
+    },
+    "tools/probe_file_sharing.py": {
+      "kind": "file",
+      "sha256": "e90d11e9e4d14ede05f5695a58f84bfd660150cf788293b430c10ec9d3d5ff15",
+      "mode": "0o644"
+    },
+    "tools/probe_resources.py": {
+      "kind": "file",
+      "sha256": "0efe7c61353fb7ba72ccd0e11c7f107566a6a83e23a4888a8f7d423137600d54",
+      "mode": "0o644"
+    },
+    "tools/probe_desktop_apps.py": {
+      "kind": "file",
+      "sha256": "16a6ce2f11b7c4eb62b4ecdb49c89de6517603d3b30f12d575c309f010abeb63",
+      "mode": "0o644"
+    },
+    "tools/probe_wayland_media.py": {
+      "kind": "file",
+      "sha256": "d2410991723fca06e6af0280e946895ee38b1080a1ddf2e52d5c2cc5ae68b820",
+      "mode": "0o644"
+    },
+    "tools/probe_tencent_meeting.py": {
+      "kind": "file",
+      "sha256": "d1ca551f0488b327d3d6b8ad9c538a704dfc7be4cc44d2f389bb86661a6c1208",
+      "mode": "0o644"
+    },
+    "tools/audio_route.py": {
+      "kind": "file",
+      "sha256": "3b4ee5815bc0397ce05ee774117431ab4d7c112eaadac346adb41886fc227fd2",
+      "mode": "0o644"
+    },
+    "tools/kwin_window_probe.py": {
+      "kind": "file",
+      "sha256": "9f86ababba6cbb6aa66cc9c48f03cce1c15e7573c1acb243f89f54a3682e0161",
+      "mode": "0o644"
+    },
+    "tools/lab.py": {
+      "kind": "file",
+      "sha256": "82df3a0393f482778d6a6257315e0ffb12bcb423db806ae28f06c3a85ee084fb",
+      "mode": "0o644"
+    },
+    "tools/prepare_concurrency.py": {
+      "kind": "file",
+      "sha256": "3fd9057ccdafb24a42aa0e2bac4e505725f6438b68e2cd6acaa378eb2be91571",
+      "mode": "0o644"
+    },
+    "tools/prepare_install_status.py": {
+      "kind": "file",
+      "sha256": "5774d0ded94cb08829d94084245c869a706245fe978022e0c4ec76d65233064c",
+      "mode": "0o644"
+    },
+    "tools/prepare_lifecycle.py": {
+      "kind": "file",
+      "sha256": "c8e3bcc6a8568fcdd8642bb7809e2ddc61b5fc99295d017f87048a00d73e1ece",
+      "mode": "0o644"
+    },
+    "tools/prepare_startup.py": {
+      "kind": "file",
+      "sha256": "0fe52c69bef7f2b1ae3feb50b9e70840e4d132bf12a737b3c01852ddeccdb7e0",
+      "mode": "0o644"
+    },
+    "tools/probe_arch_complex.py": {
+      "kind": "file",
+      "sha256": "45f71dc720add7be1e44f60100bd1ff628d0f2f32a528ced6668dec716d969cc",
+      "mode": "0o644"
+    },
+    "tools/probe_concurrency.py": {
+      "kind": "file",
+      "sha256": "a0f3283beb1594bff764e791378db5f00ce66c432c409883c1e6292bbe4c46fb",
+      "mode": "0o644"
+    },
+    "tools/probe_desktop_protocols.py": {
+      "kind": "file",
+      "sha256": "a711b4b6c05db1f86cb01b6e082367f7f5e104ed549487a023a6732663c77ab6",
+      "mode": "0o644"
+    },
+    "tools/probe_freecad_macro.py": {
+      "kind": "file",
+      "sha256": "46a948900755dfaa953f983cd7ab27b3a0e34a88fae6941721ce196a566d721b",
+      "mode": "0o644"
+    },
+    "tools/probe_install_status.py": {
+      "kind": "file",
+      "sha256": "3b0a046f9ea85958b653ba4adfbd05e1a042fb83202d3de59b62ac54f40c353a",
+      "mode": "0o644"
+    },
+    "tools/probe_lifecycle.py": {
+      "kind": "file",
+      "sha256": "275017408393f622f471b719375d05630781641bae123c4146d74efd98e70888",
+      "mode": "0o644"
+    },
+    "tools/probe_screencast.py": {
+      "kind": "file",
+      "sha256": "bc7d2845bc939d3cd09d9ec9b25770d9dc639d6132bc6b632bf38b81b6751c5b",
+      "mode": "0o644"
+    },
+    "tools/probe_startup.py": {
+      "kind": "file",
+      "sha256": "30f342d264fb18018ff6898fb286b0e4078cfe4f3b7264bc2c2da8822d74f37c",
+      "mode": "0o644"
+    },
+    "tools/probe_startup_failures.py": {
+      "kind": "file",
+      "sha256": "c188d4c70a7869c7967f3e6655f8c4a2d5efe6bb538c2e8b06db8d9056fbadfd",
+      "mode": "0o644"
+    },
+    "tools/probe_startup_phases.py": {
+      "kind": "file",
+      "sha256": "3deef866db254743e1f8663545f1ea6ca39c11c4bccbe93bbc1d14506c09eee0",
+      "mode": "0o644"
+    },
+    "tools/startup_observer.py": {
+      "kind": "file",
+      "sha256": "42743d0bc48f74dc80bfa910c7fc2f35d81a93d0bbcff377892d47c1a3d08461",
+      "mode": "0o644"
+    },
+    "tools/trace_startup_entry.py": {
+      "kind": "file",
+      "sha256": "e0c7174780cd0c43d2266f88c140fccd5c6430d9a3337df312abbc5b922bd683",
+      "mode": "0o644"
+    },
+    "tools/verify_startup_evidence.py": {
+      "kind": "file",
+      "sha256": "a6cb8fbecce5abb037399ad8fdf8e1f407453a324517789382ddb26642657cc4",
+      "mode": "0o644"
+    },
+    "tools/probe_headless.py": {
+      "kind": "file",
+      "sha256": "0d86281bd86af80dddf5a9053253af4aaf954e49681bd754ad4d8e36f8f0324d",
+      "mode": "0o644"
+    },
+    "tools/install_unifier.py": {
+      "kind": "file",
+      "sha256": "09f0d8225ec798e2ed6379fc56ba198a31733810f89ce0a9f094545d25a68ef2",
+      "mode": "0o755"
+    },
+    "tools/ml.py": {
+      "kind": "symlink",
+      "target": "unifier.py"
+    },
+    "tools/unifier.py": {
+      "kind": "file",
+      "sha256": "09b9f6ab73c144a11835bacd7f6069dd9226aeacb7b91726677041679356bcd2",
+      "mode": "0o644"
+    },
+    "tools/run_archived_probe.py": {
+      "kind": "file",
+      "sha256": "77edeef67819ee21e3fc39b4f2b14ce6dd7d3c00626e46da8c4cba1b543ccf48",
+      "mode": "0o644"
+    },
+    "tools/check_repo.py": {
+      "kind": "file",
+      "sha256": "d64471cb182ed7d4f5843384b29f27e7e017f88d014416dd82d7d465bf643fef",
+      "mode": "0o644"
+    },
+    "config/images.lock.json": {
+      "kind": "file",
+      "sha256": "9effc95f32804154c3ccab113067f86846b41f2b7b6d77dd050e59b96755aada",
+      "mode": "0o600"
+    },
+    "config/targets.toml": {
+      "kind": "file",
+      "sha256": "43d3e3234dc2966fa694b650716ef9a41bde0b8231cc35139eb52c11333dfbed",
+      "mode": "0o644"
+    },
+    "fixtures/lab-smoke.sh": {
+      "kind": "file",
+      "sha256": "a18c469ec5a054c775d8d39066dbfdca4f38cd9d4505c74bdf9ebec6f1efb17a",
+      "mode": "0o644"
+    },
+    "fixtures/wayland_handshake.py": {
+      "kind": "file",
+      "sha256": "764c0c1c1fbfdc240e67cdcff48cf905d5443209311a79601ca45cc27d991c4c",
+      "mode": "0o644"
+    },
+    "fixtures/resource_probe.c": {
+      "kind": "file",
+      "sha256": "067675d016ccfa5dbd3cc1453edf8e191518fadd30cfba653a95a8313c556376",
+      "mode": "0o644"
+    },
+    "fixtures/wayland_clipboard.py": {
+      "kind": "file",
+      "sha256": "a7c5d997eb7d28f62ed6f391de6ee8b472c029f5f3afe1ba13b67a97fab62cb9",
+      "mode": "0o644"
+    },
+    "fixtures/mousepad_control.py": {
+      "kind": "file",
+      "sha256": "d08abd96b1e9e0f2b6dd842752a98bbd905cc86899d58a74281540e0cc38e15c",
+      "mode": "0o644"
+    },
+    "fixtures/launch_mousepad.py": {
+      "kind": "file",
+      "sha256": "c336c4fb1cbcc04df2faadd930bf3414be0489b84be4c6346d41cb00d86d7396",
+      "mode": "0o644"
+    },
+    "fixtures/x11_window_input.py": {
+      "kind": "file",
+      "sha256": "a9ba9c9484e4427f19ad8a923709c343faa74185efa6461464f898e70748a80a",
+      "mode": "0o644"
+    },
+    "fixtures/share_target.py": {
+      "kind": "file",
+      "sha256": "9f3b7fa188d6388f38aab971dfdfb012a10b04c739cfdbbb74b6927764433d55",
+      "mode": "0o644"
+    },
+    "fixtures/dmabuf_roundtrip.c": {
+      "kind": "file",
+      "sha256": "c44bf22e49ef500626f6ec68980f125ddf42624e5c5e03a4df43c26eb4624d06",
+      "mode": "0o644"
+    },
+    "fixtures/screencast_consumer.c": {
+      "kind": "file",
+      "sha256": "3889097c92cef98057568de52f70e66b612ac74a298e083245d6e16e2fe0b73a",
+      "mode": "0o644"
+    },
+    "bin/unifier": {
+      "kind": "file",
+      "sha256": "749dd07b69dd85dfff543701e04a26ce268b33f2dab7bd13c08bf78d1ed358db",
+      "mode": "0o755"
+    },
+    "docs/布局.md": {
+      "kind": "file",
+      "sha256": "76347fc28b74715043f0142158bdeedb114252a38aa4c4e1c2526cfac7ccf582",
+      "mode": "0o644"
+    },
+    "docs/仓库维护.md": {
+      "kind": "file",
+      "sha256": "555546f1175f528023a67c3767363daee19560b28dbc68adb443b0c27ec1786b",
+      "mode": "0o644"
+    },
+    "设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md": {
+      "kind": "file",
+      "sha256": "1f020359a759063541779546c7fd9ad91c7668d53f6dbfb38abbf34c68b331e3",
+      "mode": "0o644"
+    },
+    "设计/Ubuntu-Server白名单与容器验收-2026-10-28.md": {
+      "kind": "file",
+      "sha256": "047ee1bb5282bd084db87e7a846ca4345f1a9077763b506eacfefe25d7fd20a9",
+      "mode": "0o644"
+    },
+    "设计/CLI首次配置与发行版专用目录-2026-10-29.md": {
+      "kind": "file",
+      "sha256": "18d64abb7a3be656034576328ec72088f9ec31ff7bc23c0b9cbb1037d0a9e987",
+      "mode": "0o644"
+    },
+    "设计/腾讯会议跨重启目录身份修复-2026-10-28.md": {
+      "kind": "file",
+      "sha256": "579e0abb2ad36431fa349b97aebb89d5eb65add69f21dbdd73530586a9d1e39a",
+      "mode": "0o644"
+    },
+    "设计/发行版派系白名单与容器关系-2026-10-28.md": {
+      "kind": "file",
+      "sha256": "2ff1addf770f2f0bec69e80efd5e20f9eab60d050fbf4dfe757785ed3fd8e901",
+      "mode": "0o644"
+    },
+    "设计/Unifier-架构实验定档-2026-10-23.md": {
+      "kind": "file",
+      "sha256": "6b935d972777b88f025d33cc14e5ba327787f0ef76425ab1192fd8b622727820",
+      "mode": "0o644"
+    },
+    "README.md": {
+      "kind": "file",
+      "sha256": "2ac956116fc885ff2402de603e60f04e73500414159f9608bb739b3b803425a9",
+      "mode": "0o644"
+    },
+    "HANDOFF.md": {
+      "kind": "file",
+      "sha256": "d9a42da2c09253e86882920d9baa79e090837baab40a6b6cec1491ae28d9a361",
+      "mode": "0o644"
+    }
+  },
+  "git_head": "5e13d0df1222c0385dd67d23532d4d9cbe53fb1c"
+}

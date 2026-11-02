@@ -1,0 +1,5 @@
+{
+  "accepted": false,
+  "reason": "Fixed timers sent q and resized before the guest UI was ready. Debian bat emitted all 300 lines without a pager, so initial smoke success does not establish interactive paging/resize. Rerun with real readiness barrier and explicit less dependency.",
+  "superseded_by": "pty-attempt2"
+}

@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "stopped_bin_read": false,
+    "root_lists_bin_alias": true,
+    "relative_link_beneath_bind_is_listed": true,
+    "relative_link_beneath_bind_is_followed": true
+  },
+  "bin_entry_count": 0,
+  "root_entries": [
+    "bin",
+    "boot",
+    "etc",
+    "home",
+    "lib",
+    "lib64",
+    "media",
+    "mnt",
+    "opt",
+    "root",
+    "sbin",
+    "srv",
+    "tmp",
+    "usr",
+    "var"
+  ],
+  "passed": false,
+  "view_released": true
+}

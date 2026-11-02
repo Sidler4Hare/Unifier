@@ -1,0 +1,6 @@
+{
+  "scope": "Local Fedora offline check of exact transfer snapshot; no remote-host acceptance",
+  "returncode": 0,
+  "elapsed_seconds": 34.55,
+  "log": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/server-validation-20261030T204043+0800/local-offline.log"
+}

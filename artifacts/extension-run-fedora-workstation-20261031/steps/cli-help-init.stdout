@@ -1,0 +1,14 @@
+init help
+
+Usage: unifier init [--target TARGET ...] [--none] [--desktop] [--network pasta|none] [--yes]
+
+Options:
+  --target TARGET    select a distribution; repeatable. Only selected images are prepared.
+  --none             explicitly select nothing: CLI only, zero containers.
+  --desktop          explicitly create a desktop environment; default is headless pasta + keep-id.
+  --network pasta|none defaults to pasta; package install needs network.
+  --yes              skip confirmation (non-interactive use still needs an explicit selection).
+
+Examples:
+  unifier init
+  unifier init --target debian13 --target arch --yes

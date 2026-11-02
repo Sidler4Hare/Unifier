@@ -1,0 +1,54 @@
+{
+  "identity": {
+    "argv": [
+      "id"
+    ],
+    "returncode": 0,
+    "stdout": "uid=1000(dev) gid=1000(dev) groups=1000(dev),969(docker),998(wheel)\n",
+    "stderr": ""
+  },
+  "podman-version": {
+    "argv": [
+      "podman",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "podman version 6.1.4\n",
+    "stderr": ""
+  },
+  "skopeo-version": {
+    "argv": [
+      "skopeo",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "skopeo version 1.24.1 commit: 77f3d92f861271c7cb9175afcf876017bcae9202\n",
+    "stderr": ""
+  },
+  "containers": {
+    "argv": [
+      "podman",
+      "ps",
+      "-a",
+      "--format",
+      "json"
+    ],
+    "returncode": 0,
+    "stdout": "[\n  {\n    \"AutoRemove\": false,\n    \"Command\": [\n      \"infinity\"\n    ],\n    \"CreatedAt\": \"46 hours ago\",\n    \"CIDFile\": \"\",\n    \"Exited\": true,\n    \"ExitedAt\": 1793233600,\n    \"ExitCode\": 143,\n    \"ExposedPorts\": null,\n    \"Id\": \"5e2d5d5b2b04a7e840755f747c96085ff8db11fd6b33584ef51c9e78e4e1871f\",\n    \"Image\": \"docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483\",\n    \"ImageID\": \"567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c\",\n    \"IsInfra\": false,\n    \"Labels\": {\n      \"multilinux.env\": \"archdemo-deb\",\n      \"multilinux.project\": \"/home/dev/unifier\",\n      \"multilinux.role\": \"environment\"\n    },\n    \"Mounts\": [\n      \"/run/user/1000/wayland-0\",\n      \"/tmp/.X11-unix/X0\",\n      \"/run/user/1000/pulse/native\",\n      \"/run/user/1000/pipewire-0\",\n      \"/home/dev/UnifierDemo\"\n    ],\n    \"Names\": [\n      \"ml-b22ecff5-archdemo-deb\"\n    ],\n    \"Namespaces\": {\n      \n    },\n    \"Networks\": [],\n    \"Pid\": 0,\n    \"Pod\": \"\",\n    \"PodName\": \"\",\n    \"Ports\": null,\n    \"Restarts\": 0,\n    \"Size\": null,\n    \"StartedAt\": 1793233596,\n    \"State\": \"exited\",\n    \"Status\": \"Exited (143) 36 hours ago\",\n    \"Created\": 1793197795\n  }\n]\n",
+    "stderr": ""
+  },
+  "virtualization": {
+    "argv": [
+      "systemd-detect-virt"
+    ],
+    "returncode": 0,
+    "stdout": "kvm\n",
+    "stderr": ""
+  },
+  "doctor_module": {
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\n  \"schema_version\": 1,\n  \"captured_at\": \"2026-10-30T20:54:09+08:00\",\n  \"ready_for_image_preparation\": true,\n  \"kernel\": \"7.2.11-arch1-1\",\n  \"uid\": 1000,\n  \"gid\": 1000,\n  \"runtime\": {\n    \"rootless\": true,\n    \"cgroup_version\": \"v2\",\n    \"cgroup_manager\": \"systemd\",\n    \"oci_runtime\": \"crun\",\n    \"storage_driver\": \"overlay\"\n  },\n  \"checks\": [\n    {\n      \"name\": \"host-whitelist\",\n      \"ok\": true,\n      \"detail\": {\n        \"id\": \"arch\",\n        \"version_id\": \"\",\n        \"variant_id\": \"\",\n        \"id_like\": [],\n        \"family\": \"arch\",\n        \"reference_host\": \"arch\",\n        \"integration_profile\": \"arch\",\n        \"package_driver\": \"pacman\",\n        \"base_package_driver\": \"pacman\",\n        \"package_format\": \"arch\",\n        \"system\": \"Linux\",\n        \"machine\": \"x86_64\",\n        \"libc\": \"glibc\",\n        \"atomic\": false,\n        \"admitted\": true,\n        \"reasons\": [],\n        \"observation\": \"live-host\"\n      }\n    },\n    {\n      \"name\": \"python\",\n      \"ok\": true,\n      \"detail\": \"3.14.8\"\n    },\n    {\n      \"name\": \"linux-amd64\",\n      \"ok\": true,\n      \"detail\": \"x86_64\"\n    },\n    {\n      \"name\": \"podman\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"skopeo\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"rootless-runtime\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"cgroup-v2\",\n      \"ok\": true\n    }\n  ],\n  \"image_lock\": \"valid\",\n  \"compatibility\": {\n    \"debian13\": {\n      \"schema_version\": 1,\n      \"policy_version\": 1,\n      \"mode\": \"whitelist\",\n      \"host\": {\n        \"id\": \"arch\",\n        \"version_id\": \"\",\n        \"variant_id\": \"\",\n        \"id_like\": [],\n        \"family\": \"arch\",\n        \"reference_host\": \"arch\",\n        \"integration_profile\": \"arch\",\n        \"package_driver\": \"pacman\",\n        \"base_package_driver\": \"pacman\",\n        \"package_format\": \"arch\",\n        \"system\": \"Linux\",\n        \"machine\": \"x86_64\",\n        \"libc\": \"glibc\",\n        \"atomic\": false,\n        \"admitted\": true,\n        \"reasons\": [],\n        \"observation\": \"live-host\"\n      },\n      \"target\": \"debian13\",\n      \"container_family\": \"debian\",\n      \"container_contract\": {\n        \"family\": \"debian\",\n        \"libc\": \"glibc\",\n        \"layout\": \"fhs\",\n        \"package_driver\": \"apt\",\n        \"package_format\": \"deb\",\n        \"runtime_backend\": \"podman-rootless\",\n        \"update_policy\": \"versioned-release\"\n      },\n      \"allowed\": true,\n      \"relationship\": \"cross-family\",\n      \"reasons\": [],\n      \"execution_domain\": \"isolated-container\",\n      \"host_authority\": true,\n      \"shared_kernel\": true,\n      \"share_system_trees\": false,\n      \"share_package_databases\": false,\n      \"native_package_validation\": \"required-even-within-family\",\n      \"requirements\": [\n        \"rootless-podman\",\n        \"cgroup-v2\",\n        \"locked-linux-amd64-image\",\n        \"guest-identity-and-shared-kernel-check\",\n        \"host-security-policy\",\n        \"desktop-session-and-devices-if-requested\"\n      ],\n      \"validation_scope\": \"policy-only\"\n    },\n    \"fedora44\": {\n      \"schema_version\": 1,\n      \"policy_version\": 1,\n      \"mode\": \"whitelist\",\n      \"host\": {\n        \"id\": \"arch\",\n        \"version_id\": \"\",\n        \"variant_id\": \"\",\n        \"id_like\": [],\n        \"family\": \"arch\",\n        \"reference_host\": \"arch\",\n        \"integration_profile\": \"arch\",\n        \"package_driver\": \"pacman\",\n        \"base_package_driver\": \"pacman\",\n        \"package_format\": \"arch\",\n        \"system\": \"Linux\",\n        \"machine\": \"x86_64\",\n        \"libc\": \"glibc\",\n        \"atomic\": false,\n        \"admitted\": true,\n        \"reasons\": [],\n        \"observation\": \"live-host\"\n      },\n      \"target\": \"fedora44\",\n      \"container_family\": \"fedora\",\n      \"container_contract\": {\n        \"family\": \"fedora\",\n        \"libc\": \"glibc\",\n        \"layout\": \"fhs\",\n        \"package_driver\": \"dnf\",\n        \"package_format\": \"rpm\",\n        \"runtime_backend\": \"podman-rootless\",\n        \"update_policy\": \"versioned-release\"\n      },\n      \"allowed\": true,\n      \"relationship\": \"cross-family\",\n      \"reasons\": [],\n      \"execution_domain\": \"isolated-container\",\n      \"host_authority\": true,\n      \"shared_kernel\": true,\n      \"share_system_trees\": false,\n      \"share_package_databases\": false,\n      \"native_package_validation\": \"required-even-within-family\",\n      \"requirements\": [\n        \"rootless-podman\",\n        \"cgroup-v2\",\n        \"locked-linux-amd64-image\",\n        \"guest-identity-and-shared-kernel-check\",\n        \"host-security-policy\",\n        \"desktop-session-and-devices-if-requested\"\n      ],\n      \"validation_scope\": \"policy-only\"\n    },\n    \"arch\": {\n      \"schema_version\": 1,\n      \"policy_version\": 1,\n      \"mode\": \"whitelist\",\n      \"host\": {\n        \"id\": \"arch\",\n        \"version_id\": \"\",\n        \"variant_id\": \"\",\n        \"id_like\": [],\n        \"family\": \"arch\",\n        \"reference_host\": \"arch\",\n        \"integration_profile\": \"arch\",\n        \"package_driver\": \"pacman\",\n        \"base_package_driver\": \"pacman\",\n        \"package_format\": \"arch\",\n        \"system\": \"Linux\",\n        \"machine\": \"x86_64\",\n        \"libc\": \"glibc\",\n        \"atomic\": false,\n        \"admitted\": true,\n        \"reasons\": [],\n        \"observation\": \"live-host\"\n      },\n      \"target\": \"arch\",\n      \"container_family\": \"arch\",\n      \"container_contract\": {\n        \"family\": \"arch\",\n        \"libc\": \"glibc\",\n        \"layout\": \"fhs\",\n        \"package_driver\": \"pacman\",\n        \"package_format\": \"arch\",\n        \"runtime_backend\": \"podman-rootless\",\n        \"update_policy\": \"full-system-upgrade\"\n      },\n      \"allowed\": true,\n      \"relationship\": \"same-distribution\",\n      \"reasons\": [],\n      \"execution_domain\": \"isolated-container\",\n      \"host_authority\": true,\n      \"shared_kernel\": true,\n      \"share_system_trees\": false,\n      \"share_package_databases\": false,\n      \"native_package_validation\": \"required-even-within-family\",\n      \"requirements\": [\n        \"rootless-podman\",\n        \"cgroup-v2\",\n        \"locked-linux-amd64-image\",\n        \"guest-identity-and-shared-kernel-check\",\n        \"host-security-policy\",\n        \"desktop-session-and-devices-if-requested\"\n      ],\n      \"validation_scope\": \"policy-only\"\n    }\n  },\n  \"scope\": \"Runtime preflight; does not prove any target application is compatible.\"\n}\n"
+  },
+  "remaining_task_mounts": []
+}

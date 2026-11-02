@@ -1,0 +1,1 @@
+{"argv": ["/usr/bin/python3", "tools/unifier.py", "env", "create", "--target", "debian13", "--id", "debian13"], "returncode": 1, "stdout": "", "stderr": "unifier: compatibility whitelist refused: host 'ubuntu' and guest 'debian13' share the 'debian' family; same-family containers are forbidden\n", "before": [], "after": [], "installation_created": false, "passed": true}

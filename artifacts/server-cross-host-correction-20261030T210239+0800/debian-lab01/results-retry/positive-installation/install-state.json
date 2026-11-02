@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "initialized": true,
+  "updated_at": "2026-10-30T21:19:22+08:00",
+  "enabled": [
+    "fedora44",
+    "arch"
+  ],
+  "targets": {
+    "debian13": {
+      "selected": false,
+      "state": "not_configured",
+      "environment_id": "debian13",
+      "container_retained": false,
+      "files_mounted": false,
+      "source": "new",
+      "failure": null
+    },
+    "fedora44": {
+      "selected": true,
+      "state": "ready",
+      "environment_id": "fedora44",
+      "container_retained": true,
+      "files_mounted": true,
+      "source": "new",
+      "failure": null,
+      "files_dir": "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/positive-installation/containers/fedora44/files",
+      "image_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "image_reference": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "image_id": "4b5d9a75c81b96b542ac08b19587efa516da72bf02581908c6178d39de4bb07b",
+      "updated_at": "2026-10-30T21:19:03+08:00",
+      "pending_phase": "container-create",
+      "identity": {
+        "environment_uuid": "37e6e44b-649e-4e41-aa71-d4b2082bfa78",
+        "generation": 1,
+        "container_id": "be1c9addb85d924fb8c5e934319c596edcc3a355a7af46fa2476311e9ff37d59"
+      },
+      "real_runtime_state": "stopped"
+    },
+    "arch": {
+      "selected": true,
+      "state": "ready",
+      "environment_id": "arch",
+      "container_retained": true,
+      "files_mounted": true,
+      "source": "new",
+      "failure": null,
+      "files_dir": "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/positive-installation/containers/arch/files",
+      "image_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "image_reference": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "image_id": "5a30b4acc83ff841682eb21795e00f7ff030796f5e6fd2a127decd7a45ba7cef",
+      "updated_at": "2026-10-30T21:19:22+08:00",
+      "pending_phase": "container-create",
+      "identity": {
+        "environment_uuid": "b2cb906d-f0b2-41b3-88cd-dc8601af4f8d",
+        "generation": 1,
+        "container_id": "4c91ab9e50720240c1ef7190f5cee2095a2db7125c0f76cf7479aa0bffa2207d"
+      },
+      "real_runtime_state": "stopped"
+    }
+  }
+}

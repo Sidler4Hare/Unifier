@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-01",
+  "installed_source": {
+    "command": "/home/omg/.local/bin/unifier",
+    "release": "/home/omg/.local/share/unifier-code/releases/0.0.1-b463bddede2f",
+    "files": {
+      "src/unifier/views.py": {
+        "worktree_sha256": "80770656f4c7cae98b31fcc61874acf74ac6cb27c087adda327f8678551609cc",
+        "installed_sha256": "c376ed0bbb94152b41e699fe30363cec18607a6cfe90c8d7cb22abacb39a7f45",
+        "matches": false
+      },
+      "src/unifier/shortcuts.py": {
+        "worktree_sha256": "4647b938fab595c8c275fa8a1e0bbc275b4b495c3c67a5477326706f8088da9c",
+        "installed_sha256": "5e8ff11189eee4780b651bc2ae465bcd4ad4bafab6b5e360df01400a2bd6a25c",
+        "matches": false
+      },
+      "src/unifier/project_sessions.py": {
+        "worktree_sha256": "966d5af6db67fdb7de01a833270ee697954f85c1554cc1533ad479e6a84d9d74",
+        "installed_sha256": "ce456daeb32680fcbbdd543395a885841ed69cce75ae6eef1677e0c4fc5b25a8",
+        "matches": false
+      },
+      "src/unifier/runtime.py": {
+        "worktree_sha256": "54a1f1c3cc0ac63e618a40d7e5689045a417a7b1b8fd509ed70d92e836a816a0",
+        "installed_sha256": "f1390cbb26545f78d94be5c8fd1721b579647b8a15eba1177f3dab6da72bfd0a",
+        "matches": false
+      },
+      "src/unifier/packages.py": {
+        "worktree_sha256": "f8fd85eef43a558c249d161e47bcf4a8bafa48a230bca16a758690dbf4435f81",
+        "installed_sha256": "969af42e0a91d8c6255db5b42daad920fdac2b1fa06b3fce65a86fe1baf45852",
+        "matches": false
+      },
+      "src/unifier/service.py": {
+        "worktree_sha256": "cb49d3466ae9b3daecae235bed7058ed15a5792b416628f6325326ed499bd535",
+        "installed_sha256": "2a392887177bc5134d357b50fbdf37d82ba5e43f7ea1fceb3bfd921dda531034",
+        "matches": false
+      },
+      "src/unifier/dependencies.py": {
+        "worktree_sha256": "4803308cccd8ed9c1a910d94b82871237254c9962d12145a62eb18d106fe2218",
+        "installed_sha256": null,
+        "matches": false
+      },
+      "src/unifier/native_io.py": {
+        "worktree_sha256": "2ccae94d6dd038a86e05d9b5a055a00633dc839b03d442e78a1a9d7956afff0b",
+        "installed_sha256": null,
+        "matches": false
+      }
+    }
+  },
+  "interrupted_inventory": {
+    "scope": "offline service fault injection; no real containers",
+    "actual_package_present": true,
+    "transaction_phase": "failed",
+    "failure_phase": "runtime",
+    "verification": null,
+    "recorded_hash_unchanged": true,
+    "recorded_hash_matches_actual": false,
+    "revision_before": {
+      "writable_revision": "cid-probe",
+      "content_revision": 1,
+      "package_inventory_sha256": "c1fd83067dc898b62c2b61cfc6469140c45ab6469e1cad58aae32241bfcd259b"
+    },
+    "revision_after": {
+      "writable_revision": "cid-probe",
+      "content_revision": 1,
+      "package_inventory_sha256": "c1fd83067dc898b62c2b61cfc6469140c45ab6469e1cad58aae32241bfcd259b"
+    },
+    "native": [
+      {
+        "argv": [
+          "apt-get",
+          "update"
+        ],
+        "exit_code": 0,
+        "stdout_tail": "",
+        "stderr_tail": ""
+      }
+    ],
+    "error": "native package command timed out; inspect package state before retrying"
+  },
+  "sigterm_cleanup": {
+    "scope": "real local child process; no Podman or package manager",
+    "wrapper_exit_code": -15,
+    "child_survived_wrapper_sigterm": true,
+    "abort_callback_called": false,
+    "child_pid": 942467,
+    "child_start": "41445455",
+    "cleanup": "probe finally kills only its own child group after identity check"
+  }
+}

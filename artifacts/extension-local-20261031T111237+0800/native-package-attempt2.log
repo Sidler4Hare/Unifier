@@ -1,0 +1,15 @@
+debian-record-maintenance 0
+arch-less-serialized 0
+arch-local-install 1
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/native_package_round2.py", line 11, in <module>
+    out=p.js(t+'-local-install',['install','--target',t,'--exec','/usr/bin/jq','--app','jq','--package','jq','--json',path],timeout=900)
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/primary_live.py", line 27, in js
+    def js(self,name,args,**kw):return json.loads(self.call(name,args,**kw).stdout)
+                                                  ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/primary_live.py", line 25, in call
+    if expect is not None and p.returncode!=expect:raise RuntimeError(name+': '+p.stderr[-1800:])
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: arch-local-install: arch: installing local package /home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/native-jq-files/中文 空格 $; jq.pkg.tar.zst through the native transaction.
+unifier: arch: installation failed (native diagnostics kept verbatim): local package file name is not accepted: 中文 空格 $; jq.pkg.tar.zst
+

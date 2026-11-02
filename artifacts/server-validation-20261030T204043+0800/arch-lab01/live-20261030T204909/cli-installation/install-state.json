@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "initialized": true,
+  "updated_at": "2026-10-30T20:49:24+08:00",
+  "enabled": [
+    "debian13",
+    "fedora44",
+    "arch"
+  ],
+  "targets": {
+    "debian13": {
+      "selected": true,
+      "state": "ready",
+      "environment_id": "debian13",
+      "container_retained": true,
+      "files_mounted": true,
+      "source": "new",
+      "failure": null,
+      "files_dir": "/home/dev/server-validation-20261030T204043+0800/live-20261030T204909/cli-installation/containers/debian13/files",
+      "image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "image_reference": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "image_id": "567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c",
+      "updated_at": "2026-10-30T20:49:16+08:00",
+      "pending_phase": "container-create",
+      "identity": {
+        "environment_uuid": "114f0583-2363-4092-aad6-852c50af8a70",
+        "generation": 1,
+        "container_id": "722f0bf969be3eca2d6a036935006b3360e5da14612ee43d62de679eb0651e4d"
+      },
+      "real_runtime_state": "stopped"
+    },
+    "fedora44": {
+      "selected": true,
+      "state": "ready",
+      "environment_id": "fedora44",
+      "container_retained": true,
+      "files_mounted": true,
+      "source": "new",
+      "failure": null,
+      "files_dir": "/home/dev/server-validation-20261030T204043+0800/live-20261030T204909/cli-installation/containers/fedora44/files",
+      "image_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "image_reference": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "image_id": "4b5d9a75c81b96b542ac08b19587efa516da72bf02581908c6178d39de4bb07b",
+      "updated_at": "2026-10-30T20:49:20+08:00",
+      "pending_phase": "container-create",
+      "identity": {
+        "environment_uuid": "eb1ff39a-b85e-493f-8be1-766fe7ce3360",
+        "generation": 1,
+        "container_id": "04bd919556b926f5d678c5b66ed2ba08b34daeea335af35b02799fc3c16caa5d"
+      },
+      "real_runtime_state": "stopped"
+    },
+    "arch": {
+      "selected": true,
+      "state": "ready",
+      "environment_id": "arch",
+      "container_retained": true,
+      "files_mounted": true,
+      "source": "new",
+      "failure": null,
+      "files_dir": "/home/dev/server-validation-20261030T204043+0800/live-20261030T204909/cli-installation/containers/arch/files",
+      "image_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "image_reference": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "image_id": "5a30b4acc83ff841682eb21795e00f7ff030796f5e6fd2a127decd7a45ba7cef",
+      "updated_at": "2026-10-30T20:49:24+08:00",
+      "pending_phase": "container-create",
+      "identity": {
+        "environment_uuid": "793e1857-d012-4589-ac50-117eeb2d3e0b",
+        "generation": 1,
+        "container_id": "f578ccea6e4f2e8c7b67f4d048c50e92bcf849236e476f5e98e7dae6e67f53ca"
+      },
+      "real_runtime_state": "stopped"
+    }
+  }
+}

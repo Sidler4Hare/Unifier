@@ -1,0 +1,5 @@
+{
+  "previous_run": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/server-validation-20261030T204043+0800",
+  "bundle_sha256": "8b16f27702ad918dee9719ebb60784b3ebafd76413bc52eb0b44fd8dfe23fb20",
+  "reason": "Exclude host-distribution containers from acceptance; complete omitted cross-family targets; preserve original raw evidence"
+}

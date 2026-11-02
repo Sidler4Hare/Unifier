@@ -1,0 +1,25 @@
+{
+  "version": "0.0.2",
+  "release": "/home/omg/.local/share/unifier-code/releases/0.0.2-b656bf73abfe",
+  "bundle_sha256": "b656bf73abfe126e2bddc27b3b184c494bf098631bc9d57e52ae83538b4e7856",
+  "backup": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-fix-20261101/daily-entrypoints-before-final.tar.gz",
+  "previous_launcher_target": "/home/omg/.local/share/unifier-code/releases/0.0.1-b463bddede2f/bin/unifier",
+  "activated_at": "2026-11-01T10:22:01.762576+08:00",
+  "entrypoints": {
+    "/home/omg/.local/share/multilinux/apps/freecad/tools/ml.py": "Unifier 0.0.2",
+    "/home/omg/.local/share/multilinux/apps/freecad/tools/unifier.py": "Unifier 0.0.2",
+    "/home/omg/.local/share/multilinux/apps/wemeet/tools/ml.py": "Unifier 0.0.2",
+    "/home/omg/.local/share/multilinux/apps/wemeet/tools/unifier.py": "Unifier 0.0.2",
+    "/home/omg/.local/bin/unifier": "Unifier 0.0.2"
+  },
+  "launcher_install_output": "rollback launcher: /home/omg/.local/bin/.unifier-ozigb11n.rollback\ninstalled /home/omg/.local/bin/unifier -> /home/omg/.local/share/unifier-code/releases/0.0.2-b656bf73abfe/bin/unifier\n",
+  "active_file_sha256": {
+    "/home/omg/.local/share/multilinux/apps/freecad/tools/ml.py": "ef71904f0069c3c58ef975d28cf44bbce4c1215a25af57c79ce0cb5264266c0a",
+    "/home/omg/.local/share/multilinux/apps/freecad/tools/unifier.py": "ef71904f0069c3c58ef975d28cf44bbce4c1215a25af57c79ce0cb5264266c0a",
+    "/home/omg/.local/share/multilinux/apps/freecad/deployment-current.json": "a462cc3fe2d1c107b62a37a4f709964173b6b593897281f2321ccafbae8d6330",
+    "/home/omg/.local/share/multilinux/apps/wemeet/tools/ml.py": "72465bc2bccda94c2baf050576d40fa5e0c4262214a58c333952861b42423ba6",
+    "/home/omg/.local/share/multilinux/apps/wemeet/tools/unifier.py": "72465bc2bccda94c2baf050576d40fa5e0c4262214a58c333952861b42423ba6",
+    "/home/omg/.local/share/multilinux/apps/wemeet/deployment-current.json": "cae4970ef3a919e25dfac54e3ef2f37ade762490ef14c0024acd5dab82ec5e3c"
+  },
+  "passed": true
+}

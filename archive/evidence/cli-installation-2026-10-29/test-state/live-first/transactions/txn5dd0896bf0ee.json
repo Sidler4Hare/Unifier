@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "id": "txn5dd0896bf0ee",
+  "environment_id": "fedora44",
+  "operation": "install-local",
+  "packages": [
+    "unifier-cli-probe"
+  ],
+  "use_command": [],
+  "local_file": "/home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/packages/unifier-cli-probe-1.0-1.noarch.rpm",
+  "revision_before": {
+    "writable_revision": "5881b9c0ad664918cd27626c1dbc38f7e1ee7846ba35e3140f4d807db99eb895",
+    "content_revision": 1,
+    "package_inventory_sha256": "4fbc88c890ab44ee974f34584be338afd98956bdb78224fc6c8c05b0bb722801"
+  },
+  "native": [
+    {
+      "argv": [
+        "dnf",
+        "install",
+        "-y",
+        "/tmp/ml-incoming/unifier-cli-probe-1.0-1.noarch.rpm"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Package            Arch   Version Repository        Size\nInstalling:\n unifier-cli-probe noarch 0:1.0-1 @commandline 140.0   B\n\nTransaction Summary:\n Installing:         1 package\n\n",
+      "stderr_tail": "Updating and loading repositories:\n Fedora 44 openh264 (From Cisco) - x86_ 100% | 532.0   B/s |   5.3 KiB |  00m10s\n Fedora 44 - x86_64 - Updates           100% |   1.0 MiB/s |  12.1 MiB |  00m12s\n Fedora 44 - x86_64                     100% |   1.6 MiB/s |  36.4 MiB |  00m23s\nRepositories loaded.\nTotal size of inbound packages is 7 KiB. Need to download 0 B.\nAfter this operation, 140 B extra will be used (install 140 B, remove 0 B).\nRunning transaction\n[1/3] Verify package files              100% |   0.0   B/s |   1.0   B |  00m00s\n[2/3] Prepare transaction               100% |  31.0   B/s |   1.0   B |  00m00s\n[3/3] Installing unifier-cli-probe-0:1. 100% |   1.5 KiB/s | 552.0   B |  00m00s\nWarning: skipped OpenPGP checks for 1 package from repository: @commandline\nComplete!\n"
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "unifier-cli-probe": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "arch": {
+      "before": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+      "after": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+      "probed_before": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+      "probed_after": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+      "unchanged": true,
+      "error": null
+    },
+    "debian13": {
+      "before": "5c6b1e0d0a8a056a2c423b8471968eda5413e3e5f95fcc0a1d9f548a67bcb6f2",
+      "after": "5c6b1e0d0a8a056a2c423b8471968eda5413e3e5f95fcc0a1d9f548a67bcb6f2",
+      "probed_before": "5c6b1e0d0a8a056a2c423b8471968eda5413e3e5f95fcc0a1d9f548a67bcb6f2",
+      "probed_after": "5c6b1e0d0a8a056a2c423b8471968eda5413e3e5f95fcc0a1d9f548a67bcb6f2",
+      "unchanged": true,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "5881b9c0ad664918cd27626c1dbc38f7e1ee7846ba35e3140f4d807db99eb895",
+    "content_revision": 2,
+    "package_inventory_sha256": "719a318e3db7c4ae406e20d472a489aab914fa5295453dea5c2477b439932019"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-29T19:29:41+08:00",
+  "finished_at": "2026-10-29T19:30:41+08:00"
+}

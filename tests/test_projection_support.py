@@ -10,8 +10,8 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from multilinux import fuse_view
-from multilinux.view_backend import IdMap, ViewBackend, ViewError
+from unifier import fuse_view
+from unifier.view_backend import IdMap, ViewBackend, ViewError
 
 
 class CaptureServer(fuse_view.FuseServer):

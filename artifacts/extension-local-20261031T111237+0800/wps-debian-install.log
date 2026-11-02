@@ -1,0 +1,101 @@
+debian13: apt-get update
+debian13: apt-get install -y /tmp/ml-incoming/wps-office.deb
+debian13: install-local failed txn1a44549e54ff
+{
+  "schema_version": 1,
+  "id": "txn1a44549e54ff",
+  "environment_id": "debian13",
+  "operation": "install-local",
+  "packages": [
+    "wps-office"
+  ],
+  "use_command": [],
+  "local_file": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/downloads/wps-office.deb",
+  "revision_before": {
+    "writable_revision": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "content_revision": 7,
+    "package_inventory_sha256": "eac156109e676e2db6bb0093ec88370a906709b81f1dcac4db5e9d73505e4604"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\nReading package lists...\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "/tmp/ml-incoming/wps-office.deb"
+      ],
+      "exit_code": 100,
+      "stdout_tail": "amd64.deb ...\r\nUnpacking libxkbcommon0:amd64 (1.7.0-2) ...\r\nSelecting previously unselected package libxkbcommon-x11-0:amd64.\r\nPreparing to unpack .../37-libxkbcommon-x11-0_1.7.0-2_amd64.deb ...\r\nUnpacking libxkbcommon-x11-0:amd64 (1.7.0-2) ...\r\nSelecting previously unselected package libxml2:amd64.\r\nPreparing to unpack .../38-libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3_amd64.deb ...\r\nUnpacking libxml2:amd64 (2.12.7+dfsg+really2.9.14-2.1+deb13u3) ...\r\nSelecting previously unselected package libxrender1:amd64.\r\nPreparing to unpack .../39-libxrender1_1%3a0.9.12-1_amd64.deb ...\r\nUnpacking libxrender1:amd64 (1:0.9.12-1) ...\r\nSelecting previously unselected package shared-mime-info.\r\nPreparing to unpack .../40-shared-mime-info_2.4-5+b2_amd64.deb ...\r\nUnpacking shared-mime-info (2.4-5+b2) ...\r\nSelecting previously unselected package wps-office.\r\nPreparing to unpack .../41-wps-office.deb ...\r\nUnpacking wps-office (12.1.2.29183.AK.preread.sw) ...\r\nSelecting previously unselected package xdg-user-dirs.\r\nPreparing to unpack .../42-xdg-user-dirs_0.18-2_amd64.deb ...\r\nUnpacking xdg-user-dirs (0.18-2) ...\r\nSetting up libexpat1:amd64 (2.9.0-1~deb13u1) ...\r\nSetting up libxau6:amd64 (1:1.0.11-1) ...\r\nSetting up libxdmcp6:amd64 (1:1.1.5-1) ...\r\nSetting up libapparmor1:amd64 (4.1.0-1) ...\r\nSetting up libxcb1:amd64 (1.17.0-2+b1) ...\r\nSetting up xdg-user-dirs (0.18-2) ...\r\nSetting up libglvnd0:amd64 (1.7.0-1+b2) ...\r\nSetting up libbrotli1:amd64 (1.1.0-2+deb13u1) ...\r\nSetting up x11-common (1:7.7+24+deb13u1) ...\r\ninvoke-rc.d: could not determine current runlevel\r\ninvoke-rc.d: policy-rc.d denied execution of start.\r\nSetting up xkb-data (2.42-1) ...\r\nSetting up libopengl0:amd64 (1.7.0-1+b2) ...\r\nSetting up libxcb-xkb1:amd64 (1.17.0-2+b1) ...\r\nSetting up libglib2.0-data (2.84.4-3~deb13u5) ...\r\nSetting up libx11-data (2:1.8.12-1) ...\r\nSetting up libavahi-common-data:amd64 (0.8-16) ...\r\nSetting up libdbus-1-3:amd64 (1.16.2-2) ...\r\nSetting up libunistring5:amd64 (1.3-2) ...\r\nSetting up fonts-dejavu-mono (2.37-8) ...\r\nSetting up libpng16-16t64:amd64 (1.6.48-1+deb13u6) ...\r\nSetting up libatomic1:amd64 (14.2.0-19) ...\r\nSetting up fonts-dejavu-core (2.37-8) ...\r\nSetting up libffi8:amd64 (3.4.8-2) ...\r\nSetting up dbus-session-bus-common (1.16.2-2) ...\r\nSetting up libtasn1-6:amd64 (4.20.0-2+deb13u1) ...\r\nSetting up libx11-6:amd64 (2:1.8.12-1) ...\r\nSetting up libglu1-mesa:amd64 (9.0.2-1.1+b3) ...\r\nSetting up dbus-system-bus-common (1.16.2-2) ...\r\nSetting up libxml2:amd64 (2.12.7+dfsg+really2.9.14-2.1+deb13u3) ...\r\nSetting up dbus-bin (1.16.2-2) ...\r\nSetting up libxkbcommon0:amd64 (1.7.0-2) ...\r\nSetting up libice6:amd64 (2:1.1.1-1) ...\r\nSetting up libxrender1:amd64 (1:0.9.12-1) ...\r\nSetting up fontconfig-config (2.15.0-2.3) ...\r\nSetting up libavahi-common3:amd64 (0.8-16) ...\r\nSetting up libxext6:amd64 (2:1.3.4-1+b3) ...\r\nSetting up libidn2-0:amd64 (2.3.8-2) ...\r\nSetting up dbus-daemon (1.16.2-2) ...\r\nSetting up libglib2.0-0t64:amd64 (2.84.4-3~deb13u5) ...\r\nNo schema files found: doing nothing.\r\nSetting up libfreetype6:amd64 (2.13.3+dfsg-1+deb13u1) ...\r\nSetting up dbus (1.16.2-2) ...\r\ninvoke-rc.d: could not determine current runlevel\r\ninvoke-rc.d: policy-rc.d denied execution of start.\r\nSetting up shared-mime-info (2.4-5+b2) ...\r\nSetting up libp11-kit0:amd64 (0.25.5-3) ...\r\nSetting up libxkbcommon-x11-0:amd64 (1.7.0-2) ...\r\nSetting up libfontconfig1:amd64 (2.15.0-2.3) ...\r\nSetting up libsm6:amd64 (2:1.2.6-1) ...\r\nSetting up libavahi-client3:amd64 (0.8-16) ...\r\nSetting up libgnutls30t64:amd64 (3.8.9-3+deb13u4) ...\r\nSetting up libcups2t64:amd64 (2.4.10-3+deb13u2) ...\r\nSetting up wps-office (12.1.2.29183.AK.preread.sw) ...\r\n/var/lib/dpkg/info/wps-office.postinst: line 183: hexdump: command not found\r\ndpkg: error processing package wps-office (--configure):\r\n installed wps-office package post-installation script subprocess returned error exit status 127\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\nErrors were encountered while processing:\r\n wps-office\r\n",
+      "stderr_tail": "E: Sub-process /usr/bin/dpkg returned an error code (1)\n"
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "failed",
+  "verification": {
+    "ok": false,
+    "packages": {
+      "wps-office": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": [
+      "native command failed"
+    ]
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "arch": {
+      "before": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "after": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "probed_before": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "probed_after": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "unchanged": true,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "content_revision": 8,
+    "package_inventory_sha256": "d68f4bc3f0ca03a6c49add87918bf12a6da8bd24064b60c9a850ad563e6aabfd"
+  },
+  "phase": "failed",
+  "failure_phase": "native-command",
+  "started_at": "2026-10-31T11:56:03+08:00",
+  "finished_at": "2026-10-31T11:57:07+08:00"
+}

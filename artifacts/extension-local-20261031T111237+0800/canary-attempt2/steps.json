@@ -1,0 +1,773 @@
+[
+  {
+    "name": "init",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "init",
+      "--target",
+      "debian13",
+      "--target",
+      "arch",
+      "--yes",
+      "--desktop",
+      "--network",
+      "pasta",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 5.017,
+    "ok": true
+  },
+  {
+    "name": "debian13-root",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "root",
+      "add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/debian13/files"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.408,
+    "ok": true
+  },
+  {
+    "name": "debian13-project",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "add",
+      "--root",
+      "08f758b2-f601-45b6-abf7-1dcbd76a9253",
+      "--environment",
+      "debian13",
+      "--alias",
+      "canary-debian13"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.576,
+    "ok": true
+  },
+  {
+    "name": "debian13-write-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "canary-debian13",
+      "--",
+      "sh",
+      "-c",
+      "test \"$(id -u)\" = 1000 && printf %s 'debian13 cycle 1 中文\n' > '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/debian13/files/中文 save $; sample.txt'"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.344,
+    "ok": true
+  },
+  {
+    "name": "debian13-owner-1",
+    "ok": true,
+    "uid": 1000,
+    "expected_uid": 1000
+  },
+  {
+    "name": "debian13-stop-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "stop",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.654,
+    "ok": true
+  },
+  {
+    "name": "debian13-stopped-ls-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "ls",
+      "debian13",
+      "/",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.677,
+    "ok": true
+  },
+  {
+    "name": "debian13-stopped-ls-oracle-1",
+    "ok": true,
+    "result": {
+      "schema_version": 1,
+      "target": "debian13",
+      "via": "view",
+      "view_uuid": "54b190c8-d108-4591-97b5-8d2338e22585",
+      "mountpoint": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/.lab/state/views/54b190c8-d108-4591-97b5-8d2338e22585/mount",
+      "path": "/",
+      "entries": [
+        "bin",
+        "boot",
+        "etc",
+        "home",
+        "lib",
+        "lib64",
+        "media",
+        "mnt",
+        "opt",
+        "root",
+        "sbin",
+        "srv",
+        "tmp",
+        "usr",
+        "var"
+      ]
+    }
+  },
+  {
+    "name": "debian13-reopen-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "canary-debian13",
+      "--",
+      "cat",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/debian13/files/中文 save $; sample.txt"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.177,
+    "ok": true
+  },
+  {
+    "name": "debian13-content-1",
+    "ok": true
+  },
+  {
+    "name": "debian13-write-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "canary-debian13",
+      "--",
+      "sh",
+      "-c",
+      "test \"$(id -u)\" = 1000 && printf %s 'debian13 cycle 2 中文\n' > '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/debian13/files/中文 save $; sample.txt'"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.08,
+    "ok": true
+  },
+  {
+    "name": "debian13-owner-2",
+    "ok": true,
+    "uid": 1000,
+    "expected_uid": 1000
+  },
+  {
+    "name": "debian13-stop-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "stop",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.515,
+    "ok": true
+  },
+  {
+    "name": "debian13-stopped-ls-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "ls",
+      "debian13",
+      "/",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.658,
+    "ok": true
+  },
+  {
+    "name": "debian13-stopped-ls-oracle-2",
+    "ok": true,
+    "result": {
+      "schema_version": 1,
+      "target": "debian13",
+      "via": "view",
+      "view_uuid": "3dcafda2-8b65-4514-9910-e03abfff4a65",
+      "mountpoint": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/.lab/state/views/3dcafda2-8b65-4514-9910-e03abfff4a65/mount",
+      "path": "/",
+      "entries": [
+        "bin",
+        "boot",
+        "etc",
+        "home",
+        "lib",
+        "lib64",
+        "media",
+        "mnt",
+        "opt",
+        "root",
+        "sbin",
+        "srv",
+        "tmp",
+        "usr",
+        "var"
+      ]
+    }
+  },
+  {
+    "name": "debian13-reopen-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "canary-debian13",
+      "--",
+      "cat",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/debian13/files/中文 save $; sample.txt"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.972,
+    "ok": true
+  },
+  {
+    "name": "debian13-content-2",
+    "ok": true
+  },
+  {
+    "name": "debian13-last-stop",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "stop",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.666,
+    "ok": true
+  },
+  {
+    "name": "arch-root",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "root",
+      "add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/arch/files"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.249,
+    "ok": true
+  },
+  {
+    "name": "arch-project",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "add",
+      "--root",
+      "58df7ba1-09f3-46d1-a4d1-0f2c32d836a5",
+      "--environment",
+      "arch",
+      "--alias",
+      "canary-arch"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.586,
+    "ok": true
+  },
+  {
+    "name": "arch-write-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "canary-arch",
+      "--",
+      "sh",
+      "-c",
+      "test \"$(id -u)\" = 1000 && printf %s 'arch cycle 1 中文\n' > '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/arch/files/中文 save $; sample.txt'"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.684,
+    "ok": true
+  },
+  {
+    "name": "arch-owner-1",
+    "ok": true,
+    "uid": 1000,
+    "expected_uid": 1000
+  },
+  {
+    "name": "arch-stop-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "stop",
+      "arch",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.811,
+    "ok": true
+  },
+  {
+    "name": "arch-stopped-ls-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "ls",
+      "arch",
+      "/",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.133,
+    "ok": true
+  },
+  {
+    "name": "arch-stopped-ls-oracle-1",
+    "ok": true,
+    "result": {
+      "schema_version": 1,
+      "target": "arch",
+      "via": "view",
+      "view_uuid": "26d8a4bd-a748-4c43-ac69-0df955fa6839",
+      "mountpoint": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/.lab/state/views/26d8a4bd-a748-4c43-ac69-0df955fa6839/mount",
+      "path": "/",
+      "entries": [
+        "bin",
+        "boot",
+        "etc",
+        "home",
+        "lib",
+        "lib64",
+        "mnt",
+        "opt",
+        "root",
+        "sbin",
+        "srv",
+        "tmp",
+        "usr",
+        "var"
+      ]
+    }
+  },
+  {
+    "name": "arch-reopen-1",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "canary-arch",
+      "--",
+      "cat",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/arch/files/中文 save $; sample.txt"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.024,
+    "ok": true
+  },
+  {
+    "name": "arch-content-1",
+    "ok": true
+  },
+  {
+    "name": "arch-write-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "canary-arch",
+      "--",
+      "sh",
+      "-c",
+      "test \"$(id -u)\" = 1000 && printf %s 'arch cycle 2 中文\n' > '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/arch/files/中文 save $; sample.txt'"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.319,
+    "ok": true
+  },
+  {
+    "name": "arch-owner-2",
+    "ok": true,
+    "uid": 1000,
+    "expected_uid": 1000
+  },
+  {
+    "name": "arch-stop-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "stop",
+      "arch",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.701,
+    "ok": true
+  },
+  {
+    "name": "arch-stopped-ls-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "ls",
+      "arch",
+      "/",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.385,
+    "ok": true
+  },
+  {
+    "name": "arch-stopped-ls-oracle-2",
+    "ok": true,
+    "result": {
+      "schema_version": 1,
+      "target": "arch",
+      "via": "view",
+      "view_uuid": "1399b579-99c9-4ce0-b9ea-9a7bdf1691e6",
+      "mountpoint": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/.lab/state/views/1399b579-99c9-4ce0-b9ea-9a7bdf1691e6/mount",
+      "path": "/",
+      "entries": [
+        "bin",
+        "boot",
+        "etc",
+        "home",
+        "lib",
+        "lib64",
+        "mnt",
+        "opt",
+        "root",
+        "sbin",
+        "srv",
+        "tmp",
+        "usr",
+        "var"
+      ]
+    }
+  },
+  {
+    "name": "arch-reopen-2",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "canary-arch",
+      "--",
+      "cat",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/arch/files/中文 save $; sample.txt"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 3.606,
+    "ok": true
+  },
+  {
+    "name": "arch-content-2",
+    "ok": true
+  },
+  {
+    "name": "arch-last-stop",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "stop",
+      "arch",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.635,
+    "ok": true
+  },
+  {
+    "name": "cleanup-stop-debian13",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "stop",
+      "debian13"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": null,
+    "seconds": 0.754,
+    "ok": true
+  },
+  {
+    "name": "cleanup-remove-debian13",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "remove",
+      "debian13",
+      "--yes"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.697,
+    "ok": true
+  },
+  {
+    "name": "cleanup-stop-arch",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "stop",
+      "arch"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": null,
+    "seconds": 0.554,
+    "ok": true
+  },
+  {
+    "name": "cleanup-remove-arch",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "remove",
+      "arch",
+      "--yes"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.665,
+    "ok": true
+  },
+  {
+    "name": "list-after-remove",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "list",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.201,
+    "ok": true
+  },
+  {
+    "name": "dirs-after-remove",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "dirs",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.205,
+    "ok": true
+  },
+  {
+    "name": "debian13-missing-oracle",
+    "ok": true,
+    "result": {
+      "target": "debian13",
+      "display_name": "Debian 13",
+      "selected": true,
+      "configured": true,
+      "state": "missing",
+      "environment_id": "debian13",
+      "container_state": "missing",
+      "container_label": "—",
+      "directory": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/debian13",
+      "files_dir": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/debian13/files",
+      "files_mounted": false,
+      "source": "new",
+      "source_root": null,
+      "source_environment": null,
+      "failure": {
+        "phase": "record",
+        "detail": "environment record is missing"
+      },
+      "error": "environment record is missing",
+      "policy_blocked": false,
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 2,
+        "mode": "whitelist",
+        "host": {
+          "id": "fedora",
+          "version_id": "44",
+          "variant_id": "kde",
+          "id_like": [],
+          "family": "fedora",
+          "reference_host": "fedora",
+          "integration_profile": "fedora",
+          "package_driver": "dnf",
+          "base_package_driver": "dnf",
+          "package_format": "rpm",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "debian13",
+        "container_family": "debian",
+        "container_contract": {
+          "family": "debian",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "apt",
+          "package_format": "deb",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "versioned-release"
+        },
+        "allowed": true,
+        "relationship": "cross-family",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      }
+    }
+  },
+  {
+    "name": "arch-missing-oracle",
+    "ok": true,
+    "result": {
+      "target": "arch",
+      "display_name": "Arch Linux rolling",
+      "selected": true,
+      "configured": true,
+      "state": "missing",
+      "environment_id": "arch",
+      "container_state": "missing",
+      "container_label": "—",
+      "directory": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/arch",
+      "files_dir": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/containers/arch/files",
+      "files_mounted": false,
+      "source": "new",
+      "source_root": null,
+      "source_environment": null,
+      "failure": {
+        "phase": "record",
+        "detail": "environment record is missing"
+      },
+      "error": "environment record is missing",
+      "policy_blocked": false,
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 2,
+        "mode": "whitelist",
+        "host": {
+          "id": "fedora",
+          "version_id": "44",
+          "variant_id": "kde",
+          "id_like": [],
+          "family": "fedora",
+          "reference_host": "fedora",
+          "integration_profile": "fedora",
+          "package_driver": "dnf",
+          "base_package_driver": "dnf",
+          "package_format": "rpm",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "arch",
+        "container_family": "arch",
+        "container_contract": {
+          "family": "arch",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "pacman",
+          "package_format": "arch",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "full-system-upgrade"
+        },
+        "allowed": true,
+        "relationship": "cross-family",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      }
+    }
+  },
+  {
+    "name": "complete",
+    "ok": true
+  }
+]

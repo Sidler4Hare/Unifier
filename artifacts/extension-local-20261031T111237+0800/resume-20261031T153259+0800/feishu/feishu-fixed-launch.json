@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "id": "feishu-fixed",
+  "user_alias": "feishu-fixed",
+  "app_instance_uuid": "8eead108-81e5-4627-996b-1130877870f0",
+  "environment_id": "debian13",
+  "environment_uuid": "4e00e4c0-f686-4de5-99a5-cc96909a985f",
+  "generation": 1,
+  "container_id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+  "environment_binding": {
+    "environment_id": "debian13",
+    "environment_uuid": "4e00e4c0-f686-4de5-99a5-cc96909a985f",
+    "generation": 1,
+    "container_id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7"
+  },
+  "executable": "/usr/bin/bytedance-feishu-stable",
+  "argv": [
+    "/usr/bin/bytedance-feishu-stable"
+  ],
+  "workdir": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+  "env": {
+    "WAYLAND_DISPLAY": "wayland-0",
+    "XDG_RUNTIME_DIR": "/run/user/1000",
+    "DISPLAY": ":0",
+    "XAUTHORITY": "/tmp/ml-xauthority",
+    "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+    "PIPEWIRE_REMOTE": "pipewire-0",
+    "XDG_SESSION_TYPE": "wayland",
+    "QT_QPA_PLATFORM": "xcb",
+    "HOME": "/home/multilinux-1000",
+    "USER": "omg",
+    "LOGNAME": "omg"
+  },
+  "user": "1000:1000",
+  "on_demand": true,
+  "package_origin": null,
+  "mounts": [
+    {
+      "host": "/run/user/1000/wayland-0",
+      "container": "/run/user/1000/wayland-0",
+      "options": ""
+    },
+    {
+      "host": "/tmp/.X11-unix/X0",
+      "container": "/tmp/.X11-unix/X0",
+      "options": ""
+    },
+    {
+      "host": "/run/user/1000/xauth_dnPjwq",
+      "container": "/tmp/ml-xauthority",
+      "options": ""
+    },
+    {
+      "host": "/run/user/1000/pulse/native",
+      "container": "/run/user/1000/pulse/native",
+      "options": ""
+    },
+    {
+      "host": "/run/user/1000/pipewire-0",
+      "container": "/run/user/1000/pipewire-0",
+      "options": ""
+    }
+  ],
+  "export": null,
+  "created_at": "2026-10-31T15:46:26+08:00",
+  "updated_at": "2026-10-31T15:46:26+08:00"
+}

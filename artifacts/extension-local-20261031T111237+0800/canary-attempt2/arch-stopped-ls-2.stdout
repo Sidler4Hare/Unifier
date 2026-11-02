@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "target": "arch",
+  "via": "view",
+  "view_uuid": "1399b579-99c9-4ce0-b9ea-9a7bdf1691e6",
+  "mountpoint": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary-attempt2/.lab/state/views/1399b579-99c9-4ce0-b9ea-9a7bdf1691e6/mount",
+  "path": "/",
+  "entries": [
+    "bin",
+    "boot",
+    "etc",
+    "home",
+    "lib",
+    "lib64",
+    "mnt",
+    "opt",
+    "root",
+    "sbin",
+    "srv",
+    "tmp",
+    "usr",
+    "var"
+  ]
+}

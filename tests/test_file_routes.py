@@ -14,10 +14,10 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
 
-from multilinux import cli
-from multilinux.errors import MultilinuxError
-from multilinux import file_routes as file_routes_module
-from multilinux.file_routes import FileRoutes
+from unifier import cli
+from unifier.errors import UnifierError
+from unifier import file_routes as file_routes_module
+from unifier.file_routes import FileRoutes
 from test_desktop import SESSION, desktop_service
 
 
@@ -101,7 +101,7 @@ class PlanContract(unittest.TestCase):
             plan = routes.plan(str(special), "edit")
             self.assertEqual(plan["argv"][-1], str(special))
             self.assertNotIn("sh", plan["argv"][:1])
-            with self.assertRaisesRegex(MultilinuxError, "standalone"):
+            with self.assertRaisesRegex(UnifierError, "standalone"):
                 routes.add_handler(
                     "freecad", intent="edit", save_capability="explicit-path",
                     alias="embedded", argv_template=["/usr/bin/freecad", "--file={file}"])
@@ -140,13 +140,13 @@ class PlanContract(unittest.TestCase):
                             ["/usr/bin/freecad"], workdir=str(project))
             routes = FileRoutes(root, service)
             routes.roots.add(str(project))
-            with self.assertRaisesRegex(MultilinuxError, "no project"):
+            with self.assertRaisesRegex(UnifierError, "no project"):
                 routes.plan(str(document), "edit")
             handler = routes.add_handler("freecad", intent="edit",
                                          save_capability="explicit-path")
             routes.add_project(routes.roots.list()[0]["root_uuid"], "arch",
                                intent_handlers={})
-            with self.assertRaisesRegex(MultilinuxError, "no edit handler"):
+            with self.assertRaisesRegex(UnifierError, "no edit handler"):
                 routes.plan(str(document), "edit")
             self.assertEqual(len(routes.list_handlers()), 1)
 
@@ -156,13 +156,13 @@ class FailurePaths(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             routes, _service, _runtime, _project, _root, _handler, document = ready(
                 Path(temporary), project_policy="read-only")
-            with self.assertRaisesRegex(MultilinuxError, "project policy"):
+            with self.assertRaisesRegex(UnifierError, "project policy"):
                 routes.plan(str(document), "edit")
 
         with tempfile.TemporaryDirectory() as temporary:
             routes, _service, _runtime, _project, _root, _handler, document = ready(
                 Path(temporary), root_policy="read-only")
-            with self.assertRaisesRegex(MultilinuxError, "data root policy"):
+            with self.assertRaisesRegex(UnifierError, "data root policy"):
                 routes.plan(str(document), "edit")
 
     def test_readonly_policy_view_rejects_writable_runtime_mounts(self):
@@ -183,7 +183,7 @@ class FailurePaths(unittest.TestCase):
                     intent_handlers={"edit": edit["handler_uuid"],
                                      "view": view["handler_uuid"]})
                 runtime.events.clear()
-                with self.assertRaisesRegex(MultilinuxError, "read-only policy"):
+                with self.assertRaisesRegex(UnifierError, "read-only policy"):
                     routes.plan(str(document), "view")
                 self.assertEqual(runtime.events, [])
 
@@ -205,13 +205,13 @@ class FailurePaths(unittest.TestCase):
             routes.roots.add(str(nested), access_policy="read-only")
             routes.remove_project(project["project_uuid"])
 
-            with self.assertRaisesRegex(MultilinuxError, "different registered data root"):
+            with self.assertRaisesRegex(UnifierError, "different registered data root"):
                 routes.add_project(
                     root["root_uuid"], "arch", default_save_root=str(nested),
                     intent_handlers={})
             link = document.parent / "save-link"
             os.symlink(nested, link)
-            with self.assertRaisesRegex(MultilinuxError, "symbolic links"):
+            with self.assertRaisesRegex(UnifierError, "symbolic links"):
                 routes.add_project(
                     root["root_uuid"], "arch", default_save_root=str(link),
                     intent_handlers={})
@@ -222,7 +222,7 @@ class FailurePaths(unittest.TestCase):
                 records = routes.projects.collection.read_unlocked()
                 records[0]["default_save_root"] = str(nested)
                 routes.projects.collection.write_unlocked(records)
-            with self.assertRaisesRegex(MultilinuxError, "different registered data root"):
+            with self.assertRaisesRegex(UnifierError, "different registered data root"):
                 routes.plan(str(document), "edit")
             self.assertEqual(project["project_uuid"], records[0]["project_uuid"])
 
@@ -250,7 +250,7 @@ class FailurePaths(unittest.TestCase):
                 "host": str(outside), "container": str(nested), "options": ""})
             service.store.save(record, None)
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "shadowed"):
+            with self.assertRaisesRegex(UnifierError, "shadowed"):
                 routes.plan(str(target), "edit")
             self.assertEqual(runtime.events, [])
 
@@ -259,7 +259,7 @@ class FailurePaths(unittest.TestCase):
                 "host": str(nested), "container": str(nested), "options": "ro"}
             service.store.save(record, None)
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "read-only"):
+            with self.assertRaisesRegex(UnifierError, "read-only"):
                 routes.plan(str(target), "edit")
             self.assertEqual(runtime.events, [])
             view = routes.plan(str(target), "view")
@@ -271,7 +271,7 @@ class FailurePaths(unittest.TestCase):
             routes, _service, _runtime, project, _root, _handler, _document = ready(root)
             outside = root / "outside"
             outside.mkdir()
-            with self.assertRaisesRegex(MultilinuxError, "inside the project root"):
+            with self.assertRaisesRegex(UnifierError, "inside the project root"):
                 routes.add_project(
                     routes.roots.list()[0]["root_uuid"], "arch",
                     default_save_root=str(outside), intent_handlers={})
@@ -284,7 +284,7 @@ class FailurePaths(unittest.TestCase):
             record = service.store.load("arch")
             record["shared_mounts"] = []
             service.store.save(record, None)
-            with self.assertRaisesRegex(MultilinuxError, "no static mount|does not mount"):
+            with self.assertRaisesRegex(UnifierError, "no static mount|does not mount"):
                 routes.plan(str(document), "edit")
 
         with tempfile.TemporaryDirectory() as temporary:
@@ -294,7 +294,7 @@ class FailurePaths(unittest.TestCase):
             for share in record["shared_mounts"]:
                 share["container"] = share["host"] + "-other"
             service.store.save(record, None)
-            with self.assertRaisesRegex(MultilinuxError, "no static mount|does not mount"):
+            with self.assertRaisesRegex(UnifierError, "no static mount|does not mount"):
                 routes.plan(str(document), "edit")
 
     def test_root_replacement_is_refused(self):
@@ -305,7 +305,7 @@ class FailurePaths(unittest.TestCase):
             document.parent.rename(moved)
             document.parent.mkdir()
             (document.parent / document.name).write_text("new", encoding="utf-8")
-            with self.assertRaisesRegex(MultilinuxError, "replaced"):
+            with self.assertRaisesRegex(UnifierError, "replaced"):
                 routes.plan(str(document), "edit")
 
     def test_environment_generation_or_container_instance_change_is_refused(self):
@@ -315,7 +315,7 @@ class FailurePaths(unittest.TestCase):
             record = service.store.load("arch")
             record["generation"] = 2
             service.store.save(record, None)
-            with self.assertRaisesRegex(MultilinuxError, "stale|binding"):
+            with self.assertRaisesRegex(UnifierError, "stale|binding"):
                 routes.plan(str(document), "edit")
 
     def test_app_execution_configuration_change_is_refused(self):
@@ -325,7 +325,7 @@ class FailurePaths(unittest.TestCase):
             launch = service.show_app("freecad")
             launch["argv"] = ["/usr/bin/freecad", "--changed"]
             service.store.save_launch(launch)
-            with self.assertRaisesRegex(MultilinuxError, "execution configuration changed"):
+            with self.assertRaisesRegex(UnifierError, "execution configuration changed"):
                 routes.plan(str(document), "edit")
 
     def test_handler_same_alias_rebuild_does_not_replace_project_authorization(self):
@@ -337,7 +337,7 @@ class FailurePaths(unittest.TestCase):
                 "freecad", intent="edit", save_capability="explicit-path",
                 alias="freecad-edit")
             self.assertNotEqual(replacement["handler_uuid"], handler["handler_uuid"])
-            with self.assertRaisesRegex(MultilinuxError, "not registered"):
+            with self.assertRaisesRegex(UnifierError, "not registered"):
                 routes.plan(str(document), "edit")
 
     def test_handler_registration_refuses_a_legacy_launch(self):
@@ -358,7 +358,7 @@ class FailurePaths(unittest.TestCase):
             service.store.save_launch(launch)
             routes = FileRoutes(root, service)
             routes.roots.add(str(project))
-            with self.assertRaisesRegex(MultilinuxError, "legacy launch"):
+            with self.assertRaisesRegex(UnifierError, "legacy launch"):
                 routes.add_handler("freecad", intent="edit",
                                    save_capability="explicit-path")
             self.assertEqual(routes.list_handlers(), [])
@@ -372,7 +372,7 @@ class FailurePaths(unittest.TestCase):
             launch["env"] = {**launch["env"], "MULTILINUX_CHANGED": "1"}
             service.store.save_launch(launch)
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "execution configuration changed"):
+            with self.assertRaisesRegex(UnifierError, "execution configuration changed"):
                 routes.open(str(document), "edit")
             self.assertEqual(runtime.events, [])
 
@@ -389,7 +389,7 @@ class FailurePaths(unittest.TestCase):
             self.assertNotEqual(first["app_instance_uuid"], second["app_instance_uuid"])
             self.assertEqual(first["argv"], second["argv"])
             self.assertEqual(first["env"], second["env"])
-            with self.assertRaisesRegex(MultilinuxError, "instance"):
+            with self.assertRaisesRegex(UnifierError, "instance"):
                 routes.plan(str(document), "edit")
 
     def test_post_wait_app_change_is_refused_before_start(self):
@@ -407,7 +407,7 @@ class FailurePaths(unittest.TestCase):
 
             runtime.events.clear()
             with patch.object(service, "_wait_while_stopping", wait_then_change):
-                with self.assertRaisesRegex(MultilinuxError, "execution configuration"):
+                with self.assertRaisesRegex(UnifierError, "execution configuration"):
                     routes.open(str(document), "edit")
             self.assertEqual(runtime.events, [])
 
@@ -426,7 +426,7 @@ class FailurePaths(unittest.TestCase):
 
             runtime.events.clear()
             with patch.object(service, "_wait_while_stopping", wait_then_change):
-                with self.assertRaisesRegex(MultilinuxError, "stale|binding"):
+                with self.assertRaisesRegex(UnifierError, "stale|binding"):
                     routes.open(str(document), "edit")
             self.assertEqual(runtime.events, [])
 
@@ -457,7 +457,7 @@ class FailurePaths(unittest.TestCase):
             launch["env"] = {**launch["env"], "MULTILINUX_CHANGED": "1"}
             service.store.save_launch(launch)
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "execution configuration changed"):
+            with self.assertRaisesRegex(UnifierError, "execution configuration changed"):
                 routes._execute(context)
             self.assertEqual(runtime.events, [])
 
@@ -465,10 +465,10 @@ class FailurePaths(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             routes, _service, _runtime, _project, _root, _handler, document = ready(
                 Path(temporary))
-            with self.assertRaisesRegex(MultilinuxError, "provider"):
+            with self.assertRaisesRegex(UnifierError, "provider"):
                 routes.add_handler("freecad", intent="edit", provider="host-exec",
                                    save_capability="explicit-path")
-            with self.assertRaisesRegex(MultilinuxError, "standalone"):
+            with self.assertRaisesRegex(UnifierError, "standalone"):
                 routes.add_handler("freecad", intent="edit",
                                    save_capability="explicit-path",
                                    argv_template=["/usr/bin/freecad", "no-token"])
@@ -490,7 +490,7 @@ class RegistryContract(unittest.TestCase):
                 payload["records"].append(duplicate)
                 registry.collection.path.write_text(
                     json.dumps(payload, ensure_ascii=False), encoding="utf-8")
-                with self.assertRaisesRegex(MultilinuxError, f"duplicate {key}"):
+                with self.assertRaisesRegex(UnifierError, f"duplicate {key}"):
                     registry.list()
 
     def test_duplicate_alias_rejected_on_load(self):
@@ -508,7 +508,7 @@ class RegistryContract(unittest.TestCase):
                 payload["records"].append(duplicate)
                 registry.collection.path.write_text(
                     json.dumps(payload, ensure_ascii=False), encoding="utf-8")
-                with self.assertRaisesRegex(MultilinuxError, "duplicate alias"):
+                with self.assertRaisesRegex(UnifierError, "duplicate alias"):
                     registry.list()
                 # Restore the original registry for the next case.
                 payload["records"].pop()
@@ -519,12 +519,12 @@ class RegistryContract(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             routes, _service, _runtime, project, root, _handler, document = ready(
                 Path(temporary))
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 routes.plan(str(document), [])
             routes.remove_project(project["project_uuid"])
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 routes.add_project(root["root_uuid"], "arch", intent_handlers=[])
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 routes.add_project(root["root_uuid"], "arch", access_policy={})
 
 
@@ -553,7 +553,7 @@ class FileSupervisor(unittest.TestCase):
             self.assertEqual(result.returncode, 17)
             self.assertEqual(calls[-1], "wait")
             command, kwargs = calls[0]
-            self.assertEqual(command[1:4], [str(ROOT / "tools/ml.py"), "file", "_worker"])
+            self.assertEqual(command[1:4], [str(ROOT / "tools/unifier.py"), "file", "_worker"])
             self.assertIn("--path", command)
             self.assertIn(str(document), command)
             self.assertTrue(kwargs["start_new_session"])
@@ -567,7 +567,7 @@ class FileSupervisor(unittest.TestCase):
             launch["argv"] = ["/usr/bin/freecad", "--changed"]
             service.store.save_launch(launch)
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "execution configuration changed"):
+            with self.assertRaisesRegex(UnifierError, "execution configuration changed"):
                 routes.worker_open(str(document), "edit")
             self.assertEqual(runtime.events, [])
 
@@ -586,7 +586,7 @@ class RegistrationAndReuse(unittest.TestCase):
             self.assertEqual(service.show_app("freecad")["id"], "freecad")
             self.assertEqual(routes.roots.show(root["root_uuid"])["root_uuid"],
                              root["root_uuid"])
-            with self.assertRaisesRegex(MultilinuxError, "no project"):
+            with self.assertRaisesRegex(UnifierError, "no project"):
                 routes.plan(str(document), "edit")
 
     def test_environment_deletion_keeps_data_root_and_project_registration(self):
@@ -600,7 +600,7 @@ class RegistrationAndReuse(unittest.TestCase):
                              project["project_uuid"])
             self.assertEqual(routes.roots.show(root["root_uuid"])["root_uuid"],
                              root["root_uuid"])
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 routes.plan(str(document), "edit")
 
     def test_two_handlers_share_one_environment_instance(self):

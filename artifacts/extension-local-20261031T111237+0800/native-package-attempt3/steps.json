@@ -1,0 +1,159 @@
+[
+  {
+    "name": "arch-local-install",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "arch",
+      "--exec",
+      "/usr/bin/jq",
+      "--app",
+      "jq",
+      "--package",
+      "jq",
+      "--json",
+      "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/native-jq-files/中文 空格 $; jq.pkg.tar.zst"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 66.104,
+    "ok": true
+  },
+  {
+    "name": "arch-local-transaction",
+    "ok": true,
+    "version": "1.8.2-1",
+    "sha256": "35f197700d1e8a1692fd67c644c1e57a72f4969707772ac1f477b02351248e1b",
+    "app_id": "jq-b7f40c",
+    "transaction": "txn7372dbfd9669"
+  },
+  {
+    "name": "arch-local-oracle",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "run",
+      "--target",
+      "arch",
+      "jq",
+      "--",
+      "-r",
+      "map(.n)|add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 20.237,
+    "ok": true
+  },
+  {
+    "name": "arch-local-result",
+    "ok": true
+  },
+  {
+    "name": "debian13-local-install",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "debian13",
+      "--exec",
+      "/usr/bin/jq",
+      "--app",
+      "jq",
+      "--package",
+      "jq",
+      "--json",
+      "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/native-jq-files/中文 空格 $; jq.deb"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 85.42,
+    "ok": true
+  },
+  {
+    "name": "debian13-local-transaction",
+    "ok": true,
+    "version": "1.7.1-6+deb13u4",
+    "sha256": "7350392f700e20e46b7ae174a57f54e4ea106dd559753646d629b4e618bf2bff",
+    "app_id": "jq-17b3ff",
+    "transaction": "txnfd1ebf119649"
+  },
+  {
+    "name": "debian13-local-oracle",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "run",
+      "--target",
+      "debian13",
+      "jq",
+      "--",
+      "-r",
+      "map(.n)|add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project/numbers.json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 23.596,
+    "ok": true
+  },
+  {
+    "name": "debian13-local-result",
+    "ok": true
+  },
+  {
+    "name": "wrong-target-before-mutation",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "arch",
+      "--exec",
+      "/usr/bin/jq",
+      "--app",
+      "jq",
+      "--package",
+      "jq",
+      "--json",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files/native-packages/jq_1.7.1-6+deb13u4_amd64.deb"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 1,
+    "expected_exit": 1,
+    "seconds": 1.325,
+    "ok": true
+  },
+  {
+    "name": "wrong-target-no-transaction",
+    "ok": true,
+    "status": "PASS_EXPECTED_REJECTION"
+  },
+  {
+    "name": "unknown-alpine-target",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "compat",
+      "check",
+      "--target",
+      "alpine"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 1,
+    "expected_exit": 1,
+    "seconds": 1.468,
+    "ok": true
+  },
+  {
+    "name": "apk-boundary",
+    "ok": true,
+    "status": "NOT_IMPLEMENTED_EXPECTED_REJECTION"
+  },
+  {
+    "name": "complete",
+    "ok": true
+  }
+]

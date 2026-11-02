@@ -1,0 +1,843 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-31",
+  "status": "LOCAL_WAVE_COMPLETED_EXPANSION_PARTIAL",
+  "host_context": {
+    "id": "fedora-workstation",
+    "host_id": "fedora",
+    "allowed_targets": [
+      "debian13",
+      "arch"
+    ],
+    "refused_targets": [
+      "fedora44"
+    ],
+    "desktop_state": "DESKTOP_BASELINE_AVAILABLE",
+    "shared_data_ordered_edges": [
+      {
+        "id": "fedora-workstation:host->debian13",
+        "from": "host",
+        "to": "debian13",
+        "status": "PASS",
+        "required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT"
+        ],
+        "evidence": "artifacts/extension-local-20261031T111237+0800/shared-interwrite-attempt1/replays.json",
+        "replays_passed": 9
+      },
+      {
+        "id": "fedora-workstation:host->arch",
+        "from": "host",
+        "to": "arch",
+        "status": "PASS",
+        "required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT"
+        ],
+        "evidence": "artifacts/extension-local-20261031T111237+0800/shared-interwrite-attempt1/replays.json",
+        "replays_passed": 9
+      },
+      {
+        "id": "fedora-workstation:debian13->host",
+        "from": "debian13",
+        "to": "host",
+        "status": "PASS",
+        "required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT"
+        ],
+        "evidence": "artifacts/extension-local-20261031T111237+0800/shared-interwrite-attempt1/replays.json",
+        "replays_passed": 9
+      },
+      {
+        "id": "fedora-workstation:debian13->arch",
+        "from": "debian13",
+        "to": "arch",
+        "status": "PASS",
+        "required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT"
+        ],
+        "evidence": "artifacts/extension-local-20261031T111237+0800/shared-interwrite-attempt1/replays.json",
+        "replays_passed": 9
+      },
+      {
+        "id": "fedora-workstation:arch->host",
+        "from": "arch",
+        "to": "host",
+        "status": "PASS",
+        "required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT"
+        ],
+        "evidence": "artifacts/extension-local-20261031T111237+0800/shared-interwrite-attempt1/replays.json",
+        "replays_passed": 9
+      },
+      {
+        "id": "fedora-workstation:arch->debian13",
+        "from": "arch",
+        "to": "debian13",
+        "status": "PASS",
+        "required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT"
+        ],
+        "evidence": "artifacts/extension-local-20261031T111237+0800/shared-interwrite-attempt1/replays.json",
+        "replays_passed": 9
+      }
+    ],
+    "agent_origin_target_cells": [
+      {
+        "id": "fedora-workstation:debian13->host",
+        "origin": "debian13",
+        "target": "host",
+        "lane": "host",
+        "status": "NOT_RUN",
+        "user_task_required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT",
+          "G-GUEST-BRIDGE"
+        ],
+        "maintenance_required_gates": [
+          "G-GUEST-BRIDGE"
+        ],
+        "blocked_by": [
+          "G-GUEST-BRIDGE"
+        ]
+      },
+      {
+        "id": "fedora-workstation:debian13->debian13",
+        "origin": "debian13",
+        "target": "debian13",
+        "lane": "local",
+        "status": "NOT_RUN",
+        "user_task_required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT"
+        ],
+        "maintenance_required_gates": [
+          "G-GUEST-BRIDGE"
+        ],
+        "blocked_by": []
+      },
+      {
+        "id": "fedora-workstation:debian13->arch",
+        "origin": "debian13",
+        "target": "arch",
+        "lane": "cross-guest",
+        "status": "NOT_RUN",
+        "user_task_required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT",
+          "G-GUEST-BRIDGE"
+        ],
+        "maintenance_required_gates": [
+          "G-GUEST-BRIDGE"
+        ],
+        "blocked_by": [
+          "G-GUEST-BRIDGE"
+        ]
+      },
+      {
+        "id": "fedora-workstation:arch->host",
+        "origin": "arch",
+        "target": "host",
+        "lane": "host",
+        "status": "NOT_RUN",
+        "user_task_required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT",
+          "G-GUEST-BRIDGE"
+        ],
+        "maintenance_required_gates": [
+          "G-GUEST-BRIDGE"
+        ],
+        "blocked_by": [
+          "G-GUEST-BRIDGE"
+        ]
+      },
+      {
+        "id": "fedora-workstation:arch->debian13",
+        "origin": "arch",
+        "target": "debian13",
+        "lane": "cross-guest",
+        "status": "NOT_RUN",
+        "user_task_required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT",
+          "G-GUEST-BRIDGE"
+        ],
+        "maintenance_required_gates": [
+          "G-GUEST-BRIDGE"
+        ],
+        "blocked_by": [
+          "G-GUEST-BRIDGE"
+        ]
+      },
+      {
+        "id": "fedora-workstation:arch->arch",
+        "origin": "arch",
+        "target": "arch",
+        "lane": "local",
+        "status": "NOT_RUN",
+        "user_task_required_gates": [
+          "G-HOST-POLICY",
+          "G-SHARED-MOUNT"
+        ],
+        "maintenance_required_gates": [
+          "G-GUEST-BRIDGE"
+        ],
+        "blocked_by": []
+      }
+    ],
+    "deterministic_interwrite_replays": 54,
+    "scope": "same-host only; 3 save modes x 3 rounds; host matrices are not a cross-machine shared filesystem"
+  },
+  "authorization": "authorization.json",
+  "historical_plan": "../extension-test-plan-20261031/plan.json",
+  "source_rule": "Source backup precedes repairs; release v0.0.1 package is preserved and does not include subsequent repairs. Final source fingerprint required.",
+  "local_application_cells": [
+    {
+      "id": "APP-WPS-DEBIAN13",
+      "app_id": "wps",
+      "target": "debian13",
+      "format": "deb",
+      "status": "PARTIAL",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "blocked_by": [],
+      "placement_note": "P0 rechecks actual session, package and fixture",
+      "evidence": "KWin window caption WPS Office, class wpsoffice, clientMachine 076f6017d2a4, 1536x960, not minimized",
+      "install_transactions": [
+        "txn1a44549e54ff",
+        "txn002d1d629b23",
+        "txnd7f556384372",
+        "txn5a4dee64f702"
+      ],
+      "blockers_cleared": [
+        "postinst hexdump via bsdextrautils",
+        "postinst /usr/bin/python3",
+        "libGL.so.1 via libgl1",
+        "QT_QPA_PLATFORM=xcb because the package has libqxcb.so and no wayland plugin"
+      ],
+      "not_yet": "save/reopen cycles; main window gone, package remains installed",
+      "installation_status": "PASS",
+      "save_reopen_workflow": "NOT_RUN",
+      "window_status": "PRIOR_WINDOW_OBSERVATION_NOT_REPLAYED_IN_THIS_CONTINUATION"
+    },
+    {
+      "id": "APP-BCOMPARE-DEBIAN13",
+      "app_id": "bcompare",
+      "target": "debian13",
+      "format": "deb",
+      "status": "PARTIAL",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "blocked_by": [],
+      "placement_note": "P0 rechecks actual session, package and fixture",
+      "evidence": "txn6b3ec3fd1d6c verified-with-warnings; KWin caption Home - Beyond Compare, class bcompare, clientMachine 076f6017d2a4, not minimized",
+      "not_yet": "save/reopen cycles; window closed after confirmation",
+      "installation_status": "PASS",
+      "save_reopen_workflow": "NOT_RUN",
+      "window_status": "PRIOR_WINDOW_OBSERVATION_NOT_REPLAYED_IN_THIS_CONTINUATION"
+    },
+    {
+      "id": "APP-ZOOM-DEBIAN13",
+      "app_id": "zoom",
+      "target": "debian13",
+      "format": "deb",
+      "status": "PARTIAL",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "blocked_by": [],
+      "placement_note": "P0 rechecks actual session, package and fixture",
+      "evidence": "txn02362ead232a verified; KWin caption Zoom Workplace, clientMachine 076f6017d2a4",
+      "not_yet": "save/reopen and meeting media; window left open while Arch install retries",
+      "installation_status": "PASS",
+      "save_reopen_workflow": "NOT_RUN",
+      "window_status": "PRIOR_WINDOW_OBSERVATION_NOT_REPLAYED_IN_THIS_CONTINUATION"
+    },
+    {
+      "id": "APP-ZOOM-ARCH",
+      "app_id": "zoom",
+      "target": "arch",
+      "format": "pkg.tar.xz",
+      "status": "PARTIAL",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "blocked_by": [],
+      "placement_note": "P0 rechecks actual session, package and fixture",
+      "evidence": "txn1577f2934221 verified; window after xcb-util-cursor and xcb-util-wm; KWin caption Zoom Workplace, clientMachine ca04aa07e2aa",
+      "not_yet": "save/reopen; vendor launcher /usr/bin/zoom did not keep a window",
+      "installation_status": "PASS",
+      "save_reopen_workflow": "NOT_RUN",
+      "window_status": "PRIOR_WINDOW_OBSERVATION_NOT_REPLAYED_IN_THIS_CONTINUATION"
+    },
+    {
+      "id": "APP-FEISHU-DEBIAN13",
+      "app_id": "feishu",
+      "target": "debian13",
+      "format": "deb",
+      "status": "PARTIAL",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "blocked_by": [],
+      "placement_note": "P0 rechecks actual session, package and fixture",
+      "evidence": "txn672919f64db5 verified; /opt/bytedance/feishu/feishu exits with SIGTRAP before a window, coredump present",
+      "installation_status": "PASS",
+      "save_reopen_workflow": "NOT_RUN",
+      "window_status": "WINDOW_VERIFIED_ACCOUNT_BLOCKED"
+    }
+  ],
+  "local_oss_cells": [
+    {
+      "id": "OSS-JQ-DEBIAN13",
+      "project": "jq",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "jq",
+      "executable_hint": "/usr/bin/jq",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name",
+        "local-native-file"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": null,
+      "local_native_file_evidence": "native-package-attempt3/steps.json"
+    },
+    {
+      "id": "OSS-JQ-ARCH",
+      "project": "jq",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "jq",
+      "executable_hint": "/usr/bin/jq",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name",
+        "local-native-file"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": null,
+      "local_native_file_evidence": "native-package-attempt3/steps.json"
+    },
+    {
+      "id": "OSS-RIPGREP-DEBIAN13",
+      "project": "ripgrep",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "ripgrep",
+      "executable_hint": "/usr/bin/rg",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": null
+    },
+    {
+      "id": "OSS-RIPGREP-ARCH",
+      "project": "ripgrep",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "ripgrep",
+      "executable_hint": "/usr/bin/rg",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": null
+    },
+    {
+      "id": "OSS-FD-DEBIAN13",
+      "project": "fd",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "fd-find",
+      "executable_hint": "/usr/bin/fdfind",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": null
+    },
+    {
+      "id": "OSS-FD-ARCH",
+      "project": "fd",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "fd",
+      "executable_hint": "/usr/bin/fd",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": null
+    },
+    {
+      "id": "OSS-BAT-DEBIAN13",
+      "project": "bat",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "bat",
+      "executable_hint": "/usr/bin/batcat",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": "pty-attempt3/result.json"
+    },
+    {
+      "id": "OSS-BAT-ARCH",
+      "project": "bat",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "bat",
+      "executable_hint": "/usr/bin/bat",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": "pty-attempt3/result.json"
+    },
+    {
+      "id": "OSS-SQLITE-DEBIAN13",
+      "project": "sqlite",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "sqlite3",
+      "executable_hint": "/usr/bin/sqlite3",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": null
+    },
+    {
+      "id": "OSS-SQLITE-ARCH",
+      "project": "sqlite",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "sqlite",
+      "executable_hint": "/usr/bin/sqlite3",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": null
+    },
+    {
+      "id": "OSS-HTOP-DEBIAN13",
+      "project": "htop",
+      "target": "debian13",
+      "native_format": "deb",
+      "package_name": "htop",
+      "executable_hint": "/usr/bin/htop",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": "pty-attempt3/result.json"
+    },
+    {
+      "id": "OSS-HTOP-ARCH",
+      "project": "htop",
+      "target": "arch",
+      "native_format": "pkg.tar.zst",
+      "package_name": "htop",
+      "executable_hint": "/usr/bin/htop",
+      "executable_verified_at_execution": false,
+      "required_gates": [
+        "G-HOST-POLICY",
+        "G-RELEASE-IDENTITY",
+        "G-SHARED-MOUNT"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "install_lanes": [
+        "repository-name"
+      ],
+      "status": "PASS",
+      "artifact_sha256": null,
+      "source_state": "DOCUMENTED_ROUTE_ARTIFACT_NOT_LOCKED",
+      "evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+      "scope": "Scoped core repository installation and project workflow; package/format contract families remain partial",
+      "pty_evidence": "pty-attempt3/result.json"
+    }
+  ],
+  "known_blockers": [
+    {
+      "issue": "stopped ls rejects consumed SELinux z mount flag",
+      "status": "FIXED_AND_REAL_CANARY_VERIFIED"
+    },
+    {
+      "issue": "shortcut list reports removed environment ready",
+      "status": "FIXED_AND_REAL_CANARY_VERIFIED"
+    }
+  ],
+  "stages": [
+    {
+      "id": "repair",
+      "status": "PASS"
+    },
+    {
+      "id": "P0",
+      "status": "SCOPED_PASS_CLI_FAMILIES_PARTIAL"
+    },
+    {
+      "id": "C0-C3",
+      "status": "CORE_WORKFLOWS_PASS_PACKAGE_MATRIX_PARTIAL"
+    },
+    {
+      "id": "P2-54",
+      "status": "PASS_54_REPLAYS"
+    },
+    {
+      "id": "P1-GUI",
+      "status": "PARTIAL_INSTALL_AND_STARTUP_ONLY"
+    },
+    {
+      "id": "P3-agent",
+      "status": "NOT_RUN_BRIDGE_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "P4-soak",
+      "status": "NOT_RUN"
+    }
+  ],
+  "excluded": [
+    "remote host operations",
+    "same-family positive guests",
+    "daily container changes",
+    "host package database changes",
+    "cloud uploads/messages to other people"
+  ],
+  "results": {
+    "updated_at": "2026-10-31T11:45+08:00",
+    "canary_attempt2": "PASS",
+    "canary_evidence": "artifacts/extension-local-20261031T111237+0800/canary-attempt2/steps.json",
+    "g_shared_mount": "PASS",
+    "g_shared_mount_evidence": "artifacts/extension-local-20261031T111237+0800/shared-prepare-attempt2/steps.json",
+    "interwrite_54": "PASS",
+    "interwrite_evidence": "artifacts/extension-local-20261031T111237+0800/shared-interwrite-attempt1/replays.json",
+    "notes": [
+      "Stopped ls after Podman consumed :z passed for debian13 and arch, two cycles each.",
+      "After env remove, list/dirs report missing and files_mounted false; daily containers were not touched.",
+      "Shared directory is preserve-host and mounted into both environments. Each project root is that environment's private directory.",
+      "54 replays: uid 1000, direct and inplace kept the inode, atomic replace changed it."
+    ],
+    "oss_noninteractive": "PASS",
+    "oss_evidence": "artifacts/extension-local-20261031T111237+0800/oss-attempt1/steps.json",
+    "oss_cells_passed": 12,
+    "wps_debian": "INSTALLED_WINDOW_CLOSED",
+    "wps_note": "Package is install ok installed after hexdump, python3 and libgl1. Compositor shows a 1536x960 WPS Office window from container 076f6017d2a4. Save/reopen not run.",
+    "bcompare_debian": "WINDOW_OPEN_THEN_CLOSED",
+    "fedora_same_family": "REFUSED",
+    "fedora_evidence": "artifacts/extension-local-20261031T111237+0800/fedora-refuse.log",
+    "zoom_debian": "WINDOW_OPEN",
+    "zoom_arch": "WINDOW_OPEN_THEN_CLOSED",
+    "feishu_debian": "INSTALLED_NO_WINDOW",
+    "offline_tests": {
+      "ran": 597,
+      "passed": 592,
+      "skipped": 5,
+      "evidence": "final-check-repo.log"
+    },
+    "pty": {
+      "passed": 4,
+      "evidence": "pty-attempt3/result.json",
+      "initial_smoke_not_accepted": "pty-attempt1/acceptance-audit.json",
+      "pre_fix_resize_failure": "resize-before/result.json"
+    },
+    "native_jq_local": {
+      "passed": 2,
+      "evidence": "native-package-attempt3/steps.json"
+    },
+    "package_expected_rejections": {
+      "count": 2,
+      "scope": "wrong target and missing Alpine adapter; excluded from positive usability count"
+    },
+    "feishu": "WINDOW_VERIFIED_ACCOUNT_BLOCKED",
+    "feishu_evidence": "resume-20261031T153259+0800/feishu/result.json",
+    "preservation": "PASS",
+    "preservation_evidence": "preservation-audit.json",
+    "gui_workflows_fully_accepted": 0,
+    "full_expansion_complete": false
+  },
+  "updated_at": "2026-10-31T16:20:17+08:00",
+  "new_blockers_resolved": [
+    {
+      "issue": "Feishu missing libasound.so.2 triggers SIGTRAP",
+      "scope": "test fixture dependency and new registered app, product source unchanged for this issue",
+      "status": "WINDOW_VERIFIED_ACCOUNT_BLOCKED",
+      "evidence": "resume-20261031T153259+0800/feishu/result.json"
+    },
+    {
+      "issue": "Detached TTY loses window-size changes",
+      "scope": "product launcher -> worker -> Podman proxy SIGWINCH relay",
+      "status": "PASS",
+      "evidence": "resize-after/result.json"
+    },
+    {
+      "issue": "Native package filename incorrectly validated as package identifier",
+      "scope": "literal printable Unicode filename data; colon/control characters still refused",
+      "status": "PASS",
+      "evidence": "native-package-attempt3/steps.json"
+    }
+  ],
+  "uncompleted": [
+    "WPS Writer/Sheets/Presentation real edits, PDF/layout and two save/reopen cycles",
+    "Beyond Compare GUI merge/save/reopen",
+    "Zoom/Feishu account, attachment, real media and portal/device workflows",
+    "Menu/default MIME/drag-drop/input-method relationship matrix",
+    "Additional package formats, update/remove/interruption and direct-manager contracts",
+    "Guest-native Agent and guest-origin controlled bridge",
+    "Filesystem backend/ACL/xattr/snapshot coverage beyond the shared-bind slice",
+    "30-minute workload and controlled long-term resource testing"
+  ],
+  "preservation_note": "Original two daily containers and 19 state files verified unchanged; staged index entries preserved. Separate two installed test fixtures retained for remaining phases and stopped at wave close. No final teardown claim."
+}

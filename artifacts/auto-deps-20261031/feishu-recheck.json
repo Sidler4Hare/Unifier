@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "txn5e21a8f94deb",
+  "environment_id": "deps-debian",
+  "operation": "repair-dependencies",
+  "packages": [
+    "bytedance-feishu-stable"
+  ],
+  "interactive": false,
+  "stream": false,
+  "dependency_repair": {
+    "status": "no-missing-elf-dependencies",
+    "scope": "package-elf-needed",
+    "objects": 38,
+    "rounds": [],
+    "unresolved": [],
+    "bundled_candidates": [
+      "libEffectPlatform.so",
+      "libEmbedTextWM_shared.so",
+      "libRTCFFmpeg.so",
+      "libVolcEngineRTC.so",
+      "lib_lightgbm.so",
+      "libbv-screen-capture.so",
+      "libbv_p2p.so",
+      "libbytenn.so",
+      "libffmpeg.so",
+      "libipmb_ffi.so",
+      "libmfx.so",
+      "librust_ffmpeg.so",
+      "libsscronet.so"
+    ],
+    "installed": [],
+    "runtime_loading": "unverified"
+  },
+  "use_command": [],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "985bd6c89cf3c1fc87a87b4226a809c6f72ec747f4c8e0832cbe62976670a679",
+    "content_revision": 2,
+    "package_inventory_sha256": "f105f42487b908eff30253cfb0f63bbd2a161bec79d41d89bc201b029cab2a57"
+  },
+  "native": [],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "bytedance-feishu-stable": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "985bd6c89cf3c1fc87a87b4226a809c6f72ec747f4c8e0832cbe62976670a679",
+    "content_revision": 2,
+    "package_inventory_sha256": "f105f42487b908eff30253cfb0f63bbd2a161bec79d41d89bc201b029cab2a57"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-31T21:45:26+08:00",
+  "finished_at": "2026-10-31T21:45:36+08:00"
+}

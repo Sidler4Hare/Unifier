@@ -1,0 +1,514 @@
+{
+  "started_at": "2026-10-30T12:49:09.976474+00:00",
+  "scope": "Cached-image CLI init, stopped guest listing, controlled shell launch and private files; no third-party install or GUI acceptance",
+  "commands": {
+    "doctor-module": {
+      "argv": [
+        "/usr/bin/python3",
+        "-m",
+        "tools.lab",
+        "doctor",
+        "--output",
+        "/home/dev/server-validation-20261030T204043+0800/live-20261030T204909/doctor-module.json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 0.782
+    },
+    "init": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "init",
+        "--network",
+        "none",
+        "--yes",
+        "--target",
+        "debian13",
+        "--target",
+        "fedora44",
+        "--target",
+        "arch"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 12.812
+    },
+    "debian13-status": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "status",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.806
+    },
+    "debian13-files": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "path",
+        "debian13",
+        "--files"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 0.2
+    },
+    "debian13-ls-stopped": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "debian13",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 3.112
+    },
+    "debian13-app-add": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "app",
+        "add",
+        "debian13",
+        "probe-shell-debian13",
+        "--exec",
+        "/bin/sh",
+        "--workdir",
+        "/home/dev/server-validation-20261030T204043+0800/live-20261030T204909/cli-installation/containers/debian13/files",
+        "--as-host-user",
+        "--on-demand"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 0.358
+    },
+    "debian13-run": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "run",
+        "--target",
+        "debian13",
+        "probe-shell-debian13",
+        "--",
+        "-c",
+        "test \"$(cat host-marker.txt)\" = host && printf guest > guest-marker.txt"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 1.029
+    },
+    "debian13-exit17": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "run",
+        "--target",
+        "debian13",
+        "probe-shell-debian13",
+        "--",
+        "-c",
+        "exit 17"
+      ],
+      "returncode": 1,
+      "expected": 17,
+      "matched_expected": false,
+      "elapsed_seconds": 1.075
+    },
+    "debian13-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "debian13"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.207
+    },
+    "debian13-ls-after-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "debian13",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 2.943
+    },
+    "fedora44-status": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "status",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.887
+    },
+    "fedora44-files": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "path",
+        "fedora44",
+        "--files"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 0.189
+    },
+    "fedora44-ls-stopped": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "fedora44",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 3.249
+    },
+    "fedora44-app-add": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "app",
+        "add",
+        "fedora44",
+        "probe-shell-fedora44",
+        "--exec",
+        "/bin/sh",
+        "--workdir",
+        "/home/dev/server-validation-20261030T204043+0800/live-20261030T204909/cli-installation/containers/fedora44/files",
+        "--as-host-user",
+        "--on-demand"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 0.355
+    },
+    "fedora44-run": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "run",
+        "--target",
+        "fedora44",
+        "probe-shell-fedora44",
+        "--",
+        "-c",
+        "test \"$(cat host-marker.txt)\" = host && printf guest > guest-marker.txt"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 1.059
+    },
+    "fedora44-exit17": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "run",
+        "--target",
+        "fedora44",
+        "probe-shell-fedora44",
+        "--",
+        "-c",
+        "exit 17"
+      ],
+      "returncode": 1,
+      "expected": 17,
+      "matched_expected": false,
+      "elapsed_seconds": 1.079
+    },
+    "fedora44-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "fedora44"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.259
+    },
+    "fedora44-ls-after-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "fedora44",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 3.255
+    },
+    "arch-status": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "status",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.878
+    },
+    "arch-files": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "path",
+        "arch",
+        "--files"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 0.195
+    },
+    "arch-ls-stopped": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "arch",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 3.048
+    },
+    "arch-app-add": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "app",
+        "add",
+        "arch",
+        "probe-shell-arch",
+        "--exec",
+        "/bin/sh",
+        "--workdir",
+        "/home/dev/server-validation-20261030T204043+0800/live-20261030T204909/cli-installation/containers/arch/files",
+        "--as-host-user",
+        "--on-demand"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 0.364
+    },
+    "arch-run": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "run",
+        "--target",
+        "arch",
+        "probe-shell-arch",
+        "--",
+        "-c",
+        "test \"$(cat host-marker.txt)\" = host && printf guest > guest-marker.txt"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 1.117
+    },
+    "arch-exit17": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "run",
+        "--target",
+        "arch",
+        "probe-shell-arch",
+        "--",
+        "-c",
+        "exit 17"
+      ],
+      "returncode": 1,
+      "expected": 17,
+      "matched_expected": false,
+      "elapsed_seconds": 1.072
+    },
+    "arch-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "arch"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.202
+    },
+    "arch-ls-after-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "arch",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 1,
+      "expected": 0,
+      "matched_expected": false,
+      "elapsed_seconds": 3.232
+    },
+    "debian13-cleanup-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "debian13"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.335
+    },
+    "debian13-cleanup-remove": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "remove",
+        "debian13",
+        "--yes"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.488
+    },
+    "fedora44-cleanup-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "fedora44"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.196
+    },
+    "fedora44-cleanup-remove": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "remove",
+        "fedora44",
+        "--yes"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.482
+    },
+    "arch-cleanup-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "arch"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.259
+    },
+    "arch-cleanup-remove": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "remove",
+        "arch",
+        "--yes"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true,
+      "elapsed_seconds": 1.48
+    }
+  },
+  "targets": {
+    "debian13": {
+      "target": "debian13",
+      "private_bind_write_verified": false
+    },
+    "fedora44": {
+      "target": "fedora44",
+      "private_bind_write_verified": false
+    },
+    "arch": {
+      "target": "arch",
+      "private_bind_write_verified": false
+    }
+  },
+  "before": [
+    {
+      "id": "5e2d5d5b2b04a7e840755f747c96085ff8db11fd6b33584ef51c9e78e4e1871f",
+      "name": "ml-b22ecff5-archdemo-deb",
+      "status": "exited",
+      "started_at": "2026-10-29T08:26:36.98367951+08:00",
+      "finished_at": "2026-10-29T08:26:40.691012863+08:00"
+    }
+  ],
+  "cached_targets": [
+    "debian13",
+    "fedora44",
+    "arch"
+  ],
+  "after": [
+    {
+      "id": "5e2d5d5b2b04a7e840755f747c96085ff8db11fd6b33584ef51c9e78e4e1871f",
+      "name": "ml-b22ecff5-archdemo-deb",
+      "status": "exited",
+      "started_at": "2026-10-29T08:26:36.98367951+08:00",
+      "finished_at": "2026-10-29T08:26:40.691012863+08:00"
+    }
+  ],
+  "existing_containers_preserved": true,
+  "completed_at": "2026-10-30T12:50:09.018723+00:00"
+}

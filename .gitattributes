@@ -1,0 +1,12 @@
+# Frozen evidence includes patch context lines whose spaces are significant.
+# Keep diffs available, but do not trim historical bytes to satisfy whitespace checks.
+archive/evidence/** -whitespace
+# Preserve the original bytes of these frozen run receipts as well.
+artifacts/auto-deps-20261031/** -whitespace
+artifacts/continued-repair-20261101T154240+0800/** -whitespace
+artifacts/expansion-fix-20261101/** -whitespace
+artifacts/extension-local-20261031T111237+0800/** -whitespace
+artifacts/extension-run-fedora-workstation-20261031/** -whitespace
+artifacts/server-cross-host-correction-20261030T210239+0800/** -whitespace
+artifacts/server-validation-20261030T204043+0800/** -whitespace
+artifacts/v0.0.1-20261030/** -whitespace

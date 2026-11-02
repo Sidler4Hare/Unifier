@@ -1,0 +1,8 @@
+fedora44: locked image sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011 is present; reusing it.
+fedora44: image ready sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011.
+fedora44: creating unique environment fedora44 (network=pasta, desktop=false).
+fedora44: ready (container stopped).
+3 distribution(s) enabled; 3 container(s) retained, 0 failed.
+Debian 13: debian13: enabled
+Fedora 44: fedora44: enabled
+Arch Linux rolling: arch: enabled

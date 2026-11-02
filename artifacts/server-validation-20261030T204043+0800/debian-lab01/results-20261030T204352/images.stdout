@@ -1,0 +1,25 @@
+[
+    {
+        "Id": "567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c",
+        "ParentId": "",
+        "RepoTags": null,
+        "RepoDigests": [
+            "docker.io/library/debian@sha256:2e974908bb70d9a41c0544d43642fd78a43973fab42fe5382551abb543c58cc5",
+            "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483"
+        ],
+        "Size": 162511721,
+        "SharedSize": 0,
+        "VirtualSize": 162511721,
+        "Labels": null,
+        "Containers": 1,
+        "Digest": "sha256:2e974908bb70d9a41c0544d43642fd78a43973fab42fe5382551abb543c58cc5",
+        "History": [
+            "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483"
+        ],
+        "Names": [
+            "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483"
+        ],
+        "Created": 1791158400,
+        "CreatedAt": "2026-10-05T00:00:00Z"
+    }
+]

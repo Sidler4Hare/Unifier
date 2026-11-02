@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tests"))
 
-from multilinux.catalog import (
+from unifier.catalog import (
     IMPLEMENTED_DRIVERS,
     PREPARED,
     describe,
@@ -20,9 +20,9 @@ from multilinux.catalog import (
     resolve_record_contract,
     system_contract,
 )
-from multilinux.errors import MultilinuxError
-from multilinux.packages import TARGETS, driver_for
-from multilinux.routing import route_package
+from unifier.errors import UnifierError
+from unifier.packages import TARGETS, driver_for
+from unifier.routing import route_package
 from test_env import service_in
 from tools import lab
 
@@ -49,15 +49,15 @@ class CatalogContract(unittest.TestCase):
             self.assertEqual(driver_for(name).name, expected["package_driver"])
 
     def test_prepared_target_rejects_a_different_libc(self):
-        with self.assertRaisesRegex(MultilinuxError, "fixed at glibc"):
+        with self.assertRaisesRegex(UnifierError, "fixed at glibc"):
             describe("debian13", {"libc": "musl"})
 
     def test_unnamed_target_must_carry_the_whole_contract(self):
-        with self.assertRaisesRegex(MultilinuxError, "missing catalog fields"):
+        with self.assertRaisesRegex(UnifierError, "missing catalog fields"):
             describe("alpine", {})
         spec = describe("opensuse-leap", OPENSUSE)
         self.assertEqual(spec["package_driver"], "zypper")
-        with self.assertRaisesRegex(MultilinuxError, "no runnable upgrade driver"):
+        with self.assertRaisesRegex(UnifierError, "no runnable upgrade driver"):
             require_runnable("opensuse-leap", spec)
 
     def test_create_stores_the_runnable_contract(self):
@@ -119,15 +119,15 @@ class CatalogContract(unittest.TestCase):
             created["system"]["package_driver"] = "nix"
             service.store.save(created, None)
             mark = len(runtime.events)
-            with self.assertRaisesRegex(MultilinuxError, "generation-switch"):
+            with self.assertRaisesRegex(UnifierError, "generation-switch"):
                 service.install_packages("debian13", ["hello"])
             self.assertEqual(runtime.events[mark:], [])
 
     def test_new_name_with_implemented_driver_is_rejected_before_create(self):
         raw = dict(PREPARED["debian13"])
-        with self.assertRaisesRegex(MultilinuxError, "no runnable upgrade driver"):
+        with self.assertRaisesRegex(UnifierError, "no runnable upgrade driver"):
             require_runnable("future-debian", raw)
-        with self.assertRaises(MultilinuxError):
+        with self.assertRaises(UnifierError):
             driver_for("future-debian")
         with tempfile.TemporaryDirectory() as temporary:
             service, runtime = service_in(Path(temporary))
@@ -136,7 +136,7 @@ class CatalogContract(unittest.TestCase):
                 **service.config["targets"]["debian13"], **raw}
             service.lock = copy.deepcopy(service.lock)
             service.lock["targets"]["future-debian"] = service.lock["targets"]["debian13"]
-            with self.assertRaisesRegex(MultilinuxError, "no runnable upgrade driver"):
+            with self.assertRaisesRegex(UnifierError, "no runnable upgrade driver"):
                 service.create("future-debian", None, [])
             self.assertEqual(runtime.events, [])
             self.assertFalse(service.store.exists("future-debian"))
@@ -146,7 +146,7 @@ class CatalogContract(unittest.TestCase):
             service, runtime = service_in(Path(temporary))
             service.config = copy.deepcopy(service.config)
             service.config["targets"]["debian13"]["package_driver"] = "dnf"
-            with self.assertRaisesRegex(MultilinuxError, "package_driver"):
+            with self.assertRaisesRegex(UnifierError, "package_driver"):
                 service.create("debian13", None, [])
             self.assertEqual(runtime.events, [])
 
@@ -160,12 +160,12 @@ class CatalogContract(unittest.TestCase):
                 service.store.save(record, None)
                 before = list(runtime.events)
                 self.assertEqual(service.change_plan("debian13")["action"], "refused")
-                with self.assertRaises(MultilinuxError):
+                with self.assertRaises(UnifierError):
                     driver_for(record)
-                with self.assertRaises(MultilinuxError):
+                with self.assertRaises(UnifierError):
                     service.query_package("debian13", "hello")
                 for operation in ("install", "update", "remove", "install-local"):
-                    with self.subTest(operation=operation), self.assertRaises(MultilinuxError):
+                    with self.subTest(operation=operation), self.assertRaises(UnifierError):
                         service._package_transaction("debian13", operation, ["hello"])
                 self.assertEqual(runtime.events, before)
                 self.assertEqual(service.transactions_for("debian13"), [])
@@ -195,7 +195,7 @@ class CatalogContract(unittest.TestCase):
             record = {"target": "debian13", "system": system}
             with self.subTest(system=system):
                 self.assertEqual(plan_change(record, operation="package-change")["action"], "refused")
-                with self.assertRaises(MultilinuxError):
+                with self.assertRaises(UnifierError):
                     driver_for(record)
 
     def test_legacy_policy_conflict_cannot_override_prepared_target(self):
@@ -204,7 +204,7 @@ class CatalogContract(unittest.TestCase):
             if system is not None:
                 record["system"] = system
             self.assertEqual(plan_change(record, operation="package-change")["action"], "refused")
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 driver_for(record)
 
     def test_one_rpm_format_can_match_two_targets(self):

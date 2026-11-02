@@ -1,0 +1,71 @@
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn234d1cee2920
+fedora44: dnf install -y hello
+fedora44: install completed txn35f2fcbbb974
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn7ac6c215c801
+refusing to overwrite an unknown file: /tmp/tmpicw3b3gc/unifier
+remove or rename it explicitly, then rerun this installer
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn041b08f028f9
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn4a7b04c1baff
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnfa2ed4c2c684
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnd7dcd56060c0
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnc56fa39bd954
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn029e8c322924
+fedora44: dnf install -y hello
+fedora44: install completed txn2f450a281e44
+unifier: remove deletes the environment's writable root; pass --yes
+/usr/lib/python3.13/multiprocessing/popen_fork.py:67: DeprecationWarning: This process (pid=946) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+======================================================================
+FAIL: test_failed_invalidation_is_not_acknowledged_and_is_retried (test_projection_boundaries.RepairFailureBoundaries.test_failed_invalidation_is_not_acknowledged_and_is_retried)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dev/server-validation-20261030T204043+0800/unifier-current/tests/test_projection_boundaries.py", line 49, in test_failed_invalidation_is_not_acknowledged_and_is_retried
+    self.assertEqual(server.getattr(node,fh)[2],errno.EIO)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 5
+
+======================================================================
+FAIL: test_failed_lookup_invalidation_does_not_leak_lookup_reference (test_projection_boundaries.RepairFailureBoundaries.test_failed_lookup_invalidation_does_not_leak_lookup_reference)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dev/server-validation-20261030T204043+0800/unifier-current/tests/test_projection_boundaries.py", line 78, in test_failed_lookup_invalidation_does_not_leak_lookup_reference
+    self.assertEqual(reply[2],errno.EIO)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 5
+
+----------------------------------------------------------------------
+Ran 537 tests in 17.641s
+
+FAILED (failures=2, skipped=7)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from pathlib import Path; from tools.check_repo import check; check(Path.cwd(), quick=False)
+                                                                  ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dev/server-validation-20261030T204043+0800/unifier-current/tools/check_repo.py", line 56, in check
+    run(root, environment,
+    ~~~^^^^^^^^^^^^^^^^^^^
+        [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-q"])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dev/server-validation-20261030T204043+0800/unifier-current/tools/check_repo.py", line 19, in run
+    subprocess.run(command, cwd=root, env=environment, check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-q']' returned non-zero exit status 1.

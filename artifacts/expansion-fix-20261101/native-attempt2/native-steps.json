@@ -1,0 +1,115 @@
+[
+  {
+    "argv": [
+      "pkg",
+      "remove",
+      "interrupt-debian",
+      "unifier-interrupt-probe",
+      "--yes"
+    ],
+    "code": 1,
+    "stdout": "",
+    "stderr": "unifier: package state for interrupt-debian needs recovery; run 'unifier pkg recover interrupt-debian' before another package change\n"
+  },
+  {
+    "argv": [
+      "pkg",
+      "recover",
+      "interrupt-debian"
+    ],
+    "code": 1,
+    "stdout": "",
+    "stderr": "unifier: native package database needs repair; inspect pkg show and repair it inside this environment before pkg recover\n"
+  },
+  {
+    "argv": [
+      "env",
+      "start",
+      "interrupt-debian"
+    ],
+    "code": 0,
+    "stdout": "started interrupt-debian (running)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "env",
+      "run",
+      "interrupt-debian",
+      "--",
+      "/bin/sh",
+      "-c",
+      "sed -i '/sleep 60/d' /var/lib/dpkg/info/unifier-interrupt-probe.postinst; dpkg --configure -a"
+    ],
+    "code": 0,
+    "stdout": "Setting up unifier-interrupt-probe (1.0) ...\nWAIT_READY\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pkg",
+      "recover",
+      "interrupt-debian"
+    ],
+    "code": 0,
+    "stdout": "{\n  \"environment_id\": \"interrupt-debian\",\n  \"status\": \"recovered\",\n  \"transactions\": [\n    \"txna44b1ffb651f\"\n  ],\n  \"database_audit\": {\n    \"argv\": [\n      \"dpkg\",\n      \"--audit\"\n    ],\n    \"exit_code\": 0,\n    \"stdout_tail\": \"\",\n    \"stderr_tail\": \"\"\n  },\n  \"package_inventory_sha256\": \"a5ea7f593cdea8be5dd0540ae7c1bc0e2436ba948fd065858895af9646a77da6\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pkg",
+      "install",
+      "interrupt-debian",
+      "--file",
+      "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/expansion-fix-20261101/native-attempt2/probe-2.0.deb",
+      "--package",
+      "unifier-interrupt-probe",
+      "--yes",
+      "--no-repair-deps",
+      "--json"
+    ],
+    "code": 0,
+    "stdout": "{\n  \"schema_version\": 1,\n  \"id\": \"txn6b14295b031a\",\n  \"environment_id\": \"interrupt-debian\",\n  \"operation\": \"install-local\",\n  \"packages\": [\n    \"unifier-interrupt-probe\"\n  ],\n  \"interactive\": false,\n  \"stream\": false,\n  \"dependency_repair\": {\n    \"status\": \"not-requested\"\n  },\n  \"use_command\": [],\n  \"local_file\": \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/expansion-fix-20261101/native-attempt2/probe-2.0.deb\",\n  \"revision_before\": {\n    \"writable_revision\": \"d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b\",\n    \"content_revision\": 2,\n    \"package_inventory_sha256\": \"a5ea7f593cdea8be5dd0540ae7c1bc0e2436ba948fd065858895af9646a77da6\"\n  },\n  \"native\": [\n    {\n      \"argv\": [\n        \"apt-get\",\n        \"update\"\n      ],\n      \"timeout\": 180,\n      \"state\": \"finished\",\n      \"exit_code\": 0,\n      \"stdout_tail\": \"Hit:1 http://deb.debian.org/debian trixie InRelease\\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\\nReading package lists...\\n\",\n      \"stderr_tail\": \"\",\n      \"guest\": {\n        \"pid\": 13,\n        \"start\": 41496587,\n        \"pgrp\": 13,\n        \"sid\": 13,\n        \"token\": \"8539e6f9666a983f27b8e8000b643b50\"\n      }\n    },\n    {\n      \"argv\": [\n        \"apt-get\",\n        \"install\",\n        \"-y\",\n        \"/tmp/ml-incoming/probe-2.0.deb\"\n      ],\n      \"timeout\": 300,\n      \"state\": \"finished\",\n      \"exit_code\": 0,\n      \"stdout_tail\": \"Reading package lists...\\nBuilding dependency tree...\\nReading state information...\\nThe following packages will be upgraded:\\n  unifier-interrupt-probe\\n1 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.\\nNeed to get 0 B/600 B of archives.\\nAfter this operation, 0 B of additional disk space will be used.\\nGet:1 /tmp/ml-incoming/probe-2.0.deb unifier-interrupt-probe all 2.0 [600 B]\\n(Reading database ... \\r(Reading database ... 5%\\r(Reading database ... 10%\\r(Reading database ... 15%\\r(Reading database ... 20%\\r(Reading database ... 25%\\r(Reading database ... 30%\\r(Reading database ... 35%\\r(Reading database ... 40%\\r(Reading database ... 45%\\r(Reading database ... 50%\\r(Reading database ... 55%\\r(Reading database ... 60%\\r(Reading database ... 65%\\r(Reading database ... 70%\\r(Reading database ... 75%\\r(Reading database ... 80%\\r(Reading database ... 85%\\r(Reading database ... 90%\\r(Reading database ... 95%\\r(Reading database ... 100%\\r(Reading database ... 4952 files and directories currently installed.)\\r\\nPreparing to unpack /tmp/ml-incoming/probe-2.0.deb ...\\r\\nUnpacking unifier-interrupt-probe (2.0) over (1.0) ...\\r\\nSetting up unifier-interrupt-probe (2.0) ...\\r\\nCONFIGURED_VERSION_2\\r\\n\",\n      \"stderr_tail\": \"\",\n      \"guest\": {\n        \"pid\": 29,\n        \"start\": 41496803,\n        \"pgrp\": 29,\n        \"sid\": 29,\n        \"token\": \"4ffb1953e764dcd4d7cb2a453c47947b\"\n      }\n    }\n  ],\n  \"native_error\": null,\n  \"maintenance\": {\n    \"status\": \"ok\",\n    \"items\": [],\n    \"system_integration\": \"unverified\",\n    \"full_init\": false\n  },\n  \"verdict\": \"verified\",\n  \"verification\": {\n    \"ok\": true,\n    \"packages\": {\n      \"unifier-interrupt-probe\": true\n    },\n    \"command\": null,\n    \"command_exit_code\": null,\n    \"stdout_preview\": null,\n    \"stdout_sha256\": null,\n    \"problems\": []\n  },\n  \"host_entries\": {\n    \"added\": [],\n    \"removed\": []\n  },\n  \"host_packages\": {\n    \"before\": {\n      \"available\": true,\n      \"tool\": \"rpm\",\n      \"sha256\": \"a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6\",\n      \"count\": 2530,\n      \"error\": null\n    },\n    \"after\": {\n      \"available\": true,\n      \"tool\": \"rpm\",\n      \"sha256\": \"a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6\",\n      \"count\": 2530,\n      \"error\": null\n    }\n  },\n  \"other_environments\": {},\n  \"revision_after\": {\n    \"writable_revision\": \"d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b\",\n    \"content_revision\": 3,\n    \"package_inventory_sha256\": \"286d6d0ccd427596d8c932b7b05dfe1ba4cc232c2a66207e0537d692d9f08561\"\n  },\n  \"phase\": \"completed\",\n  \"environment_binding\": {\n    \"environment_id\": \"interrupt-debian\",\n    \"environment_uuid\": \"9997bea3-892a-463e-b1ba-3effdbdb8dcb\",\n    \"generation\": 1,\n    \"container_id\": \"d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b\"\n  },\n  \"recovery_required\": false,\n  \"inventory_status\": \"verified\",\n  \"failure_phase\": null,\n  \"started_at\": \"2026-11-01T10:13:55+08:00\",\n  \"finished_at\": \"2026-11-01T10:14:05+08:00\"\n}\n",
+    "stderr": "interrupt-debian: apt-get update\ninterrupt-debian: apt-get install -y /tmp/ml-incoming/probe-2.0.deb\ninterrupt-debian: install-local completed txn6b14295b031a\n"
+  },
+  {
+    "argv": [
+      "pkg",
+      "remove",
+      "interrupt-debian",
+      "unifier-interrupt-probe",
+      "--yes",
+      "--json"
+    ],
+    "code": 0,
+    "stdout": "{\n  \"schema_version\": 1,\n  \"id\": \"txn92bdf9acd535\",\n  \"environment_id\": \"interrupt-debian\",\n  \"operation\": \"remove\",\n  \"packages\": [\n    \"unifier-interrupt-probe\"\n  ],\n  \"interactive\": false,\n  \"stream\": false,\n  \"dependency_repair\": {\n    \"status\": \"not-requested\"\n  },\n  \"use_command\": [],\n  \"local_file\": null,\n  \"revision_before\": {\n    \"writable_revision\": \"d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b\",\n    \"content_revision\": 3,\n    \"package_inventory_sha256\": \"286d6d0ccd427596d8c932b7b05dfe1ba4cc232c2a66207e0537d692d9f08561\"\n  },\n  \"native\": [\n    {\n      \"argv\": [\n        \"apt-get\",\n        \"remove\",\n        \"-y\",\n        \"unifier-interrupt-probe\"\n      ],\n      \"timeout\": 300,\n      \"state\": \"finished\",\n      \"exit_code\": 0,\n      \"stdout_tail\": \"Reading package lists...\\nBuilding dependency tree...\\nReading state information...\\nThe following packages will be REMOVED:\\n  unifier-interrupt-probe\\n0 upgraded, 0 newly installed, 1 to remove and 2 not upgraded.\\nAfter this operation, 0 B of additional disk space will be used.\\n(Reading database ... \\r(Reading database ... 5%\\r(Reading database ... 10%\\r(Reading database ... 15%\\r(Reading database ... 20%\\r(Reading database ... 25%\\r(Reading database ... 30%\\r(Reading database ... 35%\\r(Reading database ... 40%\\r(Reading database ... 45%\\r(Reading database ... 50%\\r(Reading database ... 55%\\r(Reading database ... 60%\\r(Reading database ... 65%\\r(Reading database ... 70%\\r(Reading database ... 75%\\r(Reading database ... 80%\\r(Reading database ... 85%\\r(Reading database ... 90%\\r(Reading database ... 95%\\r(Reading database ... 100%\\r(Reading database ... 4952 files and directories currently installed.)\\r\\nRemoving unifier-interrupt-probe (2.0) ...\\r\\n\",\n      \"stderr_tail\": \"\",\n      \"guest\": {\n        \"pid\": 63,\n        \"start\": 41497639,\n        \"pgrp\": 63,\n        \"sid\": 63,\n        \"token\": \"4f86a849e128317f1172868f009fa8dc\"\n      }\n    }\n  ],\n  \"native_error\": null,\n  \"maintenance\": {\n    \"status\": \"ok\",\n    \"items\": [],\n    \"system_integration\": \"unverified\",\n    \"full_init\": false\n  },\n  \"verdict\": \"verified\",\n  \"verification\": {\n    \"ok\": true,\n    \"packages\": {\n      \"unifier-interrupt-probe\": false\n    },\n    \"command\": null,\n    \"command_exit_code\": null,\n    \"stdout_preview\": null,\n    \"stdout_sha256\": null,\n    \"problems\": []\n  },\n  \"host_entries\": {\n    \"added\": [],\n    \"removed\": []\n  },\n  \"host_packages\": {\n    \"before\": {\n      \"available\": true,\n      \"tool\": \"rpm\",\n      \"sha256\": \"a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6\",\n      \"count\": 2530,\n      \"error\": null\n    },\n    \"after\": {\n      \"available\": true,\n      \"tool\": \"rpm\",\n      \"sha256\": \"a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6\",\n      \"count\": 2530,\n      \"error\": null\n    }\n  },\n  \"other_environments\": {},\n  \"revision_after\": {\n    \"writable_revision\": \"d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b\",\n    \"content_revision\": 4,\n    \"package_inventory_sha256\": \"fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4\"\n  },\n  \"phase\": \"completed\",\n  \"environment_binding\": {\n    \"environment_id\": \"interrupt-debian\",\n    \"environment_uuid\": \"9997bea3-892a-463e-b1ba-3effdbdb8dcb\",\n    \"generation\": 1,\n    \"container_id\": \"d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b\"\n  },\n  \"recovery_required\": false,\n  \"inventory_status\": \"verified\",\n  \"failure_phase\": null,\n  \"started_at\": \"2026-11-01T10:14:05+08:00\",\n  \"finished_at\": \"2026-11-01T10:14:12+08:00\"\n}\n",
+    "stderr": "interrupt-debian: apt-get remove -y unifier-interrupt-probe\ninterrupt-debian: remove completed txn92bdf9acd535\n"
+  },
+  {
+    "argv": [
+      "pkg",
+      "install",
+      "interrupt-debian",
+      "--file",
+      "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/expansion-fix-20261101/native-attempt2/probe-2.0.deb",
+      "--package",
+      "unifier-interrupt-probe",
+      "--yes",
+      "--no-repair-deps",
+      "--json"
+    ],
+    "code": 0,
+    "stdout": "{\n  \"schema_version\": 1,\n  \"id\": \"txn7d17f1034df2\",\n  \"environment_id\": \"interrupt-debian\",\n  \"operation\": \"install-local\",\n  \"packages\": [\n    \"unifier-interrupt-probe\"\n  ],\n  \"interactive\": false,\n  \"stream\": false,\n  \"dependency_repair\": {\n    \"status\": \"not-requested\"\n  },\n  \"use_command\": [],\n  \"local_file\": \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/expansion-fix-20261101/native-attempt2/probe-2.0.deb\",\n  \"revision_before\": {\n    \"writable_revision\": \"d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b\",\n    \"content_revision\": 4,\n    \"package_inventory_sha256\": \"fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4\"\n  },\n  \"native\": [\n    {\n      \"argv\": [\n        \"apt-get\",\n        \"update\"\n      ],\n      \"timeout\": 180,\n      \"state\": \"finished\",\n      \"exit_code\": 0,\n      \"stdout_tail\": \"Hit:1 http://deb.debian.org/debian trixie InRelease\\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\\nReading package lists...\\n\",\n      \"stderr_tail\": \"\",\n      \"guest\": {\n        \"pid\": 83,\n        \"start\": 41498618,\n        \"pgrp\": 83,\n        \"sid\": 83,\n        \"token\": \"dea62939b7f6d11f910fbe94f6a27b88\"\n      }\n    },\n    {\n      \"argv\": [\n        \"apt-get\",\n        \"install\",\n        \"-y\",\n        \"/tmp/ml-incoming/probe-2.0.deb\"\n      ],\n      \"timeout\": 300,\n      \"state\": \"finished\",\n      \"exit_code\": 0,\n      \"stdout_tail\": \"Reading package lists...\\nBuilding dependency tree...\\nReading state information...\\nThe following NEW packages will be installed:\\n  unifier-interrupt-probe\\n0 upgraded, 1 newly installed, 0 to remove and 2 not upgraded.\\nNeed to get 0 B/600 B of archives.\\nAfter this operation, 0 B of additional disk space will be used.\\nGet:1 /tmp/ml-incoming/probe-2.0.deb unifier-interrupt-probe all 2.0 [600 B]\\nSelecting previously unselected package unifier-interrupt-probe.\\r\\n(Reading database ... \\r(Reading database ... 5%\\r(Reading database ... 10%\\r(Reading database ... 15%\\r(Reading database ... 20%\\r(Reading database ... 25%\\r(Reading database ... 30%\\r(Reading database ... 35%\\r(Reading database ... 40%\\r(Reading database ... 45%\\r(Reading database ... 50%\\r(Reading database ... 55%\\r(Reading database ... 60%\\r(Reading database ... 65%\\r(Reading database ... 70%\\r(Reading database ... 75%\\r(Reading database ... 80%\\r(Reading database ... 85%\\r(Reading database ... 90%\\r(Reading database ... 95%\\r(Reading database ... 100%\\r(Reading database ... 4951 files and directories currently installed.)\\r\\nPreparing to unpack /tmp/ml-incoming/probe-2.0.deb ...\\r\\nUnpacking unifier-interrupt-probe (2.0) ...\\r\\nSetting up unifier-interrupt-probe (2.0) ...\\r\\nCONFIGURED_VERSION_2\\r\\n\",\n      \"stderr_tail\": \"\",\n      \"guest\": {\n        \"pid\": 99,\n        \"start\": 41499410,\n        \"pgrp\": 99,\n        \"sid\": 99,\n        \"token\": \"0e40aef517fa54274b810bc49e144117\"\n      }\n    }\n  ],\n  \"native_error\": null,\n  \"maintenance\": {\n    \"status\": \"ok\",\n    \"items\": [],\n    \"system_integration\": \"unverified\",\n    \"full_init\": false\n  },\n  \"verdict\": \"verified\",\n  \"verification\": {\n    \"ok\": true,\n    \"packages\": {\n      \"unifier-interrupt-probe\": true\n    },\n    \"command\": null,\n    \"command_exit_code\": null,\n    \"stdout_preview\": null,\n    \"stdout_sha256\": null,\n    \"problems\": []\n  },\n  \"host_entries\": {\n    \"added\": [],\n    \"removed\": []\n  },\n  \"host_packages\": {\n    \"before\": {\n      \"available\": true,\n      \"tool\": \"rpm\",\n      \"sha256\": \"a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6\",\n      \"count\": 2530,\n      \"error\": null\n    },\n    \"after\": {\n      \"available\": true,\n      \"tool\": \"rpm\",\n      \"sha256\": \"a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6\",\n      \"count\": 2530,\n      \"error\": null\n    }\n  },\n  \"other_environments\": {},\n  \"revision_after\": {\n    \"writable_revision\": \"d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b\",\n    \"content_revision\": 5,\n    \"package_inventory_sha256\": \"286d6d0ccd427596d8c932b7b05dfe1ba4cc232c2a66207e0537d692d9f08561\"\n  },\n  \"phase\": \"completed\",\n  \"environment_binding\": {\n    \"environment_id\": \"interrupt-debian\",\n    \"environment_uuid\": \"9997bea3-892a-463e-b1ba-3effdbdb8dcb\",\n    \"generation\": 1,\n    \"container_id\": \"d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b\"\n  },\n  \"recovery_required\": false,\n  \"inventory_status\": \"verified\",\n  \"failure_phase\": null,\n  \"started_at\": \"2026-11-01T10:14:13+08:00\",\n  \"finished_at\": \"2026-11-01T10:14:31+08:00\"\n}\n",
+    "stderr": "interrupt-debian: apt-get update\ninterrupt-debian: apt-get install -y /tmp/ml-incoming/probe-2.0.deb\ninterrupt-debian: install-local completed txn7d17f1034df2\n"
+  },
+  {
+    "argv": [
+      "env",
+      "stop",
+      "interrupt-debian"
+    ],
+    "code": 0,
+    "stdout": "stopped interrupt-debian (stopped)\n",
+    "stderr": ""
+  }
+]

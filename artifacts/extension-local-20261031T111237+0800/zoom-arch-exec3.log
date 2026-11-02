@@ -1,0 +1,22 @@
+                             Class      App      Lib Possible Culprit Flags
+                resip::Connection      696      696 
+                      resip::Data       36       36 
+                 resip::DnsResult     1080     1080 
+                   resip::Headers        1        1 
+          resip::MsgHeaderScanner       40       40 
+                resip::SipMessage     5224     5224 
+         resip::TransportSelector      896      896 
+                     resip::Tuple      128      128 
+              resip::UdpTransport     1144     1144 
+          resip::GenericIPAddress       28       28 
+
+zoom started.
+qt.qpa.plugin: From 6.5.0, xcb-cursor0 or libxcb-cursor0 is needed to load the Qt xcb platform plugin.
+qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.
+This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+Available platform plugins are: minimalegl, linuxfb, vnc, offscreen, eglfs, minimal, wayland, vkkhrdisplay, xcb, wayland-egl.
+
+found 1 dump(s) for pid 863
+./pending/3165e341-064a-4e80-88c5-7cc0d1fcd64e.dmp renamed to: ./crash_7.2.1.5760_e5d29b21_2026-1031-050328_863.dmp
+./crash_7.2.1.5760_e5d29b21_2026-1031-050328_863.dmp gzipped to: ./crash_7.2.1.5760_e5d29b21_2026-1031-050328_863.dmp.gz

@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "exit": 1,
+  "tail": [
+    "    \"guest-identity-and-shared-kernel-check\",",
+    "    \"host-security-policy\",",
+    "    \"desktop-session-and-devices-if-requested\"",
+    "  ],",
+    "  \"validation_scope\": \"policy-only\"",
+    "}"
+  ]
+}

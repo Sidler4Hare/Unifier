@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "target": "arch",
+  "environment_id": "arch",
+  "runtime_state": "stopped"
+}

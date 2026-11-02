@@ -1,0 +1,57 @@
+[
+  {
+    "name": "debian-record-maintenance",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "pkg",
+      "install",
+      "debian13",
+      "libasound2t64",
+      "--use-command=/usr/bin/test",
+      "--use-command=-r",
+      "--use-command=/usr/lib/x86_64-linux-gnu/libasound.so.2"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 83.627,
+    "ok": true
+  },
+  {
+    "name": "arch-less-serialized",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "pkg",
+      "install",
+      "arch",
+      "less"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 49.736,
+    "ok": true
+  },
+  {
+    "name": "arch-local-install",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "install",
+      "--target",
+      "arch",
+      "--exec",
+      "/usr/bin/jq",
+      "--app",
+      "jq",
+      "--package",
+      "jq",
+      "--json",
+      "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/native-jq-files/中文 空格 $; jq.pkg.tar.zst"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 1,
+    "expected_exit": 0,
+    "seconds": 6.513,
+    "ok": false
+  }
+]

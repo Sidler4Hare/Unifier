@@ -1,0 +1,2 @@
+debian13: container is stopped; listing /etc through a read-only view
+debian13: opening a short-lived read-only view a388ea7f-0268-4e2f-920c-d5f3e27ac2d1; only this view is released afterwards.

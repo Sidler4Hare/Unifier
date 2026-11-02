@@ -18,9 +18,9 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tests"))
 
-from multilinux import cli
-from multilinux.errors import MultilinuxError
-from multilinux.packages import (
+from unifier import cli
+from unifier.errors import UnifierError
+from unifier.packages import (
     HostObserver,
     explain_native_error,
     install_commands,
@@ -28,7 +28,7 @@ from multilinux.packages import (
     remove_commands,
     update_commands,
 )
-from multilinux.runtime import (
+from unifier.runtime import (
     ROLE_ENVIRONMENT,
     LABEL_ENV,
     LABEL_PROJECT,
@@ -38,7 +38,7 @@ from multilinux.runtime import (
     creation_argv,
     decode_output,
 )
-from multilinux.service import EnvironmentService
+from unifier.service import EnvironmentService
 from test_env import CONFIG, LOCK, PROFILES, FakeRuntime, _os_release
 
 
@@ -108,7 +108,7 @@ class PackageBoxes(FakeRuntime):
     def exec(self, name, argv, *, project, env_id, workdir, env, capture, timeout):
         info = self._owned(name, project, env_id)
         if not info.running:
-            raise MultilinuxError(f"{name} is not running")
+            raise UnifierError(f"{name} is not running")
         self.events.append(("exec", name, tuple(argv), workdir, dict(env), capture))
         if not capture:
             code = self.next_code
@@ -118,6 +118,12 @@ class PackageBoxes(FakeRuntime):
 
     def _answer(self, info, argv):
         env_id = info.env_id
+        if argv in (["dpkg", "--audit"], ["rpm", "--verifydb"], ["pacman", "-Dk"]):
+            return ExecResult(0, "", "")
+        if argv[:2] in (["dpkg-query", "-L"], ["rpm", "-ql"], ["pacman", "-Ql"]):
+            # Synthetic packages have no on-disk ELF payload. Real dependency
+            # discovery/repair is covered by test_dependencies and live probes.
+            return ExecResult(0, "", "")
         if argv == ["cat", "/etc/os-release"]:
             profile = self.identities.get(env_id)
             if profile is None:
@@ -224,7 +230,7 @@ def package_service(root, runtime=None, observer=None):
     service = EnvironmentService(
         root, runtime, CONFIG, LOCK, host_kernel="host-kernel", clock=clock,
         uid=1000, gid=1000, host_observer=observer or StaticHost(),
-        host_facts={"os_release": {"ID": "fedora", "VERSION_ID": "44"},
+        host_facts={"os_release": {"ID": "rhel", "VERSION_ID": "9"},
                     "system": "Linux", "machine": "x86_64", "libc": "glibc"},
         log=lambda _message: None)
     return service, runtime
@@ -342,7 +348,7 @@ class PackageTransactions(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             service, runtime = package_service(root)
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.create("debian13", "deb", [], "bridge")
             self.assertEqual(runtime.events, [])
             record = make_env(service, runtime, "debian13", "deb", "pasta")
@@ -355,8 +361,10 @@ class PackageTransactions(unittest.TestCase):
             self.assertNotIn("--network=none", argv)
             self.assertEqual(sum(item.startswith("--network=") for item in argv), 1)
 
+            # Network contracts are independent installations, not duplicate targets.
+            service, runtime = package_service(root / "offline")
             make_env(service, runtime, "debian13", "plain", "none")
-            with self.assertRaises(MultilinuxError) as caught:
+            with self.assertRaises(UnifierError) as caught:
                 service.install_packages("plain", ["hello"])
             self.assertIn("pasta", str(caught.exception))
             self.assertFalse(any(event[0] == "exec" and event[2][:1] == ("apt-get",)
@@ -389,7 +397,7 @@ class PackageTransactions(unittest.TestCase):
             self.assertEqual(service.inspect("fed")["runtime_state"], "stopped")
             self.assertEqual(txn["host_packages"]["before"]["sha256"],
                              txn["host_packages"]["after"]["sha256"])
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.install_packages("deb", ["-hello"])
             self.assertEqual(len(service.transactions_for("deb")), 1)
 
@@ -525,7 +533,7 @@ class PackageTransactions(unittest.TestCase):
             self.assertEqual(service.inspect("deb")["content_revision"], 1)
             foreign = root / "hello.rpm"
             foreign.write_bytes(b"x")
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.install_local("deb", str(foreign))
             self.assertEqual(len(service.transactions_for("deb")), 1)
 

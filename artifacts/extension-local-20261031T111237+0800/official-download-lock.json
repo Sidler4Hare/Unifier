@@ -1,0 +1,51 @@
+{
+  "packages": [
+    {
+      "name": "wps-office.deb",
+      "bytes": 562396452,
+      "sha256": "77ffbdc1be76c834e1853c27ff9063e49d5d3b1f30b206d785761b5bf560c83b",
+      "source_page": "https://www.wps.cn/product/wpslinuxlog",
+      "download_url_without_expiring_query": "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2023/29183/wps-office_12.1.2.29183.AK.preread.sw.Personal_806791_amd64.deb",
+      "acquisition_exit": 0,
+      "original_receipt": ".lab/agents/extension-local-20261031T111237+0800/downloads/wps-office.signed.receipt.json"
+    },
+    {
+      "name": "feishu.deb",
+      "bytes": 353992084,
+      "sha256": "7c744ce101e29f50d8d0fc099788b64cb389dde3178178a7fce9ffcdbf296e13",
+      "source_page": "https://www.feishu.cn/download",
+      "download_url_without_expiring_query": null,
+      "acquisition_exit": 0,
+      "original_receipt": ".lab/agents/extension-local-20261031T111237+0800/downloads/feishu.deb.receipt.json"
+    },
+    {
+      "name": "zoom_amd64.deb",
+      "bytes": 302788858,
+      "sha256": "e9a522c794622633b24908ac0589a8e4df8a542846b97818e76f6c27e117cbdb",
+      "source_page": "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063458",
+      "download_url_without_expiring_query": "https://zoom.us/client/7.2.1.5760/zoom_amd64.deb",
+      "acquisition_exit": 0,
+      "original_receipt": ".lab/agents/extension-local-20261031T111237+0800/downloads/zoom_amd64.deb.receipt.json"
+    },
+    {
+      "name": "zoom_x86_64.pkg.tar.xz",
+      "bytes": 302761560,
+      "sha256": "36e8798f42f56ea8a73c772aac594a30f16a1aa4d151d61576b3dc82e7d2e50a",
+      "source_page": "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063458",
+      "download_url_without_expiring_query": "https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz",
+      "acquisition_exit": 0,
+      "original_receipt": ".lab/agents/extension-local-20261031T111237+0800/downloads/zoom_x86_64.pkg.tar.xz.receipt.json"
+    },
+    {
+      "name": "bcompare.deb",
+      "bytes": 25234626,
+      "sha256": "7883ee913e81b577bc092e4451e6b3db138f31227e6edfc2b58a5d3acd1571f4",
+      "source_page": "https://www.scootersoftware.com/download",
+      "download_url_without_expiring_query": "https://www.scootersoftware.com/files/bcompare-5.2.7.32913_amd64.deb",
+      "acquisition_exit": 0,
+      "original_receipt": ".lab/agents/extension-local-20261031T111237+0800/downloads/bcompare.deb.receipt.json"
+    }
+  ],
+  "total_package_bytes": 1547173580,
+  "excludes": "repository indexes, dependency closure, debug tools and failed/retried transfers; full network usage not measured"
+}

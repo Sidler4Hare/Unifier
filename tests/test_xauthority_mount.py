@@ -8,8 +8,8 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
-from multilinux.desktop import restore_xauthority_mount
-from multilinux.errors import MultilinuxError
+from unifier.desktop import restore_xauthority_mount
+from unifier.errors import UnifierError
 from test_env import service_in
 
 
@@ -49,7 +49,7 @@ class SessionMount(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             record, source, old, options = self.fixture(Path(temporary))
             old.symlink_to('/etc/passwd')
-            with self.assertRaisesRegex(MultilinuxError, 'refusing to overwrite'):
+            with self.assertRaisesRegex(UnifierError, 'refusing to overwrite'):
                 restore_xauthority_mount(record, **options)
             self.assertEqual(os.readlink(old), '/etc/passwd')
 
@@ -68,7 +68,7 @@ class SessionMount(unittest.TestCase):
                     root.chmod(0o755)
                 else:
                     options['environ']['XAUTHORITY'] = '/other/xauth_Current'
-                with self.assertRaises(MultilinuxError):
+                with self.assertRaises(UnifierError):
                     restore_xauthority_mount(record, **options)
                 self.assertFalse(old.exists() or old.is_symlink())
 
@@ -85,8 +85,8 @@ class SessionMount(unittest.TestCase):
             service, runtime = service_in(Path(temporary))
             service.create('debian13', None, [])
             before = list(runtime.events)
-            with patch('multilinux.service.restore_xauthority_mount', side_effect=MultilinuxError('session unavailable')):
-                with self.assertRaisesRegex(MultilinuxError, 'session unavailable'):
+            with patch('unifier.service.restore_xauthority_mount', side_effect=UnifierError('session unavailable')):
+                with self.assertRaisesRegex(UnifierError, 'session unavailable'):
                     service.start('debian13')
             self.assertEqual(runtime.events, before)
 

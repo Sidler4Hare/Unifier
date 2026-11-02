@@ -1,0 +1,34 @@
+{
+  "command": [
+    "bin/unifier",
+    "pkg",
+    "install",
+    "deps-debian",
+    "--interactive",
+    "--file",
+    "/tmp/unifier-native-prompt.deb",
+    "--package",
+    "unifier-native-prompt"
+  ],
+  "exit": 0,
+  "events": [
+    {
+      "prompt": "NATIVE_FIXTURE_CHOICE:",
+      "answer": "hello",
+      "resize": [
+        38,
+        120
+      ]
+    },
+    {
+      "prompt": "NATIVE_FIXTURE_CHOICE:",
+      "answer": "hello",
+      "resize": [
+        38,
+        120
+      ]
+    }
+  ],
+  "native_prompt_observed": true,
+  "bytes": 8870
+}

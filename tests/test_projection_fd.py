@@ -10,9 +10,9 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'tests')]
-from multilinux import fuse_view, projection
-from multilinux.projection import ViewError
-from multilinux.views import _control_request
+from unifier import fuse_view, projection
+from unifier.projection import ViewError
+from unifier.views import _control_request
 from test_projection_support import fixture, open_fd_count
 
 

@@ -1,0 +1,215 @@
+{
+  "captured_at": "2026-10-30T15:01:44.794574+00:00",
+  "scope": "Current-host headless lifecycle, native package query and policy replay; no GUI, devices or other-host acceptance",
+  "registry": "/home/agent/unifier-v001-validation-20261030T230003/unifier-0.0.1/.lab/whitelist-live-vwecld4b",
+  "before": [],
+  "targets": {
+    "fedora44": {
+      "container_id": "f699157ecfb922c8ebaa56b3243a11435eb22aeef10ab3b2d52170bb3d890690",
+      "distribution_id": "fedora",
+      "version_track": "44",
+      "base_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 2,
+        "mode": "whitelist",
+        "host": {
+          "id": "ubuntu",
+          "version_id": "24.04",
+          "variant_id": "",
+          "id_like": [
+            "debian"
+          ],
+          "family": "debian",
+          "reference_host": "debian",
+          "integration_profile": "debian",
+          "package_driver": "apt",
+          "base_package_driver": "apt",
+          "package_format": "deb",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "fedora44",
+        "container_family": "fedora",
+        "container_contract": {
+          "family": "fedora",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "dnf",
+          "package_format": "rpm",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "versioned-release"
+        },
+        "allowed": true,
+        "relationship": "cross-family",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      },
+      "query": {
+        "environment_id": "fedora44",
+        "package": "filesystem",
+        "present": true,
+        "exit_code": 0,
+        "detail": "filesystem\t3.18-52.fc44.x86_64"
+      },
+      "shared_kernel": true,
+      "exit_code_17": true,
+      "simulated_host_refusal": true,
+      "restart_after_stop": true
+    },
+    "arch": {
+      "container_id": "d7a3940e2896ccf047bc2f0711f1ddc8c029df5a352f49b91fcce4c9570acef3",
+      "distribution_id": "arch",
+      "version_track": "rolling",
+      "base_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 2,
+        "mode": "whitelist",
+        "host": {
+          "id": "ubuntu",
+          "version_id": "24.04",
+          "variant_id": "",
+          "id_like": [
+            "debian"
+          ],
+          "family": "debian",
+          "reference_host": "debian",
+          "integration_profile": "debian",
+          "package_driver": "apt",
+          "base_package_driver": "apt",
+          "package_format": "deb",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "arch",
+        "container_family": "arch",
+        "container_contract": {
+          "family": "arch",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "pacman",
+          "package_format": "arch",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "full-system-upgrade"
+        },
+        "allowed": true,
+        "relationship": "cross-family",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      },
+      "query": {
+        "environment_id": "arch",
+        "package": "filesystem",
+        "present": true,
+        "exit_code": 0,
+        "detail": "filesystem 2025.10.12-1"
+      },
+      "shared_kernel": true,
+      "exit_code_17": true,
+      "simulated_host_refusal": true,
+      "restart_after_stop": true
+    }
+  },
+  "errors": [],
+  "excluded_targets": {
+    "debian13": {
+      "schema_version": 1,
+      "policy_version": 2,
+      "mode": "whitelist",
+      "host": {
+        "id": "ubuntu",
+        "version_id": "24.04",
+        "variant_id": "",
+        "id_like": [
+          "debian"
+        ],
+        "family": "debian",
+        "reference_host": "debian",
+        "integration_profile": "debian",
+        "package_driver": "apt",
+        "base_package_driver": "apt",
+        "package_format": "deb",
+        "system": "Linux",
+        "machine": "x86_64",
+        "libc": "glibc",
+        "atomic": false,
+        "admitted": true,
+        "reasons": [],
+        "observation": "live-host"
+      },
+      "target": "debian13",
+      "container_family": "debian",
+      "container_contract": {
+        "family": "debian",
+        "libc": "glibc",
+        "layout": "fhs",
+        "package_driver": "apt",
+        "package_format": "deb",
+        "runtime_backend": "podman-rootless",
+        "update_policy": "versioned-release"
+      },
+      "allowed": false,
+      "relationship": "same-family",
+      "reasons": [
+        "host 'ubuntu' and guest 'debian13' share the 'debian' family; same-family containers are forbidden"
+      ],
+      "execution_domain": "isolated-container",
+      "host_authority": true,
+      "shared_kernel": true,
+      "share_system_trees": false,
+      "share_package_databases": false,
+      "native_package_validation": "required-even-within-family",
+      "requirements": [
+        "rootless-podman",
+        "cgroup-v2",
+        "locked-linux-amd64-image",
+        "guest-identity-and-shared-kernel-check",
+        "host-security-policy",
+        "desktop-session-and-devices-if-requested"
+      ],
+      "validation_scope": "policy-only"
+    }
+  },
+  "after": [],
+  "existing_containers_preserved": true,
+  "passed": true
+}

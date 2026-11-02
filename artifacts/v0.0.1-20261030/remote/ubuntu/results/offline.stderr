@@ -1,0 +1,37 @@
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnbe931c70b057
+fedora44: dnf install -y hello
+fedora44: install completed txncaba8f34177c
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn3f43775b75bf
+refusing to overwrite an unknown file: /tmp/tmpg11shsl5/unifier
+use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txna63f09081709
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn40c58512d915
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnc2664087f5e9
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnd6047bf95a73
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn771b20e766b6
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnbe6adde125ca
+fedora44: dnf install -y hello
+fedora44: install completed txn967dbcadc4df
+unifier: remove deletes the environment's writable root; pass --yes
+/usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=86473) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+----------------------------------------------------------------------
+Ran 562 tests in 28.694s
+
+OK (skipped=6)

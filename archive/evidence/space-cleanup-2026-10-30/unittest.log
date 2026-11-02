@@ -1,0 +1,42 @@
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnc6ce215c9b2c
+fedora44: dnf install -y hello
+fedora44: install completed txn89ef95fb8ce4
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn0ab143c3ba08
+refusing to overwrite an unknown file: /tmp/tmp7qvxcxbp/unifier
+remove or rename it explicitly, then rerun this installer
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn0bcde7f92d53
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnf63845ff245c
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn5ab60e5d2ee6
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn0a831abb516c
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnf74a934b80b2
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn72c102fa9f10
+fedora44: dnf install -y hello
+fedora44: install completed txna6e711dce4af
+ml: remove deletes the environment's writable root; pass --yes
+removed demo
+/usr/lib64/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=432762) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+/usr/lib64/python3.14/site-packages/gi/overrides/__init__.py:159: PyGIDeprecationWarning: GLib.unix_signal_add_full is deprecated; use GLibUnix.signal_add_full instead
+  value = getattr(proxy, attr)
+----------------------------------------------------------------------
+Ran 531 tests in 31.920s
+
+OK (skipped=4)

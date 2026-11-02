@@ -1,0 +1,84 @@
+{
+  "captured_at": "2026-10-30T12:49:11.365009+00:00",
+  "scope": "Current-host headless lifecycle, native package query and policy replay; no GUI, devices or other-host acceptance",
+  "registry": "/home/agent/server-validation-20261030T204043+0800/unifier-current/.lab/whitelist-live-to7aqpxq",
+  "before": [],
+  "targets": {
+    "debian13": {
+      "container_id": "7e70b8f72fdd349ac4cce4892e6a6a9654c94714fb419d62432fca6b79439774",
+      "distribution_id": "debian",
+      "version_track": "13",
+      "base_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 1,
+        "mode": "whitelist",
+        "host": {
+          "id": "ubuntu",
+          "version_id": "24.04",
+          "variant_id": "",
+          "id_like": [
+            "debian"
+          ],
+          "family": "debian",
+          "reference_host": "debian",
+          "integration_profile": "debian",
+          "package_driver": "apt",
+          "base_package_driver": "apt",
+          "package_format": "deb",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "debian13",
+        "container_family": "debian",
+        "container_contract": {
+          "family": "debian",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "apt",
+          "package_format": "deb",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "versioned-release"
+        },
+        "allowed": true,
+        "relationship": "same-family",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      },
+      "query": {
+        "environment_id": "debian13",
+        "package": "base-files",
+        "present": true,
+        "exit_code": 0,
+        "detail": "base-files\t13.8+deb13u7"
+      },
+      "shared_kernel": true,
+      "exit_code_17": true,
+      "simulated_host_refusal": true,
+      "restart_after_stop": true
+    }
+  },
+  "errors": [],
+  "after": [],
+  "existing_containers_preserved": true,
+  "passed": true
+}

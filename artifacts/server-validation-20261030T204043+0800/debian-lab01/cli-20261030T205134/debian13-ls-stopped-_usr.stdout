@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "target": "debian13",
+  "via": "view",
+  "view_uuid": "e1096e04-54a0-4564-9d22-f047f53f2487",
+  "mountpoint": "/home/dev/server-validation-20261030T204043+0800/cli-20261030T205134/installation/.lab/state/views/e1096e04-54a0-4564-9d22-f047f53f2487/mount",
+  "path": "/usr",
+  "entries": [
+    "bin",
+    "games",
+    "include",
+    "lib",
+    "lib64",
+    "libexec",
+    "local",
+    "sbin",
+    "share",
+    "src"
+  ]
+}

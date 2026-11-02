@@ -1,0 +1,1 @@
+lab: compatibility whitelist refused: host 'arch' and guest 'arch' share the 'arch' family; same-family containers are forbidden

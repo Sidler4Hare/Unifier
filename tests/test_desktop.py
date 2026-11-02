@@ -13,15 +13,15 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tests"))
 
-from multilinux import cli
-from multilinux.desktop import (
+from unifier import cli
+from unifier.desktop import (
     HostDesktop,
     add_mime_association,
     discover_session,
     remove_mime_association,
 )
-from multilinux.errors import MultilinuxError
-from multilinux.runtime import creation_argv
+from unifier.errors import UnifierError
+from unifier.runtime import creation_argv
 from test_env import PROFILES, service_in
 
 
@@ -83,7 +83,7 @@ class SessionMounts(unittest.TestCase):
         self.assertEqual(session["env"]["XAUTHORITY"], "/tmp/ml-xauthority")
         self.assertEqual(session["env"]["PULSE_SERVER"], "unix:/run/user/1000/pulse/native")
         self.assertTrue(all(item["options"] == "" for item in session["mounts"]))
-        with self.assertRaises(MultilinuxError):
+        with self.assertRaises(UnifierError):
             discover_session({}, is_socket=lambda _path: False, is_file=lambda _path: False)
 
     def test_desktop_create_mounts_sockets_without_relabeling_them(self):
@@ -112,7 +112,7 @@ class SessionMounts(unittest.TestCase):
             created = [event[1] for event in runtime.events if event[0] == "create"]
             plain = creation_argv(created[-1])
             self.assertNotIn("--security-opt", plain)
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.create("arch", "again", [], session=SESSION)
 
 
@@ -128,7 +128,7 @@ class LaunchRecords(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             service, runtime, notes = self._ready(root)
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.add_app("debian13", "notes", "/usr/bin/gvim", ["/usr/bin/gvim"],
                                 workdir="/tmp/elsewhere")
             self.assertFalse(service._launch_exists("notes"))
@@ -152,7 +152,7 @@ class LaunchRecords(unittest.TestCase):
                 "text/plain=kate.desktop\napplication/x-multilinux-note=demo.desktop\n",
                 "application/x-multilinux-note", "demo.desktop")
             self.assertEqual(restored, "text/plain=kate.desktop\n")
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.export_app("notes", mime_type="text/plain")
             result = service.open_app("notes", [str(notes / "note.mlnote")])
             self.assertEqual(result.returncode, 0)
@@ -166,7 +166,7 @@ class LaunchRecords(unittest.TestCase):
             runtime.identities["plain"] = dict(PROFILES["fedora44"])
             plain = service.create("fedora44", "plain", [str(notes)])
             self.assertIsNone(plain["desktop"])
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.add_app("plain", "other", "/usr/bin/gvim", ["/usr/bin/gvim"])
 
     def test_command_line_exports_and_refuses_a_foreign_mime_type(self):

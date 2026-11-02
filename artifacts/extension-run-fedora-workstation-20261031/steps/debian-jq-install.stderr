@@ -1,0 +1,4 @@
+usage: unifier pkg install [-h] [--file FILE] [--package PACKAGE]
+                           [--use-command ARG]
+                           id [packages ...]
+unifier pkg install: error: argument --use-command: expected one argument

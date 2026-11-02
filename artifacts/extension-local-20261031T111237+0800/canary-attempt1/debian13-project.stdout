@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "project_uuid": "7bffb59d-513e-435f-b007-989c9a4a1730",
+  "alias": "canary-debian13",
+  "root_uuid": "61aed1d3-f1d1-4750-9af4-cdb7d1ac365c",
+  "default_save_root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/init-canary/containers/debian13/files",
+  "access_policy": "read-write",
+  "environment_binding": {
+    "environment_id": "debian13",
+    "environment_uuid": "c34b4d9b-dc73-4d94-950c-3994a6bb0d46",
+    "generation": 1,
+    "container_id": "cc9d6a4b45640b5484688277d3f615d1778b711ad65710f4c4b75da49c2b1c90"
+  },
+  "toolchain": {
+    "provider": "environment",
+    "target": "debian13",
+    "environment_id": "debian13",
+    "environment_uuid": "c34b4d9b-dc73-4d94-950c-3994a6bb0d46",
+    "generation": 1,
+    "container_id": "cc9d6a4b45640b5484688277d3f615d1778b711ad65710f4c4b75da49c2b1c90"
+  },
+  "intent_handlers": {},
+  "created_at": "2026-10-31T11:27:31+08:00",
+  "updated_at": "2026-10-31T11:27:31+08:00"
+}

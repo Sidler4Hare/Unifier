@@ -14,14 +14,14 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
 
-from multilinux import cli
-from multilinux import project_sessions as sessions_module
-from multilinux.desktop import HostDesktop
-from multilinux.errors import MultilinuxError
-from multilinux.file_routes import FileRoutes
-from multilinux.on_demand import LaunchGroup, process_stamp
-from multilinux.project_sessions import ProjectSessions, validate_env_keys
-from multilinux.runtime import (
+from unifier import cli
+from unifier import project_sessions as sessions_module
+from unifier.desktop import HostDesktop
+from unifier.errors import UnifierError
+from unifier.file_routes import FileRoutes
+from unifier.on_demand import LaunchGroup, process_stamp
+from unifier.project_sessions import ProjectSessions, validate_env_keys
+from unifier.runtime import (
     GUEST_CLEANUP,
     GUEST_PROBE,
     GUEST_SIGNAL,
@@ -211,7 +211,7 @@ class Planning(unittest.TestCase):
             record["runtime"]["user_namespace"] = "host"
             service.store.save(record, None)
             sessions = ProjectSessions(Path(temporary), service)
-            with self.assertRaisesRegex(MultilinuxError, "cannot prove.*user namespace"):
+            with self.assertRaisesRegex(UnifierError, "cannot prove.*user namespace"):
                 sessions.prepare(project["project_uuid"], cwd=str(document.parent),
                                  argv=["/bin/true"])
 
@@ -226,7 +226,7 @@ class Planning(unittest.TestCase):
                 root["root_uuid"], "arch", alias="demo",
                 default_save_root=str(document.parent), intent_handlers={})
             self.assertNotEqual(replacement["project_uuid"], project["project_uuid"])
-            with self.assertRaisesRegex(MultilinuxError, "not registered"):
+            with self.assertRaisesRegex(UnifierError, "not registered"):
                 sessions.prepare(project["project_uuid"], cwd=str(document.parent),
                                  argv=["/bin/true"])
             self.assertEqual(
@@ -240,7 +240,7 @@ class Planning(unittest.TestCase):
             nested = document.parent / "nested"
             nested.mkdir()
             routes.roots.add(str(nested), access_policy="read-only")
-            with self.assertRaisesRegex(MultilinuxError, "different registered data root"):
+            with self.assertRaisesRegex(UnifierError, "different registered data root"):
                 sessions.prepare(project["project_uuid"], cwd=str(nested),
                                  argv=["/bin/true"])
 
@@ -254,7 +254,7 @@ class Planning(unittest.TestCase):
             record["shared_mounts"].append({
                 "host": str(outside), "container": str(document.parent), "options": ""})
             service.store.save(record, None)
-            with self.assertRaisesRegex(MultilinuxError, "shadowed|ambiguous"):
+            with self.assertRaisesRegex(UnifierError, "shadowed|ambiguous"):
                 sessions.prepare(project["project_uuid"], cwd=str(document.parent),
                                  argv=["/bin/true"])
 
@@ -265,7 +265,7 @@ class Planning(unittest.TestCase):
             record = service.store.load("arch")
             record["shared_mounts"][0]["options"] = "ro"
             service.store.save(record, None)
-            with self.assertRaisesRegex(MultilinuxError, "read-only"):
+            with self.assertRaisesRegex(UnifierError, "read-only"):
                 sessions.prepare(project["project_uuid"], cwd=str(document.parent),
                                  argv=["/bin/true"])
 
@@ -278,19 +278,19 @@ class Planning(unittest.TestCase):
             real.mkdir()
             link = document.parent / "link"
             os.symlink(real, link)
-            with self.assertRaisesRegex(MultilinuxError, "symbolic link"):
+            with self.assertRaisesRegex(UnifierError, "symbolic link"):
                 sessions.prepare(project["project_uuid"], cwd=str(link),
                                  argv=["/bin/true"])
             moved = root / "old-project"
             document.parent.rename(moved)
             document.parent.mkdir()
-            with self.assertRaisesRegex(MultilinuxError, "replaced"):
+            with self.assertRaisesRegex(UnifierError, "replaced"):
                 sessions.prepare(project["project_uuid"], cwd=str(document.parent),
                                  argv=["/bin/true"])
 
     def test_environment_variable_policy_never_inherits_path_or_loaders(self):
         for key in ("PATH", "LD_PRELOAD", "PYTHONPATH", "BASH_FUNC_x%%"):
-            with self.subTest(key=key), self.assertRaises(MultilinuxError):
+            with self.subTest(key=key), self.assertRaises(UnifierError):
                 validate_env_keys([key])
         self.assertEqual(validate_env_keys(["LANG", "LANG", "TERM"]),
                          ["LANG", "TERM"])
@@ -333,7 +333,7 @@ class Execution(unittest.TestCase):
             self.assertEqual(sessions.execute(record["session_uuid"]), 0)
             self.assertEqual(service.inspect("arch")["runtime_state"], "stopped")
             service.remove("arch")
-            with self.assertRaisesRegex(MultilinuxError, "does not exist"):
+            with self.assertRaisesRegex(UnifierError, "does not exist"):
                 service.inspect("arch")
 
     def test_nonzero_and_127_exits_are_exact(self):
@@ -416,7 +416,7 @@ class Execution(unittest.TestCase):
             latest["generation"] = latest["generation"] + 1
             service.store.save(latest, None)
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "stale|binding|changed"):
+            with self.assertRaisesRegex(UnifierError, "stale|binding|changed"):
                 sessions.execute(record["session_uuid"])
             self.assertFalse(any(event[0] == "start" for event in runtime.events))
             self.assertEqual(sessions.show(record["session_uuid"])["state"], "failed")
@@ -430,7 +430,7 @@ class Execution(unittest.TestCase):
                                              cwd=str(document.parent))
             sessions.store.update(record["session_uuid"], session_user="999:999")
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "document user changed"):
+            with self.assertRaisesRegex(UnifierError, "document user changed"):
                 sessions.execute(record["session_uuid"])
             self.assertEqual(runtime.session_events, [])
 
@@ -444,7 +444,7 @@ class Execution(unittest.TestCase):
             latest["shared_mounts"][0]["options"] = "ro"
             service.store.save(latest, None)
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "scope|read-only"):
+            with self.assertRaisesRegex(UnifierError, "scope|read-only"):
                 sessions.execute(record["session_uuid"])
             self.assertEqual(runtime.events, [])
 
@@ -483,9 +483,9 @@ class RecoveryAndCancellation(unittest.TestCase):
             results = sessions.recover(record["session_uuid"])
             self.assertEqual(results[0]["action"], "kept-live")
             self.assertIn(token, group.read()["leases"])
-            with self.assertRaisesRegex(MultilinuxError, "live"):
+            with self.assertRaisesRegex(UnifierError, "live"):
                 sessions.retire(record["session_uuid"])
-            with self.assertRaisesRegex(MultilinuxError, "still live"):
+            with self.assertRaisesRegex(UnifierError, "still live"):
                 service.remove("arch")
             group.release(token)
 
@@ -639,7 +639,7 @@ class RecoveryAndCancellation(unittest.TestCase):
                 result = sessions.launch(record)
             self.assertEqual(result["returncode"], 17)
             command, kwargs = calls[0]
-            self.assertEqual(command[1:4], [str(ROOT / "tools/ml.py"), "project", "_worker"])
+            self.assertEqual(command[1:4], [str(ROOT / "tools/unifier.py"), "project", "_worker"])
             self.assertIn(record["session_uuid"], command)
             self.assertTrue(kwargs["start_new_session"])
             self.assertEqual(kwargs["env"][sessions_module.WORKER_MARKER], "1")
@@ -657,7 +657,7 @@ class RecoveryAndCancellation(unittest.TestCase):
                 self.assertEqual(record["argv"], ["/bin/sh"])
             with patch.object(sessions_module.sys.stdin, "isatty", return_value=False), \
                  patch.object(sessions_module.sys.stdout, "isatty", return_value=False):
-                with self.assertRaisesRegex(MultilinuxError, "--tty"):
+                with self.assertRaisesRegex(UnifierError, "--tty"):
                     sessions.shell(project["project_uuid"], tty=True)
 
     def test_run_cli_special_parses_argv_after_double_dash(self):

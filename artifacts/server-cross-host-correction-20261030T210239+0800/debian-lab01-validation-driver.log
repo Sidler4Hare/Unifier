@@ -1,0 +1,18 @@
+time="2026-10-30T21:15:49+08:00" level=warning msg="The cgroupv2 manager is set to systemd but there is no systemd user session available"
+time="2026-10-30T21:15:49+08:00" level=warning msg="For using systemd, you may need to log in using a user session"
+time="2026-10-30T21:15:49+08:00" level=warning msg="Alternatively, you can enable lingering with: `loginctl enable-linger 1000` (possibly as root)"
+time="2026-10-30T21:15:49+08:00" level=warning msg="Falling back to --cgroup-manager=cgroupfs"
+time="2026-10-30T21:15:49+08:00" level=warning msg="The cgroupv2 manager is set to systemd but there is no systemd user session available"
+time="2026-10-30T21:15:49+08:00" level=warning msg="For using systemd, you may need to log in using a user session"
+time="2026-10-30T21:15:49+08:00" level=warning msg="Alternatively, you can enable lingering with: `loginctl enable-linger 1000` (possibly as root)"
+time="2026-10-30T21:15:49+08:00" level=warning msg="Falling back to --cgroup-manager=cgroupfs"
+{"step": "matrix", "argv": ["/usr/bin/python3", "tools/unifier.py", "compat", "matrix"], "returncode": 1, "expected": 1, "matched_expected": true}
+{"step": "doctor-direct", "argv": ["/usr/bin/python3", "tools/lab.py", "doctor", "--output", "/home/dev/server-cross-host-correction-20261030T210239+0800/results/doctor.json"], "returncode": 0, "expected": 0, "matched_expected": true}
+{"step": "refuse-init-debian13", "argv": ["/usr/bin/python3", "tools/unifier.py", "init", "--target", "debian13", "--yes"], "returncode": 1, "expected": 1, "matched_expected": true}
+{"step": "refuse-create-debian13", "argv": ["/usr/bin/python3", "tools/unifier.py", "env", "create", "debian13", "debian13"], "returncode": 2, "expected": 1, "matched_expected": false}
+{"step": "refuse-pull-debian13", "argv": ["/usr/bin/python3", "tools/lab.py", "pull", "--target", "debian13"], "returncode": 1, "expected": 1, "matched_expected": true}
+{"step": "refuse-probe-debian13", "argv": ["/usr/bin/python3", "tools/probe_headless.py", "--target", "debian13", "--output", "/home/dev/server-cross-host-correction-20261030T210239+0800/results/forbidden-headless.json"], "returncode": 2, "expected": 2, "matched_expected": true}
+Traceback (most recent call last):
+  File "/home/dev/server-cross-host-correction-20261030T210239+0800/remote-policy-validation.py", line 44, in <module>
+    from unifier.store import EnvironmentStore
+ModuleNotFoundError: No module named 'unifier'

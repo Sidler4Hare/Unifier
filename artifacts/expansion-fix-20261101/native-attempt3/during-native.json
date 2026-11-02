@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "id": "txn2db125f1f14f",
+  "environment_id": "interrupt-debian",
+  "operation": "install-local",
+  "packages": [
+    "unifier-interrupt-probe"
+  ],
+  "interactive": false,
+  "stream": true,
+  "dependency_repair": {
+    "status": "not-requested"
+  },
+  "use_command": [],
+  "local_file": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/expansion-fix-20261101/native-attempt3/probe-3.0.deb",
+  "revision_before": {
+    "writable_revision": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b",
+    "content_revision": 5,
+    "package_inventory_sha256": "286d6d0ccd427596d8c932b7b05dfe1ba4cc232c2a66207e0537d692d9f08561"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "timeout": 180,
+      "state": "finished",
+      "exit_code": 0,
+      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\nReading package lists...\n",
+      "stderr_tail": "",
+      "guest": {
+        "pid": 7,
+        "start": 41512341,
+        "pgrp": 7,
+        "sid": 7,
+        "token": "879b56bea95e87441556267b4eee453d"
+      }
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "/tmp/ml-incoming/probe-3.0.deb"
+      ],
+      "timeout": 300,
+      "state": "running",
+      "exit_code": null,
+      "stdout_tail": "",
+      "stderr_tail": "",
+      "guest": {
+        "pid": 23,
+        "start": 41512613,
+        "pgrp": 23,
+        "sid": 23,
+        "token": "a3ae6aeda13834b08fef441f07fe286b"
+      }
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": null,
+  "verification": null,
+  "host_entries": null,
+  "host_packages": null,
+  "other_environments": null,
+  "revision_after": null,
+  "phase": "running",
+  "environment_binding": {
+    "environment_id": "interrupt-debian",
+    "environment_uuid": "9997bea3-892a-463e-b1ba-3effdbdb8dcb",
+    "generation": 1,
+    "container_id": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b"
+  },
+  "recovery_required": false,
+  "inventory_status": "checking",
+  "failure_phase": null,
+  "started_at": "2026-11-01T10:16:31+08:00",
+  "finished_at": null
+}

@@ -1,0 +1,363 @@
+{
+  "started_at": "2026-10-30T13:18:35.567448+00:00",
+  "hostname": "debian-lab01",
+  "policy_version": 2,
+  "commands": {
+    "matrix": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "compat",
+        "matrix"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "doctor-direct": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/lab.py",
+        "doctor",
+        "--output",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/doctor.json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "refuse-init-debian13": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "init",
+        "--target",
+        "debian13",
+        "--yes"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "refuse-create-debian13": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "create",
+        "--target",
+        "debian13",
+        "--id",
+        "debian13"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "refuse-pull-debian13": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/lab.py",
+        "pull",
+        "--target",
+        "debian13"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "refuse-probe-debian13": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/probe_headless.py",
+        "--target",
+        "debian13",
+        "--output",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/forbidden-headless.json"
+      ],
+      "returncode": 2,
+      "expected": 2,
+      "matched_expected": true
+    },
+    "legacy-refuse-start": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "start",
+        "debian13"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "legacy-refuse-run": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "debian13",
+        "--workdir",
+        "/",
+        "--",
+        "true"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "policy-unit-tests": {
+      "argv": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "-q",
+        "test_compatibility",
+        "test_lab",
+        "test_cli_shortcuts.InitAndConfigure.test_same_family_selection_refuses_before_image_or_container_side_effects",
+        "test_cli_shortcuts.InitAndConfigure.test_interactive_selection_omits_host_family_and_keeps_legacy_data",
+        "test_cli_shortcuts.InitAndConfigure.test_start_cannot_acknowledge_an_already_running_same_family_environment"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "headless-default": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/probe_headless.py",
+        "--output",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/headless.json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "positive-init": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "init",
+        "--network",
+        "none",
+        "--yes",
+        "--target",
+        "fedora44",
+        "--target",
+        "arch"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "fedora44-files": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "path",
+        "fedora44",
+        "--files"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "fedora44-start": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "start",
+        "fedora44"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "fedora44-write": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "fedora44",
+        "--workdir",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/positive-installation/containers/fedora44/files",
+        "--",
+        "sh",
+        "-c",
+        "test \"$(cat host-marker.txt)\" = host && printf guest > guest-marker.txt"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "fedora44-exit17": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "fedora44",
+        "--workdir",
+        "/",
+        "--",
+        "sh",
+        "-c",
+        "exit 17"
+      ],
+      "returncode": 17,
+      "expected": 17,
+      "matched_expected": true
+    },
+    "arch-files": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "path",
+        "arch",
+        "--files"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "arch-start": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "start",
+        "arch"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "arch-write": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "arch",
+        "--workdir",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results-retry/positive-installation/containers/arch/files",
+        "--",
+        "sh",
+        "-c",
+        "test \"$(cat host-marker.txt)\" = host && printf guest > guest-marker.txt"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "arch-exit17": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "arch",
+        "--workdir",
+        "/",
+        "--",
+        "sh",
+        "-c",
+        "exit 17"
+      ],
+      "returncode": 17,
+      "expected": 17,
+      "matched_expected": true
+    },
+    "fedora44-cleanup-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "fedora44"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "fedora44-cleanup-remove": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "remove",
+        "fedora44",
+        "--yes"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "arch-cleanup-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "arch"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "arch-cleanup-remove": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "remove",
+        "arch",
+        "--yes"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    }
+  },
+  "positive_cli": {
+    "fedora44": {
+      "private_bind_write_verified": true
+    },
+    "arch": {
+      "private_bind_write_verified": true
+    }
+  },
+  "scope": "Live cross-family lifecycle and private files, same-family rejection before creation, policy regressions; not complete GUI/Agent/application acceptance",
+  "source_files_verified": 200,
+  "before": [
+    {
+      "id": "944bacb5ed8e8c97e2081409959c2584df8eb39ac837fccc704634a168410d87",
+      "name": "ml-05abfab9-debian13",
+      "status": "exited",
+      "started_at": "2026-10-29T23:00:19.939896503+08:00",
+      "finished_at": "2026-10-29T23:00:21.688782114+08:00"
+    }
+  ],
+  "allowed_targets": [
+    "fedora44",
+    "arch"
+  ],
+  "blocked_targets": [
+    "debian13"
+  ],
+  "same_family_rejection_without_registration": true,
+  "legacy_same_family_record_preserved": true,
+  "headless_passed": true,
+  "after": [
+    {
+      "id": "944bacb5ed8e8c97e2081409959c2584df8eb39ac837fccc704634a168410d87",
+      "name": "ml-05abfab9-debian13",
+      "status": "exited",
+      "started_at": "2026-10-29T23:00:19.939896503+08:00",
+      "finished_at": "2026-10-29T23:00:21.688782114+08:00"
+    }
+  ],
+  "existing_containers_preserved": true,
+  "remaining_task_mounts": [],
+  "passed_scope": true,
+  "completed_at": "2026-10-30T13:19:35.538952+00:00"
+}

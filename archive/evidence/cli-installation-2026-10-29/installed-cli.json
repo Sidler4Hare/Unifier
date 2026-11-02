@@ -1,0 +1,237 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "args": [
+        "help"
+      ],
+      "returncode": 0,
+      "stdout": "Multi-distribution application environment CLI\n\nUsage: unifier <command> [options]\n\nCommon commands:\n  init       choose distributions and prepare one daily container per distribution\n  configure  update the enabled set; unchecking never stops or deletes\n  list       show distribution configuration and container state\n  dirs       show private directories and system-view state\n  path       print only the real absolute private directory path\n  ls         list real guest subdirectories without starting the container\n  install    install software with the native transaction in an enabled distribution\n  run        run a registered application with the existing on-demand lease\n  start      start the unique container for one distribution\n  stop       stop it, refusing to force a stop while tasks are using it\n  adopt      advanced: read-only adoption of a legacy deployment identity\n  language   show or change the interface language\n  help       show help, optionally for one command\n\nRun 'unifier help COMMAND' for usage. Low-level diagnostics remain env/pkg/app/project/view.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "language",
+        "en"
+      ],
+      "returncode": 0,
+      "stdout": "Current language: en\nSource: explicit language preference\nExplicit preference: en\nInterface language changed to en.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "help",
+        "init"
+      ],
+      "returncode": 0,
+      "stdout": "init help\n\nUsage: unifier init [--target TARGET ...] [--none] [--desktop] [--network pasta|none] [--yes]\n\nOptions:\n  --target TARGET    select a distribution; repeatable. Only selected images are prepared.\n  --none             explicitly select nothing: CLI only, zero containers.\n  --desktop          explicitly create a desktop environment; default is headless pasta + keep-id.\n  --network pasta|none defaults to pasta; package install needs network.\n  --yes              skip confirmation (non-interactive use still needs an explicit selection).\n\nExamples:\n  unifier init\n  unifier init --target debian13 --target arch --yes\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "language",
+        "zh-CN"
+      ],
+      "returncode": 0,
+      "stdout": "当前语言：zh-CN\n来源：显式语言偏好\n显式偏好：zh-CN\n界面语言已切换为 zh-CN。\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "help",
+        "install"
+      ],
+      "returncode": 0,
+      "stdout": "install 帮助\n\n用法：unifier install [--target TARGET] [--exec PATH] [--app ID] [--package NAME] [--gui] FILE|PACKAGE ... [-- ARGS]\n\n选项：\n  --target           只在已启用发行版中选择；未启用时提示 configure，不自动建实例。\n  --exec PATH        显式应用入口；可用路径或客体命令名。\n  --app ID           应用登记标识；默认取入口 basename。\n  --package NAME     本地包的已安装包名，用于从包文件发现入口。\n  --gui              声明桌面应用；无桌面容器会拒绝而不是静默运行。\n\n示例：\n  unifier install ./软件.deb --exec /usr/bin/freecad\n  unifier install --target arch freecad --exec /usr/bin/freecad\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "language",
+        "auto"
+      ],
+      "returncode": 0,
+      "stdout": "Current language: en\nSource: LC_ALL environment variable\nExplicit preference: auto (no explicit preference)\nExplicit language preference cleared; current language: en (source: LC_ALL environment variable).\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "adopt",
+        "--target",
+        "arch",
+        "--root",
+        "/home/omg/.local/share/multilinux/apps/freecad",
+        "--environment",
+        "freecad-arch",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"schema_version\": 1,\n  \"target\": \"arch\",\n  \"environment_id\": \"freecad-arch\",\n  \"source_root\": \"/home/omg/.local/share/multilinux/apps/freecad\",\n  \"environment_uuid\": \"1da35b87-4617-4953-bb03-0b55613a73a4\",\n  \"generation\": 1,\n  \"container_id\": \"37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5\",\n  \"files_dir\": \"/home/omg/.local/share/unifier/containers/arch/files\",\n  \"files_mounted\": false,\n  \"conflicts\": []\n}\n",
+      "stderr": "",
+      "json": {
+        "schema_version": 1,
+        "target": "arch",
+        "environment_id": "freecad-arch",
+        "source_root": "/home/omg/.local/share/multilinux/apps/freecad",
+        "environment_uuid": "1da35b87-4617-4953-bb03-0b55613a73a4",
+        "generation": 1,
+        "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+        "files_dir": "/home/omg/.local/share/unifier/containers/arch/files",
+        "files_mounted": false,
+        "conflicts": []
+      }
+    },
+    {
+      "args": [
+        "adopt",
+        "--target",
+        "debian13",
+        "--root",
+        "/home/omg/.local/share/multilinux/apps/wemeet",
+        "--environment",
+        "meeting",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"schema_version\": 1,\n  \"target\": \"debian13\",\n  \"environment_id\": \"meeting\",\n  \"source_root\": \"/home/omg/.local/share/multilinux/apps/wemeet\",\n  \"environment_uuid\": \"1968c461-29af-4197-9762-a4c0bd51be86\",\n  \"generation\": 1,\n  \"container_id\": \"b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb\",\n  \"files_dir\": \"/home/omg/.local/share/unifier/containers/debian13/files\",\n  \"files_mounted\": false,\n  \"conflicts\": []\n}\n",
+      "stderr": "",
+      "json": {
+        "schema_version": 1,
+        "target": "debian13",
+        "environment_id": "meeting",
+        "source_root": "/home/omg/.local/share/multilinux/apps/wemeet",
+        "environment_uuid": "1968c461-29af-4197-9762-a4c0bd51be86",
+        "generation": 1,
+        "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+        "files_dir": "/home/omg/.local/share/unifier/containers/debian13/files",
+        "files_mounted": false,
+        "conflicts": []
+      }
+    },
+    {
+      "args": [
+        "list",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"schema_version\": 1,\n  \"enabled\": [\n    \"debian13\",\n    \"arch\"\n  ],\n  \"retained\": [\n    \"debian13\",\n    \"arch\"\n  ],\n  \"failed\": [],\n  \"targets\": [\n    {\n      \"target\": \"debian13\",\n      \"display_name\": \"Debian 13\",\n      \"selected\": true,\n      \"configured\": true,\n      \"state\": \"adopted\",\n      \"environment_id\": \"meeting\",\n      \"container_state\": \"stopped\",\n      \"container_label\": \"stopped\",\n      \"directory\": \"/home/omg/.local/share/unifier/containers/debian13\",\n      \"files_dir\": \"/home/omg/.local/share/unifier/containers/debian13/files\",\n      \"files_mounted\": false,\n      \"source\": \"adopted\",\n      \"source_root\": \"/home/omg/.local/share/multilinux/apps/wemeet\",\n      \"source_environment\": \"meeting\",\n      \"failure\": null,\n      \"error\": null\n    },\n    {\n      \"target\": \"fedora44\",\n      \"display_name\": \"Fedora 44\",\n      \"selected\": false,\n      \"configured\": false,\n      \"state\": \"not_configured\",\n      \"environment_id\": \"fedora44\",\n      \"container_state\": null,\n      \"container_label\": \"—\",\n      \"directory\": \"/home/omg/.local/share/unifier/containers/fedora44\",\n      \"files_dir\": \"/home/omg/.local/share/unifier/containers/fedora44/files\",\n      \"files_mounted\": false,\n      \"source\": \"new\",\n      \"source_root\": null,\n      \"source_environment\": null,\n      \"failure\": null,\n      \"error\": null\n    },\n    {\n      \"target\": \"arch\",\n      \"display_name\": \"Arch Linux rolling\",\n      \"selected\": true,\n      \"configured\": true,\n      \"state\": \"adopted\",\n      \"environment_id\": \"freecad-arch\",\n      \"container_state\": \"stopped\",\n      \"container_label\": \"stopped\",\n      \"directory\": \"/home/omg/.local/share/unifier/containers/arch\",\n      \"files_dir\": \"/home/omg/.local/share/unifier/containers/arch/files\",\n      \"files_mounted\": false,\n      \"source\": \"adopted\",\n      \"source_root\": \"/home/omg/.local/share/multilinux/apps/freecad\",\n      \"source_environment\": \"freecad-arch\",\n      \"failure\": null,\n      \"error\": null\n    }\n  ]\n}\n",
+      "stderr": "",
+      "json": {
+        "schema_version": 1,
+        "enabled": [
+          "debian13",
+          "arch"
+        ],
+        "retained": [
+          "debian13",
+          "arch"
+        ],
+        "failed": [],
+        "targets": [
+          {
+            "target": "debian13",
+            "display_name": "Debian 13",
+            "selected": true,
+            "configured": true,
+            "state": "adopted",
+            "environment_id": "meeting",
+            "container_state": "stopped",
+            "container_label": "stopped",
+            "directory": "/home/omg/.local/share/unifier/containers/debian13",
+            "files_dir": "/home/omg/.local/share/unifier/containers/debian13/files",
+            "files_mounted": false,
+            "source": "adopted",
+            "source_root": "/home/omg/.local/share/multilinux/apps/wemeet",
+            "source_environment": "meeting",
+            "failure": null,
+            "error": null
+          },
+          {
+            "target": "fedora44",
+            "display_name": "Fedora 44",
+            "selected": false,
+            "configured": false,
+            "state": "not_configured",
+            "environment_id": "fedora44",
+            "container_state": null,
+            "container_label": "—",
+            "directory": "/home/omg/.local/share/unifier/containers/fedora44",
+            "files_dir": "/home/omg/.local/share/unifier/containers/fedora44/files",
+            "files_mounted": false,
+            "source": "new",
+            "source_root": null,
+            "source_environment": null,
+            "failure": null,
+            "error": null
+          },
+          {
+            "target": "arch",
+            "display_name": "Arch Linux rolling",
+            "selected": true,
+            "configured": true,
+            "state": "adopted",
+            "environment_id": "freecad-arch",
+            "container_state": "stopped",
+            "container_label": "stopped",
+            "directory": "/home/omg/.local/share/unifier/containers/arch",
+            "files_dir": "/home/omg/.local/share/unifier/containers/arch/files",
+            "files_mounted": false,
+            "source": "adopted",
+            "source_root": "/home/omg/.local/share/multilinux/apps/freecad",
+            "source_environment": "freecad-arch",
+            "failure": null,
+            "error": null
+          }
+        ]
+      }
+    },
+    {
+      "args": [
+        "dirs",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"schema_version\": 1,\n  \"targets\": [\n    {\n      \"target\": \"debian13\",\n      \"display_name\": \"Debian 13\",\n      \"configured\": true,\n      \"state\": \"adopted\",\n      \"container_state\": \"stopped\",\n      \"container_label\": \"stopped\",\n      \"directory\": \"/home/omg/.local/share/unifier/containers/debian13\",\n      \"files_dir\": \"/home/omg/.local/share/unifier/containers/debian13/files\",\n      \"files_mounted\": false,\n      \"view_state\": \"not mounted\",\n      \"view_path\": null,\n      \"source\": \"adopted\",\n      \"source_root\": \"/home/omg/.local/share/multilinux/apps/wemeet\",\n      \"source_environment\": \"meeting\",\n      \"error\": null\n    },\n    {\n      \"target\": \"arch\",\n      \"display_name\": \"Arch Linux rolling\",\n      \"configured\": true,\n      \"state\": \"adopted\",\n      \"container_state\": \"stopped\",\n      \"container_label\": \"stopped\",\n      \"directory\": \"/home/omg/.local/share/unifier/containers/arch\",\n      \"files_dir\": \"/home/omg/.local/share/unifier/containers/arch/files\",\n      \"files_mounted\": false,\n      \"view_state\": \"not mounted\",\n      \"view_path\": null,\n      \"source\": \"adopted\",\n      \"source_root\": \"/home/omg/.local/share/multilinux/apps/freecad\",\n      \"source_environment\": \"freecad-arch\",\n      \"error\": null\n    }\n  ]\n}\n",
+      "stderr": "",
+      "json": {
+        "schema_version": 1,
+        "targets": [
+          {
+            "target": "debian13",
+            "display_name": "Debian 13",
+            "configured": true,
+            "state": "adopted",
+            "container_state": "stopped",
+            "container_label": "stopped",
+            "directory": "/home/omg/.local/share/unifier/containers/debian13",
+            "files_dir": "/home/omg/.local/share/unifier/containers/debian13/files",
+            "files_mounted": false,
+            "view_state": "not mounted",
+            "view_path": null,
+            "source": "adopted",
+            "source_root": "/home/omg/.local/share/multilinux/apps/wemeet",
+            "source_environment": "meeting",
+            "error": null
+          },
+          {
+            "target": "arch",
+            "display_name": "Arch Linux rolling",
+            "configured": true,
+            "state": "adopted",
+            "container_state": "stopped",
+            "container_label": "stopped",
+            "directory": "/home/omg/.local/share/unifier/containers/arch",
+            "files_dir": "/home/omg/.local/share/unifier/containers/arch/files",
+            "files_mounted": false,
+            "view_state": "not mounted",
+            "view_path": null,
+            "source": "adopted",
+            "source_root": "/home/omg/.local/share/multilinux/apps/freecad",
+            "source_environment": "freecad-arch",
+            "error": null
+          }
+        ]
+      }
+    }
+  ]
+}

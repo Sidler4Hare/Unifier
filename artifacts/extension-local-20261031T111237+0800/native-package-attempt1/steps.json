@@ -1,0 +1,17 @@
+[
+  {
+    "name": "arch-less-serialized",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "pkg",
+      "install",
+      "arch",
+      "less"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 1,
+    "expected_exit": 0,
+    "seconds": 116.985,
+    "ok": false
+  }
+]

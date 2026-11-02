@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-01",
+  "source": "working-tree",
+  "deployment": "not-deployed",
+  "local_coder": {
+    "provider": "Local qwen server",
+    "model": "swift-1.5-iq3_s",
+    "reasoning_effort": "max",
+    "accepted_tasks": 2
+  },
+  "offline": {
+    "run": 633,
+    "passed": 628,
+    "skipped": 5,
+    "failures": 0,
+    "repository_check": "passed"
+  },
+  "live": {
+    "debian_arch_lifecycle": "passed",
+    "debian_resource_sample": "passed",
+    "debian_arch_package_file_lists": "passed",
+    "debian_noop_dependency_repair_and_recorded_cid_mismatch": "passed",
+    "scope": "single Fedora host; no package downloads, GUI workflow, cross-host extension or soak acceptance"
+  },
+  "preservation": {
+    "original_containers_unchanged": 9,
+    "temporary_containers_remaining": 0
+  },
+  "backup": "/home/omg/文档/多兼容linux机/.lab/agents/continued-repair-20261101T154240+0800/before-source.tar.gz"
+}

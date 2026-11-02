@@ -1,0 +1,7 @@
+{
+  "ok": true,
+  "status": "DEFERRED_BANDWIDTH",
+  "reason": "Arch -Syu payload was not measured under 80 MiB; no upgrade was applied",
+  "download_bytes": null,
+  "package_lines": 18
+}

@@ -1,0 +1,30 @@
+{
+  "status": "LOCAL_CLI_ACCEPTED_WITH_DOCUMENTED_LIMITS",
+  "regression": {
+    "total": 523,
+    "passed": 519,
+    "conditional_skips": 4
+  },
+  "preservation": {
+    "passed": true,
+    "daily_files_checked": 174,
+    "changed_files": [],
+    "original_container_identity_state_times_preserved": true,
+    "container_count": 2
+  },
+  "installed": true,
+  "dsh": {
+    "provider": "command-code",
+    "model": "deepseek/deepseek-v4.1-flash",
+    "session": "session-38aded25-38ff-4ff7-a14a-dca2d6998c9d",
+    "controller_interrupted_rounds": 2,
+    "model_completion_not_acceptance": true
+  },
+  "open_gates": [
+    "new-CLI actual GUI acceptance",
+    "other hosts",
+    "Arch complete package installation in this round",
+    "new files mount inside adopted legacy containers"
+  ],
+  "backup": "/home/omg/文档/Unifier-backups/20261029-190435-before-cli-installation"
+}

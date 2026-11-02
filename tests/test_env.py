@@ -13,9 +13,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-from multilinux import cli
-from multilinux.errors import MultilinuxError
-from multilinux.runtime import (
+from unifier import cli
+from unifier.errors import UnifierError
+from unifier.runtime import (
     ROLE_ENVIRONMENT,
     LABEL_ENV,
     LABEL_PROJECT,
@@ -29,7 +29,7 @@ from multilinux.runtime import (
     creation_argv,
     exec_argv,
 )
-from multilinux.service import EnvironmentService, normalize_inventory, validate_env_id
+from unifier.service import EnvironmentService, normalize_inventory, validate_env_id
 
 
 def _digest(char: str) -> str:
@@ -108,7 +108,7 @@ class FakeRuntime:
     def create(self, spec):
         self.events.append(("create", spec))
         if spec.name in self.containers:
-            raise MultilinuxError(f"container {spec.name} already exists")
+            raise UnifierError(f"container {spec.name} already exists")
         self.containers[spec.name] = ContainerState(
             name=spec.name, container_id="cid-" + spec.env_id, running=False,
             status="created", project=spec.project, env_id=spec.env_id,
@@ -136,7 +136,7 @@ class FakeRuntime:
     def exec(self, name, argv, *, project, env_id, workdir, env, capture, timeout):
         info = self._owned(name, project, env_id)
         if not info.running:
-            raise MultilinuxError(f"{name} is not running")
+            raise UnifierError(f"{name} is not running")
         self.events.append(("exec", name, tuple(argv), workdir, dict(env), capture))
         if not capture:
             code = self.next_code
@@ -160,9 +160,9 @@ class FakeRuntime:
     def _owned(self, name, project, env_id):
         info = self.containers.get(name)
         if info is None:
-            raise MultilinuxError(f"container {name} does not exist")
+            raise UnifierError(f"container {name} does not exist")
         if info.project != project or info.env_id != env_id or info.role != ROLE_ENVIRONMENT:
-            raise MultilinuxError(f"refusing to touch {name}")
+            raise UnifierError(f"refusing to touch {name}")
         return info
 
 
@@ -171,7 +171,7 @@ def service_in(root: Path, runtime=None, lock=None):
     service = EnvironmentService(
         root, runtime, CONFIG, lock or LOCK, host_kernel="host-kernel",
         clock=lambda: "2026-10-19T12:00:00+08:00", uid=1000, gid=1000,
-        host_facts={"os_release": {"ID": "fedora", "VERSION_ID": "44"},
+        host_facts={"os_release": {"ID": "rhel", "VERSION_ID": "9"},
                     "system": "Linux", "machine": "x86_64", "libc": "glibc"})
     return service, runtime
 
@@ -226,7 +226,7 @@ class IdentityAndRecord(unittest.TestCase):
                 else:
                     runtime.fail_inventory = True
                 service, runtime = service_in(root, runtime)
-                with self.assertRaises(MultilinuxError):
+                with self.assertRaises(UnifierError):
                     service.create("debian13", None, [])
                 self.assertFalse(service.store.exists("debian13"))
                 self.assertEqual(runtime.containers, {})
@@ -238,20 +238,20 @@ class IdentityAndRecord(unittest.TestCase):
             lock = json.loads(json.dumps(LOCK))
             lock["targets"]["debian13"]["locked_reference"] = "docker.io/library/debian:13-slim"
             service, runtime = service_in(root, lock=lock)
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.create("debian13", None, [])
             self.assertEqual(runtime.events, [])
 
     def test_environment_id_and_duplicate_create_are_rejected(self):
         for value in ("", "Debian", "a-", "has_space", "a" * 33):
             with self.subTest(value=value):
-                with self.assertRaises(MultilinuxError):
+                with self.assertRaises(UnifierError):
                     validate_env_id(value)
         with tempfile.TemporaryDirectory() as temporary:
             service, runtime = service_in(Path(temporary))
             runtime.identities["docs"] = dict(PROFILES["debian13"])
             service.create("debian13", "docs", [])
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.create("fedora44", "docs", [])
             self.assertEqual(len(runtime.containers), 1)
 
@@ -263,7 +263,7 @@ class ExecutionAndOwnership(unittest.TestCase):
             service, runtime = service_in(root)
             service.create("debian13", None, [])
             service.create("fedora44", None, [])
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.run("debian13", ["true"], workdir="/usr", env_keys=[])
             before = len(runtime.events)
             service.start("debian13")
@@ -282,9 +282,9 @@ class ExecutionAndOwnership(unittest.TestCase):
             self.assertEqual(user_exec, [("exec", container_name(root, "debian13"),
                                           ("printf", "%s", "hi"), "/usr",
                                           {"ML_TEST_PASS": "yes"}, False)])
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.run("debian13", ["true"], workdir="relative", env_keys=[])
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.run("debian13", ["true"], workdir="/usr", env_keys=["ML_TEST_MISSING"])
 
     def test_start_and_stop_are_repeatable_and_run_stays_in_its_environment(self):
@@ -315,9 +315,9 @@ class ExecutionAndOwnership(unittest.TestCase):
             service.create("debian13", None, [])
             name = container_name(root, "debian13")
             runtime.containers[name] = replace(runtime.containers[name], project="elsewhere")
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.remove("debian13")
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.start("debian13")
             self.assertTrue(service.store.exists("debian13"))
             self.assertEqual(runtime.containers[name].project, "elsewhere")
@@ -344,9 +344,9 @@ class ExecutionAndOwnership(unittest.TestCase):
             refused = [str(root), str(root / ".lab"), str(root.parent), "/usr/bin", "notes",
                        str(colon)]
             for path in refused:
-                with self.subTest(path=path), self.assertRaises(MultilinuxError):
+                with self.subTest(path=path), self.assertRaises(UnifierError):
                     service.create("fedora44", "other", [path])
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 service.create("fedora44", "other", [str(notes), str(notes)])
             self.assertEqual(len(runtime.containers), 1)
 
@@ -370,7 +370,7 @@ class PodmanCommandBoundary(unittest.TestCase):
         self.assertIn(f"{LABEL_PROJECT}=/project", argv)
         self.assertIn(f"{LABEL_ENV}=demo", argv)
         self.assertIn(f"{LABEL_ROLE}={ROLE_ENVIRONMENT}", argv)
-        with self.assertRaises(MultilinuxError):
+        with self.assertRaises(UnifierError):
             creation_argv(replace(spec, image="example.invalid/app:latest"))
         self.assertEqual(
             exec_argv("ml-demo", ["printf", "%s", "hi"], workdir="/usr", env={"LANG": "C"}),
@@ -385,11 +385,11 @@ class PodmanCommandBoundary(unittest.TestCase):
         runner.inspect_body = _inspect_body(project="elsewhere", env_id="demo")
         for action in (runtime.start, runtime.stop, runtime.remove):
             runner.calls.clear()
-            with self.subTest(action=action.__name__), self.assertRaises(MultilinuxError):
+            with self.subTest(action=action.__name__), self.assertRaises(UnifierError):
                 action("ml-demo", project="/project", env_id="demo")
             self.assertEqual([call[1] for call in runner.calls], ["inspect"])
         runner.calls.clear()
-        with self.assertRaises(MultilinuxError):
+        with self.assertRaises(UnifierError):
             runtime.exec("ml-demo", ["true"], project="/project", env_id="demo",
                          workdir=None, env={}, capture=True, timeout=5)
         self.assertEqual([call[1] for call in runner.calls], ["inspect"])
@@ -410,7 +410,7 @@ class CommandLine(unittest.TestCase):
                                    "printf", "%s", "hi"])
         self.assertEqual((args.id, args.workdir, args.env, args.argv),
                          ("demo", "/usr", ["LANG"], ["printf", "%s", "hi"]))
-        with self.assertRaises(MultilinuxError):
+        with self.assertRaises(UnifierError):
             cli.parse_run_args(["demo", "printf", "hi"])
 
     def test_run_exit_code_is_the_command_and_remove_requires_confirmation(self):

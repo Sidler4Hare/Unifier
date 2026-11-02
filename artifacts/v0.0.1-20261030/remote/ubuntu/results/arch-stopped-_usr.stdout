@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "target": "arch",
+  "via": "view",
+  "view_uuid": "091a41fe-53ad-424d-bff9-286dc76146f8",
+  "mountpoint": "/home/agent/unifier-v001-validation-20261030T230003/results/installation/.lab/state/views/091a41fe-53ad-424d-bff9-286dc76146f8/mount",
+  "path": "/usr",
+  "entries": [
+    "bin",
+    "include",
+    "lib",
+    "lib64",
+    "local",
+    "sbin",
+    "share",
+    "src"
+  ]
+}

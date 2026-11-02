@@ -1,0 +1,8 @@
+deps-debian: apt-get update
+deps-debian: apt-get install -y /tmp/ml-incoming/feishu.deb
+deps-debian: apt-get update
+deps-debian: apt-get install -y binutils
+deps-debian: apt-get update
+deps-debian: apt-get install -y apt-file
+deps-debian: apt-file update
+deps-debian: install-local failed txn65925cc5d3fd

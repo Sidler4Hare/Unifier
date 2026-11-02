@@ -21,6 +21,7 @@ from multilinux.errors import MultilinuxError
 from multilinux.project import load_project
 from multilinux.runtime import PodmanRuntime, container_name
 from multilinux.service import EnvironmentService
+from unifier.compatibility import observe_host, relationship_plan
 
 
 def inventory():
@@ -47,8 +48,19 @@ def main():
     if output.exists():
         parser.error("output already exists; choose a new receipt path")
     config, lock, _root = load_project()
+    facts = observe_host()
+    plans = {name: relationship_plan(facts, name, target)
+             for name, target in config["targets"].items()}
+    selected = list(dict.fromkeys(args.target)) if args.target else [
+        name for name, plan in plans.items() if plan["allowed"]]
+    for name in selected:
+        if not plans[name]["allowed"]:
+            parser.error("compatibility whitelist refused: "
+                         + "; ".join(plans[name]["reasons"]))
+    if not selected:
+        parser.error("no container targets are admitted on this host")
     for name, item in lock["targets"].items():
-        if args.target and name not in args.target:
+        if name not in selected:
             continue
         subprocess.run(["podman", "image", "exists", item["locked_reference"]], check=True)
     before = inventory()
@@ -60,10 +72,11 @@ def main():
         "captured_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "scope": "Current-host headless lifecycle, native package query and policy replay; no GUI, devices or other-host acceptance",
         "registry": str(work), "before": before, "targets": {}, "errors": [],
+        "excluded_targets": {name: plan for name, plan in plans.items()
+                             if not plan["allowed"]},
     }
     queries = {"debian13": "base-files", "fedora44": "filesystem", "arch": "filesystem"}
-    if args.target:
-        queries = {name: queries[name] for name in dict.fromkeys(args.target)}
+    queries = {name: queries[name] for name in selected}
     try:
         for target, package in queries.items():
             record = service.create(target, target, [])

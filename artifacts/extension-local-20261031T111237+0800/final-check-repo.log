@@ -1,0 +1,47 @@
+Checking working tree
+PASS Python syntax: 184 files
+PASS legacy module aliases: 42
+PASS five CLI entry points
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn729a9f6f79a3
+fedora44: dnf install -y hello
+fedora44: install completed txnd54299c035ef
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn5810de669ba3
+refusing to overwrite an unknown file: /tmp/tmp71dctjs7/unifier
+use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn4cb9fa064590
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn859b9aff6971
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnfca99f26243e
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn84ad916645ca
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn2f2f08d8daf7
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn7355ab45e5cd
+fedora44: dnf install -y hello
+fedora44: install completed txnc875d0b2ff79
+unifier: remove deletes the environment's writable root; pass --yes
+removed demo
+/usr/lib64/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=799312) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+/usr/lib64/python3.14/site-packages/gi/overrides/__init__.py:159: PyGIDeprecationWarning: GLib.unix_signal_add_full is deprecated; use GLibUnix.signal_add_full instead
+  value = getattr(proxy, attr)
+----------------------------------------------------------------------
+Ran 597 tests in 235.938s
+
+OK (skipped=5)
+PASS repository check

@@ -1,0 +1,809 @@
+diff --git before/HANDOFF.md after/HANDOFF.md
+index 51663ee..1300b49 100644
+--- before/HANDOFF.md
++++ after/HANDOFF.md
+@@ -1,4 +1,4 @@
+-# Unifier 当前接手入口
++# Unifier v0.0.1 当前接手入口
+ 
+ 现行包是 `src/unifier`，用户入口是 `unifier`，诊断入口是 `python3 tools/unifier.py`。`src/multilinux` 和 `tools/ml.py` 只做旧名字转发。证据在 `archive/evidence`，根目录 `evidence` 是符号链接。已完成的阶段稿和早期调研在 [archive/notes](archive/notes/README.md)。布局见 [docs/布局.md](docs/布局.md)。
+ 
+@@ -18,10 +18,10 @@
+ 
+ ## 仍开放
+ 
+-- 投影：普通项目直接 bind；只读 FUSE 只浏览停止的环境，活动视图会挡住启动。外部通知 `watcher=false`。严格快照、ACL/xattr、长压、通用 IDE、跨宿主未过。
+-- 投影外部 rename 的两个反例未修：相对链接仍用旧父路径，目录可能继承错误的嵌套挂载。用维护文档里的复跑命令可见两个失败；不要把返回 1 当作通过。
++- 投影：普通项目直接 bind；只读 FUSE 只浏览停止的环境，活动视图会挡住启动。外部通知 `watcher=false`。严格快照、ACL/xattr、长压、通用 IDE 未过。普通文件页面在每次属性重验证时失效，无重验证的 mmap 读取不保证发现外部修改。
++- 投影 rename 两个反例当前均通过，本机真实 FUSE 也覆盖相对链接、嵌套挂载和旧 FD。旧 Python 租约、受限链接目录列举与时间戳碰撞修复及本轮验证范围见 `artifacts/v0.0.1-20261030/report.md`。
+ - 受管移动只有显式源清理才删源。`handlers.py` 的 provider 仍只有 `environment-app`。
+-- Ubuntu Server 便携包停在 2026-10-28，不含投影 FD 修复和新 CLI。步骤在 `设计/Ubuntu-Server白名单与容器验收-2026-10-28.md`。
+-- 扩大测试计划修订到 2026-10-29，整套安排在 2026 年 11 月。三台真实宿主按用户报告为进行中，结果未导入。计划在 `设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md`，矩阵在 `evidence/extension-test-plan-2026-10-29/`。
++- 版本在 `src/unifier/__init__.py`，`unifier --version` 显示 0.0.1。发布构建入口是 `python3 tools/build_release.py`，当前包为 `artifacts/unifier-0.0.1.tar.gz`。升级会保留入口回退链接，步骤见 `docs/v0.0.1.md`。旧包与旧回执保留，不代替本版验收。
++- 三宿主跨派系六组合的基础结果已在 `artifacts/server-cross-host-correction-20261030T210239+0800/`，不是完整应用扩大测试。扩大计划仍在 `设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md`，矩阵保持历史快照；最新状态见本轮记录。
+ 
+ 各轮验收数字、备份路径和失败原件在对应的 `evidence/` 目录，不在这份接手说明里重复。
+diff --git before/README.md after/README.md
+index 263ffcb..ea257c8 100644
+--- before/README.md
++++ after/README.md
+@@ -1,7 +1,9 @@
+-# Unifier
++# Unifier v0.0.1
+ 
+ Unifier 在共享宿主内核上运行 Debian 13、Fedora 44 和 Arch 的原生用户空间，各自保留 apt、dnf、pacman。
+ 
++当前为 v0.0.1 测试版。安装、升级、回退、能力限制和反馈方式见 [版本说明](docs/v0.0.1.md)。`unifier --version` 可核对版本；精确源码以发布包内清单为准。
++
+ 现行代码在 `src/unifier`。用户入口是 `unifier`（`bin/unifier`，本机已装到 `~/.local/bin/unifier`）。诊断入口是 `python3 tools/unifier.py`。`tools/ml.py` 和 `python -m multilinux` 进入同一实现。布局、证据位置和仍保留的旧标识见 [docs/布局.md](docs/布局.md)。
+ 
+ ## 现行说明
+@@ -23,10 +25,10 @@ Btrfs 上的数据根用文件系统 UUID、子卷身份和目录 inode 识别
+ 
+ ## 仍开放
+ 
+-- 停止环境的只读投影用 FUSE。普通共享项目用直接 bind。外部修改通知仍是 `watcher=false`。严格快照、ACL/xattr、长压、通用 IDE 和跨宿主还没有验收。目录浏览按名称记账；lookup 锚点仍有预算，超限会明确拒绝。记录在 `evidence/projection-fd-repair-2026-10-29/` 和 `evidence/projection-boundaries-2026-10-27/`。
+-- 投影外部 rename 后的相对链接和嵌套挂载路径仍有已复现缺陷。复跑入口与后续代码整理边界见 [仓库维护](docs/仓库维护.md)。
++- 停止环境的只读投影用 FUSE，普通共享项目用直接 bind。外部通知仍是 `watcher=false`。严格快照、ACL/xattr、长压和通用 IDE 未验收。跨宿主已有基础容器/CLI 记录，应用与文件专项仍逐项验收。lookup 锚点有预算，超限明确拒绝。
++- v0.0.1 修复旧 Python 租约名称缺失、受限链接阻断目录列举和时间戳碰撞下的重验证。rename 链接/嵌套挂载与旧 FD/mmap 已完成本机真实 FUSE 复验；每次属性重验证都会使普通文件页面失效，性能代价尚未量化。见 [本轮记录](artifacts/v0.0.1-20261030/report.md)。
+ - 受管移动在带上显式源清理授权时才删除源。文件处理器目前只有 `environment-app`。
+-- 当前便携源码包是 [unifier-source-20261030-policy2.tar.gz](artifacts/unifier-source-20261030-policy2.tar.gz)，含同派系拒绝、执行检查及服务层创建去重。10 月 28 日包和三宿主首轮测试包保留为历史证据，不用于新版安装。步骤见 [无桌面验收](设计/Ubuntu-Server白名单与容器验收-2026-10-28.md)；新版的远端实机复验仍需分别记录。
++- 当前便携源码包是 [unifier-0.0.1.tar.gz](artifacts/unifier-0.0.1.tar.gz)，附校验和、逐文件清单及独立解包回归日志。旧包保持历史原件。步骤见 [版本说明](docs/v0.0.1.md)；具体宿主验证范围以本轮记录为准。
+ - 扩大测试安排在 2026 年 11 月，日期未定。范围包括 WPS、Zoom、飞书、同名与同类型应用，以及 CLI01–CLI12。见 [扩展测试计划](设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md)。
+ 
+ ## 常用命令
+@@ -34,6 +36,7 @@ Btrfs 上的数据根用文件系统 UUID、子卷身份和目录 inode 识别
+ ```bash
+ python3 tools/install_unifier.py
+ unifier init
++unifier --version
+ python3 tools/unifier.py --help
+ python3 tools/check_repo.py
+ python3 tools/check_repo.py --staged
+diff --git after/docs/v0.0.1.md after/docs/v0.0.1.md
+new file mode 100644
+index 0000000..4aa2c09
+--- /dev/null
++++ after/docs/v0.0.1.md
+@@ -0,0 +1,53 @@
++# Unifier v0.0.1 测试版
++
++首版范围是 Linux x86_64、glibc、rootless Podman、cgroup v2 的 CLI 和跨派系客体管理。客体为 Debian 13、Fedora 44、Arch；同派系客体明确拒绝。宿主白名单准入不等于该宿主上的全部应用已验证。
++
++## 安装与检查
++
++先准备 Python 3.11+、Podman、Skopeo、用户 UID/GID 映射；需要文件视图时还需可用的 `/dev/fuse` 和 `fusermount3`。发行版相关依赖由管理员通过宿主包管理器安装，`doctor` 只检查而不修改系统。
++
++校验发布包旁的 SHA-256 文件，将包解压到准备长期保留的代码目录。不要把用户数据目录当成代码目录，也不要移动已有安装的数据根。
++
++```bash
++tar -xzf unifier-0.0.1.tar.gz
++cd unifier-0.0.1
++python3 tools/check_repo.py
++python3 tools/lab.py doctor
++python3 tools/install_unifier.py
++unifier --version
++unifier init
++```
++
++没有 Git 的源码包也能直接运行 `check_repo.py`：先逐项验证包内清单，再执行离线检查。条件集成跳过不算真实 Podman/FUSE/GUI 验收。图形应用需要在首次 `init` 时指定 `--desktop`。
++
++用户数据默认位于 `~/.local/share/unifier`，可用绝对路径 `UNIFIER_HOME` 显式指定。升级和回退必须使用同一个数据根；运行中的应用和 worker 先正常退出。
++
++## 升级、回退和卸载入口
++
++保留旧代码目录，把新包解压到另一个长期目录。从新目录执行：
++
++```bash
++python3 tools/check_repo.py
++python3 tools/install_unifier.py --upgrade
++unifier --version
++```
++
++`--upgrade` 只切换已识别的 Unifier 符号链接，打印同目录的 `.unifier-*.rollback` 备份路径。回退时正常退出应用，将该备份链接移动回原来的 `unifier` 路径，例如 `mv -Tf -- /实际备份链接 /原bin目录/unifier`，然后运行 `unifier --version`。不要删除仍被回退链接引用的旧代码目录。升级不会重建容器，也不会复制或清空用户数据；不同未来版本的数据 schema 兼容性仍需单独确认。
++
++卸载命令入口只删除自己安装的 `~/.local/bin/unifier` 符号链接，保留源码、容器和数据。需要退役容器时使用明确的环境删除命令并先备份业务数据。
++
++## 本版修复与能力边界
++
++- Python 3.11/3.12 缺少 `fcntl.F_SETOWN_EX` 名称时，仍使用 Linux UAPI 的同一线程定向操作获取租约，不降级删除保护。
++- 停止视图列举目录时，受限链接目标不再阻断可读兄弟目录；显式访问受限目标仍返回错误，I/O 和 FD 耗尽错误不隐藏。
++- 普通文件在每次属性重验证时使页面缓存失效，不再把 size/mtime/ctime 相同当作内容未变的证明。保留 mmap；没有后台 watcher，单独读取已有 mmap 而不触发重验证不保证看见外部修改。这一保守策略有缓存性能成本，尚无跨后端性能承诺。
++- 外部 rename 后相对链接和嵌套挂载的路径上下文已修复。旧 FD/mmap 继续引用原对象。
++- 普通共享项目用直接 bind；停止环境视图是只读、实时视图，不是严格快照。ACL/xattr 全保真、递归树受管复制、通用 IDE 和完整跨环境 Agent 尚未交付。
++- 本版不把摄像头、共享屏幕、虚拟 GPU 或完整会议媒体当成已验收能力。宿主 RPM/Flatpak 的统一 handler 和图形管理页仍在后续范围。
++- 真实 GPU DMA-BUF 用例归入 `MULTILINUX_INTEGRATION=1` 显式集成测试，离线检查不依据“存在 render 节点”就默认支持 GPU。原虚拟 GPU 的 `gbm_alloc` unsupported 记录保留；未通过专项不表示支持。
++
++## 问题反馈
++
++记录 `unifier --version`、`python3 --version`、`python3 tools/lab.py doctor`、实际命令、退出码、错误输出，以及宿主/客体和 desktop/headless 类型。需要关联精确源码时附 `BUNDLE-MANIFEST.json`。不要提交登录凭据、私钥、业务文件或完整 HOME。保留失败现场和原始日志，避免通过重装清掉复现依据。
++
++当前验证与尚未完成的发布关口见仓库中的 `artifacts/v0.0.1-20261030/report.md`；该运行记录独立于便携源码包。
+diff --git "before/docs/\344\273\223\345\272\223\347\273\264\346\212\244.md" "after/docs/\344\273\223\345\272\223\347\273\264\346\212\244.md"
+index 6434b64..9647485 100644
+--- "before/docs/\344\273\223\345\272\223\347\273\264\346\212\244.md"
++++ "after/docs/\344\273\223\345\272\223\347\273\264\346\212\244.md"
+@@ -16,7 +16,9 @@ Git 空白检查继续约束现行文件。`.gitattributes` 对冻结的 `archiv
+ 
+ `--staged` 从 Git 索引导出独立目录后执行同样的检查，不借用工作树里未跟踪或未暂存的文件。整理包名、抽出模块和新增入口后，提交前运行这个命令，避免工作树通过而提交内容缺模块。工具不自动暂存或提交。
+ 
+-需要真实 Podman/FUSE/GUI 的验收仍按对应计划单独执行，四项默认跳过的集成测试不计为通过。
++需要真实 Podman/FUSE/GUI/GPU 的验收仍按对应计划单独执行，默认跳过的集成测试不计为通过。GPU 实机用例同样需要显式 `MULTILINUX_INTEGRATION=1`；可访问 render 节点不等于 GPU 能力通过。无 Git 的正式源码包先核对 `BUNDLE-MANIFEST.json`；`--staged` 仅用于 Git 工作区。
++
++发布版本在 `src/unifier/__init__.py`。`python3 tools/build_release.py` 生成版本化包并对独立解包执行完整检查，拒绝覆盖已有包和日志。安装/回退见 [v0.0.1](v0.0.1.md)。
+ 
+ ## 归档探针复跑
+ 
+@@ -33,7 +35,7 @@ python3 tools/run_archived_probe.py \
+ 
+ ## 下一步的未完成工作
+ 
+-- 投影 rename：相对 symlink 移动后仍使用旧父路径；目录改名后可能错误继承原路径的嵌套挂载。上面的探针目前应返回 1，JSON 中两个 `matches_expected` 均为 false。这是已复现的语义缺陷，不能作为预期失败包装进绿色验收。下一轮先设计对象身份与路径上下文的分离，再覆盖旧 FD、硬链接、嵌套挂载与 FORGET，最后真实挂载验收。
++- 投影 rename：上面的两个历史反例在当前源码应返回 0，两个 `matches_expected` 为 true。回归覆盖旧 FD、硬链接、嵌套挂载与 FORGET，本机真实挂载复验记录在 `artifacts/v0.0.1-20261030/`。不改写历史失败原件；其他宿主和复杂链接图按自己的证据判定。
+ - 代码整理：继续按职责拆分 `shortcuts.py` 的交互、配置和执行，以及 `service.py` 的生命周期与包事务编排。每轮以故障恢复、锁序、租约和持久日志的行为保持为验收依据。源码行数只作维护指标。
+ - 扩大测试：按现行扩展计划准备真实宿主、应用和 Agent 工作流。离线回归、临时文件系统探针与 GUI/跨宿主结果分别记录。
+ 
+diff --git before/src/multilinux/__init__.py after/src/multilinux/__init__.py
+index cc92fb2..45a8831 100644
+--- before/src/multilinux/__init__.py
++++ after/src/multilinux/__init__.py
+@@ -4,3 +4,5 @@ Each submodule forwards to the same module under ``unifier``. Container
+ labels, MIME types, desktop ids and on-disk prefixes keep their original
+ spellings because those values are already stored on containers and records.
+ """
++
++from unifier import __version__
+diff --git before/src/unifier/__init__.py after/src/unifier/__init__.py
+index 8d4546f..94a9b26 100644
+--- before/src/unifier/__init__.py
++++ after/src/unifier/__init__.py
+@@ -3,3 +3,5 @@
+ Preparation commands stay in tools/lab.py. This package is the M1 lifecycle core:
+ create, inspect, start, execute, stop and remove a project-owned environment.
+ """
++
++__version__ = "0.0.1"
+diff --git before/src/unifier/cli.py after/src/unifier/cli.py
+index eadbce3..79b63dd 100644
+--- before/src/unifier/cli.py
++++ after/src/unifier/cli.py
+@@ -5,6 +5,7 @@ import json
+ import sys
+ 
+ from unifier.errors import UnifierError
++from unifier import __version__
+ from unifier.packages import transaction_verdict
+ 
+ 
+@@ -14,6 +15,7 @@ def build_parser() -> argparse.ArgumentParser:
+         description="Lifecycle, package, desktop and resource commands for "
+                     "Debian, Fedora and Arch environments.",
+     )
++    parser.add_argument("--version", action="version", version=f"Unifier {__version__}")
+     commands = parser.add_subparsers(dest="command", required=True)
+     compat = commands.add_parser("compat", help="inspect the distro family whitelist and host/guest relationships")
+     compat_ops = compat.add_subparsers(dest="operation", required=True)
+diff --git before/src/unifier/fuse_view.py after/src/unifier/fuse_view.py
+index 2803bec..2672efc 100644
+--- before/src/unifier/fuse_view.py
++++ after/src/unifier/fuse_view.py
+@@ -9,8 +9,9 @@ return EROFS.
+ 
+ The projection is live, not a snapshot. Attributes and entries are returned
+ with TTL 0, cached page I/O remains enabled for mmap, and FUSE_AUTO_INVAL_DATA
+-is negotiated when the kernel offers it. Size/mtime/ctime changes observed on
+-revalidation invalidate cached inode pages before attributes are replied.
++is negotiated when the kernel offers it. Regular file pages are invalidated
++on every attribute revalidation after the initial lookup, even when timestamps
++collide. This trades cache reuse for correctness on coarse timestamp backends.
+ There is no watcher or cross-volume
+ consistency guarantee. The frozen path-based implementation remains available
+ as ``unifier.fuse_view_legacy``.
+@@ -24,6 +25,7 @@ import os
+ from pathlib import Path
+ import signal
+ import socket
++import stat
+ import struct
+ import subprocess
+ import sys
+@@ -169,20 +171,21 @@ class FuseServer:
+                 view["ctime"], view["ctimensec"])
+ 
+     def _revalidate_attr(self, node, view: dict) -> None:
+-        """Invalidate cached pages when a real attribute revalidation changes.
++        """Invalidate regular file pages at every real revalidation.
+ 
+         This is deliberately *only* on revalidation: it is not a watcher and
+         cannot deliver inotify events or invalidate an unopened path before the
+-        kernel asks for attributes. The tuple includes ctime, so a same-size,
+-        same-mtime in-place write is still detected without fabricating any
+-        timestamp. Read-only files have no dirty pages to write back.
++        kernel asks for attributes. Size/mtime/ctime can all collide on a fast
++        same-length write, so they cannot prove that cached bytes are current.
++        Do not hash whole files or fabricate timestamps. Read-only files have
++        no dirty pages to write back; non-file attributes remain change-based.
+         """
+         signature = self._attr_signature(view)
+         previous = node.attr_signature
+         if previous is None:
+             node.attr_signature = signature
+             return
+-        if previous == signature:
++        if previous == signature and not stat.S_ISREG(view["mode"]):
+             return
+         if node.anchor_fd is None:
+             node.attr_signature = signature
+diff --git before/src/unifier/guest_paths.py after/src/unifier/guest_paths.py
+index dbf7a87..16b41b1 100644
+--- before/src/unifier/guest_paths.py
++++ after/src/unifier/guest_paths.py
+@@ -142,7 +142,12 @@ def _entry_is_directory(root_fd: int, canonical_parent: str, name: str, *,
+         stat = os.fstat(stack[-1][1])
+         return (stat.st_mode & 0o170000) == 0o040000
+     except OSError as exc:
+-        if exc.errno in {errno.ENOENT, errno.ENOTDIR, errno.ELOOP}:
++        # This is an optional symlink target, not the requested directory.
++        # A restricted capability link (e.g. /etc/mtab -> /proc/mounts)
++        # must not prevent listing its otherwise readable siblings. Direct
++        # access still reports the denial, and resource/I/O failures propagate.
++        if exc.errno in {errno.ENOENT, errno.ENOTDIR, errno.ELOOP,
++                        errno.EACCES, errno.EPERM, errno.EOPNOTSUPP}:
+             return False
+         raise
+     finally:
+diff --git before/src/unifier/lease.py after/src/unifier/lease.py
+index a6fd954..258bddd 100644
+--- before/src/unifier/lease.py
++++ after/src/unifier/lease.py
+@@ -33,6 +33,9 @@ import threading
+ RENAME_NOREPLACE = 1
+ _AT_EMPTY_PATH = 0x1000
+ _F_OWNER_TID = 0
++# Linux UAPI asm-generic/fcntl.h. CPython exposed this existing Linux
++# operation only in 3.13; supported 3.11/3.12 interpreters still need it.
++_F_SETOWN_EX = getattr(fcntl, "F_SETOWN_EX", 15)
+ _F_RDLCK = getattr(fcntl, "F_RDLCK", 0)
+ _F_WRLCK = getattr(fcntl, "F_WRLCK", 1)
+ _F_UNLCK = getattr(fcntl, "F_UNLCK", 2)
+@@ -113,7 +116,7 @@ def _setlease(descriptor: int, kind: int) -> None:
+ def _set_owner_tid(descriptor: int) -> None:
+     # struct f_owner_ex { int type; pid_t pid; }; main thread tid == pid.
+     fcntl.fcntl(
+-        descriptor, fcntl.F_SETOWN_EX,
++        descriptor, _F_SETOWN_EX,
+         struct.pack("ii", _F_OWNER_TID, os.getpid()))
+ 
+ 
+diff --git before/src/unifier/view_backend.py after/src/unifier/view_backend.py
+index 2184d5f..56a8c25 100644
+--- before/src/unifier/view_backend.py
++++ after/src/unifier/view_backend.py
+@@ -563,7 +563,7 @@ class ViewBackend:
+             "attr_ttl": 0,
+             "direct_io": False,
+             "mmap": "page-cache",
+-            "data_invalidation": "size-mtime-ctime-on-revalidation",
++            "data_invalidation": "regular-file-on-every-revalidation",
+             "xattr": "unsupported",
+             "acl": "unknown",
+             "permissions": "not-default_permissions",
+diff --git before/tests/test_dmabuf_roundtrip.py after/tests/test_dmabuf_roundtrip.py
+index 61b6b1f..1dd4860 100644
+--- before/tests/test_dmabuf_roundtrip.py
++++ after/tests/test_dmabuf_roundtrip.py
+@@ -199,6 +199,8 @@ class DmaBufRoundtripTests(unittest.TestCase):
+         self.assertFalse(summary["readback"]["cpu_readback_performed"])
+         self.assertTrue(summary["resources_released"])
+ 
++    @unittest.skipUnless(os.environ.get("MULTILINUX_INTEGRATION") == "1",
++                         "real GPU roundtrip requires MULTILINUX_INTEGRATION=1")
+     def test_gpu_dmabuf_roundtrip_when_render_node_is_accessible(self) -> None:
+         node = self._require_render_node()
+         width, height = 96, 53
+diff --git before/tests/test_fuse_view.py after/tests/test_fuse_view.py
+index d5060e6..fcc26ae 100644
+--- before/tests/test_fuse_view.py
++++ after/tests/test_fuse_view.py
+@@ -183,9 +183,10 @@ class RevalidationInvalidation(unittest.TestCase):
+                 fh = server.open_file(node)
+                 self.assertEqual(server.read(fh, 0, 4096)[1], b"O" * 4096)
+ 
+-                # First real revalidation establishes the baseline only.
++                # LOOKUP already established the baseline. Even unchanged
++                # regular files need invalidation: timestamps can collide.
+                 self.assertEqual(server.getattr(node, fh)[2], 0)
+-                self.assertEqual(server.notifications, [])
++                self.assertEqual(len(server.notifications), 1)
+ 
+                 before = path.stat()
+                 time.sleep(0.02)
+@@ -224,10 +225,10 @@ class RevalidationInvalidation(unittest.TestCase):
+                     divmod(after.st_ctime_ns, 1_000_000_000))
+                 self.assertEqual(server.read(fh, 0, 4096)[1], b"N" * 4096)
+ 
+-                # A second unchanged revalidation must not spam notifications.
++                # Unchanged timestamps cannot establish unchanged content.
+                 self.assertEqual(server.getattr(node, fh)[2], 0)
+-                self.assertEqual(server.notifications, [])
+-                self.assertEqual(server.inval_inode_notifications, 1)
++                self.assertEqual(len(server.notifications), 1)
++                self.assertEqual(server.inval_inode_notifications, 3)
+             finally:
+                 backend.close()
+                 os.close(merged)
+diff --git before/tests/test_projection_boundaries.py after/tests/test_projection_boundaries.py
+index 96bd534..d5a3451 100644
+--- before/tests/test_projection_boundaries.py
++++ after/tests/test_projection_boundaries.py
+@@ -50,7 +50,7 @@ class RepairFailureBoundaries(unittest.TestCase):
+                 self.assertEqual(server.getattr(node,fh)[2],0)
+                 self.assertEqual(len(server.notifications),1)
+                 self.assertEqual(server.getattr(node,fh)[2],0)
+-                self.assertEqual(server.notifications,[])
++                self.assertEqual(len(server.notifications),1)
+             finally:server.release(fh)
+ 
+     def test_releasedir_collects_forgotten_child_attribute_versions(self):
+diff --git after/tests/test_release_install.py after/tests/test_release_install.py
+new file mode 100644
+index 0000000..fe90855
+--- /dev/null
++++ after/tests/test_release_install.py
+@@ -0,0 +1,80 @@
++"""Version switching preserves data and an executable rollback target."""
++
++import contextlib
++import hashlib
++import io
++import json
++import os
++from pathlib import Path
++import sys
++import tempfile
++import unittest
++from unittest.mock import patch
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT))
++from tools import install_unifier
++from tools.check_repo import verify_bundle
++
++
++class ReleaseInstall(unittest.TestCase):
++    def test_upgrade_requires_opt_in_and_preserves_relative_rollback(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            (root / "bin").mkdir()
++            old, new = root / "old", root / "new"
++            launcher = (ROOT / "bin/unifier").read_bytes()
++            old.write_bytes(launcher)
++            new.write_bytes(launcher)
++            destination = root / "bin/unifier"
++            destination.symlink_to("../old")
++            data = root / "userdata"
++            data.write_bytes(b"retained data")
++            with patch.object(install_unifier, "LAUNCHER", new), contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
++                self.assertEqual(install_unifier.main(["--bin-dir", str(root / "bin")]), 1)
++                self.assertEqual(os.readlink(destination), "../old")
++                self.assertEqual(install_unifier.main(["--bin-dir", str(root / "bin"), "--upgrade", "--dry-run"]), 0)
++                self.assertEqual(list((root / "bin").iterdir()), [destination])
++                self.assertEqual(install_unifier.main(["--bin-dir", str(root / "bin"), "--upgrade"]), 0)
++            self.assertEqual(destination.resolve(), new)
++            backup, = (root / "bin").glob("*.rollback")
++            self.assertEqual(os.readlink(backup), "../old")
++            os.replace(backup, destination)
++            self.assertEqual(destination.resolve(), old)
++            self.assertEqual(data.read_bytes(), b"retained data")
++
++    def test_upgrade_still_refuses_unknown_symlink(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            other = root / "other"
++            other.write_text("unrelated application")
++            destination = root / "unifier"
++            destination.symlink_to("other")
++            with contextlib.redirect_stderr(io.StringIO()):
++                self.assertEqual(install_unifier.main(["--bin-dir", str(root), "--upgrade"]), 1)
++            self.assertEqual(os.readlink(destination), "other")
++
++    def test_manifest_rejects_changed_file_and_link(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            source = root / "source"
++            source.write_bytes(b"original")
++            link = root / "alias"
++            link.symlink_to("source")
++            manifest = {"files": {"source": {"kind": "file", "sha256": hashlib.sha256(b"original").hexdigest()},
++                                  "alias": {"kind": "symlink", "target": "source"}}}
++            (root / "BUNDLE-MANIFEST.json").write_text(json.dumps(manifest))
++            with contextlib.redirect_stdout(io.StringIO()):
++                verify_bundle(root)
++            source.write_bytes(b"changed")
++            with self.assertRaises(ValueError):
++                verify_bundle(root)
++            source.write_bytes(b"original")
++            link.unlink()
++            link.symlink_to("elsewhere")
++            with self.assertRaises(ValueError):
++                verify_bundle(root)
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git after/tests/test_release_regressions.py after/tests/test_release_regressions.py
+new file mode 100644
+index 0000000..ec643c9
+--- /dev/null
++++ after/tests/test_release_regressions.py
+@@ -0,0 +1,92 @@
++"""Portability and live-file boundaries found on real test hosts."""
++
++import errno
++import fcntl
++import os
++from pathlib import Path
++import signal
++import sys
++import tempfile
++import unittest
++from unittest.mock import patch
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
++
++from unifier.guest_paths import list_guest_directories
++from unifier.lease import WriteLease
++from unifier.errors import UnifierError
++from test_projection_support import fixture
++
++
++class ReleaseRegressions(unittest.TestCase):
++    def test_native_lease_without_python_f_setown_ex_symbol(self):
++        # Remove the optional Python name, while still asking the real kernel
++        # for the thread-directed lease and checking restoration of the mask.
++        symbol = getattr(fcntl, "F_SETOWN_EX", None)
++        before = signal.pthread_sigmask(signal.SIG_BLOCK, set())
++        with tempfile.TemporaryFile() as stream:
++            lease = WriteLease(stream.fileno(), "Python 3.12 boundary")
++            try:
++                if symbol is not None:
++                    del fcntl.F_SETOWN_EX
++                lease.acquire()
++                self.assertEqual(lease.observe(), "held")
++            finally:
++                lease.release()
++                if symbol is not None:
++                    fcntl.F_SETOWN_EX = symbol
++        self.assertEqual(signal.pthread_sigmask(signal.SIG_BLOCK, set()), before)
++
++    def test_denied_link_target_does_not_hide_readable_siblings(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            (root / "etc/readable").mkdir(parents=True)
++            (root / "etc/mtab").symlink_to("/proc/mounts")
++            original = os.readlink
++
++            def restricted(name, *args, **kwargs):
++                if name == "mtab":
++                    raise OSError(denial, "restricted capability target")
++                return original(name, *args, **kwargs)
++
++            for denial in (errno.EACCES, errno.EPERM, errno.EOPNOTSUPP):
++                with self.subTest(errno=denial), patch(
++                        "unifier.guest_paths.os.readlink", side_effect=restricted):
++                    self.assertEqual(list_guest_directories(
++                        root, "/etc")["entries"], ["readable"])
++                    with self.assertRaises(OSError) as caught:
++                        list_guest_directories(root, "/etc/mtab")
++                    self.assertEqual(caught.exception.errno, denial)
++
++    def test_link_io_error_is_not_silently_omitted(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            (root / "link").symlink_to("missing")
++            with patch("unifier.guest_paths.os.readlink",
++                       side_effect=OSError(errno.EIO, "I/O failure")):
++                with self.assertRaises(UnifierError):
++                    list_guest_directories(root)
++
++    def test_identical_metadata_still_invalidates_pages_before_reply(self):
++        with fixture() as (root, backend, server):
++            path = root / "file"
++            path.write_bytes(b"OLD")
++            node = server.lookup("file")
++            fh = server.open_file(node)
++            metadata = backend.node_attr_by_id(node, fh)
++            try:
++                self.assertEqual(server.read(fh, 0, 3)[1], b"OLD")
++                path.write_bytes(b"NEW")
++                # Model a coarse-timestamp filesystem deterministically,
++                # independently of the machine running this regression.
++                with patch.object(backend, "node_attr", return_value=metadata):
++                    self.assertEqual(server.getattr(node, fh)[2], 0)
++                self.assertEqual([e[0] for e in server.events], ["notify", "reply"])
++                self.assertEqual(server.read(fh, 0, 3)[1], b"NEW")
++            finally:
++                server.release(fh)
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git after/tools/build_release.py after/tools/build_release.py
+new file mode 100644
+index 0000000..1624c70
+--- /dev/null
++++ after/tools/build_release.py
+@@ -0,0 +1,97 @@
++#!/usr/bin/env python3
++"""Build a versioned source bundle and check the independently extracted copy."""
++
++from __future__ import annotations
++
++import argparse
++import gzip
++import hashlib
++import io
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++import tarfile
++import tempfile
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT / "src"))
++from unifier import __version__
++
++
++def build(output: Path) -> dict:
++    name = f"unifier-{__version__}"
++    sidecars = [output, Path(str(output) + ".sha256"), Path(str(output) + ".manifest.json"),
++                Path(str(output) + ".validation.log")]
++    if any(p.exists() for p in sidecars):
++        raise FileExistsError("refusing to overwrite release files; choose a new output path")
++    output.parent.mkdir(parents=True, exist_ok=True)
++    paths = []
++    for directory in ("src", "tools", "tests", "config", "fixtures", "bin", "docs", "设计"):
++        paths.extend(p for p in (ROOT / directory).rglob("*")
++                     if (p.is_file() or p.is_symlink()) and "__pycache__" not in p.parts
++                     and p.suffix != ".pyc")
++    paths.extend(ROOT / p for p in ("README.md", "HANDOFF.md", ".gitignore", ".gitattributes"))
++    manifest = {"schema_version": 1, "version": __version__, "source_kind": "working-tree", "files": {}}
++    snapshots = {}
++    for path in sorted(paths):
++        relative = path.relative_to(ROOT).as_posix()
++        if path.is_symlink():
++            if not path.resolve().is_relative_to(ROOT):
++                raise ValueError(f"external source link: {relative}")
++            manifest["files"][relative] = {"kind": "symlink", "target": os.readlink(path)}
++        else:
++            snapshots[relative] = path.read_bytes()
++            manifest["files"][relative] = {"kind": "file", "sha256": hashlib.sha256(snapshots[relative]).hexdigest()}
++    payload = (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode()
++    with tempfile.TemporaryDirectory(prefix="unifier-release-check-") as temporary:
++        work = Path(temporary)
++        candidate = work / "candidate.tar.gz"
++        with candidate.open("wb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as zipped:
++            with tarfile.open(fileobj=zipped, mode="w") as archive:
++                for relative, record in manifest["files"].items():
++                    info = tarfile.TarInfo(f"{name}/{relative}")
++                    info.mode = (ROOT / relative).lstat().st_mode & 0o777
++                    if record["kind"] == "symlink":
++                        info.type = tarfile.SYMTYPE
++                        info.linkname = record["target"]
++                        archive.addfile(info)
++                    else:
++                        content = snapshots[relative]
++                        info.size = len(content)
++                        archive.addfile(info, io.BytesIO(content))
++                info = tarfile.TarInfo(f"{name}/BUNDLE-MANIFEST.json")
++                info.mode, info.size = 0o644, len(payload)
++                archive.addfile(info, io.BytesIO(payload))
++        with tarfile.open(candidate) as archive:
++            archive.extractall(work, filter="data")
++        extracted = work / name
++        environment = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1",
++                       "LC_ALL": "C", "LANG": "C", "PYTHONPATH": str(extracted / "src")}
++        with sidecars[3].open("w") as log:
++            completed = subprocess.run([sys.executable, "tools/check_repo.py"], cwd=extracted,
++                                       env=environment, stdout=log, stderr=subprocess.STDOUT)
++        completed.check_returncode()
++        output.write_bytes(candidate.read_bytes())
++    digest = hashlib.sha256(output.read_bytes()).hexdigest()
++    sidecars[1].write_text(f"{digest}  {output.name}\n")
++    sidecars[2].write_bytes(payload)
++    return {"version": __version__, "path": str(output), "sha256": digest,
++            "source_files": len(manifest["files"]), "independent_extracted_check": "passed"}
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--output", type=Path, default=ROOT / "artifacts" / f"unifier-{__version__}.tar.gz")
++    args = parser.parse_args()
++    try:
++        print(json.dumps(build(args.output.resolve()), ensure_ascii=False, indent=2))
++    except (OSError, ValueError, subprocess.CalledProcessError) as exc:
++        print(f"release build failed: {exc}", file=sys.stderr)
++        return 1
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git before/tools/check_repo.py after/tools/check_repo.py
+index bc37df6..9d8cd5d 100644
+--- before/tools/check_repo.py
++++ after/tools/check_repo.py
+@@ -5,6 +5,8 @@ from __future__ import annotations
+ 
+ import argparse
+ import ast
++import hashlib
++import json
+ import os
+ from pathlib import Path
+ import subprocess
+@@ -15,6 +17,25 @@ import tempfile
+ ROOT = Path(__file__).resolve().parents[1]
+ 
+ 
++def verify_bundle(root: Path) -> None:
++    """A standalone source bundle has no Git index; verify its file manifest."""
++    manifest = json.loads((root / "BUNDLE-MANIFEST.json").read_text(encoding="utf-8"))
++    for name, record in manifest["files"].items():
++        relative = Path(name)
++        if relative.is_absolute() or ".." in relative.parts:
++            raise ValueError(f"invalid bundle path: {name}")
++        path = root / relative
++        if record["kind"] == "symlink":
++            if not path.is_symlink() or os.readlink(path) != record["target"]:
++                raise ValueError(f"bundle symlink differs: {name}")
++        elif record["kind"] == "file":
++            if path.is_symlink() or hashlib.sha256(path.read_bytes()).hexdigest() != record["sha256"]:
++                raise ValueError(f"bundle checksum differs: {name}")
++        else:
++            raise ValueError(f"unknown bundle entry kind: {name}")
++    print(f"PASS bundle manifest: {len(manifest['files'])} entries", flush=True)
++
++
+ def run(root: Path, environment: dict[str, str], command: list[str]) -> None:
+     subprocess.run(command, cwd=root, env=environment, check=True)
+ 
+@@ -64,10 +85,15 @@ def main(argv: list[str] | None = None) -> int:
+     parser.add_argument("--quick", action="store_true", help="skip the full offline unittest suite")
+     args = parser.parse_args(argv)
+     try:
+-        command = ["git", "diff", "--check"]
+-        if args.staged:
+-            command.append("--cached")
+-        subprocess.run(command, cwd=ROOT, check=True)
++        if (ROOT / ".git").exists():
++            command = ["git", "diff", "--check"]
++            if args.staged:
++                command.append("--cached")
++            subprocess.run(command, cwd=ROOT, check=True)
++        else:
++            if args.staged:
++                raise ValueError("--staged requires a Git checkout")
++            verify_bundle(ROOT)
+         if args.staged:
+             with tempfile.TemporaryDirectory(prefix="unifier-staged-check-") as temporary:
+                 root = Path(temporary)
+@@ -78,7 +104,7 @@ def main(argv: list[str] | None = None) -> int:
+         else:
+             print("Checking working tree", flush=True)
+             check(ROOT, quick=args.quick)
+-    except (OSError, ValueError, SyntaxError, subprocess.CalledProcessError) as exc:
++    except (OSError, ValueError, KeyError, SyntaxError, subprocess.CalledProcessError) as exc:
+         print(f"repository check failed: {exc}", file=sys.stderr)
+         return 1
+     except KeyboardInterrupt:
+diff --git before/tools/install_unifier.py after/tools/install_unifier.py
+index d3adcd2..e111042 100755
+--- before/tools/install_unifier.py
++++ after/tools/install_unifier.py
+@@ -36,12 +36,25 @@ def _is_our_launcher(path: Path) -> bool:
+     return False
+ 
+ 
++def _is_previous_launcher(path: Path) -> bool:
++    """Only an existing symlink to a recognizable Unifier script is upgradable."""
++    if not path.is_symlink():
++        return False
++    try:
++        payload = path.read_text(encoding="utf-8")
++    except (OSError, UnicodeError):
++        return False
++    return MARKER in payload and 'exec "$PYTHON" -m unifier "$@"' in payload
++
++
+ def main(argv: list[str] | None = None) -> int:
+     parser = argparse.ArgumentParser(
+         description="Install the user-level unifier launcher (symlink only).")
+     parser.add_argument("--bin-dir", default=str(Path.home() / ".local/bin"),
+                         help="destination directory; default ~/.local/bin")
+     parser.add_argument("--dry-run", action="store_true")
++    parser.add_argument("--upgrade", action="store_true",
++                        help="switch an existing Unifier symlink, keeping a rollback symlink")
+     args = parser.parse_args(argv)
+     if sys.version_info < (3, 11):
+         print("unifier requires Python 3.11 or newer", file=sys.stderr)
+@@ -51,16 +64,22 @@ def main(argv: list[str] | None = None) -> int:
+         return 1
+     bin_dir = Path(args.bin_dir).expanduser()
+     destination = bin_dir / "unifier"
++    upgrading = False
+     if destination.exists() or destination.is_symlink():
+         if not _is_our_launcher(destination):
+-            print(f"refusing to overwrite an unknown file: {destination}", file=sys.stderr)
+-            print("remove or rename it explicitly, then rerun this installer",
+-                  file=sys.stderr)
+-            return 1
++            if args.upgrade and _is_previous_launcher(destination):
++                upgrading = True
++            else:
++                print(f"refusing to overwrite an unknown file: {destination}", file=sys.stderr)
++                print("use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly",
++                      file=sys.stderr)
++                return 1
++        elif not args.dry_run:
++            print(f"unifier launcher already installed: {destination}")
++            return 0
+         if args.dry_run:
+-            print(f"would keep existing unifier launcher: {destination}")
++            print(f"would {'upgrade' if upgrading else 'keep'} existing unifier launcher: {destination}")
+             return 0
+-        print(f"unifier launcher already installed: {destination}")
+     if args.dry_run:
+         print(f"would create symlink: {destination} -> {LAUNCHER}")
+         return 0
+@@ -69,6 +88,12 @@ def main(argv: list[str] | None = None) -> int:
+     os.close(descriptor)
+     temporary = Path(temporary_name)
+     try:
++        if upgrading:
++            # Same directory preserves the meaning of a relative old target.
++            # No existing backup name can be overwritten.
++            backup = temporary.with_name(temporary.name + ".rollback")
++            os.symlink(os.readlink(destination), backup)
++            print(f"rollback launcher: {backup}")
+         temporary.unlink()
+         os.symlink(str(LAUNCHER), temporary)
+         os.replace(temporary, destination)
+diff --git "before/\350\256\276\350\256\241/Ubuntu-Server\347\231\275\345\220\215\345\215\225\344\270\216\345\256\271\345\231\250\351\252\214\346\224\266-2026-10-28.md" "after/\350\256\276\350\256\241/Ubuntu-Server\347\231\275\345\220\215\345\215\225\344\270\216\345\256\271\345\231\250\351\252\214\346\224\266-2026-10-28.md"
+index 5dfe804..8d28df0 100644
+--- "before/\350\256\276\350\256\241/Ubuntu-Server\347\231\275\345\220\215\345\215\225\344\270\216\345\256\271\345\231\250\351\252\214\346\224\266-2026-10-28.md"
++++ "after/\350\256\276\350\256\241/Ubuntu-Server\347\231\275\345\220\215\345\215\225\344\270\216\345\256\271\345\231\250\351\252\214\346\224\266-2026-10-28.md"
+@@ -6,14 +6,14 @@
+ 
+ ## 准备当前源码
+ 
+-当前便携源码包为 `artifacts/unifier-source-20261030-policy2.tar.gz` 及旁边的 SHA-256 文件，包含当前 `src/`、`tools/`、`config/`、`fixtures/`、`tests/`、`bin/` 和说明；不包含本机 `.lab`、容器数据、私有 HOME、登录信息或日常应用安装镜像。10 月 28 日包和三宿主首轮测试包只保留作历史证据。
++当前便携源码包为 `artifacts/unifier-0.0.1.tar.gz` 及旁边的 SHA-256 文件，包含当前 `src/`、`tools/`、`config/`、`fixtures/`、`tests/`、`bin/` 和说明；不包含本机 `.lab`、容器数据、私有 HOME、登录信息或日常应用安装镜像。10 月 28 日包和三宿主首轮测试包只保留作历史证据。
+ 
+ 将源码包和校验文件传到服务器后，在普通用户拥有的新目录里操作：
+ 
+ ```bash
+-sha256sum -c unifier-source-20261030-policy2.tar.gz.sha256
+-tar -xzf unifier-source-20261030-policy2.tar.gz
+-cd unifier-source-20261030-policy2
++sha256sum -c unifier-0.0.1.tar.gz.sha256
++tar -xzf unifier-0.0.1.tar.gz
++cd unifier-0.0.1
+ ```
+ 
+ 这里的内容来自当前工作区，不依赖尚未提交/推送的远端分支。`BUNDLE-MANIFEST.json` 给出逐文件 SHA-256。
+diff --git "before/\350\256\276\350\256\241/\346\211\251\345\261\225\345\217\257\347\224\250\346\200\247\344\270\216Agent\350\267\250\347\216\257\345\242\203\346\265\213\350\257\225\350\256\241\345\210\222-2026-10-27.md" "after/\350\256\276\350\256\241/\346\211\251\345\261\225\345\217\257\347\224\250\346\200\247\344\270\216Agent\350\267\250\347\216\257\345\242\203\346\265\213\350\257\225\350\256\241\345\210\222-2026-10-27.md"
+index 7256a5f..f437bb6 100644
+--- "before/\350\256\276\350\256\241/\346\211\251\345\261\225\345\217\257\347\224\250\346\200\247\344\270\216Agent\350\267\250\347\216\257\345\242\203\346\265\213\350\257\225\350\256\241\345\210\222-2026-10-27.md"
++++ "after/\350\256\276\350\256\241/\346\211\251\345\261\225\345\217\257\347\224\250\346\200\247\344\270\216Agent\350\267\250\347\216\257\345\242\203\346\265\213\350\257\225\350\256\241\345\210\222-2026-10-27.md"
+@@ -1,5 +1,7 @@
+ # Linux 闭源应用、Agent 跨环境与文件系统扩展测试计划
+ 
++2026-10-30 v0.0.1 更新：三宿主跨派系六组合的基础容器/CLI 回执已导入 `artifacts/server-cross-host-correction-20261030T210239+0800/`。下文服务器进行中等状态是修订号 2 的历史起点；本版新增文件修复、独立包及逐机复测范围以 `artifacts/v0.0.1-20261030/report.md` 为准。完整应用/Agent 扩测仍未完成。
++
+ 初版：2026-10-27；修订：2026-10-29，Asia/Shanghai，修订号 2。**三个真实宿主已在用户服务器上开测；整套扩大测试安排在 2026 年 11 月开始，具体日期未定。** 本月受用户流量预算约束，本轮只修订计划，不启动下载、安装或扩大测试，也不创建定时任务。
+ 
+ 2026-10-30 宿主矩阵更正：按用户确认的策略版本 2，禁止同派系容器，包含 Ubuntu → Debian。Ubuntu、Debian 宿主只测试 Fedora/Arch；Arch 宿主只测试 Debian/Fedora，正向矩阵共六个单元。此前 Arch → Arch、Debian → Debian、Ubuntu → Debian 的机制执行记录不得计入设计通过。其余派系是宿主白名单，并非已经实现的客体镜像或包驱动；宿主原生工作流必须独立验收。

@@ -1,0 +1,173 @@
+{
+  "scope": "Podman create/inspect only; three sequential cross-family Debian containers, never started; creation options versus runtime mount flags; all removed by exact CID",
+  "cases": [
+    {
+      "argv": [
+        "podman",
+        "create",
+        "--pull=never",
+        "--name",
+        "unifier-ext-native-shared-111237",
+        "--network",
+        "none",
+        "--userns",
+        "keep-id",
+        "--security-opt",
+        "label=disable",
+        "-v",
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/shared:/probe:z",
+        "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "true"
+      ],
+      "cid": "ea3e9fbe3508ba2fbf78c8ef1397336a9da37dfb6a06215375815f31b0537bca",
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/shared",
+          "Destination": "/probe",
+          "Driver": "",
+          "Mode": "z",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "HostConfig.Binds": [
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/shared:/probe:z,rprivate,rbind"
+      ],
+      "CreateCommand": [
+        "podman",
+        "create",
+        "--pull=never",
+        "--name",
+        "unifier-ext-native-shared-111237",
+        "--network",
+        "none",
+        "--userns",
+        "keep-id",
+        "--security-opt",
+        "label=disable",
+        "-v",
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/shared:/probe:z",
+        "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "true"
+      ],
+      "ProcessLabel": "",
+      "MountLabel": "system_u:object_r:container_file_t:s0:c1022,c1023"
+    },
+    {
+      "argv": [
+        "podman",
+        "create",
+        "--pull=never",
+        "--name",
+        "unifier-ext-native-private-111237",
+        "--network",
+        "none",
+        "--userns",
+        "keep-id",
+        "--security-opt",
+        "label=disable",
+        "-v",
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/private:/probe:Z",
+        "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "true"
+      ],
+      "cid": "36c8ead8e33701552351fc56def3a8f7ba9c1f1881bbfa2011ed8b7e6a0387b1",
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/private",
+          "Destination": "/probe",
+          "Driver": "",
+          "Mode": "Z",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "HostConfig.Binds": [
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/private:/probe:Z,rprivate,rbind"
+      ],
+      "CreateCommand": [
+        "podman",
+        "create",
+        "--pull=never",
+        "--name",
+        "unifier-ext-native-private-111237",
+        "--network",
+        "none",
+        "--userns",
+        "keep-id",
+        "--security-opt",
+        "label=disable",
+        "-v",
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/private:/probe:Z",
+        "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "true"
+      ],
+      "ProcessLabel": "",
+      "MountLabel": "system_u:object_r:container_file_t:s0:c1022,c1023"
+    },
+    {
+      "argv": [
+        "podman",
+        "create",
+        "--pull=never",
+        "--name",
+        "unifier-ext-native-readonly-111237",
+        "--network",
+        "none",
+        "--userns",
+        "keep-id",
+        "--security-opt",
+        "label=disable",
+        "-v",
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/readonly:/probe:ro,z",
+        "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "true"
+      ],
+      "cid": "9dd6750c10c089ea0be236d73b11bc0393933fba0d1227673ac707e53b5e8a64",
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/readonly",
+          "Destination": "/probe",
+          "Driver": "",
+          "Mode": "z",
+          "Options": [
+            "rbind"
+          ],
+          "RW": false,
+          "Propagation": "rprivate"
+        }
+      ],
+      "HostConfig.Binds": [
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/readonly:/probe:ro,z,rprivate,rbind"
+      ],
+      "CreateCommand": [
+        "podman",
+        "create",
+        "--pull=never",
+        "--name",
+        "unifier-ext-native-readonly-111237",
+        "--network",
+        "none",
+        "--userns",
+        "keep-id",
+        "--security-opt",
+        "label=disable",
+        "-v",
+        "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/mount-option-native/readonly:/probe:ro,z",
+        "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "true"
+      ],
+      "ProcessLabel": "",
+      "MountLabel": "system_u:object_r:container_file_t:s0:c1022,c1023"
+    }
+  ]
+}

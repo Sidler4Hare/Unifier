@@ -1,0 +1,116 @@
+{
+  "status": "WINDOW_VERIFIED_ACCOUNT_BLOCKED",
+  "date": "2026-10-31",
+  "product": "Feishu Debian 7.72.23-0",
+  "root_cause": {
+    "summary": "Missing libasound.so.2 causes libframe.so dlopen failure, then Feishu deliberately raises SIGTRAP (exit 133).",
+    "fatal_location": "lark_ex_main_aura.cc(347)",
+    "failed_library": "/opt/bytedance/feishu/libframe.so",
+    "missing_dependency": "libasound.so.2",
+    "observed_exit": 133,
+    "signal": "SIGTRAP",
+    "evidence": [
+      "gdb-sigtrap.txt",
+      "strace-libasound-failure.txt",
+      "libframe-ldd.txt"
+    ]
+  },
+  "fix": {
+    "scope": "Debian test fixture only",
+    "installed_packages": {
+      "libasound2t64": "1.2.14-1+deb13u1",
+      "libasound2-data": "1.2.14-1+deb13u1",
+      "alsa-ucm-conf": "1.2.14-1",
+      "alsa-topology-conf": "1.2.5.1-3",
+      "strace": "6.13+ds-1",
+      "gdb": "16.3-1",
+      "file": "1:5.46-5",
+      "xdotool": "1:3.20160805.1-5.1"
+    },
+    "product_source_changed": false,
+    "old_feishu_record_preserved": true,
+    "old_feishu_sha256": "44fa8b69fbe95cd3862202d776e1d47ca1823db7dc66bef9f301f32db33e1ffd",
+    "new_app_id": "feishu-fixed",
+    "new_app_argv": [
+      "/usr/bin/bytedance-feishu-stable"
+    ],
+    "sandbox_flags": [],
+    "evidence": [
+      "apt-libasound2t64.log",
+      "apt-debug-tools.log",
+      "apt-xdotool.log",
+      "debug-and-audio-packages.tsv",
+      "feishu-fixed-launch.json",
+      "feishu-launch-before.sha256",
+      "feishu-launch-after.sha256"
+    ]
+  },
+  "identity": {
+    "container_id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "environment_id": "debian13",
+    "guest_uid_gid": "1000:1000",
+    "home": "/home/multilinux-1000",
+    "executable": "/usr/bin/bytedance-feishu-stable",
+    "wrapper_target": "/opt/bytedance/feishu/bytedance-feishu",
+    "final_elf": "/opt/bytedance/feishu/feishu",
+    "package": "bytedance-feishu-stable 7.72.23-0",
+    "product_entry": "UNIFIER_HOME=.lab/extension-local-20261031/environments bin/unifier app open feishu-fixed"
+  },
+  "window": {
+    "status": "WINDOW_VERIFIED_ACCOUNT_BLOCKED",
+    "x11_window": "0x2400004",
+    "guest_pid": 12085,
+    "host_pid": 781016,
+    "wm_class": "Bytedance-feishu",
+    "size": [
+      1648,
+      940
+    ],
+    "visual": "Feishu Log In With QR Code; QR expired; no account login",
+    "capture_scope": "exact X11 client drawable, not full desktop, not compositor focus",
+    "private_capture": ".lab/agents/extension-local-20261031T111237+0800/feishu-owned-client.png",
+    "private_capture_sha256": "1e974157d3b464df91e9ab475b4f21e9a1e08a2341bbc45a53b47c4d0adc80c6",
+    "evidence": [
+      "primary-window-verification.json"
+    ]
+  },
+  "close": {
+    "normal_close_attempt": "xdotool windowclose 37748740 (WM_DELETE_WINDOW), rc=0",
+    "normal_close_result": "window disappeared, but Feishu wrapper/monitor/backend and product launcher remained",
+    "normal_exit_verified": false,
+    "cleanup": "directed SIGTERM to verified guest PID 12404 (start stamp 34949342, host PID 792485)",
+    "cleanup_status": "FORCED_TEST_CLEANUP",
+    "cleanup_result": {
+      "guest_feishu_processes_remaining": 0,
+      "product_launcher_exited": true,
+      "lease_empty": true,
+      "container_still_running": true
+    },
+    "evidence": [
+      "normal-close-before.txt",
+      "normal-close-state.txt",
+      "forced-cleanup-before.txt",
+      "forced-cleanup-after.txt"
+    ]
+  },
+  "not_tested": [
+    "account login (QR expired, no account)",
+    "attachments and file save/reopen",
+    "messages and collaboration",
+    "meetings, audio/video, screen sharing",
+    "normal application Quit path (only window close and forced cleanup attempted)"
+  ],
+  "constraints": {
+    "new_containers_created": false,
+    "test_container_stopped_or_removed": false,
+    "daily_containers_touched": false,
+    "host_package_database_changed": false,
+    "product_source_changed": false,
+    "git_staged_or_committed": false
+  },
+  "notes": [
+    "KWin 6.7.5 helper requires Scripting.start() after loadScript; temporary tool change was reverted and is recorded as an observation-tool gap.",
+    "No sandbox bypass was used for the successful product launch.",
+    "The container remains running for the main controller's package tests."
+  ]
+}

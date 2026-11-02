@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "initialized": true,
+  "updated_at": "2026-10-30T20:44:19+08:00",
+  "enabled": [],
+  "targets": {
+    "debian13": {
+      "selected": false,
+      "state": "not_configured",
+      "environment_id": "debian13",
+      "container_retained": false,
+      "files_mounted": false,
+      "source": "new",
+      "failure": null
+    },
+    "fedora44": {
+      "selected": false,
+      "state": "not_configured",
+      "environment_id": "fedora44",
+      "container_retained": false,
+      "files_mounted": false,
+      "source": "new",
+      "failure": null
+    },
+    "arch": {
+      "selected": false,
+      "state": "not_configured",
+      "environment_id": "arch",
+      "container_retained": false,
+      "files_mounted": false,
+      "source": "new",
+      "failure": null
+    }
+  }
+}

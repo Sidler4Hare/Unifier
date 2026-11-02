@@ -1,0 +1,756 @@
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txne893b338475b
+fedora44: dnf install -y hello
+fedora44: install completed txnf9d9bacfdf24
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn7fcc526368f2
+refusing to overwrite an unknown file: /tmp/tmp2pxnncix/unifier
+remove or rename it explicitly, then rerun this installer
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txne87ca3d72257
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn071fd039ff2c
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn0dc3838de70b
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn6155578e75c8
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn35c0f4c77451
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txne480c4fb2f30
+fedora44: dnf install -y hello
+fedora44: install completed txnb42094bdf155
+unifier: remove deletes the environment's writable root; pass --yes
+/usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=19685) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+======================================================================
+ERROR: test_cleanup_lease_failures_preserve_bytes_and_release_resources (test_controlled_move.ControlledMoveNative.test_cleanup_lease_failures_preserve_bytes_and_release_resources) (label='published target')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 407, in test_cleanup_lease_failures_preserve_bytes_and_release_resources
+    record = control.move_file(
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 398, in fail_lease
+    return acquire(lease)
+           ^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+ERROR: test_final_source_hardlink_blocks_deletion (test_controlled_move.ControlledMoveNative.test_final_source_hardlink_blocks_deletion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 229, in test_final_source_hardlink_blocks_deletion
+    record = self.move(cleanup_source=True, fault_hook=add_alias)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 96, in move
+    return self.control.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+ERROR: test_final_target_replacement_blocks_deletion_and_recovery (test_controlled_move.ControlledMoveNative.test_final_target_replacement_blocks_deletion_and_recovery)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 205, in test_final_target_replacement_blocks_deletion_and_recovery
+    record = self.move(cleanup_source=True, fault_hook=replace_target)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 96, in move
+    return self.control.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+ERROR: test_held_reader_or_writer_prevents_capture_without_deleting (test_controlled_move.ControlledMoveNative.test_held_reader_or_writer_prevents_capture_without_deleting) (mode='reader')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 266, in test_held_reader_or_writer_prevents_capture_without_deleting
+    record = self.control.move_file(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+ERROR: test_held_reader_or_writer_prevents_capture_without_deleting (test_controlled_move.ControlledMoveNative.test_held_reader_or_writer_prevents_capture_without_deleting) (mode='writer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 266, in test_held_reader_or_writer_prevents_capture_without_deleting
+    record = self.control.move_file(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+ERROR: test_held_reader_or_writer_prevents_capture_without_deleting (test_controlled_move.ControlledMoveNative.test_held_reader_or_writer_prevents_capture_without_deleting) (mode='mmap')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 266, in test_held_reader_or_writer_prevents_capture_without_deleting
+    record = self.control.move_file(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+ERROR: test_late_policy_revocation_retains_the_captured_bytes (test_controlled_move.ControlledMoveNative.test_late_policy_revocation_retains_the_captured_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 187, in test_late_policy_revocation_retains_the_captured_bytes
+    record = self.move(cleanup_source=True, fault_hook=revoke)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 96, in move
+    return self.control.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+ERROR: test_normal_controlled_move_deletes_only_the_captured_source (test_controlled_move.ControlledMoveNative.test_normal_controlled_move_deletes_only_the_captured_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 107, in test_normal_controlled_move_deletes_only_the_captured_source
+    record = self.move(cleanup_source=True, fault_hook=observed.append)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 96, in move
+    return self.control.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+ERROR: test_real_lease_break_is_observed_before_deletion (test_controlled_move.ControlledMoveNative.test_real_lease_break_is_observed_before_deletion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 298, in test_real_lease_break_is_observed_before_deletion
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+ERROR: test_recovery_at_each_cleanup_journal_boundary (test_controlled_move.ControlledMoveNative.test_recovery_at_each_cleanup_journal_boundary) (phase='SOURCE_CLEANUP_INTENT')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 369, in test_recovery_at_each_cleanup_journal_boundary
+    recovered, = control.recover_file_operations(pending["operation_uuid"])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/control.py", line 306, in recover_file_operations
+    return self.operations.recover(operation_uuid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 773, in recover
+    record, action = self._recover_locked(record)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 741, in _recover_locked
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+ERROR: test_recovery_at_each_cleanup_journal_boundary (test_controlled_move.ControlledMoveNative.test_recovery_at_each_cleanup_journal_boundary) (phase='SOURCE_QUARANTINE_INTENT')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 369, in test_recovery_at_each_cleanup_journal_boundary
+    recovered, = control.recover_file_operations(pending["operation_uuid"])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/control.py", line 306, in recover_file_operations
+    return self.operations.recover(operation_uuid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 773, in recover
+    record, action = self._recover_locked(record)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 741, in _recover_locked
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+ERROR: test_recovery_at_each_cleanup_journal_boundary (test_controlled_move.ControlledMoveNative.test_recovery_at_each_cleanup_journal_boundary) (phase='SOURCE_QUARANTINE_READY')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 369, in test_recovery_at_each_cleanup_journal_boundary
+    recovered, = control.recover_file_operations(pending["operation_uuid"])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/control.py", line 306, in recover_file_operations
+    return self.operations.recover(operation_uuid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 773, in recover
+    record, action = self._recover_locked(record)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 741, in _recover_locked
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+======================================================================
+FAIL: test_cleanup_lease_failures_preserve_bytes_and_release_resources (test_controlled_move.ControlledMoveNative.test_cleanup_lease_failures_preserve_bytes_and_release_resources) (label='captured source')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 393, in test_cleanup_lease_failures_preserve_bytes_and_release_resources
+    _crash_move(root, sr["root_uuid"], tr["root_uuid"], "SOURCE_CAPTURED")
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 60, in _crash_move
+    raise AssertionError(
+AssertionError: crash worker for SOURCE_CAPTURED exited 1: 
+nifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+
+======================================================================
+FAIL: test_recovery_at_each_cleanup_journal_boundary (test_controlled_move.ControlledMoveNative.test_recovery_at_each_cleanup_journal_boundary) (phase='SOURCE_CAPTURE_INTENT')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 366, in test_recovery_at_each_cleanup_journal_boundary
+    _crash_move(root, sr["root_uuid"], tr["root_uuid"], phase)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 60, in _crash_move
+    raise AssertionError(
+AssertionError: crash worker for SOURCE_CAPTURE_INTENT exited 1: 
+nifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+
+======================================================================
+FAIL: test_recovery_at_each_cleanup_journal_boundary (test_controlled_move.ControlledMoveNative.test_recovery_at_each_cleanup_journal_boundary) (phase='SOURCE_CAPTURED')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 366, in test_recovery_at_each_cleanup_journal_boundary
+    _crash_move(root, sr["root_uuid"], tr["root_uuid"], phase)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 60, in _crash_move
+    raise AssertionError(
+AssertionError: crash worker for SOURCE_CAPTURED exited 1: 
+nifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+
+======================================================================
+FAIL: test_recovery_at_each_cleanup_journal_boundary (test_controlled_move.ControlledMoveNative.test_recovery_at_each_cleanup_journal_boundary) (phase='SOURCE_ISOLATED')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 366, in test_recovery_at_each_cleanup_journal_boundary
+    _crash_move(root, sr["root_uuid"], tr["root_uuid"], phase)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 60, in _crash_move
+    raise AssertionError(
+AssertionError: crash worker for SOURCE_ISOLATED exited 1: 
+nifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+
+======================================================================
+FAIL: test_recovery_at_each_cleanup_journal_boundary (test_controlled_move.ControlledMoveNative.test_recovery_at_each_cleanup_journal_boundary) (phase='SOURCE_DELETION_INTENT')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 366, in test_recovery_at_each_cleanup_journal_boundary
+    _crash_move(root, sr["root_uuid"], tr["root_uuid"], phase)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 60, in _crash_move
+    raise AssertionError(
+AssertionError: crash worker for SOURCE_DELETION_INTENT exited 1: 
+nifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+
+======================================================================
+FAIL: test_recovery_at_each_cleanup_journal_boundary (test_controlled_move.ControlledMoveNative.test_recovery_at_each_cleanup_journal_boundary) (phase='SOURCE_REMOVED')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 366, in test_recovery_at_each_cleanup_journal_boundary
+    _crash_move(root, sr["root_uuid"], tr["root_uuid"], phase)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 60, in _crash_move
+    raise AssertionError(
+AssertionError: crash worker for SOURCE_REMOVED exited 1: 
+nifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+
+======================================================================
+FAIL: test_recovery_at_each_cleanup_journal_boundary (test_controlled_move.ControlledMoveNative.test_recovery_at_each_cleanup_journal_boundary) (phase='DONE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 366, in test_recovery_at_each_cleanup_journal_boundary
+    _crash_move(root, sr["root_uuid"], tr["root_uuid"], phase)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 60, in _crash_move
+    raise AssertionError(
+AssertionError: crash worker for DONE exited 1: 
+nifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+
+======================================================================
+FAIL: test_recovery_from_captured_state_finishes_and_is_idempotent (test_controlled_move.ControlledMoveNative.test_recovery_from_captured_state_finishes_and_is_idempotent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 328, in test_recovery_from_captured_state_finishes_and_is_idempotent
+    _crash_move(
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_controlled_move.py", line 60, in _crash_move
+    raise AssertionError(
+AssertionError: crash worker for SOURCE_CAPTURED exited 1: 
+nifier/control.py", line 295, in move_file
+    return self.operations.move_file(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 562, in move_file
+    return self._run("move", source_root_uuid, source_relative,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 574, in _run
+    return self._run_locked(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operations.py", line 631, in _run_locked
+    self._finish_committed(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_publish.py", line 447, in _finish_committed
+    self._cleanup_run(record)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 891, in _cleanup_run
+    elif self._isolate_cleanup_source(record, handles):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 776, in _isolate_cleanup_source
+    if not self._acquire_cleanup_lease(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/file_operation_cleanup.py", line 658, in _acquire_cleanup_lease
+    lease.acquire()
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 158, in acquire
+    _set_owner_tid(self.descriptor)
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/src/unifier/lease.py", line 116, in _set_owner_tid
+    descriptor, fcntl.F_SETOWN_EX,
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'fcntl' has no attribute 'F_SETOWN_EX'. Did you mean: 'F_SETOWN'?
+
+
+======================================================================
+FAIL: test_failed_lookup_invalidation_does_not_leak_lookup_reference (test_projection_boundaries.RepairFailureBoundaries.test_failed_lookup_invalidation_does_not_leak_lookup_reference)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tests/test_projection_boundaries.py", line 78, in test_failed_lookup_invalidation_does_not_leak_lookup_reference
+    self.assertEqual(reply[2],errno.EIO)
+AssertionError: 0 != 5
+
+----------------------------------------------------------------------
+Ran 537 tests in 28.826s
+
+FAILED (failures=9, errors=12, skipped=6)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tools/check_repo.py", line 56, in check
+    run(root, environment,
+  File "/home/agent/server-validation-20261030T204043+0800/unifier-current/tools/check_repo.py", line 19, in run
+    subprocess.run(command, cwd=root, env=environment, check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-q']' returned non-zero exit status 1.

@@ -1,0 +1,39 @@
+test_corrupt_other_record_is_not_an_empty_container_inventory (test_cli_primary_acceptance.ControllerCounterexamples.test_corrupt_other_record_is_not_an_empty_container_inventory) ... FAIL
+test_existing_pin_is_checked_in_addition_to_catalog_contract (test_cli_primary_acceptance.ControllerCounterexamples.test_existing_pin_is_checked_in_addition_to_catalog_contract) ... FAIL
+test_long_distinct_aliases_do_not_share_an_internal_id (test_cli_primary_acceptance.ControllerCounterexamples.test_long_distinct_aliases_do_not_share_an_internal_id) ... FAIL
+
+======================================================================
+FAIL: test_corrupt_other_record_is_not_an_empty_container_inventory (test_cli_primary_acceptance.ControllerCounterexamples.test_corrupt_other_record_is_not_an_empty_container_inventory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_cli_primary_acceptance.py", line 47, in test_corrupt_other_record_is_not_an_empty_container_inventory
+    self.assertNotEqual(code, 0)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_existing_pin_is_checked_in_addition_to_catalog_contract (test_cli_primary_acceptance.ControllerCounterexamples.test_existing_pin_is_checked_in_addition_to_catalog_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_cli_primary_acceptance.py", line 28, in test_existing_pin_is_checked_in_addition_to_catalog_contract
+    with self.assertRaises(MultilinuxError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError: MultilinuxError not raised
+
+======================================================================
+FAIL: test_long_distinct_aliases_do_not_share_an_internal_id (test_cli_primary_acceptance.ControllerCounterexamples.test_long_distinct_aliases_do_not_share_an_internal_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_cli_primary_acceptance.py", line 35, in test_long_distinct_aliases_do_not_share_an_internal_id
+    self.assertNotEqual(
+    ~~~~~~~~~~~~~~~~~~~^
+        shortcuts._internal_app_id("debian13", prefix + "-first"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        shortcuts._internal_app_id("debian13", prefix + "-second"))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'aaaaaaaaaaaaaaaaaaaaaaaaa-40e65b' == 'aaaaaaaaaaaaaaaaaaaaaaaaa-40e65b'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.009s
+
+FAILED (failures=3)

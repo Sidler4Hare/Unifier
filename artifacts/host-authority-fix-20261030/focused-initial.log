@@ -1,0 +1,30 @@
+unifier: remove deletes the environment's writable root; pass --yes
+refusing to overwrite an unknown file: /tmp/tmp4rap0h_4/unifier
+remove or rename it explicitly, then rerun this installer
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnb63ce2543660
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnc436742fa2d2
+removed demo
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn0bdc456034f4
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn1a4362aaa031
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn0a8e0922d847
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn28618ec80f46
+fedora44: dnf install -y hello
+fedora44: install completed txnbcb5b3da1b8c
+----------------------------------------------------------------------
+Ran 96 tests in 4.126s
+
+OK

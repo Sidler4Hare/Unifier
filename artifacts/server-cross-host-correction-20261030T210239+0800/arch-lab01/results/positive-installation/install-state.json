@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "initialized": true,
+  "updated_at": "2026-10-30T21:16:26+08:00",
+  "enabled": [
+    "debian13",
+    "fedora44"
+  ],
+  "targets": {
+    "debian13": {
+      "selected": true,
+      "state": "ready",
+      "environment_id": "debian13",
+      "container_retained": true,
+      "files_mounted": true,
+      "source": "new",
+      "failure": null,
+      "files_dir": "/home/dev/server-cross-host-correction-20261030T210239+0800/results/positive-installation/containers/debian13/files",
+      "image_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "image_reference": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "image_id": "567e3c17b188e21cd42aa5e1c55e16d8270f880ed8ea321dbd40f993467efc4c",
+      "updated_at": "2026-10-30T21:16:22+08:00",
+      "pending_phase": "container-create",
+      "identity": {
+        "environment_uuid": "9176e433-81ba-4b34-89d5-d596832ee0a5",
+        "generation": 1,
+        "container_id": "33de490ea2dafc3e2e8672d7a22395f24f829aa6435ee620bd9bb04d8b10eac4"
+      },
+      "real_runtime_state": "stopped"
+    },
+    "fedora44": {
+      "selected": true,
+      "state": "ready",
+      "environment_id": "fedora44",
+      "container_retained": true,
+      "files_mounted": true,
+      "source": "new",
+      "failure": null,
+      "files_dir": "/home/dev/server-cross-host-correction-20261030T210239+0800/results/positive-installation/containers/fedora44/files",
+      "image_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "image_reference": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "image_id": "4b5d9a75c81b96b542ac08b19587efa516da72bf02581908c6178d39de4bb07b",
+      "updated_at": "2026-10-30T21:16:26+08:00",
+      "pending_phase": "container-create",
+      "identity": {
+        "environment_uuid": "2258fea9-aa88-443b-9a6a-d9e4d9ba301b",
+        "generation": 1,
+        "container_id": "22a598d434fc8ccad41500ae2d32b1b0e9dd2e2f0e66e8740123a7bbaed1f35d"
+      },
+      "real_runtime_state": "stopped"
+    },
+    "arch": {
+      "selected": false,
+      "state": "not_configured",
+      "environment_id": "arch",
+      "container_retained": false,
+      "files_mounted": false,
+      "source": "new",
+      "failure": null
+    }
+  }
+}

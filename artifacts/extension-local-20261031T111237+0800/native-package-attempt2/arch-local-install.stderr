@@ -1,0 +1,2 @@
+arch: installing local package /home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/native-jq-files/中文 空格 $; jq.pkg.tar.zst through the native transaction.
+unifier: arch: installation failed (native diagnostics kept verbatim): local package file name is not accepted: 中文 空格 $; jq.pkg.tar.zst

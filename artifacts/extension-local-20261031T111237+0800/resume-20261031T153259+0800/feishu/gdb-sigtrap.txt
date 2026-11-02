@@ -1,0 +1,39 @@
+SIGTRAP is used by the debugger.
+Are you sure you want to change it? (y or n) [answered Y; input not from terminal]
+warning: Error disabling address space randomization: Function not implemented
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0x0000559a22033621 in ?? ()
+#0  0x0000559a22033621 in ?? ()
+#1  0x73206e65706f2074 in ?? ()
+#2  0x626f206465726168 in ?? ()
+#3  0x6c6966207463656a in ?? ()
+#4  0x7573206f4e203a65 in ?? ()
+#5  0x20656c6966206863 in ?? ()
+#6  0x636572696420726f in ?? ()
+#7  0x37302f313330315b in ?? ()
+#8  0x3033352e37353933 in ?? ()
+#9  0x415441463a383633 in ?? ()
+#10 0x655f6b72616c3a4c in ?? ()
+#11 0x5f6e69616d5f6578 in ?? ()
+#12 0x2863632e61727561 in ?? ()
+#13 0x6c64205d29343733 in ?? ()
+#14 0x706f2f206e65706f in ?? ()
+#15 0x6164657479622f74 in ?? ()
+#16 0x736965662f65636e in ?? ()
+#17 0x726662696c2f7568 in ?? ()
+#18 0x202c6f732e656d61 in ?? ()
+#19 0x696c20726f727265 in ?? ()
+#20 0x2e646e756f736162 in ?? ()
+#21 0x6163203a322e6f73 in ?? ()
+#22 0x65706f20746f6e6e in ?? ()
+#23 0x646572616873206e in ?? ()
+#24 0x207463656a626f20 in ?? ()
+#25 0x6f4e203a656c6966 in ?? ()
+#26 0x6966206863757320 in ?? ()
+#27 0x696420726f20656c in ?? ()
+#28 0x0a79726f74636572 in ?? ()
+#29 0xaaaaaaaaaaaaaa00 in ?? ()
+rip            0x559a22033621      0x559a22033621

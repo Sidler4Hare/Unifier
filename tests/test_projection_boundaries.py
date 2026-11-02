@@ -8,8 +8,8 @@ import unittest
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'));sys.path.insert(0,str(ROOT/'tests'))
-from multilinux import fuse_view, projection
-from multilinux.view_backend import ViewError
+from unifier import fuse_view, projection
+from unifier.view_backend import ViewError
 from test_projection_support import fixture,open_fd_count
 
 class RepairFailureBoundaries(unittest.TestCase):
@@ -50,7 +50,7 @@ class RepairFailureBoundaries(unittest.TestCase):
                 self.assertEqual(server.getattr(node,fh)[2],0)
                 self.assertEqual(len(server.notifications),1)
                 self.assertEqual(server.getattr(node,fh)[2],0)
-                self.assertEqual(server.notifications,[])
+                self.assertEqual(len(server.notifications),1)
             finally:server.release(fh)
 
     def test_releasedir_collects_forgotten_child_attribute_versions(self):

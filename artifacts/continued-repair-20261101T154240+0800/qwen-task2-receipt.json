@@ -1,0 +1,21 @@
+{
+  "provider": "local-server",
+  "provider_display_name": "Local qwen server",
+  "model": "swift-1.5-iq3_s",
+  "reasoning_effort": "max",
+  "session_id": "session-dd2e7b23-1357-4aff-bee0-0c11ac9ab553",
+  "dsh_turn_completed": true,
+  "source_files": [
+    "tests/podman_test_support.py",
+    "tests/test_integration_policy.py"
+  ],
+  "independent_verification": {
+    "old_helper_tests": 3,
+    "expected_failures": 2,
+    "errors": 0,
+    "new_helper_tests": 6,
+    "new_helper_result": "passed"
+  },
+  "raw_events": ".lab/agents/continued-repair-20261101T154240+0800/qwen-task2.jsonl",
+  "private_provider_config_excluded": true
+}

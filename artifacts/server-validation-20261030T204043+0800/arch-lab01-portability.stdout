@@ -1,0 +1,163 @@
+{
+  "python": "3.14.8",
+  "kernel": "7.2.11-arch1-1",
+  "hostname": "arch-lab01",
+  "fcntl_symbols": {
+    "F_SETOWN_EX": 15,
+    "F_SETSIG": 10,
+    "F_SETLEASE": 1024,
+    "F_GETLEASE": 1025
+  },
+  "raw_metadata_trials": {
+    "0": {
+      "trials": 50,
+      "unchanged_signature_despite_changed_bytes": 0
+    },
+    "0.025": {
+      "trials": 50,
+      "unchanged_signature_despite_changed_bytes": 0
+    }
+  },
+  "lookup_trials": [
+    {
+      "delay": 0,
+      "ctime_before_ns": 1793364596290399082,
+      "ctime_after_ns": 1793364596291052041,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0,
+      "ctime_before_ns": 1793364596293405870,
+      "ctime_after_ns": 1793364596293889052,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0,
+      "ctime_before_ns": 1793364596296054634,
+      "ctime_after_ns": 1793364596296505628,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0,
+      "ctime_before_ns": 1793364596298479984,
+      "ctime_after_ns": 1793364596298992444,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0,
+      "ctime_before_ns": 1793364596300820740,
+      "ctime_after_ns": 1793364596301348547,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0,
+      "ctime_before_ns": 1793364596303282970,
+      "ctime_after_ns": 1793364596303755285,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0,
+      "ctime_before_ns": 1793364596305665090,
+      "ctime_after_ns": 1793364596306205063,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0,
+      "ctime_before_ns": 1793364596308085425,
+      "ctime_after_ns": 1793364596308499435,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0,
+      "ctime_before_ns": 1793364596310461201,
+      "ctime_after_ns": 1793364596310974194,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0,
+      "ctime_before_ns": 1793364596312794884,
+      "ctime_after_ns": 1793364596313321719,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0.025,
+      "ctime_before_ns": 1793364596315250159,
+      "ctime_after_ns": 1793364596340181560,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0.025,
+      "ctime_before_ns": 1793364596344001599,
+      "ctime_after_ns": 1793364596369831237,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0.025,
+      "ctime_before_ns": 1793364596371888303,
+      "ctime_after_ns": 1793364596397645668,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0.025,
+      "ctime_before_ns": 1793364596399716998,
+      "ctime_after_ns": 1793364596426416989,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0.025,
+      "ctime_before_ns": 1793364596430493297,
+      "ctime_after_ns": 1793364596456220854,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0.025,
+      "ctime_before_ns": 1793364596458198515,
+      "ctime_after_ns": 1793364596483839174,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0.025,
+      "ctime_before_ns": 1793364596485812992,
+      "ctime_after_ns": 1793364596512086843,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0.025,
+      "ctime_before_ns": 1793364596514185491,
+      "ctime_after_ns": 1793364596540780609,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0.025,
+      "ctime_before_ns": 1793364596542792817,
+      "ctime_after_ns": 1793364596568420538,
+      "reply_errno": 5,
+      "nlookup": 1
+    },
+    {
+      "delay": 0.025,
+      "ctime_before_ns": 1793364596570364749,
+      "ctime_after_ns": 1793364596595973895,
+      "reply_errno": 5,
+      "nlookup": 1
+    }
+  ]
+}

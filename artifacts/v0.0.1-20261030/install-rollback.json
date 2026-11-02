@@ -1,0 +1,39 @@
+{
+  "steps": [
+    {
+      "args": [],
+      "code_directory": "old",
+      "returncode": 0,
+      "stdout": "installed /tmp/unifier-v001-install-80qzp4r0/bin/unifier -> /tmp/unifier-v001-install-80qzp4r0/old/unifier-0.0.1/bin/unifier\n",
+      "stderr": "note: add /tmp/unifier-v001-install-80qzp4r0/bin to PATH to run 'unifier'\n"
+    },
+    {
+      "args": [],
+      "code_directory": "old",
+      "returncode": 0,
+      "stdout": "unifier launcher already installed: /tmp/unifier-v001-install-80qzp4r0/bin/unifier\n",
+      "stderr": ""
+    },
+    {
+      "args": [],
+      "code_directory": "new",
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "refusing to overwrite an unknown file: /tmp/unifier-v001-install-80qzp4r0/bin/unifier\nuse --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly\n"
+    },
+    {
+      "args": [
+        "--upgrade"
+      ],
+      "code_directory": "new",
+      "returncode": 0,
+      "stdout": "rollback launcher: /tmp/unifier-v001-install-80qzp4r0/bin/.unifier-8xyejk1_.rollback\ninstalled /tmp/unifier-v001-install-80qzp4r0/bin/unifier -> /tmp/unifier-v001-install-80qzp4r0/new/unifier-0.0.1/bin/unifier\n",
+      "stderr": "note: add /tmp/unifier-v001-install-80qzp4r0/bin to PATH to run 'unifier'\n"
+    }
+  ],
+  "version_after_upgrade": "Unifier 0.0.1",
+  "version_after_rollback": "Unifier 0.0.1",
+  "data_preserved": true,
+  "uninstall_preserves_source_and_data": true,
+  "passed": true
+}

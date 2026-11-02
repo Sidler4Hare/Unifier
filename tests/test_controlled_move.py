@@ -18,13 +18,14 @@ import sys
 import tempfile
 import time
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src")]
 
-from multilinux.control import Control
-from multilinux.errors import MultilinuxError
-from multilinux.lease import LeaseBroken, WriteLease
+from unifier.control import Control
+from unifier.errors import UnifierError
+from unifier.lease import LeaseBroken, LeaseUnsupported, WriteLease
 
 
 PAYLOAD = (b"controlled move payload\n" * 4096)[:98304]
@@ -42,7 +43,7 @@ def _crash_move(root: Path, source_uuid: str, target_uuid: str, phase: str, *,
 import os, sys
 sys.path.insert(0, {str(ROOT / 'src')!r})
 from pathlib import Path
-from multilinux.control import Control
+from unifier.control import Control
 control = Control(Path({str(root)!r}))
 def hook(point):
     if point == {phase!r}:
@@ -158,14 +159,14 @@ class ControlledMoveNative(unittest.TestCase):
     def test_read_only_root_cannot_be_registered_for_controlled_cleanup(self):
         read_only = self.root / "read-only"
         read_only.mkdir()
-        with self.assertRaisesRegex(MultilinuxError, "read-write"):
+        with self.assertRaisesRegex(UnifierError, "read-write"):
             self.control.add_root(
                 str(read_only), access_policy="read-only",
                 cleanup_policy="controlled")
         retain_root = self.control.add_root(
             str(read_only), access_policy="read-only", cleanup_policy="retain")
         before = self.control.list_file_operations()
-        with self.assertRaisesRegex(MultilinuxError, "not registered"):
+        with self.assertRaisesRegex(UnifierError, "not registered"):
             self.control.move_file(
                 retain_root["root_uuid"], "payload.bin",
                 self.target_root["root_uuid"], "other.bin",
@@ -346,6 +347,78 @@ class ControlledMoveNative(unittest.TestCase):
         self.assertEqual(again[0]["recovery"]["action"], "terminal-noop")
         self.assertEqual(digest(self.target / "published.bin"), self.expected)
         self.assertFalse(list(self.source.glob(".ml-quarantine-*")))
+
+    def test_recovery_at_each_cleanup_journal_boundary(self):
+        for phase in ("SOURCE_CLEANUP_INTENT", "SOURCE_QUARANTINE_INTENT",
+                      "SOURCE_QUARANTINE_READY", "SOURCE_CAPTURE_INTENT",
+                      "SOURCE_CAPTURED", "SOURCE_ISOLATED",
+                      "SOURCE_DELETION_INTENT", "SOURCE_REMOVED", "DONE"):
+            with self.subTest(phase=phase), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                source, target = root / "source", root / "target"
+                source.mkdir()
+                target.mkdir()
+                (source / "payload.bin").write_bytes(PAYLOAD)
+                control = Control(root)
+                sr = control.add_root(str(source), access_policy="read-write",
+                                      cleanup_policy="controlled")
+                tr = control.add_root(str(target), access_policy="read-write")
+                _crash_move(root, sr["root_uuid"], tr["root_uuid"], phase)
+                pending, = control.list_file_operations()
+                self.assertEqual(pending["state"], phase)
+                recovered, = control.recover_file_operations(pending["operation_uuid"])
+                self.assertEqual(recovered["state"], "DONE")
+                self.assertTrue(recovered["source_cleanup"]["performed"])
+                self.assertFalse((source / "payload.bin").exists())
+                self.assertFalse(list(source.glob(".ml-quarantine-*")))
+                self.assertEqual(digest(target / "published.bin"), self.expected)
+                again, = control.recover_file_operations(pending["operation_uuid"])
+                self.assertEqual(again["recovery"]["action"], "terminal-noop")
+                self.assertEqual(digest(target / "published.bin"), self.expected)
+
+    def test_cleanup_lease_failures_preserve_bytes_and_release_resources(self):
+        acquire = WriteLease.acquire
+        for label in ("source", "captured source", "published target"):
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                source, target = root / "source", root / "target"
+                source.mkdir()
+                target.mkdir()
+                (source / "payload.bin").write_bytes(PAYLOAD)
+                control = Control(root)
+                sr = control.add_root(str(source), access_policy="read-write",
+                                      cleanup_policy="controlled")
+                tr = control.add_root(str(target), access_policy="read-write")
+                if label == "captured source":
+                    _crash_move(root, sr["root_uuid"], tr["root_uuid"], "SOURCE_CAPTURED")
+
+                def fail_lease(lease):
+                    if lease.label == label:
+                        raise LeaseUnsupported("injected lease failure")
+                    return acquire(lease)
+
+                before_fds = set(os.listdir("/proc/self/fd"))
+                before_mask = signal.pthread_sigmask(signal.SIG_BLOCK, set())
+                with patch.object(WriteLease, "acquire", fail_lease):
+                    if label == "captured source":
+                        pending, = control.list_file_operations()
+                        record, = control.recover_file_operations(pending["operation_uuid"])
+                    else:
+                        record = control.move_file(
+                            sr["root_uuid"], "payload.bin", tr["root_uuid"],
+                            "published.bin", cleanup_source=True)
+                self.assertEqual(record["state"], "SOURCE_CLEANUP_PENDING"
+                                 if label == "source" else "NEEDS_RECONCILIATION")
+                self.assertFalse(record["source_cleanup"]["performed"])
+                self.assertTrue(_files_with_digest(source, self.expected))
+                self.assertEqual(digest(target / "published.bin"), self.expected)
+                self.assertEqual(set(os.listdir("/proc/self/fd")), before_fds)
+                self.assertEqual(signal.pthread_sigmask(signal.SIG_BLOCK, set()), before_mask)
+                # Opening every remaining file would self-break or block if
+                # this attempt had leaked one of its kernel write leases.
+                for path in source.rglob("*"):
+                    if path.is_file():
+                        self.assertEqual(digest(path), self.expected)
 
     def test_pinned_quarantine_identity_cannot_be_reused_by_a_new_directory(self):
         _crash_move(

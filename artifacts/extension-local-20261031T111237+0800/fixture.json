@@ -1,0 +1,350 @@
+{
+  "source_root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+  "management_root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+  "project": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+  "records": {
+    "debian13": {
+      "schema_version": 2,
+      "id": "debian13",
+      "target": "debian13",
+      "distribution_id": "debian",
+      "version_track": "13",
+      "update_policy": "versioned-release",
+      "architecture": "amd64",
+      "base_image": {
+        "source": "docker.io/library/debian:13-slim",
+        "manifest_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "locked_reference": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+        "image_version_label": null
+      },
+      "writable_revision": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+      "content_revision": 1,
+      "runtime_state": "running",
+      "package_inventory_sha256": "fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4",
+      "package_inventory_count": 78,
+      "package_inventory_path": ".lab/state/environments/debian13.packages.txt",
+      "shared_mounts": [
+        {
+          "host": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+          "container": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+          "options": ""
+        },
+        {
+          "host": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files",
+          "container": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files",
+          "options": ""
+        }
+      ],
+      "desktop": {
+        "selinux_label": "disable",
+        "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+        "env": {
+          "WAYLAND_DISPLAY": "wayland-0",
+          "XDG_RUNTIME_DIR": "/run/user/1000",
+          "DISPLAY": ":0",
+          "XAUTHORITY": "/tmp/ml-xauthority",
+          "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+          "PIPEWIRE_REMOTE": "pipewire-0",
+          "XDG_SESSION_TYPE": "wayland"
+        },
+        "mounts": [
+          {
+            "host": "/run/user/1000/wayland-0",
+            "container": "/run/user/1000/wayland-0",
+            "options": ""
+          },
+          {
+            "host": "/tmp/.X11-unix/X0",
+            "container": "/tmp/.X11-unix/X0",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/xauth_dnPjwq",
+            "container": "/tmp/ml-xauthority",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pulse/native",
+            "container": "/run/user/1000/pulse/native",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pipewire-0",
+            "container": "/run/user/1000/pipewire-0",
+            "options": ""
+          }
+        ]
+      },
+      "created_at": "2026-10-31T11:42:54+08:00",
+      "updated_at": "2026-10-31T11:42:59+08:00",
+      "arch": null,
+      "runtime": {
+        "backend": "podman",
+        "container_name": "ml-104d8e92-debian13",
+        "container_id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+        "project": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+        "network": "pasta",
+        "share_label_policy": "preserve-host",
+        "selinux_label": "disable",
+        "full_init": false,
+        "user_namespace": "keep-id",
+        "devices": [],
+        "ipc": "host",
+        "rootless": true
+      },
+      "observed": {
+        "os_release_id": "debian",
+        "os_release_version_id": "13",
+        "os_release_build_id": null,
+        "os_release_pretty_name": "Debian GNU/Linux 13 (trixie)",
+        "kernel": "7.2.11-200.fc44.x86_64",
+        "machine": "x86_64"
+      },
+      "system": {
+        "family": "debian",
+        "libc": "glibc",
+        "layout": "fhs",
+        "package_driver": "apt",
+        "package_format": "deb",
+        "runtime_backend": "podman-rootless",
+        "update_policy": "versioned-release",
+        "package_change": "in-place",
+        "base_image_change": "replace",
+        "contract_change": "replace"
+      },
+      "created_by_uid": 1000,
+      "created_by_gid": 1000,
+      "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage.",
+      "environment_uuid": "4e00e4c0-f686-4de5-99a5-cc96909a985f",
+      "generation": 1,
+      "compatibility_at_creation": {
+        "schema_version": 1,
+        "policy_version": 2,
+        "mode": "whitelist",
+        "host": {
+          "id": "fedora",
+          "version_id": "44",
+          "variant_id": "kde",
+          "id_like": [],
+          "family": "fedora",
+          "reference_host": "fedora",
+          "integration_profile": "fedora",
+          "package_driver": "dnf",
+          "base_package_driver": "dnf",
+          "package_format": "rpm",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "debian13",
+        "container_family": "debian",
+        "container_contract": {
+          "family": "debian",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "apt",
+          "package_format": "deb",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "versioned-release"
+        },
+        "allowed": true,
+        "relationship": "cross-family",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      }
+    },
+    "arch": {
+      "schema_version": 2,
+      "id": "arch",
+      "target": "arch",
+      "distribution_id": "arch",
+      "version_track": "rolling",
+      "update_policy": "full-system-upgrade",
+      "architecture": "amd64",
+      "base_image": {
+        "source": "docker.io/library/archlinux:latest",
+        "manifest_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+        "locked_reference": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+        "image_version_label": "20261011.0.609700"
+      },
+      "writable_revision": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+      "content_revision": 1,
+      "runtime_state": "running",
+      "package_inventory_sha256": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+      "package_inventory_count": 137,
+      "package_inventory_path": ".lab/state/environments/arch.packages.txt",
+      "shared_mounts": [
+        {
+          "host": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+          "container": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+          "options": ""
+        },
+        {
+          "host": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files",
+          "container": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files",
+          "options": ""
+        }
+      ],
+      "desktop": {
+        "selinux_label": "disable",
+        "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+        "env": {
+          "WAYLAND_DISPLAY": "wayland-0",
+          "XDG_RUNTIME_DIR": "/run/user/1000",
+          "DISPLAY": ":0",
+          "XAUTHORITY": "/tmp/ml-xauthority",
+          "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+          "PIPEWIRE_REMOTE": "pipewire-0",
+          "XDG_SESSION_TYPE": "wayland"
+        },
+        "mounts": [
+          {
+            "host": "/run/user/1000/wayland-0",
+            "container": "/run/user/1000/wayland-0",
+            "options": ""
+          },
+          {
+            "host": "/tmp/.X11-unix/X0",
+            "container": "/tmp/.X11-unix/X0",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/xauth_dnPjwq",
+            "container": "/tmp/ml-xauthority",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pulse/native",
+            "container": "/run/user/1000/pulse/native",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pipewire-0",
+            "container": "/run/user/1000/pipewire-0",
+            "options": ""
+          }
+        ]
+      },
+      "created_at": "2026-10-31T11:42:57+08:00",
+      "updated_at": "2026-10-31T11:43:05+08:00",
+      "arch": {
+        "image_version_label": "20261011.0.609700",
+        "os_release_version_id": "20261011.0.609700",
+        "os_release_build_id": "rolling",
+        "repository_updated_at": null,
+        "package_set_sha256": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7",
+        "keyring_initialized_at": null
+      },
+      "runtime": {
+        "backend": "podman",
+        "container_name": "ml-104d8e92-arch",
+        "container_id": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+        "project": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+        "network": "pasta",
+        "share_label_policy": "preserve-host",
+        "selinux_label": "disable",
+        "full_init": false,
+        "user_namespace": "keep-id",
+        "devices": [],
+        "ipc": "host",
+        "rootless": true
+      },
+      "observed": {
+        "os_release_id": "arch",
+        "os_release_version_id": "20261011.0.609700",
+        "os_release_build_id": "rolling",
+        "os_release_pretty_name": "Arch Linux",
+        "kernel": "7.2.11-200.fc44.x86_64",
+        "machine": "x86_64"
+      },
+      "system": {
+        "family": "arch",
+        "libc": "glibc",
+        "layout": "fhs",
+        "package_driver": "pacman",
+        "package_format": "arch",
+        "runtime_backend": "podman-rootless",
+        "update_policy": "full-system-upgrade",
+        "package_change": "in-place",
+        "base_image_change": "replace",
+        "contract_change": "replace"
+      },
+      "created_by_uid": 1000,
+      "created_by_gid": 1000,
+      "scope": "Ordinary application environment with host session sockets mounted. Launch records are stored separately. Full init is a later stage.",
+      "environment_uuid": "01724cba-8875-409b-b6e6-6af2fe0dddec",
+      "generation": 1,
+      "compatibility_at_creation": {
+        "schema_version": 1,
+        "policy_version": 2,
+        "mode": "whitelist",
+        "host": {
+          "id": "fedora",
+          "version_id": "44",
+          "variant_id": "kde",
+          "id_like": [],
+          "family": "fedora",
+          "reference_host": "fedora",
+          "integration_profile": "fedora",
+          "package_driver": "dnf",
+          "base_package_driver": "dnf",
+          "package_format": "rpm",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "arch",
+        "container_family": "arch",
+        "container_contract": {
+          "family": "arch",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "pacman",
+          "package_format": "arch",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "full-system-upgrade"
+        },
+        "allowed": true,
+        "relationship": "cross-family",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      }
+    }
+  }
+}

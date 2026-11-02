@@ -12,14 +12,14 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
 
 import io
 
-from multilinux import cli
-from multilinux import desktop_integrations as integrations_module
-from multilinux.desktop import HostDesktop, render_desktop_entry, render_exec
-from multilinux.desktop_integrations import DesktopIntegrationManager
-from multilinux.errors import MultilinuxError
-from multilinux.handlers import execution_fingerprint
-from multilinux.on_demand import managed_open, worker_command
-from multilinux.project_sessions import ProjectSessions
+from unifier import cli
+from unifier import desktop_integrations as integrations_module
+from unifier.desktop import HostDesktop, render_desktop_entry, render_exec
+from unifier.desktop_integrations import DesktopIntegrationManager
+from unifier.errors import UnifierError
+from unifier.handlers import execution_fingerprint
+from unifier.on_demand import managed_open, worker_command
+from unifier.project_sessions import ProjectSessions
 from test_file_routes import ready
 
 
@@ -97,7 +97,7 @@ class InstallAndRevoke(unittest.TestCase):
             manager.host.applications.mkdir(parents=True, exist_ok=True)
             foreign = manager.host.applications / "taken.desktop"
             foreign.write_text("foreign application\n", encoding="utf-8")
-            with self.assertRaisesRegex(MultilinuxError, "refusing to replace"):
+            with self.assertRaisesRegex(UnifierError, "refusing to replace"):
                 manager.install(project["project_uuid"], name="Taken",
                                 desktop_alias="taken")
             self.assertEqual(foreign.read_text(encoding="utf-8"), "foreign application\n")
@@ -115,7 +115,7 @@ class ConflictAndRecovery(unittest.TestCase):
             record = manager.install(project["project_uuid"], name="Demo")
             desktop = Path(record["desktop_path"])
             desktop.write_text("later user choice\n", encoding="utf-8")
-            with self.assertRaisesRegex(MultilinuxError, "needs reconciliation"):
+            with self.assertRaisesRegex(UnifierError, "needs reconciliation"):
                 manager.revoke(record["integration_uuid"])
             self.assertEqual(desktop.read_text(encoding="utf-8"), "later user choice\n")
             conflicted = manager.show(record["integration_uuid"])
@@ -135,7 +135,7 @@ class ConflictAndRecovery(unittest.TestCase):
                 mime_type="application/x-multilinux-note", extension="mlnote")
             later = b"[Default Applications]\ntext/plain=other.desktop;\n"
             manager.host.mimeapps.write_bytes(later)
-            with self.assertRaisesRegex(MultilinuxError, "needs reconciliation"):
+            with self.assertRaisesRegex(UnifierError, "needs reconciliation"):
                 manager.revoke(record["integration_uuid"])
             self.assertEqual(manager.host.mimeapps.read_bytes(), later)
             self.assertTrue(Path(record["desktop_path"]).exists())
@@ -242,7 +242,7 @@ class LauncherPins(unittest.TestCase):
             self.assertNotEqual(service.show_app("freecad")["app_instance_uuid"],
                                 old_instance)
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "instance changed"):
+            with self.assertRaisesRegex(UnifierError, "instance changed"):
                 service.open_app(
                     "freecad", [], expected_app_instance_uuid=old_instance,
                     expected_execution_fingerprint=old_fingerprint,
@@ -251,14 +251,14 @@ class LauncherPins(unittest.TestCase):
             self.assertFalse(any(event[0] == "start" for event in runtime.events))
             self.assertEqual(service.inspect("arch")["runtime_state"], "stopped")
             # The old cached launcher pins are also rejected directly.
-            with self.assertRaisesRegex(MultilinuxError, "instance changed"):
+            with self.assertRaisesRegex(UnifierError, "instance changed"):
                 manager.validate_launcher(
                     record["integration_uuid"],
                     project_uuid=project["project_uuid"], app_id="freecad",
                     app_instance_uuid=old_instance,
                     execution_fingerprint=old_fingerprint)
             manager.revoke(record["integration_uuid"])
-            with self.assertRaisesRegex(MultilinuxError, "revoked"):
+            with self.assertRaisesRegex(UnifierError, "revoked"):
                 manager.validate_launcher(
                     record["integration_uuid"],
                     project_uuid=project["project_uuid"], app_id="freecad",
@@ -289,7 +289,7 @@ class LauncherPins(unittest.TestCase):
             service.add_app("arch", "freecad", "/usr/bin/freecad",
                             ["/usr/bin/freecad"], workdir=str(root / "project"))
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "instance changed"):
+            with self.assertRaisesRegex(UnifierError, "instance changed"):
                 managed_open(
                     service, "freecad", [],
                     expected_app_instance_uuid=old_instance,
@@ -333,7 +333,7 @@ class LauncherPins(unittest.TestCase):
             manager = manager_for(root, service)
             record = manager.install(project["project_uuid"], name="Project")
             manager.revoke(record["integration_uuid"])
-            with self.assertRaisesRegex(MultilinuxError, "revoked"):
+            with self.assertRaisesRegex(UnifierError, "revoked"):
                 manager.validate_launcher(
                     record["integration_uuid"],
                     project_uuid=project["project_uuid"], app_id=None)
@@ -364,11 +364,11 @@ class ExactRestoreAndConflicts(unittest.TestCase):
             record = manager.install(project["project_uuid"], name="Project")
             desktop = Path(record["desktop_path"])
             desktop.write_text("external choice\n", encoding="utf-8")
-            with self.assertRaisesRegex(MultilinuxError, "needs reconciliation"):
+            with self.assertRaisesRegex(UnifierError, "needs reconciliation"):
                 manager.revoke(record["integration_uuid"])
             self.assertEqual(manager.show(record["integration_uuid"])["state"],
                              "conflict")
-            with self.assertRaisesRegex(MultilinuxError, "is in conflict"):
+            with self.assertRaisesRegex(UnifierError, "is in conflict"):
                 manager.revoke(record["integration_uuid"])
             self.assertEqual(desktop.read_text(encoding="utf-8"), "external choice\n")
             self.assertEqual(manager.show(record["integration_uuid"])["state"],

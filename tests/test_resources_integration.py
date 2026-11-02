@@ -12,10 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-from multilinux.project import load_project
-from multilinux.resources import ResourceProbe
-from multilinux.runtime import PodmanRuntime, container_name, project_label
-from multilinux.service import EnvironmentService, now
+from podman_test_support import admitted_targets, isolated_service
+from unifier.resources import ResourceProbe
+from unifier.runtime import container_name, project_label
+from unifier.service import now
 
 
 ENV_ID = "m4resources"
@@ -36,9 +36,10 @@ def _reset(service, runtime):
                      "set MULTILINUX_INTEGRATION=1 to use rootless Podman")
 class ResourceSampling(unittest.TestCase):
     def test_running_idle_and_stopped_states_are_sampled(self):
-        config, lock, root = load_project()
-        runtime = PodmanRuntime()
-        service = EnvironmentService(root, runtime, config, lock)
+        service, runtime, root = isolated_service(self, "m4")
+        targets, plans = admitted_targets(service.config,
+            tuple((ENV_ID, name) for name in ("debian13", "fedora44", "arch")))
+        target = targets[0][1]
         share = Path(tempfile.mkdtemp(prefix="ml-m4res-"))
         probe = ResourceProbe(service)
         evidence = {
@@ -47,14 +48,16 @@ class ResourceSampling(unittest.TestCase):
             "host_kernel": os.uname().release,
             "scope": "Resource readability and one short idle series; not a cross-host benchmark.",
             "environment_id": ENV_ID,
-            "target": "debian13",
+            "target": target,
+            "admission": plans,
             "states": {},
             "passed": False,
         }
         cleanup_errors = []
         try:
             _reset(service, runtime)
-            service.create("debian13", ENV_ID, [str(share)])
+            service.create(target, ENV_ID, [str(share)],
+                           share_label_policy="shared-relabel")
             stopped = probe.sample(ENV_ID)
             self.assertEqual(stopped["runtime_state"], "stopped")
             self.assertIsNone(stopped["cgroup"])
@@ -134,7 +137,8 @@ class ResourceSampling(unittest.TestCase):
         }
         if os.environ.get("MULTILINUX_EVIDENCE") == "1":
             from tools import lab
-            lab.save_json(root / "evidence/m4-resources-integration-2026-10-21.json", evidence)
+            lab.save_json(Path(os.environ.get("UNIFIER_TEST_EVIDENCE", root / "evidence"))
+                          / "m4-resources.json", evidence)
 
 
 if __name__ == "__main__":

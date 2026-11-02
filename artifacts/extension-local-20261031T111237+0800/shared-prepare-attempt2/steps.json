@@ -1,0 +1,295 @@
+[
+  {
+    "name": "debian13-create",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "create",
+      "--target",
+      "debian13",
+      "--id",
+      "debian13",
+      "--network",
+      "pasta",
+      "--share",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+      "--share",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files",
+      "--share-label",
+      "preserve-host",
+      "--desktop",
+      "--userns",
+      "keep-id"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.024,
+    "ok": true
+  },
+  {
+    "name": "debian13-adopt",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "adopt",
+      "--target",
+      "debian13",
+      "--root",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+      "--environment",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.505,
+    "ok": true
+  },
+  {
+    "name": "arch-create",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "env",
+      "create",
+      "--target",
+      "arch",
+      "--id",
+      "arch",
+      "--network",
+      "pasta",
+      "--share",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+      "--share",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files",
+      "--share-label",
+      "preserve-host",
+      "--desktop",
+      "--userns",
+      "keep-id"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.09,
+    "ok": true
+  },
+  {
+    "name": "arch-adopt",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "adopt",
+      "--target",
+      "arch",
+      "--root",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+      "--environment",
+      "arch",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.469,
+    "ok": true
+  },
+  {
+    "name": "debian13-private-root",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "root",
+      "add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.198,
+    "ok": true
+  },
+  {
+    "name": "debian13-project",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "add",
+      "--root",
+      "46feafa1-8cba-4065-98ff-fea7375f6fad",
+      "--environment",
+      "debian13",
+      "--alias",
+      "shared-debian13"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.52,
+    "ok": true
+  },
+  {
+    "name": "debian13-record-mounts",
+    "ok": true,
+    "mounted": [
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project"
+    ]
+  },
+  {
+    "name": "debian13-start",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "start",
+      "debian13",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.147,
+    "ok": true
+  },
+  {
+    "name": "debian13-identity",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "sh",
+      "-c",
+      "printf \"uid=\"; id -u; printf \"gid=\"; id -g; printf \"home=%s\\n\" \"$HOME\"; printf \"mnt=\"; readlink /proc/self/ns/mnt; printf \"pidns=\"; readlink /proc/self/ns/pid; cat /etc/os-release"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.153,
+    "ok": true
+  },
+  {
+    "name": "debian13-mounts",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-debian13",
+      "--",
+      "sh",
+      "-c",
+      "test -d '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project' && test -w '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project' && test -d '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files' && test -w '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files'"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.072,
+    "ok": true
+  },
+  {
+    "name": "arch-private-root",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "root",
+      "add",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.163,
+    "ok": true
+  },
+  {
+    "name": "arch-project",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "add",
+      "--root",
+      "f59f65d1-769b-478a-812d-b1c3ef40af3d",
+      "--environment",
+      "arch",
+      "--alias",
+      "shared-arch"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.476,
+    "ok": true
+  },
+  {
+    "name": "arch-record-mounts",
+    "ok": true,
+    "mounted": [
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files",
+      "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project"
+    ]
+  },
+  {
+    "name": "arch-start",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "start",
+      "arch",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 1.075,
+    "ok": true
+  },
+  {
+    "name": "arch-identity",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "sh",
+      "-c",
+      "printf \"uid=\"; id -u; printf \"gid=\"; id -g; printf \"home=%s\\n\" \"$HOME\"; printf \"mnt=\"; readlink /proc/self/ns/mnt; printf \"pidns=\"; readlink /proc/self/ns/pid; cat /etc/os-release"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.048,
+    "ok": true
+  },
+  {
+    "name": "arch-mounts",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "project",
+      "run",
+      "shared-arch",
+      "--",
+      "sh",
+      "-c",
+      "test -d '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project' && test -w '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project' && test -d '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files' && test -w '/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files'"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 2.059,
+    "ok": true
+  },
+  {
+    "name": "management-list",
+    "argv": [
+      "/home/omg/文档/多兼容linux机/bin/unifier",
+      "list",
+      "--json"
+    ],
+    "root": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management",
+    "exit": 0,
+    "expected_exit": 0,
+    "seconds": 0.56,
+    "ok": true
+  },
+  {
+    "name": "complete",
+    "ok": true
+  }
+]

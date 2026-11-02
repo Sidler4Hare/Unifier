@@ -1,5 +1,8 @@
-"""Persistent multi-distribution application environments.
+"""Old import path for the unifier package.
 
-Preparation commands stay in tools/lab.py. This package is the M1 lifecycle core:
-create, inspect, start, execute, stop and remove a project-owned environment.
+Each submodule forwards to the same module under ``unifier``. Container
+labels, MIME types, desktop ids and on-disk prefixes keep their original
+spellings because those values are already stored on containers and records.
 """
+
+from unifier import __version__

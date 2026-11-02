@@ -1,0 +1,238 @@
+{
+  "captured_at": "2026-10-30T12:44:22.304442+00:00",
+  "scope": "Current-host headless lifecycle, native package query and policy replay; no GUI, devices or other-host acceptance",
+  "registry": "/home/dev/server-validation-20261030T204043+0800/unifier-current/.lab/whitelist-live-syks3rjf",
+  "before": [
+    {
+      "id": "5e2d5d5b2b04a7e840755f747c96085ff8db11fd6b33584ef51c9e78e4e1871f",
+      "name": "ml-b22ecff5-archdemo-deb",
+      "status": "exited",
+      "started_at": "2026-10-29T08:26:36.98367951+08:00",
+      "finished_at": "2026-10-29T08:26:40.691012863+08:00"
+    }
+  ],
+  "targets": {
+    "debian13": {
+      "container_id": "42bc5d00c839dfdd72a373bbfba8440d7249f7d255c3d0ab0949a2995d92d77d",
+      "distribution_id": "debian",
+      "version_track": "13",
+      "base_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 1,
+        "mode": "whitelist",
+        "host": {
+          "id": "arch",
+          "version_id": "",
+          "variant_id": "",
+          "id_like": [],
+          "family": "arch",
+          "reference_host": "arch",
+          "integration_profile": "arch",
+          "package_driver": "pacman",
+          "base_package_driver": "pacman",
+          "package_format": "arch",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "debian13",
+        "container_family": "debian",
+        "container_contract": {
+          "family": "debian",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "apt",
+          "package_format": "deb",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "versioned-release"
+        },
+        "allowed": true,
+        "relationship": "cross-family",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      },
+      "query": {
+        "environment_id": "debian13",
+        "package": "base-files",
+        "present": true,
+        "exit_code": 0,
+        "detail": "base-files\t13.8+deb13u7"
+      },
+      "shared_kernel": true,
+      "exit_code_17": true,
+      "simulated_host_refusal": true,
+      "restart_after_stop": true
+    },
+    "fedora44": {
+      "container_id": "e34a3f2f34b241bb9fcab5d965b392638abd26a2f9fc88e1ee89eac9b90bb36e",
+      "distribution_id": "fedora",
+      "version_track": "44",
+      "base_digest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 1,
+        "mode": "whitelist",
+        "host": {
+          "id": "arch",
+          "version_id": "",
+          "variant_id": "",
+          "id_like": [],
+          "family": "arch",
+          "reference_host": "arch",
+          "integration_profile": "arch",
+          "package_driver": "pacman",
+          "base_package_driver": "pacman",
+          "package_format": "arch",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "fedora44",
+        "container_family": "fedora",
+        "container_contract": {
+          "family": "fedora",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "dnf",
+          "package_format": "rpm",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "versioned-release"
+        },
+        "allowed": true,
+        "relationship": "cross-family",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      },
+      "query": {
+        "environment_id": "fedora44",
+        "package": "filesystem",
+        "present": true,
+        "exit_code": 0,
+        "detail": "filesystem\t3.18-52.fc44.x86_64"
+      },
+      "shared_kernel": true,
+      "exit_code_17": true,
+      "simulated_host_refusal": true,
+      "restart_after_stop": true
+    },
+    "arch": {
+      "container_id": "e44d89c0ce69c53d609739eb746c4c4ed8fc46a57e32354d998a74f4a0cbe554",
+      "distribution_id": "arch",
+      "version_track": "rolling",
+      "base_digest": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 1,
+        "mode": "whitelist",
+        "host": {
+          "id": "arch",
+          "version_id": "",
+          "variant_id": "",
+          "id_like": [],
+          "family": "arch",
+          "reference_host": "arch",
+          "integration_profile": "arch",
+          "package_driver": "pacman",
+          "base_package_driver": "pacman",
+          "package_format": "arch",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "arch",
+        "container_family": "arch",
+        "container_contract": {
+          "family": "arch",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "pacman",
+          "package_format": "arch",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "full-system-upgrade"
+        },
+        "allowed": true,
+        "relationship": "same-distribution",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      },
+      "query": {
+        "environment_id": "arch",
+        "package": "filesystem",
+        "present": true,
+        "exit_code": 0,
+        "detail": "filesystem 2025.10.12-1"
+      },
+      "shared_kernel": true,
+      "exit_code_17": true,
+      "simulated_host_refusal": true,
+      "restart_after_stop": true
+    }
+  },
+  "errors": [],
+  "after": [
+    {
+      "id": "5e2d5d5b2b04a7e840755f747c96085ff8db11fd6b33584ef51c9e78e4e1871f",
+      "name": "ml-b22ecff5-archdemo-deb",
+      "status": "exited",
+      "started_at": "2026-10-29T08:26:36.98367951+08:00",
+      "finished_at": "2026-10-29T08:26:40.691012863+08:00"
+    }
+  ],
+  "existing_containers_preserved": true,
+  "passed": true
+}

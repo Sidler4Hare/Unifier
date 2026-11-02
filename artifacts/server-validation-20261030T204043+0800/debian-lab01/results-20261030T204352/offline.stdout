@@ -1,0 +1,6 @@
+PASS Python syntax: 177 files
+PASS legacy module aliases: 42
+PASS five CLI entry points
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+removed demo

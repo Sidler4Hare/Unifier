@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "targets": [
+    {
+      "target": "debian13",
+      "package": "base-files",
+      "file_count": 100,
+      "passed": true,
+      "preview": [
+        "/.",
+        "/boot",
+        "/dev",
+        "/etc",
+        "/etc/debian_version"
+      ],
+      "restored_stopped": true
+    },
+    {
+      "target": "arch",
+      "package": "filesystem",
+      "file_count": 127,
+      "passed": true,
+      "preview": [
+        "/bin",
+        "/boot/",
+        "/dev/",
+        "/etc/",
+        "/etc/arch-release"
+      ],
+      "restored_stopped": true
+    }
+  ]
+}

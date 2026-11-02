@@ -1,0 +1,17 @@
+[
+  "README.md",
+  "HANDOFF.md",
+  "tests/test_lab.py",
+  "tests/test_env.py",
+  "tests/test_packages.py",
+  "tests/test_compatibility.py",
+  "tests/test_cli_shortcuts.py",
+  "tools/lab.py",
+  "tools/probe_headless.py",
+  "设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md",
+  "设计/Ubuntu-Server白名单与容器验收-2026-10-28.md",
+  "设计/CLI首次配置与发行版专用目录-2026-10-29.md",
+  "设计/发行版派系白名单与容器关系-2026-10-28.md",
+  "src/unifier/compatibility.py",
+  "src/unifier/shortcuts.py"
+]

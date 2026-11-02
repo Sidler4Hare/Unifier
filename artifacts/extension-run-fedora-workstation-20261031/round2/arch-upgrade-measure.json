@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "allowed": true,
+  "download_bytes": 26678828,
+  "packages": 17,
+  "sample": [
+    {
+      "name": "brotli",
+      "bytes": 414187
+    },
+    {
+      "name": "ca-certificates-mozilla",
+      "bytes": 388403
+    },
+    {
+      "name": "curl",
+      "bytes": 1372375
+    },
+    {
+      "name": "dbus",
+      "bytes": 368742
+    },
+    {
+      "name": "device-mapper",
+      "bytes": 327598
+    },
+    {
+      "name": "gnupg",
+      "bytes": 3030384
+    },
+    {
+      "name": "iproute2",
+      "bytes": 1247631
+    },
+    {
+      "name": "libarchive",
+      "bytes": 602030
+    }
+  ],
+  "threshold_bytes": 83886080
+}

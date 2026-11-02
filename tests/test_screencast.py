@@ -19,8 +19,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT), str(ROOT / "tests")]
 
-from multilinux import screencast
-from multilinux.screencast import (
+from unifier import screencast
+from unifier.screencast import (
     ScreenCastCancelled,
     ScreenCastClient,
     ScreenCastProtocolError,
@@ -167,7 +167,7 @@ class LazyImport(unittest.TestCase):
         code = textwrap.dedent(
             "import sys\n"
             f"sys.path[:0] = [{str(ROOT / 'src')!r}, {str(ROOT)!r}]\n"
-            "import multilinux.screencast\n"
+            "import unifier.screencast\n"
             "import tools.probe_screencast\n"
             "assert 'gi' not in sys.modules, sorted(k for k in sys.modules if k == 'gi')\n"
             "print('lazy-ok')\n")

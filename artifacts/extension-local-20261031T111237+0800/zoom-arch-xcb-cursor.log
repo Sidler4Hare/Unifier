@@ -1,0 +1,90 @@
+arch: pacman -Syu --noconfirm --needed xcb-util-cursor
+arch: install completed txn2d92516eef94
+{
+  "schema_version": 1,
+  "id": "txn2d92516eef94",
+  "environment_id": "arch",
+  "operation": "install",
+  "packages": [
+    "xcb-util-cursor"
+  ],
+  "use_command": [],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+    "content_revision": 7,
+    "package_inventory_sha256": "b171fb17ca851b43b2e91e8d507f5f24e6bd73980028ff3b941a1fb66f0346a6"
+  },
+  "native": [
+    {
+      "argv": [
+        "pacman",
+        "-Syu",
+        "--noconfirm",
+        "--needed",
+        "xcb-util-cursor"
+      ],
+      "exit_code": 0,
+      "stdout_tail": ":: Synchronizing package databases...\n core downloading...\n extra downloading...\n:: Starting full system upgrade...\n there is nothing to do\n",
+      "stderr_tail": "warning: xcb-util-cursor-0.1.6-1 is up to date -- skipping\n"
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "xcb-util-cursor": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "debian13": {
+      "before": "b7c9577a37f5a0fdce6446f786f049fd8ea314657db50845b9445ba838fd7dd3",
+      "after": "b7c9577a37f5a0fdce6446f786f049fd8ea314657db50845b9445ba838fd7dd3",
+      "probed_before": "b7c9577a37f5a0fdce6446f786f049fd8ea314657db50845b9445ba838fd7dd3",
+      "probed_after": "b7c9577a37f5a0fdce6446f786f049fd8ea314657db50845b9445ba838fd7dd3",
+      "unchanged": true,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+    "content_revision": 7,
+    "package_inventory_sha256": "b171fb17ca851b43b2e91e8d507f5f24e6bd73980028ff3b941a1fb66f0346a6"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-31T13:01:34+08:00",
+  "finished_at": "2026-10-31T13:01:43+08:00"
+}

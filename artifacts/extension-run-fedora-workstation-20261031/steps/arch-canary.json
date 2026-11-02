@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "desktop_flag": true,
+  "userns": null,
+  "network": null,
+  "mounts": [
+    {
+      "host": "/home/omg/.local/share/unifier-extension-20261031/containers/arch/files",
+      "container": "/home/omg/.local/share/unifier-extension-20261031/containers/arch/files",
+      "options": "z"
+    }
+  ],
+  "guest_file": "cycle1-guest\ncycle2-guest\n",
+  "desktop_probe": [
+    "WAYLAND=",
+    "XDG_RUNTIME_DIR=",
+    "DISPLAY=",
+    "NO_WAYLAND_ENV",
+    "HOME=/root",
+    "LANG=C.UTF-8",
+    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "PWD=/"
+  ],
+  "wayland_socket_listed": false
+}

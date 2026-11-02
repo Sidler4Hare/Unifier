@@ -9,8 +9,8 @@ import unittest
 import uuid
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from multilinux.desktop import HostDesktop
-from multilinux.desktop_integrations import DesktopIntegrationManager
+from unifier.desktop import HostDesktop
+from unifier.desktop_integrations import DesktopIntegrationManager
 
 
 class DesktopRevocationRecoveryTests(unittest.TestCase):

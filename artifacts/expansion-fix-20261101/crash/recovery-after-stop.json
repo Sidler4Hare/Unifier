@@ -1,0 +1,17 @@
+{
+  "environment_id": "interrupt-debian",
+  "status": "recovered",
+  "transactions": [
+    "txnd5fe78e3d43d"
+  ],
+  "database_audit": {
+    "argv": [
+      "dpkg",
+      "--audit"
+    ],
+    "exit_code": 0,
+    "stdout_tail": "",
+    "stderr_tail": ""
+  },
+  "package_inventory_sha256": "cc8771e45300bef80fc11cc2212568c9ae14f9c9300e2ca4f25c459e65385c9f"
+}

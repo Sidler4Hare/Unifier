@@ -1,0 +1,153 @@
+{
+  "observed_date": "2026-10-31",
+  "timezone": "Asia/Shanghai",
+  "scope": "official project/distribution documentation only; no installer downloaded or hashed",
+  "sources": [
+    {
+      "id": "jq-upstream",
+      "url": "https://jqlang.org/download/",
+      "observation": "项目提供独立 Linux 二进制，并链接 Debian/Fedora/Arch 仓库；独立 ELF 不是 DEB/RPM。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "jq-debian",
+      "url": "https://packages.debian.org/trixie/jq",
+      "observation": "Debian 13 jq 包及 libjq1 依赖；页面体积不含依赖闭包。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "jq-fedora",
+      "url": "https://packages.fedoraproject.org/pkgs/jq/jq/fedora-44.html",
+      "observation": "Fedora 44 jq RPM、依赖与 /usr/bin/jq。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "jq-arch",
+      "url": "https://archlinux.org/packages/extra/x86_64/jq/",
+      "observation": "Arch 官方仓库 jq 包，版本与其他发行版不同。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "ripgrep",
+      "url": "https://github.com/BurntSushi/ripgrep",
+      "observation": "官方 README 列上游 DEB、发行版安装和压缩二进制路线；命令 rg。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "fd",
+      "url": "https://github.com/sharkdp/fd",
+      "observation": "Debian fd-find 命令 fdfind，上游 DEB 命令 fd；Fedora 包 fd-find、Arch 包 fd。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "fd-debian",
+      "url": "https://packages.debian.org/trixie/fd-find",
+      "observation": "Debian 13 fd-find 项目包存在。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "bat",
+      "url": "https://github.com/sharkdp/bat",
+      "observation": "上游 DEB、Fedora/Arch 仓库路线与分页功能；可执行名需按实际包核对。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "bat-debian-files",
+      "url": "https://packages.debian.org/trixie/amd64/bat/filelist",
+      "observation": "当前 trixie 文件清单为 /usr/bin/batcat，不能只按通用 README 推断 bat。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "sqlite",
+      "url": "https://sqlite.org/cli.html",
+      "observation": "CLI 支持数据库文件、SQL、导入导出；测试采用合成数据。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "sqlite-license",
+      "url": "https://sqlite.org/copyright.html",
+      "observation": "SQLite 核心交付代码为 public domain，单列说明。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "sqlite-debian",
+      "url": "https://packages.debian.org/trixie/sqlite3",
+      "observation": "Debian CLI 包名 sqlite3。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "sqlite-fedora",
+      "url": "https://packages.fedoraproject.org/pkgs/sqlite/sqlite/",
+      "observation": "Fedora 包名 sqlite；编译选项有发行版差异。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "sqlite-arch",
+      "url": "https://archlinux.org/packages/core/x86_64/sqlite/",
+      "observation": "Arch 包名 sqlite，来源为官方仓库。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "htop",
+      "url": "https://htop.dev/downloads.html",
+      "observation": "项目源码由上游提供，二进制由发行版提供；交互式进程查看器。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "htop-fedora",
+      "url": "https://packages.fedoraproject.org/pkgs/htop/htop/",
+      "observation": "Fedora 44 htop 仓库包。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "htop-arch",
+      "url": "https://archlinux.org/packages/extra/x86_64/htop/",
+      "observation": "Arch 官方 htop 仓库包。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "keepassxc",
+      "url": "https://keepassxc.org/download/",
+      "observation": "官方页面列 AppImage、Flatpak、Snap 和发行版原生包；本轮只作为未支持格式边界候选。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "makepkg",
+      "url": "https://man.archlinux.org/man/makepkg.conf.5.en",
+      "observation": "PKGEXT 控制 Arch 包压缩方式；xz/gz 可用受控构建验证，不能给 zst 改后缀。",
+      "access_status": "READ",
+      "artifact_locked": false
+    },
+    {
+      "id": "apt-manual",
+      "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+      "observation": "apt 面向用户交互；脚本优先 apt-get/apt-cache，不能混算测试覆盖。",
+      "access_status": "READ",
+      "artifact_locked": false
+    }
+  ],
+  "unavailable_pages": [
+    "https://packages.debian.org/trixie/amd64/fd-find/filelist",
+    "https://packages.fedoraproject.org/pkgs/fd-find/fd-find/",
+    "https://wiki.alpinelinux.org/wiki/Alpine_Package_Keeper"
+  ],
+  "unavailable_page_handling": "Use upstream fd documentation and Debian package overview as evidence; actual native file list required before --exec. No success claimed for unavailable pages. Alpine wiki returned 403; apk implementation boundary is verified from local catalog/packages/compatibility source, not this unavailable page."
+}

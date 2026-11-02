@@ -1,0 +1,435 @@
+{
+  "version": "0.0.1",
+  "hostname": "b0512",
+  "python": "3.12.3",
+  "kernel": "6.8.0-147-generic",
+  "scope": "exact package offline tests, real cross-family lifecycle, CLI, bind and stopped-view browsing; no GUI/media",
+  "commands": {
+    "offline": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/check_repo.py"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "version": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "--version"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "doctor": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/lab.py",
+        "doctor"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "matrix": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "compat",
+        "matrix"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "refuse-init-debian13": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "init",
+        "--target",
+        "debian13",
+        "--yes"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "passed": true
+    },
+    "refuse-create-debian13": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "create",
+        "--target",
+        "debian13",
+        "--id",
+        "forbidden"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "passed": true
+    },
+    "headless": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/probe_headless.py",
+        "--output",
+        "/home/agent/unifier-v001-validation-20261030T230003/results/headless.json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "init": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "init",
+        "--yes",
+        "--network",
+        "none",
+        "--target",
+        "fedora44",
+        "--target",
+        "arch"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "fedora44-files": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "path",
+        "fedora44",
+        "--files"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "fedora44-start": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "start",
+        "fedora44"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "fedora44-bind": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "fedora44",
+        "--workdir",
+        "/home/agent/unifier-v001-validation-20261030T230003/results/installation/containers/fedora44/files",
+        "--",
+        "sh",
+        "-c",
+        "test \"$(cat host-marker)\" = HOST && printf GUEST > guest-marker"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "fedora44-exit17": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "fedora44",
+        "--workdir",
+        "/",
+        "--",
+        "sh",
+        "-c",
+        "exit 17"
+      ],
+      "returncode": 17,
+      "expected": 17,
+      "passed": true
+    },
+    "fedora44-running-etc": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "fedora44",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "fedora44-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "fedora44"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "fedora44-stopped-_": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "fedora44",
+        "/",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "fedora44-stopped-_usr": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "fedora44",
+        "/usr",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "fedora44-stopped-_etc": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "fedora44",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "fedora44-state": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "inspect",
+        "fedora44"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "arch-files": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "path",
+        "arch",
+        "--files"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "arch-start": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "start",
+        "arch"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "arch-bind": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "arch",
+        "--workdir",
+        "/home/agent/unifier-v001-validation-20261030T230003/results/installation/containers/arch/files",
+        "--",
+        "sh",
+        "-c",
+        "test \"$(cat host-marker)\" = HOST && printf GUEST > guest-marker"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "arch-exit17": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "run",
+        "arch",
+        "--workdir",
+        "/",
+        "--",
+        "sh",
+        "-c",
+        "exit 17"
+      ],
+      "returncode": 17,
+      "expected": 17,
+      "passed": true
+    },
+    "arch-running-etc": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "arch",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "arch-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "arch"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "arch-stopped-_": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "arch",
+        "/",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "arch-stopped-_usr": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "arch",
+        "/usr",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "arch-stopped-_etc": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "ls",
+        "arch",
+        "/etc",
+        "--json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "arch-state": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "inspect",
+        "arch"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "fedora44-cleanup-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "fedora44"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "fedora44-cleanup-remove": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "remove",
+        "fedora44",
+        "--yes"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "arch-cleanup-stop": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "stop",
+        "arch"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "arch-cleanup-remove": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "remove",
+        "arch",
+        "--yes"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true
+    }
+  },
+  "allowed": [
+    "fedora44",
+    "arch"
+  ],
+  "blocked": [
+    "debian13"
+  ],
+  "error": null,
+  "before": [],
+  "headless_passed": true,
+  "after": [],
+  "existing_containers_preserved": true,
+  "remaining_mounts": [],
+  "passed": true
+}

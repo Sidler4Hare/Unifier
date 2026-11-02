@@ -17,9 +17,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "tests"))
 
-from multilinux import fuse_view
-from multilinux.on_demand import process_stamp
-from multilinux.views import _control_request
+from unifier import fuse_view
+from unifier.on_demand import process_stamp
+from unifier.views import _control_request
 from test_projection_support import (
     CaptureServer, attr_from_payload, backend_for)
 
@@ -183,9 +183,10 @@ class RevalidationInvalidation(unittest.TestCase):
                 fh = server.open_file(node)
                 self.assertEqual(server.read(fh, 0, 4096)[1], b"O" * 4096)
 
-                # First real revalidation establishes the baseline only.
+                # LOOKUP already established the baseline. Even unchanged
+                # regular files need invalidation: timestamps can collide.
                 self.assertEqual(server.getattr(node, fh)[2], 0)
-                self.assertEqual(server.notifications, [])
+                self.assertEqual(len(server.notifications), 1)
 
                 before = path.stat()
                 time.sleep(0.02)
@@ -224,10 +225,10 @@ class RevalidationInvalidation(unittest.TestCase):
                     divmod(after.st_ctime_ns, 1_000_000_000))
                 self.assertEqual(server.read(fh, 0, 4096)[1], b"N" * 4096)
 
-                # A second unchanged revalidation must not spam notifications.
+                # Unchanged timestamps cannot establish unchanged content.
                 self.assertEqual(server.getattr(node, fh)[2], 0)
-                self.assertEqual(server.notifications, [])
-                self.assertEqual(server.inval_inode_notifications, 1)
+                self.assertEqual(len(server.notifications), 1)
+                self.assertEqual(server.inval_inode_notifications, 3)
             finally:
                 backend.close()
                 os.close(merged)

@@ -1,0 +1,101 @@
+{
+  "started_at": "2026-10-30T13:15:49.417318+00:00",
+  "hostname": "debian-lab01",
+  "policy_version": 2,
+  "commands": {
+    "matrix": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "compat",
+        "matrix"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "doctor-direct": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/lab.py",
+        "doctor",
+        "--output",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results/doctor.json"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "matched_expected": true
+    },
+    "refuse-init-debian13": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "init",
+        "--target",
+        "debian13",
+        "--yes"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "refuse-create-debian13": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/unifier.py",
+        "env",
+        "create",
+        "debian13",
+        "debian13"
+      ],
+      "returncode": 2,
+      "expected": 1,
+      "matched_expected": false
+    },
+    "refuse-pull-debian13": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/lab.py",
+        "pull",
+        "--target",
+        "debian13"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "matched_expected": true
+    },
+    "refuse-probe-debian13": {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/probe_headless.py",
+        "--target",
+        "debian13",
+        "--output",
+        "/home/dev/server-cross-host-correction-20261030T210239+0800/results/forbidden-headless.json"
+      ],
+      "returncode": 2,
+      "expected": 2,
+      "matched_expected": true
+    }
+  },
+  "positive_cli": {},
+  "scope": "Live cross-family lifecycle and private files, same-family rejection before creation, policy regressions; not complete GUI/Agent/application acceptance",
+  "source_files_verified": 200,
+  "before": [
+    {
+      "id": "944bacb5ed8e8c97e2081409959c2584df8eb39ac837fccc704634a168410d87",
+      "name": "ml-05abfab9-debian13",
+      "status": "exited",
+      "started_at": "2026-10-29T23:00:19.939896503+08:00",
+      "finished_at": "2026-10-29T23:00:21.688782114+08:00"
+    }
+  ],
+  "allowed_targets": [
+    "fedora44",
+    "arch"
+  ],
+  "blocked_targets": [
+    "debian13"
+  ],
+  "same_family_rejection_without_registration": true
+}

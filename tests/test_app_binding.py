@@ -9,8 +9,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
 
-from multilinux.errors import MultilinuxError
-from multilinux.on_demand import LaunchGroup, managed_open
+from unifier.errors import UnifierError
+from unifier.on_demand import LaunchGroup, managed_open
 from test_desktop import SESSION, desktop_service
 
 
@@ -54,7 +54,7 @@ class Binding(unittest.TestCase):
             record["schema_version"] = 1
             service.store.save(record, None)
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "env migrate"):
+            with self.assertRaisesRegex(UnifierError, "env migrate"):
                 service.add_app(
                     "debian13", "notes", "/usr/bin/true", ["/usr/bin/true"])
             self.assertFalse(service._launch_exists("notes"))
@@ -80,7 +80,7 @@ class Binding(unittest.TestCase):
                 lambda: LaunchGroup(service, "debian13").acquire("notes"),
             ):
                 with self.subTest(action=getattr(action, "__name__", "launch")), \
-                     self.assertRaisesRegex(MultilinuxError, "stale|re-register"):
+                     self.assertRaisesRegex(UnifierError, "stale|re-register"):
                     action()
                 self.assertEqual(runtime.events, [])
             self.assertEqual(service.show_app("notes")["environment_binding"], old_binding)
@@ -94,7 +94,7 @@ class Binding(unittest.TestCase):
                 launch["environment_binding"][field] = value
                 service.store.save_launch(launch)
                 runtime.events.clear()
-                with self.assertRaisesRegex(MultilinuxError, "stale"):
+                with self.assertRaisesRegex(UnifierError, "stale"):
                     service.exec_app("notes", ["/usr/bin/true"])
                 self.assertEqual(runtime.events, [])
 
@@ -114,7 +114,7 @@ class Binding(unittest.TestCase):
                 lambda: service.open_app("notes", []),
                 lambda: service.export_app("notes"),
             ):
-                with self.assertRaisesRegex(MultilinuxError, "legacy launch record"):
+                with self.assertRaisesRegex(UnifierError, "legacy launch record"):
                     action()
                 self.assertEqual(runtime.events, [])
 
@@ -135,14 +135,14 @@ class Binding(unittest.TestCase):
             after_valid = list(runtime.events)
 
             escaped = notes / ".." / "secret"
-            with self.assertRaisesRegex(MultilinuxError, "must not contain"):
+            with self.assertRaisesRegex(UnifierError, "must not contain"):
                 service.add_app("debian13", "dotdot", "/usr/bin/true", ["/usr/bin/true"],
                                 workdir=str(escaped))
             os.symlink(secret, notes / "escape")
-            with self.assertRaisesRegex(MultilinuxError, "outside|shared mount"):
+            with self.assertRaisesRegex(UnifierError, "outside|shared mount"):
                 service.add_app("debian13", "symlink", "/usr/bin/true", ["/usr/bin/true"],
                                 workdir=str(notes / "escape"))
-            with self.assertRaisesRegex(MultilinuxError, "valid shared directory|existing directory"):
+            with self.assertRaisesRegex(UnifierError, "valid shared directory|existing directory"):
                 service.add_app("debian13", "missing", "/usr/bin/true", ["/usr/bin/true"],
                                 workdir=str(notes / "missing"))
             self.assertEqual(runtime.events, after_valid)

@@ -1,0 +1,27 @@
+{
+  "deployed_at": "2026-10-30T21:37:54.261346+08:00",
+  "backup": "/home/omg/文档/Unifier-backups/20261030-212917-before-host-authority-fix",
+  "policy_version": 2,
+  "deployments": {
+    "freecad": {
+      "root": "/home/omg/.local/share/multilinux/apps/freecad",
+      "sha256": {
+        "src/multilinux/service.py": "cb0c167ac16f33e1f66edbe21f810477397aab997bd7233f401a63940caef02c",
+        "src/multilinux/compatibility.py": "fa83f42ab379a23cace8bc07abbe9844d55c422915159e983a45620c36866a59",
+        "tools/lab.py": "618d44172bb286c93fbc2795db063832777db32df620c8fdb1f0dd05b948a651",
+        "src/multilinux/cli.py": "da2663d90d8ea58f84692a7bcc6f313601f3539a0764dbbaed5b7c87ed0e5117"
+      },
+      "metadata_sha256": "7c48580946c372e46e92db6660396e79dbfc7d40a45a6ba5350d6d405c9b4f32"
+    },
+    "wemeet": {
+      "root": "/home/omg/.local/share/multilinux/apps/wemeet",
+      "sha256": {
+        "src/multilinux/service.py": "cb0c167ac16f33e1f66edbe21f810477397aab997bd7233f401a63940caef02c",
+        "src/multilinux/compatibility.py": "fa83f42ab379a23cace8bc07abbe9844d55c422915159e983a45620c36866a59",
+        "tools/lab.py": "618d44172bb286c93fbc2795db063832777db32df620c8fdb1f0dd05b948a651",
+        "src/multilinux/cli.py": "da2663d90d8ea58f84692a7bcc6f313601f3539a0764dbbaed5b7c87ed0e5117"
+      },
+      "metadata_sha256": "adef476bea7bee6b63430007ff48f9549e1cd5166461f204ab6cdc8924707b8e"
+    }
+  }
+}

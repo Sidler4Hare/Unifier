@@ -1,0 +1,2 @@
+debian13: container is stopped; listing /usr through a read-only view
+debian13: opening a short-lived read-only view 1592fe72-a3b7-47ad-a4b1-b99769f63789; only this view is released afterwards.

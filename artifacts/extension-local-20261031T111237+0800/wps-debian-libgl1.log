@@ -1,0 +1,99 @@
+debian13: apt-get update
+debian13: apt-get install -y libgl1
+debian13: install completed txn5a4dee64f702
+{
+  "schema_version": 1,
+  "id": "txn5a4dee64f702",
+  "environment_id": "debian13",
+  "operation": "install",
+  "packages": [
+    "libgl1"
+  ],
+  "use_command": [],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "content_revision": 10,
+    "package_inventory_sha256": "6b982ea7d43aaabff95b0865984b0348d1df6bc640d176775b7d4665a576ae9a"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\nReading package lists...\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "libgl1"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "reparing to unpack .../17-libxcb-xfixes0_1.17.0-2+b1_amd64.deb ...\r\nUnpacking libxcb-xfixes0:amd64 (1.17.0-2+b1) ...\r\nSelecting previously unselected package libxshmfence1:amd64.\r\nPreparing to unpack .../18-libxshmfence1_1.3.3-1_amd64.deb ...\r\nUnpacking libxshmfence1:amd64 (1.3.3-1) ...\r\nSelecting previously unselected package mesa-libgallium:amd64.\r\nPreparing to unpack .../19-mesa-libgallium_25.0.7-2+deb13u1_amd64.deb ...\r\nUnpacking mesa-libgallium:amd64 (25.0.7-2+deb13u1) ...\r\nSelecting previously unselected package libgbm1:amd64.\r\nPreparing to unpack .../20-libgbm1_25.0.7-2+deb13u1_amd64.deb ...\r\nUnpacking libgbm1:amd64 (25.0.7-2+deb13u1) ...\r\nSelecting previously unselected package libxcb-glx0:amd64.\r\nPreparing to unpack .../21-libxcb-glx0_1.17.0-2+b1_amd64.deb ...\r\nUnpacking libxcb-glx0:amd64 (1.17.0-2+b1) ...\r\nSelecting previously unselected package libxcb-shm0:amd64.\r\nPreparing to unpack .../22-libxcb-shm0_1.17.0-2+b1_amd64.deb ...\r\nUnpacking libxcb-shm0:amd64 (1.17.0-2+b1) ...\r\nSelecting previously unselected package libxxf86vm1:amd64.\r\nPreparing to unpack .../23-libxxf86vm1_1%3a1.1.4-1+b4_amd64.deb ...\r\nUnpacking libxxf86vm1:amd64 (1:1.1.4-1+b4) ...\r\nSelecting previously unselected package libvulkan1:amd64.\r\nPreparing to unpack .../24-libvulkan1_1.4.309.0-1_amd64.deb ...\r\nUnpacking libvulkan1:amd64 (1.4.309.0-1) ...\r\nSelecting previously unselected package libgl1-mesa-dri:amd64.\r\nPreparing to unpack .../25-libgl1-mesa-dri_25.0.7-2+deb13u1_amd64.deb ...\r\nUnpacking libgl1-mesa-dri:amd64 (25.0.7-2+deb13u1) ...\r\nSelecting previously unselected package libglx-mesa0:amd64.\r\nPreparing to unpack .../26-libglx-mesa0_25.0.7-2+deb13u1_amd64.deb ...\r\nUnpacking libglx-mesa0:amd64 (25.0.7-2+deb13u1) ...\r\nSelecting previously unselected package libglx0:amd64.\r\nPreparing to unpack .../27-libglx0_1.7.0-1+b2_amd64.deb ...\r\nUnpacking libglx0:amd64 (1.7.0-1+b2) ...\r\nSelecting previously unselected package libgl1:amd64.\r\nPreparing to unpack .../28-libgl1_1.7.0-1+b2_amd64.deb ...\r\nUnpacking libgl1:amd64 (1.7.0-1+b2) ...\r\nSelecting previously unselected package libwayland-client0:amd64.\r\nPreparing to unpack .../29-libwayland-client0_1.23.1-3_amd64.deb ...\r\nUnpacking libwayland-client0:amd64 (1.23.1-3) ...\r\nSelecting previously unselected package mesa-vulkan-drivers:amd64.\r\nPreparing to unpack .../30-mesa-vulkan-drivers_25.0.7-2+deb13u1_amd64.deb ...\r\nUnpacking mesa-vulkan-drivers:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libxcb-dri3-0:amd64 (1.17.0-2+b1) ...\r\nSetting up libwayland-server0:amd64 (1.23.1-3) ...\r\nSetting up libx11-xcb1:amd64 (2:1.8.12-1) ...\r\nSetting up libpciaccess0:amd64 (0.17-3+b3) ...\r\nSetting up libxcb-xfixes0:amd64 (1.17.0-2+b1) ...\r\nSetting up libxcb-glx0:amd64 (1.17.0-2+b1) ...\r\nSetting up libedit2:amd64 (3.1-20250104-1) ...\r\nSetting up libsensors-config (1:3.6.2-2) ...\r\nSetting up libxcb-shm0:amd64 (1.17.0-2+b1) ...\r\nSetting up libelf1t64:amd64 (0.192-4) ...\r\nSetting up libxxf86vm1:amd64 (1:1.1.4-1+b4) ...\r\nSetting up libxcb-present0:amd64 (1.17.0-2+b1) ...\r\nSetting up libz3-4:amd64 (4.13.3-1) ...\r\nSetting up libxcb-sync1:amd64 (1.17.0-2+b1) ...\r\nSetting up libsensors5:amd64 (1:3.6.2-2) ...\r\nSetting up libvulkan1:amd64 (1.4.309.0-1) ...\r\nSetting up libxshmfence1:amd64 (1.3.3-1) ...\r\nSetting up libxcb-randr0:amd64 (1.17.0-2+b1) ...\r\nSetting up libdrm-common (2.4.124-2) ...\r\nSetting up libwayland-client0:amd64 (1.23.1-3) ...\r\nSetting up libllvm19:amd64 (1:19.1.7-3+b1) ...\r\nSetting up libdrm2:amd64 (2.4.124-2) ...\r\nSetting up libdrm-amdgpu1:amd64 (2.4.124-2) ...\r\nSetting up mesa-vulkan-drivers:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libdrm-intel1:amd64 (2.4.124-2) ...\r\nSetting up mesa-libgallium:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libgbm1:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libgl1-mesa-dri:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libglx-mesa0:amd64 (25.0.7-2+deb13u1) ...\r\nSetting up libglx0:amd64 (1.7.0-1+b2) ...\r\nSetting up libgl1:amd64 (1.7.0-1+b2) ...\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "libgl1": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "arch": {
+      "before": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "after": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "probed_before": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "probed_after": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "unchanged": true,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "content_revision": 11,
+    "package_inventory_sha256": "40b00c56c8aa289a779ea42bcf63723aee0fb82f07c5b09dee9deff0a61ebee6"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-31T12:04:04+08:00",
+  "finished_at": "2026-10-31T12:05:02+08:00"
+}

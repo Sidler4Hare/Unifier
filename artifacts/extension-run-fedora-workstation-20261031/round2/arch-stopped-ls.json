@@ -1,0 +1,10 @@
+{
+  "ok": false,
+  "recorded_options": "z",
+  "podman_options": [
+    "rbind"
+  ],
+  "podman_rw": true,
+  "stderr": "arch: container is stopped; listing / through a read-only view\nunifier: arch: cannot read the read-only view: BACKEND_UNAVAILABLE: frozen share options changed for /home/omg/.local/share/unifier-extension-20261031-r2/containers/arch/files. The view record and recovery information were kept; run unifier view status, and unifier view recover if needed.",
+  "container_name": "ml-4ac65dfd-arch"
+}

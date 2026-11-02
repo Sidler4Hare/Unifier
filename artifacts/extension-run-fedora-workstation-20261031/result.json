@@ -1,0 +1,924 @@
+{
+  "host_context": "fedora-workstation",
+  "installation_root": "/home/omg/.local/share/unifier-extension-20261031",
+  "steps": [
+    {
+      "name": "cli-help",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "help"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.17
+    },
+    {
+      "name": "cli-help-init",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "help",
+        "init"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.14
+    },
+    {
+      "name": "cli-unknown",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "nosuch"
+      ],
+      "exit": 2,
+      "expect": 2,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.18
+    },
+    {
+      "name": "cli-version",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "--version"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.18
+    },
+    {
+      "name": "language-explicit",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "language",
+        "en",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.14
+    },
+    {
+      "name": "compat-debian",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "compat",
+        "check",
+        "--target",
+        "debian13"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.24
+    },
+    {
+      "name": "compat-arch",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "compat",
+        "check",
+        "--target",
+        "arch"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.21
+    },
+    {
+      "name": "compat-fedora",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "compat",
+        "check",
+        "--target",
+        "fedora44"
+      ],
+      "exit": 1,
+      "expect": null,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.28
+    },
+    {
+      "name": "fedora44-compat-refusal",
+      "ok": true,
+      "exit": 1,
+      "tail": [
+        "    \"guest-identity-and-shared-kernel-check\",",
+        "    \"host-security-policy\",",
+        "    \"desktop-session-and-devices-if-requested\"",
+        "  ],",
+        "  \"validation_scope\": \"policy-only\"",
+        "}"
+      ]
+    },
+    {
+      "name": "compat-matrix",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "compat",
+        "matrix"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.22
+    },
+    {
+      "name": "init-fedora44",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "init",
+        "--target",
+        "fedora44",
+        "--yes",
+        "--no-desktop",
+        "--network",
+        "none",
+        "--json"
+      ],
+      "exit": 1,
+      "expect": null,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.21
+    },
+    {
+      "name": "fedora44-init-refusal",
+      "ok": true,
+      "exit": 1,
+      "new_containers": []
+    },
+    {
+      "name": "env-create-fedora44",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "env",
+        "create",
+        "--target",
+        "fedora44",
+        "--network",
+        "none"
+      ],
+      "exit": 1,
+      "expect": null,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.37
+    },
+    {
+      "name": "fedora44-create-refusal",
+      "ok": true,
+      "exit": 1,
+      "new_containers": []
+    },
+    {
+      "name": "init-admitted",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "init",
+        "--target",
+        "debian13",
+        "--target",
+        "arch",
+        "--yes",
+        "--desktop",
+        "--network",
+        "pasta",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 4.65
+    },
+    {
+      "name": "list",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "list",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.75
+    },
+    {
+      "name": "dirs-debian",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "dirs",
+        "debian13"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.68
+    },
+    {
+      "name": "dirs-arch",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "dirs",
+        "arch"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.59
+    },
+    {
+      "name": "debian13-record",
+      "ok": false,
+      "id": "debian13",
+      "target": "debian13",
+      "desktop": {
+        "selinux_label": "disable",
+        "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+        "env": {
+          "WAYLAND_DISPLAY": "wayland-0",
+          "XDG_RUNTIME_DIR": "/run/user/1000",
+          "DISPLAY": ":0",
+          "XAUTHORITY": "/tmp/ml-xauthority",
+          "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+          "PIPEWIRE_REMOTE": "pipewire-0",
+          "XDG_SESSION_TYPE": "wayland"
+        },
+        "mounts": [
+          {
+            "host": "/run/user/1000/wayland-0",
+            "container": "/run/user/1000/wayland-0",
+            "options": ""
+          },
+          {
+            "host": "/tmp/.X11-unix/X0",
+            "container": "/tmp/.X11-unix/X0",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/xauth_dnPjwq",
+            "container": "/tmp/ml-xauthority",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pulse/native",
+            "container": "/run/user/1000/pulse/native",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pipewire-0",
+            "container": "/run/user/1000/pipewire-0",
+            "options": ""
+          }
+        ]
+      },
+      "network": null,
+      "user_namespace": "keep-id",
+      "runtime_state": "stopped",
+      "mounts": [
+        {
+          "host": "/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files",
+          "container": "/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files",
+          "options": "z"
+        }
+      ]
+    },
+    {
+      "name": "debian13-start-1",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "start",
+        "debian13",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 2.7
+    },
+    {
+      "name": "debian13-guest-read-1",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "env",
+        "run",
+        "debian13",
+        "--",
+        "sh",
+        "-c",
+        "cat '/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files/host-cycle.txt' '/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files/中文 样本.txt'; printf 'cycle1-guest\\n' > '/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files/guest-cycle.txt'"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 2.03
+    },
+    {
+      "name": "debian13-stop-1",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "stop",
+        "debian13",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 2.43
+    },
+    {
+      "name": "debian13-ls-stopped",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "ls",
+        "debian13",
+        "/",
+        "--json"
+      ],
+      "exit": 1,
+      "expect": 0,
+      "ok": false,
+      "timed_out": false,
+      "seconds": 1.44
+    },
+    {
+      "name": "debian13-start-2",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "start",
+        "debian13",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.25
+    },
+    {
+      "name": "debian13-guest-read-2",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "env",
+        "run",
+        "debian13",
+        "--",
+        "sh",
+        "-c",
+        "cat '/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files/host-cycle.txt'; printf 'cycle2-guest\\n' >> '/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files/guest-cycle.txt'"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.92
+    },
+    {
+      "name": "debian13-desktop-env",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "env",
+        "run",
+        "debian13",
+        "--",
+        "sh",
+        "-c",
+        "printf 'WAYLAND=%s\\nXDG_RUNTIME_DIR=%s\\nDISPLAY=%s\\n' \"$WAYLAND_DISPLAY\" \"$XDG_RUNTIME_DIR\" \"$DISPLAY\"; if [ -n \"$XDG_RUNTIME_DIR\" ] && [ -n \"$WAYLAND_DISPLAY\" ]; then ls -l \"$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY\"; else printf 'NO_WAYLAND_ENV\\n'; env | sort; fi"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.52
+    },
+    {
+      "name": "debian13-ls-running",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "ls",
+        "debian13",
+        "/",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.41
+    },
+    {
+      "name": "debian13-stop-2",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "stop",
+        "debian13",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.66
+    },
+    {
+      "name": "debian13-canary",
+      "ok": true,
+      "desktop_flag": true,
+      "userns": null,
+      "network": null,
+      "mounts": [
+        {
+          "host": "/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files",
+          "container": "/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files",
+          "options": "z"
+        }
+      ],
+      "guest_file": "cycle1-guest\ncycle2-guest\n",
+      "desktop_probe": [
+        "WAYLAND=",
+        "XDG_RUNTIME_DIR=",
+        "DISPLAY=",
+        "NO_WAYLAND_ENV",
+        "HOME=/root",
+        "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PWD=/",
+        "container=podman"
+      ],
+      "wayland_socket_listed": false
+    },
+    {
+      "name": "arch-record",
+      "ok": false,
+      "id": "arch",
+      "target": "arch",
+      "desktop": {
+        "selinux_label": "disable",
+        "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+        "env": {
+          "WAYLAND_DISPLAY": "wayland-0",
+          "XDG_RUNTIME_DIR": "/run/user/1000",
+          "DISPLAY": ":0",
+          "XAUTHORITY": "/tmp/ml-xauthority",
+          "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+          "PIPEWIRE_REMOTE": "pipewire-0",
+          "XDG_SESSION_TYPE": "wayland"
+        },
+        "mounts": [
+          {
+            "host": "/run/user/1000/wayland-0",
+            "container": "/run/user/1000/wayland-0",
+            "options": ""
+          },
+          {
+            "host": "/tmp/.X11-unix/X0",
+            "container": "/tmp/.X11-unix/X0",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/xauth_dnPjwq",
+            "container": "/tmp/ml-xauthority",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pulse/native",
+            "container": "/run/user/1000/pulse/native",
+            "options": ""
+          },
+          {
+            "host": "/run/user/1000/pipewire-0",
+            "container": "/run/user/1000/pipewire-0",
+            "options": ""
+          }
+        ]
+      },
+      "network": null,
+      "user_namespace": "keep-id",
+      "runtime_state": "stopped",
+      "mounts": [
+        {
+          "host": "/home/omg/.local/share/unifier-extension-20261031/containers/arch/files",
+          "container": "/home/omg/.local/share/unifier-extension-20261031/containers/arch/files",
+          "options": "z"
+        }
+      ]
+    },
+    {
+      "name": "arch-start-1",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "start",
+        "arch",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.34
+    },
+    {
+      "name": "arch-guest-read-1",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "env",
+        "run",
+        "arch",
+        "--",
+        "sh",
+        "-c",
+        "cat '/home/omg/.local/share/unifier-extension-20261031/containers/arch/files/host-cycle.txt' '/home/omg/.local/share/unifier-extension-20261031/containers/arch/files/中文 样本.txt'; printf 'cycle1-guest\\n' > '/home/omg/.local/share/unifier-extension-20261031/containers/arch/files/guest-cycle.txt'"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.76
+    },
+    {
+      "name": "arch-stop-1",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "stop",
+        "arch",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.1
+    },
+    {
+      "name": "arch-ls-stopped",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "ls",
+        "arch",
+        "/",
+        "--json"
+      ],
+      "exit": 1,
+      "expect": 0,
+      "ok": false,
+      "timed_out": false,
+      "seconds": 0.81
+    },
+    {
+      "name": "arch-start-2",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "start",
+        "arch",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.27
+    },
+    {
+      "name": "arch-guest-read-2",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "env",
+        "run",
+        "arch",
+        "--",
+        "sh",
+        "-c",
+        "cat '/home/omg/.local/share/unifier-extension-20261031/containers/arch/files/host-cycle.txt'; printf 'cycle2-guest\\n' >> '/home/omg/.local/share/unifier-extension-20261031/containers/arch/files/guest-cycle.txt'"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.68
+    },
+    {
+      "name": "arch-desktop-env",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "env",
+        "run",
+        "arch",
+        "--",
+        "sh",
+        "-c",
+        "printf 'WAYLAND=%s\\nXDG_RUNTIME_DIR=%s\\nDISPLAY=%s\\n' \"$WAYLAND_DISPLAY\" \"$XDG_RUNTIME_DIR\" \"$DISPLAY\"; if [ -n \"$XDG_RUNTIME_DIR\" ] && [ -n \"$WAYLAND_DISPLAY\" ]; then ls -l \"$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY\"; else printf 'NO_WAYLAND_ENV\\n'; env | sort; fi"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.75
+    },
+    {
+      "name": "arch-ls-running",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "ls",
+        "arch",
+        "/",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.88
+    },
+    {
+      "name": "arch-stop-2",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "stop",
+        "arch",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.06
+    },
+    {
+      "name": "arch-canary",
+      "ok": true,
+      "desktop_flag": true,
+      "userns": null,
+      "network": null,
+      "mounts": [
+        {
+          "host": "/home/omg/.local/share/unifier-extension-20261031/containers/arch/files",
+          "container": "/home/omg/.local/share/unifier-extension-20261031/containers/arch/files",
+          "options": "z"
+        }
+      ],
+      "guest_file": "cycle1-guest\ncycle2-guest\n",
+      "desktop_probe": [
+        "WAYLAND=",
+        "XDG_RUNTIME_DIR=",
+        "DISPLAY=",
+        "NO_WAYLAND_ENV",
+        "HOME=/root",
+        "LANG=C.UTF-8",
+        "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PWD=/"
+      ],
+      "wayland_socket_listed": false
+    },
+    {
+      "name": "debian-jq-install",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "pkg",
+        "install",
+        "debian13",
+        "jq",
+        "--use-command",
+        "jq",
+        "--use-command",
+        "--version"
+      ],
+      "exit": 2,
+      "expect": 0,
+      "ok": false,
+      "timed_out": false,
+      "seconds": 0.17
+    },
+    {
+      "name": "debian-jq-start",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "start",
+        "debian13",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.27
+    },
+    {
+      "name": "debian-jq-oracle",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "env",
+        "run",
+        "debian13",
+        "--",
+        "sh",
+        "-c",
+        "jq -s 'map(.n) | add' '/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files/sample.json'; jq -e 'select(.name==\"中文\")' '/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files/sample.json' >/dev/null; jq -e . '/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files/bad.json' >/dev/null; echo bad_exit=$?"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.89
+    },
+    {
+      "name": "debian-jq-stop",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "stop",
+        "debian13",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.36
+    },
+    {
+      "name": "debian-jq",
+      "ok": false,
+      "oracle": [
+        "bad_exit=127"
+      ],
+      "install_ok": false
+    },
+    {
+      "name": "arch-start-measure",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "start",
+        "arch",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.31
+    },
+    {
+      "name": "arch-pacman-print",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "env",
+        "run",
+        "arch",
+        "--",
+        "sh",
+        "-c",
+        "pacman -Syu --print --noconfirm --print-format '%n %m' || pacman -Syu --print --noconfirm"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 11.53
+    },
+    {
+      "name": "arch-upgrade-measure",
+      "ok": true,
+      "measured": false,
+      "download_bytes": null,
+      "package_lines": 18,
+      "allowed": false,
+      "threshold_bytes": 83886080,
+      "stderr_tail": []
+    },
+    {
+      "name": "arch-stop-measure",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "stop",
+        "arch",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": 0,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 1.14
+    },
+    {
+      "name": "arch-jq",
+      "ok": true,
+      "status": "DEFERRED_BANDWIDTH",
+      "reason": "Arch -Syu payload was not measured under 80 MiB; no upgrade was applied",
+      "download_bytes": null,
+      "package_lines": 18
+    },
+    {
+      "name": "cleanup-stop-debian13",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "stop",
+        "debian13",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": null,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.56
+    },
+    {
+      "name": "cleanup-remove-debian13",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "env",
+        "remove",
+        "debian13",
+        "--yes"
+      ],
+      "exit": 0,
+      "expect": null,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.71
+    },
+    {
+      "name": "cleanup-stop-arch",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "stop",
+        "arch",
+        "--json"
+      ],
+      "exit": 0,
+      "expect": null,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.59
+    },
+    {
+      "name": "cleanup-remove-arch",
+      "argv": [
+        "/home/omg/文档/多兼容linux机/bin/unifier",
+        "env",
+        "remove",
+        "arch",
+        "--yes"
+      ],
+      "exit": 0,
+      "expect": null,
+      "ok": true,
+      "timed_out": false,
+      "seconds": 0.72
+    },
+    {
+      "name": "cleanup",
+      "ok": true,
+      "owned_leftovers": []
+    },
+    {
+      "name": "daily-containers-preserved",
+      "ok": true,
+      "before": {
+        "ml-53c5c8a5-freecad-arch": {
+          "exit": 0,
+          "line": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5|exited|2026-10-31 10:17:44.182630074 +0800 CST|2026-10-31 10:18:22.918733124 +0800 CST"
+        },
+        "ml-6b061a2f-meeting": {
+          "exit": 0,
+          "line": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb|exited|2026-10-28 20:47:17.749622632 +0800 CST|2026-10-28 20:47:51.415982474 +0800 CST"
+        }
+      },
+      "after": {
+        "ml-53c5c8a5-freecad-arch": {
+          "exit": 0,
+          "line": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5|exited|2026-10-31 10:17:44.182630074 +0800 CST|2026-10-31 10:18:22.918733124 +0800 CST"
+        },
+        "ml-6b061a2f-meeting": {
+          "exit": 0,
+          "line": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb|exited|2026-10-28 20:47:17.749622632 +0800 CST|2026-10-28 20:47:51.415982474 +0800 CST"
+        }
+      }
+    }
+  ],
+  "failed": [
+    "debian13-record",
+    "debian13-ls-stopped",
+    "arch-record",
+    "arch-ls-stopped",
+    "debian-jq-install",
+    "debian-jq"
+  ]
+}

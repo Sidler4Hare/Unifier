@@ -1,0 +1,5 @@
+deps-arch: pacman-key --init
+deps-arch: pacman -Fy
+automatic dependency repair: alsa-lib
+deps-arch: pacman -Syu --noconfirm --needed alsa-lib
+deps-arch: repair-dependencies completed txn1837ac6cca2f

@@ -1,0 +1,63 @@
+{
+  "measured_at": "2026-11-01",
+  "source": "dsh persisted session events and usage",
+  "runs": [
+    {
+      "task": "qwen-task1-attempt2",
+      "session_id": "session-750d3832-ae6b-4c9e-86a4-b8d29338109a",
+      "wall_seconds": 344.881,
+      "steps": 17,
+      "tool_calls": 23,
+      "reported_output_tokens_including_reasoning": 19039,
+      "end_to_end_output_tokens_per_second": 55.2,
+      "uncached_input_tokens": 24232,
+      "reported_cache_read_tokens": 438446,
+      "longest_request_stages": [
+        {
+          "step": 6,
+          "request_to_committed_message_seconds": 73.39
+        },
+        {
+          "step": 4,
+          "request_to_committed_message_seconds": 66.246
+        },
+        {
+          "step": 17,
+          "request_to_committed_message_seconds": 37.471
+        }
+      ],
+      "timing_scope": "client-side turn start to turn end; includes prefill, networking, reasoning, tools and tests; not raw decoder throughput"
+    },
+    {
+      "task": "qwen-task2",
+      "session_id": "session-dd2e7b23-1357-4aff-bee0-0c11ac9ab553",
+      "wall_seconds": 230.973,
+      "steps": 14,
+      "tool_calls": 19,
+      "reported_output_tokens_including_reasoning": 13763,
+      "end_to_end_output_tokens_per_second": 59.59,
+      "uncached_input_tokens": 16924,
+      "reported_cache_read_tokens": 354295,
+      "longest_request_stages": [
+        {
+          "step": 5,
+          "request_to_committed_message_seconds": 84.207
+        },
+        {
+          "step": 4,
+          "request_to_committed_message_seconds": 68.57
+        },
+        {
+          "step": 3,
+          "request_to_committed_message_seconds": 11.862
+        }
+      ],
+      "timing_scope": "client-side turn start to turn end; includes prefill, networking, reasoning, tools and tests; not raw decoder throughput"
+    }
+  ],
+  "limitations": [
+    "two tightly specified small repair tasks",
+    "no same-prompt full-precision or cloud-model comparison",
+    "no server-side prefill/decoding/TTFT/hardware instrumentation"
+  ]
+}

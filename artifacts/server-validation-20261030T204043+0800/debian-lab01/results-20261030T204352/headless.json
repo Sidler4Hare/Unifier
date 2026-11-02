@@ -1,0 +1,98 @@
+{
+  "captured_at": "2026-10-30T12:44:15.126798+00:00",
+  "scope": "Current-host headless lifecycle, native package query and policy replay; no GUI, devices or other-host acceptance",
+  "registry": "/home/dev/server-validation-20261030T204043+0800/unifier-current/.lab/whitelist-live-z3_5r3gs",
+  "before": [
+    {
+      "id": "944bacb5ed8e8c97e2081409959c2584df8eb39ac837fccc704634a168410d87",
+      "name": "ml-05abfab9-debian13",
+      "status": "exited",
+      "started_at": "2026-10-29T23:00:19.939896503+08:00",
+      "finished_at": "2026-10-29T23:00:21.688782114+08:00"
+    }
+  ],
+  "targets": {
+    "debian13": {
+      "container_id": "e3b3c6f6e230e5a83ef270ceedf86eef8ac7ec6b7f4fb6afb0824a6f4ef3bed2",
+      "distribution_id": "debian",
+      "version_track": "13",
+      "base_digest": "sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "compatibility": {
+        "schema_version": 1,
+        "policy_version": 1,
+        "mode": "whitelist",
+        "host": {
+          "id": "debian",
+          "version_id": "13",
+          "variant_id": "",
+          "id_like": [],
+          "family": "debian",
+          "reference_host": "debian",
+          "integration_profile": "debian",
+          "package_driver": "apt",
+          "base_package_driver": "apt",
+          "package_format": "deb",
+          "system": "Linux",
+          "machine": "x86_64",
+          "libc": "glibc",
+          "atomic": false,
+          "admitted": true,
+          "reasons": [],
+          "observation": "live-host"
+        },
+        "target": "debian13",
+        "container_family": "debian",
+        "container_contract": {
+          "family": "debian",
+          "libc": "glibc",
+          "layout": "fhs",
+          "package_driver": "apt",
+          "package_format": "deb",
+          "runtime_backend": "podman-rootless",
+          "update_policy": "versioned-release"
+        },
+        "allowed": true,
+        "relationship": "same-distribution",
+        "reasons": [],
+        "execution_domain": "isolated-container",
+        "host_authority": true,
+        "shared_kernel": true,
+        "share_system_trees": false,
+        "share_package_databases": false,
+        "native_package_validation": "required-even-within-family",
+        "requirements": [
+          "rootless-podman",
+          "cgroup-v2",
+          "locked-linux-amd64-image",
+          "guest-identity-and-shared-kernel-check",
+          "host-security-policy",
+          "desktop-session-and-devices-if-requested"
+        ],
+        "validation_scope": "policy-only"
+      },
+      "query": {
+        "environment_id": "debian13",
+        "package": "base-files",
+        "present": true,
+        "exit_code": 0,
+        "detail": "base-files\t13.8+deb13u7"
+      },
+      "shared_kernel": true,
+      "exit_code_17": true,
+      "simulated_host_refusal": true,
+      "restart_after_stop": true
+    }
+  },
+  "errors": [],
+  "after": [
+    {
+      "id": "944bacb5ed8e8c97e2081409959c2584df8eb39ac837fccc704634a168410d87",
+      "name": "ml-05abfab9-debian13",
+      "status": "exited",
+      "started_at": "2026-10-29T23:00:19.939896503+08:00",
+      "finished_at": "2026-10-29T23:00:21.688782114+08:00"
+    }
+  ],
+  "existing_containers_preserved": true,
+  "passed": true
+}

@@ -10,7 +10,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from multilinux.view_backend import IdMap, ViewBackend, ViewError, build_id_map, read_subid
+from unifier.view_backend import IdMap, ViewBackend, ViewError, build_id_map, read_subid
 
 
 def _stat(fd_or_path):

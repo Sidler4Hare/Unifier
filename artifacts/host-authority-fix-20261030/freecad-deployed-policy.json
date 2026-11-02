@@ -1,0 +1,23 @@
+{
+  "root": "/home/omg/.local/share/multilinux/apps/freecad",
+  "policy_version": 2,
+  "negative_checks": [
+    {
+      "host": "ubuntu",
+      "target": "debian13",
+      "refused_without_runtime_or_state": true
+    },
+    {
+      "host": "fedora",
+      "target": "fedora44",
+      "refused_without_runtime_or_state": true
+    },
+    {
+      "host": "arch",
+      "target": "arch",
+      "refused_without_runtime_or_state": true
+    }
+  ],
+  "duplicate_refused": true,
+  "mixed_matrix_succeeds": true
+}

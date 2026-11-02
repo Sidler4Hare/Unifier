@@ -1,0 +1,99 @@
+debian13: apt-get update
+debian13: apt-get install -y /tmp/ml-incoming/zoom_amd64.deb
+debian13: install-local completed txn02362ead232a
+{
+  "schema_version": 1,
+  "id": "txn02362ead232a",
+  "environment_id": "debian13",
+  "operation": "install-local",
+  "packages": [
+    "zoom"
+  ],
+  "use_command": [],
+  "local_file": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/downloads/zoom_amd64.deb",
+  "revision_before": {
+    "writable_revision": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "content_revision": 12,
+    "package_inventory_sha256": "167c1876a497ea4c7be24b2c3371d4943d29f8c2a2cf8474c567ccf18050ed7a"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nIgn:2 https://www.scootersoftware.com/debian bcompare5 InRelease\nHit:3 http://deb.debian.org/debian trixie-updates InRelease\nGet:4 https://www.scootersoftware.com/debian bcompare5 Release [1477 B]\nHit:5 http://deb.debian.org/debian-security trixie-security InRelease\nGet:6 https://www.scootersoftware.com/debian bcompare5 Release.gpg [874 B]\nGet:7 https://www.scootersoftware.com/debian bcompare5/non-free amd64 Packages [819 B]\nFetched 3170 B in 4s (831 B/s)\nReading package lists...\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "/tmp/ml-incoming/zoom_amd64.deb"
+      ],
+      "exit_code": 0,
+      "stdout_tail": " .../37-libpulse0_17.0+dfsg1-2+b1_amd64.deb ...\r\nUnpacking libpulse0:amd64 (17.0+dfsg1-2+b1) ...\r\nSelecting previously unselected package libxcb-xinerama0:amd64.\r\nPreparing to unpack .../38-libxcb-xinerama0_1.17.0-2+b1_amd64.deb ...\r\nUnpacking libxcb-xinerama0:amd64 (1.17.0-2+b1) ...\r\nSelecting previously unselected package libxcb-xtest0:amd64.\r\nPreparing to unpack .../39-libxcb-xtest0_1.17.0-2+b1_amd64.deb ...\r\nUnpacking libxcb-xtest0:amd64 (1.17.0-2+b1) ...\r\nSelecting previously unselected package libxslt1.1:amd64.\r\nPreparing to unpack .../40-libxslt1.1_1.1.35-1.2+deb13u3_amd64.deb ...\r\nUnpacking libxslt1.1:amd64 (1.1.35-1.2+deb13u3) ...\r\nSelecting previously unselected package zenity-common.\r\nPreparing to unpack .../41-zenity-common_4.1.90-1_all.deb ...\r\nUnpacking zenity-common (4.1.90-1) ...\r\nSelecting previously unselected package zenity.\r\nPreparing to unpack .../42-zenity_4.1.90-1_amd64.deb ...\r\nUnpacking zenity (4.1.90-1) ...\r\nSelecting previously unselected package zoom.\r\nPreparing to unpack .../43-zoom_amd64.deb ...\r\nUnpacking zoom (7.2.1.5760) ...\r\nSetting up libxft2:amd64 (2.3.6-1+b4) ...\r\nSetting up dconf-cli (0.40.0-5) ...\r\nSetting up libpangoxft-1.0-0:amd64 (1.56.3-1) ...\r\nSetting up libyaml-0-2:amd64 (0.2.5-2) ...\r\nSetting up libxmlb2:amd64 (0.3.22-1) ...\r\nSetting up libdbusmenu-glib4:amd64 (18.10.20180917~bzr492+repack1-4) ...\r\nSetting up libibus-1.0-5:amd64 (1.5.32-2) ...\r\nSetting up gettext-base (0.23.1-2) ...\r\nSetting up libharfbuzz-gobject0:amd64 (10.2.0-1+deb13u1) ...\r\nSetting up libmpg123-0t64:amd64 (1.32.10-1+deb13u1) ...\r\nSetting up ibus-data (1.5.32-2) ...\r\nSetting up libxcb-xinerama0:amd64 (1.17.0-2+b1) ...\r\nSetting up libnotify4:amd64 (0.8.6-1) ...\r\nSetting up zenity-common (4.1.90-1) ...\r\nSetting up libflac14:amd64 (1.5.0+ds-2) ...\r\nSetting up gir1.2-glib-2.0:amd64 (2.84.4-3~deb13u5) ...\r\nSetting up libxcb-xtest0:amd64 (1.17.0-2+b1) ...\r\nSetting up im-config (0.57-2) ...\r\nSetting up libasyncns0:amd64 (0.8-6+b5) ...\r\nSetting up ibus-gtk:amd64 (1.5.32-2) ...\r\nSetting up libxslt1.1:amd64 (1.1.35-1.2+deb13u3) ...\r\nSetting up libgirepository-1.0-1:amd64 (1.84.0-1) ...\r\nSetting up ibus-gtk4:amd64 (1.5.32-2) ...\r\nSetting up libstemmer0d:amd64 (2.2.0-4+b2) ...\r\nSetting up ibus-gtk3:amd64 (1.5.32-2) ...\r\nSetting up gir1.2-ibus-1.0:amd64 (1.5.32-2) ...\r\nSetting up libmp3lame0:amd64 (3.100-6+b3) ...\r\nSetting up libdbusmenu-gtk3-4:amd64 (18.10.20180917~bzr492+repack1-4) ...\r\nSetting up gir1.2-freedesktop:amd64 (1.84.0-1) ...\r\nSetting up gir1.2-gdkpixbuf-2.0:amd64 (2.42.12+dfsg-4+deb13u1) ...\r\nSetting up gir1.2-atk-1.0:amd64 (2.56.2-1+deb13u2) ...\r\nSetting up libappstream5:amd64 (1.0.5-1) ...\r\nSetting up libadwaita-1-0:amd64 (1.7.6-1~deb13u1) ...\r\nSetting up zenity (4.1.90-1) ...\r\nSetting up gir1.2-harfbuzz-0.0:amd64 (10.2.0-1+deb13u1) ...\r\nSetting up gir1.2-pango-1.0:amd64 (1.56.3-1) ...\r\nSetting up gir1.2-girepository-2.0:amd64 (1.84.0-1) ...\r\nSetting up python3-gi (3.50.0-4+b1) ...\r\nSetting up libsndfile1:amd64 (1.2.2-2+deb13u1) ...\r\nSetting up python3-ibus-1.0 (1.5.32-2) ...\r\nSetting up libpulse0:amd64 (17.0+dfsg1-2+b1) ...\r\nSetting up gir1.2-gtk-3.0:amd64 (3.24.49-3) ...\r\nProcessing triggers for desktop-file-utils (0.28-1) ...\r\nProcessing triggers for hicolor-icon-theme (0.18-2) ...\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\nProcessing triggers for libglib2.0-0t64:amd64 (2.84.4-3~deb13u5) ...\r\nProcessing triggers for libgtk-3-0t64:amd64 (3.24.49-3) ...\r\nProcessing triggers for shared-mime-info (2.4-5+b2) ...\r\nSetting up ibus (1.5.32-2) ...\r\nCreated symlink '/etc/systemd/user/gnome-session.target.wants/org.freedesktop.IBus.session.GNOME.service' → '/usr/lib/systemd/user/org.freedesktop.IBus.session.GNOME.service'.\r\nUnit /usr/lib/systemd/user/org.freedesktop.IBus.session.GNOME.service is added as a dependency to a non-existent unit gnome-session.target.\r\nProcessing triggers for libgtk-4-1:amd64 (4.18.6+ds-2) ...\r\nSetting up zoom (7.2.1.5760) ...\r\nrun post install script, action is configure...\r\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "zoom": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "arch": {
+      "before": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "after": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "probed_before": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "probed_after": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "unchanged": true,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "content_revision": 13,
+    "package_inventory_sha256": "b7c9577a37f5a0fdce6446f786f049fd8ea314657db50845b9445ba838fd7dd3"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-31T12:51:35+08:00",
+  "finished_at": "2026-10-31T12:52:31+08:00"
+}

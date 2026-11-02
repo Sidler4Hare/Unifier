@@ -14,11 +14,11 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
 
-from multilinux.control import Control
-from multilinux.errors import MultilinuxError
-from multilinux.project_sessions import ProjectSessions
-from multilinux.registry import DataRootRegistry
-from multilinux import root_identity
+from unifier.control import Control
+from unifier.errors import UnifierError
+from unifier.project_sessions import ProjectSessions
+from unifier.registry import DataRootRegistry
+from unifier import root_identity
 from test_project_sessions import ready
 
 
@@ -137,9 +137,9 @@ class PersistentRoots(unittest.TestCase):
         original_stat = os.stat
         def alias_stat(path, *args, **kwargs):
             return observed if os.fspath(path) == str(alias) else original_stat(path, *args, **kwargs)
-        with patch("multilinux.registry.os.stat", side_effect=alias_stat), patch(
-                "multilinux.registry.observe_root", return_value=(observed, dict(IDENTITY))):
-            with self.assertRaisesRegex(MultilinuxError, "alias of the same inode"):
+        with patch("unifier.registry.os.stat", side_effect=alias_stat), patch(
+                "unifier.registry.observe_root", return_value=(observed, dict(IDENTITY))):
+            with self.assertRaisesRegex(UnifierError, "alias of the same inode"):
                 registry.add(str(alias))
 
     def test_filesystem_and_subvolume_replacements_are_refused_even_if_dev_is_reused(self):
@@ -150,7 +150,7 @@ class PersistentRoots(unittest.TestCase):
             with self.subTest(key=key), patch.object(
                     root_identity, "_btrfs_identity", return_value={**IDENTITY, key: value}):
                 before = registry.path.read_bytes()
-                with self.assertRaisesRegex(MultilinuxError, "replaced"):
+                with self.assertRaisesRegex(UnifierError, "replaced"):
                     registry.show(record["root_uuid"])
                 self.assertEqual(registry.path.read_bytes(), before)
 
@@ -160,21 +160,21 @@ class PersistentRoots(unittest.TestCase):
         old = self.directory / "old-data"
         data.rename(old)
         data.mkdir()
-        with self.assertRaisesRegex(MultilinuxError, "replaced"):
+        with self.assertRaisesRegex(UnifierError, "replaced"):
             registry.show(record["root_uuid"])
         data.rmdir()
         data.symlink_to(old, target_is_directory=True)
-        with self.assertRaisesRegex(MultilinuxError, "symbolic link"):
+        with self.assertRaisesRegex(UnifierError, "symbolic link"):
             registry.show(record["root_uuid"])
 
     def test_missing_or_unreadable_identity_is_refused_without_state_changes(self):
         registry, record, _data = self.create_root()
         before = registry.path.read_bytes()
         with patch.object(root_identity, "_btrfs_identity", return_value=None):
-            with self.assertRaisesRegex(MultilinuxError, "replaced"):
+            with self.assertRaisesRegex(UnifierError, "replaced"):
                 registry.show(record["root_uuid"])
         with patch.object(root_identity, "_btrfs_identity", side_effect=OSError(errno.EIO, "failure")):
-            with self.assertRaisesRegex(MultilinuxError, "unavailable"):
+            with self.assertRaisesRegex(UnifierError, "unavailable"):
                 registry.show(record["root_uuid"])
         self.assertEqual(registry.path.read_bytes(), before)
 
@@ -186,9 +186,9 @@ class PersistentRoots(unittest.TestCase):
         registry.path.write_text(json.dumps(payload))
         stale = registry.path.read_bytes()
         # Legacy records do not acquire continuity just because an inode matches.
-        with self.assertRaisesRegex(MultilinuxError, "replaced"):
+        with self.assertRaisesRegex(UnifierError, "replaced"):
             registry.pin_identity(record["root_uuid"])
-        with self.assertRaisesRegex(MultilinuxError, "replaced"):
+        with self.assertRaisesRegex(UnifierError, "replaced"):
             Control(self.directory).resolve_file(record["root_uuid"], "note.txt")
         self.assertEqual(registry.path.read_bytes(), stale)
         rewrite_root(registry, root_dev=data.stat().st_dev)
@@ -208,7 +208,7 @@ class PersistentRoots(unittest.TestCase):
             with self.subTest(value=value):
                 rewrite_root(registry, root_identity=value)
                 before = registry.path.read_bytes()
-                with self.assertRaises(MultilinuxError):
+                with self.assertRaises(UnifierError):
                     registry.show(record["root_uuid"])
                 self.assertEqual(registry.path.read_bytes(), before)
 

@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "target": "arch",
+  "native_package_name": "unifier-cli-probe",
+  "runtime_state_after": "stopped",
+  "package_installed": false
+}

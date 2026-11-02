@@ -10,9 +10,9 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src")]
 
-from multilinux import control as control_module
-from multilinux.control import Control
-from multilinux.errors import MultilinuxError
+from unifier import control as control_module
+from unifier.control import Control
+from unifier.errors import UnifierError
 
 
 class FileReference(unittest.TestCase):
@@ -69,13 +69,13 @@ class FileReference(unittest.TestCase):
                 ".", "./file.txt", "a//b", "dirlink/secret.txt", "link.txt",
             )
             for relative in refused:
-                with self.subTest(relative=relative), self.assertRaises(MultilinuxError):
+                with self.subTest(relative=relative), self.assertRaises(UnifierError):
                     control.resolve_file(uuid, relative)
             self.assertEqual(
                 control.resolve_file(uuid, "file.txt", "source")["role"], "source")
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 control.resolve_file(uuid, "file.txt", "not a role")
-            with self.assertRaises(MultilinuxError):
+            with self.assertRaises(UnifierError):
                 control.resolve_path(str(root / ".." / "etc" / "passwd"))
 
     def test_nested_root_selection_uses_the_longest_registered_match(self):
@@ -105,7 +105,7 @@ class FileReference(unittest.TestCase):
             data.rename(moved)
             data.mkdir()
             (data / "file.txt").write_text("new", encoding="utf-8")
-            with self.assertRaisesRegex(MultilinuxError, "replaced"):
+            with self.assertRaisesRegex(UnifierError, "replaced"):
                 control.resolve_file(registration["root_uuid"], "file.txt")
 
     def test_atomic_editor_replace_produces_a_new_observation(self):
@@ -129,7 +129,7 @@ class FileReference(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             control = Control(Path(temporary))
             registration = control.add_root("/")
-            with self.assertRaisesRegex(MultilinuxError, "mount boundary|device boundary"):
+            with self.assertRaisesRegex(UnifierError, "mount boundary|device boundary"):
                 control.resolve_file(registration["root_uuid"], "proc/version")
 
     def test_missing_mount_identity_refuses_the_capability(self):
@@ -138,8 +138,8 @@ class FileReference(unittest.TestCase):
             (data / "file.txt").write_text("inside", encoding="utf-8")
             with patch.object(
                     control_module, "_mount_id",
-                    side_effect=MultilinuxError("cannot verify the mount boundary")):
-                with self.assertRaisesRegex(MultilinuxError, "cannot verify the mount boundary"):
+                    side_effect=UnifierError("cannot verify the mount boundary")):
+                with self.assertRaisesRegex(UnifierError, "cannot verify the mount boundary"):
                     control.resolve_file(registration["root_uuid"], "file.txt")
 
     def test_nested_root_policy_is_not_bypassed_by_an_explicit_parent_root(self):
@@ -156,7 +156,7 @@ class FileReference(unittest.TestCase):
             self.assertEqual(old_ref["access_policy"], "read-write")
             child = control.add_root(str(child_path), access_policy="read-only")
 
-            with self.assertRaisesRegex(MultilinuxError, "nested data root"):
+            with self.assertRaisesRegex(UnifierError, "nested data root"):
                 control.resolve_file(parent["root_uuid"], "vendor/lib.c")
             direct = control.resolve_file(child["root_uuid"], "lib.c")
             automatic = control.resolve_path(str(child_path / "lib.c"))
@@ -189,7 +189,7 @@ class FileReference(unittest.TestCase):
             self.assertGreater(source.stat().st_nlink, 1)
             for registration, relative in ((first, "shared.txt"), (second, "alias.txt")):
                 with self.subTest(root=registration["root_uuid"]), \
-                     self.assertRaisesRegex(MultilinuxError, "hard-linked"):
+                     self.assertRaisesRegex(UnifierError, "hard-linked"):
                     control.resolve_file(registration["root_uuid"], relative)
             ordinary = control.resolve_file(first["root_uuid"], "plain.txt")
             self.assertEqual(ordinary["observed_version"]["nlink"], 1)

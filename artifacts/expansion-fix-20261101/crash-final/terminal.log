@@ -1,0 +1,20 @@
+interrupt-debian: apt-get update
+Hit:1 http://deb.debian.org/debian trixie InRelease
+Hit:2 http://deb.debian.org/debian trixie-updates InRelease
+Hit:3 http://deb.debian.org/debian-security trixie-security InRelease
+Reading package lists...
+interrupt-debian: apt-get install -y /tmp/ml-incoming/probe-7.0.deb
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages will be upgraded:
+  unifier-interrupt-probe
+1 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+Need to get 0 B/596 B of archives.
+After this operation, 0 B of additional disk space will be used.
+Get:1 /tmp/ml-incoming/probe-7.0.deb unifier-interrupt-probe all 7.0 [596 B]
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4952 files and directories currently installed.)
+Preparing to unpack /tmp/ml-incoming/probe-7.0.deb ...
+Unpacking unifier-interrupt-probe (7.0) over (6.0) ...
+Setting up unifier-interrupt-probe (7.0) ...
+CRASH_READY

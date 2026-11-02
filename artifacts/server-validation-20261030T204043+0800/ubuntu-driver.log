@@ -1,0 +1,17 @@
+{"host": "b0512", "step": "identity", "argv": ["id"], "returncode": 0, "elapsed_seconds": 0.004}
+{"host": "b0512", "step": "virtualization", "argv": ["systemd-detect-virt"], "returncode": 1, "elapsed_seconds": 0.006}
+{"host": "b0512", "step": "mounts", "argv": ["findmnt", "--json", "--target", "/home/agent/server-validation-20261030T204043+0800"], "returncode": 0, "elapsed_seconds": 0.002}
+{"host": "b0512", "step": "user-session", "argv": ["loginctl", "show-user", "1001", "-p", "Linger", "-p", "RuntimePath", "-p", "State"], "returncode": 0, "elapsed_seconds": 0.006}
+{"host": "b0512", "step": "offline", "argv": ["/usr/bin/python3", "-c", "from pathlib import Path; from tools.check_repo import check; check(Path.cwd(), quick=False)"], "returncode": 1, "elapsed_seconds": 31.48}
+{"host": "b0512", "step": "compatibility", "argv": ["/usr/bin/python3", "tools/unifier.py", "compat", "matrix"], "returncode": 0, "elapsed_seconds": 0.198}
+{"host": "b0512", "step": "doctor", "argv": ["/usr/bin/python3", "tools/lab.py", "doctor", "--output", "/home/agent/server-validation-20261030T204043+0800/results-20261030T204344/doctor.json"], "returncode": 1, "elapsed_seconds": 0.185}
+{"host": "b0512", "step": "cli-none", "argv": ["/usr/bin/python3", "tools/unifier.py", "init", "--none", "--yes"], "returncode": 0, "elapsed_seconds": 0.17}
+{"host": "b0512", "step": "cli-status", "argv": ["/usr/bin/python3", "tools/unifier.py", "status"], "returncode": 0, "elapsed_seconds": 0.265}
+{"host": "b0512", "step": "podman-info", "argv": ["podman", "info", "--format", "json"], "returncode": 0, "elapsed_seconds": 0.83}
+{"host": "b0512", "step": "containers-before", "argv": ["podman", "ps", "-a", "--format", "json"], "returncode": 0, "elapsed_seconds": 0.057}
+{"host": "b0512", "step": "images", "argv": ["podman", "images", "--format", "json"], "returncode": 0, "elapsed_seconds": 0.052}
+{"host": "b0512", "step": "image-debian13", "argv": ["podman", "image", "exists", "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483"], "returncode": 1, "elapsed_seconds": 0.063}
+{"host": "b0512", "step": "image-fedora44", "argv": ["podman", "image", "exists", "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011"], "returncode": 1, "elapsed_seconds": 0.06}
+{"host": "b0512", "step": "image-arch", "argv": ["podman", "image", "exists", "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722"], "returncode": 1, "elapsed_seconds": 0.056}
+{"host": "b0512", "step": "containers-after", "argv": ["podman", "ps", "-a", "--format", "json"], "returncode": 0, "elapsed_seconds": 0.062}
+{"results": "/home/agent/server-validation-20261030T204043+0800/results-20261030T204344", "runtime_status": null, "cached_targets": []}

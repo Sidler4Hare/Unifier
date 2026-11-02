@@ -1,0 +1,108 @@
+debian13: apt-get update
+debian13: apt-get install -y /tmp/ml-incoming/bcompare.deb
+debian13: install-local completed txn6b3ec3fd1d6c
+unifier: warning: txn6b3ec3fd1d6c: the package changes are applied (exit code 0), but 5 maintenance hook failure(s) (udev-uevent-write-failed) were reported; system integration is unverified and may need a host step. See 'unifier pkg show txn6b3ec3fd1d6c' for the saved output.
+{
+  "schema_version": 1,
+  "id": "txn6b3ec3fd1d6c",
+  "environment_id": "debian13",
+  "operation": "install-local",
+  "packages": [
+    "bcompare"
+  ],
+  "use_command": [],
+  "local_file": "/home/omg/文档/多兼容linux机/.lab/agents/extension-local-20261031T111237+0800/downloads/bcompare.deb",
+  "revision_before": {
+    "writable_revision": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "content_revision": 11,
+    "package_inventory_sha256": "40b00c56c8aa289a779ea42bcf63723aee0fb82f07c5b09dee9deff0a61ebee6"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\nReading package lists...\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "/tmp/ml-incoming/bcompare.deb"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "4 (2:2.7.5-2) ...\r\nSetting up libvolume-key1:amd64 (0.3.12-9) ...\r\nSetting up libheif-plugin-libde265:amd64 (1.23.6-2~deb13u1) ...\r\nSetting up libblockdev-crypto3:amd64 (3.3.0-2.1) ...\r\nSetting up libheif-plugin-x265:amd64 (1.23.6-2~deb13u1) ...\r\nSetting up libheif-plugin-aomenc:amd64 (1.23.6-2~deb13u1) ...\r\nSetting up libparted2t64:amd64 (3.6-5) ...\r\nRemoving 'diversion of /lib/x86_64-linux-gnu/libparted.so.2 to /lib/x86_64-linux-gnu/libparted.so.2.usr-is-merged by libparted2t64'\r\nRemoving 'diversion of /lib/x86_64-linux-gnu/libparted.so.2.0.5 to /lib/x86_64-linux-gnu/libparted.so.2.0.5.usr-is-merged by libparted2t64'\r\nSetting up systemd-cryptsetup (257.13-1~deb13u1) ...\r\nSetting up libgphoto2-6t64:amd64 (2.5.31-4) ...\r\nSetting up parted (3.6-5) ...\r\nSetting up udisks2 (2.10.1-12.1+deb13u2) ...\r\nnvme0n1: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1c.0/0000:a9:00.0/nvme/nvme0/nvme0n1/uevent': Permission denied\r\nnvme0n1p1: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1c.0/0000:a9:00.0/nvme/nvme0/nvme0n1/nvme0n1p1/uevent': Permission denied\r\nnvme0n1p2: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1c.0/0000:a9:00.0/nvme/nvme0/nvme0n1/nvme0n1p2/uevent': Permission denied\r\nnvme0n1p3: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1c.0/0000:a9:00.0/nvme/nvme0/nvme0n1/nvme0n1p3/uevent': Permission denied\r\nzram0: Failed to write 'change' to '/sys/devices/virtual/block/zram0/uevent': Permission denied\r\nCreated symlink '/etc/systemd/system/graphical.target.wants/udisks2.service' → '/usr/lib/systemd/system/udisks2.service'.\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\nProcessing triggers for systemd (257.13-1~deb13u1) ...\r\nProcessing triggers for libglib2.0-0t64:amd64 (2.84.4-3~deb13u5) ...\r\nProcessing triggers for dbus (1.16.2-2) ...\r\nSetting up libgtk-3-0t64:amd64 (3.24.49-3) ...\r\nProcessing triggers for shared-mime-info (2.4-5+b2) ...\r\nSetting up libgoa-1.0-0b:amd64 (3.54.5-1~deb13u1) ...\r\nSetting up gvfs-libs:amd64 (1.57.2-2+deb13u1) ...\r\nSetting up at-spi2-core (2.56.2-1+deb13u2) ...\r\nSetting up libgtk-4-1:amd64 (4.18.6+ds-2) ...\r\nSetting up libgtk-4-bin (4.18.6+ds-2) ...\r\nSetting up glib-networking:amd64 (2.80.1-1) ...\r\nSetting up libgcr-ui-3-1:amd64 (3.41.2-3) ...\r\nSetting up libsoup-3.0-0:amd64 (3.6.5-3) ...\r\nSetting up libmsgraph-1-1:amd64 (0.3.3-3) ...\r\nSetting up libgtk-3-bin (3.24.49-3) ...\r\nSetting up gvfs-daemons (1.57.2-2+deb13u1) ...\r\nSetting up gcr (3.41.2-3) ...\r\nSetting up pinentry-gnome3 (1.3.1-2) ...\r\nSetting up qt6-gtk-platformtheme:amd64 (6.8.2+dfsg-9+deb13u2) ...\r\nSetting up libgtk-4-media-gstreamer (4.18.6+ds-2) ...\r\nSetting up libsoup-2.4-1:amd64 (2.74.3-10.1) ...\r\nSetting up libgdata22:amd64 (0.18.1-9) ...\r\nSetting up gvfs:amd64 (1.57.2-2+deb13u1) ...\r\nSetting up gnome-keyring (48.0-1) ...\r\nCreated symlink '/etc/systemd/user/graphical-session-pre.target.wants/gnome-keyring-daemon.service' → '/usr/lib/systemd/user/gnome-keyring-daemon.service'.\r\nCreated symlink '/etc/systemd/user/sockets.target.wants/gnome-keyring-daemon.socket' → '/usr/lib/systemd/user/gnome-keyring-daemon.socket'.\r\nSetting up gcr4 (4.4.0.1-3) ...\r\nCreated symlink '/etc/systemd/user/graphical-session-pre.target.wants/gcr-ssh-agent.service' → '/usr/lib/systemd/user/gcr-ssh-agent.service'.\r\nCreated symlink '/etc/systemd/user/sockets.target.wants/gcr-ssh-agent.socket' → '/usr/lib/systemd/user/gcr-ssh-agent.socket'.\r\nSetting up gvfs-backends (1.57.2-2+deb13u1) ...\r\nSetting up gvfs-fuse (1.57.2-2+deb13u1) ...\r\nSetting up bcompare (5.2.7-32913) ...\r\nProcessing triggers for sgml-base (1.31+nmu1) ...\r\nSetting up polkitd (126-2) ...\r\nCreating group 'polkitd' with GID 991.\r\nCreating user 'polkitd' (User for polkitd) with UID 991 and GID 991.\r\ninvoke-rc.d: could not determine current runlevel\r\ninvoke-rc.d: policy-rc.d denied execution of reload.\r\nProcessing triggers for libgdk-pixbuf-2.0-0:amd64 (2.42.12+dfsg-4+deb13u1) ...\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "warnings",
+    "items": [
+      {
+        "source": "stdout",
+        "reason": "udev-uevent-write-failed",
+        "tool": "udev",
+        "line": "nvme0n1: Failed to write 'change' to '/sys/devices/pci0000:00/0000:00:1c.0/0000:a9:00.0/nvme/nvme0/nvme0n1/uevent': Permission denied",
+        "count": 5
+      }
+    ],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified-with-warnings",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "bcompare": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "arch": {
+      "before": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "after": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "probed_before": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "probed_after": "b91c3fb448582b99f2eafcb592eac0bfe56aa8969b0668ddb3eb0a93a441dd88",
+      "unchanged": true,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "content_revision": 12,
+    "package_inventory_sha256": "167c1876a497ea4c7be24b2c3371d4943d29f8c2a2cf8474c567ccf18050ed7a"
+  },
+  "phase": "completed",
+  "failure_phase": null,
+  "started_at": "2026-10-31T12:46:01+08:00",
+  "finished_at": "2026-10-31T12:48:49+08:00"
+}

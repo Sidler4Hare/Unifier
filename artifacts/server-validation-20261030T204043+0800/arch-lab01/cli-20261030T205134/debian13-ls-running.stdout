@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "target": "debian13",
+  "via": "runtime",
+  "path": "/etc",
+  "entries": [
+    "alternatives",
+    "apt",
+    "cron.daily",
+    "default",
+    "dpkg",
+    "kernel",
+    "ld.so.conf.d",
+    "logrotate.d",
+    "opt",
+    "pam.d",
+    "profile.d",
+    "rc0.d",
+    "rc1.d",
+    "rc2.d",
+    "rc3.d",
+    "rc4.d",
+    "rc5.d",
+    "rc6.d",
+    "rcS.d",
+    "security",
+    "selinux",
+    "skel",
+    "systemd",
+    "terminfo",
+    "update-motd.d"
+  ]
+}

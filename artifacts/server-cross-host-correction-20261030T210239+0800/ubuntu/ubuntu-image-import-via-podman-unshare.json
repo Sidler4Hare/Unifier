@@ -1,0 +1,32 @@
+{
+  "fedora44": {
+    "manifest_digest_verified": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+    "argv": [
+      "podman",
+      "unshare",
+      "skopeo",
+      "copy",
+      "--preserve-digests",
+      "dir:/home/agent/server-cross-host-correction-20261030T210239+0800/image-cache/fedora44",
+      "containers-storage:registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011"
+    ],
+    "returncode": 0,
+    "stdout": "Getting image source signatures\nCopying blob sha256:318a8548467d4f95b3ff1e2f1174313381a9161cb1bdae2d8590e375126dc721\nCopying config sha256:4b5d9a75c81b96b542ac08b19587efa516da72bf02581908c6178d39de4bb07b\nWriting manifest to image destination\n",
+    "stderr": ""
+  },
+  "arch": {
+    "manifest_digest_verified": "sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+    "argv": [
+      "podman",
+      "unshare",
+      "skopeo",
+      "copy",
+      "--preserve-digests",
+      "dir:/home/agent/server-cross-host-correction-20261030T210239+0800/image-cache/arch",
+      "containers-storage:docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722"
+    ],
+    "returncode": 0,
+    "stdout": "Getting image source signatures\nCopying blob sha256:d2cc54e7adee435a81c8b997d4346ca05a3a9639d71e1169d6cd9fb959bedaac\nCopying blob sha256:55924c9eac0db11dd02b15ee1743734f402b3b22b794909b72b93f7afb7d64b6\nCopying config sha256:5a30b4acc83ff841682eb21795e00f7ff030796f5e6fd2a127decd7a45ba7cef\nWriting manifest to image destination\n",
+    "stderr": ""
+  }
+}

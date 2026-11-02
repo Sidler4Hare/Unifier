@@ -17,10 +17,10 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'tests')]
 
-from multilinux import cli, on_demand
-from multilinux import service as service_module
-from multilinux.errors import MultilinuxError
-from multilinux.on_demand import (
+from unifier import cli, on_demand
+from unifier import service as service_module
+from unifier.errors import UnifierError
+from unifier.on_demand import (
     LaunchGroup,
     live_leases,
     managed_open,
@@ -29,7 +29,7 @@ from multilinux.on_demand import (
     stop_bridge,
     supervised_open,
 )
-from multilinux.runtime import CreateSpec, ExecResult, container_name, creation_argv
+from unifier.runtime import CreateSpec, ExecResult, container_name, creation_argv
 from test_desktop import SESSION
 from test_env import FakeRuntime, service_in
 
@@ -108,14 +108,14 @@ class SettlingRuntime(FakeRuntime):
     def start(self, name, *, project, env_id):
         info = self._owned(name, project, env_id)
         if info.status == 'stopping':
-            raise MultilinuxError('podman start refuses a stopping container')
+            raise UnifierError('podman start refuses a stopping container')
         self.start_calls += 1
         super().start(name, project=project, env_id=env_id)
 
     def stop(self, name, *, project, env_id):
         info = self._owned(name, project, env_id)
         if info.status == 'stopping':
-            raise MultilinuxError('podman stop refuses a stopping container')
+            raise UnifierError('podman stop refuses a stopping container')
         self.stop_calls += 1
         super().stop(name, project=project, env_id=env_id)
 
@@ -184,7 +184,7 @@ class StoppingRace(unittest.TestCase):
             runtime.mark_stopping(env_container_name(root))
             with patch.object(service_module, 'LIFECYCLE_SETTLE_SECONDS', .1), \
                  patch.object(service_module, 'LIFECYCLE_SETTLE_POLL_SECONDS', .01):
-                with self.assertRaisesRegex(MultilinuxError, 'still stopping'):
+                with self.assertRaisesRegex(UnifierError, 'still stopping'):
                     service.start('debian13')
             self.assertEqual(runtime.start_calls, 0)
 
@@ -343,13 +343,13 @@ class LeaseRelease(unittest.TestCase):
             stopped = []
 
             def fail(*_args, **_kwargs):
-                raise MultilinuxError('start failed')
+                raise UnifierError('start failed')
 
             with patch.object(on_demand, 'start_bridge',
                               return_value={'pid': 7, 'stamp': 8, 'socket': None}), \
                  patch.object(on_demand, 'stop_bridge', side_effect=stopped.append), \
                  patch.object(service, 'start', fail):
-                with self.assertRaisesRegex(MultilinuxError, 'start failed'):
+                with self.assertRaisesRegex(UnifierError, 'start failed'):
                     group.acquire('notes')
             self.assertEqual(stopped, [{'pid': 7, 'stamp': 8, 'socket': None}])
             self.assertEqual(group.read()['leases'], {})
@@ -363,10 +363,10 @@ class LeaseRelease(unittest.TestCase):
             lease = group.acquire('notes')
 
             def fail(*_args, **_kwargs):
-                raise MultilinuxError('stop failed')
+                raise UnifierError('stop failed')
 
             with patch.object(service, 'stop', fail):
-                with self.assertRaisesRegex(MultilinuxError, 'stop failed'):
+                with self.assertRaisesRegex(UnifierError, 'stop failed'):
                     group.release(lease)
             state = group.read()
             self.assertEqual(state['leases'], {})
@@ -398,7 +398,7 @@ class Supervision(unittest.TestCase):
             self.assertEqual(result.returncode, expected)
             self.assertTrue(worker.waited)
         command, kwargs = worker.calls[0]
-        self.assertEqual(command, [sys.executable, str(ROOT / 'tools/ml.py'),
+        self.assertEqual(command, [sys.executable, str(ROOT / 'tools/unifier.py'),
                                    'app', '_worker', 'notes', '--', '--file', 'x.txt'])
         self.assertTrue(kwargs['start_new_session'])
         self.assertEqual(kwargs['env'][on_demand.WORKER_MARKER], '1')
@@ -422,7 +422,7 @@ class Supervision(unittest.TestCase):
 
     def test_spawn_failure_is_reported_as_a_product_error(self):
         with patch.object(on_demand.subprocess, 'Popen', side_effect=OSError('no python')):
-            with self.assertRaisesRegex(MultilinuxError, 'supervised launcher'):
+            with self.assertRaisesRegex(UnifierError, 'supervised launcher'):
                 supervised_open(None, 'notes', [])
 
     def test_open_app_routes_an_on_demand_record_to_the_supervisor(self):

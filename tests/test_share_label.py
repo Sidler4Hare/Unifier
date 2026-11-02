@@ -10,9 +10,9 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
 
-from multilinux import cli
-from multilinux.errors import MultilinuxError
-from multilinux.runtime import creation_argv
+from unifier import cli
+from unifier.errors import UnifierError
+from unifier.runtime import creation_argv
 from test_env import service_in
 
 
@@ -59,18 +59,18 @@ class ShareLabelPolicy(unittest.TestCase):
             root = Path(temporary)
             service, runtime, notes = _ready(root)
             for value in ("relabel", [], {}, None, True, 1):
-                with self.subTest(value=value), self.assertRaises(MultilinuxError):
+                with self.subTest(value=value), self.assertRaises(UnifierError):
                     service.create(
                         "debian13", None, [str(notes)], share_label_policy=value)
             self.assertEqual(runtime.events, [])
             self.assertFalse(service.store.exists("debian13"))
 
             # Use a standalone spec for argv validation; no create happened above.
-            from multilinux.runtime import CreateSpec
+            from unifier.runtime import CreateSpec
             spec = CreateSpec("name", "id", "/project", "repo@sha256:" + "a" * 64,
                               (("/data", "/data"),))
             for value in ("relabel", [], {}, None):
-                with self.subTest(argv=value), self.assertRaises(MultilinuxError):
+                with self.subTest(argv=value), self.assertRaises(UnifierError):
                     creation_argv(replace(spec, share_label_policy=value))
 
     def test_plan_treats_policy_change_as_replacement_without_runtime(self):
@@ -146,9 +146,9 @@ class ShareLabelPolicy(unittest.TestCase):
             record = service.store.load("debian13")
             record["runtime"]["share_label_policy"] = "preserve-host"
             service.store.save(record, None)
-            with self.assertRaisesRegex(MultilinuxError, "conflicts"):
+            with self.assertRaisesRegex(UnifierError, "conflicts"):
                 service.inspect("debian13")
-            with self.assertRaisesRegex(MultilinuxError, "conflicts"):
+            with self.assertRaisesRegex(UnifierError, "conflicts"):
                 service.change_plan("debian13")
 
     def test_cli_create_and_plan_forward_the_policy(self):

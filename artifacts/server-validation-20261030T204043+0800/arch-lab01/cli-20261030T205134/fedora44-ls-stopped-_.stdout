@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "target": "fedora44",
+  "via": "view",
+  "view_uuid": "acd090ff-1d8c-43be-889b-17f72ed5a10e",
+  "mountpoint": "/home/dev/server-validation-20261030T204043+0800/cli-20261030T205134/installation/.lab/state/views/acd090ff-1d8c-43be-889b-17f72ed5a10e/mount",
+  "path": "/",
+  "entries": [
+    "afs",
+    "bin",
+    "boot",
+    "etc",
+    "home",
+    "lib",
+    "lib64",
+    "media",
+    "mnt",
+    "opt",
+    "root",
+    "sbin",
+    "srv",
+    "tmp",
+    "usr",
+    "var"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "fedora44": {
+    "manifest_digest_verified": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+    "argv": [
+      "skopeo",
+      "copy",
+      "--preserve-digests",
+      "dir:/home/agent/server-cross-host-correction-20261030T210239+0800/image-cache/fedora44",
+      "containers-storage:registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Error during unshare(...): Operation not permitted\n"
+  }
+}

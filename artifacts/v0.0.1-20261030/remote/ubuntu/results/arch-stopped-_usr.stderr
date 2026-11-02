@@ -1,0 +1,2 @@
+arch: container is stopped; listing /usr through a read-only view
+arch: opening a short-lived read-only view 091a41fe-53ad-424d-bff9-286dc76146f8; only this view is released afterwards.

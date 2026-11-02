@@ -1,0 +1,24 @@
+{
+  "passed": false,
+  "checks": {
+    "relative_link_listed": false,
+    "relative_link_followed": true,
+    "absolute_guest_link": true,
+    "projected_mount_link": false
+  },
+  "errors": {
+    "relative_link_listed": {
+      "expected": [
+        "relative-link"
+      ],
+      "observed": {
+        "path": "/a",
+        "entries": []
+      }
+    },
+    "projected_mount_link": {
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'tmp'"
+    }
+  },
+  "scope": "local resolver fixtures; projected-link case requires explicit view semantics"
+}

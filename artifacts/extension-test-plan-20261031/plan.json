@@ -1,0 +1,2340 @@
+{
+  "status": "PLAN_REVISED_FOR_V0_0_1_FULL_EXTENSION_NOT_STARTED",
+  "date": "2026-10-31",
+  "timezone": "Asia/Shanghai",
+  "scope": "Linux 闭源 GUI 应用与开源 CLI 项目、原生包格式限制、Agent 和文件系统边界",
+  "application_candidates": [
+    {
+      "id": "wps",
+      "name": "WPS Office for Linux",
+      "priority": "P1",
+      "formats": [
+        "deb",
+        "rpm"
+      ],
+      "targets": [
+        "debian13",
+        "fedora44"
+      ],
+      "official_url": "https://linux.wps.cn/",
+      "observed_version": "12.1.2.29183",
+      "source_status": "OFFICIAL_PAGE_VERIFIED; HISTORICAL_RECHECK_AT_EXECUTION",
+      "workflow": "DOCX/XLSX/PPTX打开、修改、保存、停机重开，PDF导出与字体/布局核对",
+      "dependency": "本地核心功能优先；云能力另列",
+      "installation_tested": false,
+      "usability_tested": false,
+      "package_sha256": null,
+      "host_installed_reference": "../../archive/evidence/installed-applications-2026-10-27/wps-reuse-reference.json",
+      "source_observation_date": "2026-10-27",
+      "source_rechecked_for_revision": false
+    },
+    {
+      "id": "bcompare",
+      "name": "Beyond Compare",
+      "priority": "P1",
+      "formats": [
+        "deb",
+        "rpm"
+      ],
+      "targets": [
+        "debian13",
+        "fedora44"
+      ],
+      "official_url": "https://www.scootersoftware.com/download",
+      "observed_version": "5.2.6 build 32774",
+      "source_status": "OFFICIAL_PAGE_VERIFIED; HISTORICAL_RECHECK_AT_EXECUTION",
+      "workflow": "两棵测试树比较、文本合并、保存、重开与冲突副本核对",
+      "dependency": "使用有效试用或已有授权，不解锁未授权功能",
+      "installation_tested": false,
+      "usability_tested": false,
+      "package_sha256": null,
+      "source_observation_date": "2026-10-27",
+      "source_rechecked_for_revision": false
+    },
+    {
+      "id": "zoom",
+      "name": "Zoom Workplace for Linux",
+      "priority": "P1",
+      "formats": [
+        "deb",
+        "rpm",
+        "pkg.tar.xz"
+      ],
+      "targets": [
+        "debian13",
+        "fedora44",
+        "arch"
+      ],
+      "official_url": "https://zoom.us/download/linux",
+      "installation_reference": "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063458",
+      "observed_version": null,
+      "source_status": "OFFICIAL_FORMATS_AND_INSTALLATION_VERIFIED; HISTORICAL_RECHECK_AT_EXECUTION",
+      "workflow": "真实会议入会、动态预览/音频/屏幕共享、下载或录制产物（版本允许时）保存与重开",
+      "dependency": "会议/对端和部分功能可能依赖测试账号及客户端权限",
+      "installation_tested": false,
+      "usability_tested": false,
+      "package_sha256": null,
+      "source_observation_date": "2026-10-27",
+      "source_rechecked_for_revision": false
+    },
+    {
+      "id": "feishu",
+      "name": "飞书 Linux",
+      "priority": "P1",
+      "formats": [
+        "deb",
+        "rpm"
+      ],
+      "targets": [
+        "debian13",
+        "fedora44"
+      ],
+      "official_url": "https://www.feishu.cn/download?from=migration_banner_download",
+      "requirements_reference": "https://www.feishu.cn/hc/zh-CN/articles/360025035993-下载和安装飞书客户端",
+      "observed_version": null,
+      "source_status": "OFFICIAL_SEARCH_INDEX_AND_REQUIREMENTS_VERIFIED; HISTORICAL_RECHECK_AT_EXECUTION",
+      "workflow": "测试工作区附件上传/下载、默认打开、编辑另存与重开，账号有效后再测协作/会议",
+      "dependency": "测试账号/工作区；官网支持列表不等同Debian13/Fedora44已获厂商认证",
+      "installation_tested": false,
+      "usability_tested": false,
+      "package_sha256": null,
+      "source_observation_date": "2026-10-27",
+      "source_rechecked_for_revision": false
+    },
+    {
+      "id": "wechat",
+      "name": "微信 Linux",
+      "priority": "P2",
+      "formats": [],
+      "targets": [],
+      "official_url": "https://linux.weixin.qq.com/",
+      "observed_version": null,
+      "source_status": "OFFICIAL_ENDPOINT_RECORDED_CONTENT_NOT_RETRIEVED; HISTORICAL_RECHECK_AT_EXECUTION",
+      "workflow": "中文输入、托盘、文件选择、测试会话附件收发/另存/重开",
+      "dependency": "官方包格式与支持要求重新核实；测试账号和扫码交互",
+      "installation_tested": false,
+      "usability_tested": false,
+      "package_sha256": null,
+      "host_installed_reference": {
+        "package": "wechat",
+        "version": "4.1.13.9-1",
+        "provider": "host-rpm",
+        "guest_counterpart": "NOT_INSTALLED_OR_LOCKED_BY_THIS_INVENTORY"
+      },
+      "source_observation_date": "2026-10-27",
+      "source_rechecked_for_revision": false
+    },
+    {
+      "id": "baidunetdisk",
+      "name": "百度网盘 Linux",
+      "priority": "P2",
+      "formats": [
+        "deb",
+        "rpm"
+      ],
+      "targets": [
+        "debian13",
+        "fedora44"
+      ],
+      "official_url": "https://wangpan.baidu.com/download",
+      "observed_version": null,
+      "source_status": "OFFICIAL_SEARCH_INDEX_ONLY_ARTIFACTS_NOT_LOCKED; HISTORICAL_RECHECK_AT_EXECUTION",
+      "workflow": "合成文件上传/下载、暂停重启、同名冲突、目标目录变化与大文件哈希",
+      "dependency": "测试账号；具体传输/恢复能力以实际Linux版本为准",
+      "installation_tested": false,
+      "usability_tested": false,
+      "package_sha256": null,
+      "source_observation_date": "2026-10-27",
+      "source_rechecked_for_revision": false
+    }
+  ],
+  "primary_installation_cells": [
+    {
+      "id": "APP-WPS-DEBIAN13",
+      "app_id": "wps",
+      "target": "debian13",
+      "format": "deb",
+      "status": "NOT_RUN",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "blocked_by": [],
+      "placement_note": "P0 rechecks actual session, package and fixture"
+    },
+    {
+      "id": "APP-WPS-FEDORA44",
+      "app_id": "wps",
+      "target": "fedora44",
+      "format": "rpm",
+      "status": "NOT_RUN",
+      "minimum_reopen_cycles": 2,
+      "local_artifact_reference": "../../archive/evidence/installed-applications-2026-10-27/wps-reuse-reference.json",
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "ubuntu-server",
+        "debian-server",
+        "arch-server"
+      ],
+      "preferred_host_context": "ubuntu-server",
+      "blocked_by": [
+        "G-DESKTOP"
+      ],
+      "placement_note": "Fedora guest requires a non-Fedora desktop; current remote receipts are headless only"
+    },
+    {
+      "id": "APP-BCOMPARE-DEBIAN13",
+      "app_id": "bcompare",
+      "target": "debian13",
+      "format": "deb",
+      "status": "NOT_RUN",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "blocked_by": [],
+      "placement_note": "P0 rechecks actual session, package and fixture"
+    },
+    {
+      "id": "APP-BCOMPARE-FEDORA44",
+      "app_id": "bcompare",
+      "target": "fedora44",
+      "format": "rpm",
+      "status": "NOT_RUN",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "ubuntu-server",
+        "debian-server",
+        "arch-server"
+      ],
+      "preferred_host_context": "ubuntu-server",
+      "blocked_by": [
+        "G-DESKTOP"
+      ],
+      "placement_note": "Fedora guest requires a non-Fedora desktop; current remote receipts are headless only"
+    },
+    {
+      "id": "APP-ZOOM-DEBIAN13",
+      "app_id": "zoom",
+      "target": "debian13",
+      "format": "deb",
+      "status": "NOT_RUN",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "blocked_by": [],
+      "placement_note": "P0 rechecks actual session, package and fixture"
+    },
+    {
+      "id": "APP-ZOOM-FEDORA44",
+      "app_id": "zoom",
+      "target": "fedora44",
+      "format": "rpm",
+      "status": "NOT_RUN",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "ubuntu-server",
+        "debian-server",
+        "arch-server"
+      ],
+      "preferred_host_context": "ubuntu-server",
+      "blocked_by": [
+        "G-DESKTOP"
+      ],
+      "placement_note": "Fedora guest requires a non-Fedora desktop; current remote receipts are headless only"
+    },
+    {
+      "id": "APP-ZOOM-ARCH",
+      "app_id": "zoom",
+      "target": "arch",
+      "format": "pkg.tar.xz",
+      "status": "NOT_RUN",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "ubuntu-server",
+        "debian-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "blocked_by": [],
+      "placement_note": "P0 rechecks actual session, package and fixture"
+    },
+    {
+      "id": "APP-FEISHU-DEBIAN13",
+      "app_id": "feishu",
+      "target": "debian13",
+      "format": "deb",
+      "status": "NOT_RUN",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "fedora-workstation",
+        "arch-server"
+      ],
+      "preferred_host_context": "fedora-workstation",
+      "blocked_by": [],
+      "placement_note": "P0 rechecks actual session, package and fixture"
+    },
+    {
+      "id": "APP-FEISHU-FEDORA44",
+      "app_id": "feishu",
+      "target": "fedora44",
+      "format": "rpm",
+      "status": "NOT_RUN",
+      "minimum_reopen_cycles": 2,
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-HOST-POLICY",
+        "G-DESKTOP"
+      ],
+      "entrypoints": [
+        "install",
+        "run",
+        "explicit low-level project/handler/menu registration where tested"
+      ],
+      "eligible_host_contexts": [
+        "ubuntu-server",
+        "debian-server",
+        "arch-server"
+      ],
+      "preferred_host_context": "ubuntu-server",
+      "blocked_by": [
+        "G-DESKTOP"
+      ],
+      "placement_note": "Fedora guest requires a non-Fedora desktop; current remote receipts are headless only"
+    }
+  ],
+  "primary_installation_cell_count": 9,
+  "agent_runtime": "先用同一版本dsh/Command Code作为真实agent；第二实现为后续扩展，未作普适结论",
+  "agent_origin_target_cells": [
+    {
+      "id": "AG-TARGET-DEBIAN13-DEBIAN13",
+      "origin": "debian13",
+      "target": "debian13",
+      "lane": "local",
+      "status": "NOT_RUN",
+      "user_task_required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "maintenance_required_gates": [
+        "G-GUEST-BRIDGE"
+      ],
+      "maintenance_note": "Ordinary user agent has no implicit root package authority; independently authorized management required.",
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "id": "AG-TARGET-DEBIAN13-FEDORA44",
+      "origin": "debian13",
+      "target": "fedora44",
+      "lane": "cross-guest-request",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "id": "AG-TARGET-DEBIAN13-ARCH",
+      "origin": "debian13",
+      "target": "arch",
+      "lane": "cross-guest-request",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "id": "AG-TARGET-DEBIAN13-HOST",
+      "origin": "debian13",
+      "target": "host",
+      "lane": "host-request",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "id": "AG-TARGET-FEDORA44-DEBIAN13",
+      "origin": "fedora44",
+      "target": "debian13",
+      "lane": "cross-guest-request",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "id": "AG-TARGET-FEDORA44-FEDORA44",
+      "origin": "fedora44",
+      "target": "fedora44",
+      "lane": "local",
+      "status": "NOT_RUN",
+      "user_task_required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "maintenance_required_gates": [
+        "G-GUEST-BRIDGE"
+      ],
+      "maintenance_note": "Ordinary user agent has no implicit root package authority; independently authorized management required.",
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "id": "AG-TARGET-FEDORA44-ARCH",
+      "origin": "fedora44",
+      "target": "arch",
+      "lane": "cross-guest-request",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "id": "AG-TARGET-FEDORA44-HOST",
+      "origin": "fedora44",
+      "target": "host",
+      "lane": "host-request",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "id": "AG-TARGET-ARCH-DEBIAN13",
+      "origin": "arch",
+      "target": "debian13",
+      "lane": "cross-guest-request",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "id": "AG-TARGET-ARCH-FEDORA44",
+      "origin": "arch",
+      "target": "fedora44",
+      "lane": "cross-guest-request",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "id": "AG-TARGET-ARCH-ARCH",
+      "origin": "arch",
+      "target": "arch",
+      "lane": "local",
+      "status": "NOT_RUN",
+      "user_task_required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "maintenance_required_gates": [
+        "G-GUEST-BRIDGE"
+      ],
+      "maintenance_note": "Ordinary user agent has no implicit root package authority; independently authorized management required.",
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "id": "AG-TARGET-ARCH-HOST",
+      "origin": "arch",
+      "target": "host",
+      "lane": "host-request",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT",
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    }
+  ],
+  "agent_contract_families": [
+    {
+      "id": "AG01",
+      "operation": "容器内原生安装/卸载agent与自身依赖",
+      "oracle": "本环境包记录变化，宿主和其他客体包数据库不变",
+      "status": "NOT_RUN",
+      "authority_note": "Host-authorized setup is evidence of setup, not agent-origin maintenance. Guest-origin maintenance requires G-GUEST-BRIDGE or another independently proven scoped management contract."
+    },
+    {
+      "id": "AG02",
+      "operation": "普通用户、私有HOME/配置/缓存/凭据",
+      "oracle": "实际UID/HOME/namespace记录，无宿主凭据文件复制",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AG03",
+      "operation": "同一环境多agent进程共享",
+      "oracle": "CID/start事件不随进程数增加，独立session/lease/cancel",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AG04",
+      "operation": "共享项目按顺序接力互写",
+      "oracle": "实际工具调用与最终字节、语义、版本轨迹匹配",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AG05",
+      "operation": "并发不相交文件写入",
+      "oracle": "无遗漏、无跨目录误写，双方产物可回读",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AG06",
+      "operation": "同文件竞争与原子保存",
+      "oracle": "原生未协调写入风险如实记录；受管路径冲突需保留有效版本",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AG07",
+      "operation": "已授权跨容器执行",
+      "oracle": "固定目标UUID/generation/CID、argv/cwd，目标实际产生输出",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ]
+    },
+    {
+      "id": "AG08",
+      "operation": "已授权跨容器包安装/卸载",
+      "oracle": "只有指定目标私有包状态变化，受管维护与活动租约正确互斥",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ]
+    },
+    {
+      "id": "AG09",
+      "operation": "母发行版只读查询/专用测试目录操作",
+      "oracle": "host namespace回执及专用宿主数据副作用可核对",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ]
+    },
+    {
+      "id": "AG10",
+      "operation": "缺失授权与范围外请求",
+      "oracle": "拒绝且没有目标或宿主副作用",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ]
+    },
+    {
+      "id": "AG11",
+      "operation": "重名重建、过期/重放/篡改目标与路径别名",
+      "oracle": "不复用旧授权，不转入其他环境或宿主兜底",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-GUEST-BRIDGE"
+      ],
+      "blocked_by": [
+        "G-GUEST-BRIDGE"
+      ]
+    },
+    {
+      "id": "AG12",
+      "operation": "信号、代理/agent退出与重复恢复",
+      "oracle": "只取消目标session，其他agent继续，租约和结果可解释",
+      "status": "NOT_RUN",
+      "subcase_gates": {
+        "local_session_cancel": [],
+        "cross_target_request_cancel": [
+          "G-GUEST-BRIDGE"
+        ]
+      }
+    },
+    {
+      "id": "AG13",
+      "operation": "运行中环境与停止环境投影冲突",
+      "oracle": "活动view阻止start/maintenance；撤销后按计划继续，不强制卸载",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AG14",
+      "operation": "源码共享、依赖/构建产物分离",
+      "oracle": "项目源文件共用，venv/node_modules/native build按环境隔离",
+      "status": "NOT_RUN"
+    }
+  ],
+  "filesystem_families": [
+    {
+      "id": "FS01",
+      "operation": "同一宿主 host 与准入客体观察同一数据；当前每宿主两客体",
+      "oracle": "记录dev/ino/mnt_id/statfs与实际映射，不把发行版名当文件系统",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS02",
+      "operation": "普通复制与哈希",
+      "oracle": "源、目标完整内容匹配，目标不覆盖既有不同版本",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS03",
+      "operation": "同挂载rename与跨挂载/跨设备rename",
+      "oracle": "记录原生结果与EXDEV；受管移动按已验证策略处理",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS04",
+      "operation": "原地增长、缩短、保留mtime的同长改写",
+      "oracle": "旧FD内容/大小与真实元数据保持本轮已验收契约",
+      "status": "NOT_RUN",
+      "baseline_role": "Regression of implemented object/content/component-link fixes, not an unimplemented feature"
+    },
+    {
+      "id": "FS05",
+      "operation": "原子替换、unlink、旧FD与mmap",
+      "oracle": "同对象句柄与新名称绑定分开，显式重验证正确",
+      "status": "NOT_RUN",
+      "baseline_role": "Regression of implemented object/content/component-link fixes, not an unimplemented feature"
+    },
+    {
+      "id": "FS06",
+      "operation": "symlink/..、根限制、循环和缺失组件",
+      "oracle": "正确目标或明确errno，不能读到宿主sentinel",
+      "status": "NOT_RUN",
+      "baseline_role": "Regression of implemented object/content/component-link fixes, not an unimplemented feature"
+    },
+    {
+      "id": "FS07",
+      "operation": "hardlink及跨文件系统别名",
+      "oracle": "支持时同inode；不支持明确失败，复制图语义单列",
+      "status": "NOT_RUN",
+      "subcase_gates": {
+        "native_oracle": [],
+        "unsupported_managed_preservation": [
+          "G-FILE-CAPABILITY"
+        ]
+      }
+    },
+    {
+      "id": "FS08",
+      "operation": "UID/GID、mode、ACL、xattr",
+      "oracle": "按能力保存或报告降级；不全局chown/relabel",
+      "status": "NOT_RUN",
+      "subcase_gates": {
+        "native_oracle": [],
+        "unsupported_managed_preservation": [
+          "G-FILE-CAPABILITY"
+        ]
+      }
+    },
+    {
+      "id": "FS09",
+      "operation": "中文/空格/特殊字符/长名/路径大小写",
+      "oracle": "不shell拆词，按实际后端语义记录不兼容",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS10",
+      "operation": "稀疏/零字节/大文件与小文件树",
+      "oracle": "内容与逻辑/占用大小分别核验",
+      "status": "NOT_RUN",
+      "subcase_gates": {
+        "native_oracle": [],
+        "unsupported_managed_preservation": [
+          "G-FILE-CAPABILITY"
+        ]
+      }
+    },
+    {
+      "id": "FS11",
+      "operation": "flock与fcntl跨namespace",
+      "oracle": "同内核实际锁冲突；原子替换后锁对象变化不当作自动CAS",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS12",
+      "operation": "SQLite WAL/rollback与Git锁",
+      "oracle": "本地可写数据上的真实事务/完整性；只读FUSE不冒充可写数据库后端",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS13",
+      "operation": "inotify/索引/应用自动刷新",
+      "oracle": "直接bind与FUSE分别观测；当前FUSE缺通知保留为已知失败",
+      "status": "NOT_RUN",
+      "known_product_gap": "watcher=false; native bind notifications and read-only FUSE notifications reported separately"
+    },
+    {
+      "id": "FS14",
+      "operation": "并发创建/删除/目录分页与FORGET",
+      "oracle": "Stable paging/inode and no leaked handles; separate readdir/lookup/open under NOFILE=256. EMFILE must preserve control/old handles. Lookup-only reclamation follows actual kernel FORGET, not immediate user close.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS15",
+      "operation": "fsync+rename、受管发布/源清理阶段退出",
+      "oracle": "阶段与原件保留可核对，重复恢复不重复覆盖",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS16",
+      "operation": "受限空间ENOSPC、权限变化与后端缺失",
+      "oracle": "只在限额fixture故障注入，不消耗宿主根分区",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS17",
+      "operation": "只读投影写入与授权出口",
+      "oracle": "EROFS正确；需要编辑时走真实共享/目标执行/受管复制",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS18",
+      "operation": "busy revoke和外部目录访问",
+      "oracle": "保守拒绝、普通重试、原容器保全，不杀外部进程",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS19",
+      "operation": "数据根/环境移除与同名重建",
+      "oracle": "文档保留，旧generation和旧view失效",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "FS20",
+      "operation": "性能与资源测量",
+      "oracle": "Separate semantic/throughput/capacity results and native controls; 300/3000/10000 pure readdir, stat/lookup and open pressure under recorded NOFILE/actual FD. Missing memory coverage UNKNOWN.",
+      "status": "NOT_RUN"
+    }
+  ],
+  "filesystem_pairs": [
+    {
+      "id": "FP01",
+      "a": "host-btrfs",
+      "b": "guest-shared-bind",
+      "status": "PLANNED",
+      "classification": "同底层数据的视图对照；挂载ID独立记录",
+      "host_scope": "Original 2026-10-27 workstation observation; re-probe actual host/mount/device availability in P0"
+    },
+    {
+      "id": "FP02",
+      "a": "btrfs",
+      "b": "tmpfs",
+      "status": "PLANNED",
+      "classification": "真实不同文件系统，双向",
+      "host_scope": "Original 2026-10-27 workstation observation; re-probe actual host/mount/device availability in P0"
+    },
+    {
+      "id": "FP03",
+      "a": "guest-overlay-private",
+      "b": "shared-btrfs",
+      "status": "PLANNED",
+      "classification": "三客体各执行双向；私有rootfs不从宿主裸改upperdir",
+      "host_scope": "Original 2026-10-27 workstation observation; re-probe actual host/mount/device availability in P0"
+    },
+    {
+      "id": "FP04",
+      "a": "named-volume",
+      "b": "shared-btrfs",
+      "status": "PLANNED",
+      "classification": "以实际设备/挂载判定，卷名不同不自动算跨文件系统",
+      "host_scope": "Original 2026-10-27 workstation observation; re-probe actual host/mount/device availability in P0"
+    },
+    {
+      "id": "FP05",
+      "a": "stopped-view-readonly-fuse",
+      "b": "writable-fixture-root",
+      "status": "PLANNED",
+      "classification": "只读读取/复制出口与写拒绝；不能用投影直接互写",
+      "host_scope": "Original 2026-10-27 workstation observation; re-probe actual host/mount/device availability in P0"
+    },
+    {
+      "id": "FP06",
+      "a": "ext4-image-via-fuse2fs",
+      "b": "btrfs-or-tmpfs",
+      "status": "PREFLIGHT_MOUNT_NOT_VALIDATED",
+      "classification": "用户态ext4映像；不能当原生内核ext4性能",
+      "host_scope": "Original 2026-10-27 workstation observation; re-probe actual host/mount/device availability in P0"
+    },
+    {
+      "id": "FP07",
+      "a": "kernel-ext4-loop",
+      "b": "btrfs",
+      "status": "PENDING_MOUNT_CAPABILITY",
+      "classification": "与fuse2fs独立；仅专用映像",
+      "host_scope": "Original 2026-10-27 workstation observation; re-probe actual host/mount/device availability in P0"
+    },
+    {
+      "id": "FP08",
+      "a": "external-exfat-or-ntfs",
+      "b": "btrfs",
+      "status": "PENDING_EXTERNAL_DEVICE",
+      "classification": "现场未见第二物理盘；不触碰boot/EFI",
+      "host_scope": "Original 2026-10-27 workstation observation; re-probe actual host/mount/device availability in P0"
+    }
+  ],
+  "shared_data_ordered_edges": [
+    {
+      "from": "host",
+      "to": "debian13",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "from": "host",
+      "to": "fedora44",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "from": "host",
+      "to": "arch",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "from": "debian13",
+      "to": "host",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "from": "debian13",
+      "to": "fedora44",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "from": "debian13",
+      "to": "arch",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "from": "fedora44",
+      "to": "host",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "from": "fedora44",
+      "to": "debian13",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "from": "fedora44",
+      "to": "arch",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "from": "arch",
+      "to": "host",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "from": "arch",
+      "to": "debian13",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    },
+    {
+      "from": "arch",
+      "to": "fedora44",
+      "status": "NOT_RUN",
+      "required_gates": [
+        "G-SHARED-MOUNT"
+      ],
+      "template_only": true,
+      "execution_rule": "Historical target relationship template; instantiate only from host_matrices; no all-three-guests-on-current-host execution"
+    }
+  ],
+  "bridge_status": "NOT_IMPLEMENTED_IN_REVIEWED_SOURCE; recheck the actual execution version in P0; only dependent subcases wait for the bridge",
+  "phases": [
+    {
+      "id": "P0",
+      "name": "identity/policy/install CLI01-CLI14, shared mount and minimal deterministic file canary; C0 open-source jq native package lanes before large GUI downloads",
+      "dependency": [],
+      "status": "NOT_RUN",
+      "gate_application": "per subcase; imported baseline is not new expansion PASS"
+    },
+    {
+      "id": "P1",
+      "name": "Fedora desktop Debian/WPS + Arch/Zoom; remaining eligible GUI cells and 18 relationship families",
+      "dependency": [
+        "P0"
+      ],
+      "status": "NOT_RUN",
+      "gate_application": "per subcase; imported baseline is not new expansion PASS"
+    },
+    {
+      "id": "P2",
+      "name": "6 same-host directions x 3 modes x 3 rounds = 54 per host, backend/lease/error and REG01-REG05",
+      "dependency": [
+        "P0"
+      ],
+      "status": "NOT_RUN",
+      "gate_application": "per subcase; imported baseline is not new expansion PASS"
+    },
+    {
+      "id": "P3",
+      "name": "native guest Agent local work and shared-data tasks; scoped bridge control waits only its dependent cases",
+      "dependency": [
+        "P0",
+        "P2"
+      ],
+      "status": "NOT_RUN",
+      "gate_application": "per subcase; imported baseline is not new expansion PASS"
+    },
+    {
+      "id": "P4",
+      "name": "30-minute single workload then two-guest concurrency, media and resource limits",
+      "dependency": [
+        "P1",
+        "P2"
+      ],
+      "status": "NOT_RUN",
+      "gate_application": "per subcase; imported baseline is not new expansion PASS"
+    },
+    {
+      "id": "P5",
+      "name": "independent replay, per-host conclusions and exact preservation cleanup",
+      "dependency": [
+        "P0"
+      ],
+      "status": "NOT_RUN",
+      "gate_application": "per subcase; imported baseline is not new expansion PASS"
+    }
+  ],
+  "results_vocabulary": [
+    "NOT_RUN",
+    "PASS_WORKFLOW",
+    "PASS_WITH_WORKAROUND",
+    "FAIL_PRODUCT",
+    "FAIL_UPSTREAM_OR_ENV",
+    "BLOCKED_ACCOUNT",
+    "BLOCKED_LICENSE",
+    "BLOCKED_AUTH",
+    "NOT_IMPLEMENTED",
+    "PENDING_EXTERNAL",
+    "NOT_APPLICABLE_POLICY",
+    "PASS_EXPECTED_REJECTION"
+  ],
+  "scheduling_policy": "Derive allowed targets from policy v2 on each real host. Current Fedora/Ubuntu/Debian/Arch hosts each admit exactly two catalog targets. One environment per target per installation root, including retained/adopted/missing records; shared source fixtures run sequentially after CLI bootstrap fixtures. Separate roots do not waive host policy. Cleanup to each captured baseline.",
+  "credential_policy": "Inject dedicated execution-time references only; no raw values in evidence; this revision did not read or copy credentials.",
+  "not_performed_this_preparation": [
+    "downloads or source-page refresh",
+    "container create/start/stop/remove",
+    "package installation/update/removal",
+    "server access or test dispatch",
+    "agent or application launch",
+    "filesystem mounting or formatting",
+    "messages or uploads",
+    "product source modification"
+  ],
+  "next_action": "November P0 and R0; first open-source CLI C0 jq on admitted Debian/Arch locally and Fedora on a non-Fedora headless host, then other CLI cases and GUI Debian/WPS + Arch/Zoom. See oss-cli-plan.json. No task dispatched.",
+  "preflight": "preflight.json",
+  "official_sources": "../../archive/evidence/extension-test-plan-2026-10-27/sources.json",
+  "document": "../../设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md",
+  "execution_evidence_modes": {
+    "PRODUCT_ENTRYPOINT": "经产品实际入口执行并有目标回执",
+    "NATIVE_ORACLE": "原生脚本/系统调用对照，不算产品能力",
+    "MANUAL_HOST_RELAY": "人工宿主代执行，仅供诊断，不算guest-origin产品能力通过"
+  },
+  "gates": [
+    {
+      "id": "G-SHARED-MOUNT",
+      "capability_state": "SETUP_REQUIRED_USING_EXISTING_LOW_LEVEL_API",
+      "requirement": "Main shared-project fixture creation must include same-path common share, private files, desktop/headless and keep-id before adopt. init has no general --share and adopt does not hot-add mounts. Integrated fixture setup still needs P0 validation.",
+      "applies_to": [
+        "shared-project workflows",
+        "project sessions",
+        "data interwrite"
+      ]
+    },
+    {
+      "id": "G-HOST-ADAPTER",
+      "capability_state": "NOT_IMPLEMENTED",
+      "requirement": "Only environment-app provider exists; host/Flatpak unified product routing requires adapter. Native GIO baselines remain independent.",
+      "applies_to": [
+        "unified host/Flatpak product routing subcases"
+      ]
+    },
+    {
+      "id": "G-GUEST-BRIDGE",
+      "capability_state": "NOT_IMPLEMENTED_IN_REVIEWED_SOURCE",
+      "requirement": "Implement scoped guest-origin request/target receipt/auth/cancel before dependent subcases; no generic host shell or Podman socket. Ordinary user tasks/data writes do not depend on it.",
+      "applies_to": [
+        "cross-guest requests",
+        "host requests",
+        "bridge authorization/replay",
+        "guest-origin managed package maintenance"
+      ]
+    },
+    {
+      "id": "G-FILE-CAPABILITY",
+      "capability_state": "PARTIAL",
+      "requirement": "Managed copy/move currently restricted to regular files; directory/link graph/sparse/ACL/xattr full fidelity unsupported. Native oracle and expected refusal recorded separately.",
+      "applies_to": [
+        "unsupported managed-file subcases"
+      ]
+    },
+    {
+      "id": "G-FIXTURE-CHANGE",
+      "capability_state": "EXPLICIT_RECREATE_ONLY",
+      "requirement": "Frozen image/mount/userns/desktop contract changes require isolated fixture archive/recreate/re-registration; no delivered automatic migration/backup workflow.",
+      "applies_to": [
+        "fixture contract changes"
+      ]
+    },
+    {
+      "id": "G-HOST-POLICY",
+      "capability_state": "IMPLEMENTED_POLICY_V2",
+      "requirement": "Admit actual host/target before pull/create/adopt/run/pkg/ls. Same-family cases are negative checks; retain recovery and exact cleanup. Duplicate-target and concurrency contracts apply per root."
+    },
+    {
+      "id": "G-DESKTOP",
+      "capability_state": "PER_HOST_SESSION_REQUIRED",
+      "requirement": "GUI cells need a real eligible desktop, devices and session created into the fixture; headless receipts do not satisfy it."
+    },
+    {
+      "id": "G-RELEASE-IDENTITY",
+      "capability_state": "IMPLEMENTED_VERSION_AND_MANIFEST",
+      "requirement": "Record package digest, code root, launcher/worker/legacy/deployed entry identities and UNIFIER_HOME; v0.0.1 version text alone is insufficient."
+    }
+  ],
+  "installed_inventory": "../../archive/evidence/installed-applications-2026-10-27/summary.json",
+  "installed_relationship_plan": "relationship-plan.json",
+  "installed_inventory_supplement_date": "2026-10-27",
+  "original_primary_installation_cell_count_preserved": 9,
+  "schema_version": 3,
+  "revision": 3,
+  "original_date": "2026-10-27",
+  "supersedes": "../../archive/evidence/extension-test-plan-2026-10-29/plan.json",
+  "source_observation_date": "2026-10-27",
+  "sources_refreshed_in_this_revision": false,
+  "baseline": {
+    "base_commit": "5e13d0df1222c0385dd67d23532d4d9cbe53fb1c",
+    "working_tree_has_uncommitted_changes": true,
+    "release_version": "0.0.1",
+    "release_sha256": "b463bddede2f6f1b12d469369d74a1fb8eef9df752fd59fc3b6b6eb72b8e497c",
+    "source_manifest": "../unifier-0.0.1.tar.gz.manifest.json",
+    "source_entries_verified_before_document_edits": 207,
+    "source_reference_matches_before_revision": true,
+    "regression": {
+      "total": 575,
+      "passed": 570,
+      "conditional_skips": 5,
+      "reference": "../unifier-0.0.1.tar.gz.validation.log",
+      "rerun_for_this_plan_revision": false
+    },
+    "local_daily_container_count": 2,
+    "local_daily_containers": [
+      {
+        "Id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+        "Names": [
+          "ml-53c5c8a5-freecad-arch"
+        ],
+        "State": "exited",
+        "Image": "localhost/multilinux/installstatus-arch@sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+        "StartedAt": 1793413064,
+        "ExitedAt": 1793413102
+      },
+      {
+        "Id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+        "Names": [
+          "ml-6b061a2f-meeting"
+        ],
+        "State": "exited",
+        "Image": "localhost/unifier/wemeet-current@sha256:4abbc8621397cdaf0ad326970d0cba5777dfd60c315cc5ddfb050cd8bcfbd8e1",
+        "StartedAt": 1793191637,
+        "ExitedAt": 1793191671
+      }
+    ],
+    "target_catalog": {
+      "platform": "linux/amd64",
+      "targets": [
+        "debian13",
+        "fedora44",
+        "arch"
+      ],
+      "host_whitelist_is_not_guest_catalog": true
+    },
+    "evidence_report": "../v0.0.1-20261030/report.md",
+    "preflight": "preflight.json"
+  },
+  "tracks": {
+    "server_hosts": {
+      "status": "SCOPED_BASELINE_VERIFIED",
+      "host_count": 3,
+      "results_imported": true,
+      "source_versions": "exact v0.0.1 package; see manifest and receipts",
+      "collection": "../v0.0.1-20261030/remote/collection.json",
+      "hosts": [
+        {
+          "host": "ubuntu",
+          "summary": "../v0.0.1-20261030/remote/ubuntu/results/summary.json",
+          "fuse": "../v0.0.1-20261030/remote/ubuntu/live-files/result.json"
+        },
+        {
+          "host": "arch",
+          "summary": "../v0.0.1-20261030/remote/arch/results/summary.json",
+          "fuse": "../v0.0.1-20261030/remote/arch/live-files/result.json"
+        },
+        {
+          "host": "debian",
+          "summary": "../v0.0.1-20261030/remote/debian/results/summary.json",
+          "fuse": "../v0.0.1-20261030/remote/debian/live-files/result.json"
+        }
+      ],
+      "scope": "six cross-family lifecycle/CLI/bind/stopped-view cells and per-host FUSE; not GUI, media, new app installation or Agent expansion",
+      "rerun_for_revision": false,
+      "next_action": "reuse version-bound receipts; refresh runtime prerequisites before the next changed-scope run, no automatic redispatch"
+    },
+    "full_extension": {
+      "status": "SCHEDULED_NOT_STARTED",
+      "start_month": "2026-11",
+      "start_day": null,
+      "defer_reason": "DEFERRED_BANDWIDTH",
+      "automatic_scheduling_created": false
+    }
+  },
+  "october_policy": {
+    "this_revision_scope": "documentation, imported local receipt review and read-only local preflight",
+    "new_large_downloads": "DEFERRED_BANDWIDTH",
+    "existing_server_tests": "v0.0.1 scoped results imported; no remote tasks dispatched"
+  },
+  "current_capabilities": {
+    "user_shortcuts": [
+      "init",
+      "configure",
+      "list",
+      "status",
+      "dirs",
+      "path",
+      "ls",
+      "install",
+      "run",
+      "start",
+      "stop",
+      "adopt",
+      "help",
+      "language"
+    ],
+    "interface_languages": [
+      "zh-CN",
+      "en",
+      "auto"
+    ],
+    "language_priority": [
+      "explicit preference",
+      "LC_ALL",
+      "LC_MESSAGES",
+      "LANG",
+      "host locale files",
+      "en fallback"
+    ],
+    "language_scope": "common CLI bilingual; advanced diagnostics remain English; native output unchanged",
+    "private_directory": "one files directory per initialized target; auto share labels only on installation-owned files",
+    "ls": "guest subdirectories and directory links only; running namespace or stopped read-only view",
+    "state_root": "explicit UNIFIER_HOME for test shortcuts, diagnostics and all workers",
+    "init_shared_project_option": false,
+    "install_exports_menu_or_handler_automatically": false,
+    "update_remove_entrypoints": "existing pkg update/remove; no new update/uninstall shortcuts",
+    "native_package_metadata": "DEB/RPM actual install/run accepted locally; Arch metadata only in latest CLI cycle",
+    "fuse_watcher": false,
+    "fuse_snapshot": false,
+    "fuse_cross_volume_consistency": false,
+    "managed_file_scope": "restricted regular files; no recursive directory/link graph/ACL/xattr/sparse full preservation",
+    "handler_providers": [
+      "environment-app"
+    ],
+    "guest_origin_bridge": "NOT_IMPLEMENTED_IN_REVIEWED_SOURCE",
+    "version": "0.0.1",
+    "release_install_upgrade_rollback": "implemented and isolated lifecycle validated; cross-version data schema migration not accepted",
+    "source_package": "src/unifier primary; multilinux forwards",
+    "fuse_revalidation": "invalidate regular-file pages on each attribute revalidation; old FD/mmap object semantics; no watcher or mmap-only freshness guarantee",
+    "python_compatibility": "3.12/3.13/3.14 runtime evidence; Python 3.11 independent runtime remains pending"
+  },
+  "execution_not_started_by_revision": true,
+  "result_progress_separation": {
+    "progress": [
+      "NOT_RUN",
+      "IN_PROGRESS",
+      "SCHEDULED_NOT_STARTED",
+      "SCOPED_BASELINE_VERIFIED",
+      "DEFERRED_BANDWIDTH"
+    ],
+    "rule": "Progress is not a result. Missing capability is recorded in capability_state/blocked_by; native-oracle or expected rejection is not a positive product workflow pass.",
+    "server_in_progress_does_not_fill_application_cells": true
+  },
+  "evidence_required_fields": [
+    "run_id",
+    "host_id_version_arch",
+    "kernel_runtime_security_modules",
+    "code_root",
+    "base_commit",
+    "dirty_source_sha256",
+    "UNIFIER_HOME",
+    "locale_language_preference",
+    "target_uuid_generation_cid",
+    "image_digest",
+    "package_version_source_sha256_signatures",
+    "entry_mode",
+    "argv_cwd",
+    "actual_execution_target",
+    "input_manifest_oracle",
+    "stdout_stderr_exit_signal",
+    "files_mounted_mount_graph",
+    "selinux_share_policy",
+    "worker_nofile_fd_counts",
+    "session_lease",
+    "gui_or_headless_scope",
+    "cleanup_and_preservation",
+    "host_context_id",
+    "policy_version",
+    "release_package_sha256",
+    "worker_code_identity",
+    "desktop_or_headless",
+    "template_or_executable_cell",
+    "prior_evidence_vs_current_run"
+  ],
+  "bandwidth_policy": {
+    "month_budget": "user supplied; not measured by this revision",
+    "categories": [
+      "cached_images_and_installers",
+      "new_packages",
+      "repository_indexes_and_dependencies",
+      "agent_dependencies_and_api",
+      "account_media_traffic",
+      "failed_attempt_retries"
+    ],
+    "cache_validation": "hash/source/architecture/native dependency contract; do not copy mutable host HOME or unrecorded dependencies",
+    "arch_policy": "full-system upgrade remains required; defer cell when budget is insufficient",
+    "historical_estimate": "planning only; not an exact dependency closure or new download authorization"
+  },
+  "cli_families": [
+    {
+      "id": "CLI01",
+      "operation": "帮助与参数",
+      "oracle": "help/help COMMAND/-h/--help, unknown command/option; help/language do not need runtime",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI02",
+      "operation": "双语与locale",
+      "oracle": "zh-CN/en/auto; explicit > LC_ALL > LC_MESSAGES > LANG > host locale files > en; guest target does not change host language",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI03",
+      "operation": "首次选择和续跑",
+      "oracle": "0/1/all admissible (currently 2) targets; explicit same-family and all-3 requests reject before forbidden runtime effects, never success by constructing 3 guests; no TTY, resumable errors, selected digest only",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI04",
+      "operation": "重复和并发初始化",
+      "oracle": "init reuse identity; concurrent low-level create with distinct IDs permits only one target record/CID; retained/missing/adopted conflicts remain occupied; waiting process rechecks policy",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI05",
+      "operation": "配置数量和保留",
+      "oracle": "configure add/disable/re-enable; enabled versus retained; no abrupt stop/delete; policy_blocked differs from disabled/retained and does not silently change selected data",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI06",
+      "operation": "真实专用目录",
+      "oracle": "dirs/path and files_mounted; private SELinux writeback/UID; normal projects preserve-host",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI07",
+      "operation": "运行/停止态目录",
+      "oracle": "ls subdirectories, links and .., root bounds, errno and temporary view cleanup; nonempty is not the oracle; policy-blocked running ls must not exec; stopped recovery remains available; restricted optional symlink cannot hide readable siblings",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI08",
+      "operation": "原生包路由",
+      "oracle": "DEB/RPM/Arch native metadata; wrong target before mutation; full Arch install/upgrade, literal paths",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI09",
+      "operation": "应用入口与同名",
+      "oracle": "native transaction vs entry registration; multiple desktop components/full argv; same alias across targets",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI10",
+      "operation": "执行租约和停止",
+      "oracle": "literal argv/UID/HOME/exit/signal, shared lease/last exit; refuse busy/native transaction/corrupt unknown lease",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI11",
+      "operation": "旧引用与冻结挂载",
+      "oracle": "adopt UUID/generation/CID and replacement conflicts; files not hot-mounted; isolated legacy fixture only",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI12",
+      "operation": "根、损坏与JSON",
+      "oracle": "one explicit root for all workers/recovery; corrupt registry fails; init/list/dirs/ls/install JSON stdout and progress stderr; run program stream separate",
+      "status": "NOT_RUN",
+      "prior_evidence": "../../archive/evidence/cli-installation-2026-10-29/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI13",
+      "operation": "版本、发布与安装回退",
+      "oracle": "Same digest and manifest across source/new/legacy/worker/deployed entrypoints; isolated fresh install, upgrade, rollback, removal preserve data; refuse unknown launcher; no assumed cross-version schema migration",
+      "status": "NOT_RUN",
+      "prior_evidence": "../v0.0.1-20261030/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    },
+    {
+      "id": "CLI14",
+      "operation": "母发行版权威全入口",
+      "oracle": "Same-family init/pull/create/adopt/start/run/pkg/running-ls refuse with no guest exec or host fallback; compat matrix aggregate exit status not individual admission; inspect/stop/stopped read-only recovery/exact retirement retain their documented limits",
+      "status": "NOT_RUN",
+      "prior_evidence": "../v0.0.1-20261030/report.md",
+      "prior_mechanism_pass_does_not_complete_extension_case": true
+    }
+  ],
+  "cli_family_count": 14,
+  "filesystem_resource_subcases": {
+    "families": [
+      "FS14",
+      "FS20"
+    ],
+    "nofile": 256,
+    "directory_entries": [
+      300,
+      3000,
+      10000
+    ],
+    "lanes": [
+      "pure-readdir",
+      "stat-lookup",
+      "open"
+    ],
+    "capacity_exhaustion": "explicit EMFILE; control channel and previous handles remain usable",
+    "recovery": "open closes versus kernel FORGET tracked independently",
+    "previous_evidence": "../../archive/evidence/projection-fd-repair-2026-10-29/report.md",
+    "scope": "local baseline only; new workloads/hosts need their own results"
+  },
+  "policy": {
+    "version": 2,
+    "same_family_allowed": false,
+    "same_distribution_allowed": false,
+    "no_host_fallback": true,
+    "one_target_per_installation_root": true,
+    "policy_refused_is_not_functional_failure": true,
+    "runtime_matrix_source": "compat check each target using actual host facts; compat matrix exit 0 alone does not admit every target"
+  },
+  "host_matrices": [
+    {
+      "id": "fedora-workstation",
+      "host_id": "fedora",
+      "allowed_targets": [
+        "debian13",
+        "arch"
+      ],
+      "refused_targets": [
+        "fedora44"
+      ],
+      "desktop_state": "DESKTOP_BASELINE_AVAILABLE",
+      "shared_data_ordered_edges": [
+        {
+          "id": "fedora-workstation:host->debian13",
+          "from": "host",
+          "to": "debian13",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "fedora-workstation:host->arch",
+          "from": "host",
+          "to": "arch",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "fedora-workstation:debian13->host",
+          "from": "debian13",
+          "to": "host",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "fedora-workstation:debian13->arch",
+          "from": "debian13",
+          "to": "arch",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "fedora-workstation:arch->host",
+          "from": "arch",
+          "to": "host",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "fedora-workstation:arch->debian13",
+          "from": "arch",
+          "to": "debian13",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        }
+      ],
+      "agent_origin_target_cells": [
+        {
+          "id": "fedora-workstation:debian13->host",
+          "origin": "debian13",
+          "target": "host",
+          "lane": "host",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "fedora-workstation:debian13->debian13",
+          "origin": "debian13",
+          "target": "debian13",
+          "lane": "local",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": []
+        },
+        {
+          "id": "fedora-workstation:debian13->arch",
+          "origin": "debian13",
+          "target": "arch",
+          "lane": "cross-guest",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "fedora-workstation:arch->host",
+          "origin": "arch",
+          "target": "host",
+          "lane": "host",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "fedora-workstation:arch->debian13",
+          "origin": "arch",
+          "target": "debian13",
+          "lane": "cross-guest",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "fedora-workstation:arch->arch",
+          "origin": "arch",
+          "target": "arch",
+          "lane": "local",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": []
+        }
+      ],
+      "deterministic_interwrite_replays": 54,
+      "scope": "same-host only; 3 save modes x 3 rounds; host matrices are not a cross-machine shared filesystem"
+    },
+    {
+      "id": "ubuntu-server",
+      "host_id": "ubuntu",
+      "allowed_targets": [
+        "fedora44",
+        "arch"
+      ],
+      "refused_targets": [
+        "debian13"
+      ],
+      "desktop_state": "HEADLESS_EVIDENCE_ONLY",
+      "shared_data_ordered_edges": [
+        {
+          "id": "ubuntu-server:host->fedora44",
+          "from": "host",
+          "to": "fedora44",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "ubuntu-server:host->arch",
+          "from": "host",
+          "to": "arch",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "ubuntu-server:fedora44->host",
+          "from": "fedora44",
+          "to": "host",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "ubuntu-server:fedora44->arch",
+          "from": "fedora44",
+          "to": "arch",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "ubuntu-server:arch->host",
+          "from": "arch",
+          "to": "host",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "ubuntu-server:arch->fedora44",
+          "from": "arch",
+          "to": "fedora44",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        }
+      ],
+      "agent_origin_target_cells": [
+        {
+          "id": "ubuntu-server:fedora44->host",
+          "origin": "fedora44",
+          "target": "host",
+          "lane": "host",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "ubuntu-server:fedora44->fedora44",
+          "origin": "fedora44",
+          "target": "fedora44",
+          "lane": "local",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": []
+        },
+        {
+          "id": "ubuntu-server:fedora44->arch",
+          "origin": "fedora44",
+          "target": "arch",
+          "lane": "cross-guest",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "ubuntu-server:arch->host",
+          "origin": "arch",
+          "target": "host",
+          "lane": "host",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "ubuntu-server:arch->fedora44",
+          "origin": "arch",
+          "target": "fedora44",
+          "lane": "cross-guest",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "ubuntu-server:arch->arch",
+          "origin": "arch",
+          "target": "arch",
+          "lane": "local",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": []
+        }
+      ],
+      "deterministic_interwrite_replays": 54,
+      "scope": "same-host only; 3 save modes x 3 rounds; host matrices are not a cross-machine shared filesystem"
+    },
+    {
+      "id": "debian-server",
+      "host_id": "debian",
+      "allowed_targets": [
+        "fedora44",
+        "arch"
+      ],
+      "refused_targets": [
+        "debian13"
+      ],
+      "desktop_state": "HEADLESS_EVIDENCE_ONLY",
+      "shared_data_ordered_edges": [
+        {
+          "id": "debian-server:host->fedora44",
+          "from": "host",
+          "to": "fedora44",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "debian-server:host->arch",
+          "from": "host",
+          "to": "arch",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "debian-server:fedora44->host",
+          "from": "fedora44",
+          "to": "host",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "debian-server:fedora44->arch",
+          "from": "fedora44",
+          "to": "arch",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "debian-server:arch->host",
+          "from": "arch",
+          "to": "host",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "debian-server:arch->fedora44",
+          "from": "arch",
+          "to": "fedora44",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        }
+      ],
+      "agent_origin_target_cells": [
+        {
+          "id": "debian-server:fedora44->host",
+          "origin": "fedora44",
+          "target": "host",
+          "lane": "host",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "debian-server:fedora44->fedora44",
+          "origin": "fedora44",
+          "target": "fedora44",
+          "lane": "local",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": []
+        },
+        {
+          "id": "debian-server:fedora44->arch",
+          "origin": "fedora44",
+          "target": "arch",
+          "lane": "cross-guest",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "debian-server:arch->host",
+          "origin": "arch",
+          "target": "host",
+          "lane": "host",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "debian-server:arch->fedora44",
+          "origin": "arch",
+          "target": "fedora44",
+          "lane": "cross-guest",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "debian-server:arch->arch",
+          "origin": "arch",
+          "target": "arch",
+          "lane": "local",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": []
+        }
+      ],
+      "deterministic_interwrite_replays": 54,
+      "scope": "same-host only; 3 save modes x 3 rounds; host matrices are not a cross-machine shared filesystem"
+    },
+    {
+      "id": "arch-server",
+      "host_id": "arch",
+      "allowed_targets": [
+        "debian13",
+        "fedora44"
+      ],
+      "refused_targets": [
+        "arch"
+      ],
+      "desktop_state": "HEADLESS_EVIDENCE_ONLY",
+      "shared_data_ordered_edges": [
+        {
+          "id": "arch-server:host->debian13",
+          "from": "host",
+          "to": "debian13",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "arch-server:host->fedora44",
+          "from": "host",
+          "to": "fedora44",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "arch-server:debian13->host",
+          "from": "debian13",
+          "to": "host",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "arch-server:debian13->fedora44",
+          "from": "debian13",
+          "to": "fedora44",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "arch-server:fedora44->host",
+          "from": "fedora44",
+          "to": "host",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        },
+        {
+          "id": "arch-server:fedora44->debian13",
+          "from": "fedora44",
+          "to": "debian13",
+          "status": "NOT_RUN",
+          "required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ]
+        }
+      ],
+      "agent_origin_target_cells": [
+        {
+          "id": "arch-server:debian13->host",
+          "origin": "debian13",
+          "target": "host",
+          "lane": "host",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "arch-server:debian13->debian13",
+          "origin": "debian13",
+          "target": "debian13",
+          "lane": "local",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": []
+        },
+        {
+          "id": "arch-server:debian13->fedora44",
+          "origin": "debian13",
+          "target": "fedora44",
+          "lane": "cross-guest",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "arch-server:fedora44->host",
+          "origin": "fedora44",
+          "target": "host",
+          "lane": "host",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "arch-server:fedora44->debian13",
+          "origin": "fedora44",
+          "target": "debian13",
+          "lane": "cross-guest",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT",
+            "G-GUEST-BRIDGE"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": [
+            "G-GUEST-BRIDGE"
+          ]
+        },
+        {
+          "id": "arch-server:fedora44->fedora44",
+          "origin": "fedora44",
+          "target": "fedora44",
+          "lane": "local",
+          "status": "NOT_RUN",
+          "user_task_required_gates": [
+            "G-HOST-POLICY",
+            "G-SHARED-MOUNT"
+          ],
+          "maintenance_required_gates": [
+            "G-GUEST-BRIDGE"
+          ],
+          "blocked_by": []
+        }
+      ],
+      "deterministic_interwrite_replays": 54,
+      "scope": "same-host only; 3 save modes x 3 rounds; host matrices are not a cross-machine shared filesystem"
+    }
+  ],
+  "template_counts": {
+    "shared_data_ordered_edges": 12,
+    "agent_origin_target_cells": 12,
+    "note": "preserved historical IDs; executable denominator is per-host host_matrices (6 edges and 6 controls each), not these templates"
+  },
+  "release_regressions": [
+    {
+      "id": "REG01",
+      "scope": "relative symlink and nested mount after directory rename; old FD/mmap original object",
+      "status": "NOT_RUN",
+      "prior_evidence": "../v0.0.1-20261030/report.md"
+    },
+    {
+      "id": "REG02",
+      "scope": "restricted optional symlink EACCES/EPERM/EOPNOTSUPP versus propagated EIO/EMFILE",
+      "status": "NOT_RUN",
+      "prior_evidence": "../v0.0.1-20261030/report.md"
+    },
+    {
+      "id": "REG03",
+      "scope": "forced equal size/mtime/ctime and 50 rapid writes; pread/mmap after attribute revalidation; mmap-only boundary separate",
+      "status": "NOT_RUN",
+      "prior_evidence": "../v0.0.1-20261030/report.md"
+    },
+    {
+      "id": "REG04",
+      "scope": "Linux F_SETOWN_EX lease and authorized move cleanup/recovery on Python 3.11 through 3.14; 3.11 runtime pending",
+      "status": "NOT_RUN",
+      "prior_evidence": "../v0.0.1-20261030/report.md"
+    },
+    {
+      "id": "REG05",
+      "scope": "repeated unchanged read/stat/list performance cost under conservative page invalidation; native control and warm/cold caches; no invented SLO",
+      "status": "NOT_RUN",
+      "prior_evidence": "../v0.0.1-20261030/report.md"
+    }
+  ],
+  "historical_baselines": [
+    {
+      "scope": "FreeCAD installed-app GUI save/reopen; not fresh installation",
+      "evidence": "../v0.0.1-20261030/freecad-workflow/result.json",
+      "status": "PASS_SCOPED_PRIOR_RUN"
+    },
+    {
+      "scope": "release install/upgrade/rollback and removal of entrypoint, not cross-version schema migration",
+      "evidence": "../v0.0.1-20261030/install-rollback.json",
+      "status": "PASS_SCOPED_PRIOR_RUN"
+    },
+    {
+      "scope": "release local real FUSE regression, not watcher or performance acceptance",
+      "evidence": "../v0.0.1-20261030/live-files-2/result.json",
+      "status": "PASS_SCOPED_PRIOR_RUN"
+    }
+  ],
+  "addenda": [
+    {
+      "id": "OSS-CLI-1",
+      "date": "2026-10-31",
+      "plan": "oss-cli-plan.json",
+      "sources": "oss-sources.json",
+      "status": "PLANNED_NOT_RUN",
+      "project_target_cells": 18,
+      "sources_refreshed": true,
+      "package_manager_case_count": 14
+    }
+  ]
+}

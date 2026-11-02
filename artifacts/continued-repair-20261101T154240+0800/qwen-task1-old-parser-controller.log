@@ -1,0 +1,240 @@
+test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) ... 
+  test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/app sample \n') ... FAIL
+  test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='app /usr/share/data/app sample \n') ... FAIL
+  test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/app\xa0\n') ... FAIL
+  test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/app\u3000\n') ... FAIL
+  test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/a\u2028b\n') ... FAIL
+  test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/a\u2029b\n') ... FAIL
+  test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/a\x85b\n') ... FAIL
+test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) ... 
+  test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/app\x01\n') ... FAIL
+  test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/app\x00\n') ... FAIL
+  test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/app\x7f\n') ... FAIL
+  test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/a\tb\n') ... FAIL
+  test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/a\x0bb\n') ... FAIL
+  test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/a\x0cb\n') ... FAIL
+  test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/a\x1cb/usr/bin/b\n') ... FAIL
+  test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/a\x1eb\n') ... FAIL
+  test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='app /usr/bin/a\x1db\n') ... FAIL
+  test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/app\r\n') ... FAIL
+
+======================================================================
+FAIL: test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/app sample \n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 59, in test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes
+    self.assertEqual(parse_package_files(package, text), expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['/usr/share/data/app sample'] != ['/usr/share/data/app sample ']
+
+First differing element 0:
+'/usr/share/data/app sample'
+'/usr/share/data/app sample '
+
+- ['/usr/share/data/app sample']
++ ['/usr/share/data/app sample ']
+?                             +
+
+
+======================================================================
+FAIL: test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='app /usr/share/data/app sample \n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 59, in test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes
+    self.assertEqual(parse_package_files(package, text), expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['/usr/share/data/app sample'] != ['/usr/share/data/app sample ']
+
+First differing element 0:
+'/usr/share/data/app sample'
+'/usr/share/data/app sample '
+
+- ['/usr/share/data/app sample']
++ ['/usr/share/data/app sample ']
+?                             +
+
+
+======================================================================
+FAIL: test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/app\xa0\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 59, in test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes
+    self.assertEqual(parse_package_files(package, text), expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['/usr/share/data/app'] != ['/usr/share/data/app\xa0']
+
+First differing element 0:
+'/usr/share/data/app'
+'/usr/share/data/app\xa0'
+
+- ['/usr/share/data/app']
++ ['/usr/share/data/app\xa0']
+?                      ++++
+
+
+======================================================================
+FAIL: test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/app\u3000\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 59, in test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes
+    self.assertEqual(parse_package_files(package, text), expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['/usr/share/data/app'] != ['/usr/share/data/app\u3000']
+
+First differing element 0:
+'/usr/share/data/app'
+'/usr/share/data/app\u3000'
+
+- ['/usr/share/data/app']
++ ['/usr/share/data/app\u3000']
+?                      ++++++
+
+
+======================================================================
+FAIL: test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/a\u2028b\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 59, in test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes
+    self.assertEqual(parse_package_files(package, text), expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['/usr/share/data/a'] != ['/usr/share/data/a\u2028b']
+
+First differing element 0:
+'/usr/share/data/a'
+'/usr/share/data/a\u2028b'
+
+- ['/usr/share/data/a']
++ ['/usr/share/data/a\u2028b']
+?                    +++++++
+
+
+======================================================================
+FAIL: test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/a\u2029b\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 59, in test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes
+    self.assertEqual(parse_package_files(package, text), expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['/usr/share/data/a'] != ['/usr/share/data/a\u2029b']
+
+First differing element 0:
+'/usr/share/data/a'
+'/usr/share/data/a\u2029b'
+
+- ['/usr/share/data/a']
++ ['/usr/share/data/a\u2029b']
+?                    +++++++
+
+
+======================================================================
+FAIL: test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes (test_app_entries.AppEntries.test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes) (text='/usr/share/data/a\x85b\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 59, in test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes
+    self.assertEqual(parse_package_files(package, text), expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['/usr/share/data/a'] != ['/usr/share/data/a\x85b']
+
+First differing element 0:
+'/usr/share/data/a'
+'/usr/share/data/a\x85b'
+
+- ['/usr/share/data/a']
++ ['/usr/share/data/a\x85b']
+?                    +++++
+
+
+======================================================================
+FAIL: test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/app\x01\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 71, in test_package_file_listing_refuses_inline_control_characters
+    with self.assertRaisesRegex(UnifierError, "control"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: UnifierError not raised
+
+======================================================================
+FAIL: test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/app\x00\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 71, in test_package_file_listing_refuses_inline_control_characters
+    with self.assertRaisesRegex(UnifierError, "control"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: UnifierError not raised
+
+======================================================================
+FAIL: test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/app\x7f\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 71, in test_package_file_listing_refuses_inline_control_characters
+    with self.assertRaisesRegex(UnifierError, "control"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: UnifierError not raised
+
+======================================================================
+FAIL: test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/a\tb\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 71, in test_package_file_listing_refuses_inline_control_characters
+    with self.assertRaisesRegex(UnifierError, "control"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: UnifierError not raised
+
+======================================================================
+FAIL: test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/a\x0bb\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 71, in test_package_file_listing_refuses_inline_control_characters
+    with self.assertRaisesRegex(UnifierError, "control"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: UnifierError not raised
+
+======================================================================
+FAIL: test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/a\x0cb\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 71, in test_package_file_listing_refuses_inline_control_characters
+    with self.assertRaisesRegex(UnifierError, "control"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: UnifierError not raised
+
+======================================================================
+FAIL: test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/a\x1cb/usr/bin/b\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 71, in test_package_file_listing_refuses_inline_control_characters
+    with self.assertRaisesRegex(UnifierError, "control"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: UnifierError not raised
+
+======================================================================
+FAIL: test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/a\x1eb\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 71, in test_package_file_listing_refuses_inline_control_characters
+    with self.assertRaisesRegex(UnifierError, "control"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: UnifierError not raised
+
+======================================================================
+FAIL: test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='app /usr/bin/a\x1db\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 71, in test_package_file_listing_refuses_inline_control_characters
+    with self.assertRaisesRegex(UnifierError, "control"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: UnifierError not raised
+
+======================================================================
+FAIL: test_package_file_listing_refuses_inline_control_characters (test_app_entries.AppEntries.test_package_file_listing_refuses_inline_control_characters) (text='/usr/bin/app\r\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_app_entries.py", line 71, in test_package_file_listing_refuses_inline_control_characters
+    with self.assertRaisesRegex(UnifierError, "control"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: UnifierError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.006s
+
+FAILED (failures=17)

@@ -1,0 +1,3 @@
+deps-debian: apt-get update
+deps-debian: apt-get install -y sl
+deps-debian: install completed txna28547e74d23

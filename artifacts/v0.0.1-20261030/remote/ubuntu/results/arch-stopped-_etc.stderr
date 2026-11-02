@@ -1,0 +1,2 @@
+arch: container is stopped; listing /etc through a read-only view
+arch: opening a short-lived read-only view 757f17b0-bc4e-450d-85a5-a4afd5861e29; only this view is released afterwards.

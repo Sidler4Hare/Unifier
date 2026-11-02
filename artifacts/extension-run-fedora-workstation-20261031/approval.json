@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-31",
+  "timezone": "Asia/Shanghai",
+  "host_context": "fedora-workstation",
+  "decision": "APPROVED_LOCAL_SLICE",
+  "network_constraint": "User is on Starbucks WiFi. Reuse locked local images. Do not download closed-source GUI packages. Cap an Arch full upgrade at 80 MiB of package payload.",
+  "installation_root": "/home/omg/.local/share/unifier-extension-20261031",
+  "daily_root_untouched": "/home/omg/.local/share/unifier",
+  "daily_containers_untouched": [
+    "ml-53c5c8a5-freecad-arch",
+    "ml-6b061a2f-meeting"
+  ],
+  "approved_today": [
+    "policy refusal of fedora44 via compat, init and env create",
+    "isolated init of debian13 and arch with desktop, pasta and keep-id",
+    "per-target files bind, two save/stop/reopen cycles",
+    "running and stopped ls",
+    "desktop socket presence inside both guests",
+    "Debian repository jq install and a fixed JSON oracle",
+    "Arch repository jq only when pacman -Syu --print stays within 80 MiB"
+  ],
+  "not_approved_today": [
+    "any positive Fedora 44 guest",
+    "ubuntu, debian or arch servers",
+    "WPS DEB, Zoom, Feishu, Beyond Compare downloads",
+    "guest-origin Agent control",
+    "six-edge shared project and 54 replays",
+    "start, stop or remove of the two daily containers"
+  ],
+  "basis": [
+    "Host is Fedora 44 KDE Wayland, so debian13 and arch are the only admitted guests",
+    "Locked debian and arch image digests are already present",
+    "Downloads contain a WPS RPM and no WPS DEB, Zoom package or Feishu package",
+    "init mounts only each target files directory, so a common project bind is a later fixture"
+  ]
+}

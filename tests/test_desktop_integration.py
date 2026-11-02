@@ -19,11 +19,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 
-from multilinux.desktop import desktop_id
-from multilinux.packages import HostObserver
-from multilinux.project import load_project
-from multilinux.runtime import PodmanRuntime, container_name, project_label
-from multilinux.service import EnvironmentService, now
+from unifier.desktop import desktop_id
+from unifier.packages import HostObserver
+from unifier.project import load_project
+from unifier.runtime import PodmanRuntime, container_name, project_label
+from unifier.service import EnvironmentService, now
 
 
 ENV_ID = "m3debian"
@@ -267,7 +267,7 @@ class PodmanDesktop(unittest.TestCase):
         log = log_path.open("w", encoding="utf-8")
         try:
             proc = subprocess.Popen(
-                [sys.executable, str(ROOT / "tools/ml.py"), "app", "open", APP_ID, "--", str(note)],
+                [sys.executable, str(ROOT / "tools/unifier.py"), "app", "open", APP_ID, "--", str(note)],
                 cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
         finally:
             log.close()

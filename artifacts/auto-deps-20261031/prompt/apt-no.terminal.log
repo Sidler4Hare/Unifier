@@ -1,0 +1,123 @@
+deps-debian: apt-get update
+0% [Working]            Hit:1 http://deb.debian.org/debian trixie InRelease
+0% [Working]0% [Waiting for headers]                        Hit:2 http://deb.debian.org/debian trixie-updates InRelease
+                        0% [Working]0% [Waiting for headers]                        Hit:3 http://deb.debian.org/debian-security trixie-security InRelease
+                        0% [Working]20% [Working]             Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
+deps-debian: apt-get install cowsay
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... 0% Reading state information... 0%Reading state information... Done
+The following additional packages will be installed:
+  libtext-charwidth-perl
+Suggested packages:
+  filters cowsay-off
+The following NEW packages will be installed:
+  cowsay libtext-charwidth-perl
+0 upgraded, 2 newly installed, 0 to remove and 2 not upgraded.
+Need to get 30.8 kB of archives.
+After this operation, 137 kB of additional disk space will be used.
+Do you want to continue? [Y/n] n
+Abort.
+deps-debian: install failed txnd4d8b4b35a33
+{
+  "schema_version": 1,
+  "id": "txnd4d8b4b35a33",
+  "environment_id": "deps-debian",
+  "operation": "install",
+  "packages": [
+    "cowsay"
+  ],
+  "interactive": true,
+  "stream": true,
+  "dependency_repair": {
+    "status": "not-requested"
+  },
+  "use_command": [],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "985bd6c89cf3c1fc87a87b4226a809c6f72ec747f4c8e0832cbe62976670a679",
+    "content_revision": 2,
+    "package_inventory_sha256": "f105f42487b908eff30253cfb0f63bbd2a161bec79d41d89bc201b029cab2a57"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "\r0% [Working]\r            \rHit:1 http://deb.debian.org/debian trixie InRelease\r\n\r0% [Working]\r0% [Waiting for headers]\r                        \rHit:2 http://deb.debian.org/debian trixie-updates InRelease\r\n\r                        \r0% [Working]\r0% [Waiting for headers]\r                        \rHit:3 http://deb.debian.org/debian-security trixie-security InRelease\r\n\r                        \r0% [Working]\r20% [Working]\r             \r\rReading package lists... 0%\r\rReading package lists... 0%\r\rReading package lists... 0%\r\rReading package lists... 95%\r\rReading package lists... 95%\r\rReading package lists... 95%\r\rReading package lists... 95%\r\rReading package lists... 99%\r\rReading package lists... 99%\r\rReading package lists... Done\r\r\n",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "cowsay"
+      ],
+      "exit_code": 1,
+      "stdout_tail": "\rReading package lists... 0%\r\rReading package lists... 0%\r\rReading package lists... 0%\r\rReading package lists... 95%\r\rReading package lists... 95%\r\rReading package lists... 95%\r\rReading package lists... 95%\r\rReading package lists... 99%\r\rReading package lists... 99%\r\rReading package lists... Done\r\r\n\rBuilding dependency tree... 0%\r\rBuilding dependency tree... 0%\r\rBuilding dependency tree... 50%\r\rBuilding dependency tree... 50%\r\rBuilding dependency tree... Done\r\r\n\rReading state information... 0% \r\rReading state information... 0%\r\rReading state information... Done\r\r\nThe following additional packages will be installed:\r\n  libtext-charwidth-perl\r\nSuggested packages:\r\n  filters cowsay-off\r\nThe following NEW packages will be installed:\r\n  cowsay libtext-charwidth-perl\r\n0 upgraded, 2 newly installed, 0 to remove and 2 not upgraded.\r\nNeed to get 30.8 kB of archives.\r\nAfter this operation, 137 kB of additional disk space will be used.\r\nDo you want to continue? [Y/n] n\r\nAbort.\r\n",
+      "stderr_tail": ""
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "failed",
+  "verification": {
+    "ok": false,
+    "packages": {
+      "cowsay": false
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": [
+      "native command failed"
+    ]
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "deps-arch": {
+      "before": "c6a5332804f04ac191457e24ada3a9622a4ab8d6d5c593ed228948f57448b92e",
+      "after": "c6a5332804f04ac191457e24ada3a9622a4ab8d6d5c593ed228948f57448b92e",
+      "probed_before": "c6a5332804f04ac191457e24ada3a9622a4ab8d6d5c593ed228948f57448b92e",
+      "probed_after": "c6a5332804f04ac191457e24ada3a9622a4ab8d6d5c593ed228948f57448b92e",
+      "unchanged": true,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "985bd6c89cf3c1fc87a87b4226a809c6f72ec747f4c8e0832cbe62976670a679",
+    "content_revision": 2,
+    "package_inventory_sha256": "f105f42487b908eff30253cfb0f63bbd2a161bec79d41d89bc201b029cab2a57"
+  },
+  "phase": "failed",
+  "failure_phase": "native-command",
+  "started_at": "2026-10-31T21:47:09+08:00",
+  "finished_at": "2026-10-31T21:47:16+08:00"
+}

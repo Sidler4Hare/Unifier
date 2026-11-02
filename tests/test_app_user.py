@@ -11,11 +11,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "tests"))
 
-from multilinux.errors import MultilinuxError
-from multilinux.runtime import CreateSpec, creation_argv, exec_argv
+from unifier.errors import UnifierError
+from unifier.runtime import CreateSpec, creation_argv, exec_argv
 from test_env import FakeRuntime, service_in
 from test_desktop import SESSION, _run
-from multilinux import cli
+from unifier import cli
 
 
 class UserRuntime(FakeRuntime):
@@ -37,7 +37,7 @@ class AppUser(unittest.TestCase):
         self.assertEqual(command[command.index("--user") + 1], "0")
         self.assertEqual(command[command.index("--passwd-entry") + 1],
                          "$USERNAME:*:$UID:$GID:$NAME:/home/multilinux-$UID:/bin/sh")
-        with self.assertRaises(MultilinuxError):
+        with self.assertRaises(UnifierError):
             creation_argv(replace(spec, user_namespace="host"))
         command = exec_argv("ml-demo", ["printf", "%s", "literal ; $HOME"],
                             workdir=None, env={}, user="1000:1000")
@@ -49,7 +49,7 @@ class AppUser(unittest.TestCase):
             service, runtime = service_in(Path(temporary), runtime=UserRuntime())
             service.create("debian13", None, [], desktop=True, session=SESSION)
             runtime.events.clear()
-            with self.assertRaisesRegex(MultilinuxError, "requires.*keep-id"):
+            with self.assertRaisesRegex(UnifierError, "requires.*keep-id"):
                 service.add_app("debian13", "notes", "/usr/bin/true", ["/usr/bin/true"],
                                 as_host_user=True)
             self.assertEqual(runtime.events, [])
@@ -60,7 +60,7 @@ class AppUser(unittest.TestCase):
             original = cli.service_factory
             cli.service_factory = lambda: service
             try:
-                with patch("multilinux.service.discover_session", return_value=SESSION):
+                with patch("unifier.service.discover_session", return_value=SESSION):
                     code, _out, err = _run(["env", "create", "--target", "debian13", "--desktop",
                                             "--userns", "keep-id"])
                 self.assertEqual(code, 0, err)

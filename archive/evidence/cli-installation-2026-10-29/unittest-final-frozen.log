@@ -1,0 +1,43 @@
+..................debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn07586aed8d4d
+fedora44: dnf install -y hello
+fedora44: install completed txncfe868614a25
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn98cb0121a391
+.............................refusing to overwrite an unknown file: /tmp/tmpwfsenad_/unifier
+remove or rename it explicitly, then rerun this installer
+..................debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnec791ba4be2b
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn575d2e2b14d1
+...Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+........debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnd317f5159bd1
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnf544866b457a
+..debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnc790b5f11986
+...debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnafe866e5acb7
+fedora44: dnf install -y hello
+fedora44: install completed txn3cc77e6902b1
+......................................................s..........................ml: remove deletes the environment's writable root; pass --yes
+.............s.............................................................................removed demo
+/usr/lib64/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=368031) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+..................................................................................s.................................................................................................s................/usr/lib64/python3.14/site-packages/gi/overrides/__init__.py:159: PyGIDeprecationWarning: GLib.unix_signal_add_full is deprecated; use GLibUnix.signal_add_full instead
+  value = getattr(proxy, attr)
+.......................................................................
+----------------------------------------------------------------------
+Ran 521 tests in 15.699s
+
+OK (skipped=4)

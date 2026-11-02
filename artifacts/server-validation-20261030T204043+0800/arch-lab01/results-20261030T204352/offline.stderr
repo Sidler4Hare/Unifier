@@ -1,0 +1,75 @@
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnd8132e47f6f1
+fedora44: dnf install -y hello
+fedora44: install completed txn4407e62e764a
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txnfa407eb6eb18
+refusing to overwrite an unknown file: /tmp/tmpga92du6e/unifier
+remove or rename it explicitly, then rerun this installer
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn25a46de94547
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnbe12b613dc0b
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn29f8e20b2ac6
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn1025eacb7069
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnaa7a94b47606
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnb4a553e003b2
+fedora44: dnf install -y hello
+fedora44: install completed txnb5de096c067d
+unifier: remove deletes the environment's writable root; pass --yes
+/usr/lib/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=1190) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+======================================================================
+FAIL: test_gpu_dmabuf_roundtrip_when_render_node_is_accessible (test_dmabuf_roundtrip.DmaBufRoundtripTests.test_gpu_dmabuf_roundtrip_when_render_node_is_accessible)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dev/server-validation-20261030T204043+0800/unifier-current/tests/test_dmabuf_roundtrip.py", line 215, in test_gpu_dmabuf_roundtrip_when_render_node_is_accessible
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        completed.returncode,
+        ^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        f"stderr:\n{completed.stderr}",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: 4 != 0 : GPU DMA-BUF round trip failed
+stdout:
+{"schema":"multilinux.dmabuf-roundtrip.v1","passed":false,"status":"unsupported","stage":"gbm_alloc","error":"GBM cannot allocate XRGB8888 96x53 with GBM_BO_USE_LINEAR","render_node":"/dev/dri/renderD128","device":{"gbm_backend":"drm","drm_fd":3,"gbm_width":0,"gbm_height":0},"egl":{"image_dma_buf_import":false,"image_dma_buf_import_modifiers":false,"surfaceless_context":false,"dma_buf_format_count":0,"dma_buf_modifier_count":0,"format_query_performed":false,"xrgb8888_supported":false,"supported_modifiers":[]},"import":{"gpu_import_successful":false,"egl_image_created":false,"texture_created":false,"fbo_complete":false,"modifier_attributes_used":false,"method":"EGL_EXT_image_dma_buf_import + glEGLImageTargetTexture2DOES + FBO"},"readback":{"cpu_readback_performed":false,"width":96,"height":53,"total_pixels":0,"matching_pixels":0,"mismatched_pixels":0,"direct_matching_pixels":0,"flipped_matching_pixels":0,"tolerance":2,"max_channel_delta":0,"orientation":"direct","rgb_fnv1a64":"0x0000000000000000"},"zero_copy":false,"resources_released":true,"notes":["Private synthetic GBM buffer; no compositor capture and no image bytes saved.","CPU glReadPixels readback was used for verification; this is not an end-to-end zero-copy path.","The CPU-initialized buffer uses DRM_FORMAT_MOD_LINEAR; non-linear modifiers are reported but rejected explicitly."]}
+
+stderr:
+KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied
+
+
+----------------------------------------------------------------------
+Ran 550 tests in 23.461s
+
+FAILED (failures=1, skipped=4)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from pathlib import Path; from tools.check_repo import check; check(Path.cwd(), quick=False)
+                                                                  ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dev/server-validation-20261030T204043+0800/unifier-current/tools/check_repo.py", line 56, in check
+    run(root, environment,
+    ~~~^^^^^^^^^^^^^^^^^^^
+        [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-q"])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dev/server-validation-20261030T204043+0800/unifier-current/tools/check_repo.py", line 19, in run
+    subprocess.run(command, cwd=root, env=environment, check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-q']' returned non-zero exit status 1.

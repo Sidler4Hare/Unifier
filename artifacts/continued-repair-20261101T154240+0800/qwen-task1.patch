@@ -1,0 +1,95 @@
+--- before/src/unifier/packages.py
++++ after/src/unifier/packages.py
+@@ -95,15 +95,31 @@
+ 
+ 
+ def parse_package_files(package: str, text: str) -> list[str]:
+-    """Read dpkg/rpm paths or pacman's package-prefixed file listing."""
++    """Read dpkg/rpm paths or pacman's package-prefixed file listing.
++
++    The native tools separate records with LF only, so LF is the single record
++    boundary and every other byte of a record is file-name data: a trailing
++    space, U+00A0, U+2028, U+0085 and shell metacharacters survive untouched,
++    and nothing is executed or expanded.  A leading space or tab is layout in
++    front of an absolute path, so it is the only thing removed.  A C0/DEL
++    control byte cannot be carried inside an LF record, so a path record that
++    holds one is refused instead of being stripped or split into a different
++    path.  File names that themselves contain LF stay ambiguous: such a listing
++    is still read as two records and is not claimed to round-trip.
++    """
+     files = []
+-    for line in text.splitlines():
+-        line = line.strip()
+-        if not line:
++    for line in text.split("\n"):
++        # LF is the only separator; only layout before a path is removed.
++        record = line.lstrip(" \t")
++        if record.startswith(package + " "):
++            record = record[len(package) + 1:]
++        if not record.startswith("/"):
+             continue
+-        path = line[len(package) + 1:] if line.startswith(package + " ") else line
+-        if path.startswith("/"):
+-            files.append(path)
++        if any(ord(char) < 32 or ord(char) == 127 for char in record):
++            raise UnifierError(
++                f"package {package} file list has a control character in "
++                f"the path record {record!r}")
++        files.append(record)
+     return files
+ 
+ 
+--- before/tests/test_app_entries.py
++++ after/tests/test_app_entries.py
+@@ -25,6 +25,51 @@
+                             if text.startswith("app ") else
+                             ["/usr/bin/app", "/usr/share/data/app sample"])
+                 self.assertEqual(parse_package_files("app", text), expected)
++
++    def test_package_file_listing_splits_on_lf_only_and_keeps_the_record_bytes(self):
++        cases = [
++            # dpkg-query / rpm listings: literal absolute paths, one per LF.
++            ("app", "/usr/bin/app\n/usr/share/applications/app.desktop\n",
++             ["/usr/bin/app", "/usr/share/applications/app.desktop"]),
++            # pacman prefixes every record with the package name and one space.
++            ("app", "app /usr/bin/app\napp /usr/share/applications/app.desktop\n",
++             ["/usr/bin/app", "/usr/share/applications/app.desktop"]),
++            # A leading space or tab is layout, never part of an absolute path.
++            ("app", " /usr/bin/app\n\t/usr/bin/tab\n \nrelative\n",
++             ["/usr/bin/app", "/usr/bin/tab"]),
++            # A trailing space is a legal byte of the file name, not padding.
++            ("app", "/usr/share/data/app sample \n", ["/usr/share/data/app sample "]),
++            ("app", "app /usr/share/data/app sample \n", ["/usr/share/data/app sample "]),
++            # Non-ASCII whitespace and separators are file-name bytes too: the old
++            # strip() dropped a trailing U+00A0/U+3000 and splitlines() cut the
++            # U+2028, U+2029 and U+0085 records into two fake paths each.
++            ("app", "/usr/share/data/app\u00a0\n", ["/usr/share/data/app\u00a0"]),
++            ("app", "/usr/share/data/app\u3000\n", ["/usr/share/data/app\u3000"]),
++            ("app", "/usr/share/data/a\u2028b\n", ["/usr/share/data/a\u2028b"]),
++            ("app", "/usr/share/data/a\u2029b\n", ["/usr/share/data/a\u2029b"]),
++            ("app", "/usr/share/data/a\u0085b\n", ["/usr/share/data/a\u0085b"]),
++            # Shell metacharacters are data: nothing is executed or expanded.
++            ("app", "/opt/a b'$c`d`{e}(f);g<h>i|j&k#l?m*n[p]\\q\n",
++             ["/opt/a b'$c`d`{e}(f);g<h>i|j&k#l?m*n[p]\\q"]),
++            ("app", "app /opt/a b'$c`d`{e}(f);g<h>i|j&k#l?m*n[p]\\q\n",
++             ["/opt/a b'$c`d`{e}(f);g<h>i|j&k#l?m*n[p]\\q"]),
++        ]
++        for package, text, expected in cases:
++            with self.subTest(text=text):
++                self.assertEqual(parse_package_files(package, text), expected)
++
++    def test_package_file_listing_refuses_inline_control_characters(self):
++        # A C0/DEL byte inside one record cannot be carried by an LF-only list.
++        # Reading it as padding or as a line break invents a different path, so
++        # it is refused.  File names that themselves contain LF stay ambiguous:
++        # such input is still read as two records and is not claimed to round-trip.
++        for text in ("/usr/bin/app\x01\n", "/usr/bin/app\x00\n", "/usr/bin/app\x7f\n",
++                     "/usr/bin/a\tb\n", "/usr/bin/a\x0bb\n", "/usr/bin/a\x0cb\n",
++                     "/usr/bin/a\x1cb/usr/bin/b\n", "/usr/bin/a\x1eb\n",
++                     "app /usr/bin/a\x1db\n", "/usr/bin/app\r\n"):
++            with self.subTest(text=text):
++                with self.assertRaisesRegex(UnifierError, "control"):
++                    parse_package_files("app", text)
+ 
+     def test_first_desktop_exec_remains_authoritative(self):
+         self.assertEqual(desktop_exec_argv(

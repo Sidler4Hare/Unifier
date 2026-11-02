@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "target": "debian13",
+  "environment_id": "debian13",
+  "transaction": {
+    "schema_version": 1,
+    "id": "txnfd1ebf119649",
+    "environment_id": "debian13",
+    "operation": "install-local",
+    "packages": [
+      "jq"
+    ],
+    "use_command": [],
+    "local_file": "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/native-jq-files/中文 空格 $; jq.deb",
+    "revision_before": {
+      "writable_revision": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+      "content_revision": 16,
+      "package_inventory_sha256": "6ad1ed648db9f7f15d0475ecf6aaa0066107ca0e5b2b10c5a8678b6408a18fd9"
+    },
+    "native": [
+      {
+        "argv": [
+          "apt-get",
+          "update"
+        ],
+        "exit_code": 0,
+        "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nIgn:3 https://www.scootersoftware.com/debian bcompare5 InRelease\nHit:4 http://deb.debian.org/debian-security trixie-security InRelease\nHit:5 https://www.scootersoftware.com/debian bcompare5 Release\nReading package lists...\n",
+        "stderr_tail": ""
+      },
+      {
+        "argv": [
+          "apt-get",
+          "install",
+          "-y",
+          "/tmp/ml-incoming/中文 空格 $; jq.deb"
+        ],
+        "exit_code": 0,
+        "stdout_tail": "Reading package lists...\nBuilding dependency tree...\nReading state information...\njq is already the newest version (1.7.1-6+deb13u4).\n0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.\n",
+        "stderr_tail": ""
+      }
+    ],
+    "native_error": null,
+    "maintenance": {
+      "status": "ok",
+      "items": [],
+      "system_integration": "unverified",
+      "full_init": false
+    },
+    "verdict": "verified",
+    "verification": {
+      "ok": true,
+      "packages": {
+        "jq": true
+      },
+      "command": null,
+      "command_exit_code": null,
+      "stdout_preview": null,
+      "stdout_sha256": null,
+      "problems": []
+    },
+    "host_entries": {
+      "added": [],
+      "removed": []
+    },
+    "host_packages": {
+      "before": {
+        "available": true,
+        "tool": "rpm",
+        "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+        "count": 2530,
+        "error": null
+      },
+      "after": {
+        "available": true,
+        "tool": "rpm",
+        "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+        "count": 2530,
+        "error": null
+      }
+    },
+    "other_environments": {
+      "arch": {
+        "before": "2d875d92d8b9017c10c705ac26984658e52268ff2c036e8b2ad2012b62be2d62",
+        "after": "2d875d92d8b9017c10c705ac26984658e52268ff2c036e8b2ad2012b62be2d62",
+        "probed_before": "2d875d92d8b9017c10c705ac26984658e52268ff2c036e8b2ad2012b62be2d62",
+        "probed_after": "2d875d92d8b9017c10c705ac26984658e52268ff2c036e8b2ad2012b62be2d62",
+        "unchanged": true,
+        "error": null
+      }
+    },
+    "revision_after": {
+      "writable_revision": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+      "content_revision": 16,
+      "package_inventory_sha256": "6ad1ed648db9f7f15d0475ecf6aaa0066107ca0e5b2b10c5a8678b6408a18fd9"
+    },
+    "phase": "completed",
+    "failure_phase": null,
+    "started_at": "2026-10-31T16:13:33+08:00",
+    "finished_at": "2026-10-31T16:14:50+08:00"
+  },
+  "app": "jq",
+  "app_id": "jq-17b3ff",
+  "executable": "/usr/bin/jq",
+  "argv": [
+    "/usr/bin/jq"
+  ],
+  "entry_source": "explicit"
+}

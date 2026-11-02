@@ -1,0 +1,18 @@
+test_cleanup_lease_failures_preserve_bytes_and_release_resources (test_controlled_move.ControlledMoveNative.test_cleanup_lease_failures_preserve_bytes_and_release_resources) ... ok
+test_final_source_hardlink_blocks_deletion (test_controlled_move.ControlledMoveNative.test_final_source_hardlink_blocks_deletion) ... ok
+test_final_target_replacement_blocks_deletion_and_recovery (test_controlled_move.ControlledMoveNative.test_final_target_replacement_blocks_deletion_and_recovery) ... ok
+test_held_reader_or_writer_prevents_capture_without_deleting (test_controlled_move.ControlledMoveNative.test_held_reader_or_writer_prevents_capture_without_deleting) ... ok
+test_late_policy_revocation_retains_the_captured_bytes (test_controlled_move.ControlledMoveNative.test_late_policy_revocation_retains_the_captured_bytes) ... ok
+test_move_without_explicit_authorization_retains_a_controlled_source (test_controlled_move.ControlledMoveNative.test_move_without_explicit_authorization_retains_a_controlled_source) ... ok
+test_normal_controlled_move_deletes_only_the_captured_source (test_controlled_move.ControlledMoveNative.test_normal_controlled_move_deletes_only_the_captured_source) ... ok
+test_old_journal_without_cleanup_block_never_gains_delete_rights (test_controlled_move.ControlledMoveNative.test_old_journal_without_cleanup_block_never_gains_delete_rights) ... ok
+test_pinned_quarantine_identity_cannot_be_reused_by_a_new_directory (test_controlled_move.ControlledMoveNative.test_pinned_quarantine_identity_cannot_be_reused_by_a_new_directory) ... ok
+test_read_only_root_cannot_be_registered_for_controlled_cleanup (test_controlled_move.ControlledMoveNative.test_read_only_root_cannot_be_registered_for_controlled_cleanup) ... ok
+test_real_lease_break_is_observed_before_deletion (test_controlled_move.ControlledMoveNative.test_real_lease_break_is_observed_before_deletion) ... ok
+test_recovery_at_each_cleanup_journal_boundary (test_controlled_move.ControlledMoveNative.test_recovery_at_each_cleanup_journal_boundary) ... ok
+test_recovery_from_captured_state_finishes_and_is_idempotent (test_controlled_move.ControlledMoveNative.test_recovery_from_captured_state_finishes_and_is_idempotent) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 1.729s
+
+OK

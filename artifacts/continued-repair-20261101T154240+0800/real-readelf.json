@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "binary": "/bin/true",
+  "objects": [
+    {
+      "path": "/bin/true",
+      "needed": [
+        "libc.so.6"
+      ],
+      "sonames": []
+    }
+  ],
+  "scope": "host user readelf parser check; not guest repository repair"
+}

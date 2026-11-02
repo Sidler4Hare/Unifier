@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "oracle": [
+    "bad_exit=127"
+  ],
+  "install_ok": false
+}

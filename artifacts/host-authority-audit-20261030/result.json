@@ -1,0 +1,345 @@
+{
+  "captured_at": "2026-10-30T21:19:34.092219+08:00",
+  "scope": "read-only inventory; isolated fake-runtime counterexamples",
+  "policies": [
+    {
+      "label": "/home/omg/文档/多兼容linux机/src/unifier/compatibility.py",
+      "sha256": "ab61d7065b5cefcf155a5e51222f78e2d236a8128377ab004a9bed1b1a15cf30",
+      "policy_version": 2,
+      "same_family_pairs": [
+        {
+          "host": "ubuntu",
+          "target": "debian13",
+          "allowed": false
+        },
+        {
+          "host": "debian",
+          "target": "debian13",
+          "allowed": false
+        },
+        {
+          "host": "fedora",
+          "target": "fedora44",
+          "allowed": false
+        },
+        {
+          "host": "arch",
+          "target": "arch",
+          "allowed": false
+        },
+        {
+          "host": "manjaro",
+          "target": "arch",
+          "allowed": false
+        }
+      ],
+      "scope": "policy function evaluated locally; not deployed runtime acceptance"
+    },
+    {
+      "label": "git-index:src/unifier/compatibility.py",
+      "sha256": "41b13395d65faed4acf9124424f5391e120d6fd4d8bdd5fe0f2c6df78368d5b3",
+      "policy_version": 1,
+      "same_family_pairs": [
+        {
+          "host": "ubuntu",
+          "target": "debian13",
+          "allowed": true
+        },
+        {
+          "host": "debian",
+          "target": "debian13",
+          "allowed": true
+        },
+        {
+          "host": "fedora",
+          "target": "fedora44",
+          "allowed": true
+        },
+        {
+          "host": "arch",
+          "target": "arch",
+          "allowed": true
+        },
+        {
+          "host": "manjaro",
+          "target": "arch",
+          "allowed": true
+        }
+      ],
+      "scope": "policy function evaluated locally; not deployed runtime acceptance"
+    },
+    {
+      "label": "/home/omg/.local/share/multilinux/apps/freecad/src/multilinux/compatibility.py",
+      "sha256": "5a4e756f7bbf2b33c9ca49fa4f319206881e734824720ed26acfadd1b4420a5a",
+      "policy_version": 1,
+      "same_family_pairs": [
+        {
+          "host": "ubuntu",
+          "target": "debian13",
+          "allowed": true
+        },
+        {
+          "host": "debian",
+          "target": "debian13",
+          "allowed": true
+        },
+        {
+          "host": "fedora",
+          "target": "fedora44",
+          "allowed": true
+        },
+        {
+          "host": "arch",
+          "target": "arch",
+          "allowed": true
+        },
+        {
+          "host": "manjaro",
+          "target": "arch",
+          "allowed": true
+        }
+      ],
+      "scope": "policy function evaluated locally; not deployed runtime acceptance"
+    },
+    {
+      "label": "/home/omg/.local/share/multilinux/apps/wemeet/src/multilinux/compatibility.py",
+      "sha256": "5a4e756f7bbf2b33c9ca49fa4f319206881e734824720ed26acfadd1b4420a5a",
+      "policy_version": 1,
+      "same_family_pairs": [
+        {
+          "host": "ubuntu",
+          "target": "debian13",
+          "allowed": true
+        },
+        {
+          "host": "debian",
+          "target": "debian13",
+          "allowed": true
+        },
+        {
+          "host": "fedora",
+          "target": "fedora44",
+          "allowed": true
+        },
+        {
+          "host": "arch",
+          "target": "arch",
+          "allowed": true
+        },
+        {
+          "host": "manjaro",
+          "target": "arch",
+          "allowed": true
+        }
+      ],
+      "scope": "policy function evaluated locally; not deployed runtime acceptance"
+    },
+    {
+      "label": "/home/omg/文档/多兼容linux机/artifacts/unifier-ubuntu-server-20261028.tar.gz:unifier-ubuntu-server-20261028/src/multilinux/compatibility.py",
+      "sha256": "5a4e756f7bbf2b33c9ca49fa4f319206881e734824720ed26acfadd1b4420a5a",
+      "policy_version": 1,
+      "same_family_pairs": [
+        {
+          "host": "ubuntu",
+          "target": "debian13",
+          "allowed": true
+        },
+        {
+          "host": "debian",
+          "target": "debian13",
+          "allowed": true
+        },
+        {
+          "host": "fedora",
+          "target": "fedora44",
+          "allowed": true
+        },
+        {
+          "host": "arch",
+          "target": "arch",
+          "allowed": true
+        },
+        {
+          "host": "manjaro",
+          "target": "arch",
+          "allowed": true
+        }
+      ],
+      "scope": "policy function evaluated locally; not deployed runtime acceptance"
+    },
+    {
+      "label": "/home/omg/文档/多兼容linux机/artifacts/server-validation-20261030T204043+0800/unifier-current.tar.gz:unifier-current/src/unifier/compatibility.py",
+      "sha256": "41b13395d65faed4acf9124424f5391e120d6fd4d8bdd5fe0f2c6df78368d5b3",
+      "policy_version": 1,
+      "same_family_pairs": [
+        {
+          "host": "ubuntu",
+          "target": "debian13",
+          "allowed": true
+        },
+        {
+          "host": "debian",
+          "target": "debian13",
+          "allowed": true
+        },
+        {
+          "host": "fedora",
+          "target": "fedora44",
+          "allowed": true
+        },
+        {
+          "host": "arch",
+          "target": "arch",
+          "allowed": true
+        },
+        {
+          "host": "manjaro",
+          "target": "arch",
+          "allowed": true
+        }
+      ],
+      "scope": "policy function evaluated locally; not deployed runtime acceptance"
+    }
+  ],
+  "source_sha256": {
+    "src/unifier/compatibility.py": "ab61d7065b5cefcf155a5e51222f78e2d236a8128377ab004a9bed1b1a15cf30",
+    "src/unifier/service.py": "b08e09d48791a2d86a8831914d84d61e87dc0af14db63fbf09b3508c1f19a98a",
+    "src/unifier/shortcuts.py": "96b376bbe9a3c723f0eb43b244b66c4fa2fcf2fbabfe072c9c1535945d58da98",
+    "src/unifier/runtime.py": "f1390cbb26545f78d94be5c8fd1721b579647b8a15eba1177f3dab6da72bfd0a",
+    "src/unifier/cli.py": "95de2ceb05b9364c6b596dea48cfc75785155646b15ddbc8b7067e2448ce8c13"
+  },
+  "live_host": {
+    "id": "fedora",
+    "version_id": "44",
+    "variant_id": "kde",
+    "id_like": [],
+    "family": "fedora",
+    "reference_host": "fedora",
+    "integration_profile": "fedora",
+    "package_driver": "dnf",
+    "base_package_driver": "dnf",
+    "package_format": "rpm",
+    "system": "Linux",
+    "machine": "x86_64",
+    "libc": "glibc",
+    "atomic": false,
+    "admitted": true,
+    "reasons": [],
+    "observation": "live-host"
+  },
+  "live_matrix": [
+    {
+      "target": "debian13",
+      "allowed": true,
+      "relationship": "cross-family",
+      "policy_version": 2
+    },
+    {
+      "target": "fedora44",
+      "allowed": false,
+      "relationship": "same-distribution",
+      "policy_version": 2
+    },
+    {
+      "target": "arch",
+      "allowed": true,
+      "relationship": "cross-family",
+      "policy_version": 2
+    }
+  ],
+  "container_inventory": [
+    "37daa7f7ff06\tml-53c5c8a5-freecad-arch\tExited (143) 2 days ago",
+    "b9dd15c5fccf\tml-6b061a2f-meeting\tExited (143) 2 days ago"
+  ],
+  "live_matrix_exit_code": 1,
+  "same_family_create_replay": [
+    {
+      "host": "ubuntu",
+      "target": "debian13",
+      "policy_version": 1,
+      "accepted": true,
+      "error": null,
+      "runtime_create_events": 1,
+      "runtime_event_count": 7
+    },
+    {
+      "host": "fedora",
+      "target": "fedora44",
+      "policy_version": 1,
+      "accepted": true,
+      "error": null,
+      "runtime_create_events": 1,
+      "runtime_event_count": 7
+    },
+    {
+      "host": "arch",
+      "target": "arch",
+      "policy_version": 1,
+      "accepted": true,
+      "error": null,
+      "runtime_create_events": 1,
+      "runtime_event_count": 7
+    },
+    {
+      "host": "ubuntu",
+      "target": "debian13",
+      "policy_version": 2,
+      "accepted": false,
+      "error": "compatibility whitelist refused: host 'ubuntu' and guest 'debian13' share the 'debian' family; same-family containers are forbidden",
+      "runtime_create_events": 0,
+      "runtime_event_count": 0
+    },
+    {
+      "host": "fedora",
+      "target": "fedora44",
+      "policy_version": 2,
+      "accepted": false,
+      "error": "compatibility whitelist refused: host 'fedora' and guest 'fedora44' share the 'fedora' family; same-family containers are forbidden",
+      "runtime_create_events": 0,
+      "runtime_event_count": 0
+    },
+    {
+      "host": "arch",
+      "target": "arch",
+      "policy_version": 2,
+      "accepted": false,
+      "error": "compatibility whitelist refused: host 'arch' and guest 'arch' share the 'arch' family; same-family containers are forbidden",
+      "runtime_create_events": 0,
+      "runtime_event_count": 0
+    }
+  ],
+  "running_ls_bypass": {
+    "relationship_allowed": false,
+    "ordinary_run_error": "compatibility whitelist refused: host 'ubuntu' and guest 'debian13' share the 'debian' family; same-family containers are forbidden",
+    "ls_exit_code": 0,
+    "ls_stdout": "{\n  \"schema_version\": 1,\n  \"target\": \"debian13\",\n  \"via\": \"runtime\",\n  \"path\": \"/\",\n  \"entries\": [\n    \"usr\",\n    \"var\"\n  ]\n}\n",
+    "ls_stderr": "debian13: listing / through the running container's execution namespace\n",
+    "guest_exec_count": 1,
+    "guest_executables": [
+      [
+        "/bin/sh",
+        "-c"
+      ]
+    ],
+    "scope": "full shortcut CLI and real service with injected host facts and fake runtime"
+  },
+  "diagnostic_duplicate_target": {
+    "target": "debian13",
+    "environment_count": 2,
+    "scope": "cross-family host and fake runtime; shortcut uniqueness is separate"
+  },
+  "server_receipts": [
+    {
+      "path": "artifacts/server-validation-20261030T204043+0800/ubuntu/live-20261030T204909/headless.json",
+      "captured_at": "2026-10-30T12:49:11.365009+00:00",
+      "passed": true,
+      "target": "debian13",
+      "container_id": "7e70b8f72fdd349ac4cce4892e6a6a9654c94714fb419d62432fca6b79439774",
+      "host": "ubuntu",
+      "policy_version": 1,
+      "allowed": true,
+      "relationship": "same-family",
+      "scope": "existing remote receipt read locally; remote host not rechecked"
+    }
+  ]
+}

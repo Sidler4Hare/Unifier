@@ -1,0 +1,3 @@
+usage: probe_headless.py [-h] --output OUTPUT
+                         [--target {debian13,fedora44,arch}]
+probe_headless.py: error: compatibility whitelist refused: host 'arch' and guest 'arch' share the 'arch' family; same-family containers are forbidden

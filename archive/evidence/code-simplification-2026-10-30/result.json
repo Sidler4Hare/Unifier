@@ -1,0 +1,62 @@
+{
+  "status": "STRUCTURAL_SIMPLIFICATION_VERIFIED",
+  "baseline": {
+    "tests": 531,
+    "passed": 527,
+    "skipped": 4
+  },
+  "final": {
+    "tests": 538,
+    "passed": 534,
+    "skipped": 4
+  },
+  "source_lines_before": 22622,
+  "source_lines_after": 22609,
+  "metrics": {
+    "src/multilinux/file_operations.py": {
+      "lines_before": 2706,
+      "lines_after": 2678
+    },
+    "src/multilinux/packages.py": {
+      "lines_before": 515,
+      "lines_after": 528
+    },
+    "src/multilinux/service.py": {
+      "lines_before": 2093,
+      "lines_after": 2009
+    },
+    "_cleanup_run": {
+      "lines_before": 277,
+      "lines_after": 33
+    },
+    "discover_app_entries": {
+      "lines_before": 73,
+      "lines_after": 42
+    }
+  },
+  "changed_existing_files": [
+    "src/multilinux/file_operations.py",
+    "src/multilinux/packages.py",
+    "src/multilinux/service.py",
+    "tests/test_controlled_move.py"
+  ],
+  "new_files": [
+    "src/multilinux/app_entries.py",
+    "tests/test_app_entries.py"
+  ],
+  "unchanged_baseline_files_verified": 125,
+  "backup": "/home/omg/文档/Unifier-backups/20261030-110709-before-code-simplification",
+  "native_cleanup_crash_boundaries": 9,
+  "native_cleanup_lease_failure_scenarios": 3,
+  "discovery_failure_lifecycle_scenarios": 6,
+  "python_3_10_check": "AST grammar only, not execution on a Python 3.10 interpreter",
+  "podman_fuse_gui_acceptance_this_run": false,
+  "deployed": false,
+  "committed": false,
+  "pushed": false,
+  "open_findings": [
+    "projection symlink path after external rename",
+    "projection nested mount path after external rename"
+  ],
+  "projection_probe_exit_code": 1
+}

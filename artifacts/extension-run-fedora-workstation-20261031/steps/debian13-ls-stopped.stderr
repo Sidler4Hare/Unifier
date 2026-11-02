@@ -1,0 +1,2 @@
+debian13: container is stopped; listing / through a read-only view
+unifier: debian13: cannot read the read-only view: BACKEND_UNAVAILABLE: frozen share options changed for /home/omg/.local/share/unifier-extension-20261031/containers/debian13/files. The view record and recovery information were kept; run unifier view status, and unifier view recover if needed.

@@ -1,0 +1,47 @@
+debian13-create 0
+debian13-adopt 0
+arch-create 0
+arch-adopt 0
+shared-root 0
+debian13-project 0
+debian13-start 0
+debian13-identity 0
+arch-project 1
+cleanup-stop-debian13 0
+cleanup-remove-debian13 0
+cleanup-stop-arch 0
+cleanup-remove-arch 0
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/primary_live.py", line 154, in main
+    try:globals()[x.mode](x.label)
+        ~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/primary_live.py", line 84, in prepare
+    p.js(t+'-project',['project','add','--root',root_uuid(rr),'--environment',t,'--alias','shared-'+t],root=source)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/primary_live.py", line 27, in js
+    def js(self,name,args,**kw):return json.loads(self.call(name,args,**kw).stdout)
+                                                  ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/primary_live.py", line 25, in call
+    if expect is not None and p.returncode!=expect:raise RuntimeError(name+': '+p.stderr[-1800:])
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: arch-project: unifier: data root 9e5dd1bc-a203-413a-ba53-53879d06d602 already has project 72a38b6f-0495-466e-810d-c60656f66183; one root has one project registration
+
+
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/primary_live.py", line 157, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/primary_live.py", line 154, in main
+    try:globals()[x.mode](x.label)
+        ~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/primary_live.py", line 84, in prepare
+    p.js(t+'-project',['project','add','--root',root_uuid(rr),'--environment',t,'--alias','shared-'+t],root=source)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/primary_live.py", line 27, in js
+    def js(self,name,args,**kw):return json.loads(self.call(name,args,**kw).stdout)
+                                                  ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/primary_live.py", line 25, in call
+    if expect is not None and p.returncode!=expect:raise RuntimeError(name+': '+p.stderr[-1800:])
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: arch-project: unifier: data root 9e5dd1bc-a203-413a-ba53-53879d06d602 already has project 72a38b6f-0495-466e-810d-c60656f66183; one root has one project registration
+

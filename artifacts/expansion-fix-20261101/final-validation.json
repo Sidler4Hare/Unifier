@@ -1,0 +1,17 @@
+{
+  "source_entries_verified": 217,
+  "installed_and_worktree_match": true,
+  "all_nine_containers_stopped": true,
+  "original_v0_0_1_bundle_unchanged": true,
+  "active_version": "Unifier 0.0.2",
+  "sigterm": {
+    "passed": true,
+    "exit_code": 143,
+    "cleanup": "gone",
+    "recovery_blocked_dirty_database": true,
+    "upgrade_remove_reinstall": true,
+    "apt_postinst_resize": "38 120",
+    "fixture_retained_stopped": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b"
+  },
+  "sigkill": true
+}

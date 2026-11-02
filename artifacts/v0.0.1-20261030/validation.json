@@ -1,0 +1,970 @@
+{
+  "version": "0.0.1",
+  "package_sha256": "b463bddede2f6f1b12d469369d74a1fb8eef9df752fd59fc3b6b6eb72b8e497c",
+  "source_files": 207,
+  "checks": [
+    {
+      "name": "bundle digest",
+      "passed": true
+    },
+    {
+      "name": "current source .gitattributes",
+      "passed": true
+    },
+    {
+      "name": "current source .gitignore",
+      "passed": true
+    },
+    {
+      "name": "current source HANDOFF.md",
+      "passed": true
+    },
+    {
+      "name": "current source README.md",
+      "passed": true
+    },
+    {
+      "name": "current source bin/unifier",
+      "passed": true
+    },
+    {
+      "name": "current source config/images.lock.json",
+      "passed": true
+    },
+    {
+      "name": "current source config/targets.toml",
+      "passed": true
+    },
+    {
+      "name": "current source docs/v0.0.1.md",
+      "passed": true
+    },
+    {
+      "name": "current source docs/仓库维护.md",
+      "passed": true
+    },
+    {
+      "name": "current source docs/布局.md",
+      "passed": true
+    },
+    {
+      "name": "current source fixtures/dmabuf_roundtrip.c",
+      "passed": true
+    },
+    {
+      "name": "current source fixtures/lab-smoke.sh",
+      "passed": true
+    },
+    {
+      "name": "current source fixtures/launch_mousepad.py",
+      "passed": true
+    },
+    {
+      "name": "current source fixtures/mousepad_control.py",
+      "passed": true
+    },
+    {
+      "name": "current source fixtures/resource_probe.c",
+      "passed": true
+    },
+    {
+      "name": "current source fixtures/screencast_consumer.c",
+      "passed": true
+    },
+    {
+      "name": "current source fixtures/share_target.py",
+      "passed": true
+    },
+    {
+      "name": "current source fixtures/wayland_clipboard.py",
+      "passed": true
+    },
+    {
+      "name": "current source fixtures/wayland_handshake.py",
+      "passed": true
+    },
+    {
+      "name": "current source fixtures/x11_window_input.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/__main__.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/app_entries.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/atomic_io.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/catalog.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/cli.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/compatibility.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/control.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/desktop.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/desktop_integrations.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/errors.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/file_operations.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/file_routes.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/fuse_view.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/fuse_view_legacy.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/guest_paths.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/handlers.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/i18n.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/identity.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/install.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/install_state.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/json_records.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/lease.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/on_demand.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/packages.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/project.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/project_sessions.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/projection.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/projects.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/registry.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/resources.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/root_identity.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/routing.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/runtime.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/screencast.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/service.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/share_label.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/shortcuts.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/store.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/view_backend.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/view_backend_legacy.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/view_broker.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/view_journal.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/multilinux/views.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/__main__.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/app_entries.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/atomic_io.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/catalog.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/cli.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/compatibility.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/control.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/desktop.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/desktop_integrations.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/errors.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/file_operation_cleanup.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/file_operation_journal.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/file_operation_publish.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/file_operations.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/file_routes.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/fuse_view.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/fuse_view_legacy.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/guest_paths.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/handlers.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/i18n.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/identity.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/install.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/install_state.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/json_records.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/lease.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/on_demand.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/packages.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/project.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/project_sessions.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/projection.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/projects.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/registry.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/resources.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/root_identity.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/routing.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/runtime.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/screencast.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/service.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/share_label.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/shortcuts.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/store.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/view_backend.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/view_backend_legacy.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/view_broker.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/view_journal.py",
+      "passed": true
+    },
+    {
+      "name": "current source src/unifier/views.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_app_binding.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_app_entries.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_app_user.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_atomic_io.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_audio_route.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_catalog.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_cli_guest_paths.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_cli_primary_acceptance.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_cli_shortcuts.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_compatibility.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_controlled_move.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_data_roots.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_desktop.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_desktop_integration.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_desktop_integrations.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_desktop_recovery_authority.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_dmabuf_roundtrip.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_env.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_env_integration.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_file_control.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_file_operations.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_file_routes.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_fuse_view.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_host_authority.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_identity_migration.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_install_status.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_lab.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_lifecycle_contracts.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_on_demand.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_package_alias.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_packages.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_pkg_integration.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_portal_bridge.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_project_sessions.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_projection_boundaries.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_projection_controller.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_projection_directory.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_projection_fd.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_projection_objects.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_projection_rename.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_projection_support.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_quality_regressions.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_release_install.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_release_regressions.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_repo_tools.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_resources.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_resources_integration.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_root_identity.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_screencast.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_screencast_contract.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_screencast_native.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_session_recovery_contract.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_share_label.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_startup_trace.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_view_backend.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_views.py",
+      "passed": true
+    },
+    {
+      "name": "current source tests/test_xauthority_mount.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/audio_route.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/build_release.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/check_repo.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/collect_host_baseline.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/install_unifier.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/kwin_window_probe.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/lab.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/ml.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/prepare_concurrency.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/prepare_install_status.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/prepare_lifecycle.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/prepare_startup.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_arch_complex.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_concurrency.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_desktop_apps.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_desktop_protocols.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_file_sharing.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_freecad_macro.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_headless.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_install_status.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_lifecycle.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_resources.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_screencast.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_startup.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_startup_failures.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_startup_phases.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_tencent_meeting.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/probe_wayland_media.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/run_archived_probe.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/startup_observer.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/trace_startup_entry.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/unifier.py",
+      "passed": true
+    },
+    {
+      "name": "current source tools/verify_startup_evidence.py",
+      "passed": true
+    },
+    {
+      "name": "current source 设计/CLI首次配置与发行版专用目录-2026-10-29.md",
+      "passed": true
+    },
+    {
+      "name": "current source 设计/Ubuntu-Server白名单与容器验收-2026-10-28.md",
+      "passed": true
+    },
+    {
+      "name": "current source 设计/Unifier-架构实验定档-2026-10-23.md",
+      "passed": true
+    },
+    {
+      "name": "current source 设计/发行版派系白名单与容器关系-2026-10-28.md",
+      "passed": true
+    },
+    {
+      "name": "current source 设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md",
+      "passed": true
+    },
+    {
+      "name": "current source 设计/腾讯会议跨重启目录身份修复-2026-10-28.md",
+      "passed": true
+    },
+    {
+      "name": "ubuntu full scope",
+      "passed": true
+    },
+    {
+      "name": "ubuntu original containers",
+      "passed": true
+    },
+    {
+      "name": "ubuntu no mounts",
+      "passed": true
+    },
+    {
+      "name": "ubuntu real FUSE",
+      "passed": true
+    },
+    {
+      "name": "ubuntu exactly two cross-family targets",
+      "passed": true
+    },
+    {
+      "name": "ubuntu native unmount",
+      "passed": true
+    },
+    {
+      "name": "arch full scope",
+      "passed": true
+    },
+    {
+      "name": "arch original containers",
+      "passed": true
+    },
+    {
+      "name": "arch no mounts",
+      "passed": true
+    },
+    {
+      "name": "arch real FUSE",
+      "passed": true
+    },
+    {
+      "name": "arch exactly two cross-family targets",
+      "passed": true
+    },
+    {
+      "name": "arch native unmount",
+      "passed": true
+    },
+    {
+      "name": "debian full scope",
+      "passed": true
+    },
+    {
+      "name": "debian original containers",
+      "passed": true
+    },
+    {
+      "name": "debian no mounts",
+      "passed": true
+    },
+    {
+      "name": "debian real FUSE",
+      "passed": true
+    },
+    {
+      "name": "debian exactly two cross-family targets",
+      "passed": true
+    },
+    {
+      "name": "debian native unmount",
+      "passed": true
+    },
+    {
+      "name": "install-rollback",
+      "passed": true
+    },
+    {
+      "name": "deployment",
+      "passed": true
+    },
+    {
+      "name": "CAD workflow",
+      "passed": true
+    },
+    {
+      "name": "staged entries preserved",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "hosts": {
+    "ubuntu": {
+      "python": "3.12.3",
+      "allowed": [
+        "fedora44",
+        "arch"
+      ],
+      "raw_test_summary": [
+        "Ran 562 tests in 28.694s",
+        "OK (skipped=6)"
+      ],
+      "commands": 32,
+      "timestamp_collisions": 0
+    },
+    "arch": {
+      "python": "3.14.8",
+      "allowed": [
+        "debian13",
+        "fedora44"
+      ],
+      "raw_test_summary": [
+        "Ran 575 tests in 22.626s",
+        "OK (skipped=5)"
+      ],
+      "commands": 32,
+      "timestamp_collisions": 0
+    },
+    "debian": {
+      "python": "3.13.5",
+      "allowed": [
+        "fedora44",
+        "arch"
+      ],
+      "raw_test_summary": [
+        "Ran 562 tests in 18.842s",
+        "OK (skipped=7)"
+      ],
+      "commands": 32,
+      "timestamp_collisions": 40
+    }
+  },
+  "scope": "bounded CLI alpha and documented file/application checks"
+}

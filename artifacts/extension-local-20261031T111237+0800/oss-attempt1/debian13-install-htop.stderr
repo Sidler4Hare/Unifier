@@ -1,0 +1,7 @@
+debian13: installing package(s) through the native transaction: htop.
+debian13: apt-get update
+debian13: apt-get install -y htop
+debian13: install completed txnf87934ab38cd
+Native package transaction completed: txnf87934ab38cd. A successful package transaction does not prove the application entry works.
+debian13: using explicit entry /usr/bin/htop.
+Registered application htop (target debian13, environment debian13).

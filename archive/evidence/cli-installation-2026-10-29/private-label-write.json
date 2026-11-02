@@ -1,0 +1,7 @@
+{
+  "write_succeeded": true,
+  "uid": 1000,
+  "gid": 1000,
+  "content": "中文内容;literal\n",
+  "passed": true
+}

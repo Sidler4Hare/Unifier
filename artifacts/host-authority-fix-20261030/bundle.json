@@ -1,0 +1,9 @@
+{
+  "path": "/home/omg/文档/多兼容linux机/artifacts/unifier-source-20261030-policy2.tar.gz",
+  "sha256": "d7f5beb49d5252ef065acf7bf5ab93ea59ccad8de24f203d3fd5e92b55bf55a8",
+  "source_files": 203,
+  "policy_version": 2,
+  "extracted_files_verified": true,
+  "extracted_repository_check_passed": true,
+  "scope": "Fedora-local extracted-source offline checks; no remote deployment"
+}

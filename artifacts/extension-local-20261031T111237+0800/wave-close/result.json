@@ -1,0 +1,22 @@
+[
+  {
+    "target": "debian13",
+    "cid": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "exit": 0,
+    "state_before": "running",
+    "state_after": "exited",
+    "same_cid": true,
+    "retained": true,
+    "reason": "Installed test fixtures retained for remaining P1/P3/P4 workflows; not daily containers and not final teardown of the full expansion plan"
+  },
+  {
+    "target": "arch",
+    "cid": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+    "exit": 0,
+    "state_before": "running",
+    "state_after": "exited",
+    "same_cid": true,
+    "retained": true,
+    "reason": "Installed test fixtures retained for remaining P1/P3/P4 workflows; not daily containers and not final teardown of the full expansion plan"
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "ok": false,
+  "id": "debian13",
+  "target": "debian13",
+  "desktop": {
+    "selinux_label": "disable",
+    "reason": "container_t cannot connect to the host session sockets. Relabeling those sockets would change the compositor's labels, so a desktop environment keeps the host enforcing and runs with label=disable.",
+    "env": {
+      "WAYLAND_DISPLAY": "wayland-0",
+      "XDG_RUNTIME_DIR": "/run/user/1000",
+      "DISPLAY": ":0",
+      "XAUTHORITY": "/tmp/ml-xauthority",
+      "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+      "PIPEWIRE_REMOTE": "pipewire-0",
+      "XDG_SESSION_TYPE": "wayland"
+    },
+    "mounts": [
+      {
+        "host": "/run/user/1000/wayland-0",
+        "container": "/run/user/1000/wayland-0",
+        "options": ""
+      },
+      {
+        "host": "/tmp/.X11-unix/X0",
+        "container": "/tmp/.X11-unix/X0",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/xauth_dnPjwq",
+        "container": "/tmp/ml-xauthority",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/pulse/native",
+        "container": "/run/user/1000/pulse/native",
+        "options": ""
+      },
+      {
+        "host": "/run/user/1000/pipewire-0",
+        "container": "/run/user/1000/pipewire-0",
+        "options": ""
+      }
+    ]
+  },
+  "network": null,
+  "user_namespace": "keep-id",
+  "runtime_state": "stopped",
+  "mounts": [
+    {
+      "host": "/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files",
+      "container": "/home/omg/.local/share/unifier-extension-20261031/containers/debian13/files",
+      "options": "z"
+    }
+  ]
+}

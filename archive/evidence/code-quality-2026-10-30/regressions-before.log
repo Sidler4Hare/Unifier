@@ -1,0 +1,66 @@
+test_adopted_failure_retry_preserves_original_environment (test_quality_regressions.RecoveryFailures.test_adopted_failure_retry_preserves_original_environment) ... 
+  test_adopted_failure_retry_preserves_original_environment (test_quality_regressions.RecoveryFailures.test_adopted_failure_retry_preserves_original_environment) (command='init') ... FAIL
+  test_adopted_failure_retry_preserves_original_environment (test_quality_regressions.RecoveryFailures.test_adopted_failure_retry_preserves_original_environment) (command='configure') ... FAIL
+test_lease_release_failure_keeps_token_for_retry (test_quality_regressions.RecoveryFailures.test_lease_release_failure_keeps_token_for_retry) ... FAIL
+test_package_preflight_failure_preserves_running_container (test_quality_regressions.RecoveryFailures.test_package_preflight_failure_preserves_running_container) ... 
+  test_package_preflight_failure_preserves_running_container (test_quality_regressions.RecoveryFailures.test_package_preflight_failure_preserves_running_container) (phase='host') ... FAIL
+  test_package_preflight_failure_preserves_running_container (test_quality_regressions.RecoveryFailures.test_package_preflight_failure_preserves_running_container) (phase='other') ... FAIL
+
+======================================================================
+FAIL: test_adopted_failure_retry_preserves_original_environment (test_quality_regressions.RecoveryFailures.test_adopted_failure_retry_preserves_original_environment) (command='init')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_quality_regressions.py", line 88, in test_adopted_failure_retry_preserves_original_environment
+    self.assertEqual(item['source'], 'adopted')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'new' != 'adopted'
+- new
++ adopted
+
+
+======================================================================
+FAIL: test_adopted_failure_retry_preserves_original_environment (test_quality_regressions.RecoveryFailures.test_adopted_failure_retry_preserves_original_environment) (command='configure')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_quality_regressions.py", line 88, in test_adopted_failure_retry_preserves_original_environment
+    self.assertEqual(item['source'], 'adopted')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'new' != 'adopted'
+- new
++ adopted
+
+
+======================================================================
+FAIL: test_lease_release_failure_keeps_token_for_retry (test_quality_regressions.RecoveryFailures.test_lease_release_failure_keeps_token_for_retry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_quality_regressions.py", line 54, in test_lease_release_failure_keeps_token_for_retry
+    self.assertEqual(result['action'], 'unresolved-lease-release')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'recovered' != 'unresolved-lease-release'
+- recovered
++ unresolved-lease-release
+
+
+======================================================================
+FAIL: test_package_preflight_failure_preserves_running_container (test_quality_regressions.RecoveryFailures.test_package_preflight_failure_preserves_running_container) (phase='host')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_quality_regressions.py", line 33, in test_package_preflight_failure_preserves_running_container
+    self.assertTrue(runtime.inspect(record['runtime']['container_name']).running)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_package_preflight_failure_preserves_running_container (test_quality_regressions.RecoveryFailures.test_package_preflight_failure_preserves_running_container) (phase='other')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_quality_regressions.py", line 33, in test_package_preflight_failure_preserves_running_container
+    self.assertTrue(runtime.inspect(record['runtime']['container_name']).running)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.050s
+
+FAILED (failures=5)
