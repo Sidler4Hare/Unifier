@@ -1,0 +1,24 @@
+{
+  "status": "PASS_BOUNDED_PRIVATE_COMPARE_MERGE_SAVE_REOPEN",
+  "completed_stop_reopen_cycles": 1,
+  "selected_line_copied": true,
+  "unselected_difference_retained": true,
+  "right_sha256_unchanged": true,
+  "left_sha256": "bd3484979e13a172ea7b8580486d225e76df10fd242d1a371eee3ab07fc6989e",
+  "uid": 1000,
+  "literal_unicode_filenames": [
+    "compare 左 $;.txt",
+    "compare 右 $;.txt"
+  ],
+  "close_protocol": "guest-local WM_DELETE_WINDOW; no forced signal",
+  "native_exit_codes": [
+    13,
+    13
+  ],
+  "native_exit_meaning": "13: Rules-based differences; one deliberate difference remains",
+  "official_exit_code_reference": "https://www.scootersoftware.com/v5help/command_line_reference.html",
+  "menu_visual_acceptance": false,
+  "menu_issue": "Session menu appeared black in private Xvfb; toolbar merge/save and reopen worked.",
+  "host_desktop_integration_accepted": false,
+  "fixture": "snapshot of existing Debian installation; not fresh vendor installation"
+}

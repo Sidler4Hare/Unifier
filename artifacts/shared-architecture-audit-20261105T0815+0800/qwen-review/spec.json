@@ -1,0 +1,12 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-audit-20261105-0815-review",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 120,
+  "private_root": "/tmp/ua1105-review-mjvb87_5",
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/shared-architecture-audit-20261105T0815+0800/qwen-launch.py"
+  ]
+}

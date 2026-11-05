@@ -1,0 +1,10 @@
+Running as unit: unifier-bridge-anchor-check-20261103.service
+----------------------------------------------------------------------
+Ran 99 tests in 23.883s
+
+OK
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 24.100s
+             CPU time consumed: 21.411s
+                   Memory peak: 30.6M (swap: 0B)

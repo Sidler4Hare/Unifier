@@ -1,0 +1,9 @@
+{
+  "actual_podman_readonly_capability": false,
+  "single_env_phase": "completed",
+  "two_env_phase": "failed",
+  "failure_phase": "isolation-preflight",
+  "native": [],
+  "error": "b: read-only peer inventory unavailable; package operation refused",
+  "runtime_events": []
+}

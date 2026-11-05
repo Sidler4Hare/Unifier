@@ -1337,6 +1337,8 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
                         "environment_id": env_id, "transaction": txn})
         return int(txn.get("exit_code") or 1)
     ctx.print(ctx.t("install.transaction_ok", transaction=txn.get("id")))
+    if (txn.get('dependency_repair') or {}).get('status') == 'bundled-candidates-unverified':
+        ctx.print(ctx.t('install.bundled_unverified'))
 
     record = service.store.load(env_id)
     desktop = bool(record.get("desktop"))

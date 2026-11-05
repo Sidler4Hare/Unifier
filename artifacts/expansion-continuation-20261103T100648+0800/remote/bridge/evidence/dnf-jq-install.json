@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "id": "txn7e669ca9d1d6",
+  "environment_id": "fedora44",
+  "operation": "install",
+  "packages": [
+    "jq"
+  ],
+  "interactive": false,
+  "stream": false,
+  "dependency_repair": {
+    "status": "not-requested"
+  },
+  "use_command": [
+    "jq",
+    "--version"
+  ],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "8bfbd679904a5a531fb961fbef60cdc79671da2dbb6f9f347f842564519590ff",
+    "content_revision": 1,
+    "package_inventory_sha256": "4fbc88c890ab44ee974f34584be338afd98956bdb78224fc6c8c05b0bb722801"
+  },
+  "native": [
+    {
+      "argv": [
+        "dnf",
+        "install",
+        "-y",
+        "jq"
+      ],
+      "timeout": 300,
+      "state": "interrupted",
+      "exit_code": null,
+      "stdout_tail": "",
+      "stderr_tail": "",
+      "cleanup": "unknown",
+      "error": "guest execution exited before reporting its identity"
+    }
+  ],
+  "native_error": "guest execution exited before reporting its identity",
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "failed",
+  "verification": null,
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "dpkg-query",
+      "sha256": "d2bfe185338d4d2e3eb739737d9c12db4bef14f32cd3a92a5e43a1b264b71f12",
+      "count": 1138,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "dpkg-query",
+      "sha256": "d2bfe185338d4d2e3eb739737d9c12db4bef14f32cd3a92a5e43a1b264b71f12",
+      "count": 1138,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "8bfbd679904a5a531fb961fbef60cdc79671da2dbb6f9f347f842564519590ff",
+    "content_revision": 1,
+    "package_inventory_sha256": "4fbc88c890ab44ee974f34584be338afd98956bdb78224fc6c8c05b0bb722801"
+  },
+  "phase": "needs-recovery",
+  "environment_binding": {
+    "environment_id": "fedora44",
+    "environment_uuid": "afb97be4-7f87-4d58-b87c-1b607757c498",
+    "generation": 1,
+    "container_id": "8bfbd679904a5a531fb961fbef60cdc79671da2dbb6f9f347f842564519590ff"
+  },
+  "recovery_required": true,
+  "inventory_status": "unknown",
+  "failure_phase": "runtime",
+  "started_at": "2026-11-03T10:10:00+08:00",
+  "finished_at": "2026-11-03T10:10:00+08:00"
+}

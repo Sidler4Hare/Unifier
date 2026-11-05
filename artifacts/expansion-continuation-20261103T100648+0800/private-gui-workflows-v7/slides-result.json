@@ -1,0 +1,20 @@
+{
+  "status": "PASS_BOUNDED_PRIVATE_SLIDES_DATA_WORKFLOW",
+  "mode": "prome_independ copied test profile",
+  "original_stop_reopen_cycles": 2,
+  "save_as_copy_reopened": true,
+  "literal_filename": "slides copy $;.pptx",
+  "preserved_chinese_title_and_body": true,
+  "both_gui_markers_saved_and_reopened": true,
+  "launcher_exit_codes": [
+    0,
+    0,
+    0,
+    137
+  ],
+  "exit_boundary": "Three normal GUI exits 0; copy reopen verified but last close not observed complete before directed fixture stop (137).",
+  "earlier_attempt": "v6 display capture failed, root cause UNKNOWN; preserved.",
+  "host_desktop_integration_accepted": false,
+  "font_layout_fidelity_accepted": false,
+  "fixture": "snapshot of existing Debian install; not fresh installation"
+}

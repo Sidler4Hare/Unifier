@@ -1,0 +1,18 @@
+{
+  "identity": {
+    "pid": 364431,
+    "starttime": "17573872",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-consumers-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_on_demand",
+    "test_app_binding",
+    "test_runtime_control",
+    "test_package_coordination",
+    "test_session_stopped_recovery"
+  ]
+}

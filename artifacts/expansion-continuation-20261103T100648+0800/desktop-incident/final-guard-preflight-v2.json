@@ -1,0 +1,16 @@
+{
+  "status": "PASS_GUARD_PREFLIGHT_WITHOUT_START",
+  "aggregate_cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice",
+  "host_available_bytes": 1786978304,
+  "host_reserve_bytes": 2147483648,
+  "fixture_budget_bytes": 805306368,
+  "fixture_stopped": true,
+  "started_container": false,
+  "GOMAXPROCS": "2",
+  "gui_start_gate": "REFUSED_LOW_HEADROOM",
+  "reason": "test budget refused: reserve 2 GiB for the host plus 768 MiB for the test container",
+  "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+  "kwin_pids": [
+    "1769"
+  ]
+}

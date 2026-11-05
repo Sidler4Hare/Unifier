@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "id": "txn45d99f9b6942",
+  "environment_id": "a",
+  "operation": "install",
+  "packages": [
+    "vendor"
+  ],
+  "interactive": false,
+  "stream": false,
+  "dependency_repair": {
+    "status": "unresolved",
+    "scope": "package-elf-needed",
+    "objects": 1,
+    "rounds": [],
+    "unresolved": [
+      "libasound.so.2"
+    ],
+    "bundled_candidates": [],
+    "installed": [],
+    "runtime_loading": "unverified",
+    "packages": [
+      "vendor"
+    ],
+    "error": "native dependency installation failed or was declined"
+  },
+  "use_command": [],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "cid-a",
+    "content_revision": 1,
+    "package_inventory_sha256": "dd4f60def13151a0af5b156039274a1abe4536cde058f4bc9d892b874aabc722"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "timeout": 180,
+      "state": "finished",
+      "exit_code": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "vendor"
+      ],
+      "timeout": 300,
+      "state": "finished",
+      "exit_code": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "timeout": 180,
+      "state": "finished",
+      "exit_code": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "apt-file"
+      ],
+      "timeout": 300,
+      "state": "finished",
+      "exit_code": 0,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "argv": [
+        "apt-file",
+        "update"
+      ],
+      "timeout": 900,
+      "state": "finished",
+      "exit_code": 73,
+      "stdout_tail": "",
+      "stderr_tail": "controlled index failure"
+    }
+  ],
+  "native_error": "native dependency installation failed or was declined",
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "failed",
+  "verification": {
+    "ok": false,
+    "packages": {
+      "vendor": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": [
+      "native command failed"
+    ]
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "abc",
+      "count": 1,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "abc",
+      "count": 1,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "cid-a",
+    "content_revision": 2,
+    "package_inventory_sha256": "1379c11ea149e7ca417e6a6c18c5ce98d6498e5e4bf94c4f92c608f24e574c74"
+  },
+  "phase": "failed",
+  "environment_binding": {
+    "environment_id": "a",
+    "environment_uuid": "808cdd12-d663-43c5-861a-a472110a075c",
+    "generation": 1,
+    "container_id": "cid-a"
+  },
+  "recovery_required": false,
+  "inventory_status": "verified",
+  "failure_phase": "native-command",
+  "started_at": "2026-10-19T12:00:02+08:00",
+  "finished_at": "2026-10-19T12:00:07+08:00",
+  "database_audit": {
+    "argv": [
+      "dpkg",
+      "--audit"
+    ],
+    "exit_code": 0,
+    "stdout_tail": "",
+    "stderr_tail": ""
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "identity": {
+    "pid": 383921,
+    "starttime": "18474477",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-consumers-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800/resume1/final_checks.py"
+  ]
+}

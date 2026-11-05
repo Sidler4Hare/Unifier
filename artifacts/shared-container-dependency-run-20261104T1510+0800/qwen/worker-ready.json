@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "pid": 183623,
+    "starttime": "10298770",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-pre02-20261104-1510-qwen-work.service"
+  },
+  "limits": {
+    "memory.max": "536870912",
+    "memory.high": "402653184",
+    "memory.swap.max": "0",
+    "pids.max": "96",
+    "cpu.max": "100000 100000"
+  }
+}

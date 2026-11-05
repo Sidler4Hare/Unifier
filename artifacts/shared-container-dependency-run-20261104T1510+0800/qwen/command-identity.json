@@ -1,0 +1,11 @@
+{
+  "identity": {
+    "pid": 183625,
+    "starttime": "10298787",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-pre02-20261104-1510-qwen-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/.lab/agents/shared-container-dependency-run-20261104T1510+0800/qwen-launch.py"
+  ]
+}

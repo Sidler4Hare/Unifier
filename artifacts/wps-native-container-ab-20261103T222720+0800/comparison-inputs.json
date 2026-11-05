@@ -1,0 +1,29 @@
+{
+  "fixture_font_hashes": {
+    "writer.docx": "086d4d55d3a18f732058387e16a268a0d6fc5c494008684d298b55c605ae1074",
+    "sheet.xlsx": "d0a2d9a6bc01867098f2e2709bcf4eb1bd73817d5fa5395d7b64863835db6866",
+    "slides.pptx": "b3e1d806a5c85e8ad1cd76f3a10ceab0eaef255f08eed3cd5df2cce4320324fd",
+    "Office.conf": "7dd03f31149b84c9122e758a78cc36389968059ac54165d80fdeef04bde879b0",
+    "fonts.conf": "4aad64546496cbf965f4dec7f7ad8584a9fb47cfacece5269490de4700e75cca",
+    "NotoSans-Regular.ttf": "478c558ea716033cd60c03438f628dfa75694dcf6b5f6d505a2f05fd2b4f3823",
+    "NotoSansCJK-VF.ttc": "d3d8256cdec8dbcb3552284bc6b20c734dd60c2ee9df83b5758e34807c4bac32"
+  },
+  "native_binary_hashes": {
+    "wps": "83f12a173b72a1624bd4c902bba7d98999b45bc88f0cd28ceae3366eb2226d7f",
+    "et": "d0d221d3e3066b6fd0ff4c1aee0da1dd7a37a8f23f54b1da5d43c2ae143eca3b",
+    "wpp": "bccb3a65800958e4e6a7fe10d6e9b4fcf350ec5d8234204bd809e51d344c5e27",
+    "wpsoffice": "3ad4e5f6fc1d80981a486045ea205554c2924332b75a31deafe76f4dd1f31e60",
+    "libkso.so": "404ad28355b7d7509a992c661623dd2161dbd9d1be352c7190026f51abe11230"
+  },
+  "guest_binary_hashes": {
+    "wps": "83f12a173b72a1624bd4c902bba7d98999b45bc88f0cd28ceae3366eb2226d7f",
+    "et": "d0d221d3e3066b6fd0ff4c1aee0da1dd7a37a8f23f54b1da5d43c2ae143eca3b",
+    "wpp": "bccb3a65800958e4e6a7fe10d6e9b4fcf350ec5d8234204bd809e51d344c5e27",
+    "wpsoffice": "3ad4e5f6fc1d80981a486045ea205554c2924332b75a31deafe76f4dd1f31e60",
+    "libkso.so": "404ad28355b7d7509a992c661623dd2161dbd9d1be352c7190026f51abe11230"
+  },
+  "same_binary_content": true,
+  "profile": "[6.0]\nwpsoffice\\Application%20Settings\\AppComponentMode=prome_independ\ncommon\\AcceptedEULA=true\n",
+  "native_rpm_version": "12.1.2.29183.AK.preread.sw-1",
+  "guest_deb_version": "12.1.2.29183.AK.preread.sw"
+}

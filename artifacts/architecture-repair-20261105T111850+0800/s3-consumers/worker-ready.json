@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "pid": 364425,
+    "starttime": "17573860",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-consumers-work.service"
+  },
+  "limits": {
+    "memory.max": "536870912",
+    "memory.high": "402653184",
+    "memory.swap.max": "0",
+    "pids.max": "96",
+    "cpu.max": "100000 100000"
+  }
+}

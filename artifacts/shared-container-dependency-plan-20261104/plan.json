@@ -1,0 +1,864 @@
+{
+  "schema_version": 1,
+  "id": "shared-container-dependency-20261104",
+  "date": "2026-11-04",
+  "timezone": "Asia/Shanghai",
+  "status": "PLAN_ONLY_NOT_EXECUTED",
+  "live_ready": false,
+  "live_ready_blockers": [
+    "G01: peer inventory observation currently starts stopped peer environments; PRE02 must be reproduced and fixed first",
+    "PRE01/PRE03/PRE04/PRE05 execution readiness not yet accepted"
+  ],
+  "source_baseline": "source-baseline.json",
+  "inventory_baseline": "inventory-readonly.json",
+  "document": "../../docs/共享容器与依赖专项测试计划-20261104.md",
+  "case_cards": "cases.md",
+  "container_policy": {
+    "max_selected_test_containers": 2,
+    "max_per_distro": 1,
+    "max_running_test_containers": 1,
+    "new_container_budget": 0,
+    "physical_inventory_at_planning": 10,
+    "delete_historical_containers": false,
+    "production_limits_changed": false,
+    "per_case_recreate": false,
+    "auto_fallback_to_other_cid": false,
+    "max_lightweight_process_groups_per_case": 3,
+    "candidates": [
+      {
+        "role": "debian_primary",
+        "id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+        "root": ".lab/guarded-expansion-20261103/environment",
+        "state": "CANDIDATE_REQUIRES_PREFLIGHT"
+      },
+      {
+        "role": "arch_recheck",
+        "id": "d78a392cb1750fc95f5e0476806cfda25b6b06a8c018d2277b01e38bab3fddf8",
+        "root": ".lab/auto-deps-20261031",
+        "state": "CANDIDATE_REQUIRES_PREFLIGHT"
+      }
+    ]
+  },
+  "protection": {
+    "host_reserve_mib": 2048,
+    "sample_ms": 250,
+    "memory_below_reserve_consecutive_samples": 2,
+    "psi_full_avg10_abort_percent": 3,
+    "psi_some_avg10_abort_percent": 10,
+    "psi_abort_duration_ms": 2000,
+    "low_pressure_window_seconds": 30,
+    "low_pressure_full_avg10_max_percent": 0.5,
+    "low_pressure_some_avg10_max_percent": 2,
+    "max_live_segment_seconds": 2700,
+    "max_gui_shared_cycle_count": 5,
+    "max_gui_shared_seconds": 600,
+    "ordinary_prepare_download_budget_mib": 200,
+    "controller_only_limit_is_not_container_limit": true,
+    "change_production_cpu_ram_defaults": false
+  },
+  "known_gaps": [
+    {
+      "id": "G01",
+      "status": "SOURCE_CONFIRMED_NOT_REPLAYED",
+      "path": "src/unifier/service.py",
+      "symbols": [
+        "_other_fingerprints",
+        "_probe_inventory"
+      ],
+      "blocks_live": true
+    },
+    {
+      "id": "G02",
+      "status": "DECLARED_CAPABILITY_BOUNDARY",
+      "path": "src/unifier/dependencies.py",
+      "scope": "static x86_64 DT_NEEDED, not full external-command/ABI/desktop readiness"
+    },
+    {
+      "id": "G03",
+      "status": "PRIOR_TEST_PATH_BYPASSED_INSTALL_REPAIR",
+      "path": "../wps-native-container-ab-20261103T222720+0800/report.md"
+    },
+    {
+      "id": "G04",
+      "status": "CANDIDATE_METADATA_PROFILES_LIMITS_NOT_FULLY_ACCEPTED"
+    },
+    {
+      "id": "G05",
+      "status": "VENDOR_AND_ISOLATION_FAILURES_NOT_DEPENDENCY_CLOSURE",
+      "scope": "native cloud SIGSEGV and invalid vendor GPU JSON"
+    }
+  ],
+  "execution_order": [
+    "PRE01",
+    "PRE05",
+    "PRE02",
+    "PRE03",
+    "PRE04",
+    "DEP09",
+    "DEP10",
+    "DEP12",
+    "SH01",
+    "SH02",
+    "SH03",
+    "SH04",
+    "SH05",
+    "SH06",
+    "SH07",
+    "SH08",
+    "DEP01",
+    "DEP02",
+    "DEP03",
+    "DEP04",
+    "DEP05",
+    "DEP06",
+    "DEP08",
+    "DEP11",
+    "SH09",
+    "DEP07",
+    "DEP13",
+    "SH10",
+    "AR03",
+    "AR01",
+    "AR02",
+    "END01"
+  ],
+  "result_contract": {
+    "initial_status": "NOT_RUN",
+    "allowed_status": [
+      "NOT_RUN",
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "INVALID"
+    ],
+    "required_fields": [
+      "id",
+      "status",
+      "execution_mode",
+      "source_fingerprint",
+      "fixture_fingerprint",
+      "environment_binding",
+      "container_id",
+      "before_after_state",
+      "native_transactions",
+      "dependency_evidence",
+      "runtime_oracle",
+      "lease_snapshots",
+      "container_events",
+      "resource_samples",
+      "abort_or_recovery",
+      "feature_gaps"
+    ],
+    "offline_pass_does_not_imply_live_pass": true,
+    "negative_expected_rejection_does_not_imply_feature_implemented": true,
+    "preexisting_library_is_not_missing_dependency_repair_evidence": true,
+    "old_expansion_passes_imported": false
+  },
+  "cases": [
+    {
+      "id": "PRE01",
+      "title": "固定容器池与身份核对",
+      "priority": "P0",
+      "execution_mode": "readonly",
+      "phase": "admission",
+      "depends_on": [],
+      "status": "NOT_RUN",
+      "steps": [
+        "只读列出全局容器和环境登记，核对候选 CID/标签/管理根/UUID/generation/挂载/初始状态。",
+        "将 Debian、Arch 候选写入唯一执行清单，冻结非目标 CID 列表及容器数量。"
+      ],
+      "oracles": [
+        "最多 2 个既有候选、同发行版只选 1 个；本轮新增预算为 0。",
+        "登记或所有权不完整即 BLOCKED，不自动收养、迁移、替换或启动其他历史容器。"
+      ],
+      "product_scope": "instance-ownership",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "PRE02",
+      "title": "其他环境包清单核验不得唤醒停止实例",
+      "priority": "P0",
+      "execution_mode": "offline_then_targeted_live",
+      "phase": "admission",
+      "depends_on": [
+        "PRE01"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "在 fake runtime 中登记目标 A 和停止的同管理根同伴 B，调用正式包事务，记录全部 start/stop/exec 调用，重放当前 _probe_inventory 行为。",
+        "完成修正后复跑：通过受支持的只读数据或明确未核验结果保留隔离契约，不禁用校验或移除 B 记录。",
+        "只有存在安全完整的同管理根同伴记录时才做一次真实定向复核；否则实机分支 BLOCKED。"
+      ],
+      "oracles": [
+        "非目标 B 不出现 create/start/restart/exec 调用或事件。",
+        "无法独立读取时必须报告未知/阻断，不把缓存冒充实时核验。",
+        "当前实现的已知唤醒路径未修复前禁止全部实机包事务。"
+      ],
+      "product_scope": "package-observation-side-effects",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "PRE03",
+      "title": "统一准入、资源监测和所有工作进程保护",
+      "priority": "P0",
+      "execution_mode": "readonly_and_offline",
+      "phase": "admission",
+      "depends_on": [
+        "PRE01",
+        "PRE02",
+        "PRE05"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "核对旧测试限额、真实 cgroup 祖先、控制器/应用工作进程路径和独立保护器。",
+        "离线注入低内存、PSI 超线、身份不符、指标不可读、控制器失联和总时限，验证只停止本轮确证对象并阻断队列。"
+      ],
+      "oracles": [
+        "宿主 2 GiB 保留线与压力门槛不自动降低，生产 CPU/RAM 策略不改变。",
+        "失联有独立清理路径；应用自动重启不能绕过停止锁。",
+        "旧 768 MiB/192 任务不足时记 INVALID_RESOURCE_LIMIT，不宣称产品失败。"
+      ],
+      "product_scope": "test-protection",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "PRE04",
+      "title": "正常入口、工具和测试材料就绪",
+      "priority": "P0",
+      "execution_mode": "readonly_and_offline",
+      "phase": "admission",
+      "depends_on": [
+        "PRE01",
+        "PRE05"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "冻结工作树入口、源码/fixture 哈希、CLI 参数、工具路径、原生包格式和目标架构。",
+        "确认 fixture 通过正式安装/修复入口；对缺库用例预先冻结真实缺失条件和可信唯一提供者。",
+        "预检私有显示、采样器、独立 HOME/XDG/TMP/IPC 与 GUI 能力；工具编译和下载单独执行。"
+      ],
+      "oracles": [
+        "不混用旧发布版、直接解包结果或手工补装结果冒充自动修复。",
+        "工具/材料不全先 BLOCKED，不先启动 GUI 再猜依赖。",
+        "源码/fixture 改变时生成新执行指纹。"
+      ],
+      "product_scope": "execution-provenance",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "PRE05",
+      "title": "备份、状态基线与受控恢复材料",
+      "priority": "P0",
+      "execution_mode": "readonly",
+      "phase": "admission",
+      "depends_on": [
+        "PRE01"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "记录并备份选定测试根的登记、包清单、测试共享输入、账号配置边界和本轮专属文件清单。",
+        "记录宿主安装指纹、非目标容器和 Git 索引；确认本轮只用新测试用户配置。"
+      ],
+      "oracles": [
+        "不覆盖已登录账号、日常文件与既有脏修改。",
+        "备份和恢复材料无法取得时，不执行包变更/故障注入。"
+      ],
+      "product_scope": "preservation",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "SH01",
+      "title": "同发行版多应用串行复用同一实例",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "shared_cli",
+      "depends_on": [
+        "PRE02",
+        "PRE03",
+        "PRE04",
+        "PRE05"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "通过正式 app 注册 A/B，绑定同一个 Debian 环境。",
+        "A 冷启动后保持存活，再热启动 B；记录环境登记、CID 和分段事件。"
+      ],
+      "oracles": [
+        "相同管理根/发行版/UUID/generation/完整 CID，无新增容器或环境记录。",
+        "冷启动组 start 恰好 1 次；B 热启动新增 start 为 0；准备阶段启动另计。"
+      ],
+      "product_scope": "same-distro-reuse",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "SH02",
+      "title": "同容器三个轻量应用并发",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "shared_cli",
+      "depends_on": [
+        "SH01"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "在同一受管共享组运行最多 3 个轻量 CLI，每个具有独立 token、argv、cwd、env 和输出。",
+        "观察同时存活区间并写入各自校验文件。"
+      ],
+      "oracles": [
+        "所有客体 PID 归属同一 CID；实际 token/参数/输出不混用。",
+        "容器 start 仍为 1，无第二个测试环境启动；所有结果可独立校验。"
+      ],
+      "product_scope": "shared-concurrency",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "SH03",
+      "title": "关闭一个应用不影响其他租约",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "shared_cli",
+      "depends_on": [
+        "SH02"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "正常结束 A，保留 B/C。",
+        "观察 B/C 的 PID/start、心跳、租约和后续写入。"
+      ],
+      "oracles": [
+        "只移除 A 的租约，B/C 仍可实际工作。",
+        "容器和共享桥不误停；没有重建应用实例掩盖中断。"
+      ],
+      "product_scope": "lease-partial-release",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "SH04",
+      "title": "最后受管应用结束后的自动停止",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "shared_cli",
+      "depends_on": [
+        "SH03"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "从停止状态形成受管启动组，确认所有权归该组。",
+        "依次退出最后真实应用，观察租约、桥和容器状态；有界等待后报告结果。"
+      ],
+      "oracles": [
+        "最后租约释放后该组自动启动的同一 CID 停止，无新 CID。",
+        "清理失败/未知不删租约伪造干净状态；剩余进程与退出原因完整。"
+      ],
+      "product_scope": "lease-final-release",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "SH05",
+      "title": "同一可执行文件的不同调用上下文",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "shared_cli",
+      "depends_on": [
+        "SH04"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "使用同一 CLI 可执行文件运行两个独立调用，设置不同参数/cwd/env/token。",
+        "同时核对各自输出和关闭后剩余实例；GUI 单实例行为不在此用 PID 数量强行判断。"
+      ],
+      "oracles": [
+        "两次调用复用 CID，调用环境不交叉覆盖。",
+        "退出任一个调用不终止另一调用；测试 HOME 独立不等于敌对应用安全隔离。"
+      ],
+      "product_scope": "per-invocation-context",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "SH06",
+      "title": "短命启动器被结束时租约仍由真实工作进程持有",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "shared_cli",
+      "depends_on": [
+        "SH05"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "启动短时 CLI 和其受管工作进程，保存 PID/start 与客体标记。",
+        "仅对本轮确证启动器发一次 SIGKILL；继续核对客体执行与最终退出。"
+      ],
+      "oracles": [
+        "启动器消失不能被当作客体结束；租约继续有效至真实执行结束。",
+        "其他应用不受影响，最后清理同一 CID；未知状态不猜成功。"
+      ],
+      "product_scope": "supervisor-lifetime",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "SH07",
+      "title": "手动启动环境的停止所有权",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "shared_cli",
+      "depends_on": [
+        "SH04"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "明确手动启动选定测试 CID，再用正式入口运行并关闭 A/B。",
+        "核对最后租约离开后环境状态，测试结束由自身显式停止。"
+      ],
+      "oracles": [
+        "产品不擅自停止原本已运行的环境。",
+        "CID 不变；测试收尾回到原停止状态，不据此否定 SH04 的自动停止契约。"
+      ],
+      "product_scope": "manual-start-ownership",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "SH08",
+      "title": "启动失败、错误身份和未知状态的局部回收",
+      "priority": "P0",
+      "execution_mode": "offline_and_live_debian",
+      "phase": "shared_cli",
+      "depends_on": [
+        "SH02"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "在 B 存活时启动无效 argv 的测试 A，验证只回收 A。",
+        "CID/generation/标签替换、PID 复用和未知客体存活使用 fake runtime 注入，不修改真实所有权。"
+      ],
+      "oracles": [
+        "B 的执行和共享实例保持正常，失败结果非零且归因明确。",
+        "未知时保留阻断/租约证据，不另建容器、删记录或杀整个共享实例凑通过。"
+      ],
+      "product_scope": "failure-isolation",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "SH09",
+      "title": "同容器包事务锁竞争与应用共存",
+      "priority": "P0",
+      "execution_mode": "offline_and_live_debian",
+      "phase": "dependency",
+      "depends_on": [
+        "DEP01",
+        "SH08"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "使用两个本轮独有的小包提交受控锁竞争，实际只允许一个原生写事务。",
+        "同时保留一个不依赖被修改测试库的轻量 CLI B，观察其执行和 CID。"
+      ],
+      "oracles": [
+        "第二请求按实际契约等待或明确报忙，不并行写包数据库；没有新环境。",
+        "B 不被误杀；原生写入时间区间不重叠，最终事务与包库一致。",
+        "不与其他发行版包管理或真实 GUI 依赖变更并行。"
+      ],
+      "product_scope": "shared-package-lock",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "SH10",
+      "title": "真实 Writer 与 CLI 共用实例并有界重复",
+      "priority": "P1",
+      "execution_mode": "live_debian_gui",
+      "phase": "shared_gui",
+      "depends_on": [
+        "DEP11",
+        "SH04"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "使用已正式安装并完成能力预检的 Writer 与一个 CLI，私有显示在首次受管启动后接入，不能手动启动伪造组所有权。",
+        "编辑本轮文档标记、保存、关闭、重开核对；关闭其中一个时核对另一个。",
+        "最多 5 轮、累计最多 10 分钟，达到定义内验收就停止。"
+      ],
+      "oracles": [
+        "所有轮次使用同一 CID，窗口与文件内容双重验证，原始输入不变。",
+        "关闭一个不影响另一个；自动停止证据只有在确实由组启动时成立。",
+        "云辅助禁用、账号未验或清理强杀不能被标成完整套件/正常关闭通过。"
+      ],
+      "product_scope": "real-gui-shared-workflow",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP01",
+      "title": "原生声明依赖经正式入口安装",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "dependency",
+      "depends_on": [
+        "PRE02",
+        "PRE03",
+        "PRE04",
+        "PRE05"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "安装一个带准确 Depends 的本轮小包，使用正式 install/pkg install。",
+        "核对原生依赖解析、最终事务与包清单，并以普通用户运行功能 oracle。"
+      ],
+      "oracles": [
+        "包声明依赖由目标原生包管理器完成，最终 phase/verification 与实际输出一致。",
+        "不触碰宿主包库或非目标容器；没有人工补装充当自动结果。"
+      ],
+      "product_scope": "declared-dependencies",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP02",
+      "title": "未声明 ELF 运行库真实自动补装",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "dependency",
+      "depends_on": [
+        "DEP01"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "预先证明 fixture 的 DT_NEEDED 所需库不存在、可信仓库提供者唯一且未被基线应用使用。",
+        "安装遗漏该 Depends 的 fixture，经默认自动补库入口执行，不先手动安装提供者。",
+        "检查扫描、候选、选中包、重扫、实际执行和前后清单。"
+      ],
+      "oracles": [
+        "缺失条件有独立证据；自动补装后 phase=completed、verification.ok=true、unresolved 为空。",
+        "实际功能输出正确；库不可读、选择歧义或缺失条件不成立不得记为真实修复通过。"
+      ],
+      "product_scope": "undeclared-elf-runtime",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP03",
+      "title": "只在插件中出现的 DT_NEEDED",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "dependency",
+      "depends_on": [
+        "DEP02"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "准备主程序本身不依赖目标库、包内插件 .so 依赖另一个真实缺失库的 fixture。",
+        "通过正式安装扫描插件，再实际 dlopen 插件并执行已知函数。"
+      ],
+      "oracles": [
+        "扫描范围包含该插件而不仅是主可执行文件。",
+        "自动修复和实际插件调用均成功；不能复用已安装库导致误报覆盖了缺失场景。"
+      ],
+      "product_scope": "plugin-needed",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP04",
+      "title": "多个应用复用同一提供者",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "dependency",
+      "depends_on": [
+        "DEP02"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "在 A 已补入提供者后安装需要同一库的 B。",
+        "比较提供者版本/安装动作和 A/B 实际加载路径、库文件标识。"
+      ],
+      "oracles": [
+        "共享同一个目标环境包版本，不因 B 新建容器或重复安装无关提供者。",
+        "A/B 都实际工作；相同文件/包名不自动等同 ABI 或物理 RAM 共享证明。"
+      ],
+      "product_scope": "shared-dependency-provider",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP05",
+      "title": "重复 repair 的无新增依赖结果",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "dependency",
+      "depends_on": [
+        "DEP04"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "在状态不变的同一 CID 连续执行两次正式 repair-deps。",
+        "核对事务 installed 列表、包版本和原生动作差异。"
+      ],
+      "oracles": [
+        "无需补库时 installed 为空，无新增无关包和无新增环境。",
+        "查询/索引校验允许发生并记录；静态检查完成不变成 GUI/运行加载全通过。"
+      ],
+      "product_scope": "repair-idempotence",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP06",
+      "title": "移除应用 A 不破坏应用 B 的共享库",
+      "priority": "P0",
+      "execution_mode": "live_debian",
+      "phase": "dependency",
+      "depends_on": [
+        "DEP05"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "经正式 remove 仅删除本轮 fixture A，不使用全局 autoremove。",
+        "确认 B 仍在清单，重开并执行同一函数，核对公用提供者。"
+      ],
+      "oracles": [
+        "A 已移除，B 和其需要的库仍可实际使用，CID 不变。",
+        "不根据不完整引用计数删除公用库；未知引用保留并报告，不伪称依赖清理已实现。"
+      ],
+      "product_scope": "shared-dependency-retention",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP07",
+      "title": "共享提供者兼容升级及不兼容版本边界",
+      "priority": "P1",
+      "execution_mode": "offline_then_live_fixture_if_ready",
+      "phase": "dependency",
+      "depends_on": [
+        "DEP06"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "先离线验证兼容/不兼容提供者变更，再准备同 SONAME 兼容升级的独有签名 fixture 包。",
+        "在所有 GUI 关闭、备份就绪时升级 fixture，重开 A/B 核对旧 API。",
+        "不兼容主版本变更只在受控 fixture 中测试拒绝/并存/明确能力缺口，不更换真实系统库。"
+      ],
+      "oracles": [
+        "兼容升级后两应用仍可运行且不造新环境；加载库版本和结果有证据。",
+        "无法兼容不能假成功或用软链接替代 ABI；本用例不宣称已实现通用依赖版本求解器。",
+        "fixture 仓库/签名/预算不足即 BLOCKED，不伪装官方仓库。"
+      ],
+      "product_scope": "shared-dependency-upgrade",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP08",
+      "title": "运行时构造库名与精确 library 提示",
+      "priority": "P0",
+      "execution_mode": "offline_and_live_debian_if_missing",
+      "phase": "dependency",
+      "depends_on": [
+        "DEP01"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "用仅在运行时构造 dlopen 名称的 fixture，记录静态检查与实际加载不同的结果。",
+        "在独立证明真实缺失和唯一提供者后，经 repair-deps --library 精确 SONAME 修复，再实际调用。"
+      ],
+      "oracles": [
+        "静态 no-missing 不能标为运行加载已验收，runtime_loading 边界如实保留。",
+        "显式 --library 路径可完整验收；如果库原本存在，只能算 no-op/离线契约覆盖。"
+      ],
+      "product_scope": "runtime-hinted-loading",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP09",
+      "title": "无提供者或多提供者时不猜包",
+      "priority": "P0",
+      "execution_mode": "offline",
+      "phase": "offline_contract",
+      "depends_on": [
+        "PRE02"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "用受控查询响应分别返回零候选、多候选和部分错误输出。",
+        "检查错误、事务、安装动作和尝试次数。"
+      ],
+      "oracles": [
+        "明确失败并保留候选/原因，不猜选、不乱装、不创建环境。",
+        "这是离线契约证据，不称为真实仓库闭环；可选实机复核另受签名 fixture 条件限制。"
+      ],
+      "product_scope": "provider-ambiguity",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP10",
+      "title": "索引错误、安装失败和补装无效的有界退出",
+      "priority": "P0",
+      "execution_mode": "offline",
+      "phase": "offline_contract",
+      "depends_on": [
+        "DEP09"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "分别注入仓库/索引失败、安装非零、安装后库仍不可用、递归依赖不收敛。",
+        "核对最多 3 轮扫描的当前边界、失败阶段与可恢复记录。"
+      ],
+      "oracles": [
+        "不会无限联网/循环补库或继续启动 GUI，不留虚假的 completed。",
+        "native-command/dependency-repair/verification 与 recovery 状态明确区分，未知写入状态按恢复契约阻断。"
+      ],
+      "product_scope": "repair-bounded-failure",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP11",
+      "title": "GIO 等外部命令和 GUI 能力缺口",
+      "priority": "P0",
+      "execution_mode": "offline_and_live_debian",
+      "phase": "dependency",
+      "depends_on": [
+        "DEP01"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "检查实际 gio、字体/MIME、Qt 后端和必需桌面服务；将 WPS 脚本优先 gio 的路径纳入能力清单。",
+        "缺失变体先离线注入；实机天然缺失才验证准备/修复，已有公用能力不得卸载以制造报错。",
+        "补齐能力后实际验证 gio/MIME 的预期作用及私有文档界面；手工准备与自动修复分别记账。"
+      ],
+      "oracles": [
+        "缺脚本命令不能被 ELF 检查成功掩盖，更不能据此标完整应用 ready。",
+        "若尚无自动命令修复，记录 feature_gap；识别缺口不等于自动修复通过。",
+        "不接受改变宿主默认应用；不追装旧 gvfs 工具替代已经支持的现代分支。"
+      ],
+      "product_scope": "external-command-and-gui-capabilities",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP12",
+      "title": "实际搜索路径、符号版本、架构与厂商配置的分类",
+      "priority": "P0",
+      "execution_mode": "offline_then_private_fixture",
+      "phase": "offline_contract",
+      "depends_on": [
+        "PRE04"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "离线准备同 SONAME 不同私有路径、缺符号版本、非 x86_64 ELF 和非法配置样本。",
+        "必要时以普通用户在本轮私有 fixture 中验证加载路径和实际函数，禁止改宿主或公用系统库。",
+        "对照 WPS 已知非法 GPU JSON 和辅助进程故障，检查报告是否误归类为可补库。"
+      ],
+      "oracles": [
+        "bundled_candidates/静态满足不冒充实际 RPATH/ABI 成功；未支持架构明确拒绝。",
+        "厂商配置/内部异常与缺库、缺外部命令分开，保留功能影响和 feature_gap。",
+        "不会通过软链接库版本、全局 LD_LIBRARY_PATH 或吞 stderr 凑通过。"
+      ],
+      "product_scope": "abi-loader-and-error-classification",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "DEP13",
+      "title": "补库包事务中断与同一实例恢复",
+      "priority": "P1",
+      "execution_mode": "offline_then_live_debian_fixture",
+      "phase": "dependency",
+      "depends_on": [
+        "DEP06",
+        "SH09"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "先离线确认恢复契约；停止所有 GUI，在本轮独有小包维护步骤中只注入一次可控中断。",
+        "保存客体 PID/start/CID、事务和包清单；先执行正式 pkg recover，再运行 B 和后续合法事务。"
+      ],
+      "oracles": [
+        "未知状态阻断继续改包；恢复重读原生数据库，绝不换容器/删事务逃避半安装状态。",
+        "同一 CID、B 功能和共享依赖得到复核；无法安全恢复即停止并保留备份。"
+      ],
+      "product_scope": "package-recovery-in-shared-instance",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "AR01",
+      "title": "Arch 同实例轻量应用复用",
+      "priority": "P1",
+      "execution_mode": "live_arch",
+      "phase": "arch",
+      "depends_on": [
+        "AR03",
+        "SH04"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "确认 Debian 阶段已停止，使用选定 Arch 原管理根登记两个 CLI。",
+        "执行一次冷组、热开 B、关 A 保留 B、关最后一个的过程。"
+      ],
+      "oracles": [
+        "固定同一 Arch CID，无新建；同时间只运行这一台测试容器。",
+        "租约和手动/受管启动所有权契约与 Debian 主线一致。"
+      ],
+      "product_scope": "arch-shared-runtime",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "AR02",
+      "title": "Arch 依赖与共享提供者最小复核",
+      "priority": "P1",
+      "execution_mode": "live_arch",
+      "phase": "arch",
+      "depends_on": [
+        "AR01",
+        "DEP02",
+        "DEP03",
+        "DEP06"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "使用 Arch 原生小包和真实唯一缺失提供者，复核插件补库、A/B 共享、重复 repair 与移除 A 保留 B。",
+        "完整记录 pacman 文件查询、最终事务和真实加载结果，不能拿 Debian 包名或未完成事务当通过。"
+      ],
+      "oracles": [
+        "唯一可信候选且重新检查与运行通过，CID 保持不变。",
+        "当前提供者适配只接受其实际支持的仓库记录，不能伪装 core/extra 仓库名称扩展覆盖。"
+      ],
+      "product_scope": "arch-dependency-recheck",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "AR03",
+      "title": "Arch keyring、整体升级和交互预算准入",
+      "priority": "P1",
+      "execution_mode": "readonly_then_live_arch_preparation",
+      "phase": "arch",
+      "depends_on": [
+        "PRE02",
+        "PRE03",
+        "PRE04",
+        "PRE05",
+        "DEP06"
+      ],
+      "status": "NOT_RUN",
+      "steps": [
+        "只读/受支持预估方式核对 keyring、仓库和完整 -Syu 下载/空间预算；大于本阶段 200 MiB 预算则延期。",
+        "条件满足才通过原生入口准备一次；交互模式保留确认、拒绝、退出码和终端状态。"
+      ],
+      "oracles": [
+        "不关闭签名、不使用部分升级、不自动下载超预算内容或新建更换镜像实例。",
+        "Decline/网络/签名失败是明确结果，不能改成后台无限等待或套用 -y 冒充真实交互。"
+      ],
+      "product_scope": "arch-native-preparation",
+      "run_policy": "after_prerequisites"
+    },
+    {
+      "id": "END01",
+      "title": "固定池、数据、服务和资源收尾",
+      "priority": "P0",
+      "execution_mode": "readonly_and_owned_cleanup",
+      "phase": "teardown",
+      "depends_on": [],
+      "status": "NOT_RUN",
+      "steps": [
+        "无论前置成功与否，只结束本轮确证应用、控制器、显示、转发和本轮启动的选定环境。",
+        "核对全局 CID 集合、非目标事件/状态、宿主安装/账号/输入哈希、包/注册/仓库临时项、Git 索引。",
+        "保留中止锁、失败样本、NOT_RUN 项和公共能力新增清单，不删除历史环境或未知 IPC。"
+      ],
+      "oracles": [
+        "新增容器 0，选定实例回到原状态；非目标无本轮 create/start/restart/exec 或非授权修改。",
+        "本轮进程/监听退出，用户主动改变非目标状态时暂停并标外部干扰，不擅自关闭用户应用。",
+        "恢复不完整必须报告 BLOCKED/未收尾，不能用 reset/prune 隐藏现场。"
+      ],
+      "product_scope": "cleanup-and-preservation",
+      "run_policy": "finally"
+    }
+  ]
+}

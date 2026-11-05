@@ -1,0 +1,17 @@
+{
+  "identity": {
+    "pid": 365868,
+    "starttime": "17603726",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-acceptance-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_application_lifecycle",
+    "test_application_supervisor",
+    "test_on_demand",
+    "test_app_binding"
+  ]
+}

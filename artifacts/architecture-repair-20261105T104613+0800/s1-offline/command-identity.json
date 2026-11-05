@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "pid": 346021,
+    "starttime": "17354023",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-fix-20261105-1046-s1-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_operation_lock",
+    "test_package_coordination",
+    "test_package_observation",
+    "test_packages",
+    "test_identity_migration",
+    "test_on_demand"
+  ]
+}

@@ -6,8 +6,10 @@ A short-lived launcher is not a reliable lease owner: so supervised_open()
 moves the lease into one detached worker that survives the launcher, including
 a SIGKILL, and releases it only when the application really exits.
 
-Lease records are pid+start-stamp pairs. A recycled pid cannot renew an old
-lease because process_stamp() changes when the pid is reused.
+Application leases bind the environment generation, CID and guest execution
+token to a subreaper receipt. A dead host worker alone cannot release them;
+the guest must prove its complete descendant tree ended. Legacy application
+leases without that proof remain available for explicit recovery.
 """
 from contextlib import contextmanager
 import fcntl
@@ -22,7 +24,7 @@ import time
 import uuid
 
 from unifier.errors import UnifierError
-from unifier.identity import validate_binding
+from unifier.identity import binding_for, validate_binding
 from unifier.runtime import ExecResult
 
 # Set for the detached worker so a second supervision layer can never recurse.
@@ -45,11 +47,11 @@ def live_leases(items):
     live = {}
     for key, item in items.items():
         if not isinstance(item, dict):
-            continue
+            raise UnifierError('invalid lease entry; refusing to discard ownership')
         # A project session lease is evidence for a guest execution. A dead
         # host proxy is not proof that the guest ended, so retain the lease
         # until ProjectSessions.recover() verifies the guest identity.
-        if item.get('kind') == 'project-session':
+        if item.get('kind') in {'project-session', 'application'} or item.get('app_id'):
             live[key] = item
             continue
         stamp = item.get('stamp')
@@ -185,26 +187,29 @@ class LaunchGroup:
 
     @staticmethod
     def _empty():
-        return {'leases': {}, 'auto_stop': False, 'bridge': None}
+        return {'schema_version': 3, 'leases': {}, 'auto_stop': False, 'bridge': None}
 
     def read(self):
         if not self.path.exists():
             return self._empty()
         try:
             state = json.loads(self.path.read_text())
-        except json.JSONDecodeError:
-            return self._empty()
+        except json.JSONDecodeError as exc:
+            raise UnifierError('lease state is corrupt; ownership recovery is required') from exc
         if not isinstance(state, dict):
-            return self._empty()
+            raise UnifierError('lease state must be an object; ownership recovery is required')
+        if state.get('schema_version', 1) not in {1, 2, 3}:
+            raise UnifierError('unsupported lease schema; refusing to discard ownership')
         state.setdefault('leases', {})
         state.setdefault('auto_stop', False)
         state.setdefault('bridge', None)
         if not isinstance(state['leases'], dict):
-            state['leases'] = {}
+            raise UnifierError('invalid lease set; ownership recovery is required')
         state['leases'] = live_leases(state['leases'])
         return state
 
     def save(self, state):
+        state['schema_version'] = 3
         self.service.store._write_json(self.path, state)
 
     @staticmethod
@@ -233,7 +238,7 @@ class LaunchGroup:
 
     def _acquire(self, *, app_id=None, expected_app_instance_uuid=None,
                  expected_execution_fingerprint=None, expected_binding=None,
-                 owner=None, validate=None):
+                 owner=None, validate=None, owned_execution=False):
         """Take one lease in this environment's existing shared group.
 
         Application and project-session leases live in the same file, so they
@@ -244,6 +249,7 @@ class LaunchGroup:
         token = uuid.uuid4().hex
         with self.locked():
             state = self.read()
+            had_leases = bool(state['leases'])
             record = self.service.store.load(self.env_id)
             expected_app = None
             if app_id is not None:
@@ -271,6 +277,21 @@ class LaunchGroup:
                 state['auto_stop'] = self._inherits_auto_stop(state, info) or not info.running
                 state['container_id'] = info.container_id
             bridge = start_bridge(record, state.get('bridge'))
+            entry = {'pid': os.getpid(), 'stamp': process_stamp(os.getpid())}
+            if app_id is not None:
+                entry.update(app_id=app_id, kind='application',
+                             environment_binding=binding_for(record), user=launch.get('user'))
+                if owned_execution:
+                    entry['execution'] = {'token': token, 'ownership': 'subreaper-v1',
+                                          'state': 'not-started', 'guest': None}
+            else:
+                entry.update(owner or {})
+                entry['kind'] = 'project-session'
+            state['leases'][token] = entry
+            state['bridge'] = bridge
+            # Persist ownership before start/wait. A dead worker must not make
+            # a possibly running guest disappear from the shared lease set.
+            self.save(state)
             try:
                 # The lease lock serializes launch groups; service.start waits
                 # for a finishing podman stop and never double-starts an env.
@@ -279,30 +300,44 @@ class LaunchGroup:
                     self.env_id, expected_binding=binding,
                     expected_app=expected_app)
             except BaseException:
+                state['leases'].pop(token, None)  # No app exec has been attempted.
                 if not state['leases']:
                     stop_bridge(bridge)
+                    state['bridge'] = None
+                self.save(state)
                 raise
             info = self.service._require_owned(self.service.store.load(self.env_id))
+            if (had_leases and state.get('auto_stop')
+                    and state.get('container_started_at') != info.started_at):
+                state['auto_stop'] = False
             state['bridge'] = bridge
             state['container_id'] = info.container_id
             state['container_started_at'] = info.started_at
-            entry = {'pid': os.getpid(),
-                     'stamp': process_stamp(os.getpid())}
-            if app_id is not None:
-                entry['app_id'] = app_id
-            else:
-                entry.update(owner or {})
-                entry['kind'] = 'project-session'
-            state['leases'][token] = entry
             self.save(state)
         return token
 
     def acquire(self, app_id, *, expected_app_instance_uuid=None,
-                expected_execution_fingerprint=None):
+                expected_execution_fingerprint=None, owned_execution=False):
         return self._acquire(
             app_id=app_id,
             expected_app_instance_uuid=expected_app_instance_uuid,
-            expected_execution_fingerprint=expected_execution_fingerprint)
+            expected_execution_fingerprint=expected_execution_fingerprint,
+            owned_execution=owned_execution)
+
+    def update_execution(self, token, **updates):
+        with self.locked():
+            state = self.read()
+            entry = state['leases'].get(token)
+            if entry is None or not isinstance(entry.get('execution'), dict):
+                raise UnifierError('application execution lease is missing')
+            self.service._require_record_binding(self.service.store.load(self.env_id),
+                                                 entry['environment_binding'])
+            entry['execution'].update(updates)
+            self.save(state)
+
+    def recover_applications(self, token=None):
+        from unifier.application_leases import recover_applications
+        return recover_applications(self, token)
 
     def acquire_project(self, project_uuid, *, expected_binding, validate=None):
         """Take a project-session lease in the same group as application leases."""
@@ -316,6 +351,18 @@ class LaunchGroup:
     def release(self, token):
         with self.locked():
             state = self.read()
+            if token not in state['leases']:
+                return  # A concurrent terminal collector already released it.
+            entry = state['leases'].get(token) or {}
+            execution = entry.get('execution')
+            if execution and execution.get('state') != 'exited':
+                raise UnifierError('application termination is unverified; recover this lease')
+            if execution:
+                record = self.service.store.load(self.env_id)
+                self.service._require_record_binding(record, entry['environment_binding'])
+                info = self.service._require_owned(record)
+                if info.container_id != entry['environment_binding']['container_id']:
+                    raise UnifierError('application lease container changed; recovery required')
             state['leases'].pop(token, None)
             try:
                 if not state['leases']:
@@ -371,11 +418,9 @@ def managed_open(service, app_id, extra, *, expected_app_instance_uuid=None,
     if expected_execution_fingerprint is not None:
         pins["expected_execution_fingerprint"] = expected_execution_fingerprint
     group = LaunchGroup(service, launch['environment_id'])
-    lease = group.acquire(app_id, **pins)
-    try:
-        return service._open_app_unmanaged(app_id, extra, **pins)
-    finally:
-        group.release(lease)
+    argv = list(launch['argv']) + [item for item in extra or [] if item != '']
+    from unifier.application_leases import execute_application
+    return execute_application(group, app_id, argv, pins=pins)
 
 
 def managed_exec(service, app_id, argv, *, workdir=None,
@@ -394,16 +439,10 @@ def managed_exec(service, app_id, argv, *, workdir=None,
         execution_fingerprint=expected_execution_fingerprint)
     service._validate_launch_binding(launch)
     group = LaunchGroup(service, launch["environment_id"])
-    lease = group.acquire(
-        app_id, expected_app_instance_uuid=expected_app_instance_uuid,
-        expected_execution_fingerprint=expected_execution_fingerprint)
-    try:
-        return service.exec_app(
-            app_id, argv, capture=False, timeout=None, workdir=workdir,
-            expected_app_instance_uuid=expected_app_instance_uuid,
-            expected_execution_fingerprint=expected_execution_fingerprint)
-    finally:
-        group.release(lease)
+    from unifier.application_leases import execute_application
+    return execute_application(group, app_id, argv, workdir=workdir, pins={
+        'expected_app_instance_uuid': expected_app_instance_uuid,
+        'expected_execution_fingerprint': expected_execution_fingerprint})
 
 
 def worker_command(service, app_id, extra, *, expected_app_instance_uuid=None,

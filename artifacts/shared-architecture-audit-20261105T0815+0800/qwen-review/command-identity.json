@@ -1,0 +1,11 @@
+{
+  "identity": {
+    "pid": 269263,
+    "starttime": "16475881",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-audit-20261105-0815-review-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/.lab/agents/shared-architecture-audit-20261105T0815+0800/qwen-launch.py"
+  ]
+}

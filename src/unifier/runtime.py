@@ -5,8 +5,9 @@ refuses the call unless that container carries this project's environment
 labels. There is no name-prefix or "all containers" operation.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import json
+import fcntl
 import os
 from pathlib import Path
 import re
@@ -14,9 +15,11 @@ import secrets
 import select
 import signal
 import subprocess
+import sys
 import time
 
 from unifier.errors import UnifierError
+from unifier.exec_control import CONTROL_GUEST_FD, control_exec_argv
 from unifier.share_label import PRESERVE_HOST, volume_options
 
 
@@ -90,10 +93,31 @@ class GuestProcess:
     pgrp: int
     sid: int
     token: str
+    ownership: str = 'process'
 
 
-CONTROL_FD = 3
+# The guest control channel is always FD 3.  Podman's portable
+# ``--preserve-fds N`` carries host descriptors 3..N+2 with the same numbers, so
+# FD 3 is the only slot that is both fixed and reachable on runc and crun hosts.
+CONTROL_FD = CONTROL_GUEST_FD
 CONTROL_READY_SECONDS = 15.0
+APPLICATION_BOOTSTRAP = r'''
+source=$1
+shift
+for candidate in /usr/bin/python3 /bin/python3; do
+    if [ -x "$candidate" ]; then exec "$candidate" -c "$source" "$@"; fi
+done
+if [ "$1" = run ]; then printf 'ERROR application-python3-unavailable\n' >&"$4"; fi
+exit 125
+'''
+
+
+def application_guest_argv(mode, token, *args, state_root=''):
+    if not re.fullmatch(r'[0-9a-f]{32}', token):
+        raise UnifierError('application execution token is malformed')
+    source = Path(__file__).with_name('application_supervisor.py').read_text()
+    return ['/bin/sh', '-c', APPLICATION_BOOTSTRAP, 'unifier-application',
+            source, mode, token, state_root, *map(str, args)]
 # Fixed guest shell programs.  They use only /bin/sh and /proc; no host helper
 # binary, interpreter or ABI is assumed to work inside the guest.
 GUEST_WRAPPER = r'''
@@ -408,14 +432,20 @@ def creation_argv(spec: CreateSpec) -> list[str]:
 
 def exec_argv(name: str, argv: list[str], *, workdir: str | None, env: dict[str, str],
               user: str | None = None, interactive: bool = False,
-              tty: bool = False, preserve_fd: int | None = None) -> list[str]:
+              tty: bool = False, control_fd: int | None = None,
+              env_from_process: bool = False) -> list[str]:
     """Exec argv directly. Only the allowlisted variables are passed through.
 
     ``-i`` keeps stdin connected for pipes. ``-t`` is deliberately separate:
     podman merges stdout/stderr and can hang a pipe when a TTY is allocated, so
     callers must request it only for a real interactive terminal.
-    ``preserve_fd`` keeps a host control descriptor open in the guest without
-    mixing it into stdout or stderr; stdout/stderr stay separate.
+    ``control_fd`` asks for the guest control descriptor that keeps the identity
+    handshake out of stdout and stderr.  It is only ever ``CONTROL_FD`` (3):
+    rootless podman on Ubuntu 24.04 (runc) knows only ``--preserve-fds N``, which
+    passes host FDs 3..N+2 to the container with the same numbers, and rejects
+    the singular ``--preserve-fd`` newer podman added.  ``--preserve-fds 1`` plus
+    a host FD 3 is the one shape that works on runc and crun alike, and it hands
+    over exactly one descriptor instead of every FD below N.
     """
     if not argv:
         raise UnifierError("argv is empty")
@@ -426,17 +456,37 @@ def exec_argv(name: str, argv: list[str], *, workdir: str | None, env: dict[str,
         command.append("-t")
     if user is not None:
         command.extend(["--user", user])
-    if preserve_fd is not None:
-        if isinstance(preserve_fd, bool) or not isinstance(preserve_fd, int) or preserve_fd < 3:
-            raise UnifierError("preserved control descriptor must be an integer >= 3")
-        command.extend(["--preserve-fd", str(preserve_fd)])
+    if control_fd is not None:
+        if isinstance(control_fd, bool) or not isinstance(control_fd, int) or control_fd < 3:
+            raise UnifierError("control descriptor must be an integer >= 3")
+        if control_fd != CONTROL_FD:
+            raise UnifierError(
+                "the guest control descriptor is fixed at "
+                f"{CONTROL_FD}; only --preserve-fds 1 is portable across runtimes")
+        command.extend(["--preserve-fds", "1"])
     if workdir is not None:
         command.extend(["--workdir", workdir])
     for key, value in env.items():
-        command.extend(["--env", f"{key}={value}"])
+        command.extend(["--env", key if env_from_process else f"{key}={value}"])
     command.append(name)
     command.extend(argv)
     return command
+
+
+def host_exec_command(write_fd: int, command: list[str]) -> list[str]:
+    """Wrap a podman exec so the caller's control pipe becomes guest FD 3.
+
+    The caller keeps its own FD and hands the child exactly one inherited
+    descriptor with ``pass_fds``.  The helper (``unifier.exec_control``) does the
+    dup2 in its own already-forked, single-threaded process and execs podman, so
+    the proxy stays one process and keeps its exit status and signals.  The host
+    parent never dup2s FD 3, which would race other threads between fork and
+    exec, and nothing uses ``preexec_fn``.
+    """
+    try:
+        return control_exec_argv(write_fd, command)
+    except ValueError as exc:
+        raise UnifierError(f"cannot build control exec command: {exc}") from exc
 
 
 def guest_session_argv(argv: list[str], *, token: str, control_fd: int,
@@ -448,6 +498,11 @@ def guest_session_argv(argv: list[str], *, token: str, control_fd: int,
     sessions in the shared container.  A requested TTY must keep the podman pty
     as its controlling terminal, so the wrapper only records the ids the guest
     kernel assigned and execs the argv unchanged.
+
+    ``control_fd`` is the descriptor number *inside* the container.  A real exec
+    always uses ``CONTROL_FD`` (3), because that is the number
+    ``--preserve-fds 1`` delivers; a host-local test may use any inherited
+    descriptor >= 3.
     """
     if not argv:
         raise UnifierError("guest session argv is empty")
@@ -532,16 +587,26 @@ class SessionExecution:
                 pass
 
     def probe(self) -> str:
+        if self.guest.ownership == 'subreaper-v1':
+            return self.runtime.probe_application_guest(
+                self.name, self.guest, project=self.project, env_id=self.env_id, user=self.user)
         return self.runtime.probe_guest(
             self.name, self.guest, project=self.project, env_id=self.env_id,
             user=self.user)
 
     def signal(self, signum) -> str:
+        if self.guest.ownership == 'subreaper-v1':
+            return self.runtime.signal_application_guest(
+                self.name, self.guest, signum, project=self.project, env_id=self.env_id, user=self.user)
         return self.runtime.signal_guest(
             self.name, self.guest, signum, project=self.project, env_id=self.env_id,
             user=self.user)
 
     def cleanup(self) -> str:
+        if self.guest.ownership == 'subreaper-v1':
+            # Never kill background descendants merely because a launcher or
+            # host proxy returned. Only the terminal receipt proves completion.
+            return self.probe()
         return self.runtime.cleanup_guest(
             self.name, self.guest, project=self.project, env_id=self.env_id,
             user=self.user)
@@ -581,6 +646,69 @@ class PodmanRuntime:
         self.popen = popen or subprocess.Popen
         self.check_rootless = check_rootless
         self._rootless_ok = False
+        self.application_state_root = ''
+
+    def read_inventory_readonly(self, record):
+        """Read a stopped Debian DB without starting or execing the peer.
+
+        The helper acquires/releases one journaled storage mount reference.
+        Running peers, other backends and ambiguous storage journals refuse
+        before any package write. Real use requires T2 storage admission.
+        """
+        from unifier.package_inventory import (
+            InventoryObservation, MAX_INVENTORY_BYTES, observation,
+        )
+        from unifier.packages import driver_for
+        from unifier.view_journal import read_journal
+        if driver_for(record).name != 'apt':
+            return observation(record, status='unsupported', database=driver_for(record).name,
+                               reason='read-only database adapter is not implemented for this backend')
+        runtime = record['runtime']
+        cid = runtime['container_id']
+        before = self._require_owned(runtime['container_name'], runtime['project'], record['id'])
+        if before.container_id != cid:
+            return observation(record, status='unavailable', reason='peer container identity changed')
+        if before.running or before.status not in {'exited', 'created', 'configured', 'stopped'}:
+            return observation(record, status='unsupported', reason='running peer needs a consistent snapshot adapter')
+        if not re.fullmatch(r'[0-9a-f]{64}', cid):
+            return observation(record, status='unavailable', reason='peer requires a full container ID')
+        directory = Path(runtime['project']) / '.lab/state/inventory-observations'
+        directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+        journal = directory / (cid + '.json')
+        descriptor = os.open(directory / (cid + '.lock'),
+                             os.O_CREAT | os.O_RDWR | os.O_CLOEXEC | os.O_NOFOLLOW, 0o600)
+        try:
+            try:
+                fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                return observation(record, status='unavailable', reason='peer inventory observer is busy')
+            previous = read_journal(str(journal))
+            if journal.exists() and (previous is None or previous.get('state') != 'released'):
+                return observation(record, status='unavailable', reason='inventory storage journal needs reconciliation')
+            token = secrets.token_hex(16)
+            minimal = {key: record[key] for key in ('id', 'target', 'schema_version',
+                                                   'environment_uuid', 'generation')}
+            minimal['runtime'] = {key: runtime[key] for key in ('container_id', 'project')}
+            result = self.runner(
+                ['podman', 'unshare', sys.executable, str(Path(__file__).with_name('inventory_probe.py')),
+                 '--record', json.dumps(minimal), '--journal', str(journal), '--token', token],
+                capture=True, timeout=90)
+            if result.returncode or len(result.stdout or '') > MAX_INVENTORY_BYTES + 131072:
+                raise UnifierError('read-only inventory helper failed or exceeded output budget')
+            value = InventoryObservation(**json.loads(result.stdout))
+            final = read_journal(str(journal))
+            if value.status == 'supported' and (not final or final.get('state') != 'released'
+                    or final.get('token') != token or final.get('cid') != cid):
+                raise UnifierError('inventory storage release is unverified')
+            after = self._require_owned(runtime['container_name'], runtime['project'], record['id'])
+            if (after.container_id != cid or after.running or after.status != before.status
+                    or after.started_at != before.started_at or after.finished_at != before.finished_at):
+                raise UnifierError('peer container state changed during observation')
+            return value
+        except (OSError, ValueError, TypeError, UnifierError) as exc:
+            return observation(record, status='unavailable', reason=str(exc)[-500:])
+        finally:
+            os.close(descriptor)
 
     def create(self, spec: CreateSpec) -> str:
         self._ensure_rootless()
@@ -693,13 +821,17 @@ class PodmanRuntime:
         info = self._require_owned(name, project, env_id)
         # Pin the exec to the inspected instance, and explicitly use guest root
         # even in keep-id containers. No host package tool is involved.
+        # The identity handshake rides the single --preserve-fds 1 descriptor, so
+        # the native transaction reaches DNF/dnf5/apt instead of dying in an
+        # "unknown flag" exec failure on an older runc host.
         read_fd, write_fd = os.pipe()
         token = secrets.token_hex(16)
         identity = None
         write_open = True
-        guest = guest_session_argv(argv, token=token, control_fd=write_fd, tty=interactive)
-        command = exec_argv(info.container_id, guest, workdir=None, env=env,
-                            user="0", interactive=interactive, tty=interactive, preserve_fd=write_fd)
+        guest = guest_session_argv(argv, token=token, control_fd=CONTROL_FD, tty=interactive)
+        command = host_exec_command(write_fd, exec_argv(
+            info.container_id, guest, workdir=None, env=env, user="0",
+            interactive=interactive, tty=interactive, control_fd=CONTROL_FD))
 
         def spawn(command, **kwargs):
             nonlocal identity, write_open
@@ -746,7 +878,8 @@ class PodmanRuntime:
                            env_id: str, workdir: str | None, env: dict[str, str],
                            user: str | None = None, interactive: bool = True,
                            tty: bool = False, on_spawn=None,
-                           control_timeout: float = CONTROL_READY_SECONDS
+                           control_timeout: float = CONTROL_READY_SECONDS,
+                           ownership: str = 'process', execution_token: str | None = None
                            ) -> SessionExecution:
         """Start one exec and require a real guest identity before returning.
 
@@ -756,22 +889,40 @@ class PodmanRuntime:
         proven, the proxy is killed and the call fails closed;
         ProjectSessions keeps the lease unresolved instead of claiming a clean
         cancellation it cannot prove.
+
+        The control fd is carried as the single ``--preserve-fds 1`` descriptor
+        with the host write end remapped onto FD 3 by ``unifier.exec_control``,
+        which is the only form both an old runc host (no ``--preserve-fd``) and a
+        crun host accept.  READY never travels on stdout, so the proxy's stdout
+        and stderr stay whatever the command produced.
         """
         self._require_owned(name, project, env_id)
-        token = secrets.token_hex(16)
+        if ownership not in {'process', 'subreaper-v1'}:
+            raise UnifierError('unsupported execution ownership protocol')
+        token = execution_token or secrets.token_hex(16)
         read_fd, write_fd = os.pipe()
         process = None
         try:
-            os.set_inheritable(write_fd, True)
-            guest = guest_session_argv(argv, token=token, control_fd=write_fd,
-                                       tty=tty)
-            command = exec_argv(name, guest, workdir=workdir, env=env,
-                                user=user, interactive=interactive, tty=tty,
-                                preserve_fd=write_fd)
+            # ``pass_fds`` makes the write end inheritable in the child only.
+            # Flipping the flag on the parent's own descriptor would leak this
+            # pipe into unrelated subprocesses started by other threads.
+            guest = (application_guest_argv('run', token, CONTROL_FD, *argv,
+                                           state_root=self.application_state_root)
+                     if ownership == 'subreaper-v1' else
+                     guest_session_argv(argv, token=token, control_fd=CONTROL_FD, tty=tty))
+            command = host_exec_command(write_fd, exec_argv(
+                name, guest, workdir=workdir, env=env, user=user,
+                interactive=interactive, tty=tty, control_fd=CONTROL_FD,
+                env_from_process=True))
             try:
+                # ProjectSessions already validates its explicit key allowlist.
+                # Podman copies --env KEY from its own environment, keeping
+                # credentials out of both the helper's and Podman's argv.
+                child_environment = dict(os.environ)
+                child_environment.update(env)
                 process = self.popen(
                     command, stdin=None, stdout=None, stderr=None,
-                    process_group=0, pass_fds=(write_fd,))
+                    process_group=0, pass_fds=(write_fd,), env=child_environment)
             except (OSError, ValueError) as exc:
                 raise UnifierError(f"cannot start podman exec: {exc}") from exc
         except BaseException:
@@ -783,7 +934,8 @@ class PodmanRuntime:
         if on_spawn is not None:
             on_spawn(process)
         try:
-            identity = self._read_guest_identity(read_fd, token, control_timeout)
+            identity = replace(self._read_guest_identity(read_fd, token, control_timeout),
+                               ownership=ownership)
         except BaseException:
             self._kill_proxy_group(process)
             os.close(read_fd)
@@ -791,6 +943,53 @@ class PodmanRuntime:
         os.close(read_fd)
         return SessionExecution(self, name=name, project=project, env_id=env_id,
                                 process=process, guest=identity, user=user)
+
+    def start_application_exec(self, name, argv, *, token, **kwargs):
+        return self.start_session_exec(name, argv, ownership='subreaper-v1',
+                                       execution_token=token, **kwargs)
+
+    def observe_application(self, name, token, *, project, env_id, user=None):
+        try:
+            info = self._require_owned(name, project, env_id)
+            if not info.running:
+                return {'state': 'unknown', 'reason': 'container is not running'}
+            result = self.runner(exec_argv(name, application_guest_argv('probe', token,
+                state_root=self.application_state_root),
+                workdir=None, env={}, user=user), capture=True, timeout=10)
+            if result.returncode or len(result.stdout or '') > 16384:
+                return {'state': 'unknown', 'reason': 'application observation failed'}
+            value = json.loads(result.stdout)
+            if (not isinstance(value, dict) or value.get('token') != token
+                    or value.get('ownership') != 'subreaper-v1'):
+                return {'state': 'unknown', 'reason': 'application observation binding changed'}
+            if value.get('state') == 'exited' and value.get('all_children_reaped') is not True:
+                return {'state': 'unknown', 'reason': 'terminal receipt incomplete'}
+            return value
+        except (OSError, ValueError, TypeError, UnifierError):
+            return {'state': 'unknown', 'reason': 'application observation unavailable'}
+
+    def probe_application_guest(self, name, guest, *, project, env_id, user=None):
+        value = self.observe_application(name, guest.token, project=project, env_id=env_id, user=user)
+        if value.get('pid') != guest.pid or value.get('start') != guest.start:
+            return 'unknown'
+        return {'running': 'alive', 'exited': 'gone'}.get(value.get('state'), 'unknown')
+
+    def signal_application_guest(self, name, guest, signum, *, project, env_id, user=None):
+        try:
+            number = int(signal.Signals(signum))
+            if number not in {signal.SIGTERM, signal.SIGINT, signal.SIGHUP}:
+                raise UnifierError('application cancellation supports TERM/INT/HUP only')
+            self._require_owned(name, project, env_id)
+            result = self.runner(exec_argv(name, application_guest_argv(
+                'signal', guest.token, guest.pid, guest.start, number,
+                state_root=self.application_state_root),
+                workdir=None, env={}, user=user), capture=True, timeout=10)
+            if result.returncode or len(result.stdout or '') > 16384:
+                return 'unknown'
+            return {'signalled': 'signalled', 'exited': 'gone'}.get(
+                json.loads(result.stdout).get('state'), 'unknown')
+        except (OSError, ValueError, TypeError, UnifierError):
+            return 'unknown'
 
     def _read_guest_identity(self, read_fd: int, token: str,
                              timeout: float) -> GuestProcess:
@@ -817,7 +1016,9 @@ class PodmanRuntime:
                 "guest execution exited before reporting its identity")
         line = data.split(b"\n", 1)[0].decode("utf-8", "replace")
         if line.startswith("ERROR"):
-            raise UnifierError(f"guest prerequisite failed: {line}")
+            error = UnifierError(f"guest prerequisite failed: {line}")
+            error.execution_started = False
+            raise error
         return parse_guest_ready(line + "\n", token)
 
     @staticmethod

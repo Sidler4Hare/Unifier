@@ -1,0 +1,294 @@
+{
+  "source": "artifacts/expansion-continuation-20261103T100648+0800/soak/result.json",
+  "historical_status": "Interrupted; original RUNNING snapshot is preserved",
+  "started_at": "2026-11-03T10:19:14.868166+08:00",
+  "sample_count": 65,
+  "targets": {
+    "debian13": {
+      "valid_samples": 65,
+      "first_at": "2026-11-03T10:19:15+08:00",
+      "last_at": "2026-11-03T10:37:21+08:00",
+      "current_bytes_range": [
+        136101888,
+        826576896
+      ],
+      "cgroup_lifetime_peak_bytes": 2261397504,
+      "logical_swap_bytes_range": [
+        1305448448,
+        1813860352
+      ],
+      "task_peak_sampled": 557,
+      "resident_pss_peak_sampled": 568853504,
+      "min_host_available_bytes": 1327710208,
+      "max_host_logical_swap_used_bytes": 10408321024,
+      "first_process_groups": {
+        "podman-init": {
+          "processes": 1,
+          "resident_pss_bytes": 14336,
+          "logical_swap_pss_bytes": 45056
+        },
+        "sleep": {
+          "processes": 1,
+          "resident_pss_bytes": 18432,
+          "logical_swap_pss_bytes": 94208
+        },
+        "wps": {
+          "processes": 2,
+          "resident_pss_bytes": 37488640,
+          "logical_swap_pss_bytes": 76890112
+        },
+        "wpsoffice": {
+          "processes": 2,
+          "resident_pss_bytes": 19416064,
+          "logical_swap_pss_bytes": 72798208
+        },
+        "wpscloudsvr": {
+          "processes": 1,
+          "resident_pss_bytes": 3614720,
+          "logical_swap_pss_bytes": 35500032
+        },
+        "promecefpluginh": {
+          "processes": 4,
+          "resident_pss_bytes": 843776,
+          "logical_swap_pss_bytes": 44449792
+        },
+        "feishu": {
+          "processes": 21,
+          "resident_pss_bytes": 466199552,
+          "logical_swap_pss_bytes": 1492602880
+        }
+      },
+      "last_process_groups": {
+        "podman-init": {
+          "processes": 1,
+          "resident_pss_bytes": 1024,
+          "logical_swap_pss_bytes": 49152
+        },
+        "sleep": {
+          "processes": 2,
+          "resident_pss_bytes": 1268736,
+          "logical_swap_pss_bytes": 98304
+        },
+        "wpscloudsvr": {
+          "processes": 1,
+          "resident_pss_bytes": 1865728,
+          "logical_swap_pss_bytes": 37138432
+        },
+        "wpsoffice": {
+          "processes": 1,
+          "resident_pss_bytes": 1601536,
+          "logical_swap_pss_bytes": 25833472
+        },
+        "promecefpluginh": {
+          "processes": 4,
+          "resident_pss_bytes": 796672,
+          "logical_swap_pss_bytes": 44400640
+        },
+        "feishu": {
+          "processes": 14,
+          "resident_pss_bytes": 65388544,
+          "logical_swap_pss_bytes": 1317076992
+        },
+        "setsid": {
+          "processes": 1,
+          "resident_pss_bytes": 16384,
+          "logical_swap_pss_bytes": 106496
+        },
+        "sh": {
+          "processes": 1,
+          "resident_pss_bytes": 201728,
+          "logical_swap_pss_bytes": 49152
+        },
+        "bcompare": {
+          "processes": 1,
+          "resident_pss_bytes": 29696,
+          "logical_swap_pss_bytes": 114688
+        },
+        "BCompare": {
+          "processes": 1,
+          "resident_pss_bytes": 4249600,
+          "logical_swap_pss_bytes": 21499904
+        }
+      },
+      "first_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 1125
+      },
+      "last_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 1143
+      },
+      "counter_delta": {
+        "logical_swapin_bytes": 1885495296,
+        "logical_swapout_bytes": 2185932800,
+        "major_faults": 472945,
+        "memory_full_stall_us": 3499594,
+        "cpu_usage_us": 83310600
+      },
+      "max_host_memory_some_avg10": 21.4,
+      "max_host_memory_full_avg10": 18.93,
+      "notes": [
+        "cgroup peak is historical up to sample, not time-local peak",
+        "PSS must not be added to cgroup current/peak",
+        "logical swap bytes are not physical zram bytes",
+        "tasks include threads; different from process count"
+      ]
+    },
+    "arch": {
+      "valid_samples": 64,
+      "first_at": "2026-11-03T10:19:37+08:00",
+      "last_at": "2026-11-03T10:37:23+08:00",
+      "current_bytes_range": [
+        8724480,
+        12976128
+      ],
+      "cgroup_lifetime_peak_bytes": 14172160,
+      "logical_swap_bytes_range": [
+        0,
+        909312
+      ],
+      "task_peak_sampled": 5,
+      "resident_pss_peak_sampled": 5997568,
+      "min_host_available_bytes": 1277435904,
+      "max_host_logical_swap_used_bytes": 10408230912,
+      "first_process_groups": {
+        "podman-init": {
+          "processes": 1,
+          "resident_pss_bytes": 625664,
+          "logical_swap_pss_bytes": 0
+        },
+        "sleep": {
+          "processes": 2,
+          "resident_pss_bytes": 1715200,
+          "logical_swap_pss_bytes": 0
+        },
+        "setsid": {
+          "processes": 1,
+          "resident_pss_bytes": 857088,
+          "logical_swap_pss_bytes": 0
+        },
+        "sh": {
+          "processes": 1,
+          "resident_pss_bytes": 2747392,
+          "logical_swap_pss_bytes": 0
+        }
+      },
+      "last_process_groups": {
+        "podman-init": {
+          "processes": 1,
+          "resident_pss_bytes": 5120,
+          "logical_swap_pss_bytes": 49152
+        },
+        "sleep": {
+          "processes": 2,
+          "resident_pss_bytes": 1411072,
+          "logical_swap_pss_bytes": 274432
+        },
+        "setsid": {
+          "processes": 1,
+          "resident_pss_bytes": 628736,
+          "logical_swap_pss_bytes": 266240
+        },
+        "sh": {
+          "processes": 1,
+          "resident_pss_bytes": 1788928,
+          "logical_swap_pss_bytes": 311296
+        }
+      },
+      "first_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "last_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "counter_delta": {
+        "logical_swapin_bytes": 57344,
+        "logical_swapout_bytes": 917504,
+        "major_faults": 119,
+        "memory_full_stall_us": 168600,
+        "cpu_usage_us": 1749711
+      },
+      "max_host_memory_some_avg10": 17.53,
+      "max_host_memory_full_avg10": 15.5,
+      "notes": [
+        "cgroup peak is historical up to sample, not time-local peak",
+        "PSS must not be added to cgroup current/peak",
+        "logical swap bytes are not physical zram bytes",
+        "tasks include threads; different from process count"
+      ]
+    }
+  },
+  "historical_package_peaks": {
+    "debian13": {
+      "install": {
+        "duration_seconds": 13.279,
+        "memory_peak_bytes": 185663488,
+        "pss_max_bytes": 114805760,
+        "file_max_bytes": 54632448,
+        "anon_max_bytes": 125538304
+      },
+      "update": {
+        "duration_seconds": 9.731,
+        "memory_peak_bytes": 134488064,
+        "pss_max_bytes": 128885760,
+        "file_max_bytes": 9654272,
+        "anon_max_bytes": 115036160
+      }
+    },
+    "fedora44": {
+      "install": {
+        "duration_seconds": 29.09,
+        "memory_peak_bytes": 435093504,
+        "pss_max_bytes": 258981888,
+        "file_max_bytes": 182693888,
+        "anon_max_bytes": 225861632
+      },
+      "update": {
+        "duration_seconds": 8.231,
+        "memory_peak_bytes": 151945216,
+        "pss_max_bytes": 165466112,
+        "file_max_bytes": 10919936,
+        "anon_max_bytes": 132739072
+      }
+    },
+    "arch": {
+      "install": {
+        "duration_seconds": 21.368,
+        "memory_peak_bytes": 312528896,
+        "pss_max_bytes": 110460928,
+        "file_max_bytes": 202772480,
+        "anon_max_bytes": 95916032
+      },
+      "update": {
+        "duration_seconds": 5.252,
+        "memory_peak_bytes": 48795648,
+        "pss_max_bytes": 53858304,
+        "file_max_bytes": 0,
+        "anon_max_bytes": 41164800
+      }
+    }
+  },
+  "historical_package_scope": "2026-10-21 small package install/update, not current vendor apps or all distro packages."
+}

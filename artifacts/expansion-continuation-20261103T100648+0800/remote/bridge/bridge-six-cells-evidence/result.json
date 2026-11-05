@@ -1,0 +1,28 @@
+{
+  "status": "FAIL",
+  "host": "Ubuntu 24.04",
+  "cells": [],
+  "negative": [],
+  "origins": [],
+  "host_identity": {
+    "pid": 94070,
+    "uid": 1001,
+    "gid": 1001,
+    "pid_namespace": "pid:[4026531836]",
+    "boot_id": "7f9c8802-1373-4bd5-88e1-9328da0552c7"
+  },
+  "source_sha256": {
+    "runtime.py": "38215908a01451cdea57172c99a08ab0f66ab5bf9c6addbeb429c2c9c2fd98a7",
+    "exec_control.py": "183ec3678dac5b591dc2089400a0dced1a6e0a0c70eb3a3bcc0d39356a63ae70",
+    "project_sessions.py": "ce896139e8623776eddcabefd9435755bf04ff75194cc14cb2c4facb569eb4ed",
+    "agent_bridge.py": "37296c8d80d706f4a3c085db2f1395221227ec4428b965fffed4aacd5239674d",
+    "bridge_client.py": "8fb2f8907eb1ab41ae1189bdc7e72061d4919bcb0346da57082df0b177813b0a"
+  },
+  "error": "{'request': {'socket': '/home/agent/expansion-continuation-20261103/bridge-shared/private-bridge-fedora44/桥接口-segment-segment-segment-segment-segment-segment-segment-segment-segment-segment-/bridge.sock', 'action_id': 'host-info', 'request_uuid': '1645cc27-bd6a-4048-8456-724952e4eb9a'}, 'response': {'action_id': 'host-info', 'error': {'code': 'origin-not-running', 'message': 'the origin environment container is not running'}, 'protocol_version': 1, 'receipt': None, 'request_uuid': '1645cc27-bd6a-4048-8456-724952e4eb9a', 'status': 'rejected'}}",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/agent/expansion-continuation-20261103/remote-bridge-six-cells.py\", line 59, in <module>\n    response=item.get('response');assert response and response['status']=='ok',item\n                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'request': {'socket': '/home/agent/expansion-continuation-20261103/bridge-shared/private-bridge-fedora44/桥接口-segment-segment-segment-segment-segment-segment-segment-segment-segment-segment-/bridge.sock', 'action_id': 'host-info', 'request_uuid': '1645cc27-bd6a-4048-8456-724952e4eb9a'}, 'response': {'action_id': 'host-info', 'error': {'code': 'origin-not-running', 'message': 'the origin environment container is not running'}, 'protocol_version': 1, 'receipt': None, 'request_uuid': '1645cc27-bd6a-4048-8456-724952e4eb9a', 'status': 'rejected'}}\n",
+  "worker_threads_live": 1,
+  "containers_after": {
+    "fedora44": "stopped",
+    "arch": "stopped"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "at": 1793719521.039708,
+  "selected_cell_checks": [
+    {
+      "label": "CWNA",
+      "samples": 16,
+      "expected_app_processes": 1,
+      "valid": true
+    },
+    {
+      "label": "CWGB",
+      "samples": 16,
+      "expected_app_processes": 1,
+      "valid": true
+    },
+    {
+      "label": "CSNA",
+      "samples": 16,
+      "expected_app_processes": 1,
+      "valid": true
+    },
+    {
+      "label": "CSGB",
+      "samples": 16,
+      "expected_app_processes": 1,
+      "valid": true
+    },
+    {
+      "label": "CPNA",
+      "samples": 16,
+      "expected_app_processes": 1,
+      "valid": true
+    },
+    {
+      "label": "CPGB",
+      "samples": 16,
+      "expected_app_processes": 1,
+      "valid": true
+    },
+    {
+      "label": "CFNA",
+      "samples": 16,
+      "expected_app_processes": 3,
+      "valid": true
+    },
+    {
+      "label": "CFNB",
+      "samples": 16,
+      "expected_app_processes": 3,
+      "valid": true
+    },
+    {
+      "label": "CFGC",
+      "samples": 16,
+      "expected_app_processes": 3,
+      "valid": true
+    },
+    {
+      "label": "CFGD",
+      "samples": 16,
+      "expected_app_processes": 3,
+      "valid": true
+    }
+  ],
+  "kernel_journal_read_returncode": 0,
+  "kernel_memory_failure_lines": [],
+  "remaining_benchmark_units": "",
+  "x199_lock_exists": false,
+  "x199_socket_exists": false,
+  "running_containers": [],
+  "doc_path": "/home/omg/文档/多兼容linux机/docs/本机测试规范.md"
+}

@@ -1,0 +1,90 @@
+{
+  "scope": "PILOT_LOCAL_CORE_EDITORS_CLOUD_DISABLED",
+  "cells": [
+    {
+      "case": "Writer",
+      "native_labels": [
+        "CWNA"
+      ],
+      "guest_labels": [
+        "CWGB"
+      ],
+      "native_pss_mib": 356.54296875,
+      "guest_pss_mib": 347.787109375,
+      "difference_mib": -8.755859375,
+      "difference_percent": -2.455765543686661,
+      "native_idle_cpu_one_core_percent": 0.43836570664327873,
+      "guest_idle_cpu_one_core_percent": 0.40715277592496757
+    },
+    {
+      "case": "Sheets",
+      "native_labels": [
+        "CSNA"
+      ],
+      "guest_labels": [
+        "CSGB"
+      ],
+      "native_pss_mib": 351.115234375,
+      "guest_pss_mib": 342.935546875,
+      "difference_mib": -8.1796875,
+      "difference_percent": -2.3296304743256724,
+      "native_idle_cpu_one_core_percent": 0.13854209128877404,
+      "guest_idle_cpu_one_core_percent": 0.13278936121659238
+    },
+    {
+      "case": "Slides",
+      "native_labels": [
+        "CPNA"
+      ],
+      "guest_labels": [
+        "CPGB"
+      ],
+      "native_pss_mib": 323.810546875,
+      "guest_pss_mib": 312.736328125,
+      "difference_mib": -11.07421875,
+      "difference_percent": -3.4199685145755776,
+      "native_idle_cpu_one_core_percent": 0.6048486839010364,
+      "guest_idle_cpu_one_core_percent": 0.6312543905320741
+    },
+    {
+      "case": "三组件同开",
+      "native_labels": [
+        "CFNA",
+        "CFNB"
+      ],
+      "guest_labels": [
+        "CFGC",
+        "CFGD"
+      ],
+      "native_pss_mib": 667.0888671875,
+      "guest_pss_mib": 653.8203125,
+      "difference_mib": -13.2685546875,
+      "difference_percent": -1.9890235529549938,
+      "native_idle_cpu_one_core_percent": 1.0805360411612273,
+      "guest_idle_cpu_one_core_percent": 0.75912056561835
+    }
+  ],
+  "valid_cells": 10,
+  "snapshot_count": 160,
+  "events_clear": true,
+  "max_median_app_swap_pss_mib": 0.0,
+  "host_min_available_mib": 3434.55078125,
+  "host_full_psi_max_avg10": 0.18,
+  "fixtures_unchanged": true,
+  "cleanup": {
+    "at": 1793719345.9019732,
+    "errors": [],
+    "guest_cloud_restored": true,
+    "native_cloud_restored": true,
+    "container_stopped": true,
+    "host_config_unchanged": true,
+    "mounts_unchanged": true,
+    "boot": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin": [
+      "1769"
+    ],
+    "native_installed_version": "wps-office-12.1.2.28080.AK.preread.sw-1.x86_64"
+  },
+  "container_count": 10,
+  "running_containers": 0
+}

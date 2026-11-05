@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "pid": 181356,
+    "starttime": "10283774",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-pre02-20261104-1510-red3-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "test_package_observation",
+    "-v"
+  ]
+}

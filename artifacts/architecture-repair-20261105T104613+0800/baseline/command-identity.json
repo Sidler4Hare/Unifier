@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "pid": 340164,
+    "starttime": "17324230",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-fix-20261105-1046-baseline-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_cli_shortcuts.RepairContracts.test_same_alias_is_namespaced_per_target_and_run_picks_the_right_instance"
+  ]
+}

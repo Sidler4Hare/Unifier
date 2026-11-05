@@ -1,0 +1,1 @@
+上一轮未进入待验收锁边界：PackageBoxes不支持test -x，APP注册在fixture准备时拒绝。仅扩展该新测试的fixture响应以声明微型/usr/bin/true，并为repair预装其待修包；未改变产品或放宽任何断言。保留原失败，针对同一边界只复试一次，重新30秒准入。

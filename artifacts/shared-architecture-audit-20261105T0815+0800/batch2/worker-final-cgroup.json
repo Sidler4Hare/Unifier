@@ -1,0 +1,37 @@
+{
+  "memory": 138428416,
+  "tasks": 1,
+  "memory_peak": 227102720,
+  "tasks_peak": 13,
+  "memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0,
+    "sock_throttled": 0
+  },
+  "pids_events": {
+    "max": 0
+  },
+  "cpu_stat": {
+    "usage_usec": 41925676,
+    "user_usec": 37862073,
+    "system_usec": 4063603,
+    "nice_usec": 0,
+    "core_sched.force_idle_usec": 0,
+    "nr_periods": 490,
+    "nr_throttled": 80,
+    "throttled_usec": 201204,
+    "nr_bursts": 0,
+    "burst_usec": 0
+  },
+  "processes": [
+    {
+      "pid": 249700,
+      "starttime": "16435045",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-audit-20261105-0815-batch2-work.service"
+    }
+  ]
+}

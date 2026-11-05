@@ -1,0 +1,9 @@
+中文扩展测试
+Synthetic fixture: original text 100, 中文保存，spaces and symbols $; remain
+literal.
+原始单元格
+
+UNIFIER-PRIVATE-WRITER-CYCLE-1 20261103 literal $;
+UNIFIER-PRIVATE-WRITER-CYCLE-2 20261103 literal $;
+
+

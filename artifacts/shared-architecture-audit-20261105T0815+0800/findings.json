@@ -1,0 +1,53 @@
+[
+  {
+    "id": "F01",
+    "priority": "P1",
+    "kind": "functional regression and capability-contract gap",
+    "title": "Adding another distribution blocks normal package operations",
+    "evidence": [
+      "batch2/command.log",
+      "counterexamples/cross-environment-admission.json"
+    ],
+    "source": "src/unifier/service.py:1504; src/unifier/service.py:1839",
+    "scope": "Existing normal CLI regression plus fake database counterexample and confirmed missing real runtime capability; no live Podman execution",
+    "recommendation": "Define a real read-only observation capability and implement/verify the runtime adapter, or redesign the isolation proof around an explicit target authority. Preserve refusal until sound proof is available; do not hide the gap by adding fake-only support."
+  },
+  {
+    "id": "F02",
+    "priority": "P1",
+    "kind": "architecture correctness under authorized concurrency",
+    "title": "Authorized independent transactions become mutual isolation failures",
+    "evidence": [
+      "counterexamples/concurrent-peer-false-positive.json",
+      "completions/same-environment-writer-lock.json"
+    ],
+    "source": "src/unifier/service.py:159; src/unifier/service.py:1410",
+    "scope": "Deterministic two-barrier fake-runtime simulation; no real concurrent containers. Same-environment writer serialization passes.",
+    "recommendation": "Distinguish authorized operation generations/IDs from unexplained mutation. Define a consistency window for cross-environment observations and lock ordering. Do not call every peer change an isolation breach."
+  },
+  {
+    "id": "F03",
+    "priority": "P1 conditional",
+    "kind": "execution ownership gap",
+    "title": "App lease follows launcher completion rather than daemonized guest lifetime",
+    "evidence": [
+      "counterexamples/background-app-lease.json",
+      "background-retry/command.log"
+    ],
+    "source": "src/unifier/on_demand.py:373; src/unifier/runtime.py:716; src/unifier/project_sessions.py:785",
+    "scope": "Host-owned background child simulates a guest app; environment runtime is fake. Specific real WPS/GUI impact UNKNOWN.",
+    "recommendation": "Share controlled guest PID/start/token/probe/cancel ownership between APP, sessions and broker requests. Define foreground, background and single-instance activation lifetimes explicitly; do not stop a whole shared environment merely because a launcher exits."
+  },
+  {
+    "id": "F04",
+    "priority": "P2",
+    "kind": "capability and acceptance gap",
+    "title": "Bundled SONAME candidates do not prove runtime loader success",
+    "evidence": [
+      "counterexamples/bundled-vs-loader.json"
+    ],
+    "source": "src/unifier/dependencies.py:177",
+    "scope": "Real tiny host-built ELF and dynamic-loader failure (127), combined with a fake package database. No guest library copying or real guest install. runtime_loading is already explicitly unverified.",
+    "recommendation": "Keep static dependency discovery, actual loader resolution and workflow acceptance distinct. Report bundled candidates as unverified until RPATH/RUNPATH/ORIGIN and ABI or an actual bounded loader oracle establish usability."
+  }
+]

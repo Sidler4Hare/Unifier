@@ -1,0 +1,71 @@
+Running as unit: unifier-final-offline-20261103.service
+Checking working tree
+PASS Python syntax: 200 files
+PASS legacy module aliases: 42
+PASS five CLI entry points
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn2018ae859a4f
+fedora44: dnf install -y hello
+fedora44: install completed txn635e26b2df1c
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn839ee9e2ca2f
+refusing to overwrite an unknown file: /tmp/tmpz5gqv2re/unifier
+use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn193f4061253c
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn09e3c9513083
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnb028ce07f11d
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn6b702398f5a1
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txne7ca93217905
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn48e5313f8fd7
+fedora44: dnf install -y hello
+fedora44: install completed txnaf8a27b1b35a
+unifier: remove deletes the environment's writable root; pass --yes
+removed demo
+/usr/lib64/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=56884) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+/usr/lib64/python3.14/site-packages/gi/overrides/__init__.py:159: PyGIDeprecationWarning: GLib.unix_signal_add_full is deprecated; use GLibUnix.signal_add_full instead
+  value = getattr(proxy, attr)
+======================================================================
+ERROR: test_unknown_action_and_bad_token_are_refused_before_any_claim (test_agent_bridge.Authorization.test_unknown_action_and_bad_token_are_refused_before_any_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_agent_bridge.py", line 435, in test_unknown_action_and_bad_token_are_refused_before_any_claim
+    shaped = self.call(bridge, "host-info", request_uuid=str(uuid.uuid4()),
+                       token="nope")
+  File "/home/omg/文档/多兼容linux机/tests/test_agent_bridge.py", line 250, in call
+    return bridge_client.request(str(bridge.policy.socket_path), action_id,
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                 token=token or self.token,
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                 request_uuid=request_uuid, timeout=timeout)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/src/unifier/bridge_client.py", line 254, in request
+    raise BridgeError("bad-response", "the response does not match this request and action")
+unifier.agent_bridge.BridgeError: [bad-response] the response does not match this request and action
+
+----------------------------------------------------------------------
+Ran 718 tests in 43.381s
+
+FAILED (errors=1, skipped=5)
+repository check failed: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-q']' returned non-zero exit status 1.
+          Finished with result: exit-code
+Main processes terminated with: code=exited, status=1/FAILURE
+               Service runtime: 44.611s
+             CPU time consumed: 35.063s
+                   Memory peak: 384M (swap: 0B)

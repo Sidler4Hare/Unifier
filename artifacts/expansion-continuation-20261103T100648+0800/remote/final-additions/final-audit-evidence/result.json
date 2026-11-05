@@ -1,0 +1,64 @@
+{
+  "timestamp": "2026-11-03T15:00:46+0800",
+  "content_checks": {
+    "fedora44": {
+      "rows": 120,
+      "every_payload_sha256_matches": true,
+      "final_progress_round": 120,
+      "guest_elapsed_seconds": 1800.0259775159975,
+      "uid": 1001
+    },
+    "arch": {
+      "rows": 120,
+      "every_payload_sha256_matches": true,
+      "final_progress_round": 120,
+      "guest_elapsed_seconds": 1800.037601940996,
+      "uid": 1001
+    },
+    "shared": {
+      "rows": 240,
+      "every_payload_sha256_matches": true,
+      "exact_origin_counter_set": true
+    }
+  },
+  "own_rootless_containers": [
+    {
+      "id": "8bfbd679904a5a531fb961fbef60cdc79671da2dbb6f9f347f842564519590ff",
+      "name": "ml-a81af9bc-fedora44",
+      "status": "exited",
+      "root": "/home/agent/expansion-continuation-20261103/environment"
+    },
+    {
+      "id": "95e005106d273eb5c797fcefaa830040678c3e3cd9f73c064601f2f436be0623",
+      "name": "ml-d6fd69e6-fedora44",
+      "status": "exited",
+      "root": "/home/agent/expansion-continuation-20261103/environment-v3"
+    },
+    {
+      "id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+      "name": "ml-2b804374-fedora44",
+      "status": "exited",
+      "root": "/home/agent/expansion-continuation-20261103/bridge-environments"
+    },
+    {
+      "id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+      "name": "ml-2b804374-arch",
+      "status": "exited",
+      "root": "/home/agent/expansion-continuation-20261103/bridge-environments"
+    },
+    {
+      "id": "87224cf1c992f4890b1b1c9b8ffec7d383dc228ce83241636a9016569e7ab287",
+      "name": "ml-955a02d8-fedora44",
+      "status": "exited",
+      "root": "/home/agent/expansion-continuation-20261103/cli-environment-v1"
+    }
+  ],
+  "units": {
+    "unifier-guarded-soak-20261103.service": "Result=success\nActiveState=inactive",
+    "unifier-fedora-cli-20261103.service": "Result=success\nActiveState=inactive",
+    "unifier-fedora-pty-resize-20261103.service": "Result=success\nActiveState=inactive",
+    "unifier-python311-complete-20261103.service": "Result=success\nActiveState=inactive",
+    "unifier-bridge-six-cells-v8-20261103.service": "Result=success\nActiveState=inactive"
+  },
+  "status": "PASS_CONTENT_AND_STOPPED_TEST_PRESERVATION"
+}

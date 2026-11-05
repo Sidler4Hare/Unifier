@@ -1,0 +1,151 @@
+{
+  "access_scope": {
+    "any_used_mount_read_only": false,
+    "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+    "file_path": null,
+    "mappings": {
+      "cwd": {
+        "expected_host": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+        "mount": {
+          "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+          "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+          "options": "z",
+          "same_absolute_path": true
+        },
+        "path": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+        "same_host_object": true
+      },
+      "project_root": {
+        "expected_host": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+        "mount": {
+          "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+          "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+          "options": "z",
+          "same_absolute_path": true
+        },
+        "path": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+        "same_host_object": true
+      }
+    },
+    "mode": "environment-shared-static-mounts",
+    "policy_enforcement": "routing-only",
+    "policy_note": "read-only is a routing decision; without an OS-level read-only mount it is not a filesystem write guarantee",
+    "project_root": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+    "runtime_read_only": false,
+    "selected_mount": {
+      "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+      "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+      "options": "z",
+      "same_absolute_path": true
+    },
+    "shared_mounts": [
+      {
+        "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+        "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+        "options": "z",
+        "same_absolute_path": true
+      }
+    ],
+    "used_mounts": [
+      {
+        "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+        "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+        "options": "z",
+        "same_absolute_path": true
+      }
+    ],
+    "warning": "All applications in this environment share every static mount. This route is not per-file or per-application isolation."
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "/home/agent/expansion-continuation-20261103/bridge-shared/origin.py",
+    "/home/agent/expansion-continuation-20261103/bridge-shared",
+    "origin-v7-arch"
+  ],
+  "child_pid": 115605,
+  "child_stamp": 3080210,
+  "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+  "created_at": "2026-11-03T14:04:15+08:00",
+  "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+  "cwd_dev": 64512,
+  "cwd_ino": 12062695,
+  "env_keys": [
+    "UNIFIER_AGENT_TOKEN"
+  ],
+  "env_policy": {
+    "allowlist": "explicit-host-keys-only",
+    "dynamic_loader_variables": false,
+    "fallback_commands": false,
+    "host_environment_inherited": false
+  },
+  "environment_binding": {
+    "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+    "environment_id": "arch",
+    "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+    "generation": 1
+  },
+  "environment_id": "arch",
+  "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+  "error": null,
+  "exit_code": null,
+  "generation": 1,
+  "guest_pgrp": 18,
+  "guest_pid": 18,
+  "guest_sid": 18,
+  "guest_start": 3080241,
+  "guest_state": "alive",
+  "guest_token": "a6c156022b82a16573b1e526db2ab72d",
+  "integration_uuid": null,
+  "lease_token": "543f5ce1c5214dfb8825f00ab752f77d",
+  "mode": "run",
+  "project_uuid": "ef0bd8f2-0221-4d00-8ac2-050f632eaadb",
+  "root_dev": 64512,
+  "root_ino": 12062695,
+  "root_uuid": "6274653c-b4f3-4868-aa00-261e0023aa92",
+  "schema_version": 1,
+  "scope_sha256": "05b4c3afa91d2c05c89b707e489c06cc4583e411cdcd11de0a19d404ae9b63d6",
+  "session_user": "0:0",
+  "session_uuid": "43264fe9-5ee3-48c1-a273-f48428873bae",
+  "signals": [],
+  "state": "running",
+  "tty": false,
+  "updated_at": "2026-11-03T14:04:17+08:00",
+  "worker_pid": 113648,
+  "worker_stamp": 3078582,
+  "worker_live": true,
+  "child_live": true,
+  "guest_live": true,
+  "environment": {
+    "known": true,
+    "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+    "running": true,
+    "status": "running",
+    "started_at": "2026-11-03T14:04:16.548879586+08:00",
+    "project": "/home/agent/expansion-continuation-20261103/bridge-environments",
+    "env_id": "arch",
+    "role": "environment"
+  },
+  "lease_recorded": true,
+  "lease_live": true,
+  "effective_state": "running",
+  "execution_pinned": {
+    "project_uuid": "ef0bd8f2-0221-4d00-8ac2-050f632eaadb",
+    "root_uuid": "6274653c-b4f3-4868-aa00-261e0023aa92",
+    "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+    "generation": 1,
+    "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+    "argv": [
+      "/usr/bin/python3",
+      "/home/agent/expansion-continuation-20261103/bridge-shared/origin.py",
+      "/home/agent/expansion-continuation-20261103/bridge-shared",
+      "origin-v7-arch"
+    ],
+    "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+    "session_user": "0:0",
+    "integration_uuid": null,
+    "scope_sha256": "05b4c3afa91d2c05c89b707e489c06cc4583e411cdcd11de0a19d404ae9b63d6",
+    "guest_pid": 18,
+    "guest_start": 3080241,
+    "guest_sid": 18
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "pid": 359147,
+    "starttime": "17448038",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-fix-20261105-1046-lease-lock-corrected-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_package_coordination.PackageCoordination.test_install_repair_and_recovery_do_not_deadlock_app_and_project_lease_release"
+  ]
+}

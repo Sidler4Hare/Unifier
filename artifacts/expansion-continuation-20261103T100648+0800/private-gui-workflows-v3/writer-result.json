@@ -1,0 +1,39 @@
+{
+  "status": "PARTIAL_PRIVATE_WRITER_WORKFLOW",
+  "artifacts": [
+    {
+      "filename": "writer-workflow.docx",
+      "sha256": "fd4077c9725801bd173646e6c01d25f085b9bbf0cc30f48a1a9e40845c391a9b",
+      "bytes": 33921,
+      "uid": 1000,
+      "both_gui_markers_saved": true
+    },
+    {
+      "filename": "writer copy $;.docx",
+      "sha256": "164fa681d3face18d8fe3c1c4971401bc2f455d9f26438b751e262b07918ea16",
+      "bytes": 33911,
+      "uid": 1000,
+      "both_gui_markers_saved": true
+    },
+    {
+      "filename": "writer copy $;.pdf",
+      "sha256": "52b8625e2a86ad73a87824867a7bacad2a97b2bcd446bbdb358edd8a4eddeb42",
+      "bytes": 22739,
+      "uid": 1000
+    }
+  ],
+  "normal_exit_returncodes": [
+    0,
+    0
+  ],
+  "completed_stop_reopen_cycles": 1,
+  "second_reopen": "REFUSED_LOW_HEADROOM",
+  "pdf_export": {
+    "pages": 1,
+    "both_markers_extracted": true,
+    "visual_review": "Chinese text/font substitution differs; missing template font warning remains",
+    "layout_fidelity_accepted": false
+  },
+  "host_desktop_integration_accepted": false,
+  "suite_accepted": false
+}

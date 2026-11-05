@@ -1,0 +1,9 @@
+{
+  "provider": "local-server",
+  "model_ids": [
+    "swift-1.5-iq3_s"
+  ],
+  "endpoint_is_loopback": false,
+  "endpoint_is_tailnet": true,
+  "configured_model_present": true
+}

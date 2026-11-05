@@ -1,0 +1,18 @@
+{
+  "status": "READ_ONLY_AUDIT_COMPLETE",
+  "analysis_window": "2026-11-03 10:00:00..10:42:00 Asia/Shanghai, previous boot",
+  "memory_pressure_and_allocator_failure": "CONFIRMED",
+  "global_or_cgroup_oom_kill_in_retained_window": "NOT_OBSERVED",
+  "desktop_failure_unique_cause": "NOT_PROVEN",
+  "interpretation": "Memory pressure and fragmentation are directly evidenced and are a plausible important contributor; KWin errors precede the Wi-Fi allocation failure, and recovery-session termination precedes the mass Wayland client aborts.",
+  "normal_zone_fragments": [
+    "Node 0 Normal free:209964kB boost:142900kB min:206416kB low:222292kB high:238168kB reserved_highatomic:2048KB free_highatomic:2048KB active_anon:1273360kB inactive_anon:625132kB active_file:278612kB inactive_file:1199632kB unevictable:16756kB writepending:1760kB zspages:2699308kB present:7483392kB managed:7277624kB mlocked:784kB bounce:0kB free_pcp:248kB local_pcp:0kB free_cma:0kB",
+    "Node 0 Normal: 27368*4kB (UME) 12200*8kB (UME) 54*16kB (UM) 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 0*1024kB 1*2048kB (H) 0*4096kB = 209984kB"
+  ],
+  "historical_zsmalloc_zone_bytes": 2858045440,
+  "containers_started_by_this_audit": 0,
+  "resource_limits_changed": false,
+  "desktop_settings_changed": false,
+  "source_code_changed": false,
+  "report": "report.md"
+}

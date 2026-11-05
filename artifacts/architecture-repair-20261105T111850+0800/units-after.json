@@ -1,0 +1,269 @@
+{
+  "all_quiescent": true,
+  "units": [
+    {
+      "unit": "unifier-s34-20261105t111850-qwen-work.service",
+      "state": {
+        "LoadState": "loaded",
+        "ActiveState": "failed",
+        "InvocationID": "ac4275f573a745b1b2fe577b0e930eba",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-20261105t111850-qwen-guard.service",
+      "state": {
+        "LoadState": "loaded",
+        "ActiveState": "inactive",
+        "InvocationID": "9a66c9e7463d4609bdf00109811a2a35",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-consumers-work.service",
+      "state": {
+        "LoadState": "loaded",
+        "ActiveState": "failed",
+        "InvocationID": "c1010d1a723f4ff981b7868e6e1f275b",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-consumers-guard.service",
+      "state": {
+        "LoadState": "loaded",
+        "ActiveState": "inactive",
+        "InvocationID": "263916e5981d4345bbc46db8f7962de7",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-contracts-work.service",
+      "state": {
+        "LoadState": "loaded",
+        "ActiveState": "failed",
+        "InvocationID": "74fdce8277a040c799aa67b0502a8df4",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-contracts-guard.service",
+      "state": {
+        "LoadState": "loaded",
+        "ActiveState": "inactive",
+        "InvocationID": "a401aaad52014da888a0dab27fa0a446",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-contracts-short-work.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-contracts-short-guard.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-cancel-before-work.service",
+      "state": {
+        "LoadState": "loaded",
+        "ActiveState": "failed",
+        "InvocationID": "2d2cebab26a7496595324972448ea05b",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-cancel-before-guard.service",
+      "state": {
+        "LoadState": "loaded",
+        "ActiveState": "inactive",
+        "InvocationID": "081e9cf67e374b12a8cfde11a3c54199",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-lifecycle-work.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-lifecycle-guard.service",
+      "state": {
+        "LoadState": "loaded",
+        "ActiveState": "failed",
+        "InvocationID": "0af7d5108ebd4bed90e7c9c5b53c1499",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-lifecycle-retry-work.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-lifecycle-retry-guard.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-loader-work.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-resume1-loader-guard.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-111850-acceptance-work.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-111850-acceptance-guard.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-111850-consumers-work.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-111850-consumers-guard.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-111850-loader-work.service",
+      "state": {
+        "LoadState": "loaded",
+        "ActiveState": "failed",
+        "InvocationID": "7a4871b402514674b73a03be79e6701c",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-111850-loader-guard.service",
+      "state": {
+        "LoadState": "loaded",
+        "ActiveState": "inactive",
+        "InvocationID": "752f585d31e44a04928c47ad74c611e0",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-111850-supervisor-work.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    },
+    {
+      "unit": "unifier-s34-111850-supervisor-guard.service",
+      "state": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "InvocationID": "",
+        "MainPID": "0",
+        "ControlGroup": ""
+      },
+      "quiescent": true
+    }
+  ]
+}

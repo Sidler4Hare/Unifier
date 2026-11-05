@@ -1,0 +1,2118 @@
+--- /dev/null
++++ b/docs/应用执行所有权.md
+@@ -0,0 +1,41 @@
++# 应用执行所有权与租约恢复
++
++2026-11-05 工作树实现；未部署到日常 v0.0.2。此文描述受管 APP 路径，不改变普通 `env exec` 或项目会话的执行语义。实机及 GUI 验收仍受 [测试规范](测试禁令与规范.md) 约束。
++
++## 受管执行
++
++`--on-demand` 的 open/exec 使用已有 FD 3 身份握手，客体自己的 Python3 运行一个 Linux subreaper。它启动应用并等待全部已收养后代，包括双重 fork、`setsid` 后的后台进程。只有 `waitpid` 确认无剩余子进程后，才写入 token 对应的终态回执。监督者消失、宿主 Podman 代理退出或 probe 失败都不能证明应用已结束。
++
++客体需有 Python3、subreaper 和 Python 的 pidfd 控制接口；缺少能力时明确拒绝，不自动安装解释器、不复制宿主二进制或切回无法监督的启动方式。应用沿用登记的用户、环境变量、argv 和工作目录。
++
++租约 schema 3 保存环境 UUID/generation、完整 CID、执行 token、客体监督者 PID/starttime，以及 `not-started → starting → running → exited` 状态。不能确认启动/终止时保留 `recovery-required` 和租约。只有明确的启动前拒绝或可核验的终态允许释放。客体回执位于该用户私有的 `/tmp/.unifier-app-<uid>/`，宿主状态位于管理根 `.lab/leases/<env>.json`。
++
++前台退出码在监督后代结束后返回；后台启动器先退出时，worker 继续等待。后台执行若脱离子进程树、通过另一个常驻服务代启，当前协议不能证明该执行的归属。
++
++## 共享和单实例边界
++
++多个 APP 和项目会话共用同一租约集合。短激活请求结束只释放它自己的执行租约；已有受管实例的租约和 bridge 继续保留。最后一个可验证执行结束后，仅当完整 CID 与启动时间仍属于本组，才自动停止环境。手动预启动或重启的环境保留。
++
++**通用单实例协议映射仍未实现。** 短请求的进程树退出不证明一个外部实例结束；本版本不会把旧 lease 转移到本次短请求，也不能为未受管外部实例建立生命周期证明。使用 D-Bus 等服务代启、依赖外部单实例的应用，应使用手动预启动的环境；不得将本次微型进程测试当成这类应用的自动生命周期验收。WPS 的具体行为仍需真实保存/关闭/重开验证。
++
++## 查询、恢复与取消
++
++以下命令中的环境 ID 和 token 来自当前管理根的实际记录：
++
++```bash
++unifier app leases <environment>
++unifier app recover <environment>
++unifier app recover <environment> --token <token>
++unifier app cancel <environment> <token>
++```
++
++- `leases` 输出共享状态，不启动容器。
++- `recover` 保留活跃 worker。worker 已退出时，查询同一个已运行 CID 内的 token 回执；只有完整终态或确切 CID 已停止才允许收尾。未知返回 `kept-unknown` 和非零退出码，不启动停止态容器取证。
++- `cancel` 只向经过 token/PID/starttime 校验的监督者发送 TERM。监督者用 pidfd 向属于该执行的后代转发信号，10 秒后仍有残留才定向升级 KILL；未知则保留租约。不会按进程名或对整个共享容器发信号。
++- 取消时若原 worker 仍存活，返回 `lease=awaiting-worker`，将终态留给 worker 读取退出码并释放，避免二者争抢收尾。worker 已退出则返回 `lease=released`；期间 worker 崩溃可再 `recover`。
++
++旧 APP lease 缺客体身份时保留为 unknown，不因宿主 PID 失效自动删除；项目 lease 继续走项目恢复入口。损坏 JSON、未知 schema 或代际/CID 变化明确拒绝，不将损坏状态当成空租约。不要删除 lease/回执文件强行解锁；旧版忽略新状态，活跃执行或未恢复租约存在时不能直接降级。
++
++## 当前验证范围
++
++`tests/test_application_supervisor.py`、`tests/test_application_lifecycle.py` 使用受保护的宿主微型进程和 fake 容器边界，覆盖 daemonize、双重 fork/setsid、精确取消、终态丢失、worker 恢复、共享租约及真实 FD 3 通道。它们是 T1 本地内核机制证据；目标发行版中的执行、真实 Podman 生命周期、私有 GUI 和账号/媒体工作流均未由这些测试验收。
+--- a/docs/架构问题修复计划-20261105.md
++++ b/docs/架构问题修复计划-20261105.md
+@@ -1,8 +1,8 @@
+ # 架构问题修复计划
+ 
+-日期：2026-11-05（Asia/Shanghai）。状态：**实施中；S1 已通过限定范围的离线验收，S2 停止态 Debian 适配及统一观测契约已实现并完成离线回归，真实能力尚未验收。S3/S4 未实施，未部署。**
++日期：2026-11-05（Asia/Shanghai）。状态：**实施中；S1 已通过限定范围的离线验收；S2 停止态 Debian 适配及统一观测契约已实现并完成离线回归。S3 执行树监督/恢复及 S4 依赖结果分层已实现，验收范围见后续报告；通用单实例映射、真实容器和 GUI 能力尚未验收，未部署。**
+ 
+-本轮实现、用例和保全回执见 [阶段报告](../artifacts/architecture-repair-20261105T104613+0800/report.md)；只读观测的支持范围及恢复阻断见 [接口说明](包清单只读观测.md)。原审查证据不改写。
++S1/S2 的实现、用例和保全回执见 [首轮报告](../artifacts/architecture-repair-20261105T104613+0800/report.md)；S3/S4 的结果见 [后续报告](../artifacts/architecture-repair-20261105T111850+0800/report.md)。支持范围分别见 [清单只读观测](包清单只读观测.md)、[应用执行所有权](应用执行所有权.md)、[依赖分层结果](自动依赖与原生安装交互.md)。原审查证据不改写。
+ 
+ 依据：[四项问题与反例](../artifacts/shared-architecture-audit-20261105T0815+0800/report.md)、[机读发现](../artifacts/shared-architecture-audit-20261105T0815+0800/findings.json)、当前工作树源码及差异。基准 HEAD 为 `6f776a61dc599ad8f1c0a476681e892248e55a6b`，但工作树已有未提交修复；实施前必须重新记录文件摘要，不能只用 HEAD 标识输入。
+ 
+--- a/docs/自动依赖与原生安装交互.md
++++ b/docs/自动依赖与原生安装交互.md
+@@ -47,4 +47,10 @@
+ 
+ 软件包自带的同名库记录为 `bundled_candidates`，不据此证明实际 RPATH、wrapper 的环境配置或运行时加载正确。发现未支持 ELF 架构会明确拒绝。安装成功与补齐运行库也不等于 GUI 工作流通过。
+ 
++2026-11-05 工作树将有 bundled 候选的结果明确设为 `status=bundled-candidates-unverified`；CLI stderr 和交互安装结果提示加载尚未验证。原生包事务仍可 `phase=completed`，其退出码表示包事务结果。旧 JSON 字段保留，新增 `elf_objects`、`dependency_edges`、`static_resolution`、`evidence_scope`；每对象记录架构、词法 ORIGIN、RPATH/RUNPATH 及名称候选。静态路径记录不模拟动态加载器，`runtime_loading`、`workflow`、符号版本、RUNPATH 传递性、wrapper 环境和 `dlopen` 保持 unverified。
++
++显式诊断 API `loader_verification.verify_fixture_loading()` 只接受可信微型 fixture、至多 16 个文件/合计 4 MiB 的 SHA-256 清单、私有目录、普通客体 UID，以及已运行的精确环境绑定。它不启动容器，不自动作用于厂商 ELF。使用目标系统加载器的 `--list`，以空白私有环境解析初始依赖图；记录原生退出码、输出摘要和范围。完成帧、退出码和诊断共同判定：缺少符号版本即使退出码为 0 也为 verified-fail；其他无法解释的诊断为 unverified。不得将一次初始图 verified-pass 解读为已执行程序、完成全部符号重定位、验证插件 `dlopen` 或工作流。
++
++本机 C/ELF 微型 fixture 已验证这些区分；此证据属于 T1，不能替代 Debian/Arch 目标加载器的 T2 验收。该 API 不是自动补库成功的附加证明，也未向日常安装版部署。
++
+ 本功能纳入 v0.0.2；原 v0.0.1 发布包保持历史原件。首次实机范围和回归见 [验证记录](../artifacts/auto-deps-20261031/report.md)，后续恢复与部署证据见 `artifacts/expansion-fix-20261101/`。
+--- /dev/null
++++ b/src/unifier/application_leases.py
+@@ -0,0 +1,188 @@
++"""Application execution and recovery using shared, identity-bound leases."""
++from dataclasses import asdict
++import signal
++import time
++
++from unifier.errors import UnifierError
++from unifier.runtime import ExecResult, GuestProcess
++
++
++def observe_lease(group, token, entry):
++    binding = entry.get('environment_binding')
++    if not binding:
++        return {'state': 'unknown', 'reason': 'legacy lease has no environment binding'}
++    try:
++        record = group.service.store.load(group.env_id)
++        group.service._require_record_binding(record, binding)
++        info = group.service._require_owned(record)
++        if info.container_id != binding['container_id']:
++            raise UnifierError('application lease container changed')
++        if not info.running and info.status in {'exited', 'stopped', 'created', 'configured'}:
++            return {'state': 'exited', 'all_children_reaped': True,
++                    'proof': 'exact-container-stopped', 'exit_code': None}
++        execution = entry.get('execution') or {}
++        if execution.get('state') == 'not-started':
++            return {'state': 'exited', 'all_children_reaped': True,
++                    'proof': 'execution-never-submitted', 'exit_code': None}
++        if execution.get('ownership') != 'subreaper-v1' or execution.get('token') != token:
++            return {'state': 'unknown', 'reason': 'legacy lease has no guest execution ownership'}
++        value = group.service.runtime.observe_application(
++            binding['container_id'], token, project=record['runtime']['project'],
++            env_id=group.env_id, user=entry.get('user'))
++        if value.get('token') != token or value.get('ownership') != 'subreaper-v1':
++            return {'state': 'unknown', 'reason': 'application observation binding changed'}
++        guest = execution.get('guest')
++        if guest and (guest.get('pid') != value.get('pid') or guest.get('start') != value.get('start')):
++            return {'state': 'unknown', 'reason': 'application supervisor identity changed'}
++        if value.get('state') == 'exited' and value.get('all_children_reaped') is not True:
++            return {'state': 'unknown', 'reason': 'application terminal proof incomplete'}
++        # Do not release across a record/runtime replacement during the query.
++        group.service._require_record_binding(group.service.store.load(group.env_id), binding)
++        after = group.service._require_owned(record)
++        if after.container_id != binding['container_id'] or after.started_at != info.started_at:
++            return {'state': 'unknown', 'reason': 'container changed during application observation'}
++        return value
++    except Exception as exc:
++        return {'state': 'unknown', 'reason': str(exc)[-500:]}
++
++
++def execute_application(group, app_id, argv, *, pins, workdir=None):
++    service = group.service
++    for name in ('start_application_exec', 'observe_application', 'signal_application_guest'):
++        if not callable(getattr(service.runtime, name, None)):
++            raise UnifierError('runtime cannot prove application process-tree ownership; launch refused')
++    token = group.acquire(app_id, owned_execution=True, **pins)
++    execution = None
++    submitted = confirmed = False
++    pending = {'signal': None}
++    handlers = {}
++    def requested(number, _frame):
++        pending['signal'] = number
++    for number in (signal.SIGINT, signal.SIGTERM, signal.SIGHUP):
++        try:
++            handlers[number] = signal.signal(number, requested)
++        except ValueError:  # Offline callers may run in a thread.
++            pass
++    try:
++        group.update_execution(token, state='starting')
++        submitted = True
++        execution = service.start_app_execution(app_id, argv, token=token,
++                                                workdir=workdir, **pins)
++        guest = execution.guest
++        if guest.ownership != 'subreaper-v1' or guest.token != token:
++            raise UnifierError('runtime returned an unbound application supervisor')
++        group.update_execution(token, state='running', guest=asdict(guest))
++        while True:
++            if pending['signal'] is not None:
++                number, pending['signal'] = pending['signal'], None
++                if execution.signal(number) not in {'signalled', 'gone'}:
++                    raise UnifierError('application cancellation is unverified')
++            if execution.poll() is not None:
++                entry = group.read()['leases'].get(token)
++                if entry is None:
++                    raise UnifierError('application execution lease disappeared')
++                value = observe_lease(group, token, entry)
++                if value.get('state') == 'exited':
++                    group.update_execution(token, state='exited', proof=value)
++                    confirmed = True
++                    code = value.get('exit_code')
++                    if not isinstance(code, int) or isinstance(code, bool):
++                        raise UnifierError('application ended without a native exit status')
++                    return ExecResult(code, '', '')
++                if value.get('state') != 'running':
++                    raise UnifierError(value.get('reason') or 'application termination is unknown')
++                # The host proxy ended while the guest supervisor still owns
++                # descendants. Keep the lease and reconnect through its token.
++                time.sleep(.25)
++            else:
++                time.sleep(.05)
++    except BaseException as exc:
++        # Only an explicit pre-READY error proves that no application ran.
++        safe = not submitted or getattr(exc, 'execution_started', None) is False
++        try:
++            group.update_execution(token, state='exited' if safe else 'recovery-required',
++                                   error=str(exc)[-500:], proof='not-started' if safe else None)
++            confirmed = safe
++        except Exception:
++            confirmed = False
++        raise
++    finally:
++        for number, handler in handlers.items():
++            signal.signal(number, handler)
++        if confirmed:
++            group.release(token)
++
++
++def recover_applications(group, token=None):
++    from unifier.on_demand import process_stamp
++    entries = group.read()['leases']
++    if token is not None:
++        if token not in entries:
++            raise UnifierError('application lease token does not exist')
++        entries = {token: entries[token]}
++    results = []
++    for key, entry in entries.items():
++        if entry.get('kind') == 'project-session' or not entry.get('app_id'):
++            continue
++        if entry.get('stamp') is not None and process_stamp(entry.get('pid')) == entry['stamp']:
++            results.append({'token': key, 'action': 'kept-live-worker'})
++            continue
++        value = observe_lease(group, key, entry)
++        if value.get('state') != 'exited':
++            results.append({'token': key, 'action': 'kept-' + value.get('state', 'unknown'),
++                            'observation': value})
++            continue
++        try:
++            if entry.get('execution') is not None:
++                group.update_execution(key, state='exited', proof=value)
++            group.release(key)
++        except UnifierError as exc:
++            results.append({'token': key, 'action': 'recovery-required', 'reason': str(exc)})
++        else:
++            results.append({'token': key, 'action': 'released', 'proof': value})
++    return results
++
++
++def cancel_application(group, token, *, seconds=15.0):
++    from unifier.on_demand import process_stamp
++    entry = group.read()['leases'].get(token)
++    if not entry or not entry.get('app_id'):
++        raise UnifierError('application lease token does not exist')
++    value = observe_lease(group, token, entry)
++    if value.get('state') != 'running':
++        raise UnifierError('application cancellation requires a live verified supervisor')
++    guest = GuestProcess(value['pid'], value['start'], value['pgrp'], value['sid'],
++                         token, 'subreaper-v1')
++    record = group.service.store.load(group.env_id)
++    answer = group.service.runtime.signal_application_guest(
++        entry['environment_binding']['container_id'], guest, signal.SIGTERM,
++        project=record['runtime']['project'], env_id=group.env_id, user=entry.get('user'))
++    if answer not in {'signalled', 'gone'}:
++        raise UnifierError('application cancellation could not be verified; lease retained')
++    deadline = time.monotonic() + seconds
++    while time.monotonic() < deadline:
++        value = observe_lease(group, token, entry)
++        if value.get('state') == 'exited':
++            with group.locked():
++                state = group.read()
++                current = state['leases'].get(token)
++                if current is None:
++                    return {'token': token, 'state': 'exited', 'proof': value,
++                            'lease': 'released'}
++                group.service._require_record_binding(
++                    group.service.store.load(group.env_id), current['environment_binding'])
++                current['execution'].update(state='exited', proof=value)
++                group.save(state)
++                worker_live = (current.get('stamp') is not None
++                    and process_stamp(current.get('pid')) == current['stamp'])
++            # A live worker still needs the lease to collect its native result.
++            # Removing it here races with that collection and can stop the CID
++            # before the worker reads the terminal guest receipt.
++            if not worker_live:
++                group.release(token)
++            return {'token': token, 'state': 'exited', 'proof': value,
++                    'lease': 'awaiting-worker' if worker_live else 'released'}
++        if value.get('state') != 'running':
++            break
++        time.sleep(.1)
++    raise UnifierError('application cancellation is unresolved; lease retained for recovery')
+--- /dev/null
++++ b/src/unifier/application_supervisor.py
+@@ -0,0 +1,257 @@
++"""Guest-side application ownership; source is sent to the guest's Python3.
++
++Only stdlib and Linux prctl are used. A subreaper waits for all descendants,
++including double-fork/setsid daemons. Its disappearance is never an exit proof:
++only the token-bound receipt written after ECHILD can establish completion.
++This module also runs directly for bounded, host-local protocol fixtures.
++"""
++import ctypes
++import json
++import os
++from pathlib import Path
++import re
++import signal
++import stat
++import sys
++import time
++
++READY_SENT = False
++
++
++def process(pid):
++    try:
++        fields = Path('/proc/%d/stat' % pid).read_text().rsplit(')', 1)[1].split()
++        return {'pid': int(pid), 'start': int(fields[19]), 'pgrp': int(fields[2]),
++                'sid': int(fields[3]), 'ppid': int(fields[1]), 'zombie': fields[0] == 'Z'}
++    except (OSError, ValueError, IndexError):
++        return None
++
++
++def directory(root, token, *, create=False):
++    if not re.fullmatch(r'[0-9a-f]{32}', token):
++        raise ValueError('invalid application token')
++    base = Path(root) if root else Path('/tmp/.unifier-app-%d' % os.geteuid())
++    if create:
++        base.mkdir(mode=0o700, exist_ok=True)
++    fd = os.open(base, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC)
++    observed = os.fstat(fd)
++    if observed.st_uid != os.geteuid() or observed.st_mode & 0o077:
++        os.close(fd)
++        raise ValueError('application receipt directory is not private to this user')
++    return fd, token + '.json'
++
++
++def write_receipt(fd, name, payload):
++    temporary = name + '.new'
++    child = os.open(temporary, os.O_CREAT | os.O_EXCL | os.O_WRONLY | os.O_NOFOLLOW, 0o600, dir_fd=fd)
++    try:
++        data = json.dumps(payload, sort_keys=True).encode() + b'\n'
++        with os.fdopen(child, 'wb') as stream:
++            stream.write(data)
++            stream.flush()
++            os.fsync(stream.fileno())
++        os.replace(temporary, name, src_dir_fd=fd, dst_dir_fd=fd)
++        os.fsync(fd)
++    except BaseException:
++        # A failed write is not an ended execution; keep the previous receipt.
++        raise
++
++
++def read_receipt(root, token):
++    fd, name = directory(root, token)
++    try:
++        child = os.open(name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=fd)
++        try:
++            observed = os.fstat(child)
++            if (not stat.S_ISREG(observed.st_mode) or observed.st_size > 16384
++                    or observed.st_uid != os.geteuid()):
++                raise ValueError('invalid application receipt')
++            value = json.loads(os.read(child, 16385).decode())
++        finally:
++            os.close(child)
++        if value.get('token') != token or value.get('ownership') != 'subreaper-v1':
++            raise ValueError('application receipt binding changed')
++        return value
++    finally:
++        os.close(fd)
++
++
++def observe(root, token):
++    try:
++        value = read_receipt(root, token)
++        if value.get('state') == 'exited' and value.get('all_children_reaped') is True:
++            return value
++        current = process(value['pid'])
++        if current and not current['zombie'] and current['start'] == value['start']:
++            return {**value, 'state': 'running'}
++        return {**value, 'state': 'unknown', 'reason': 'supervisor gone without terminal proof'}
++    except (OSError, ValueError, KeyError, TypeError):
++        return {'state': 'unknown', 'token': token, 'ownership': 'subreaper-v1',
++                'reason': 'receipt unavailable or invalid'}
++
++
++def signal_exact(pid, start, number):
++    # pidfd prevents reuse between validation and delivery.
++    fd = os.pidfd_open(pid)
++    try:
++        current = process(pid)
++        if not current or current['start'] != start or current['zombie']:
++            return False
++        signal.pidfd_send_signal(fd, number)
++        return True
++    finally:
++        os.close(fd)
++
++
++def descendants(root_pid):
++    entries = {}
++    with os.scandir('/proc') as iterator:
++        for entry in iterator:
++            if entry.name.isdecimal():
++                value = process(int(entry.name))
++                if value:
++                    entries[value['pid']] = value
++                if len(entries) > 4096:
++                    raise RuntimeError('application signal observation exceeds process budget')
++    owned = {root_pid}
++    while True:
++        new = {pid for pid, item in entries.items() if item['ppid'] in owned} - owned
++        if not new:
++            break
++        owned.update(new)
++    return [entries[pid] for pid in owned - {root_pid} if not entries[pid]['zombie']]
++
++
++def run(root, token, control_fd, argv):
++    global READY_SENT
++    if not argv:
++        raise ValueError('application argv is empty')
++    if not hasattr(os, 'pidfd_open') or not hasattr(signal, 'pidfd_send_signal'):
++        raise RuntimeError('pidfd application control is unavailable')
++    libc = ctypes.CDLL(None, use_errno=True)
++    enabled = ctypes.c_int()
++    if (libc.prctl(36, 1, 0, 0, 0) != 0
++            or libc.prctl(37, ctypes.byref(enabled), 0, 0, 0) != 0 or enabled.value != 1):
++        raise RuntimeError('child subreaper is unavailable')
++    # The supervisor's group/session is dedicated even if podman exec initially
++    # made it a group leader. The parent fork waits for the real supervisor.
++    if os.getsid(0) != os.getpid():
++        try:
++            os.setsid()
++        except PermissionError:
++            pid = os.fork()
++            if pid:
++                os.close(control_fd)
++                return os.waitstatus_to_exitcode(os.waitpid(pid, 0)[1])
++            os.setsid()
++            # PR_SET_CHILD_SUBREAPER is not inherited by fork.
++            if libc.prctl(36, 1, 0, 0, 0) != 0:
++                raise RuntimeError('child supervisor could not enable subreaper')
++    identity = process(os.getpid())
++    if identity is None:
++        raise RuntimeError('supervisor identity unavailable')
++    fd, name = directory(root, token, create=True)
++    pending = {'signal': None, 'at': None}
++    def requested(number, _frame):
++        if pending['signal'] is None:
++            pending.update(signal=number, at=time.monotonic())
++    for number in (signal.SIGINT, signal.SIGTERM, signal.SIGHUP):
++        signal.signal(number, requested)
++    payload = {**{k: identity[k] for k in ('pid', 'start', 'pgrp', 'sid')},
++               'token': token, 'ownership': 'subreaper-v1', 'state': 'starting',
++               'all_children_reaped': False}
++    try:
++        # Never reuse a token or overwrite another execution's terminal proof.
++        try:
++            old = os.open(name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=fd)
++        except FileNotFoundError:
++            pass
++        else:
++            os.close(old)
++            raise RuntimeError('application token already exists')
++        write_receipt(fd, name, payload)
++        READY_SENT = True
++        os.write(control_fd, ('READY pid=%d start=%d pgrp=%d sid=%d token=%s\n' %
++                 (identity['pid'], identity['start'], identity['pgrp'], identity['sid'], token)).encode())
++        os.close(control_fd)
++        child = os.fork()
++        if child == 0:
++            os.close(fd)
++            for number in (signal.SIGINT, signal.SIGTERM, signal.SIGHUP):
++                signal.signal(number, signal.SIG_DFL)
++            try:
++                os.execvp(argv[0], argv)
++            except OSError as exc:
++                sys.stderr.write('application exec failed: %s\n' % exc)
++                os._exit(127)
++        payload['state'] = 'running'
++        write_receipt(fd, name, payload)
++        main_code = None
++        while True:
++            try:
++                pid, status = os.waitpid(-1, os.WNOHANG)
++            except ChildProcessError:
++                # The only normal terminal proof: no children remain after
++                # every adopted descendant has also been reaped.
++                payload.update(state='exited', all_children_reaped=True,
++                               exit_code=main_code if main_code is not None else 125,
++                               delivered_signal=pending['signal'])
++                write_receipt(fd, name, payload)
++                return payload['exit_code']
++            if pid:
++                if pid == child:
++                    main_code = os.waitstatus_to_exitcode(status)
++                    if main_code < 0:
++                        main_code = 128 - main_code
++                continue
++            if pending['signal'] is not None:
++                number = (signal.SIGKILL if time.monotonic() - pending['at'] >= 10
++                          else pending['signal'])
++                for item in descendants(os.getpid()):
++                    try:
++                        signal_exact(item['pid'], item['start'], number)
++                    except ProcessLookupError:
++                        pass
++            time.sleep(.05)
++    finally:
++        os.close(fd)
++
++
++def main(argv=None):
++    args = list(sys.argv[1:] if argv is None else argv)
++    mode, token, root = args[:3]
++    if mode == 'probe':
++        print(json.dumps(observe(root, token)))
++        return 0
++    if mode == 'signal':
++        value = observe(root, token)
++        expected_pid, expected_start, number = map(int, args[3:6])
++        if value.get('pid') != expected_pid or value.get('start') != expected_start:
++            value = {'state': 'unknown', 'reason': 'supervisor identity changed'}
++        elif value['state'] == 'running':
++            try:
++                if signal_exact(expected_pid, expected_start, number):
++                    value = {'state': 'signalled'}
++            except (OSError, AttributeError):
++                value = {'state': 'unknown', 'reason': 'supervisor signal unverified'}
++        print(json.dumps(value))
++        return 0
++    if mode != 'run':
++        raise ValueError('unknown application supervisor mode')
++    control_fd = int(args[3])
++    try:
++        return run(root, token, control_fd, args[4:])
++    except BaseException as exc:
++        # ERROR is a pre-execution proof only while the control FD remains open.
++        # After READY the parent treats failures as unknown without terminal proof.
++        if not READY_SENT:
++            try:
++                os.write(control_fd, ('ERROR application-supervisor: %s\n' % exc).encode())
++            except OSError:
++                pass
++        sys.stderr.write('application supervisor failed: %s\n' % exc)
++        return 125
++
++
++if __name__ == '__main__':
++    sys.exit(main())
+--- a/src/unifier/cli.py
++++ b/src/unifier/cli.py
+@@ -196,6 +196,17 @@
+     app_show = app_ops.add_parser("show", help="print one launch record")
+     app_show.add_argument("id")
+     app_show.set_defaults(func=cmd_app_show)
++    leases = app_ops.add_parser('leases', help='inspect shared application and project leases')
++    leases.add_argument('environment')
++    leases.set_defaults(func=cmd_app_leases)
++    recover = app_ops.add_parser('recover', help='reconcile application leases using guest execution proof')
++    recover.add_argument('environment')
++    recover.add_argument('--token')
++    recover.set_defaults(func=cmd_app_recover)
++    cancel = app_ops.add_parser('cancel', help='cancel one identity-bound application execution')
++    cancel.add_argument('environment')
++    cancel.add_argument('token')
++    cancel.set_defaults(func=cmd_app_cancel)
+     opened = app_ops.add_parser("open", help="run the recorded argv; extra arguments follow --")
+     opened.add_argument("id")
+     opened.add_argument("--project", help="require this accepted project UUID pin")
+@@ -747,6 +758,9 @@
+ 
+ def _print_transaction(txn: dict) -> int:
+     print(json.dumps(txn, ensure_ascii=False, indent=2))
++    if (txn.get('dependency_repair') or {}).get('status') == 'bundled-candidates-unverified':
++        print('unifier: bundled library candidates found; runtime loading and application '
++              'workflow remain unverified.', file=sys.stderr)
+     verdict = transaction_verdict(txn.get("phase"), txn.get("maintenance"))
+     if verdict == "verified-with-warnings":
+         items = (txn.get("maintenance") or {}).get("items") or []
+@@ -861,6 +875,32 @@
+ 
+ def cmd_app_show(args) -> int:
+     print(json.dumps(service_factory().show_app(args.id), ensure_ascii=False, indent=2))
++    return 0
++
++
++def _app_group(args):
++    from unifier.on_demand import LaunchGroup
++    from unifier.service import validate_env_id
++    service = service_factory()
++    env_id = validate_env_id(args.environment)
++    service.store.load(env_id)
++    return LaunchGroup(service, env_id)
++
++
++def cmd_app_leases(args):
++    print(json.dumps(_app_group(args).read(), ensure_ascii=False, indent=2))
++    return 0
++
++
++def cmd_app_recover(args):
++    result = _app_group(args).recover_applications(getattr(args, 'token', None))
++    print(json.dumps(result, ensure_ascii=False, indent=2))
++    return 1 if any(item['action'] in {'kept-unknown', 'recovery-required'} for item in result) else 0
++
++
++def cmd_app_cancel(args):
++    from unifier.application_leases import cancel_application
++    print(json.dumps(cancel_application(_app_group(args), args.token), ensure_ascii=False, indent=2))
+     return 0
+ 
+ 
+--- a/src/unifier/dependencies.py
++++ b/src/unifier/dependencies.py
+@@ -3,9 +3,13 @@
+ Inspect data with readelf, never execute a vendor binary/ldd as root. This
+ checks installed package ELF objects (including dlopen-loaded plugins), not
+ arbitrary library names constructed at runtime, ABI versions or GUI behavior.
++
++The evidence is static: SONAME/NEEDED edges, the ldconfig name snapshot and
++the recorded RPATH/RUNPATH/$ORIGIN strings. No loader is invoked, so a name
++that exists somewhere in the package is only an unverified candidate and no
++search-path resolution, symbol version or dlopen outcome is claimed.
+ """
+ from __future__ import annotations
+-
+ from pathlib import PurePosixPath
+ import re
+ 
+@@ -93,8 +97,15 @@
+             raise UnifierError(f"dependency inspection supports x86_64 ELF64 only: {path}")
+         needed = re.findall(r"\(NEEDED\).*?Shared library: \[([^\]]+)\]", body)
+         sonames = re.findall(r"\(SONAME\).*?Library soname: \[([^\]]+)\]", body)
++        rpath = re.findall(r'\(RPATH\).*?Library rpath: \[([^\]]*)\]', body)
++        runpath = re.findall(r'\(RUNPATH\).*?Library runpath: \[([^\]]*)\]', body)
++        if len(rpath) > 1 or len(runpath) > 1:
++            raise UnifierError('ambiguous ELF search path tags')
+         objects.append({"path": path, "needed": [validate_library(n) for n in needed],
+-                        "sonames": [validate_library(n) for n in sonames]})
++                        "sonames": [validate_library(n) for n in sonames],
++                        "architecture": "x86_64", "origin": str(PurePosixPath(path).parent),
++                        "rpath": rpath[0].split(':') if rpath else [],
++                        "runpath": runpath[0].split(':') if runpath else []})
+     return objects
+ 
+ 
+@@ -107,7 +118,13 @@
+         self.report = {"status": "checking", "scope": "package-elf-needed",
+                        "objects": 0, "rounds": [], "unresolved": [],
+                        "bundled_candidates": [], "installed": [],
+-                       "runtime_loading": "unverified"}
++                       "runtime_loading": "unverified", "workflow": "unverified",
++                       "elf_objects": [], "dependency_edges": [],
++                       "static_resolution": {"status": "checking", "scope": "names-only"},
++                       "evidence_scope": {"search_paths": "recorded-not-resolved",
++                           "origin": "lexical-path-only", "runpath_transitivity": "unverified",
++                           "symbol_versions": "unverified", "dlopen": "unverified",
++                           "wrapper_environment": "unverified"}}
+         transaction["dependency_repair"] = self.report
+ 
+     def capture(self, argv: list[str], *, accepted=(0,), timeout=120):
+@@ -127,6 +144,7 @@
+             return self._run(packages, libraries)
+         except Exception as exc:
+             self.report["status"] = "unresolved"
++            self.report['static_resolution']['status'] = 'unresolved'
+             self.report["error"] = str(exc)
+             raise
+ 
+@@ -172,20 +190,41 @@
+             # can themselves have undeclared dependencies. Re-read both.
+             scope = sorted(packages | set(self.report["installed"]))
+             objects = self.inspect_packages(scope)
++            self.report['elf_objects'] = objects
+             self.report["objects"] = len(objects)
+             self.report["packages"] = scope
+             required = hints | {name for obj in objects for name in obj["needed"]}
+             bundled = {name for obj in objects for name in obj["sonames"]}
+             bundled.update(PurePosixPath(obj["path"]).name for obj in objects)
+             available = set()
++            cache_paths = {}
+             if required:
+                 cache = self.capture(["/bin/sh", "-c", CACHE, "unifier-cache"]).stdout
+                 available = {line.split()[0] for line in cache.splitlines() if " => " in line}
++                for line in cache.splitlines():
++                    if ' => ' in line:
++                        name, path = line.split()[0], line.rsplit(' => ', 1)[1].strip()
++                        if not path.startswith('/') or any(ord(c) < 32 for c in path):
++                            raise UnifierError('invalid loader cache path')
++                        cache_paths.setdefault(name, []).append(path)
++            self.report['dependency_edges'] = [{
++                'object': obj['path'], 'needed': name,
++                'cache_candidates': sorted(cache_paths.get(name, [])),
++                'bundled_candidates': sorted(candidate['path'] for candidate in objects
++                    if name in candidate['sonames'] or PurePosixPath(candidate['path']).name == name),
++                'rpath': obj['rpath'], 'runpath': obj['runpath'], 'origin': obj['origin'],
++                'loader_resolution': 'unverified',
++            } for obj in objects for name in obj['needed']]
+             self.report["bundled_candidates"] = sorted((required - available) & bundled - repository_required)
+             missing = sorted(required - available - (bundled - repository_required))
+             self.report["unresolved"] = missing
+             if not missing:
+-                self.report["status"] = "repaired" if self.report["installed"] else "no-missing-elf-dependencies"
++                if self.report['bundled_candidates']:
++                    self.report['status'] = 'bundled-candidates-unverified'
++                    self.report['static_resolution']['status'] = 'bundled-candidates-unverified'
++                else:
++                    self.report['status'] = 'repaired' if self.report['installed'] else 'no-missing-elf-dependencies'
++                    self.report['static_resolution']['status'] = 'names-accounted-for'
+                 return self.report
+             if attempt == 2:
+                 raise UnifierError("dependency repair did not converge: " + ", ".join(missing))
+--- a/src/unifier/i18n.py
++++ b/src/unifier/i18n.py
+@@ -136,6 +136,7 @@
+         "install.packages": "{target}: 使用原生事务安装软件包：{packages}。",
+         "install.transaction_failed": "原生包事务失败（阶段：{phase}）：{detail}",
+         "install.transaction_ok": "原生包事务已完成：{transaction}。包事务成功不等于应用入口可用。",
++        "install.bundled_unverified": "发现软件包自带库候选；实际加载和应用工作流仍未验证。",
+         "install.entry_required": "无法确定应用入口；请显式传入 --exec /绝对路径/程序（包文件可用 --package 指定已安装包名）。候选：{candidates}",
+         "install.choose_entry": "请选择应用入口（编号）：",
+         "install.entry_discovered": "{target}: 从已安装包文件发现入口 {executable}。",
+@@ -288,6 +289,7 @@
+         "install.packages": "{target}: installing package(s) through the native transaction: {packages}.",
+         "install.transaction_failed": "Native package transaction failed (phase: {phase}): {detail}",
+         "install.transaction_ok": "Native package transaction completed: {transaction}. A successful package transaction does not prove the application entry works.",
++        "install.bundled_unverified": "Bundled library candidates found; runtime loading and the application workflow remain unverified.",
+         "install.entry_required": "Cannot determine an application entry; pass --exec /absolute/program explicitly (for a package file, --package names the installed package). Candidates: {candidates}",
+         "install.choose_entry": "Select an application entry (number):",
+         "install.entry_discovered": "{target}: discovered entry {executable} from installed package files.",
+--- /dev/null
++++ b/src/unifier/loader_verification.py
+@@ -0,0 +1,130 @@
++"""Explicit trusted-fixture loader verification, separate from package repair.
++
++Never called automatically on vendor/package ELF objects. A caller must supply
++an exact fixture manifest, an existing running bound CID, and a non-root guest
++UID. --list resolves that fixture's initial loader graph, not dlopen/workflow.
++"""
++import hashlib
++from pathlib import PurePosixPath
++import re
++
++from unifier.errors import UnifierError
++from unifier.identity import binding_for
++
++
++FIXTURE_PROBE = r'''
++set -u
++PATH=/usr/bin:/bin
++export PATH LC_ALL=C
++unset LD_LIBRARY_PATH LD_PRELOAD LD_AUDIT GLIBC_TUNABLES
++program=$1
++loader=$2
++root=$3
++shift 3
++blocked() { printf 'UNIFIER_LOADER_BLOCKED %s\n' "$1"; exit 125; }
++uid=$(id -u) || blocked uid-unavailable
++[ "$uid" != 0 ] || blocked root-user
++[ "$(stat -c '%a:%u' -- "$root")" = "700:$uid" ] || blocked fixture-directory-not-private
++[ "$(readlink -f -- "$root")" = "$root" ] || blocked fixture-directory-indirect
++bytes=0
++while [ "$#" -gt 0 ]; do
++    file=$1
++    want=$2
++    shift 2
++    [ -f "$file" ] && [ ! -L "$file" ] || blocked fixture-file-not-regular
++    [ ! -u "$file" ] && [ ! -g "$file" ] || blocked fixture-file-privileged
++    [ "$(readlink -f -- "$file")" = "$file" ] || blocked fixture-file-indirect
++    size=$(stat -c '%s' -- "$file") || blocked fixture-size-unavailable
++    bytes=$((bytes + size))
++    [ "$bytes" -le 4194304 ] || blocked fixture-byte-budget
++    got=$(sha256sum -- "$file") || blocked fixture-hash-unavailable
++    [ "${got%% *}" = "$want" ] || blocked fixture-hash-changed
++done
++/usr/bin/env -i LC_ALL=C PATH=/usr/bin:/bin HOME="$root" TMPDIR="$root" "$loader" --list "$program"
++code=$?
++printf '\nUNIFIER_LOADER_EXIT %s\n' "$code"
++exit "$code"
++'''
++
++
++def fixture_argv(fixture, user):
++    if (not isinstance(user, str) or not re.fullmatch(r'[0-9]+(?::[0-9]+)?', user)
++            or int(user.split(':')[0]) == 0):
++        raise UnifierError('loader fixture requires an explicit non-root guest UID')
++    root = fixture.get('root')
++    path = fixture.get('path')
++    loader = fixture.get('loader')
++    if (not isinstance(root, str) or not root.startswith('/')
++            or not re.fullmatch(r'unifier-fixture-[0-9a-f]{32}', PurePosixPath(root).name)
++            or '..' in PurePosixPath(root).parts):
++        raise UnifierError('loader fixture requires a private uniquely named root')
++    if loader not in {'/lib64/ld-linux-x86-64.so.2', '/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2'}:
++        raise UnifierError('loader fixture has no supported x86_64 target loader')
++    files = fixture.get('files')
++    if not isinstance(files, dict) or not 1 <= len(files) <= 16 or path not in files:
++        raise UnifierError('loader fixture requires a bounded complete manifest')
++    args = []
++    for name, digest in sorted(files.items()):
++        if (not isinstance(name, str) or not name.startswith(root + '/')
++                or '..' in PurePosixPath(name).parts or any(ord(c) < 32 for c in name)
++                or not isinstance(digest, str) or not re.fullmatch(r'[0-9a-f]{64}', digest)):
++            raise UnifierError('invalid loader fixture manifest')
++        args.extend([name, digest])
++    return ['/bin/sh', '-c', FIXTURE_PROBE, 'unifier-loader-fixture', path, loader, root, *args]
++
++
++def loading_result(fixture, native):
++    output = native.stdout or ''
++    diagnostics = native.stderr or ''
++    result = {'status': 'unverified', 'scope': 'trusted-fixture-initial-loader-graph',
++              'fixture_sha256': fixture['files'][fixture['path']], 'loader': fixture['loader'],
++              'native_exit_code': native.returncode,
++              'stdout_tail': output[-4000:], 'stderr_tail': (native.stderr or '')[-4000:],
++              'stdout_sha256': hashlib.sha256(output.encode()).hexdigest(),
++              'stderr_sha256': hashlib.sha256(diagnostics.encode()).hexdigest(),
++              'dlopen': 'unverified', 'workflow': 'unverified', 'program_executed': False}
++    if len(output) > 65536 or len(diagnostics) > 65536:
++        result['reason'] = 'loader output exceeded budget'
++    elif 'UNIFIER_LOADER_BLOCKED ' in output:
++        result['reason'] = 'fixture safety precondition refused'
++    elif re.search(r'\nUNIFIER_LOADER_EXIT %d\n\Z' % native.returncode, output):
++        # glibc --list can report an unsatisfied symbol version on stderr and
++        # still exit zero. Preserve the native code, but never turn that trace
++        # into a passing graph. Unknown diagnostics are insufficient evidence.
++        if native.returncode != 0:
++            result.update(status='verified-fail', reason='loader exited unsuccessfully')
++        elif re.search(r": version [`'][^\n]+['`] not found \(required by [^\n]+\)", diagnostics):
++            result.update(status='verified-fail', reason='required symbol version unavailable')
++        elif diagnostics.strip():
++            result['reason'] = 'loader diagnostics require review'
++        elif re.search(r'=>\s+not found(?:\n|$)', output):
++            result.update(status='verified-fail', reason='required library unavailable')
++        else:
++            result['status'] = 'verified-pass'
++    else:
++        result['reason'] = 'loader completion was not verified'
++    return result
++
++
++def verify_fixture_loading(service, env_id, fixture, *, user):
++    """T2-only explicit diagnostic; does not start or mutate an environment."""
++    argv = fixture_argv(fixture, user)
++    record = service.store.load(env_id)
++    binding = binding_for(record)
++    expected = fixture.get('environment_binding')
++    if expected != binding:
++        raise UnifierError('loader fixture environment binding changed')
++    before = service._require_owned(record)
++    if not before.running or before.container_id != binding['container_id']:
++        raise UnifierError('loader fixture needs its exact already-running container')
++    native = service.runtime.exec(binding['container_id'], argv,
++        project=record['runtime']['project'], env_id=env_id, user=user,
++        workdir=fixture['root'], env={'LC_ALL': 'C', 'PATH': '/usr/bin:/bin'},
++        capture=True, timeout=10)
++    result = loading_result(fixture, native)
++    service._require_record_binding(service.store.load(env_id), binding)
++    after = service._require_owned(record)
++    if (after.container_id != binding['container_id'] or not after.running
++            or after.started_at != before.started_at):
++        raise UnifierError('loader fixture container changed during verification')
++    return {**result, 'environment_binding': binding, 'guest_user': user}
+--- a/src/unifier/on_demand.py
++++ b/src/unifier/on_demand.py
+@@ -6,8 +6,10 @@
+ moves the lease into one detached worker that survives the launcher, including
+ a SIGKILL, and releases it only when the application really exits.
+ 
+-Lease records are pid+start-stamp pairs. A recycled pid cannot renew an old
+-lease because process_stamp() changes when the pid is reused.
++Application leases bind the environment generation, CID and guest execution
++token to a subreaper receipt. A dead host worker alone cannot release them;
++the guest must prove its complete descendant tree ended. Legacy application
++leases without that proof remain available for explicit recovery.
+ """
+ from contextlib import contextmanager
+ import fcntl
+@@ -22,7 +24,7 @@
+ import uuid
+ 
+ from unifier.errors import UnifierError
+-from unifier.identity import validate_binding
++from unifier.identity import binding_for, validate_binding
+ from unifier.runtime import ExecResult
+ 
+ # Set for the detached worker so a second supervision layer can never recurse.
+@@ -45,11 +47,11 @@
+     live = {}
+     for key, item in items.items():
+         if not isinstance(item, dict):
+-            continue
++            raise UnifierError('invalid lease entry; refusing to discard ownership')
+         # A project session lease is evidence for a guest execution. A dead
+         # host proxy is not proof that the guest ended, so retain the lease
+         # until ProjectSessions.recover() verifies the guest identity.
+-        if item.get('kind') == 'project-session':
++        if item.get('kind') in {'project-session', 'application'} or item.get('app_id'):
+             live[key] = item
+             continue
+         stamp = item.get('stamp')
+@@ -185,26 +187,29 @@
+ 
+     @staticmethod
+     def _empty():
+-        return {'leases': {}, 'auto_stop': False, 'bridge': None}
++        return {'schema_version': 3, 'leases': {}, 'auto_stop': False, 'bridge': None}
+ 
+     def read(self):
+         if not self.path.exists():
+             return self._empty()
+         try:
+             state = json.loads(self.path.read_text())
+-        except json.JSONDecodeError:
+-            return self._empty()
++        except json.JSONDecodeError as exc:
++            raise UnifierError('lease state is corrupt; ownership recovery is required') from exc
+         if not isinstance(state, dict):
+-            return self._empty()
++            raise UnifierError('lease state must be an object; ownership recovery is required')
++        if state.get('schema_version', 1) not in {1, 2, 3}:
++            raise UnifierError('unsupported lease schema; refusing to discard ownership')
+         state.setdefault('leases', {})
+         state.setdefault('auto_stop', False)
+         state.setdefault('bridge', None)
+         if not isinstance(state['leases'], dict):
+-            state['leases'] = {}
++            raise UnifierError('invalid lease set; ownership recovery is required')
+         state['leases'] = live_leases(state['leases'])
+         return state
+ 
+     def save(self, state):
++        state['schema_version'] = 3
+         self.service.store._write_json(self.path, state)
+ 
+     @staticmethod
+@@ -233,7 +238,7 @@
+ 
+     def _acquire(self, *, app_id=None, expected_app_instance_uuid=None,
+                  expected_execution_fingerprint=None, expected_binding=None,
+-                 owner=None, validate=None):
++                 owner=None, validate=None, owned_execution=False):
+         """Take one lease in this environment's existing shared group.
+ 
+         Application and project-session leases live in the same file, so they
+@@ -244,6 +249,7 @@
+         token = uuid.uuid4().hex
+         with self.locked():
+             state = self.read()
++            had_leases = bool(state['leases'])
+             record = self.service.store.load(self.env_id)
+             expected_app = None
+             if app_id is not None:
+@@ -271,6 +277,21 @@
+                 state['auto_stop'] = self._inherits_auto_stop(state, info) or not info.running
+                 state['container_id'] = info.container_id
+             bridge = start_bridge(record, state.get('bridge'))
++            entry = {'pid': os.getpid(), 'stamp': process_stamp(os.getpid())}
++            if app_id is not None:
++                entry.update(app_id=app_id, kind='application',
++                             environment_binding=binding_for(record), user=launch.get('user'))
++                if owned_execution:
++                    entry['execution'] = {'token': token, 'ownership': 'subreaper-v1',
++                                          'state': 'not-started', 'guest': None}
++            else:
++                entry.update(owner or {})
++                entry['kind'] = 'project-session'
++            state['leases'][token] = entry
++            state['bridge'] = bridge
++            # Persist ownership before start/wait. A dead worker must not make
++            # a possibly running guest disappear from the shared lease set.
++            self.save(state)
+             try:
+                 # The lease lock serializes launch groups; service.start waits
+                 # for a finishing podman stop and never double-starts an env.
+@@ -279,30 +300,44 @@
+                     self.env_id, expected_binding=binding,
+                     expected_app=expected_app)
+             except BaseException:
++                state['leases'].pop(token, None)  # No app exec has been attempted.
+                 if not state['leases']:
+                     stop_bridge(bridge)
++                    state['bridge'] = None
++                self.save(state)
+                 raise
+             info = self.service._require_owned(self.service.store.load(self.env_id))
++            if (had_leases and state.get('auto_stop')
++                    and state.get('container_started_at') != info.started_at):
++                state['auto_stop'] = False
+             state['bridge'] = bridge
+             state['container_id'] = info.container_id
+             state['container_started_at'] = info.started_at
+-            entry = {'pid': os.getpid(),
+-                     'stamp': process_stamp(os.getpid())}
+-            if app_id is not None:
+-                entry['app_id'] = app_id
+-            else:
+-                entry.update(owner or {})
+-                entry['kind'] = 'project-session'
+-            state['leases'][token] = entry
+             self.save(state)
+         return token
+ 
+     def acquire(self, app_id, *, expected_app_instance_uuid=None,
+-                expected_execution_fingerprint=None):
++                expected_execution_fingerprint=None, owned_execution=False):
+         return self._acquire(
+             app_id=app_id,
+             expected_app_instance_uuid=expected_app_instance_uuid,
+-            expected_execution_fingerprint=expected_execution_fingerprint)
++            expected_execution_fingerprint=expected_execution_fingerprint,
++            owned_execution=owned_execution)
++
++    def update_execution(self, token, **updates):
++        with self.locked():
++            state = self.read()
++            entry = state['leases'].get(token)
++            if entry is None or not isinstance(entry.get('execution'), dict):
++                raise UnifierError('application execution lease is missing')
++            self.service._require_record_binding(self.service.store.load(self.env_id),
++                                                 entry['environment_binding'])
++            entry['execution'].update(updates)
++            self.save(state)
++
++    def recover_applications(self, token=None):
++        from unifier.application_leases import recover_applications
++        return recover_applications(self, token)
+ 
+     def acquire_project(self, project_uuid, *, expected_binding, validate=None):
+         """Take a project-session lease in the same group as application leases."""
+@@ -316,6 +351,18 @@
+     def release(self, token):
+         with self.locked():
+             state = self.read()
++            if token not in state['leases']:
++                return  # A concurrent terminal collector already released it.
++            entry = state['leases'].get(token) or {}
++            execution = entry.get('execution')
++            if execution and execution.get('state') != 'exited':
++                raise UnifierError('application termination is unverified; recover this lease')
++            if execution:
++                record = self.service.store.load(self.env_id)
++                self.service._require_record_binding(record, entry['environment_binding'])
++                info = self.service._require_owned(record)
++                if info.container_id != entry['environment_binding']['container_id']:
++                    raise UnifierError('application lease container changed; recovery required')
+             state['leases'].pop(token, None)
+             try:
+                 if not state['leases']:
+@@ -371,11 +418,9 @@
+     if expected_execution_fingerprint is not None:
+         pins["expected_execution_fingerprint"] = expected_execution_fingerprint
+     group = LaunchGroup(service, launch['environment_id'])
+-    lease = group.acquire(app_id, **pins)
+-    try:
+-        return service._open_app_unmanaged(app_id, extra, **pins)
+-    finally:
+-        group.release(lease)
++    argv = list(launch['argv']) + [item for item in extra or [] if item != '']
++    from unifier.application_leases import execute_application
++    return execute_application(group, app_id, argv, pins=pins)
+ 
+ 
+ def managed_exec(service, app_id, argv, *, workdir=None,
+@@ -394,16 +439,10 @@
+         execution_fingerprint=expected_execution_fingerprint)
+     service._validate_launch_binding(launch)
+     group = LaunchGroup(service, launch["environment_id"])
+-    lease = group.acquire(
+-        app_id, expected_app_instance_uuid=expected_app_instance_uuid,
+-        expected_execution_fingerprint=expected_execution_fingerprint)
+-    try:
+-        return service.exec_app(
+-            app_id, argv, capture=False, timeout=None, workdir=workdir,
+-            expected_app_instance_uuid=expected_app_instance_uuid,
+-            expected_execution_fingerprint=expected_execution_fingerprint)
+-    finally:
+-        group.release(lease)
++    from unifier.application_leases import execute_application
++    return execute_application(group, app_id, argv, workdir=workdir, pins={
++        'expected_app_instance_uuid': expected_app_instance_uuid,
++        'expected_execution_fingerprint': expected_execution_fingerprint})
+ 
+ 
+ def worker_command(service, app_id, extra, *, expected_app_instance_uuid=None,
+--- a/src/unifier/runtime.py
++++ b/src/unifier/runtime.py
+@@ -5,7 +5,7 @@
+ labels. There is no name-prefix or "all containers" operation.
+ """
+ 
+-from dataclasses import dataclass
++from dataclasses import dataclass, replace
+ import json
+ import fcntl
+ import os
+@@ -93,6 +93,7 @@
+     pgrp: int
+     sid: int
+     token: str
++    ownership: str = 'process'
+ 
+ 
+ # The guest control channel is always FD 3.  Podman's portable
+@@ -100,6 +101,23 @@
+ # FD 3 is the only slot that is both fixed and reachable on runc and crun hosts.
+ CONTROL_FD = CONTROL_GUEST_FD
+ CONTROL_READY_SECONDS = 15.0
++APPLICATION_BOOTSTRAP = r'''
++source=$1
++shift
++for candidate in /usr/bin/python3 /bin/python3; do
++    if [ -x "$candidate" ]; then exec "$candidate" -c "$source" "$@"; fi
++done
++if [ "$1" = run ]; then printf 'ERROR application-python3-unavailable\n' >&"$4"; fi
++exit 125
++'''
++
++
++def application_guest_argv(mode, token, *args, state_root=''):
++    if not re.fullmatch(r'[0-9a-f]{32}', token):
++        raise UnifierError('application execution token is malformed')
++    source = Path(__file__).with_name('application_supervisor.py').read_text()
++    return ['/bin/sh', '-c', APPLICATION_BOOTSTRAP, 'unifier-application',
++            source, mode, token, state_root, *map(str, args)]
+ # Fixed guest shell programs.  They use only /bin/sh and /proc; no host helper
+ # binary, interpreter or ABI is assumed to work inside the guest.
+ GUEST_WRAPPER = r'''
+@@ -569,16 +587,26 @@
+                 pass
+ 
+     def probe(self) -> str:
++        if self.guest.ownership == 'subreaper-v1':
++            return self.runtime.probe_application_guest(
++                self.name, self.guest, project=self.project, env_id=self.env_id, user=self.user)
+         return self.runtime.probe_guest(
+             self.name, self.guest, project=self.project, env_id=self.env_id,
+             user=self.user)
+ 
+     def signal(self, signum) -> str:
++        if self.guest.ownership == 'subreaper-v1':
++            return self.runtime.signal_application_guest(
++                self.name, self.guest, signum, project=self.project, env_id=self.env_id, user=self.user)
+         return self.runtime.signal_guest(
+             self.name, self.guest, signum, project=self.project, env_id=self.env_id,
+             user=self.user)
+ 
+     def cleanup(self) -> str:
++        if self.guest.ownership == 'subreaper-v1':
++            # Never kill background descendants merely because a launcher or
++            # host proxy returned. Only the terminal receipt proves completion.
++            return self.probe()
+         return self.runtime.cleanup_guest(
+             self.name, self.guest, project=self.project, env_id=self.env_id,
+             user=self.user)
+@@ -618,6 +646,7 @@
+         self.popen = popen or subprocess.Popen
+         self.check_rootless = check_rootless
+         self._rootless_ok = False
++        self.application_state_root = ''
+ 
+     def read_inventory_readonly(self, record):
+         """Read a stopped Debian DB without starting or execing the peer.
+@@ -849,7 +878,8 @@
+                            env_id: str, workdir: str | None, env: dict[str, str],
+                            user: str | None = None, interactive: bool = True,
+                            tty: bool = False, on_spawn=None,
+-                           control_timeout: float = CONTROL_READY_SECONDS
++                           control_timeout: float = CONTROL_READY_SECONDS,
++                           ownership: str = 'process', execution_token: str | None = None
+                            ) -> SessionExecution:
+         """Start one exec and require a real guest identity before returning.
+ 
+@@ -867,15 +897,19 @@
+         and stderr stay whatever the command produced.
+         """
+         self._require_owned(name, project, env_id)
+-        token = secrets.token_hex(16)
++        if ownership not in {'process', 'subreaper-v1'}:
++            raise UnifierError('unsupported execution ownership protocol')
++        token = execution_token or secrets.token_hex(16)
+         read_fd, write_fd = os.pipe()
+         process = None
+         try:
+             # ``pass_fds`` makes the write end inheritable in the child only.
+             # Flipping the flag on the parent's own descriptor would leak this
+             # pipe into unrelated subprocesses started by other threads.
+-            guest = guest_session_argv(argv, token=token, control_fd=CONTROL_FD,
+-                                       tty=tty)
++            guest = (application_guest_argv('run', token, CONTROL_FD, *argv,
++                                           state_root=self.application_state_root)
++                     if ownership == 'subreaper-v1' else
++                     guest_session_argv(argv, token=token, control_fd=CONTROL_FD, tty=tty))
+             command = host_exec_command(write_fd, exec_argv(
+                 name, guest, workdir=workdir, env=env, user=user,
+                 interactive=interactive, tty=tty, control_fd=CONTROL_FD,
+@@ -900,7 +934,8 @@
+         if on_spawn is not None:
+             on_spawn(process)
+         try:
+-            identity = self._read_guest_identity(read_fd, token, control_timeout)
++            identity = replace(self._read_guest_identity(read_fd, token, control_timeout),
++                               ownership=ownership)
+         except BaseException:
+             self._kill_proxy_group(process)
+             os.close(read_fd)
+@@ -908,6 +943,53 @@
+         os.close(read_fd)
+         return SessionExecution(self, name=name, project=project, env_id=env_id,
+                                 process=process, guest=identity, user=user)
++
++    def start_application_exec(self, name, argv, *, token, **kwargs):
++        return self.start_session_exec(name, argv, ownership='subreaper-v1',
++                                       execution_token=token, **kwargs)
++
++    def observe_application(self, name, token, *, project, env_id, user=None):
++        try:
++            info = self._require_owned(name, project, env_id)
++            if not info.running:
++                return {'state': 'unknown', 'reason': 'container is not running'}
++            result = self.runner(exec_argv(name, application_guest_argv('probe', token,
++                state_root=self.application_state_root),
++                workdir=None, env={}, user=user), capture=True, timeout=10)
++            if result.returncode or len(result.stdout or '') > 16384:
++                return {'state': 'unknown', 'reason': 'application observation failed'}
++            value = json.loads(result.stdout)
++            if (not isinstance(value, dict) or value.get('token') != token
++                    or value.get('ownership') != 'subreaper-v1'):
++                return {'state': 'unknown', 'reason': 'application observation binding changed'}
++            if value.get('state') == 'exited' and value.get('all_children_reaped') is not True:
++                return {'state': 'unknown', 'reason': 'terminal receipt incomplete'}
++            return value
++        except (OSError, ValueError, TypeError, UnifierError):
++            return {'state': 'unknown', 'reason': 'application observation unavailable'}
++
++    def probe_application_guest(self, name, guest, *, project, env_id, user=None):
++        value = self.observe_application(name, guest.token, project=project, env_id=env_id, user=user)
++        if value.get('pid') != guest.pid or value.get('start') != guest.start:
++            return 'unknown'
++        return {'running': 'alive', 'exited': 'gone'}.get(value.get('state'), 'unknown')
++
++    def signal_application_guest(self, name, guest, signum, *, project, env_id, user=None):
++        try:
++            number = int(signal.Signals(signum))
++            if number not in {signal.SIGTERM, signal.SIGINT, signal.SIGHUP}:
++                raise UnifierError('application cancellation supports TERM/INT/HUP only')
++            self._require_owned(name, project, env_id)
++            result = self.runner(exec_argv(name, application_guest_argv(
++                'signal', guest.token, guest.pid, guest.start, number,
++                state_root=self.application_state_root),
++                workdir=None, env={}, user=user), capture=True, timeout=10)
++            if result.returncode or len(result.stdout or '') > 16384:
++                return 'unknown'
++            return {'signalled': 'signalled', 'exited': 'gone'}.get(
++                json.loads(result.stdout).get('state'), 'unknown')
++        except (OSError, ValueError, TypeError, UnifierError):
++            return 'unknown'
+ 
+     def _read_guest_identity(self, read_fd: int, token: str,
+                              timeout: float) -> GuestProcess:
+@@ -934,7 +1016,9 @@
+                 "guest execution exited before reporting its identity")
+         line = data.split(b"\n", 1)[0].decode("utf-8", "replace")
+         if line.startswith("ERROR"):
+-            raise UnifierError(f"guest prerequisite failed: {line}")
++            error = UnifierError(f"guest prerequisite failed: {line}")
++            error.execution_started = False
++            raise error
+         return parse_guest_ready(line + "\n", token)
+ 
+     @staticmethod
+--- a/src/unifier/service.py
++++ b/src/unifier/service.py
+@@ -994,6 +994,35 @@
+                  timeout: int | None = None, workdir: str | None = None,
+                  expected_app_instance_uuid: str | None = None,
+                  expected_execution_fingerprint: str | None = None) -> ExecResult:
++        record, launch, effective_workdir = self._prepare_app_execution(
++            app_id, argv, workdir=workdir,
++            expected_app_instance_uuid=expected_app_instance_uuid,
++            expected_execution_fingerprint=expected_execution_fingerprint)
++        runtime = record['runtime']
++        user_options = {'user': launch['user']} if launch.get('user') else {}
++        return self.runtime.exec(
++            runtime['container_name'], argv, project=runtime['project'], env_id=record['id'],
++            workdir=effective_workdir, env=dict(launch['env']), capture=capture,
++            timeout=timeout, **user_options)
++
++    def start_app_execution(self, app_id, argv, *, token, workdir=None,
++                            expected_app_instance_uuid=None,
++                            expected_execution_fingerprint=None):
++        if not callable(getattr(self.runtime, 'start_application_exec', None)):
++            raise UnifierError('runtime cannot supervise application descendants')
++        record, launch, effective_workdir = self._prepare_app_execution(
++            app_id, argv, workdir=workdir,
++            expected_app_instance_uuid=expected_app_instance_uuid,
++            expected_execution_fingerprint=expected_execution_fingerprint)
++        runtime = record['runtime']
++        return self.runtime.start_application_exec(
++            runtime['container_id'], argv, token=token, project=runtime['project'],
++            env_id=record['id'], workdir=effective_workdir, env=dict(launch['env']),
++            user=launch.get('user'), interactive=False, tty=False)
++
++    def _prepare_app_execution(self, app_id, argv, *, workdir=None,
++                               expected_app_instance_uuid=None,
++                               expected_execution_fingerprint=None):
+         if not argv or any(not isinstance(item, str) or item == "" for item in argv):
+             raise UnifierError("argv must be a non-empty list of non-empty strings")
+         launch = self.show_app(app_id)
+@@ -1027,11 +1056,7 @@
+             launch, app_instance_uuid=expected_app_instance_uuid,
+             execution_fingerprint=expected_execution_fingerprint)
+         effective_workdir = workdir_override if workdir is not None else launch.get("workdir")
+-        user_options = {"user": launch["user"]} if launch.get("user") else {}
+-        return self.runtime.exec(
+-            runtime["container_name"], argv, project=runtime["project"], env_id=record["id"],
+-            workdir=effective_workdir, env=dict(launch["env"]), capture=capture,
+-            timeout=timeout, **user_options)
++        return record, launch, effective_workdir
+ 
+     def export_app(self, app_id: str, *, mime_type: str = "application/x-multilinux-note",
+                    extension: str = "mlnote", menu_only: bool = False,
+--- a/src/unifier/shortcuts.py
++++ b/src/unifier/shortcuts.py
+@@ -1337,6 +1337,8 @@
+                         "environment_id": env_id, "transaction": txn})
+         return int(txn.get("exit_code") or 1)
+     ctx.print(ctx.t("install.transaction_ok", transaction=txn.get("id")))
++    if (txn.get('dependency_repair') or {}).get('status') == 'bundled-candidates-unverified':
++        ctx.print(ctx.t('install.bundled_unverified'))
+ 
+     record = service.store.load(env_id)
+     desktop = bool(record.get("desktop"))
+--- /dev/null
++++ b/tests/test_application_lifecycle.py
+@@ -0,0 +1,257 @@
++"""Lease acceptance: real micro process trees in a fake container boundary."""
++from concurrent.futures import ThreadPoolExecutor
++from dataclasses import replace
++import json
++import os
++from pathlib import Path
++import select
++import signal
++import subprocess
++import sys
++import tempfile
++import threading
++import time
++import unittest
++from unittest.mock import patch
++
++from test_application_supervisor import DAEMON, SCRIPT
++from test_on_demand import ready
++import test_runtime_control as handshake
++from unifier.application_supervisor import observe, signal_exact
++from unifier.application_leases import cancel_application
++from unifier.errors import UnifierError
++from unifier.on_demand import LaunchGroup, live_leases, managed_open, managed_exec
++from unifier.runtime import parse_guest_ready
++
++
++class ApplicationLifecycle(unittest.TestCase):
++    def setUp(self):
++        temporary = tempfile.TemporaryDirectory()
++        self.addCleanup(temporary.cleanup)
++        self.root = Path(temporary.name)
++        self.service, self.runtime = ready(self.root)
++        self.group = LaunchGroup(self.service, 'debian13')
++        self.receipts = self.root / 'receipts'; self.receipts.mkdir(mode=0o700)
++        self.children = []
++        self.addCleanup(self.cleanup)
++        self.runtime.start_application_exec = self.start
++        self.runtime.observe_application = lambda name, token, **kwargs: observe(str(self.receipts), token)
++        self.runtime.signal_application_guest = self.send
++
++    def cleanup(self):
++        for child in self.children:
++            if child.poll() is None:
++                child.terminate()
++            child.wait(timeout=15)
++
++    def start(self, name, argv, *, token, **kwargs):
++        read_fd, write_fd = os.pipe()
++        try:
++            child = subprocess.Popen([sys.executable, str(SCRIPT), 'run', token,
++                str(self.receipts), str(write_fd), *argv], pass_fds=(write_fd,),
++                stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
++                start_new_session=True)
++            self.children.append(child)
++        finally:
++            os.close(write_fd)
++        try:
++            if not select.select([read_fd], [], [], 5)[0]:
++                raise AssertionError('application fixture failed to report readiness')
++            line = os.read(read_fd, 4096).decode()
++        finally:
++            os.close(read_fd)
++        guest = replace(parse_guest_ready(line, token), ownership='subreaper-v1')
++        class Execution:
++            def __init__(inner):
++                inner.guest = guest
++            def poll(inner):
++                return child.poll()
++            def signal(inner, number):
++                return 'signalled' if signal_exact(guest.pid, guest.start, number) else 'unknown'
++        return Execution()
++
++    def send(self, name, guest, number, **kwargs):
++        value = observe(str(self.receipts), guest.token)
++        if value.get('pid') != guest.pid or value.get('start') != guest.start:
++            return 'unknown'
++        return 'signalled' if signal_exact(guest.pid, guest.start, number) else 'unknown'
++
++    def wait_file(self, path):
++        deadline = time.monotonic() + 5
++        while (not path.exists() or not path.stat().st_size) and time.monotonic() < deadline:
++            time.sleep(.02)
++        self.assertTrue(path.exists() and path.stat().st_size)
++
++    def daemon_argv(self, key):
++        return [sys.executable, '-c', DAEMON, str(self.root/key), str(self.root/('end-'+key))]
++
++    def set_argv(self, argv):
++        launch = self.service.show_app('notes'); launch['argv'] = argv
++        self.service.store.save_launch(launch)
++
++    def dead_owner(self, token):
++        state = self.group.read()
++        state['leases'][token].update(pid=999999999, stamp=1)
++        self.group.save(state)
++
++    def test_launcher_return_does_not_release_daemon_lease_or_bridge(self):
++        self.set_argv(self.daemon_argv('daemon'))
++        with patch('unifier.on_demand.start_bridge', return_value={'fixture': 'bridge'}), \
++             patch('unifier.on_demand.stop_bridge') as stop, ThreadPoolExecutor(max_workers=1) as pool:
++            future = pool.submit(managed_open, self.service, 'notes', [])
++            try:
++                self.wait_file(self.root/'daemon')
++                self.assertFalse(future.done())
++                self.assertTrue(self.group.read()['leases'])
++                self.assertEqual(self.group.read()['bridge'], {'fixture': 'bridge'})
++                self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'running')
++                stop.assert_not_called()
++            finally:
++                (self.root/'end-daemon').touch()
++            self.assertEqual(future.result(timeout=5).returncode, 0)
++            self.assertEqual(self.group.read()['leases'], {})
++            stop.assert_called_once()
++        self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'stopped')
++
++    def test_worker_recovery_reconnects_by_token_even_before_pid_was_saved(self):
++        token = self.group.acquire('notes', owned_execution=True)
++        self.group.update_execution(token, state='starting')
++        execution = self.start('cid-debian13', self.daemon_argv('daemon'), token=token)
++        self.wait_file(self.root/'daemon'); self.dead_owner(token)
++        self.assertIsNone(self.group.read()['leases'][token]['execution']['guest'])
++        result = self.group.recover_applications(token)
++        self.assertEqual(result[0]['action'], 'kept-running')
++        self.assertIn(token, self.group.read()['leases'])
++        (self.root/'end-daemon').touch(); self.children[-1].wait(timeout=5)
++        result = self.group.recover_applications(token)
++        self.assertEqual(result[0]['action'], 'released')
++        self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'stopped')
++
++    def test_explicit_cancel_targets_the_daemon_and_releases_only_its_lease(self):
++        token = self.group.acquire('notes', owned_execution=True)
++        project = self.group.acquire_project('project-fixture',
++            expected_binding=self.service.show_app('notes')['environment_binding'])
++        self.group.update_execution(token, state='starting')
++        execution = self.start('cid-debian13', self.daemon_argv('daemon'), token=token)
++        self.wait_file(self.root/'daemon')
++        self.group.update_execution(token, state='running', guest={
++            'pid': execution.guest.pid, 'start': execution.guest.start})
++        self.dead_owner(token)
++        result = cancel_application(self.group, token, seconds=5)
++        self.assertEqual(result['state'], 'exited')
++        self.children[-1].wait(timeout=5)
++        self.assertEqual(set(self.group.read()['leases']), {project})
++        self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'running')
++        self.group.release(project)
++        self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'stopped')
++
++    def test_live_worker_accepts_terminal_proof_after_concurrent_cancel(self):
++        gate = threading.Event()
++        def delayed_poll(*args, **kwargs):
++            execution = self.start(*args, **kwargs)
++            original = execution.poll
++            execution.poll = lambda: original() if gate.is_set() else None
++            return execution
++        self.runtime.start_application_exec = delayed_poll
++        self.set_argv(self.daemon_argv('daemon'))
++        with ThreadPoolExecutor(max_workers=1) as pool:
++            future = pool.submit(managed_open, self.service, 'notes', [])
++            try:
++                self.wait_file(self.root/'daemon')
++                token = next(iter(self.group.read()['leases']))
++                result = cancel_application(self.group, token, seconds=5)
++                self.assertEqual(result['state'], 'exited')
++                self.assertEqual(result['lease'], 'awaiting-worker')
++                self.assertEqual(self.group.read()['leases'][token]['execution']['state'], 'exited')
++            finally:
++                gate.set()
++            self.assertEqual(future.result(timeout=5).returncode, 0)
++        self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'stopped')
++
++    def test_short_activation_keeps_existing_application_lease_and_bridge(self):
++        self.set_argv(self.daemon_argv('daemon'))
++        with patch('unifier.on_demand.start_bridge', return_value={'fixture': 'bridge'}), \
++             patch('unifier.on_demand.stop_bridge') as stop, ThreadPoolExecutor(max_workers=1) as pool:
++            future = pool.submit(managed_open, self.service, 'notes', [])
++            try:
++                self.wait_file(self.root/'daemon')
++                original_tokens = set(self.group.read()['leases'])
++                result = managed_exec(self.service, 'notes', [sys.executable, '-c', 'pass'])
++                self.assertEqual(result.returncode, 0)
++                self.assertEqual(set(self.group.read()['leases']), original_tokens)
++                self.assertFalse(future.done())
++                self.assertEqual(self.group.read()['bridge'], {'fixture': 'bridge'})
++                stop.assert_not_called()
++            finally:
++                (self.root/'end-daemon').touch()
++            self.assertEqual(future.result(timeout=5).returncode, 0)
++        self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'stopped')
++
++    def test_unknown_spawn_and_probe_failure_keep_lease_and_bridge(self):
++        def fail(*args, **kwargs):
++            raise UnifierError('handshake timeout after possible spawn')
++        self.runtime.start_application_exec = fail
++        with patch('unifier.on_demand.start_bridge', return_value={'fixture': 'bridge'}), \
++             patch('unifier.on_demand.stop_bridge') as stop:
++            with self.assertRaisesRegex(UnifierError, 'timeout'):
++                managed_open(self.service, 'notes', [])
++            token = next(iter(self.group.read()['leases']))
++            self.assertEqual(self.group.read()['leases'][token]['execution']['state'], 'recovery-required')
++            self.dead_owner(token)
++            self.runtime.observe_application = lambda *args, **kwargs: {'state': 'unknown'}
++            self.assertEqual(self.group.recover_applications(token)[0]['action'], 'kept-unknown')
++            self.assertIn(token, self.group.read()['leases'])
++            self.assertEqual(self.group.read()['bridge'], {'fixture': 'bridge'})
++            stop.assert_not_called()
++
++    def test_dead_legacy_app_lease_is_retained_and_corrupt_state_refuses(self):
++        legacy = {'app_id': 'notes', 'pid': 999999999, 'stamp': 1}
++        self.assertEqual(live_leases({'legacy': legacy}), {'legacy': legacy})
++        self.group.save({'leases': {'legacy': legacy}, 'auto_stop': True, 'bridge': {'old': True}})
++        self.assertEqual(self.group.recover_applications()[0]['action'], 'kept-unknown')
++        self.assertIn('legacy', self.group.read()['leases'])
++        self.group.path.write_text('{')
++        with self.assertRaisesRegex(UnifierError, 'corrupt'):
++            self.group.read()
++
++    def test_generation_move_and_manual_restart_never_release_or_stop_new_owner(self):
++        token = self.group.acquire('notes', owned_execution=True)
++        self.group.update_execution(token, state='starting')
++        self.dead_owner(token)
++        record = self.service.store.load('debian13'); record['generation'] += 1
++        self.service.store.save(record, None)
++        self.assertEqual(self.group.recover_applications(token)[0]['action'], 'kept-unknown')
++        self.assertIn(token, self.group.read()['leases'])
++        # A separate fresh group demonstrates that joining after a manual
++        # restart cannot renew old auto-stop ownership.
++        record['generation'] -= 1; self.service.store.save(record, None)
++        self.group.update_execution(token, state='exited'); self.group.release(token)
++        first = self.group.acquire('notes')
++        name = record['runtime']['container_name']
++        current = self.runtime.inspect(name)
++        self.runtime.containers[name] = replace(current, started_at='manual-restart')
++        second = self.group.acquire('notes')
++        self.group.release(first); self.group.release(second)
++        self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'running')
++
++
++class ApplicationControlChannel(unittest.TestCase):
++    def test_real_fd3_handshake_and_terminal_receipt_through_the_runtime(self):
++        fixture = handshake.RealHandshake()
++        fixture.setUpClass(); self.addCleanup(fixture.tearDownClass)
++        fixture.setUp(); self.addCleanup(fixture.tearDown)
++        fixture.runtime.application_state_root = str(fixture.root/'receipts')
++        execution = fixture.runtime.start_application_exec(handshake.CONTAINER_ID,
++            [sys.executable, '-c', 'print("app-payload");raise SystemExit(4)'],
++            token='d'*32, project=handshake.PROJECT, env_id=handshake.ENV_ID,
++            workdir=None, env={}, interactive=False, tty=False)
++        out, err = execution.process.communicate(timeout=5)
++        self.assertEqual(execution.guest.ownership, 'subreaper-v1')
++        self.assertEqual(out, b'app-payload\n', err)
++        self.assertEqual(execution.process.returncode, 4)
++        self.assertEqual(execution.probe(), 'gone')
++        self.assertEqual(handshake.preserved_flags(fixture.last_command), [('--preserve-fds', '1')])
++
++
++if __name__ == '__main__':
++    unittest.main()
+--- /dev/null
++++ b/tests/test_application_supervisor.py
+@@ -0,0 +1,149 @@
++"""Real Linux process-tree fixtures inside the bounded offline test cgroup."""
++import ctypes
++import json
++import os
++from pathlib import Path
++import signal
++import subprocess
++import sys
++import tempfile
++import time
++import unittest
++import uuid
++
++from unifier.application_supervisor import observe, process, signal_exact
++from unifier.runtime import parse_guest_ready
++
++SCRIPT = Path(__file__).resolve().parents[1] / 'src/unifier/application_supervisor.py'
++DAEMON = '''import json,os,sys,time
++from pathlib import Path
++if os.fork(): os._exit(0)
++os.setsid()
++if os.fork(): os._exit(0)
++Path(sys.argv[1]).write_text(str(os.getpid()))
++while not Path(sys.argv[2]).exists(): time.sleep(.02)
++'''
++
++
++class ApplicationSupervisor(unittest.TestCase):
++    def setUp(self):
++        temporary = tempfile.TemporaryDirectory()
++        self.addCleanup(temporary.cleanup)
++        self.root = Path(temporary.name)
++        self.processes = []
++        self.addCleanup(self.cleanup)
++
++    def cleanup(self):
++        for child in self.processes:
++            if child.poll() is None:
++                child.terminate()
++            child.communicate(timeout=15)
++
++    def launch(self, argv):
++        token = uuid.uuid4().hex
++        read_fd, write_fd = os.pipe()
++        try:
++            child = subprocess.Popen([sys.executable, str(SCRIPT), 'run', token,
++                str(self.root), str(write_fd), *argv], pass_fds=(write_fd,),
++                stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
++                start_new_session=True)
++            self.processes.append(child)
++        finally:
++            os.close(write_fd)
++        try:
++            with os.fdopen(read_fd, 'rb', buffering=0) as stream:
++                # A broken prerequisite exits and closes the pipe; the outside
++                # cgroup deadline is an independent bound on any protocol bug.
++                line = stream.readline(4096).decode()
++            guest = parse_guest_ready(line, token)
++        except BaseException:
++            child.terminate()
++            raise
++        return token, guest, child
++
++    def wait_file(self, path):
++        deadline = time.monotonic() + 5
++        while not path.exists() and time.monotonic() < deadline:
++            time.sleep(.02)
++        self.assertTrue(path.exists(), str(path))
++
++    def test_foreground_exit_has_a_token_bound_terminal_receipt(self):
++        token, guest, child = self.launch([sys.executable, '-c', 'print("payload");raise SystemExit(7)'])
++        out, err = child.communicate(timeout=5)
++        self.assertEqual(child.returncode, 7, err)
++        self.assertEqual(out, b'payload\n')
++        value = observe(str(self.root), token)
++        self.assertEqual((value['state'], value['exit_code'], value['pid'], value['start']),
++                         ('exited', 7, guest.pid, guest.start))
++        self.assertTrue(value['all_children_reaped'])
++
++    def test_double_fork_setsid_child_outlives_launcher_and_delays_completion(self):
++        marker, release = self.root / 'daemon', self.root / 'release'
++        token, guest, child = self.launch([sys.executable, '-c', DAEMON, str(marker), str(release)])
++        self.wait_file(marker)
++        self.assertEqual(observe(str(self.root), token)['state'], 'running')
++        with self.assertRaises(subprocess.TimeoutExpired):
++            child.wait(timeout=.1)
++        release.touch()
++        out, err = child.communicate(timeout=5)
++        self.assertEqual(child.returncode, 0, err)
++        self.assertEqual(observe(str(self.root), token)['state'], 'exited')
++
++    def test_two_application_trees_do_not_share_termination(self):
++        first = self.launch([sys.executable, '-c', DAEMON, str(self.root/'a'), str(self.root/'end-a')])
++        second = self.launch([sys.executable, '-c', DAEMON, str(self.root/'b'), str(self.root/'end-b')])
++        self.wait_file(self.root/'a'); self.wait_file(self.root/'b')
++        (self.root/'end-a').touch()
++        first[2].communicate(timeout=5)
++        self.assertEqual(observe(str(self.root), first[0])['state'], 'exited')
++        self.assertEqual(observe(str(self.root), second[0])['state'], 'running')
++        self.assertIsNone(second[2].poll())
++        (self.root/'end-b').touch()
++        second[2].communicate(timeout=5)
++
++    def test_cancellation_reaches_a_daemon_in_a_different_session(self):
++        marker = self.root / 'daemon'
++        token, guest, child = self.launch([sys.executable, '-c', DAEMON, str(marker), str(self.root/'unused')])
++        self.wait_file(marker)
++        self.assertTrue(signal_exact(guest.pid, guest.start, signal.SIGTERM))
++        child.communicate(timeout=5)
++        value = observe(str(self.root), token)
++        self.assertEqual(value['state'], 'exited')
++        self.assertTrue(value['all_children_reaped'])
++        self.assertEqual(value['delivered_signal'], signal.SIGTERM)
++
++    def test_supervisor_killed_is_unknown_and_does_not_fabricate_termination(self):
++        # Adopt only this fixture's orphan so it can be explicitly reaped here.
++        libc = ctypes.CDLL(None)
++        enabled = ctypes.c_int()
++        self.assertEqual(libc.prctl(37, ctypes.byref(enabled), 0, 0, 0), 0)
++        self.assertEqual(libc.prctl(36, 1, 0, 0, 0), 0)
++        self.addCleanup(lambda: libc.prctl(36, enabled.value, 0, 0, 0))
++        marker = self.root / 'orphan'
++        token, guest, child = self.launch([sys.executable, '-c', DAEMON, str(marker), str(self.root/'unused')])
++        self.wait_file(marker)
++        pid = int(marker.read_text()); identity = process(pid)
++        try:
++            self.assertTrue(signal_exact(guest.pid, guest.start, signal.SIGKILL))
++            child.wait(timeout=5)
++            self.assertEqual(observe(str(self.root), token)['state'], 'unknown')
++            self.assertFalse(process(pid)['zombie'])
++        finally:
++            if identity and process(pid) and process(pid)['start'] == identity['start']:
++                signal_exact(pid, identity['start'], signal.SIGTERM)
++                os.waitpid(pid, 0)
++        child.communicate(timeout=5)
++
++    def test_missing_corrupt_and_reused_pid_receipts_are_unknown(self):
++        token = uuid.uuid4().hex
++        self.assertEqual(observe(str(self.root), token)['state'], 'unknown')
++        path = self.root / (token + '.json')
++        path.write_text('{')
++        self.assertEqual(observe(str(self.root), token)['state'], 'unknown')
++        path.write_text(json.dumps({'token': token, 'ownership': 'subreaper-v1',
++            'state': 'running', 'pid': os.getpid(), 'start': 1}))
++        self.assertEqual(observe(str(self.root), token)['state'], 'unknown')
++
++
++if __name__ == '__main__':
++    unittest.main()
+--- /dev/null
++++ b/tests/test_dependency_evidence.py
+@@ -0,0 +1,213 @@
++"""Static dependency evidence cannot stand in for actual loader outcomes."""
++from contextlib import redirect_stderr, redirect_stdout
++import hashlib
++from io import StringIO
++import os
++from pathlib import Path
++import shutil
++import subprocess
++import tempfile
++import unittest
++import uuid
++
++from test_dependencies import PluginBoxes, elf_record
++from test_packages import make_env, package_service
++from unifier.cli import _print_transaction
++from unifier.dependencies import CACHE, SCAN, parse_scan
++from unifier.errors import UnifierError
++from unifier.loader_verification import fixture_argv, loading_result, verify_fixture_loading
++from unifier.runtime import ExecResult
++
++
++class BundledBoxes(PluginBoxes):
++    runpath = ''
++    def _answer(self, info, argv):
++        if argv[:2] == ['dpkg-query', '-L']:
++            return ExecResult(0, '/opt/vendor/main\n/opt/vendor/private/libufix.so.1\n', '')
++        if argv[:3] == ['/bin/sh', '-c', SCAN]:
++            output = elf_record('/opt/vendor/main', ['libufix.so.1'])
++            if self.runpath:
++                output += ' (RUNPATH) Library runpath: [%s]\n' % self.runpath
++            output += elf_record('/opt/vendor/private/libufix.so.1', sonames=['libufix.so.1'])
++            return ExecResult(0, output + 'UNIFIER_SCAN_DONE\n', '')
++        if argv[:3] == ['/bin/sh', '-c', CACHE]:
++            return ExecResult(0, '', '')
++        return super()._answer(info, argv)
++
++
++class DependencyEvidence(unittest.TestCase):
++    def transaction(self, runtime):
++        temporary = tempfile.TemporaryDirectory(); self.addCleanup(temporary.cleanup)
++        service, runtime = package_service(Path(temporary.name), runtime)
++        make_env(service, runtime, 'debian13', 'deps')
++        return service.install_packages('deps', ['vendor'], repair_dependencies=True)
++
++    def test_library_exists_outside_search_path_is_only_an_unverified_candidate(self):
++        txn = self.transaction(BundledBoxes())
++        report = txn['dependency_repair']
++        self.assertEqual(txn['phase'], 'completed')  # Native package transaction.
++        self.assertEqual(report['status'], 'bundled-candidates-unverified')
++        self.assertEqual(report['runtime_loading'], 'unverified')
++        self.assertEqual(report['workflow'], 'unverified')
++        edge = report['dependency_edges'][0]
++        self.assertEqual(edge['bundled_candidates'], ['/opt/vendor/private/libufix.so.1'])
++        self.assertEqual(edge['runpath'], [])
++        self.assertEqual(edge['loader_resolution'], 'unverified')
++        out, err = StringIO(), StringIO()
++        with redirect_stdout(out), redirect_stderr(err):
++            self.assertEqual(_print_transaction(txn), 0)
++        self.assertIn('runtime loading', err.getvalue())
++        self.assertIn('unverified', err.getvalue())
++
++    def test_origin_runpath_is_recorded_without_claiming_dynamic_resolution(self):
++        runtime = BundledBoxes(); runtime.runpath = '$ORIGIN/private'
++        report = self.transaction(runtime)['dependency_repair']
++        obj = next(obj for obj in report['elf_objects'] if obj['path'] == '/opt/vendor/main')
++        self.assertEqual((obj['runpath'], obj['origin'], obj['architecture']),
++                         (['$ORIGIN/private'], '/opt/vendor', 'x86_64'))
++        self.assertEqual(report['status'], 'bundled-candidates-unverified')
++        self.assertEqual(report['evidence_scope']['symbol_versions'], 'unverified')
++        self.assertEqual(report['evidence_scope']['runpath_transitivity'], 'unverified')
++
++    def test_wrong_architecture_and_ambiguous_dynamic_tags_are_rejected(self):
++        text = elf_record('/opt/main', ['libufix.so.1'])
++        for output in (text.replace('ELF64', 'ELF32'),
++                       text + ' (RPATH) Library rpath: [/a]\n (RPATH) Library rpath: [/b]\n'):
++            with self.assertRaises(UnifierError):
++                parse_scan(output + 'UNIFIER_SCAN_DONE\n')
++
++    def test_real_adapter_loader_probe_refuses_root_or_unbound_fixture_before_exec(self):
++        temporary = tempfile.TemporaryDirectory(); self.addCleanup(temporary.cleanup)
++        service, runtime = package_service(Path(temporary.name))
++        record = make_env(service, runtime, 'debian13', 'deps')
++        root = '/tmp/unifier-fixture-' + 'f'*32
++        fixture = {'root': root, 'path': root+'/main', 'loader': '/lib64/ld-linux-x86-64.so.2',
++                   'files': {root+'/main': 'a'*64}, 'environment_binding': {}}
++        runtime.events.clear()
++        with self.assertRaisesRegex(UnifierError, 'non-root'):
++            verify_fixture_loading(service, 'deps', fixture, user='0')
++        with self.assertRaisesRegex(UnifierError, 'binding changed'):
++            verify_fixture_loading(service, 'deps', fixture, user='1000')
++        self.assertEqual(runtime.events, [])
++
++    def test_zero_exit_with_unknown_diagnostics_is_never_a_loader_pass(self):
++        root = '/tmp/unifier-fixture-' + 'f'*32
++        fixture = {'path': root+'/main', 'loader': '/lib64/ld-linux-x86-64.so.2',
++                   'files': {root+'/main': 'a'*64}}
++        native = ExecResult(0, '\nUNIFIER_LOADER_EXIT 0\n', 'unexpected diagnostic\n')
++        result = loading_result(fixture, native)
++        self.assertEqual(result['status'], 'unverified')
++        self.assertEqual(result['native_exit_code'], 0)
++        self.assertEqual(result['reason'], 'loader diagnostics require review')
++
++
++class NativeLoaderFixtures(unittest.TestCase):
++    """Trusted C fixtures compiled and resolved by the host's own loader.
++
++    This proves loader-versus-name behavior only. It is T1 local mechanism
++    evidence, not a Debian/Arch container or installed-application acceptance.
++    """
++    @classmethod
++    def setUpClass(cls):
++        if not shutil.which('gcc') or not Path('/lib64/ld-linux-x86-64.so.2').exists():
++            raise unittest.SkipTest('native x86_64 fixture toolchain unavailable')
++        if os.geteuid() == 0:
++            raise unittest.SkipTest('fixture requires an ordinary user')
++
++    def setUp(self):
++        temporary = tempfile.TemporaryDirectory(); self.addCleanup(temporary.cleanup)
++        self.root = Path(temporary.name)/('unifier-fixture-'+uuid.uuid4().hex)
++        self.root.mkdir(mode=0o700); (self.root/'lib').mkdir()
++        self.library = self.root/'lib/libufix.so.1'
++        self.program = self.root/'main'
++        (self.root/'lib.c').write_text('int fixture(void){return 42;}\n')
++        (self.root/'main.c').write_text('extern int fixture(void);int main(void){return fixture()!=42;}\n')
++        self.gcc('-shared', '-fPIC', '-Wl,-soname,libufix.so.1', '-o', self.library, self.root/'lib.c')
++
++    def gcc(self, *args):
++        result = subprocess.run(['gcc', *map(str, args)], capture_output=True, text=True, timeout=20)
++        self.assertEqual(result.returncode, 0, result.stderr)
++
++    def build_main(self, *, runpath=None):
++        flags = ['-Wl,-rpath,'+runpath] if runpath is not None else []
++        self.gcc('-o', self.program, self.root/'main.c', '-L'+str(self.root/'lib'),
++                 '-l:libufix.so.1', *flags)
++
++    def fixture(self, files=None):
++        paths = files or [self.program, self.library]
++        return {'root': str(self.root), 'path': str(self.program),
++                'loader': '/lib64/ld-linux-x86-64.so.2',
++                'files': {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}}
++
++    def load(self, fixture=None):
++        fixture = fixture or self.fixture()
++        native = subprocess.run(fixture_argv(fixture, str(os.geteuid())),
++            capture_output=True, text=True, timeout=10,
++            env={**os.environ, 'LD_LIBRARY_PATH': str(self.root/'lib')})
++        return loading_result(fixture, native)
++
++    def test_present_but_unsearchable_library_fails_and_origin_runpath_passes(self):
++        self.build_main()
++        self.assertEqual(self.load()['status'], 'verified-fail')
++        self.build_main(runpath='$ORIGIN/lib')
++        result = self.load()
++        self.assertEqual(result['status'], 'verified-pass', result)
++        self.assertEqual(result['workflow'], 'unverified')
++        self.assertFalse(result['program_executed'])
++
++    def test_wrong_architecture_same_soname_is_a_real_loader_failure(self):
++        self.build_main(runpath='$ORIGIN/lib')
++        content = bytearray(self.library.read_bytes()); content[4] = 1  # ELFCLASS32 fixture.
++        self.library.write_bytes(content)
++        result = self.load()
++        self.assertEqual(result['status'], 'verified-fail', result)
++        self.assertIn('ELFCLASS32', result['stderr_tail'])
++
++    def test_manifest_change_refuses_before_loader_and_is_not_a_verified_failure(self):
++        self.build_main(runpath='$ORIGIN/lib'); fixture = self.fixture()
++        self.library.write_bytes(self.library.read_bytes() + b'changed')
++        result = self.load(fixture)
++        self.assertEqual(result['status'], 'unverified')
++        self.assertIn('fixture safety', result['reason'])
++
++    def test_missing_symbol_version_is_distinct_from_a_matching_soname(self):
++        version = self.root/'versions.map'
++        version.write_text('UFIX_1 { global: fixture; };\n')
++        self.gcc('-shared', '-fPIC', '-Wl,-soname,libufix.so.1',
++                 '-Wl,--version-script='+str(version), '-o', self.library, self.root/'lib.c')
++        self.build_main(runpath='$ORIGIN/lib')
++        version.write_text('UFIX_2 { global: fixture; };\n')
++        self.gcc('-shared', '-fPIC', '-Wl,-soname,libufix.so.1',
++                 '-Wl,--version-script='+str(version), '-o', self.library, self.root/'lib.c')
++        result = self.load()
++        self.assertEqual(result['status'], 'verified-fail', result)
++        self.assertIn('UFIX_1', result['stderr_tail'])
++        self.assertEqual(result['reason'], 'required symbol version unavailable')
++
++    def test_main_runpath_does_not_prove_transitive_dependency_resolution(self):
++        nested = self.root/'lib/nested'; nested.mkdir()
++        (self.root/'b.c').write_text('int nested(void){return 42;}\n')
++        (self.root/'lib.c').write_text('extern int nested(void);int fixture(void){return nested();}\n')
++        library_b = nested/'libunested.so.1'
++        self.gcc('-shared', '-fPIC', '-Wl,-soname,libunested.so.1', '-o', library_b, self.root/'b.c')
++        self.gcc('-shared', '-fPIC', '-Wl,-soname,libufix.so.1', '-o', self.library,
++                 self.root/'lib.c', '-L'+str(nested), '-l:libunested.so.1')
++        self.gcc('-o', self.program, self.root/'main.c', '-L'+str(self.root/'lib'),
++                 '-l:libufix.so.1', '-Wl,-rpath-link,'+str(nested),
++                 '-Wl,-rpath,$ORIGIN/lib:$ORIGIN/lib/nested')
++        result = self.load(self.fixture([self.program, self.library, library_b]))
++        self.assertEqual(result['status'], 'verified-fail', result)
++        self.assertIn('libunested.so.1', result['stdout_tail'] + result['stderr_tail'])
++
++    def test_initial_loader_pass_does_not_validate_dlopen_plugin(self):
++        (self.root/'plugin.c').write_text('#include <dlfcn.h>\nint main(void){return dlopen("libufix_missing.so.1",RTLD_NOW)?0:3;}\n')
++        self.gcc('-o', self.program, self.root/'plugin.c', '-ldl')
++        result = self.load(self.fixture([self.program]))
++        self.assertEqual(result['status'], 'verified-pass', result)
++        self.assertEqual(result['dlopen'], 'unverified')
++        native = subprocess.run([str(self.program)], capture_output=True, timeout=5)
++        self.assertEqual(native.returncode, 3)
++
++
++if __name__ == '__main__':
++    unittest.main()
+--- a/tests/test_env.py
++++ b/tests/test_env.py
+@@ -24,6 +24,7 @@
+     ContainerState,
+     CreateSpec,
+     ExecResult,
++    GuestProcess,
+     PodmanRuntime,
+     container_name,
+     creation_argv,
+@@ -101,6 +102,43 @@
+         self.fail_inventory = False
+         self.events = []
+         self.next_code = 0
++        self.application_receipts = {}
++
++    def start_application_exec(self, name, argv, *, token, project, env_id,
++                               workdir, env, user=None, **kwargs):
++        info = self._owned(name, project, env_id)
++        options = {'user': user} if user is not None else {}
++        result = self.exec(info.name, argv, project=project, env_id=env_id,
++                           workdir=workdir, env=env, capture=False, timeout=None, **options)
++        guest = GuestProcess(90000 + len(self.application_receipts), 10, 90000, 90000,
++                             token, 'subreaper-v1')
++        self.application_receipts[token] = {
++            'token': token, 'ownership': 'subreaper-v1', 'state': 'exited',
++            'all_children_reaped': True, 'exit_code': result.returncode,
++            'pid': guest.pid, 'start': guest.start, 'pgrp': guest.pgrp, 'sid': guest.sid,
++        }
++        runtime = self
++        class FakeApplicationExecution:
++            def __init__(self):
++                self.guest = guest
++            def poll(self):
++                return result.returncode
++            def signal(self, number):
++                return runtime.signal_application_guest(name, guest, number,
++                    project=project, env_id=env_id, user=user)
++        return FakeApplicationExecution()
++
++    def observe_application(self, name, token, *, project, env_id, user=None):
++        self._owned(name, project, env_id)
++        return dict(self.application_receipts.get(token) or {'state': 'unknown'})
++
++    def signal_application_guest(self, name, guest, number, *, project, env_id, user=None):
++        self._owned(name, project, env_id)
++        value = self.application_receipts.get(guest.token)
++        if not value or value.get('pid') != guest.pid or value.get('start') != guest.start:
++            return 'unknown'
++        value.update(state='exited', all_children_reaped=True, exit_code=128 + int(number))
++        return 'signalled'
+ 
+     def inspect(self, name):
+         return self.containers.get(name) or next(
+--- a/tests/test_lifecycle_contracts.py
++++ b/tests/test_lifecycle_contracts.py
+@@ -34,7 +34,8 @@
+ from test_env import FakeRuntime, service_in
+ 
+ 
+-DEAD_LEASE = {'pid': 999999, 'stamp': 1, 'app_id': 'notes'}
++# Host-only bookkeeping may expire by PID. APP ownership must not.
++DEAD_HOST_LEASE = {'pid': 999999, 'stamp': 1}
+ 
+ 
+ def ready(root, runtime=None, *, portals=False):
+@@ -213,7 +214,21 @@
+ 
+ 
+ class AutoStopOwnership(unittest.TestCase):
+-    def test_stale_lease_restores_auto_stop_for_the_same_container_instance(self):
++    def test_unknown_legacy_app_lease_keeps_its_started_container(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            service, _runtime = ready(root, TickingRuntime())
++            service.start('debian13')
++            info = service._require_owned(service.store.load('debian13'))
++            legacy = dict(DEAD_HOST_LEASE, app_id='notes')
++            group = write_stale_lease(service, auto_stop=True, container_id=info.container_id,
++                container_started_at=info.started_at, leases={'legacy-app': legacy})
++            managed_open(service, 'notes', [])
++            self.assertEqual(service.inspect('debian13')['runtime_state'], 'running')
++            self.assertEqual(group.read()['leases'], {'legacy-app': legacy})
++            self.assertEqual(group.recover_applications()[0]['action'], 'kept-unknown')
++
++    def test_stale_host_lease_restores_auto_stop_for_the_same_container_instance(self):
+         with tempfile.TemporaryDirectory() as temporary:
+             root = Path(temporary)
+             service, _runtime = ready(root, TickingRuntime())
+@@ -221,7 +236,7 @@
+             info = service._require_owned(service.store.load('debian13'))
+             write_stale_lease(service, auto_stop=True, container_id=info.container_id,
+                               container_started_at=info.started_at,
+-                              leases={'dead-launcher': DEAD_LEASE})
++                              leases={'dead-launcher': DEAD_HOST_LEASE})
+             managed_open(service, 'notes', [])
+             self.assertEqual(service.inspect('debian13')['runtime_state'], 'stopped')
+             state = LaunchGroup(service, 'debian13').read()
+@@ -238,7 +253,7 @@
+             service.start('debian13')
+             write_stale_lease(service, auto_stop=True, container_id=info.container_id,
+                               container_started_at=info.started_at,
+-                              leases={'dead-launcher': DEAD_LEASE})
++                              leases={'dead-launcher': DEAD_HOST_LEASE})
+             managed_open(service, 'notes', [])
+             self.assertEqual(service.inspect('debian13')['runtime_state'], 'running')
+             state = LaunchGroup(service, 'debian13').read()
+@@ -252,7 +267,7 @@
+             service.start('debian13')
+             info = service._require_owned(service.store.load('debian13'))
+             write_stale_lease(service, auto_stop=True, container_id=info.container_id,
+-                              leases={'dead-launcher': DEAD_LEASE})
++                              leases={'dead-launcher': DEAD_HOST_LEASE})
+             managed_open(service, 'notes', [])
+             self.assertEqual(service.inspect('debian13')['runtime_state'], 'running')
+ 
+@@ -264,7 +279,7 @@
+             info = service._require_owned(service.store.load('debian13'))
+             write_stale_lease(service, auto_stop=True, container_id='cid-from-another-run',
+                               container_started_at=info.started_at,
+-                              leases={'dead-launcher': DEAD_LEASE})
++                              leases={'dead-launcher': DEAD_HOST_LEASE})
+             managed_open(service, 'notes', [])
+             self.assertEqual(service.inspect('debian13')['runtime_state'], 'running')
+ 
+@@ -273,7 +288,7 @@
+             root = Path(temporary)
+             service, _runtime = ready(root, TickingRuntime())
+             service.start('debian13')
+-            write_stale_lease(service, auto_stop=False, leases={'dead-launcher': DEAD_LEASE})
++            write_stale_lease(service, auto_stop=False, leases={'dead-launcher': DEAD_HOST_LEASE})
+             managed_open(service, 'notes', [])
+             self.assertEqual(service.inspect('debian13')['runtime_state'], 'running')
+ 
+@@ -330,7 +345,7 @@
+         stamp = process_stamp(os.getpid())
+         items = {'old': {'pid': os.getpid(), 'stamp': stamp + 1},
+                  'current': {'pid': os.getpid(), 'stamp': stamp},
+-                 'dead': DEAD_LEASE}
++                 'dead': DEAD_HOST_LEASE}
+         self.assertEqual(set(live_leases(items)), {'current'})
+ 
+ 
+--- a/tests/test_on_demand.py
++++ b/tests/test_on_demand.py
+@@ -44,8 +44,11 @@
+     def test_exception_releases_lease_and_stops_started_environment(self):
+         with tempfile.TemporaryDirectory() as temporary:
+             service, _runtime = ready(Path(temporary))
+-            def fail(*_args): raise RuntimeError('launch failed')
+-            service._open_app_unmanaged = fail
++            def fail(*_args, **_kwargs):
++                error = RuntimeError('launch failed')
++                error.execution_started = False
++                raise error
++            service.start_app_execution = fail
+             with self.assertRaisesRegex(RuntimeError, 'launch failed'):
+                 managed_open(service, 'notes', [])
+             self.assertEqual(service.inspect('debian13')['runtime_state'], 'stopped')
+--- a/tests/test_session_recovery_contract.py
++++ b/tests/test_session_recovery_contract.py
+@@ -1,4 +1,4 @@
+-"""Lease retention must follow guest proof, not a dead project worker PID."""
++"""APP and project lease retention follows guest proof, not a dead worker PID."""
+ import json
+ import os
+ from pathlib import Path
+@@ -31,12 +31,14 @@
+         self.group.path.write_text(json.dumps({"leases": leases, "auto_stop": True,
+                                               "bridge": None, "container_id": "fixture-id"}))
+ 
+-    def test_dead_project_worker_is_not_proof_its_guest_has_exited(self):
++    def test_dead_workers_do_not_prove_project_or_legacy_app_guests_have_exited(self):
+         self.save({"unresolved": dict(self.stale, kind="project-session", project_uuid="fixture-project"),
+-                   "expired-app": dict(self.stale, app_id="legacy-app")})
++                   "unresolved-app": dict(self.stale, app_id="legacy-app"),
++                   "expired-host": dict(self.stale)})
+         leases = self.group.read()["leases"]
+         self.assertIn("unresolved", leases)
+-        self.assertNotIn("expired-app", leases)
++        self.assertIn("unresolved-app", leases)
++        self.assertNotIn("expired-host", leases)
+ 
+     def test_releasing_another_lease_must_not_stop_an_unresolved_guest(self):
+         self.save({"unresolved": dict(self.stale, kind="project-session", project_uuid="fixture-project"),

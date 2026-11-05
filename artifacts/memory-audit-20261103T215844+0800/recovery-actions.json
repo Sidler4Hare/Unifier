@@ -1,0 +1,11 @@
+[
+  {
+    "realtime_us": "1793673415401342",
+    "monotonic_us": "148728908326",
+    "comm": "systemd",
+    "matched_commands": [
+      "loginctl terminate-session 2"
+    ],
+    "interpretation": "Launch metadata proves the recovery command was dispatched; not a recorded kernel OOM kill."
+  }
+]

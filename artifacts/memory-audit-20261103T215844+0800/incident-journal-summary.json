@@ -1,0 +1,79 @@
+{
+  "window": [
+    "--since",
+    "2026-11-03 10:00:00",
+    "--until",
+    "2026-11-03 10:42:00"
+  ],
+  "kernel_records_scanned": 176,
+  "kernel_oom_kill_records": [],
+  "oomd_process_records": [],
+  "actual_page_allocation_failures": [
+    {
+      "at": "2026-11-03T10:29:04.350524+08:00",
+      "monotonic_us": "148257857507",
+      "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+      "comm": null,
+      "message": "kworker/5:0: page allocation failure: order:4, mode:0xcc0(GFP_KERNEL), nodemask=(null),cpuset=/,mems_allowed=0"
+    }
+  ],
+  "prior_same_boot_kwin_errors": [
+    {
+      "at": "2026-11-02T15:40:53.289287+08:00",
+      "monotonic_us": "138775907811",
+      "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+      "comm": "kwin_wayland",
+      "message": "atomic commit failed: 设备或资源忙"
+    },
+    {
+      "at": "2026-11-02T15:20:36.096753+08:00",
+      "monotonic_us": "137558715278",
+      "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+      "comm": "kwin_wayland",
+      "message": "atomic commit failed: 设备或资源忙"
+    },
+    {
+      "at": "2026-11-02T15:11:22.136730+08:00",
+      "monotonic_us": "137004755253",
+      "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+      "comm": "kwin_wayland",
+      "message": "atomic commit failed: 设备或资源忙"
+    },
+    {
+      "at": "2026-11-01T19:12:11.843862+08:00",
+      "monotonic_us": "132704765469",
+      "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+      "comm": "kwin_wayland",
+      "message": "atomic commit failed: 设备或资源忙"
+    },
+    {
+      "at": "2026-11-01T15:45:30.058923+08:00",
+      "monotonic_us": "129469089098",
+      "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+      "comm": "kwin_wayland",
+      "message": "atomic commit failed: 设备或资源忙"
+    },
+    {
+      "at": "2026-11-01T15:45:28.532913+08:00",
+      "monotonic_us": "129467563088",
+      "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+      "comm": "kwin_wayland",
+      "message": "atomic commit failed: 设备或资源忙"
+    },
+    {
+      "at": "2026-11-01T15:45:26.950777+08:00",
+      "monotonic_us": "129465980951",
+      "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+      "comm": "kwin_wayland",
+      "message": "atomic commit failed: 设备或资源忙"
+    },
+    {
+      "at": "2026-11-01T15:45:25.747647+08:00",
+      "monotonic_us": "129464777820",
+      "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+      "comm": "kwin_wayland",
+      "message": "atomic commit failed: 设备或资源忙"
+    }
+  ],
+  "negative_scope": "Only the retained journal in the specified previous-boot window; absence is not proof of no unlogged failure."
+}

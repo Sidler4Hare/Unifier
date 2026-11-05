@@ -1,0 +1,7 @@
+{
+  "status": "PASS_PYTHON311_COMPLETE_SOURCE_OFFLINE",
+  "runtime": "Python 3.11.18",
+  "first_attempt": "python311-evidence",
+  "reason": "first snapshot omitted native C fixtures; preserve the core-only result",
+  "returncode": 0
+}

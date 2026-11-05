@@ -1,0 +1,261 @@
+{
+  "plan": "artifacts/shared-container-dependency-plan-20261104/plan.json",
+  "cases": [
+    {
+      "id": "PRE01",
+      "title": "固定容器池与身份核对",
+      "status": "PASS",
+      "offline_evidence": "Read-only full CID/UUID/generation/original root/labels/image/mounts/limits/state frozen in pool-readiness and pool-inspect",
+      "live_status": "NOT_RUN",
+      "reason": "Identity listing only; this does not admit live resource/fixture readiness"
+    },
+    {
+      "id": "PRE02",
+      "title": "其他环境包清单核验不得唤醒停止实例",
+      "status": "BLOCKED",
+      "offline_evidence": "No-wake rejection contracts pass; actual multi-target CLI functionality fails (F01)",
+      "live_status": "NOT_RUN",
+      "reason": "Actual read-only peer inventory adapter missing; selected Debian root has no real same-root peer to validate that branch"
+    },
+    {
+      "id": "PRE03",
+      "title": "统一准入、资源监测和所有工作进程保护",
+      "status": "PARTIAL",
+      "offline_evidence": "Independent T1 guardian, hard budget, heartbeat/deadline, real proc/cgroup and exit evidence",
+      "live_status": "NOT_RUN",
+      "reason": "T2 aggregate container monitoring, independent container cleanup on monitor/controller failure and fault-injection coverage not completed"
+    },
+    {
+      "id": "PRE04",
+      "title": "正常入口、工具和测试材料就绪",
+      "status": "PARTIAL",
+      "offline_evidence": "Formal fake CLI and native private ELF fixture; native C synthetic checks",
+      "live_status": "NOT_RUN",
+      "reason": "Missing real guest package/provider/version/GUI fixtures with current natural missing dependency proof"
+    },
+    {
+      "id": "PRE05",
+      "title": "备份、状态基线与受控恢复材料",
+      "status": "PARTIAL",
+      "offline_evidence": "213 source/test/tool/doc hashes, index/boot/KWin/container baseline and original pool records",
+      "live_status": "NOT_RUN",
+      "reason": "Full live fixture/account/data backup admission not performed; no live writes attempted"
+    },
+    {
+      "id": "SH01",
+      "title": "同发行版多应用串行复用同一实例",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "SH02",
+      "title": "同容器三个轻量应用并发",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "SH03",
+      "title": "关闭一个应用不影响其他租约",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "SH04",
+      "title": "最后受管应用结束后的自动停止",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "SH05",
+      "title": "同一可执行文件的不同调用上下文",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "SH06",
+      "title": "短命启动器被结束时租约仍由真实工作进程持有",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "SH07",
+      "title": "手动启动环境的停止所有权",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "SH08",
+      "title": "启动失败、错误身份和未知状态的局部回收",
+      "status": "PARTIAL",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "Identity/failed launch/unknown state offline branches pass; live recovery NOT_RUN"
+    },
+    {
+      "id": "SH09",
+      "title": "同容器包事务锁竞争与应用共存",
+      "status": "PARTIAL",
+      "offline_evidence": "Two fake requests to same environment: max one native writer, both complete; cross-env false positive reproduced (F02)",
+      "live_status": "NOT_RUN",
+      "reason": "Actual native database lock competition and live coexistence NOT_RUN"
+    },
+    {
+      "id": "SH10",
+      "title": "真实 Writer 与 CLI 共用实例并有界重复",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "DEP01",
+      "title": "原生声明依赖经正式入口安装",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "DEP02",
+      "title": "未声明 ELF 运行库真实自动补装",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "DEP03",
+      "title": "只在插件中出现的 DT_NEEDED",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "DEP04",
+      "title": "多个应用复用同一提供者",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "DEP05",
+      "title": "重复 repair 的无新增依赖结果",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "DEP06",
+      "title": "移除应用 A 不破坏应用 B 的共享库",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "DEP07",
+      "title": "共享提供者兼容升级及不兼容版本边界",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "DEP08",
+      "title": "运行时构造库名与精确 library 提示",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "DEP09",
+      "title": "无提供者或多提供者时不猜包",
+      "status": "PASS",
+      "offline_evidence": "Zero/multiple candidates and partial failed provider responses refuse without guessing",
+      "live_status": "not required (offline case)",
+      "reason": "No real repository claim"
+    },
+    {
+      "id": "DEP10",
+      "title": "索引错误、安装失败和补装无效的有界退出",
+      "status": "PASS",
+      "offline_evidence": "Index refresh exit73, install failure, ineffective install, recursive convergence bound and recovery contracts",
+      "live_status": "not required (offline case)",
+      "reason": "Bounded failure contracts verified offline; no live interrupted package transaction"
+    },
+    {
+      "id": "DEP11",
+      "title": "GIO 等外部命令和 GUI 能力缺口",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "PRE02/PRE03/PRE04/PRE05 real execution prerequisites not fulfilled"
+    },
+    {
+      "id": "DEP12",
+      "title": "实际搜索路径、符号版本、架构与厂商配置的分类",
+      "status": "PARTIAL",
+      "offline_evidence": "ABI/parser rejection contracts and real private ELF search-path counterexample (F04)",
+      "live_status": "NOT_RUN",
+      "reason": "Full symbol-version and vendor configuration classification/real guest oracle NOT_RUN"
+    },
+    {
+      "id": "DEP13",
+      "title": "补库包事务中断与同一实例恢复",
+      "status": "PARTIAL",
+      "offline_evidence": "Interrupted journal/database/replaced CID/recovery regressions pass",
+      "live_status": "NOT_RUN",
+      "reason": "No live fault injection or package recovery applied to preserved instances"
+    },
+    {
+      "id": "AR01",
+      "title": "Arch 同实例轻量应用复用",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "Existing Arch has Memory=0, NanoCpus=0, TasksMax2048, cgroup parent user.slice; no compliant aggregate resource admission. No automatic quota update, new container or partial upgrade"
+    },
+    {
+      "id": "AR02",
+      "title": "Arch 依赖与共享提供者最小复核",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "Existing Arch has Memory=0, NanoCpus=0, TasksMax2048, cgroup parent user.slice; no compliant aggregate resource admission. No automatic quota update, new container or partial upgrade"
+    },
+    {
+      "id": "AR03",
+      "title": "Arch keyring、整体升级和交互预算准入",
+      "status": "BLOCKED",
+      "offline_evidence": "Existing offline contracts exercised where applicable",
+      "live_status": "NOT_RUN",
+      "reason": "Existing Arch has Memory=0, NanoCpus=0, TasksMax2048, cgroup parent user.slice; no compliant aggregate resource admission. No automatic quota update, new container or partial upgrade"
+    },
+    {
+      "id": "END01",
+      "title": "固定池、数据、服务和资源收尾",
+      "status": "PASS",
+      "offline_evidence": "All exact job units/PIDs/cgroups exited; containers10->10 all exited; index and213 existing files preserved",
+      "live_status": "not applicable (none started)",
+      "reason": "No daily-file whole-tree hash or continuous external container event attribution claimed"
+    }
+  ]
+}

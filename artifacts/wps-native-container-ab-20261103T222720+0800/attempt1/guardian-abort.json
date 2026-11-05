@@ -1,0 +1,35 @@
+{
+  "reason": "host_reserve",
+  "at": 1793717142.3584142,
+  "memory": {
+    "MemAvailable": 1985728512,
+    "SwapFree": 19790237696
+  },
+  "psi": {
+    "some": {
+      "avg10": "0.72",
+      "avg60": "0.13",
+      "avg300": "0.08",
+      "total": "47663163"
+    },
+    "full": {
+      "avg10": "0.72",
+      "avg60": "0.13",
+      "avg300": "0.06",
+      "total": "42744308"
+    }
+  },
+  "before": {
+    "boot": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin": [
+      "1769"
+    ]
+  },
+  "stop": 0,
+  "after": {
+    "boot": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin": [
+      "1769"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "minimum_runtime_source_files": 230,
+  "minimum_runtime_documentation_changed_after_test": [
+    "README.md",
+    "HANDOFF.md",
+    "docs/客体受控请求.md"
+  ],
+  "minimum_runtime_code_tests_fixtures_match": true,
+  "bridge_source_matches": {
+    "runtime.py": true,
+    "exec_control.py": true,
+    "project_sessions.py": true,
+    "agent_bridge.py": true,
+    "bridge_client.py": true
+  },
+  "bridge_status": "PASS_REAL_GUEST_ORIGIN_SIX_CELLS",
+  "positive_cells": 6,
+  "negative_checks": 10,
+  "remote_minimum_test_run": 713,
+  "remote_class_skipped_cases": 13,
+  "collected_tests": 726
+}

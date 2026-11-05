@@ -1,0 +1,145 @@
+{
+  "access_scope": {
+    "any_used_mount_read_only": false,
+    "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+    "file_path": null,
+    "mappings": {
+      "cwd": {
+        "expected_host": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+        "mount": {
+          "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+          "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+          "options": "z",
+          "same_absolute_path": true
+        },
+        "path": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+        "same_host_object": true
+      },
+      "project_root": {
+        "expected_host": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+        "mount": {
+          "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+          "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+          "options": "z",
+          "same_absolute_path": true
+        },
+        "path": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+        "same_host_object": true
+      }
+    },
+    "mode": "environment-shared-static-mounts",
+    "policy_enforcement": "routing-only",
+    "policy_note": "read-only is a routing decision; without an OS-level read-only mount it is not a filesystem write guarantee",
+    "project_root": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+    "runtime_read_only": false,
+    "selected_mount": {
+      "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+      "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+      "options": "z",
+      "same_absolute_path": true
+    },
+    "shared_mounts": [
+      {
+        "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+        "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+        "options": "z",
+        "same_absolute_path": true
+      }
+    ],
+    "used_mounts": [
+      {
+        "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+        "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+        "options": "z",
+        "same_absolute_path": true
+      }
+    ],
+    "warning": "All applications in this environment share every static mount. This route is not per-file or per-application isolation."
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "/home/agent/expansion-continuation-20261103/bridge-shared/origin.py",
+    "/home/agent/expansion-continuation-20261103/bridge-shared",
+    "origin-v2-fedora44"
+  ],
+  "child_pid": 97924,
+  "child_stamp": 3000714,
+  "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+  "created_at": "2026-11-03T13:51:01+08:00",
+  "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+  "cwd_dev": 64512,
+  "cwd_ino": 12062688,
+  "env_keys": [
+    "UNIFIER_AGENT_TOKEN"
+  ],
+  "env_policy": {
+    "allowlist": "explicit-host-keys-only",
+    "dynamic_loader_variables": false,
+    "fallback_commands": false,
+    "host_environment_inherited": false
+  },
+  "environment_binding": {
+    "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+    "environment_id": "fedora44",
+    "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+    "generation": 1
+  },
+  "environment_id": "fedora44",
+  "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+  "error": null,
+  "exit_code": null,
+  "generation": 1,
+  "guest_pgrp": 19,
+  "guest_pid": 19,
+  "guest_sid": 19,
+  "guest_start": 3000728,
+  "guest_state": "alive",
+  "guest_token": "64a5413c0b69713e20492ba262caf1b3",
+  "integration_uuid": null,
+  "lease_token": "c4628145c783475eb28bc3e45a3a7119",
+  "mode": "run",
+  "project_uuid": "cdd9ef3c-6105-441c-8fbf-77767db98a7a",
+  "root_dev": 64512,
+  "root_ino": 12062688,
+  "root_uuid": "5a4609d6-4869-41d6-8a55-6281703d63c8",
+  "schema_version": 1,
+  "scope_sha256": "51e087e8447ff783f5c417900fe40fcd64ff6cb823c558bd1a19172864d5f1e7",
+  "session_user": "0:0",
+  "session_uuid": "3d274790-8393-4b83-a6e1-09431e614553",
+  "signals": [],
+  "state": "running",
+  "tty": false,
+  "updated_at": "2026-11-03T13:51:02+08:00",
+  "worker_pid": 97255,
+  "worker_stamp": 3000480,
+  "worker_live": true,
+  "child_live": true,
+  "guest_live": true,
+  "environment": {
+    "known": false,
+    "error": "podman inspect failed: 8b6e\nruntime.gcBgMarkWorker()\n\truntime/mgc.go:1310 +0xe5 fp=0xc00050afe0 sp=0xc00050af50 pc=0x429045\nruntime.goexit({})\n\truntime/asm_amd64.s:1695 +0x1 fp=0xc00050afe8 sp=0xc00050afe0 pc=0x4811c1\ncreated by runtime.gcBgMarkStartWorkers in goroutine 1\n\truntime/mgc.go:1234 +0x1c\n\ngoroutine 40 gp=0xc000502a80 m=nil [GC worker (idle)]:\nruntime.gopark(0x2801a40?, 0x1?, 0xeb?, 0xf0?, 0x0?)\n\truntime/proc.go:402 +0xce fp=0xc00050b750 sp=0xc00050b730 pc=0x448b6e\nruntime.gcBgMarkWorker()\n\truntime/mgc.go:1310 +0xe5 fp=0xc00050b7e0 sp=0xc00050b750 pc=0x429045\nruntime.goexit({})\n\truntime/asm_amd64.s:1695 +0x1 fp=0xc00050b7e8 sp=0xc00050b7e0 pc=0x4811c1\ncreated by runtime.gcBgMarkStartWorkers in goroutine 1\n\truntime/mgc.go:1234 +0x1c\n\ngoroutine 56 gp=0xc0004dbc00 m=nil [GC worker (idle)]:\nruntime.gopark(0x2801a40?, 0x1?, 0xef?, 0x27?, 0x0?)\n\truntime/proc.go:402 +0xce fp=0xc000506f50 sp=0xc000506f30 pc=0x448b6e\nruntime.gcBgMarkWorker()\n\truntime/mgc.go:1310 +0xe5 fp=0xc000506fe0 sp=0xc000506f50 pc=0x429045\nruntime.goexit({})\n\truntime/asm_amd64.s:1695 +0x1 fp=0xc000506fe8 sp=0xc000506fe0 pc=0x4811c1\ncreated by runtime.gcBgMarkStartWorkers in goroutine 1\n\truntime/mgc.go:1234 +0x1c\n\nrax    0x0\nrbx    0x180ce\nrcx    0x759c6a49ec0c\nrdx    0x6\nrdi    0x180c4\nrsi    0x180ce\nrbp    0x759c216da7d0\nrsp    0x759c216da790\nr8     0x0\nr9     0x0\nr10    0x8\nr11    0x246\nr12    0x6\nr13    0x759c216daa80\nr14    0x16\nr15    0xfffffffffffffff\nrip    0x759c6a49ec0c\nrflags 0x246\ncs     0x33\nfs     0x0\ngs     0x0\n"
+  },
+  "lease_recorded": true,
+  "lease_live": true,
+  "effective_state": "running",
+  "execution_pinned": {
+    "project_uuid": "cdd9ef3c-6105-441c-8fbf-77767db98a7a",
+    "root_uuid": "5a4609d6-4869-41d6-8a55-6281703d63c8",
+    "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+    "generation": 1,
+    "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+    "argv": [
+      "/usr/bin/python3",
+      "/home/agent/expansion-continuation-20261103/bridge-shared/origin.py",
+      "/home/agent/expansion-continuation-20261103/bridge-shared",
+      "origin-v2-fedora44"
+    ],
+    "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+    "session_user": "0:0",
+    "integration_uuid": null,
+    "scope_sha256": "51e087e8447ff783f5c417900fe40fcd64ff6cb823c558bd1a19172864d5f1e7",
+    "guest_pid": 19,
+    "guest_start": 3000728,
+    "guest_sid": 19
+  }
+}

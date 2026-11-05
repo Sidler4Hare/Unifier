@@ -10,3 +10,13 @@ artifacts/extension-run-fedora-workstation-20261031/** -whitespace
 artifacts/server-cross-host-correction-20261030T210239+0800/** -whitespace
 artifacts/server-validation-20261030T204043+0800/** -whitespace
 artifacts/v0.0.1-20261030/** -whitespace
+artifacts/architecture-repair-20261105T104613+0800/** -whitespace
+artifacts/architecture-repair-20261105T111850+0800/** -whitespace
+artifacts/expansion-continuation-20261103T100648+0800/** -whitespace
+artifacts/memory-audit-20261103T215844+0800/** -whitespace
+artifacts/shared-architecture-audit-20261105T0815+0800/** -whitespace
+artifacts/shared-container-dependency-plan-20261104/** -whitespace
+artifacts/shared-container-dependency-run-20261104T1504+0800/** -whitespace
+artifacts/shared-container-dependency-run-20261104T1510+0800/** -whitespace
+artifacts/test-policy-20261104/** -whitespace
+artifacts/wps-native-container-ab-20261103T222720+0800/** -whitespace

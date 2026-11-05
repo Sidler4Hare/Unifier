@@ -1,0 +1,1 @@
+第一轮dsh在模型请求前以MISSING_CREDENTIAL拒绝：headless禁用了Web已保存凭据解析；没有模型回复或工具修改。退出码1、cgroup已移除，资源保护未触发。根据本机dsh文档，仅将用户已配置local-server的LOCAL_SERVER_API_KEY从既有受限凭据文档读入本次子进程环境，不打印、不落盘、不改凭据或Web权限配置，不回退其他模型。最小provider覆盖和脱敏dump路由核验继续执行，预算/期限不提高，重新30秒准入。这是该明确故障唯一修正调用；再失败则主控接手。

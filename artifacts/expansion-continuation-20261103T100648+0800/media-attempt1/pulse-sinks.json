@@ -1,0 +1,15 @@
+[
+  {
+    "index": 5598,
+    "properties": {
+      "application.name": "ByteAudio Engine",
+      "application.process.id": "1005",
+      "application.process.host": "076f6017d2a4",
+      "media.name": "playStream"
+    },
+    "corked": false,
+    "sink": 5583,
+    "source": null,
+    "sample_specification": "s16le 1ch 48000Hz"
+  }
+]

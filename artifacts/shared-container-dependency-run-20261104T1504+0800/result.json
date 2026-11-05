@@ -1,0 +1,48 @@
+{
+  "status": "BLOCKED",
+  "timezone": "Asia/Shanghai",
+  "date": "2026-11-04",
+  "execution_mode": "T0_only",
+  "plan": "artifacts/shared-container-dependency-plan-20261104/plan.json",
+  "latest_report_read": "artifacts/wps-native-container-ab-20261103T222720+0800/report.md",
+  "tests_executed": 0,
+  "models_launched": 0,
+  "containers_created": 0,
+  "containers_started": 0,
+  "initial_observed_mem_available_kib": 1969272,
+  "host_reserve_bytes": 2147483648,
+  "conservative_t1_required_bytes": 2885681152,
+  "complete_admission_window": false,
+  "blockers": [
+    "Initial MemAvailable below 2 GiB reserve; no T1-T4 workload admitted",
+    "PRE02 static confirmation only: service.py:1825-1835 still starts stopped peers to read inventory; offline reproduction NOT_RUN",
+    "PRE03: legacy HostReserveMonitor is an in-process 1s daemon thread without full PSI and external liveness supervision",
+    "T0 snapshot preparation failed under its 128 MiB RLIMIT_AS; no completed before/after fingerprint or 30s window"
+  ],
+  "case_results": {
+    "PRE01": {"status": "BLOCKED", "detail": "Read-only listing observed 10 containers, all exited. Full original registration/UUID/generation and ownership admission incomplete"},
+    "PRE02": {"status": "BLOCKED", "detail": "Known source path reconfirmed; no fake-runtime or real transaction executed"},
+    "PRE03": {"status": "BLOCKED", "detail": "Host resource admission and compliant supervision unavailable"},
+    "PRE04": {"status": "NOT_RUN"},
+    "PRE05": {"status": "NOT_RUN"},
+    "SH01-SH10": {"status": "NOT_RUN"},
+    "DEP01-DEP13": {"status": "NOT_RUN"},
+    "AR01-AR03": {"status": "NOT_RUN"},
+    "END01": {"status": "PASS", "scope": "Only cleanup of this T0 attempt; not product lifecycle acceptance"}
+  },
+  "cleanup": {
+    "sampler_exit_code": 1,
+    "background_workers_created": false,
+    "test_units_or_displays_or_listeners_created": false,
+    "package_transactions_started": false,
+    "container_count_initial_observation": 10,
+    "running_initial_observation": 0,
+    "final_container_inventory": "container-final.txt",
+    "product_code_edits": false,
+    "host_configuration_edits": false,
+    "deployment_performed": false,
+    "only_created_files": "this evidence directory",
+    "not_independently_verified": ["source/index before-after hashes", "daily data byte hashes", "continuous container event stream", "live container cgroups", "package recovery/lease state", "boot/KWin before-after identity"]
+  },
+  "resume_order": ["Meet a 30-second resource window for an explicit budget", "Execute PRE02 offline reproduction and bounded correction", "Validate PRE03 independent protection and exact fixed-pool ownership", "Admit actual shared-container CLI/package/GUI cases only after prerequisites pass"]
+}

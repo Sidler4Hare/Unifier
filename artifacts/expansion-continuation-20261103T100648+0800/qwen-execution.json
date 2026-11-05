@@ -1,0 +1,22 @@
+{
+  "provider": "Local qwen server via dsh headless",
+  "configured_model_id": "swift-1.5-iq3_s",
+  "configured_display_name": "qwen 3.8 flash",
+  "effort": "max",
+  "runtime_task": {
+    "started_at": "2026-11-03T10:56:08.148086+08:00",
+    "finished_at": "2026-11-03T11:25:31.547881+08:00",
+    "exit_code": 0,
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b"
+  },
+  "bridge_review_task": {
+    "status": "STOPPED_BY_45_MIN_RUNTIME_LIMIT",
+    "model_completion_accepted": false,
+    "evidence": "journal: unifier-qwen-bridge-review-20261103.service reached runtime limit at 13:43:28",
+    "independently_repaired_and_tested": true
+  },
+  "credentials_in_artifacts": false,
+  "builtin_subagents_used": false,
+  "runtime_session_id": "session-0c167231-7dc2-4b73-80f9-aa64298fdea6",
+  "bridge-review_session_id": "session-6286b87e-1b4c-46f6-8d22-6c5275eb4bd8"
+}

@@ -1,0 +1,15 @@
+{
+  "checked_files": 213,
+  "unexpected_changes": [],
+  "index_entries_equal": true,
+  "container_inventory_equal": true,
+  "container_count_before": 10,
+  "container_count_after": 10,
+  "all_containers_exited": true,
+  "pool_records_unchanged": true,
+  "boot_identity_equal": true,
+  "kwin_identity_equal": true,
+  "all_owned_units_exited": true,
+  "all_started_worker_cgroups_removed": true,
+  "installed_entry_path_equal": true
+}

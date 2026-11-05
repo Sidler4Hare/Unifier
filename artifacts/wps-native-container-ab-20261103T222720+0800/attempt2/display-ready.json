@@ -1,0 +1,1 @@
+{"xvfb": 132822, "native_relay": 132827, "guest_relay_wrapper": 132828, "geometry": "1280x800x24", "display": "127.0.0.1:200", "tcp_listener": "loopback only, in each namespace", "auth": "MIT-MAGIC-COOKIE-1"}

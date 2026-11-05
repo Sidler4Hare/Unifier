@@ -1,0 +1,8 @@
+{
+  "started_at": "2026-11-03T10:19:14.868166+08:00",
+  "duration_seconds": 1800,
+  "scope": "dual-guest bounded functional persistence soak; not a controlled performance benchmark",
+  "status": "INTERRUPTED_DESKTOP_FAILURE_AND_HOST_REBOOT",
+  "interrupted_at": "2026-11-03T10:37:00+08:00",
+  "accepted_as_30_min_soak": false
+}

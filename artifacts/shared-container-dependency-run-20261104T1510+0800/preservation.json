@@ -1,0 +1,14 @@
+{
+  "untouched_files_checked": 210,
+  "unexpected_source_doc_changes": [],
+  "index_entries_equal": true,
+  "containers_equal": true,
+  "containers_before": 10,
+  "containers_after": 10,
+  "all_containers_exited": true,
+  "pool_records_unchanged": true,
+  "boot_equal": true,
+  "kwin_identity_equal": true,
+  "all_owned_units_have_no_live_pid": true,
+  "owned_cgroups_removed": true
+}

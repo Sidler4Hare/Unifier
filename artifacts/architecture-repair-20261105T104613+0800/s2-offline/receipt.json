@@ -1,0 +1,153 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_package_inventory",
+    "test_package_coordination",
+    "test_operation_lock",
+    "test_package_observation",
+    "test_packages",
+    "test_env",
+    "test_cli_shortcuts.RepairContracts.test_same_alias_is_namespaced_per_target_and_run_picks_the_right_instance"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 348003,
+    "starttime": "17387120",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-fix-20261105-1046-s2-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "50331648",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "100000 100000"
+  },
+  "unit_identity": {
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "InvocationID": "fc1d9077c4714335b3b4f3fa27e3f62e",
+    "MainPID": "349727",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-fix-20261105-1046-s2-work.service"
+  },
+  "worker": {
+    "identity": {
+      "pid": 349727,
+      "starttime": "17390138",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-fix-20261105-1046-s2-work.service"
+    },
+    "limits": {
+      "memory.max": "536870912",
+      "memory.high": "402653184",
+      "memory.swap.max": "0",
+      "pids.max": "96",
+      "cpu.max": "100000 100000"
+    }
+  },
+  "last_cgroup_metrics": {
+    "memory": 35987456,
+    "tasks": 2,
+    "memory_peak": 56573952,
+    "tasks_peak": 4,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 9163599,
+      "user_usec": 8180867,
+      "system_usec": 982732,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 125,
+      "nr_throttled": 63,
+      "throttled_usec": 330024,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 349727,
+        "starttime": "17390138",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-fix-20261105-1046-s2-work.service"
+      },
+      {
+        "pid": 349730,
+        "starttime": "17390151",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-fix-20261105-1046-s2-work.service"
+      }
+    ]
+  },
+  "command_result": {
+    "exit_code": 0,
+    "finished": 1793847588.9146194
+  },
+  "worker_final_cgroup": {
+    "memory": 8224768,
+    "tasks": 1,
+    "memory_peak": 56573952,
+    "tasks_peak": 4,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 9243087,
+      "user_usec": 8248480,
+      "system_usec": 994607,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 127,
+      "nr_throttled": 63,
+      "throttled_usec": 330024,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 349727,
+        "starttime": "17390138",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-fix-20261105-1046-s2-work.service"
+      }
+    ]
+  },
+  "already_exited": true,
+  "cgroup_removed": true,
+  "final_unit": {
+    "LoadState": "not-found",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": ""
+  },
+  "reason": null,
+  "min_available_bytes": 2977140736,
+  "peak_memory_bytes": 45191168,
+  "peak_tasks": 4,
+  "elapsed_seconds": 42.84536073199706
+}

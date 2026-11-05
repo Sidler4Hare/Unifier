@@ -1,0 +1,733 @@
+{
+  "host": {
+    "os_release": {
+      "NAME": "Ubuntu",
+      "ID": "ubuntu",
+      "PRETTY_NAME": "Ubuntu 24.04.5 LTS",
+      "VERSION_ID": "24.04",
+      "VERSION": "24.04.5 LTS (Noble Numbat)",
+      "VERSION_CODENAME": "noble",
+      "ID_LIKE": "debian",
+      "HOME_URL": "https://www.ubuntu.com/",
+      "SUPPORT_URL": "https://help.ubuntu.com/",
+      "BUG_REPORT_URL": "https://bugs.launchpad.net/ubuntu/",
+      "PRIVACY_POLICY_URL": "https://www.ubuntu.com/legal/terms-and-policies/privacy-policy",
+      "UBUNTU_CODENAME": "noble",
+      "LOGO": "ubuntu-logo"
+    },
+    "system": "Linux",
+    "machine": "x86_64",
+    "libc": "glibc",
+    "ostree": false,
+    "transactional": false,
+    "observation": "live-host"
+  },
+  "steps": [
+    {
+      "label": "dnf-jq-install",
+      "phase": "completed",
+      "failure_phase": null,
+      "verification": {
+        "ok": true,
+        "packages": {
+          "jq": true
+        },
+        "command": [
+          "jq",
+          "--version"
+        ],
+        "command_exit_code": 0,
+        "stdout_preview": "jq-1.8.1\n",
+        "stdout_sha256": "54331197baf50da2a8a20c930db4125b07765eb93c0c441930bd5bd53421ea62",
+        "problems": []
+      },
+      "dependency_repair": {
+        "status": "not-requested"
+      }
+    },
+    {
+      "label": "dnf-alsa-repair",
+      "phase": "completed",
+      "failure_phase": null,
+      "verification": {
+        "ok": true,
+        "packages": {},
+        "command": null,
+        "command_exit_code": null,
+        "stdout_preview": null,
+        "stdout_sha256": null,
+        "problems": []
+      },
+      "dependency_repair": {
+        "status": "repaired",
+        "scope": "package-elf-needed",
+        "objects": 8,
+        "rounds": [
+          {
+            "missing": [
+              "libasound.so.2"
+            ],
+            "providers": {
+              "libasound.so.2": [
+                "alsa-lib"
+              ]
+            },
+            "selected": [
+              "alsa-lib"
+            ],
+            "queries": {
+              "libasound.so.2": {
+                "exit_code": 0,
+                "stderr_tail": ""
+              }
+            }
+          }
+        ],
+        "unresolved": [],
+        "bundled_candidates": [],
+        "installed": [
+          "alsa-lib"
+        ],
+        "runtime_loading": "unverified",
+        "packages": [
+          "alsa-lib"
+        ]
+      }
+    },
+    {
+      "label": "dnf-jq-remove",
+      "phase": "completed",
+      "failure_phase": null,
+      "verification": {
+        "ok": true,
+        "packages": {
+          "jq": false
+        },
+        "command": [
+          "jq",
+          "--version"
+        ],
+        "command_exit_code": 127,
+        "stdout_preview": "",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "problems": []
+      },
+      "dependency_repair": {
+        "status": "not-requested"
+      }
+    },
+    {
+      "label": "dnf-jq-reinstall",
+      "phase": "completed",
+      "failure_phase": null,
+      "verification": {
+        "ok": true,
+        "packages": {
+          "jq": true
+        },
+        "command": [
+          "jq",
+          "--version"
+        ],
+        "command_exit_code": 0,
+        "stdout_preview": "jq-1.8.1\n",
+        "stdout_sha256": "54331197baf50da2a8a20c930db4125b07765eb93c0c441930bd5bd53421ea62",
+        "problems": []
+      },
+      "dependency_repair": {
+        "status": "not-requested"
+      }
+    }
+  ],
+  "status": "PASS_NATIVE_DNF_AND_REPAIR",
+  "retry_of": "evidence/result.json",
+  "original_failed_environment_preserved": true,
+  "stopped": true,
+  "containers_after": [
+    {
+      "Id": "8bfbd679904a5a531fb961fbef60cdc79671da2dbb6f9f347f842564519590ff",
+      "Created": "2026-11-03T10:09:56.728692957+08:00",
+      "Path": "/run/podman-init",
+      "Args": [
+        "--",
+        "/usr/bin/sleep",
+        "infinity"
+      ],
+      "State": {
+        "OciVersion": "1.1.0",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-11-03T10:11:08.603225504+08:00",
+        "FinishedAt": "2026-11-03T10:11:08.978473922+08:00",
+        "Health": {
+          "Status": "",
+          "FailingStreak": 0,
+          "Log": null
+        },
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z"
+      },
+      "Image": "4b5d9a75c81b96b542ac08b19587efa516da72bf02581908c6178d39de4bb07b",
+      "ImageDigest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "ImageName": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "Rootfs": "",
+      "Pod": "",
+      "ResolvConfPath": "",
+      "HostnamePath": "",
+      "HostsPath": "",
+      "StaticDir": "/home/agent/.local/share/containers/storage/overlay-containers/8bfbd679904a5a531fb961fbef60cdc79671da2dbb6f9f347f842564519590ff/userdata",
+      "OCIConfigPath": "/home/agent/.local/share/containers/storage/overlay-containers/8bfbd679904a5a531fb961fbef60cdc79671da2dbb6f9f347f842564519590ff/userdata/config.json",
+      "OCIRuntime": "runc",
+      "ConmonPidFile": "/run/user/1001/containers/overlay-containers/8bfbd679904a5a531fb961fbef60cdc79671da2dbb6f9f347f842564519590ff/userdata/conmon.pid",
+      "PidFile": "/run/user/1001/containers/overlay-containers/8bfbd679904a5a531fb961fbef60cdc79671da2dbb6f9f347f842564519590ff/userdata/pidfile",
+      "Name": "ml-a81af9bc-fedora44",
+      "RestartCount": 0,
+      "Driver": "overlay",
+      "MountLabel": "",
+      "ProcessLabel": "",
+      "AppArmorProfile": "",
+      "EffectiveCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "BoundingCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "ExecIDs": [],
+      "GraphDriver": {
+        "Name": "overlay",
+        "Data": {
+          "LowerDir": "/home/agent/.local/share/containers/storage/overlay/4c0c0da0239384245f2a4cf8411dbe0489996e9e4c3bc2ce38f86847e6d88308/diff",
+          "UpperDir": "/home/agent/.local/share/containers/storage/overlay/5314abfcffaea1fa19ee7732e1432823952bd2d3f47060360a3fb9b121996084/diff",
+          "WorkDir": "/home/agent/.local/share/containers/storage/overlay/5314abfcffaea1fa19ee7732e1432823952bd2d3f47060360a3fb9b121996084/work"
+        }
+      },
+      "Mounts": [],
+      "Dependencies": [],
+      "NetworkSettings": {
+        "EndpointID": "",
+        "Gateway": "",
+        "IPAddress": "",
+        "IPPrefixLen": 0,
+        "IPv6Gateway": "",
+        "GlobalIPv6Address": "",
+        "GlobalIPv6PrefixLen": 0,
+        "MacAddress": "",
+        "Bridge": "",
+        "SandboxID": "",
+        "HairpinMode": false,
+        "LinkLocalIPv6Address": "",
+        "LinkLocalIPv6PrefixLen": 0,
+        "Ports": {},
+        "SandboxKey": "",
+        "Networks": {
+          "pasta": {
+            "EndpointID": "",
+            "Gateway": "",
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "MacAddress": "",
+            "NetworkID": "pasta",
+            "DriverOpts": null,
+            "IPAMConfig": null,
+            "Links": null
+          }
+        }
+      },
+      "Namespace": "",
+      "IsInfra": false,
+      "IsService": false,
+      "KubeExitCodePropagation": "invalid",
+      "lockNumber": 0,
+      "Config": {
+        "Hostname": "8bfbd679904a",
+        "Domainname": "",
+        "User": "",
+        "AttachStdin": false,
+        "AttachStdout": false,
+        "AttachStderr": false,
+        "Tty": false,
+        "OpenStdin": false,
+        "StdinOnce": false,
+        "Env": [
+          "PATH=/usr/local/bin:/usr/bin",
+          "container=oci",
+          "HOME=/root",
+          "HOSTNAME=8bfbd679904a"
+        ],
+        "Cmd": [
+          "infinity"
+        ],
+        "Image": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+        "Volumes": null,
+        "WorkingDir": "/",
+        "Entrypoint": "/usr/bin/sleep",
+        "OnBuild": null,
+        "Labels": {
+          "io.buildah.version": "1.43.5",
+          "multilinux.env": "fedora44",
+          "multilinux.project": "/home/agent/expansion-continuation-20261103/environment",
+          "multilinux.role": "environment",
+          "org.opencontainers.image.licenses": "MIT",
+          "org.opencontainers.image.title": "fedora",
+          "org.opencontainers.image.url": "https://fedoraproject.org/",
+          "org.opencontainers.image.vendor": "Fedora Project",
+          "org.opencontainers.image.version": "44"
+        },
+        "Annotations": {
+          "io.container.manager": "libpod",
+          "io.podman.annotations.init": "TRUE",
+          "org.opencontainers.image.stopSignal": "15"
+        },
+        "StopSignal": 15,
+        "HealthcheckOnFailureAction": "none",
+        "CreateCommand": [
+          "podman",
+          "create",
+          "--name",
+          "ml-a81af9bc-fedora44",
+          "--label",
+          "multilinux.project=/home/agent/expansion-continuation-20261103/environment",
+          "--label",
+          "multilinux.env=fedora44",
+          "--label",
+          "multilinux.role=environment",
+          "--pull=never",
+          "--network=pasta",
+          "--http-proxy=false",
+          "--restart=no",
+          "--init",
+          "--stop-timeout=8",
+          "--entrypoint",
+          "/usr/bin/sleep",
+          "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+          "infinity"
+        ],
+        "Umask": "0022",
+        "Timeout": 0,
+        "StopTimeout": 8,
+        "Passwd": true,
+        "sdNotifyMode": "container"
+      },
+      "HostConfig": {
+        "Binds": [],
+        "CgroupManager": "systemd",
+        "CgroupMode": "private",
+        "ContainerIDFile": "",
+        "LogConfig": {
+          "Type": "journald",
+          "Config": null,
+          "Path": "",
+          "Tag": "",
+          "Size": "0B"
+        },
+        "NetworkMode": "pasta",
+        "PortBindings": {},
+        "RestartPolicy": {
+          "Name": "no",
+          "MaximumRetryCount": 0
+        },
+        "AutoRemove": false,
+        "VolumeDriver": "",
+        "VolumesFrom": null,
+        "CapAdd": [],
+        "CapDrop": [],
+        "Dns": [],
+        "DnsOptions": [],
+        "DnsSearch": [],
+        "ExtraHosts": [],
+        "GroupAdd": [],
+        "IpcMode": "shareable",
+        "Cgroup": "",
+        "Cgroups": "default",
+        "Links": null,
+        "OomScoreAdj": 0,
+        "PidMode": "private",
+        "Privileged": false,
+        "PublishAllPorts": false,
+        "ReadonlyRootfs": false,
+        "SecurityOpt": [],
+        "Tmpfs": {},
+        "UTSMode": "private",
+        "UsernsMode": "",
+        "ShmSize": 65536000,
+        "Runtime": "oci",
+        "ConsoleSize": [
+          0,
+          0
+        ],
+        "Isolation": "",
+        "CpuShares": 0,
+        "Memory": 0,
+        "NanoCpus": 0,
+        "CgroupParent": "user.slice",
+        "BlkioWeight": 0,
+        "BlkioWeightDevice": null,
+        "BlkioDeviceReadBps": null,
+        "BlkioDeviceWriteBps": null,
+        "BlkioDeviceReadIOps": null,
+        "BlkioDeviceWriteIOps": null,
+        "CpuPeriod": 0,
+        "CpuQuota": 0,
+        "CpuRealtimePeriod": 0,
+        "CpuRealtimeRuntime": 0,
+        "CpusetCpus": "",
+        "CpusetMems": "",
+        "Devices": [],
+        "DiskQuota": 0,
+        "KernelMemory": 0,
+        "MemoryReservation": 0,
+        "MemorySwap": 0,
+        "MemorySwappiness": 0,
+        "OomKillDisable": false,
+        "Init": true,
+        "PidsLimit": 2048,
+        "Ulimits": [
+          {
+            "Name": "RLIMIT_NOFILE",
+            "Soft": 524288,
+            "Hard": 524288
+          },
+          {
+            "Name": "RLIMIT_NPROC",
+            "Soft": 514113,
+            "Hard": 514113
+          }
+        ],
+        "CpuCount": 0,
+        "CpuPercent": 0,
+        "IOMaximumIOps": 0,
+        "IOMaximumBandwidth": 0,
+        "CgroupConf": null
+      }
+    },
+    {
+      "Id": "95e005106d273eb5c797fcefaa830040678c3e3cd9f73c064601f2f436be0623",
+      "Created": "2026-11-03T11:36:00.74110246+08:00",
+      "Path": "/run/podman-init",
+      "Args": [
+        "--",
+        "/usr/bin/sleep",
+        "infinity"
+      ],
+      "State": {
+        "OciVersion": "1.1.0",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-11-03T11:36:02.972117455+08:00",
+        "FinishedAt": "2026-11-03T11:37:00.06517901+08:00",
+        "Health": {
+          "Status": "",
+          "FailingStreak": 0,
+          "Log": null
+        },
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "Image": "4b5d9a75c81b96b542ac08b19587efa516da72bf02581908c6178d39de4bb07b",
+      "ImageDigest": "sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "ImageName": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+      "Rootfs": "",
+      "Pod": "",
+      "ResolvConfPath": "/run/user/1001/containers/overlay-containers/95e005106d273eb5c797fcefaa830040678c3e3cd9f73c064601f2f436be0623/userdata/resolv.conf",
+      "HostnamePath": "/run/user/1001/containers/overlay-containers/95e005106d273eb5c797fcefaa830040678c3e3cd9f73c064601f2f436be0623/userdata/hostname",
+      "HostsPath": "/run/user/1001/containers/overlay-containers/95e005106d273eb5c797fcefaa830040678c3e3cd9f73c064601f2f436be0623/userdata/hosts",
+      "StaticDir": "/home/agent/.local/share/containers/storage/overlay-containers/95e005106d273eb5c797fcefaa830040678c3e3cd9f73c064601f2f436be0623/userdata",
+      "OCIConfigPath": "/home/agent/.local/share/containers/storage/overlay-containers/95e005106d273eb5c797fcefaa830040678c3e3cd9f73c064601f2f436be0623/userdata/config.json",
+      "OCIRuntime": "runc",
+      "ConmonPidFile": "/run/user/1001/containers/overlay-containers/95e005106d273eb5c797fcefaa830040678c3e3cd9f73c064601f2f436be0623/userdata/conmon.pid",
+      "PidFile": "/run/user/1001/containers/overlay-containers/95e005106d273eb5c797fcefaa830040678c3e3cd9f73c064601f2f436be0623/userdata/pidfile",
+      "Name": "ml-d6fd69e6-fedora44",
+      "RestartCount": 0,
+      "Driver": "overlay",
+      "MountLabel": "",
+      "ProcessLabel": "",
+      "AppArmorProfile": "",
+      "EffectiveCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "BoundingCaps": [
+        "CAP_CHOWN",
+        "CAP_DAC_OVERRIDE",
+        "CAP_FOWNER",
+        "CAP_FSETID",
+        "CAP_KILL",
+        "CAP_NET_BIND_SERVICE",
+        "CAP_SETFCAP",
+        "CAP_SETGID",
+        "CAP_SETPCAP",
+        "CAP_SETUID",
+        "CAP_SYS_CHROOT"
+      ],
+      "ExecIDs": [],
+      "GraphDriver": {
+        "Name": "overlay",
+        "Data": {
+          "LowerDir": "/home/agent/.local/share/containers/storage/overlay/4c0c0da0239384245f2a4cf8411dbe0489996e9e4c3bc2ce38f86847e6d88308/diff",
+          "UpperDir": "/home/agent/.local/share/containers/storage/overlay/9d3778f816cb9d096b1b11819356f3b97065286223c9806ea1aef86bd48521f8/diff",
+          "WorkDir": "/home/agent/.local/share/containers/storage/overlay/9d3778f816cb9d096b1b11819356f3b97065286223c9806ea1aef86bd48521f8/work"
+        }
+      },
+      "Mounts": [],
+      "Dependencies": [],
+      "NetworkSettings": {
+        "EndpointID": "",
+        "Gateway": "",
+        "IPAddress": "",
+        "IPPrefixLen": 0,
+        "IPv6Gateway": "",
+        "GlobalIPv6Address": "",
+        "GlobalIPv6PrefixLen": 0,
+        "MacAddress": "",
+        "Bridge": "",
+        "SandboxID": "",
+        "HairpinMode": false,
+        "LinkLocalIPv6Address": "",
+        "LinkLocalIPv6PrefixLen": 0,
+        "Ports": {},
+        "SandboxKey": "",
+        "Networks": {
+          "pasta": {
+            "EndpointID": "",
+            "Gateway": "",
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "MacAddress": "",
+            "NetworkID": "pasta",
+            "DriverOpts": null,
+            "IPAMConfig": null,
+            "Links": null
+          }
+        }
+      },
+      "Namespace": "",
+      "IsInfra": false,
+      "IsService": false,
+      "KubeExitCodePropagation": "invalid",
+      "lockNumber": 1,
+      "Config": {
+        "Hostname": "95e005106d27",
+        "Domainname": "",
+        "User": "",
+        "AttachStdin": false,
+        "AttachStdout": false,
+        "AttachStderr": false,
+        "Tty": false,
+        "OpenStdin": false,
+        "StdinOnce": false,
+        "Env": [
+          "PATH=/usr/local/bin:/usr/bin",
+          "container=oci",
+          "HOME=/root",
+          "HOSTNAME=95e005106d27"
+        ],
+        "Cmd": [
+          "infinity"
+        ],
+        "Image": "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+        "Volumes": null,
+        "WorkingDir": "/",
+        "Entrypoint": "/usr/bin/sleep",
+        "OnBuild": null,
+        "Labels": {
+          "io.buildah.version": "1.43.5",
+          "multilinux.env": "fedora44",
+          "multilinux.project": "/home/agent/expansion-continuation-20261103/environment-v3",
+          "multilinux.role": "environment",
+          "org.opencontainers.image.licenses": "MIT",
+          "org.opencontainers.image.title": "fedora",
+          "org.opencontainers.image.url": "https://fedoraproject.org/",
+          "org.opencontainers.image.vendor": "Fedora Project",
+          "org.opencontainers.image.version": "44"
+        },
+        "Annotations": {
+          "io.container.manager": "libpod",
+          "io.podman.annotations.init": "TRUE",
+          "org.opencontainers.image.stopSignal": "15"
+        },
+        "StopSignal": 15,
+        "HealthcheckOnFailureAction": "none",
+        "CreateCommand": [
+          "podman",
+          "create",
+          "--memory=768m",
+          "--memory-swap=896m",
+          "--cpus=1",
+          "--pids-limit=192",
+          "--ipc=private",
+          "--ulimit=core=0:0",
+          "--name",
+          "ml-d6fd69e6-fedora44",
+          "--label",
+          "multilinux.project=/home/agent/expansion-continuation-20261103/environment-v3",
+          "--label",
+          "multilinux.env=fedora44",
+          "--label",
+          "multilinux.role=environment",
+          "--pull=never",
+          "--network=pasta",
+          "--http-proxy=false",
+          "--restart=no",
+          "--init",
+          "--stop-timeout=8",
+          "--entrypoint",
+          "/usr/bin/sleep",
+          "registry.fedoraproject.org/fedora@sha256:10667e171df877cedd245b7065238143e09eaae7da4656d3e62eb7c094378011",
+          "infinity"
+        ],
+        "Umask": "0022",
+        "Timeout": 0,
+        "StopTimeout": 8,
+        "Passwd": true,
+        "sdNotifyMode": "container"
+      },
+      "HostConfig": {
+        "Binds": [],
+        "CgroupManager": "systemd",
+        "CgroupMode": "private",
+        "ContainerIDFile": "",
+        "LogConfig": {
+          "Type": "journald",
+          "Config": null,
+          "Path": "",
+          "Tag": "",
+          "Size": "0B"
+        },
+        "NetworkMode": "pasta",
+        "PortBindings": {},
+        "RestartPolicy": {
+          "Name": "no",
+          "MaximumRetryCount": 0
+        },
+        "AutoRemove": false,
+        "VolumeDriver": "",
+        "VolumesFrom": null,
+        "CapAdd": [],
+        "CapDrop": [],
+        "Dns": [],
+        "DnsOptions": [],
+        "DnsSearch": [],
+        "ExtraHosts": [],
+        "GroupAdd": [],
+        "IpcMode": "private",
+        "Cgroup": "",
+        "Cgroups": "default",
+        "Links": null,
+        "OomScoreAdj": 0,
+        "PidMode": "private",
+        "Privileged": false,
+        "PublishAllPorts": false,
+        "ReadonlyRootfs": false,
+        "SecurityOpt": [],
+        "Tmpfs": {},
+        "UTSMode": "private",
+        "UsernsMode": "",
+        "ShmSize": 65536000,
+        "Runtime": "oci",
+        "ConsoleSize": [
+          0,
+          0
+        ],
+        "Isolation": "",
+        "CpuShares": 0,
+        "Memory": 805306368,
+        "NanoCpus": 1000000000,
+        "CgroupParent": "user.slice",
+        "BlkioWeight": 0,
+        "BlkioWeightDevice": null,
+        "BlkioDeviceReadBps": null,
+        "BlkioDeviceWriteBps": null,
+        "BlkioDeviceReadIOps": null,
+        "BlkioDeviceWriteIOps": null,
+        "CpuPeriod": 100000,
+        "CpuQuota": 100000,
+        "CpuRealtimePeriod": 0,
+        "CpuRealtimeRuntime": 0,
+        "CpusetCpus": "",
+        "CpusetMems": "",
+        "Devices": [],
+        "DiskQuota": 0,
+        "KernelMemory": 0,
+        "MemoryReservation": 0,
+        "MemorySwap": 939524096,
+        "MemorySwappiness": -1,
+        "OomKillDisable": false,
+        "Init": true,
+        "PidsLimit": 192,
+        "Ulimits": [
+          {
+            "Name": "RLIMIT_CORE",
+            "Soft": 0,
+            "Hard": 0
+          },
+          {
+            "Name": "RLIMIT_NOFILE",
+            "Soft": 1048576,
+            "Hard": 1048576
+          },
+          {
+            "Name": "RLIMIT_NPROC",
+            "Soft": 514113,
+            "Hard": 514113
+          }
+        ],
+        "CpuCount": 0,
+        "CpuPercent": 0,
+        "IOMaximumIOps": 0,
+        "IOMaximumBandwidth": 0,
+        "CgroupConf": null
+      }
+    }
+  ],
+  "preexisting_containers_unchanged": true
+}

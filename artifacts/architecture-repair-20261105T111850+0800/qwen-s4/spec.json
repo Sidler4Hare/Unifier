@@ -1,0 +1,11 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-s34-20261105t111850-qwen",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 300,
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/architecture-repair-20261105T111850+0800/qwen-launch.py"
+  ]
+}

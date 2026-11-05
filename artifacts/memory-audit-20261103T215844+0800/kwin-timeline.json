@@ -1,0 +1,72 @@
+[
+  {
+    "at": "2026-11-03T10:14:33.978964+08:00",
+    "monotonic_us": "147394422021",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": "kwin_wayland",
+    "message": "The main thread was hanging temporarily!"
+  },
+  {
+    "at": "2026-11-03T10:15:57.861508+08:00",
+    "monotonic_us": "147478304565",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": "kwin_wayland",
+    "message": "The main thread was hanging temporarily!"
+  },
+  {
+    "at": "2026-11-03T10:16:02.601513+08:00",
+    "monotonic_us": "147483044569",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": "kwin_wayland",
+    "message": "The main thread was hanging temporarily!"
+  },
+  {
+    "at": "2026-11-03T10:16:27.968939+08:00",
+    "monotonic_us": "147508411996",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": "kwin_wayland",
+    "message": "The main thread was hanging temporarily!"
+  },
+  {
+    "at": "2026-11-03T10:16:31.719446+08:00",
+    "monotonic_us": "147512162503",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": "kwin_wayland",
+    "message": "The main thread was hanging temporarily!"
+  },
+  {
+    "at": "2026-11-03T10:18:20.231571+08:00",
+    "monotonic_us": "147620674627",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": "kwin_wayland",
+    "message": "The main thread was hanging temporarily!"
+  },
+  {
+    "at": "2026-11-03T10:18:44.968970+08:00",
+    "monotonic_us": "147645412027",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": "kwin_wayland",
+    "message": "The main thread was hanging temporarily!"
+  },
+  {
+    "at": "2026-11-03T10:19:26.470408+08:00",
+    "monotonic_us": "147686913465",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": "kwin_wayland",
+    "message": "The main thread was hanging temporarily!"
+  },
+  {
+    "at": "2026-11-03T10:22:25.153069+08:00",
+    "monotonic_us": "147865596126",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": "kwin_wayland",
+    "message": "atomic commit failed: 权限不够"
+  },
+  {
+    "at": "2026-11-03T10:37:45.227179+08:00",
+    "monotonic_us": "148778734163",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": "kwin_wayland",
+    "message": "No backend specified, automatically choosing drm"
+  }
+]

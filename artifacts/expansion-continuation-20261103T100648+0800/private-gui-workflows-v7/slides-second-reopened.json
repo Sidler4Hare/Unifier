@@ -1,0 +1,14 @@
+{
+  "status": "PASS_NATIVE_GUI_SAVED_SLIDE",
+  "stage": "slides-second-reopened",
+  "filename": "slides-workflow.pptx",
+  "sha256": "6e2363922d7a6ba339537666644ea404b92c823b24b26e268c5e885a450f9674",
+  "uid": 1000,
+  "texts": [
+    "中文演示测试",
+    "Original line 100",
+    "中文、空格和保存重开",
+    "UNIFIER-PPT-CYCLE-1 $;",
+    "UNIFIER-PPT-CYCLE-2 $;"
+  ]
+}

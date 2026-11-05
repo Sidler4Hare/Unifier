@@ -1,0 +1,14 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-fix-20261105-1046-lease-lock-corrected",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 120,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_package_coordination.PackageCoordination.test_install_repair_and_recovery_do_not_deadlock_app_and_project_lease_release"
+  ]
+}

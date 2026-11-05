@@ -1,0 +1,147 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_session_recovery_contract",
+    "test_lifecycle_contracts"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 384396,
+    "starttime": "18484727",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-contracts-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "50331648",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "100000 100000"
+  },
+  "unit_identity": {
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "InvocationID": "74fdce8277a040c799aa67b0502a8df4",
+    "MainPID": "384632",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-contracts-work.service"
+  },
+  "worker": {
+    "identity": {
+      "pid": 384632,
+      "starttime": "18487737",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-contracts-work.service"
+    },
+    "limits": {
+      "memory.max": "536870912",
+      "memory.high": "402653184",
+      "memory.swap.max": "0",
+      "pids.max": "96",
+      "cpu.max": "100000 100000"
+    }
+  },
+  "last_cgroup_metrics": {
+    "memory": 37396480,
+    "tasks": 2,
+    "memory_peak": 37789696,
+    "tasks_peak": 4,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 397281,
+      "user_usec": 302838,
+      "system_usec": 94442,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 19,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 384632,
+        "starttime": "18487737",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-contracts-work.service"
+      },
+      {
+        "pid": 384634,
+        "starttime": "18487751",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-contracts-work.service"
+      }
+    ]
+  },
+  "command_result": {
+    "exit_code": 1,
+    "finished": 1793858554.272627
+  },
+  "worker_final_cgroup": {
+    "memory": 9433088,
+    "tasks": 1,
+    "memory_peak": 37789696,
+    "tasks_peak": 4,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 431031,
+      "user_usec": 331785,
+      "system_usec": 99246,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 20,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 384632,
+        "starttime": "18487737",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-contracts-work.service"
+      }
+    ]
+  },
+  "final_unit": {
+    "LoadState": "loaded",
+    "ActiveState": "failed",
+    "InvocationID": "74fdce8277a040c799aa67b0502a8df4",
+    "MainPID": "0",
+    "Result": "exit-code",
+    "ExecMainCode": "1",
+    "ExecMainStatus": "1",
+    "ControlGroup": ""
+  },
+  "cgroup_removed": true,
+  "reason": null,
+  "min_available_bytes": 3244621824,
+  "peak_memory_bytes": 37437440,
+  "peak_tasks": 4,
+  "elapsed_seconds": 32.18532291900192
+}

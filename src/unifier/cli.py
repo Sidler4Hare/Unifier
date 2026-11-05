@@ -18,6 +18,20 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--version", action="version", version=f"Unifier {__version__}")
     commands = parser.add_subparsers(dest="command", required=True)
+    agent = commands.add_parser("agent", help="host-issued, scoped guest requests")
+    agent_ops = agent.add_subparsers(dest="operation", required=True)
+    serve = agent_ops.add_parser("serve", help="serve a private host-issued policy")
+    serve.add_argument("--policy", required=True)
+    serve.add_argument("--once", action="store_true")
+    serve.add_argument("--max-requests", type=int)
+    serve.set_defaults(func=cmd_agent_serve)
+    request = agent_ops.add_parser("request", help="request one host-authorized action")
+    request.add_argument("--socket", required=True)
+    request.add_argument("--action", required=True)
+    request.add_argument("--token-env", default="UNIFIER_AGENT_TOKEN")
+    request.add_argument("--request-uuid")
+    request.add_argument("--timeout", type=float, default=60.0)
+    request.set_defaults(func=cmd_agent_request)
     compat = commands.add_parser("compat", help="inspect the distro family whitelist and host/guest relationships")
     compat_ops = compat.add_subparsers(dest="operation", required=True)
     families = compat_ops.add_parser("list", help="show explicit distro IDs, host profiles and prepared guests")
@@ -182,6 +196,17 @@ def build_parser() -> argparse.ArgumentParser:
     app_show = app_ops.add_parser("show", help="print one launch record")
     app_show.add_argument("id")
     app_show.set_defaults(func=cmd_app_show)
+    leases = app_ops.add_parser('leases', help='inspect shared application and project leases')
+    leases.add_argument('environment')
+    leases.set_defaults(func=cmd_app_leases)
+    recover = app_ops.add_parser('recover', help='reconcile application leases using guest execution proof')
+    recover.add_argument('environment')
+    recover.add_argument('--token')
+    recover.set_defaults(func=cmd_app_recover)
+    cancel = app_ops.add_parser('cancel', help='cancel one identity-bound application execution')
+    cancel.add_argument('environment')
+    cancel.add_argument('token')
+    cancel.set_defaults(func=cmd_app_cancel)
     opened = app_ops.add_parser("open", help="run the recorded argv; extra arguments follow --")
     opened.add_argument("id")
     opened.add_argument("--project", help="require this accepted project UUID pin")
@@ -593,6 +618,27 @@ def view_factory():
     return ViewManager(_state_root(), service_factory())
 
 
+def cmd_agent_serve(args) -> int:
+    from unifier.agent_bridge import main as bridge_main
+
+    argv = ["--policy", args.policy, "--root", str(_state_root())]
+    if args.once:
+        argv.append("--once")
+    if args.max_requests is not None:
+        argv.extend(["--max-requests", str(args.max_requests)])
+    return bridge_main(argv)
+
+
+def cmd_agent_request(args) -> int:
+    from unifier.bridge_client import main as client_main
+
+    argv = ["--socket", args.socket, "--action", args.action,
+            "--token-env", args.token_env, "--timeout", str(args.timeout)]
+    if args.request_uuid is not None:
+        argv.extend(["--request-uuid", args.request_uuid])
+    return client_main(argv)
+
+
 def cmd_compat_list(args) -> int:
     from unifier.compatibility import family_catalog
     print(json.dumps(family_catalog(), ensure_ascii=False, indent=2))
@@ -712,6 +758,9 @@ def cmd_run_help(args) -> int:
 
 def _print_transaction(txn: dict) -> int:
     print(json.dumps(txn, ensure_ascii=False, indent=2))
+    if (txn.get('dependency_repair') or {}).get('status') == 'bundled-candidates-unverified':
+        print('unifier: bundled library candidates found; runtime loading and application '
+              'workflow remain unverified.', file=sys.stderr)
     verdict = transaction_verdict(txn.get("phase"), txn.get("maintenance"))
     if verdict == "verified-with-warnings":
         items = (txn.get("maintenance") or {}).get("items") or []
@@ -826,6 +875,32 @@ def cmd_app_add(args) -> int:
 
 def cmd_app_show(args) -> int:
     print(json.dumps(service_factory().show_app(args.id), ensure_ascii=False, indent=2))
+    return 0
+
+
+def _app_group(args):
+    from unifier.on_demand import LaunchGroup
+    from unifier.service import validate_env_id
+    service = service_factory()
+    env_id = validate_env_id(args.environment)
+    service.store.load(env_id)
+    return LaunchGroup(service, env_id)
+
+
+def cmd_app_leases(args):
+    print(json.dumps(_app_group(args).read(), ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_app_recover(args):
+    result = _app_group(args).recover_applications(getattr(args, 'token', None))
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 1 if any(item['action'] in {'kept-unknown', 'recovery-required'} for item in result) else 0
+
+
+def cmd_app_cancel(args):
+    from unifier.application_leases import cancel_application
+    print(json.dumps(cancel_application(_app_group(args), args.token), ensure_ascii=False, indent=2))
     return 0
 
 

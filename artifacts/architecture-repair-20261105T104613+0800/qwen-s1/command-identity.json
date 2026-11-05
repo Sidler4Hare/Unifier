@@ -1,0 +1,11 @@
+{
+  "identity": {
+    "pid": 342424,
+    "starttime": "17331390",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-fix-20261105-1046-qwen-s1-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/.lab/agents/architecture-repair-20261105T104613+0800/qwen-launch.py"
+  ]
+}

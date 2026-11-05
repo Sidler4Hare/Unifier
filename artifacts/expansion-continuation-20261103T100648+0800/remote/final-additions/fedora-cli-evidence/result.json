@@ -1,0 +1,173 @@
+{
+  "status": "PASS_FEDORA_SIX_OSS_CLI_AND_HTOP_PTY",
+  "commands": [
+    {
+      "argv": [
+        "jq",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "jq-1.8.1\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "rg",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "ripgrep 15.2.0\n\nfeatures:+pcre2\nsimd(compile):+SSE2,-SSSE3,-AVX2\nsimd(runtime):+SSE2,+SSSE3,+AVX2\n\nPCRE2 10.45 is available (JIT is available)\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "fd",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "fd 10.4.2\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bat",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "bat 0.26.1\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "sqlite3",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "3.51.2 2026-01-09 17:27:48 b270f8339eb13b504d0b2ba154ebca966b7dde08e40c3ed7d559749818cbalt1 (64-bit)\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "htop",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "htop 3.4.1\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "jq",
+        ".n + 1",
+        "/home/agent/expansion-continuation-20261103/cli-shared-v1/input.json"
+      ],
+      "returncode": 0,
+      "stdout": "101\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "jq",
+        "-e",
+        ".missing",
+        "/home/agent/expansion-continuation-20261103/cli-shared-v1/input.json"
+      ],
+      "returncode": 1,
+      "stdout": "null\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "rg",
+        "--line-number",
+        "--fixed-strings",
+        "$;",
+        "/home/agent/expansion-continuation-20261103/cli-shared-v1/中文 literal $; text.txt"
+      ],
+      "returncode": 0,
+      "stdout": "2:中文 literal $;\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "rg",
+        "absent-pattern",
+        "/home/agent/expansion-continuation-20261103/cli-shared-v1/中文 literal $; text.txt"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "rg",
+        "[",
+        "/home/agent/expansion-continuation-20261103/cli-shared-v1/中文 literal $; text.txt"
+      ],
+      "returncode": 2,
+      "stdout": "",
+      "stderr": "rg: regex parse error:\n    (?:[)\n       ^\nerror: unclosed character class\n"
+    },
+    {
+      "argv": [
+        "fd",
+        "--fixed-strings",
+        "--type",
+        "f",
+        "literal",
+        "/home/agent/expansion-continuation-20261103/cli-shared-v1"
+      ],
+      "returncode": 0,
+      "stdout": "/home/agent/expansion-continuation-20261103/cli-shared-v1/中文 literal $; text.txt\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "bat",
+        "--plain",
+        "--paging=never",
+        "/home/agent/expansion-continuation-20261103/cli-shared-v1/中文 literal $; text.txt"
+      ],
+      "returncode": 0,
+      "stdout": "alpha\n中文 literal $;\nomega\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "sqlite3",
+        "/home/agent/expansion-continuation-20261103/cli-shared-v1/中文 空格 sqlite.db",
+        "create table t(n integer,s text); insert into t values(200,'中文 $;'); select n,s from t;"
+      ],
+      "returncode": 0,
+      "stdout": "200|中文 $;\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "sqlite3",
+        "/home/agent/expansion-continuation-20261103/cli-shared-v1/中文 空格 sqlite.db",
+        "pragma integrity_check; select n,s from t;"
+      ],
+      "returncode": 0,
+      "stdout": "ok\n200|中文 $;\n",
+      "stderr": ""
+    }
+  ],
+  "scope": "Fedora guest on Ubuntu; all test workloads share the bounded 1 GiB/1 CPU remote slice",
+  "htop_pty": {
+    "status": "PASS_RENDER_RESIZE_NORMAL_Q_EXIT",
+    "sizes": [
+      [
+        31,
+        103
+      ],
+      [
+        37,
+        111
+      ]
+    ],
+    "returncode": 0
+  },
+  "shared_db_uid": 1001,
+  "container_stopped": true
+}

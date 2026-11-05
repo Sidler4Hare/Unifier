@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-03T10:56:07.845935+08:00",
+  "user_report": "本轮测试打爆桌面；要求继续测试并做好防护",
+  "status": "DESKTOP_SESSION_FAILURE_REBOOT_OBSERVED",
+  "previous_boot": "c8763797-b21c-4c8f-9ff7-79d84424719c",
+  "current_boot": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+  "root_cause": "UNKNOWN",
+  "facts": [
+    "KWin/session restarted around 10:37; multiple KDE/KOS clients aborted",
+    "Host rebooted around 10:41",
+    "No current test containers running",
+    "Earlier GUI processes lacked aggregate test resource limits",
+    "Prior 30-minute soak interrupted before completion"
+  ],
+  "next_policy": [
+    "No more GUI launches on the live host compositor in this run",
+    "One bounded test operation at a time",
+    "Dedicated systemd cgroup limits for controllers/models",
+    "Headless/nested display required before GUI acceptance resumes"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "provider": "dsh Local qwen server",
+  "url_count": 1,
+  "endpoint_is_loopback": [
+    false
+  ],
+  "weights_loaded_on_this_host_by_this_route": false,
+  "credential_values_exported": false,
+  "boundary": "Route verification; no remote model process memory sampled in this audit."
+}

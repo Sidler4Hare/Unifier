@@ -1,0 +1,9 @@
+{
+  "status": "PASS_PRIVATE_GUI_EDIT_SAVE",
+  "component": "Writer",
+  "marker": "UNIFIER-PRIVATE-WRITER-CYCLE-1 20261103 literal $;",
+  "marker_in_document_xml": true,
+  "sha256": "f374b69be7b76dfbfad4050340708213067bbf3ed2a1f476e287ed423cebd555",
+  "font_warning": "WPS reports missing template font; layout fidelity not accepted",
+  "stop_reopen": "PENDING"
+}

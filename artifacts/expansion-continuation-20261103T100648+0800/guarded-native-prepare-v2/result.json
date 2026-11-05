@@ -1,0 +1,29 @@
+{
+  "status": "PASS_GUARDED_NATIVE_HANDSHAKE_AND_PRIVATE_DISPLAY_DEPENDENCIES",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "host_desktop_exposed": false,
+  "guarded_test_root": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment",
+  "control_handshake": {
+    "guest_pid": 6,
+    "guest_start": 179377,
+    "exit_code": 0,
+    "cleanup": "gone"
+  },
+  "package_phase": "completed",
+  "package_verification": {
+    "ok": true,
+    "packages": {
+      "xvfb": true,
+      "xauth": true,
+      "x11-apps": true,
+      "fonts-noto-cjk": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": []
+  },
+  "reserve_monitor_aborted": false,
+  "stopped": true
+}

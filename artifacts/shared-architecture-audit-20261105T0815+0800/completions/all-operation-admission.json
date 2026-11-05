@@ -1,0 +1,30 @@
+[
+  {
+    "operation": "install_packages",
+    "phase": "failed",
+    "failure_phase": "isolation-preflight",
+    "native": [],
+    "events": []
+  },
+  {
+    "operation": "update_packages",
+    "phase": "failed",
+    "failure_phase": "isolation-preflight",
+    "native": [],
+    "events": []
+  },
+  {
+    "operation": "remove_packages",
+    "phase": "failed",
+    "failure_phase": "isolation-preflight",
+    "native": [],
+    "events": []
+  },
+  {
+    "operation": "repair_dependencies",
+    "phase": "failed",
+    "failure_phase": "isolation-preflight",
+    "native": [],
+    "events": []
+  }
+]

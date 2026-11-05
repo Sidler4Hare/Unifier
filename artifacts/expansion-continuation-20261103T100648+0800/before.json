@@ -1,0 +1,54 @@
+{
+  "timestamp": "20261103T100648+0800",
+  "head": "6f776a61dc599ad8f1c0a476681e892248e55a6b",
+  "branch": "codex/unifier-v2-control",
+  "source_backup_sha256": "2adf86ef4b031d18f62c654aa76f4c37b75c69a6bdea2e39373e6e0efa626803",
+  "index_entries_sha256": "ff5694cc73d5975a7fe981dfaad826181a6ea0782e2a93301b0c617ebd06590c",
+  "containers": [
+    {
+      "id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "name": "ml-53c5c8a5-freecad-arch",
+      "status": "exited"
+    },
+    {
+      "id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "name": "ml-6b061a2f-meeting",
+      "status": "exited"
+    },
+    {
+      "id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+      "name": "ml-104d8e92-debian13",
+      "status": "exited"
+    },
+    {
+      "id": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+      "name": "ml-104d8e92-arch",
+      "status": "exited"
+    },
+    {
+      "id": "8399ccd38b137d9283b6587007a43744e8d334809ed4864f002f091009ca555e",
+      "name": "ml-45dc9c7d-deps-debian",
+      "status": "exited"
+    },
+    {
+      "id": "d78a392cb1750fc95f5e0476806cfda25b6b06a8c018d2277b01e38bab3fddf8",
+      "name": "ml-45dc9c7d-deps-arch",
+      "status": "exited"
+    },
+    {
+      "id": "985bd6c89cf3c1fc87a87b4226a809c6f72ec747f4c8e0832cbe62976670a679",
+      "name": "ml-06a72096-deps-debian",
+      "status": "exited"
+    },
+    {
+      "id": "8deb0c8e47240cd2befeef774fde32698ef042545b5f9daebddc2ac3287e1dc7",
+      "name": "ml-06a72096-deps-arch",
+      "status": "exited"
+    },
+    {
+      "id": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b",
+      "name": "ml-26942dd5-interrupt-debian",
+      "status": "exited"
+    }
+  ]
+}

@@ -34,7 +34,8 @@ from test_desktop import SESSION
 from test_env import FakeRuntime, service_in
 
 
-DEAD_LEASE = {'pid': 999999, 'stamp': 1, 'app_id': 'notes'}
+# Host-only bookkeeping may expire by PID. APP ownership must not.
+DEAD_HOST_LEASE = {'pid': 999999, 'stamp': 1}
 
 
 def ready(root, runtime=None, *, portals=False):
@@ -213,7 +214,21 @@ class StoppingRace(unittest.TestCase):
 
 
 class AutoStopOwnership(unittest.TestCase):
-    def test_stale_lease_restores_auto_stop_for_the_same_container_instance(self):
+    def test_unknown_legacy_app_lease_keeps_its_started_container(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            service, _runtime = ready(root, TickingRuntime())
+            service.start('debian13')
+            info = service._require_owned(service.store.load('debian13'))
+            legacy = dict(DEAD_HOST_LEASE, app_id='notes')
+            group = write_stale_lease(service, auto_stop=True, container_id=info.container_id,
+                container_started_at=info.started_at, leases={'legacy-app': legacy})
+            managed_open(service, 'notes', [])
+            self.assertEqual(service.inspect('debian13')['runtime_state'], 'running')
+            self.assertEqual(group.read()['leases'], {'legacy-app': legacy})
+            self.assertEqual(group.recover_applications()[0]['action'], 'kept-unknown')
+
+    def test_stale_host_lease_restores_auto_stop_for_the_same_container_instance(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             service, _runtime = ready(root, TickingRuntime())
@@ -221,7 +236,7 @@ class AutoStopOwnership(unittest.TestCase):
             info = service._require_owned(service.store.load('debian13'))
             write_stale_lease(service, auto_stop=True, container_id=info.container_id,
                               container_started_at=info.started_at,
-                              leases={'dead-launcher': DEAD_LEASE})
+                              leases={'dead-launcher': DEAD_HOST_LEASE})
             managed_open(service, 'notes', [])
             self.assertEqual(service.inspect('debian13')['runtime_state'], 'stopped')
             state = LaunchGroup(service, 'debian13').read()
@@ -238,7 +253,7 @@ class AutoStopOwnership(unittest.TestCase):
             service.start('debian13')
             write_stale_lease(service, auto_stop=True, container_id=info.container_id,
                               container_started_at=info.started_at,
-                              leases={'dead-launcher': DEAD_LEASE})
+                              leases={'dead-launcher': DEAD_HOST_LEASE})
             managed_open(service, 'notes', [])
             self.assertEqual(service.inspect('debian13')['runtime_state'], 'running')
             state = LaunchGroup(service, 'debian13').read()
@@ -252,7 +267,7 @@ class AutoStopOwnership(unittest.TestCase):
             service.start('debian13')
             info = service._require_owned(service.store.load('debian13'))
             write_stale_lease(service, auto_stop=True, container_id=info.container_id,
-                              leases={'dead-launcher': DEAD_LEASE})
+                              leases={'dead-launcher': DEAD_HOST_LEASE})
             managed_open(service, 'notes', [])
             self.assertEqual(service.inspect('debian13')['runtime_state'], 'running')
 
@@ -264,7 +279,7 @@ class AutoStopOwnership(unittest.TestCase):
             info = service._require_owned(service.store.load('debian13'))
             write_stale_lease(service, auto_stop=True, container_id='cid-from-another-run',
                               container_started_at=info.started_at,
-                              leases={'dead-launcher': DEAD_LEASE})
+                              leases={'dead-launcher': DEAD_HOST_LEASE})
             managed_open(service, 'notes', [])
             self.assertEqual(service.inspect('debian13')['runtime_state'], 'running')
 
@@ -273,7 +288,7 @@ class AutoStopOwnership(unittest.TestCase):
             root = Path(temporary)
             service, _runtime = ready(root, TickingRuntime())
             service.start('debian13')
-            write_stale_lease(service, auto_stop=False, leases={'dead-launcher': DEAD_LEASE})
+            write_stale_lease(service, auto_stop=False, leases={'dead-launcher': DEAD_HOST_LEASE})
             managed_open(service, 'notes', [])
             self.assertEqual(service.inspect('debian13')['runtime_state'], 'running')
 
@@ -330,7 +345,7 @@ class LeaseIdentity(unittest.TestCase):
         stamp = process_stamp(os.getpid())
         items = {'old': {'pid': os.getpid(), 'stamp': stamp + 1},
                  'current': {'pid': os.getpid(), 'stamp': stamp},
-                 'dead': DEAD_LEASE}
+                 'dead': DEAD_HOST_LEASE}
         self.assertEqual(set(live_leases(items)), {'current'})
 
 

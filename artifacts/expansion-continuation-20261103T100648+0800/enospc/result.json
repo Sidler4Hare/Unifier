@@ -1,0 +1,203 @@
+{
+  "status": "PASS_EXPECTED_ENOSPC_AND_RECOVERY",
+  "scope": "bounded managed copy failure and recovery on own 8MiB fuse2fs image",
+  "operation": {
+    "schema_version": 1,
+    "operation_uuid": "43492643-8798-4085-80b6-d9cb1fb49eb7",
+    "operation": "copy",
+    "state": "NEEDS_RECONCILIATION",
+    "source": {
+      "root_uuid": "d4958a08-d5ca-4919-b6f7-ec8ed6b3f01b",
+      "management_domain": "host-project",
+      "access_policy": "read-write",
+      "locator": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/enospc-fixture/source",
+      "relative_path": "dense.bin",
+      "root_dev": 52,
+      "root_ino": 4299944,
+      "parent_parts": [],
+      "observed_version": {
+        "dev": 52,
+        "ino": 4299947,
+        "mode": 33188,
+        "nlink": 1,
+        "uid": 1000,
+        "gid": 1000,
+        "size": 12582912,
+        "mtime_ns": 1793673324011166766,
+        "ctime_ns": 1793673324011166766,
+        "file_type": "regular",
+        "acl_check": "checked",
+        "xattrs_observed_but_not_copied": [
+          "security.selinux"
+        ]
+      },
+      "sha256": null,
+      "source_view": null,
+      "cleanup_policy": "retain",
+      "parent_dev": 52,
+      "parent_ino": 4299944
+    },
+    "target": {
+      "root_uuid": "7a87377b-479b-403e-b811-706fe4a95f69",
+      "management_domain": "host-project",
+      "access_policy": "read-write",
+      "locator": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/enospc-fixture/mount",
+      "relative_path": "dense.bin",
+      "root_dev": 105,
+      "root_ino": 2,
+      "parent_parts": [],
+      "parent_dev": 105,
+      "parent_ino": 2,
+      "overwrite": false
+    },
+    "stage": {
+      "name": ".ml-stage-43492643-8798-4085-80b6-d9cb1fb49eb7-dd5311c7a7834187aaee1d33d4b984e3",
+      "nonce": "dd5311c7a7834187aaee1d33d4b984e3",
+      "parent_dev": 105,
+      "parent_ino": 2,
+      "dev": 105,
+      "ino": 13,
+      "size": 0,
+      "mode": 33152,
+      "mtime_ns": 1793673324085472220,
+      "ctime_ns": 1793673324085472220,
+      "sha256": null,
+      "ready": false,
+      "created": true,
+      "cleaned": false
+    },
+    "published": {
+      "dev": null,
+      "ino": null,
+      "size": null,
+      "sha256": null,
+      "nlink": null,
+      "published_at": null
+    },
+    "registry": {
+      "committed": false,
+      "committed_at": null
+    },
+    "provenance": {
+      "source_root_uuid": "d4958a08-d5ca-4919-b6f7-ec8ed6b3f01b",
+      "source_relative_path": "dense.bin",
+      "source_management_domain": "host-project",
+      "source_view_uuid": null,
+      "note": "target uses the destination management domain; source is independent provenance"
+    },
+    "management_domain": "host-project",
+    "execution": {
+      "authorized": false,
+      "interpreter": null,
+      "environment": null,
+      "note": "a copy does not inherit source execution authorization, handler registration or project binding"
+    },
+    "source_cleanup": {
+      "requested": false,
+      "authorized": false,
+      "mode": "retain",
+      "policy_snapshot": "retain",
+      "root_uuid": "d4958a08-d5ca-4919-b6f7-ec8ed6b3f01b",
+      "root_dev": 52,
+      "root_ino": 4299944,
+      "locator": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/enospc-fixture/source",
+      "access_policy": "read-write",
+      "backend": "local-directory",
+      "source_view_present": false,
+      "authorized_at": null,
+      "state": "not_requested",
+      "performed": false,
+      "quarantine": {
+        "dir_name": null,
+        "dir_dev": null,
+        "dir_ino": null,
+        "dir_nonce": null,
+        "entry_name": "source",
+        "captured_dev": null,
+        "captured_ino": null,
+        "captured_size": null,
+        "captured_sha256": null,
+        "captured_ctime_ns": null
+      },
+      "captured": null,
+      "lease": {
+        "type": "write",
+        "acquired": false,
+        "broken": false
+      },
+      "deletion_intent": null,
+      "reason": null,
+      "removed_at": null
+    },
+    "capabilities": {
+      "regular_file_copy": true,
+      "move_copies_then_retains_source": true,
+      "controlled_move_source_delete": true,
+      "source_delete": false,
+      "atomic_cross_filesystem_move": false,
+      "universal_atomic_rename": false,
+      "directory_recursive": false,
+      "acl_preservation": false,
+      "sparse_file": false,
+      "device_or_special_file": false,
+      "symlink_follow": false,
+      "hardlink_source": false,
+      "xattr_or_selinux_preservation": false,
+      "full_metadata_preservation": false,
+      "overwrite_existing_target": false,
+      "hash_and_rename_is_cas": false,
+      "fs_and_registry_cross_system_atomic": false,
+      "lease_blocks_rename_or_unlink": false,
+      "hostile_same_uid_immunity": false
+    },
+    "unsupported": [
+      "directories and recursive trees",
+      "ACL-bearing files",
+      "sparse or compressed files",
+      "device, fifo and socket nodes",
+      "symbolic links and hard-linked regular sources",
+      "copying xattrs, SELinux labels, ownership, ACLs or timestamps as a complete set",
+      "automatic source deletion outside an explicitly authorized controlled move",
+      "atomic cross-filesystem rename",
+      "overwriting an existing target",
+      "immunity from malicious same-UID tampering with private state or journals"
+    ],
+    "source_retained": true,
+    "source_retention_reason": null,
+    "last_error": "filesystem error after the operation became durable: [Errno 28] No space left on device",
+    "transitions": [
+      {
+        "state": "INTENT_DURABLE",
+        "at": "2026-11-03T10:35:24+08:00"
+      },
+      {
+        "state": "STAGING",
+        "at": "2026-11-03T10:35:24+08:00"
+      },
+      {
+        "state": "NEEDS_RECONCILIATION",
+        "at": "2026-11-03T10:35:24+08:00",
+        "reason": "filesystem error after the operation became durable: [Errno 28] No space left on device"
+      }
+    ],
+    "created_at": "2026-11-03T10:35:24+08:00",
+    "updated_at": "2026-11-03T10:35:24+08:00",
+    "complete": false,
+    "real_paths": {
+      "source": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/enospc-fixture/source/dense.bin",
+      "target": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/enospc-fixture/mount/dense.bin",
+      "stage": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/enospc-fixture/mount/.ml-stage-43492643-8798-4085-80b6-d9cb1fb49eb7-dd5311c7a7834187aaee1d33d4b984e3"
+    },
+    "no_overwrite": true,
+    "overwrite_mechanism": "O_EXCL staging in the target directory plus same-filesystem linkat",
+    "registry_transaction_note": "filesystem publication and the operation registration are separate durable steps; recovery verifies the recorded inode instead of assuming one cross-system transaction",
+    "quarantine_path": null,
+    "source_cleanup_state": "not_requested"
+  },
+  "source_sha256_unchanged": true,
+  "destination_not_published": true,
+  "next_copy_state": "DONE",
+  "next_copy_bytes_ok": true,
+  "unmounted": true,
+  "unmount_error": ""
+}

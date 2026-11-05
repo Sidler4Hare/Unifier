@@ -1,0 +1,34 @@
+[
+  {
+    "distro": "debian13",
+    "root": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment",
+    "record": ".lab/guarded-expansion-20261103/environment/.lab/state/environments/debian13.json",
+    "record_sha256": "3a56a2b36f5d382c1c2e4a81aabb088cbf3a34c452b06fdd909aab41971b48ce",
+    "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+    "recorded_cid_matches": true,
+    "uuid": "ae147c3e-3e65-41ac-ac8d-9257c9202696",
+    "generation": 1,
+    "inventory_status": "verified",
+    "package_recovery_required": false,
+    "peer_records": 0,
+    "lease_entries": [],
+    "abort_latch_exists": false,
+    "live_admitted": false
+  },
+  {
+    "distro": "arch",
+    "root": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031",
+    "record": ".lab/auto-deps-20261031/.lab/state/environments/deps-arch.json",
+    "record_sha256": "e45fe6f16bcb3dbb7791a0c7d457dc7fb9badd4a5b5e325fba1901dee62cedfd",
+    "cid": "d78a392cb1750fc95f5e0476806cfda25b6b06a8c018d2277b01e38bab3fddf8",
+    "recorded_cid_matches": true,
+    "uuid": "bdc90f69-b6b5-4a70-a22a-a8094a192d90",
+    "generation": 1,
+    "inventory_status": null,
+    "package_recovery_required": null,
+    "peer_records": 1,
+    "lease_entries": [],
+    "abort_latch_exists": false,
+    "live_admitted": false
+  }
+]

@@ -1,0 +1,485 @@
+[
+  {
+    "at": "2026-11-03T10:28:53.526958+08:00",
+    "monotonic_us": "148253970014",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "PM: suspend entry (deep)"
+  },
+  {
+    "at": "2026-11-03T10:29:02.195049+08:00",
+    "monotonic_us": "148255702033",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "PM: suspend exit"
+  },
+  {
+    "at": "2026-11-03T10:29:04.123220+08:00",
+    "monotonic_us": "148257630203",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "wlp0s20f3: send auth to ee:bd:e6:9b:f7:76 (try 1/3)"
+  },
+  {
+    "at": "2026-11-03T10:29:04.180326+08:00",
+    "monotonic_us": "148257687309",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "wlp0s20f3: send auth to ee:bd:e6:9b:f7:76 (try 1/3)"
+  },
+  {
+    "at": "2026-11-03T10:29:04.350524+08:00",
+    "monotonic_us": "148257857507",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "kworker/5:0: page allocation failure: order:4, mode:0xcc0(GFP_KERNEL), nodemask=(null),cpuset=/,mems_allowed=0"
+  },
+  {
+    "at": "2026-11-03T10:29:04.350664+08:00",
+    "monotonic_us": "148257857647",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "CPU: 5 UID: 0 PID: 1200863 Comm: kworker/5:0 Not tainted 7.2.11-200.fc44.x86_64 #1 PREEMPT(lazy) "
+  },
+  {
+    "at": "2026-11-03T10:29:04.350757+08:00",
+    "monotonic_us": "148257857740",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Hardware name: LG Electronics 14Z90P-G.AR51C/14Z90P, BIOS T2ZF0350 X64 07/22/2021"
+  },
+  {
+    "at": "2026-11-03T10:29:04.350818+08:00",
+    "monotonic_us": "148257857801",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Workqueue: events iwl_mvm_add_new_dqa_stream_wk [iwlmvm]"
+  },
+  {
+    "at": "2026-11-03T10:29:04.350865+08:00",
+    "monotonic_us": "148257857848",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Call Trace:"
+  },
+  {
+    "at": "2026-11-03T10:29:04.350910+08:00",
+    "monotonic_us": "148257857893",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " <TASK>"
+  },
+  {
+    "at": "2026-11-03T10:29:04.350942+08:00",
+    "monotonic_us": "148257857925",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " dump_stack_lvl+0x5d/0x80"
+  },
+  {
+    "at": "2026-11-03T10:29:04.350983+08:00",
+    "monotonic_us": "148257857966",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " warn_alloc+0x166/0x1a0"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351008+08:00",
+    "monotonic_us": "148257857992",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " __alloc_pages_slowpath.constprop.0+0x3c9/0xca0"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351067+08:00",
+    "monotonic_us": "148257858050",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " __alloc_frozen_pages_noprof+0x334/0x370"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351099+08:00",
+    "monotonic_us": "148257858082",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " __alloc_pages_noprof+0xe/0x20"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351147+08:00",
+    "monotonic_us": "148257858130",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " __dma_direct_alloc_pages.isra.0+0x189/0x330"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351274+08:00",
+    "monotonic_us": "148257858257",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " dma_direct_alloc+0x84/0x2d0"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351323+08:00",
+    "monotonic_us": "148257858306",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " dma_alloc_attrs+0x86/0x220"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351360+08:00",
+    "monotonic_us": "148257858343",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " iwl_pcie_txq_alloc+0x2da/0x310 [iwlwifi]"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351393+08:00",
+    "monotonic_us": "148257858376",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " iwl_txq_dyn_alloc_dma+0xc9/0x1e0 [iwlwifi]"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351426+08:00",
+    "monotonic_us": "148257858409",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " iwl_txq_dyn_alloc+0x103/0x470 [iwlwifi]"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351465+08:00",
+    "monotonic_us": "148257858448",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " ? iwl_mvm_tvqm_enable_txq+0x15a/0x220 [iwlmvm]"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351508+08:00",
+    "monotonic_us": "148257858491",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " iwl_mvm_tvqm_enable_txq+0x15a/0x220 [iwlmvm]"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351565+08:00",
+    "monotonic_us": "148257858548",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " iwl_mvm_sta_alloc_queue_tvqm.isra.0+0x94/0x1c0 [iwlmvm]"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351620+08:00",
+    "monotonic_us": "148257858603",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " iwl_mvm_sta_alloc_queue+0x379/0xab0 [iwlmvm]"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351657+08:00",
+    "monotonic_us": "148257858640",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " iwl_mvm_add_new_dqa_stream_wk+0x131/0x1b0 [iwlmvm]"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351695+08:00",
+    "monotonic_us": "148257858678",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " process_one_work+0x19e/0x370"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351815+08:00",
+    "monotonic_us": "148257858798",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " worker_thread+0x1a6/0x310"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351856+08:00",
+    "monotonic_us": "148257858839",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " ? __pfx_worker_thread+0x10/0x10"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351887+08:00",
+    "monotonic_us": "148257858870",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " kthread+0xe4/0x120"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351937+08:00",
+    "monotonic_us": "148257858920",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " ? __pfx_kthread+0x10/0x10"
+  },
+  {
+    "at": "2026-11-03T10:29:04.351971+08:00",
+    "monotonic_us": "148257858954",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " ret_from_fork+0x1a1/0x270"
+  },
+  {
+    "at": "2026-11-03T10:29:04.352025+08:00",
+    "monotonic_us": "148257859008",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " ? __pfx_kthread+0x10/0x10"
+  },
+  {
+    "at": "2026-11-03T10:29:04.352088+08:00",
+    "monotonic_us": "148257859071",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " ret_from_fork_asm+0x1a/0x30"
+  },
+  {
+    "at": "2026-11-03T10:29:04.352134+08:00",
+    "monotonic_us": "148257859117",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": " </TASK>"
+  },
+  {
+    "at": "2026-11-03T10:29:04.352191+08:00",
+    "monotonic_us": "148257859174",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Mem-Info:"
+  },
+  {
+    "at": "2026-11-03T10:29:04.352279+08:00",
+    "monotonic_us": "148257859262",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "active_anon:343187 inactive_anon:181342 isolated_anon:0\n active_file:74504 inactive_file:325268 isolated_file:0\n unevictable:4518 dirty:462 writeback:8\n slab_reclaimable:55626 slab_unreclaimable:96070\n mapped:182891 shmem:108716 pagetables:44430\n sec_pagetables:1053 bounce:0\n kernel_misc_reclaimable:0\n free:66058 free_pcp:283 free_cma:0"
+  },
+  {
+    "at": "2026-11-03T10:29:04.352391+08:00",
+    "monotonic_us": "148257859374",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Node 0 active_anon:1372748kB inactive_anon:725368kB active_file:298016kB inactive_file:1301072kB unevictable:18072kB isolated(anon):0kB isolated(file):0kB mapped:731564kB dirty:1848kB writeback:32kB shmem:434864kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:0kB kernel_stack:34288kB pagetables:177720kB sec_pagetables:4212kB all_unreclaimable? no Balloon:0kB gpu_active:0kB gpu_reclaim:0kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358108+08:00",
+    "monotonic_us": "148257865091",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Node 0 DMA free:14336kB boost:0kB min:132kB low:164kB high:196kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358176+08:00",
+    "monotonic_us": "148257865159",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "lowmem_reserve[]: 0 490 7597 7597 7597"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358220+08:00",
+    "monotonic_us": "148257865203",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Node 0 DMA32 free:41072kB boost:8832kB min:12760kB low:13740kB high:14720kB reserved_highatomic:0KB free_highatomic:0KB active_anon:99152kB inactive_anon:100344kB active_file:19404kB inactive_file:101212kB unevictable:1204kB writepending:112kB zspages:91752kB present:567872kB managed:501972kB mlocked:52kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358262+08:00",
+    "monotonic_us": "148257865245",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "lowmem_reserve[]: 0 0 7107 7107 7107"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358297+08:00",
+    "monotonic_us": "148257865280",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Node 0 Normal free:209964kB boost:142900kB min:206416kB low:222292kB high:238168kB reserved_highatomic:2048KB free_highatomic:2048KB active_anon:1273360kB inactive_anon:625132kB active_file:278612kB inactive_file:1199632kB unevictable:16756kB writepending:1760kB zspages:2699308kB present:7483392kB managed:7277624kB mlocked:784kB bounce:0kB free_pcp:248kB local_pcp:0kB free_cma:0kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358355+08:00",
+    "monotonic_us": "148257865338",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "lowmem_reserve[]: 0 0 0 0 0"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358385+08:00",
+    "monotonic_us": "148257865368",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 0*1024kB 1*2048kB (M) 3*4096kB (M) = 14336kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358430+08:00",
+    "monotonic_us": "148257865413",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Node 0 DMA32: 1260*4kB (UME) 1439*8kB (UME) 390*16kB (UME) 305*32kB (UME) 113*64kB (UME) 7*128kB (ME) 2*256kB (UM) 0*512kB 0*1024kB 0*2048kB 0*4096kB = 41192kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358464+08:00",
+    "monotonic_us": "148257865447",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Node 0 Normal: 27368*4kB (UME) 12200*8kB (UME) 54*16kB (UM) 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 0*1024kB 1*2048kB (H) 0*4096kB = 209984kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358502+08:00",
+    "monotonic_us": "148257865485",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358539+08:00",
+    "monotonic_us": "148257865522",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358567+08:00",
+    "monotonic_us": "148257865550",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "511071 total pagecache pages"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358595+08:00",
+    "monotonic_us": "148257865578",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "2483 pages in swap cache"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358635+08:00",
+    "monotonic_us": "148257865618",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Free swap  = 11767524kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358670+08:00",
+    "monotonic_us": "148257865653",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Total swap = 21880824kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358696+08:00",
+    "monotonic_us": "148257865679",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "2016814 pages RAM"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358740+08:00",
+    "monotonic_us": "148257865723",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "0 pages HighMem/MovableOnly"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358776+08:00",
+    "monotonic_us": "148257865759",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "68075 pages reserved"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358807+08:00",
+    "monotonic_us": "148257865790",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "0 pages cma reserved"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358852+08:00",
+    "monotonic_us": "148257865835",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "0 pages hwpoisoned"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358884+08:00",
+    "monotonic_us": "148257865867",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Memory cgroup min protection 256000kB -- low protection 0kB"
+  },
+  {
+    "at": "2026-11-03T10:29:04.358926+08:00",
+    "monotonic_us": "148257865909",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "iwlwifi 0000:00:14.3: Tx queue alloc failed"
+  },
+  {
+    "at": "2026-11-03T10:29:04.836053+08:00",
+    "monotonic_us": "148258343037",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Bluetooth: hci0: Waiting for firmware download to complete"
+  },
+  {
+    "at": "2026-11-03T10:29:04.837052+08:00",
+    "monotonic_us": "148258344035",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Bluetooth: hci0: Firmware loaded in 2647775 usecs"
+  },
+  {
+    "at": "2026-11-03T10:29:04.837125+08:00",
+    "monotonic_us": "148258344108",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Bluetooth: hci0: Waiting for device to boot"
+  },
+  {
+    "at": "2026-11-03T10:29:04.852065+08:00",
+    "monotonic_us": "148258359049",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Bluetooth: hci0: Device booted in 14737 usecs"
+  },
+  {
+    "at": "2026-11-03T10:29:04.852146+08:00",
+    "monotonic_us": "148258359129",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Bluetooth: hci0: Found Intel DDC parameters: intel/ibt-19-0-4.ddc"
+  },
+  {
+    "at": "2026-11-03T10:29:04.854043+08:00",
+    "monotonic_us": "148258361026",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Bluetooth: hci0: Applying Intel DDC parameters completed"
+  },
+  {
+    "at": "2026-11-03T10:29:04.855047+08:00",
+    "monotonic_us": "148258362030",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Bluetooth: hci0: Firmware revision 0.4 build 83 week 7 2026"
+  },
+  {
+    "at": "2026-11-03T10:29:04.857104+08:00",
+    "monotonic_us": "148258364088",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Bluetooth: hci0: HCI LE Coded PHY feature bit is set, but its usage is not supported."
+  },
+  {
+    "at": "2026-11-03T10:29:04.922753+08:00",
+    "monotonic_us": "148258429736",
+    "boot_id": "c8763797b21c4c8f9ff779d84424719c",
+    "comm": null,
+    "message": "Bluetooth: MGMT ver 1.23"
+  }
+]

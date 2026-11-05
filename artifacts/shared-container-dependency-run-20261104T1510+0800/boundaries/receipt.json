@@ -1,0 +1,30 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "test_package_observation.PackageObservation.test_unknown_peer_prevents_all_native_transaction_kinds",
+    "test_quality_regressions.RecoveryFailures.test_package_preflight_failure_preserves_running_container",
+    "test_catalog.CatalogContract.test_legacy_records_agree_with_actual_three_driver_transactions",
+    "-v"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 204613,
+    "starttime": "10358635",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-pre02-20261104-1510-boundaries-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "50331648",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "25000 100000"
+  },
+  "reason": "no continuous 30s admission window within 60s",
+  "min_available_bytes": null,
+  "peak_memory_bytes": 0,
+  "peak_tasks": 0,
+  "elapsed_seconds": 60.169334668000374
+}

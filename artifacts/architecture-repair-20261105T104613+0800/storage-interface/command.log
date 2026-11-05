@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T104613+0800/storage-interface/inspect.py", line 11, in <module>
+    p=json.loads(call(['podman','inspect','--format','json',cid]))[0]
+  File "/home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T104613+0800/storage-interface/inspect.py", line 6, in call
+    if p.returncode: raise RuntimeError(p.stderr[-500:])
+RuntimeError: md but there is no systemd user session available"
+time="2026-11-05T11:01:07+08:00" level=warning msg="For using systemd, you may need to log in using a user session"
+time="2026-11-05T11:01:07+08:00" level=warning msg="Alternatively, you can enable lingering with: `loginctl enable-linger 1000` (possibly as root)"
+time="2026-11-05T11:01:07+08:00" level=warning msg="Falling back to --cgroup-manager=cgroupfs"
+Error: no such object: "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45"
+

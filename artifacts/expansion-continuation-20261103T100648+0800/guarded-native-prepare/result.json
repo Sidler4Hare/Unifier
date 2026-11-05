@@ -1,0 +1,9 @@
+{
+  "status": "FAIL",
+  "container_id": "e16c92c03f5c3bfe845505d1b5e111a5e90d3b986b18706f73cf2efbbe4cee7e",
+  "host_desktop_exposed": false,
+  "guarded_test_root": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment",
+  "error": "",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/prepare_guarded_native.py\", line 14, in <module>\n    assert info['HostConfig']['IpcMode']=='private'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "stopped": true
+}

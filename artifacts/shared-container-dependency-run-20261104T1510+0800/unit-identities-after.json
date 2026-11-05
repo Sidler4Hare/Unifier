@@ -1,0 +1,100 @@
+[
+  {
+    "unit": "unifier-pre02-20261104-1510-red-guard.service",
+    "ActiveState": "failed",
+    "InvocationID": "648e4795876e424a9fb696f48a451707",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-red-work.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-red2-guard.service",
+    "ActiveState": "failed",
+    "InvocationID": "4ab6088ea48d4eb2beeb55d5193c524b",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-red2-work.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-red3-guard.service",
+    "ActiveState": "inactive",
+    "InvocationID": "4b1de5d0299b45719069766bdab5b844",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-red3-work.service",
+    "ActiveState": "failed",
+    "InvocationID": "681498751d7c4b37a035dc0f7331bd22",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-qwen-guard.service",
+    "ActiveState": "inactive",
+    "InvocationID": "f0e9d0fdc409432dac70fd3e324df6ac",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-qwen-work.service",
+    "ActiveState": "failed",
+    "InvocationID": "2a4403f42ed84545801df902eac39617",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-qwen2-guard.service",
+    "ActiveState": "inactive",
+    "InvocationID": "4653cfbf1da444b687ae170960a45b80",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-qwen2-work.service",
+    "ActiveState": "failed",
+    "InvocationID": "5e12fcf48c2740f9a6efeb54f93749c1",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-validation-guard.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-validation-work.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-boundaries-guard.service",
+    "ActiveState": "failed",
+    "InvocationID": "6af710f54616473eb0290ecf62316c99",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-pre02-20261104-1510-boundaries-work.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": ""
+  }
+]

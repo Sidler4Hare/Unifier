@@ -1,0 +1,11 @@
+{
+  "status": "PASS_AUDIT_ARTIFACTS",
+  "implementation_test_and_docs_changed_since_prior_checkpoint": [],
+  "index_entries_equal": true,
+  "local_links_checked": 20,
+  "no_workload_launched": true,
+  "original_container_count": 9,
+  "all_container_count": 10,
+  "all_stopped": true,
+  "source_patch_or_deployment_performed": false
+}

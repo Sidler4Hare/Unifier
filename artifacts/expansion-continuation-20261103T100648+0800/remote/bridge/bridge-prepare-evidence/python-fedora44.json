@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "id": "txn261430992c46",
+  "environment_id": "fedora44",
+  "operation": "install",
+  "packages": [
+    "python3"
+  ],
+  "interactive": false,
+  "stream": false,
+  "dependency_repair": {
+    "status": "not-requested"
+  },
+  "use_command": [
+    "/usr/bin/python3",
+    "--version"
+  ],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+    "content_revision": 1,
+    "package_inventory_sha256": "4fbc88c890ab44ee974f34584be338afd98956bdb78224fc6c8c05b0bb722801"
+  },
+  "native": [
+    {
+      "argv": [
+        "dnf",
+        "install",
+        "-y",
+        "python3"
+      ],
+      "timeout": 300,
+      "state": "finished",
+      "exit_code": 0,
+      "stdout_tail": "Package                     Arch   Version         Repository      Size\nInstalling:\n python3                    x86_64 0:3.14.8-1.fc44 updates     28.7 KiB\nInstalling dependencies:\n expat                      x86_64 0:2.9.0-1.fc44  updates    349.6 KiB\n mpdecimal                  x86_64 0:4.0.1-3.fc44  fedora     217.1 KiB\n python-pip-wheel           noarch 0:26.0.1-3.fc44 updates      1.2 MiB\n python3-libs               x86_64 0:3.14.8-1.fc44 updates     44.1 MiB\nInstalling weak dependencies:\n python-unversioned-command noarch 0:3.14.8-1.fc44 updates     23.0   B\n\nTransaction Summary:\n Installing:         6 packages\n\n",
+      "stderr_tail": "Updating and loading repositories:\n Fedora 44 openh264 (From Cisco) - x86_ 100% | 563.0   B/s |   5.3 KiB |  00m10s\n Fedora 44 - x86_64 - Updates           100% | 900.8 KiB/s |  12.3 MiB |  00m14s\n Fedora 44 - x86_64                     100% |   1.3 MiB/s |  36.4 MiB |  00m29s\nRepositories loaded.\nTotal size of inbound packages is 12 MiB. Need to download 12 MiB.\nAfter this operation, 46 MiB extra will be used (install 46 MiB, remove 0 B).\n[1/6] python3-0:3.14.8-1.fc44.x86_64    100% |  13.3 KiB/s |  29.4 KiB |  00m02s\n[2/6] expat-0:2.9.0-1.fc44.x86_64       100% |  44.4 KiB/s | 136.0 KiB |  00m03s\n[3/6] mpdecimal-0:4.0.1-3.fc44.x86_64   100% |  54.5 KiB/s |  99.1 KiB |  00m02s\n[4/6] python-unversioned-command-0:3.14 100% |  23.9 KiB/s |  11.6 KiB |  00m00s\n[5/6] python-pip-wheel-0:26.0.1-3.fc44. 100% | 410.1 KiB/s |   1.1 MiB |  00m03s\n[6/6] python3-libs-0:3.14.8-1.fc44.x86_ 100% |   1.3 MiB/s |  10.2 MiB |  00m08s\n--------------------------------------------------------------------------------\n[6/6] Total                             100% |   1.5 MiB/s |  11.6 MiB |  00m08s\nRunning transaction\n[1/8] Verify package files              100% |  50.0   B/s |   6.0   B |  00m00s\n[2/8] Prepare transaction               100% | 146.0   B/s |   6.0   B |  00m00s\n[3/8] Installing python-pip-wheel-0:26. 100% |  51.0 MiB/s |   1.2 MiB |  00m00s\n[4/8] Installing mpdecimal-0:4.0.1-3.fc 100% |  30.5 MiB/s | 218.6 KiB |  00m00s\n[5/8] Installing expat-0:2.9.0-1.fc44.x 100% |   8.8 MiB/s | 351.7 KiB |  00m00s\n[6/8] Installing python3-libs-0:3.14.8- 100% |  97.1 MiB/s |  44.5 MiB |  00m00s\n[7/8] Installing python3-0:3.14.8-1.fc4 100% |   1.4 MiB/s |  30.4 KiB |  00m00s\n[8/8] Installing python-unversioned-com 100% |   6.5 KiB/s | 424.0   B |  00m00s\nComplete!\n",
+      "guest": {
+        "pid": 24,
+        "start": 2970969,
+        "pgrp": 24,
+        "sid": 24,
+        "token": "1bc39cb46e1f7c45844bdf5ce096400c"
+      }
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "python3": true
+    },
+    "command": [
+      "/usr/bin/python3",
+      "--version"
+    ],
+    "command_exit_code": 0,
+    "stdout_preview": "Python 3.14.8\n",
+    "stdout_sha256": "f615dc9512de8b165e2b595e5cdc608a3ba7927ae92f959c5b42ec3d58e2ffa8",
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "dpkg-query",
+      "sha256": "d2bfe185338d4d2e3eb739737d9c12db4bef14f32cd3a92a5e43a1b264b71f12",
+      "count": 1138,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "dpkg-query",
+      "sha256": "d2bfe185338d4d2e3eb739737d9c12db4bef14f32cd3a92a5e43a1b264b71f12",
+      "count": 1138,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+    "content_revision": 2,
+    "package_inventory_sha256": "fe112a8a2eed41679f619c2175f8ffce7fb623d5c0d8e00571549fcc87aff19c"
+  },
+  "phase": "completed",
+  "environment_binding": {
+    "environment_id": "fedora44",
+    "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+    "generation": 1,
+    "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156"
+  },
+  "recovery_required": false,
+  "inventory_status": "verified",
+  "failure_phase": null,
+  "started_at": "2026-11-03T13:46:04+08:00",
+  "finished_at": "2026-11-03T13:46:50+08:00"
+}

@@ -1,0 +1,1494 @@
+--- before/AGENTS.md
++++ after/AGENTS.md
+@@ -5,7 +5,7 @@
+ 开始任何测试、脚本、模型委派或实机准备前，先读 [全项目测试禁令与规范](docs/测试禁令与规范.md)，再读所需专项计划。该规范自 2026-11-04 生效，覆盖全部入口、旧脚本、dsh 子任务及远端执行；旧授权和旧回执不自动放宽安全边界。
+ 
+ - 用户只要求审计、计划或文档时，不启动模型、产品测试或容器。
+-- 本机一个活动测试作业；模型调用、安装/解包、编译、GUI 阶段串行。所有增长负载必须有整棵进程树预算、独立保护和期限，保留至少 2 GiB 宿主可用内存；达不到条件就 BLOCKED，禁止放宽阈值硬跑。
++- 本机一个活动测试作业；模型调用、安装/解包、编译、GUI 阶段串行。所有增长负载必须有整棵进程树预算、独立保护和期限，保留至少 1 GiB 宿主可用内存；达不到条件就 BLOCKED，禁止放宽阈值硬跑。
+ - 默认新增项目容器预算为 0。复用允许清单内的既有测试 CID，不另开管理根/克隆环境绕过；同一时刻最多一台测试容器运行。新建须先提供具体方案并获得本次明确授权，不默认删除历史容器。
+ - 只可停止登记并重新核验 PID/starttime、cgroup/完整 CID 和所有权的本轮测试对象。禁止广域 kill、按名字清理、停止用户应用腾内存及全局 prune。
+ - 不操作用户活动桌面、键鼠、KWin、locale、宿主会话或全局资源设置；GUI 默认独立显示、配置和 IPC。不能为了查询唤醒非目标容器。
+--- before/docs/共享容器与依赖专项测试计划-20261104.md
++++ after/docs/共享容器与依赖专项测试计划-20261104.md
+@@ -118,8 +118,8 @@
+ 沿用[本机测试规范](本机测试规范.md)，下列规则对本轮显式生效：
+ 
+ - 一个测试作业、一台测试容器；内部最多三个轻量进程组。模型编码、包准备/解包、编译、GUI 运行互相串行；需要修代码时再按既有 dsh 本地 Qwen 单任务方式处理，先停止实机负载。
+-- 启动前保留至少 2 GiB 宿主余量，加本阶段预估峰值与安全余量；至少 30 秒低压力窗口。没有峰值时先做最小 CLI/单 GUI 样本，拒绝直接叠加大应用。
+-- 独立保护器每 250 ms 采样；MemAvailable < 2 GiB 连续两次、full PSI avg10 > 3% 或 some > 10% 连续 2 秒时停止本轮；读不到指标、控制器失联或总期限到达也停止。
++- 启动前保留至少 1 GiB 宿主余量，加本阶段预估峰值与安全余量；至少 30 秒低压力窗口。没有峰值时先做最小 CLI/单 GUI 样本，拒绝直接叠加大应用。
++- 独立保护器每 250 ms 采样；MemAvailable < 1 GiB 连续两次、full PSI avg10 > 3% 或 some > 10% 连续 2 秒时停止本轮；读不到指标、控制器失联或总期限到达也停止。
+ - 核对 cgroup 祖先和真实负载位置。只限制 Podman 命令或控制器不代表整个容器已受限；产品工作进程、后台重启路径也必须受相同准入和停止锁约束。
+ - 本轮不更改生产 CPU/RAM 默认策略，不通过降低保留线或自动提高既有限额维持测试。旧 `docs/扩测保护与恢复.md` 的 768 MiB/1 CPU 是特定历史 fixture 配置，不是本轮新增的产品通用要求；如使用旧适配器，其实际硬限制仍必须满足，不能声称已取消。
+ - 一段实机执行最多 45 分钟；到期停止并记录剩余 NOT_RUN，不自动扩展。CLI 观察通常最多 120 秒；GUI 单用例最多 600 秒；包准备单步骤最多 900 秒，均由独立控制器限时。
+--- before/docs/本机测试规范.md
++++ after/docs/本机测试规范.md
+@@ -31,11 +31,11 @@
+ | 阶段 | 启动条件/上限 |
+ |---|---|
+ | 小工具准备 | 单任务；工具进程设置 128–512 MiB 预算、任务数和最长时间；只下载/私有解包，不修改宿主系统安装 |
+-| 单组件 GUI | MemAvailable 至少 2 GiB 宿主保留量 + 预估峰值 + 安全余量；没有峰值时先做小样本，本轮初始门槛约 2.83 GiB |
+-| 三组件同时运行 | 根据单组件峰值重新计算；必须能保留 2 GiB 宿主余量；不得仅凭“启动前有空闲”判定可运行 |
++| 单组件 GUI | MemAvailable 至少 1 GiB 宿主保留量 + 预估峰值 + 安全余量；没有峰值时先做小样本，示例门槛随保留量同步为约 1.83 GiB，实际仍按本轮预算计算 |
++| 三组件同时运行 | 根据单组件峰值重新计算；必须能保留 1 GiB 宿主余量；不得仅凭“启动前有空闲”判定可运行 |
+ | 长时/压力 | 先在专用机或远端验证；本机需单独列出预算和目的，不自动延长短测 |
+ 
+-独立保护进程至少每 250 ms 检查宿主资源；连续两次 MemAvailable < 2 GiB 即停止本轮。memory PSI full avg10 > 3% 或 some avg10 > 10% 持续 2 秒，也停止。保护进程不依赖被测应用响应，设置总运行期限；控制器异常或失联也须有清理路径。
++独立保护进程至少每 250 ms 检查宿主资源；连续两次 MemAvailable < 1 GiB 即停止本轮。memory PSI full avg10 > 3% 或 some avg10 > 10% 持续 2 秒，也停止。保护进程不依赖被测应用响应，设置总运行期限；控制器异常或失联也须有清理路径。
+ 
+ GUI 启动前还应有至少 30 秒的低压力窗口（full avg10 < 0.5%、some avg10 < 2%）；刚触发保护时不得立即重新尝试。MemAvailable 较高时仍可能发生回收/分配停顿，不能只看“空闲内存”。
+ 
+--- before/docs/架构问题修复计划-20261105.md
++++ after/docs/架构问题修复计划-20261105.md
+@@ -1,10 +1,12 @@
+ # 架构问题修复计划
+ 
+-日期：2026-11-05（Asia/Shanghai）。状态：**待实施；本文仅完成计划，不代表修复、测试或部署已完成。**
++日期：2026-11-05（Asia/Shanghai）。状态：**实施中；S1 已通过限定范围的离线验收，S2 停止态 Debian 适配及统一观测契约已实现并完成离线回归，真实能力尚未验收。S3/S4 未实施，未部署。**
++
++本轮实现、用例和保全回执见 [阶段报告](../artifacts/architecture-repair-20261105T104613+0800/report.md)；只读观测的支持范围及恢复阻断见 [接口说明](包清单只读观测.md)。原审查证据不改写。
+ 
+ 依据：[四项问题与反例](../artifacts/shared-architecture-audit-20261105T0815+0800/report.md)、[机读发现](../artifacts/shared-architecture-audit-20261105T0815+0800/findings.json)、当前工作树源码及差异。基准 HEAD 为 `6f776a61dc599ad8f1c0a476681e892248e55a6b`，但工作树已有未提交修复；实施前必须重新记录文件摘要，不能只用 HEAD 标识输入。
+ 
+-执行约束：[全项目测试禁令与规范](测试禁令与规范.md)、[共享容器与依赖专项计划](共享容器与依赖专项测试计划-20261104.md)、[仓库维护](仓库维护.md)。历史审查曾记录的 1 GiB 保留线不自动延续；本计划按当前规则保留至少 **2 GiB** 宿主可用内存。此计划不授权新增容器、操作活动桌面、部署或推送。
++执行约束：[全项目测试禁令与规范](测试禁令与规范.md)、[共享容器与依赖专项计划](共享容器与依赖专项测试计划-20261104.md)、[仓库维护](仓库维护.md)。2026-11-05 用户明确将现行宿主保留线调整为 **1 GiB**，本计划同步采用；其他保护要求保持。此计划不授权新增容器、操作活动桌面、部署或推送。
+ 
+ ## 1. 目标和取舍
+ 
+@@ -137,7 +139,7 @@
+ | T2 | 真实只读清单、正式包操作、客体执行所有权 | PRE02 能力及 PRE03 实机保护达到要求；固定 CID 重新核验，最多一个测试容器运行 |
+ | T3 | 私有显示 GUI 保存重开 | T2 通过，独立 HOME/显示/IPC，资源与恢复路径有效；不接活动桌面 |
+ 
+-全部负载保留至少 2 GiB 宿主 MemAvailable，并按全项目规范额外计入最坏新增预算与余量；保护器建议独立64 MiB/16任务，250 ms采样，OOM/任务数/PSI/监测失联等条件依规范中止。上述配额不是“照抄即可运行”，执行前必须核验实际 cgroup 覆盖和实时准入。
++全部负载保留至少 1 GiB 宿主 MemAvailable，并按全项目规范额外计入最坏新增预算与余量；保护器建议独立64 MiB/16任务，250 ms采样，OOM/任务数/PSI/监测失联等条件依规范中止。上述配额不是“照抄即可运行”，执行前必须核验实际 cgroup 覆盖和实时准入。
+ 
+ 默认新增容器0，最多选用专项清单中的2个既有 CID，串行执行。Arch 当前历史无合规配额的状态须重新核对，未解决时不得实机运行，也不自动改配额。旧 guarded_test 和本次历史 T1 runner 不自动等于合规 T2 保护器。
+ 
+@@ -164,4 +166,4 @@
+ 
+ 整体完成必须满足：F01声明支持范围的真实能力与回归验收；F02排队及未知变更拒绝；F03实际执行生命周期与恢复；F04分层结果不误报，并完成声明范围的加载验收。任一真实边界缺证据，则该部分 PARTIAL/BLOCKED，不能用离线通过总数抵扣。
+ 
+-本次计划交付只新增本文；没有修改产品、运行模型/测试、启动容器或变更日常部署。
++初次计划交付只新增本文，没有执行产品或模型。随后用户授权开始实施；当前进展以上方状态和阶段报告为准，不能将初次计划的未执行声明沿用于本轮。
+--- before/docs/测试禁令与规范.md
++++ after/docs/测试禁令与规范.md
+@@ -1,6 +1,8 @@
+ # Unifier 全项目测试禁令与规范
+ 
+ 生效日期：2026-11-04（Asia/Shanghai）。状态：执行约束；**本文件的编制不授权启动任何实机测试，也不证明保护机制已经实现或部署。**
++
++2026-11-05 修订：用户明确将宿主保留线由 2 GiB 调整为 **1 GiB**，原因为本机余量受限。仅调整宿主保留量 R 和对应低内存中止线；最坏新增预算、余量、30 秒准入、PSI、硬预算及独立监督要求保持。此修订不证明 1 GiB 能排除宿主失稳。
+ 
+ ## 1. 范围、优先级与授权
+ 
+@@ -70,7 +72,7 @@
+ 
+ | 项目 | 默认约束 |
+ |---|---|
+-| 宿主保留量 R | 至少 **2 GiB MemAvailable**；不能用 swap/zram、缓存估算或“用户可以关应用”抵扣 |
++| 宿主保留量 R | 至少 **1 GiB MemAvailable**；不能用 swap/zram、缓存估算或“用户可以关应用”抵扣 |
+ | 启动门槛 | 连续 30 秒低压力；`full avg10 < 0.5%`、`some avg10 < 2%`；`MemAvailable >= R + 本阶段尚需新增的最坏内存预算 B + max(128 MiB, 10% × B)` |
+ | 小工具/准备 | 每阶段总内存 128–512 MiB、任务数最多 96、CPU 最多 1 核；单线程/有界线程池；小步骤通常不超过 300 秒 |
+ | 离线检查 | 默认总内存最多 512 MiB、任务数最多 96、CPU 最多 1 核；按模块分批，每批最多 300 秒 |
+@@ -100,7 +102,7 @@
+ 
+ 满足任一条件就停止提交新动作、持久记录中止原因并定向收尾：
+ 
+-- MemAvailable < 2 GiB 连续两次；memory PSI `full avg10 > 3%` 或 `some avg10 > 10%` 连续 2 秒。
++- MemAvailable < 1 GiB 连续两次；memory PSI `full avg10 > 3%` 或 `some avg10 > 10%` 连续 2 秒。
+ - 本轮任务数达到预定上限的 80% 时禁止再开新工作；达到 90% 持续两次，或仍持续增长且无法解释时中止。本轮内存达到硬上限的 90% 持续两次也中止，不能等 OOM。
+ - 出现 OOM/OOM-kill、`pids.events max`、分配失败、明显交换风暴、磁盘/日志预算耗尽、被测环境反复重启或不可解释的子进程扩张。
+ - 指标不可读、监测器失联超过 2 秒、控制器退出、总期限到达、命令超时；外部监督须能发现监测器失联，控制器异常也不能留下无人管理的应用。
+@@ -168,7 +170,7 @@
+ | `src/unifier/service.py` | `_other_fingerprints()` 调用 `_probe_inventory()`，后者可能临时启动同管理根中停止的其他环境 | 相关真实包事务继续被 PRE02 阻断；先离线复现修复，不能靠删同伴记录、换管理根或关闭校验绕过 |
+ | `tools/run_archived_probe.py`、`tools/lab.py`、历史 `.lab` 驱动 | 临时工作区、归档回放、smoke/pull 名称本身不能证明不创建容器或不访问桌面 | 先审查完整副作用和清理路径；按 T1–T4 实际行为分类，不直接照抄旧命令 |
+ 
+-这些缺口没有在本次规范工作中修复或部署。下一次进入相关真实测试前，先完成所需保护适配和相称的离线验收；无法证明达到本规范就保持 `BLOCKED`。
++这些缺口没有在最初的规范编制中修复或部署。2026-11-05 工作树开始实现包事务观察窗口协调和停止态 Debian 数据库读取，见 [架构修复阶段报告](../artifacts/architecture-repair-20261105T104613+0800/report.md)；这不代表 PRE02 真实多环境验收或 PRE03 实机保护已通过。下一次进入相关真实测试前，先完成所需保护适配和相称的验收；无法证明达到本规范就保持 `BLOCKED`。
+ 
+ ## 11. 验收、报告与收尾
+ 
+--- before/docs/自动依赖与原生安装交互.md
++++ after/docs/自动依赖与原生安装交互.md
+@@ -37,6 +37,8 @@
+ 
+ 安装与补装共用环境包操作锁、宿主/其他环境隔离检查和包清单更新。事务的 `dependency_repair` 保存扫描范围、ELF 数量、缺失库、候选、选中包和重新检查结果。原生命令的参数、退出码及输出尾部保留在 `native`；终端模式的 stdout/stderr 合并为终端记录。
+ 
++2026-11-05 工作树增加管理根级包事务协调：安装、升级、卸载、补库、恢复及环境集合变更先排队，再取环境锁；一次包事务从前置观察到最终记录持久化保持同一窗口。默认排队最多 30 秒，取消、繁忙和超时明确报错，等待期间不启动容器或写包数据库。应用启停保持独立。未部署的工作树行为与 v0.0.2 安装版分别核验；同伴只读清单的支持范围见 [接口说明](包清单只读观测.md)。
++
+ 为保留既有 Python 服务调用契约，直接调用 `EnvironmentService.install_*` 时须传入 `repair_dependencies=True`；两个安装 CLI 默认传入该选项。
+ 
+ ## 能力边界
+--- before/src/unifier/runtime.py
++++ after/src/unifier/runtime.py
+@@ -7,6 +7,7 @@
+ 
+ from dataclasses import dataclass
+ import json
++import fcntl
+ import os
+ from pathlib import Path
+ import re
+@@ -14,6 +15,7 @@
+ import select
+ import signal
+ import subprocess
++import sys
+ import time
+ 
+ from unifier.errors import UnifierError
+@@ -617,6 +619,68 @@
+         self.check_rootless = check_rootless
+         self._rootless_ok = False
+ 
++    def read_inventory_readonly(self, record):
++        """Read a stopped Debian DB without starting or execing the peer.
++
++        The helper acquires/releases one journaled storage mount reference.
++        Running peers, other backends and ambiguous storage journals refuse
++        before any package write. Real use requires T2 storage admission.
++        """
++        from unifier.package_inventory import (
++            InventoryObservation, MAX_INVENTORY_BYTES, observation,
++        )
++        from unifier.packages import driver_for
++        from unifier.view_journal import read_journal
++        if driver_for(record).name != 'apt':
++            return observation(record, status='unsupported', database=driver_for(record).name,
++                               reason='read-only database adapter is not implemented for this backend')
++        runtime = record['runtime']
++        cid = runtime['container_id']
++        before = self._require_owned(runtime['container_name'], runtime['project'], record['id'])
++        if before.container_id != cid:
++            return observation(record, status='unavailable', reason='peer container identity changed')
++        if before.running or before.status not in {'exited', 'created', 'configured', 'stopped'}:
++            return observation(record, status='unsupported', reason='running peer needs a consistent snapshot adapter')
++        if not re.fullmatch(r'[0-9a-f]{64}', cid):
++            return observation(record, status='unavailable', reason='peer requires a full container ID')
++        directory = Path(runtime['project']) / '.lab/state/inventory-observations'
++        directory.mkdir(parents=True, exist_ok=True, mode=0o700)
++        journal = directory / (cid + '.json')
++        descriptor = os.open(directory / (cid + '.lock'),
++                             os.O_CREAT | os.O_RDWR | os.O_CLOEXEC | os.O_NOFOLLOW, 0o600)
++        try:
++            try:
++                fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
++            except BlockingIOError:
++                return observation(record, status='unavailable', reason='peer inventory observer is busy')
++            previous = read_journal(str(journal))
++            if journal.exists() and (previous is None or previous.get('state') != 'released'):
++                return observation(record, status='unavailable', reason='inventory storage journal needs reconciliation')
++            token = secrets.token_hex(16)
++            minimal = {key: record[key] for key in ('id', 'target', 'schema_version',
++                                                   'environment_uuid', 'generation')}
++            minimal['runtime'] = {key: runtime[key] for key in ('container_id', 'project')}
++            result = self.runner(
++                ['podman', 'unshare', sys.executable, str(Path(__file__).with_name('inventory_probe.py')),
++                 '--record', json.dumps(minimal), '--journal', str(journal), '--token', token],
++                capture=True, timeout=90)
++            if result.returncode or len(result.stdout or '') > MAX_INVENTORY_BYTES + 131072:
++                raise UnifierError('read-only inventory helper failed or exceeded output budget')
++            value = InventoryObservation(**json.loads(result.stdout))
++            final = read_journal(str(journal))
++            if value.status == 'supported' and (not final or final.get('state') != 'released'
++                    or final.get('token') != token or final.get('cid') != cid):
++                raise UnifierError('inventory storage release is unverified')
++            after = self._require_owned(runtime['container_name'], runtime['project'], record['id'])
++            if (after.container_id != cid or after.running or after.status != before.status
++                    or after.started_at != before.started_at or after.finished_at != before.finished_at):
++                raise UnifierError('peer container state changed during observation')
++            return value
++        except (OSError, ValueError, TypeError, UnifierError) as exc:
++            return observation(record, status='unavailable', reason=str(exc)[-500:])
++        finally:
++            os.close(descriptor)
++
+     def create(self, spec: CreateSpec) -> str:
+         self._ensure_rootless()
+         if self.inspect(spec.name) is not None:
+--- before/src/unifier/service.py
++++ after/src/unifier/service.py
+@@ -34,6 +34,8 @@
+     system_contract,
+ )
+ from unifier.errors import UnifierError
++from unifier.operation_lock import management_lock
++from unifier.package_inventory import InventoryObservation, normalize_inventory
+ from unifier.compatibility import (
+     compatibility_mode, observe_host, relationship_plan, require_relationship,
+ )
+@@ -164,6 +166,8 @@
+         error = right.get("error") or left.get("error")
+         unchanged = (
+             error is None
++            and bool(left) and bool(right)
++            and left.get("binding") == right.get("binding")
+             and left.get("stored") == right.get("stored")
+             and left.get("probed") == left.get("stored")
+             and right.get("probed") == right.get("stored")
+@@ -175,6 +179,10 @@
+             "probed_after": right.get("probed"),
+             "unchanged": unchanged,
+             "error": error,
++            "binding_before": left.get("binding"),
++            "binding_after": right.get("binding"),
++            "observation_before": left.get("observation"),
++            "observation_after": right.get("observation"),
+         }
+     return compared
+ 
+@@ -225,13 +233,6 @@
+         key, value = line.split("=", 1)
+         values[key] = value.strip().strip('"').strip("'")
+     return values
+-
+-
+-def normalize_inventory(text: str) -> str:
+-    lines = [line.strip() for line in text.splitlines() if line.strip()]
+-    if not lines:
+-        raise UnifierError("package inventory is empty")
+-    return "\n".join(sorted(lines)) + "\n"
+ 
+ 
+ class EnvironmentService:
+@@ -404,6 +405,12 @@
+     @contextlib.contextmanager
+     def _creation_lock(self):
+         """Serialize validation through durable record creation across processes."""
++        with self.package_coordination_lock():
++            with self._creation_record_lock():
++                yield
++
++    @contextlib.contextmanager
++    def _creation_record_lock(self):
+         path = self.root / ".lab/state/operations/create.lock"
+         path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+         descriptor = os.open(path, os.O_CREAT | os.O_RDWR, 0o600)
+@@ -518,6 +525,10 @@
+             }
+ 
+         lock_path = self.store.identity_lock_path(env_id)
++        with self.package_coordination_lock():
++            return self._migrate_identity_locked(env_id, lock_path, preflight)
++
++    def _migrate_identity_locked(self, env_id, lock_path, preflight):
+         lock_path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+         descriptor = os.open(lock_path, os.O_CREAT | os.O_RDWR, 0o600)
+         try:
+@@ -694,6 +705,11 @@
+ 
+     def remove(self, env_id: str) -> None:
+         env_id = validate_env_id(env_id)
++        with self.package_coordination_lock():
++            with self.package_operation_lock(env_id, blocking=False):
++                self._remove_locked(env_id)
++
++    def _remove_locked(self, env_id: str) -> None:
+         with self._lifecycle_lock(env_id):
+             from unifier.project_sessions import assert_environment_not_live
+             assert_environment_not_live(self.root, env_id, self)
+@@ -1361,6 +1377,10 @@
+     def recover_packages(self, env_id: str) -> dict:
+         """Reconcile a stopped execution, without silently re-running scripts."""
+         env_id = validate_env_id(env_id)
++        with self.package_coordination_lock():
++            return self._recover_packages_locked(env_id)
++
++    def _recover_packages_locked(self, env_id: str) -> dict:
+         with self.package_operation_lock(env_id, blocking=False):
+             record = self.store.load(env_id)
+             self._require_host_compatibility(record)
+@@ -1411,20 +1431,22 @@
+                              use_argv=None, local_file: str | None = None,
+                              interactive=False, stream=False, repair_dependencies=False,
+                              libraries=()) -> dict:
+-        """Serialize one native package transaction for an environment.
+-
+-        The operation lock is held for the whole transaction, including its
+-        internal start/stop calls.  A shortcut stop takes the same lock only
+-        after the lease lock and refuses rather than interrupting an install.
++        """Serialize the complete isolation window, then the native DB writer.
++
++        Order: management -> environment package -> lifecycle. Neither the
++        package path nor lifecycle calls acquire a lease lock. Lease holders
++        only try the environment package lock without waiting when stopping.
++        Internal stop calls must not reacquire either package lock.
+         """
+         env_id = validate_env_id(env_id)
+         self.store.load(env_id)
+-        with self.package_operation_lock(env_id):
+-            self._require_recovered_packages(env_id)
+-            return self._package_transaction_locked(
+-                env_id, operation, packages, use_argv=use_argv,
+-                local_file=local_file, interactive=interactive, stream=stream,
+-                repair_dependencies=repair_dependencies, libraries=libraries)
++        with self.package_coordination_lock():
++            with self.package_operation_lock(env_id):
++                self._require_recovered_packages(env_id)
++                return self._package_transaction_locked(
++                    env_id, operation, packages, use_argv=use_argv,
++                    local_file=local_file, interactive=interactive, stream=stream,
++                    repair_dependencies=repair_dependencies, libraries=libraries)
+ 
+     def _package_transaction_locked(self, env_id: str, operation: str,
+                                     packages: list[str], *,
+@@ -1816,38 +1838,68 @@
+         for other in self.store.all():
+             if other["id"] == env_id:
+                 continue
+-            probed, error = self._probe_inventory(other)
++            evidence = {}
++            probed, error = self._probe_inventory(other, evidence=evidence)
+             found[other["id"]] = {
+                 "stored": other["package_inventory_sha256"],
+                 "probed": probed,
+                 "error": error,
++                "binding": binding_for(other),
++                "observation": evidence,
+             }
+         return found
+ 
+-    def _probe_inventory(self, record: dict) -> tuple[str | None, str | None]:
++    def _probe_inventory(self, record: dict, *, evidence=None) -> tuple[str | None, str | None]:
+         """Observe a peer without starting it or executing anything inside it.
+ 
+-        A runtime may provide an independently read, current inventory. The
+-        registered hash is not a live observation. PodmanRuntime currently has
+-        no such reader, so peer isolation must fail closed before native writes.
++        Runtime and fake readers share one explicit observation contract.
++        The registered hash cannot substitute for a current database read.
+         """
+         try:
+-            self._require_owned(record)
+-        except UnifierError as exc:
+-            return None, str(exc)
+-        try:
+-            reader = getattr(self.runtime, "read_inventory_readonly", None)
+-            if not callable(reader):
+-                raise UnifierError("read-only peer inventory unavailable; package operation refused")
+-            text = reader(record)
+-            if not isinstance(text, str):
+-                raise UnifierError("read-only peer inventory unavailable: reader returned non-text")
+-            return hashlib.sha256(text.encode()).hexdigest(), None
++            # A peer start/stop from another product entry must not race a
++            # stopped-database read. Package callers already hold management
++            # coordination; lifecycle paths never reacquire that lock.
++            with self._lifecycle_lock(record['id']):
++                expected = binding_for(record)
++                self._require_record_binding(self.store.load(record['id']), expected)
++                before = self._require_owned(record)
++                reader = getattr(self.runtime, "read_inventory_readonly", None)
++                if not callable(reader):
++                    raise UnifierError("read-only peer inventory unavailable; package operation refused")
++                value = reader(record)
++                if not isinstance(value, InventoryObservation):
++                    raise UnifierError("read-only peer inventory unavailable: reader violated the observation contract")
++                if evidence is not None:
++                    evidence.update(value.evidence())
++                if value.binding != expected or value.target != record['target']:
++                    raise UnifierError('read-only inventory observation binding changed')
++                if value.status != 'supported' or value.inventory is None:
++                    raise UnifierError(value.reason or 'read-only database observation unsupported')
++                text = value.inventory
++                if not isinstance(text, str) or text != normalize_inventory(text):
++                    raise UnifierError('read-only inventory is not canonical text')
++                self._require_record_binding(self.store.load(record['id']), expected)
++                after = self._require_owned(record)
++                if (after.container_id != before.container_id or after.running != before.running
++                        or after.started_at != before.started_at or after.finished_at != before.finished_at):
++                    raise UnifierError('peer container state changed during observation')
++                return hashlib.sha256(text.encode()).hexdigest(), None
+         except Exception as exc:
+             return None, str(exc)[-500:]
+ 
+     def _operation_lock_path(self, env_id: str) -> Path:
+         return self.root / ".lab/state/operations" / f"{env_id}.package.lock"
++
++    def package_coordination_lock(self, *, timeout: float = 30.0,
++                                  cancel=None, blocking: bool = True):
++        """Cross-process admission for package writes and membership changes.
++
++        Waiting has no runtime side effects. This lock is deliberately separate
++        from the per-environment lock used by lease cleanup: app start/stop
++        never waits for a management-root observation window.
++        """
++        return management_lock(self.root, timeout=timeout, cancel=cancel,
++                               blocking=blocking)
+ 
+     def _open_operation_lock(self, env_id: str) -> int:
+         path = self._operation_lock_path(env_id)
+--- before/tests/test_env.py
++++ after/tests/test_env.py
+@@ -105,6 +105,18 @@
+     def inspect(self, name):
+         return self.containers.get(name) or next(
+             (info for info in self.containers.values() if info.container_id == name), None)
++
++    def read_inventory_readonly(self, record):
++        from unifier.package_inventory import observation
++        from unifier.packages import inventory_argv
++        info = self._owned(record['runtime']['container_name'],
++                           record['runtime']['project'], record['id'])
++        result = self._captured(info, inventory_argv(record))
++        if result.returncode:
++            raise UnifierError(result.stderr or 'fake database unavailable')
++        return observation(record, inventory=result.stdout, database='fake',
++                           method='independent-fake-database',
++                           consistency={'scope': 'offline fake only'})
+ 
+     def create(self, spec):
+         self.events.append(("create", spec))
+--- before/tests/test_package_observation.py
++++ after/tests/test_package_observation.py
+@@ -71,12 +71,12 @@
+         self.assertIsNone(txn['other_environments']['peer']['probed_before'])
+         self.assert_no_peer_execution(runtime, peer)
+ 
+-    def test_non_text_snapshot_is_rejected(self):
++    def test_snapshot_without_the_observation_contract_is_rejected(self):
+         service, runtime, _peer = self.fixture()
+         runtime.read_inventory_readonly = Mock(return_value=b'base-peer\t1\n')
+         txn = service.install_packages('target', ['hello'])
+         self.assert_refused_before_start(service, runtime, txn)
+-        self.assertIn('non-text', txn['native_error'])
++        self.assertIn('observation contract', txn['native_error'])
+ 
+     def test_mismatching_fresh_snapshot_refuses_before_native_writes(self):
+         service, runtime, _peer = self.fixture()
+--- before/tests/test_packages.py
++++ after/tests/test_packages.py
+@@ -106,7 +106,10 @@
+         self._owned(record["runtime"]["container_name"],
+                     record["runtime"]["project"], record["id"])
+         argv = ["pacman", "-Q"] if record["target"] == "arch" else ["dpkg-query"]
+-        return self._inventory(record["id"], argv)
++        from unifier.package_inventory import observation
++        return observation(record, inventory=self._inventory(record["id"], argv),
++                           database='fake', method='independent-fake-database',
++                           consistency={'scope': 'offline fake only'})
+ 
+     def copy_in(self, name, host_path, container_path, *, project, env_id):
+         self._owned(name, project, env_id)
+--- /dev/null
++++ after/src/unifier/operation_lock.py
+@@ -0,0 +1,53 @@
++"""Bounded cross-process coordination within one physical management root.
++
++This is a non-reentrant admission lock, taken before an environment's package
++or lifecycle locks. The inode is retained even after a crash: unlinking an
++advisory lock would let different waiters lock different inodes.
++"""
++
++from contextlib import contextmanager
++import fcntl
++import math
++import os
++from pathlib import Path
++import time
++
++from unifier.errors import UnifierError
++
++
++@contextmanager
++def management_lock(root: Path, *, timeout: float = 30.0, cancel=None,
++                    blocking: bool = True):
++    if (isinstance(timeout, bool) or not isinstance(timeout, (int, float))
++            or not math.isfinite(timeout) or timeout < 0):
++        raise UnifierError("package coordination timeout must be finite and nonnegative")
++    if cancel is not None and (not callable(getattr(cancel, "is_set", None))
++                               or not callable(getattr(cancel, "wait", None))):
++        raise UnifierError("package coordination cancellation must be an Event")
++    path = Path(root).resolve() / ".lab/state/operations/management.lock"
++    path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
++    descriptor = os.open(path, os.O_CREAT | os.O_RDWR | os.O_CLOEXEC | os.O_NOFOLLOW, 0o600)
++    deadline = time.monotonic() + timeout
++    try:
++        while True:
++            if cancel is not None and cancel.is_set():
++                raise UnifierError("PACKAGE_COORDINATION_CANCELLED: waiting for management root")
++            try:
++                fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
++                break
++            except BlockingIOError as exc:
++                if not blocking:
++                    raise UnifierError("PACKAGE_COORDINATION_BUSY: management root is busy") from exc
++                remaining = deadline - time.monotonic()
++                if remaining <= 0:
++                    raise UnifierError("PACKAGE_COORDINATION_TIMEOUT: waiting for management root") from exc
++                if cancel is not None:
++                    cancel.wait(min(0.05, remaining))
++                else:
++                    time.sleep(min(0.05, remaining))
++        # Cancellation racing successful acquisition must still precede writes.
++        if cancel is not None and cancel.is_set():
++            raise UnifierError("PACKAGE_COORDINATION_CANCELLED: waiting for management root")
++        yield
++    finally:
++        os.close(descriptor)
+--- /dev/null
++++ after/src/unifier/package_inventory.py
+@@ -0,0 +1,180 @@
++"""Independent inventory contract and bounded, locked Debian DB observation.
++
++The wire inventory stays identical to dpkg-query's ${Package}\t${Version}.
++Architecture and status are validated as database fields, not appended to the
++historical inventory serialization. No target binaries are executed here.
++"""
++from dataclasses import asdict, dataclass
++import datetime as dt
++import fcntl
++import hashlib
++import os
++import re
++import stat
++import time
++
++from unifier.errors import UnifierError
++from unifier.identity import binding_for
++
++
++MAX_DATABASE_BYTES = 32 * 1024**2
++MAX_INVENTORY_BYTES = 4 * 1024**2
++MAX_PACKAGES = 50000
++
++
++def normalize_inventory(text: str) -> str:
++    lines = [line.strip() for line in text.splitlines() if line.strip()]
++    if not lines:
++        raise UnifierError("package inventory is empty")
++    return "\n".join(sorted(lines)) + "\n"
++
++
++@dataclass(frozen=True)
++class InventoryObservation:
++    status: str
++    reason: str | None
++    binding: dict
++    target: str
++    database: str
++    method: str
++    observed_at: str
++    consistency: dict
++    inventory: str | None = None
++
++    def evidence(self) -> dict:
++        value = asdict(self)
++        text = value.pop('inventory')
++        value['sha256'] = hashlib.sha256(text.encode()).hexdigest() if text is not None else None
++        return value
++
++
++def observation(record: dict, *, inventory=None, status='supported', reason=None,
++                database='dpkg', method='locked-stopped-database', consistency=None):
++    text = normalize_inventory(inventory) if inventory is not None else None
++    if text is not None and len(text.encode()) > MAX_INVENTORY_BYTES:
++        raise UnifierError('read-only inventory exceeds output budget')
++    return InventoryObservation(
++        status, reason, binding_for(record), record['target'], database, method,
++        dt.datetime.now(dt.timezone.utc).isoformat(), consistency or {}, text)
++
++
++def parse_dpkg_status(text: str) -> str:
++    """Reject unsupported/corrupt stanzas rather than inventing package values."""
++    rows = []
++    identities = set()
++    for stanza in re.split(r'\n[ \t]*\n', text):
++        if not stanza.strip():
++            continue
++        fields = {}
++        previous = None
++        for line in stanza.splitlines():
++            if line.startswith((' ', '\t')):
++                if previous is None:
++                    raise UnifierError('invalid dpkg field continuation')
++                if previous in {'package', 'version', 'architecture', 'status'}:
++                    raise UnifierError('multiline dpkg identity field is unsupported')
++                continue
++            name, separator, value = line.partition(':')
++            key = name.lower()
++            if not separator or key in fields:
++                raise UnifierError('invalid or duplicate dpkg field')
++            fields[key] = value.strip()
++            previous = key
++        name = fields.get('package', '')
++        version = fields.get('version', '')
++        architecture = fields.get('architecture', '')
++        state = fields.get('status', '').split()
++        if (not re.fullmatch(r'[a-z0-9][a-z0-9+.-]*', name)
++                or len(name) > 256 or not re.fullmatch(r'[a-z0-9][a-z0-9-]*', architecture)
++                or len(state) != 3
++                or state[0] not in {'unknown', 'install', 'hold', 'deinstall', 'purge'}
++                or state[1] not in {'ok', 'reinstreq'}
++                or state[2] not in {'installed', 'config-files', 'half-installed', 'unpacked',
++                                    'half-configured', 'triggers-awaited', 'triggers-pending'}
++                or not version or len(version) > 256
++                or not re.fullmatch(r'[0-9A-Za-z.+:~\-]+', version)):
++            raise UnifierError('dpkg identity/status unsupported or corrupt')
++        key = (name, architecture)
++        if key in identities:
++            raise UnifierError('duplicate dpkg package architecture')
++        identities.add(key)
++        rows.append(f'{name}\t{version}')
++        if len(rows) > MAX_PACKAGES:
++            raise UnifierError('dpkg package count exceeds budget')
++    return normalize_inventory('\n'.join(rows))
++
++
++def read_dpkg_database(root_fd: int, *, seconds: float = 5.0) -> tuple[str, dict]:
++    """Hold dpkg's POSIX read lock; refuse journals and all path indirections.
++
++    Native dpkg writers use the corresponding exclusive POSIX lock. External
++    writers ignoring that protocol are not controlled; inode/stat checks detect
++    ordinary replacement during this observation, not arbitrary hostile writes.
++    """
++    deadline = time.monotonic() + seconds
++    opened = []
++    directories = []
++    flags = os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK
++    def open_at(parent, name, *, directory=False):
++        fd = os.open(name, flags | (os.O_DIRECTORY if directory else 0), dir_fd=parent)
++        opened.append(fd)
++        mode = os.fstat(fd).st_mode
++        if not (stat.S_ISDIR(mode) if directory else stat.S_ISREG(mode)):
++            raise UnifierError('database path is not a regular file/directory')
++        return fd
++    def fingerprint(value):
++        return (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns, value.st_ctime_ns)
++    try:
++        parent = root_fd
++        for part in ('var', 'lib', 'dpkg'):
++            child = open_at(parent, part, directory=True)
++            directories.append((parent, part, child))
++            parent = child
++        db = parent
++        lock_fd = open_at(db, 'lock')
++        try:
++            fcntl.lockf(lock_fd, fcntl.LOCK_SH | fcntl.LOCK_NB)
++        except OSError as exc:
++            raise UnifierError('dpkg database busy or read lock unavailable') from exc
++        updates = open_at(db, 'updates', directory=True)
++        with os.scandir(updates) as entries:
++            if next(entries, None) is not None:
++                raise UnifierError('dpkg database has pending updates; recover it first')
++        status_fd = open_at(db, 'status')
++        before = os.fstat(status_fd)
++        if before.st_size > MAX_DATABASE_BYTES:
++            raise UnifierError('dpkg database exceeds byte budget')
++        data = bytearray()
++        while True:
++            if time.monotonic() >= deadline:
++                raise UnifierError('dpkg database read deadline exceeded')
++            chunk = os.read(status_fd, min(65536, MAX_DATABASE_BYTES + 1 - len(data)))
++            if not chunk:
++                break
++            data.extend(chunk)
++            if len(data) > MAX_DATABASE_BYTES:
++                raise UnifierError('dpkg database exceeds byte budget')
++        inventory = parse_dpkg_status(data.decode('utf-8', errors='strict'))
++        after = os.stat('status', dir_fd=db, follow_symlinks=False)
++        current_lock = os.stat('lock', dir_fd=db, follow_symlinks=False)
++        if (fingerprint(before) != fingerprint(os.fstat(status_fd))
++                or fingerprint(before) != fingerprint(after)
++                or (current_lock.st_dev, current_lock.st_ino) !=
++                   (os.fstat(lock_fd).st_dev, os.fstat(lock_fd).st_ino)):
++            raise UnifierError('dpkg database changed during observation')
++        with os.scandir(updates) as entries:
++            if next(entries, None) is not None:
++                raise UnifierError('dpkg database updates changed during observation')
++        for parent, name, child in directories + [(db, 'updates', updates)]:
++            current = os.stat(name, dir_fd=parent, follow_symlinks=False)
++            pinned = os.fstat(child)
++            if (current.st_dev, current.st_ino) != (pinned.st_dev, pinned.st_ino):
++                raise UnifierError('dpkg database directory changed during observation')
++        if time.monotonic() >= deadline:
++            raise UnifierError('dpkg database read deadline exceeded')
++        return inventory, {'native_lock': 'dpkg-posix-shared', 'pending_updates': False,
++                           'database_bytes': len(data), 'status_sha256': hashlib.sha256(data).hexdigest(),
++                           'scope': 'stopped container; cooperative native writers only'}
++    finally:
++        for fd in reversed(opened):
++            os.close(fd)
+--- /dev/null
++++ after/src/unifier/inventory_probe.py
+@@ -0,0 +1,126 @@
++"""One stopped Debian inventory read in Podman's storage user namespace.
++
++This acquires a storage mount reference, not a running container or guest exec.
++It is a T2 operation, with a durable journal for ambiguous acquisition/release;
++it must not be treated as a side-effect-free capability probe.
++"""
++import argparse
++import json
++import os
++from pathlib import Path
++import signal
++import subprocess
++import sys
++import time
++
++if __package__ in {None, ''}:
++    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
++
++from unifier.errors import UnifierError
++from unifier.package_inventory import observation, read_dpkg_database
++from unifier.view_journal import read_journal, write_journal
++
++
++def inspect_stopped(cid, project, env_id, *, run=subprocess.run):
++    result = run(['podman', 'inspect', '--format', 'json', cid],
++                 capture_output=True, text=True, timeout=10, check=False)
++    if result.returncode:
++        raise UnifierError('read-only inventory inspect failed')
++    payload = json.loads(result.stdout)
++    if not isinstance(payload, list) or len(payload) != 1:
++        raise UnifierError('read-only inventory inspect is ambiguous')
++    data = payload[0]
++    labels = (data.get('Config') or {}).get('Labels') or {}
++    state = data.get('State') or {}
++    if (data.get('Id') != cid or labels.get('multilinux.project') != project
++            or labels.get('multilinux.env') != env_id
++            or labels.get('multilinux.role') != 'environment'):
++        raise UnifierError('read-only inventory container binding changed')
++    if state.get('Running') or state.get('Status') not in {'exited', 'created', 'configured', 'stopped'}:
++        raise UnifierError('running/transitioning peer has no consistent read-only snapshot')
++    for mount in data.get('Mounts') or []:
++        destination = mount.get('Destination', '').rstrip('/') or '/'
++        if (destination == '/' or destination == '/var/lib/dpkg'
++                or '/var/lib/dpkg'.startswith(destination + '/')
++                or destination.startswith('/var/lib/dpkg/')):
++            raise UnifierError('mounted package database is unsupported')
++    return {'started_at': state.get('StartedAt'), 'finished_at': state.get('FinishedAt'),
++            'status': state.get('Status'), 'mounts': data.get('Mounts') or []}
++
++
++def probe(record, journal, token, *, run=subprocess.run):
++    cid = record['runtime']['container_id']
++    project = record['runtime']['project']
++    env_id = record['id']
++    owned = False
++    result = None
++    error = None
++    def stamp(state, **extra):
++        write_journal(str(journal), {'schema_version': 1, 'state': state, 'cid': cid,
++                      'token': token, 'owner_pid': os.getpid(), 'updated_at': time.time(), **extra})
++    previous = read_journal(str(journal))
++    if journal.exists() and (previous is None or previous.get('state') != 'released'):
++        return observation(record, status='unavailable', reason='inventory storage journal needs reconciliation')
++    try:
++        before = inspect_stopped(cid, project, env_id, run=run)
++        stamp('mounting')
++        mounted = run(['podman', 'mount', cid], capture_output=True, text=True,
++                      timeout=10, check=False)
++        if mounted.returncode:
++            # Acquisition failure can be ambiguous. Never guess at umount.
++            raise UnifierError('inventory storage mount failed; reconciliation required')
++        owned = True
++        stamp('mounted')
++        lines = (mounted.stdout or '').strip().splitlines()
++        if len(lines) != 1 or not lines[0].startswith('/'):
++            raise UnifierError('inventory storage returned an invalid root path')
++        descriptor = os.open(lines[0], os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC)
++        try:
++            if inspect_stopped(cid, project, env_id, run=run) != before:
++                raise UnifierError('peer state changed before database read')
++            text, consistency = read_dpkg_database(descriptor)
++            if inspect_stopped(cid, project, env_id, run=run) != before:
++                raise UnifierError('peer state changed during database read')
++            result = observation(record, inventory=text, consistency={**consistency,
++                                 'storage_reference_token': token, 'container_state': before})
++        finally:
++            os.close(descriptor)
++    except Exception as exc:
++        error = str(exc)[-500:]
++    finally:
++        if owned:
++            # Exactly this successfully acquired reference, once, without force.
++            try:
++                stamp('releasing')
++                released = run(['podman', 'umount', cid], capture_output=True, text=True,
++                               timeout=10, check=False)
++                if released.returncode:
++                    stamp('release-failed')
++                    raise UnifierError('inventory storage release failed; reconciliation required')
++                stamp('released')
++            except Exception as exc:
++                error = str(exc)[-500:]
++        # A pre-mount error has no reference to release. An ambiguous mounting
++        # or releasing journal intentionally remains as a persistent blocker.
++    return (observation(record, status='unavailable', reason=error) if error
++            else result)
++
++
++def main(argv=None):
++    parser = argparse.ArgumentParser()
++    parser.add_argument('--record', required=True)
++    parser.add_argument('--journal', required=True)
++    parser.add_argument('--token', required=True)
++    args = parser.parse_args(argv)
++    def interrupted(_number, _frame):
++        raise UnifierError('inventory observer interrupted')
++    signal.signal(signal.SIGTERM, interrupted)
++    signal.signal(signal.SIGINT, interrupted)
++    value = probe(json.loads(args.record), Path(args.journal), args.token)
++    from dataclasses import asdict
++    print(json.dumps(asdict(value), ensure_ascii=False))
++    return 0
++
++
++if __name__ == '__main__':
++    raise SystemExit(main())
+--- /dev/null
++++ after/tests/test_operation_lock.py
+@@ -0,0 +1,148 @@
++"""Offline process boundaries for management-root package coordination."""
++import os
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++import threading
++import unittest
++
++from unifier.errors import UnifierError
++from unifier.operation_lock import management_lock
++
++
++class ManagementLockTests(unittest.TestCase):
++    def setUp(self):
++        temporary = tempfile.TemporaryDirectory()
++        self.addCleanup(temporary.cleanup)
++        self.root = Path(temporary.name)
++
++    def child(self, code):
++        child = subprocess.Popen([sys.executable, "-c", code, str(self.root)],
++                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
++        def cleanup():
++            if child.poll() is None:
++                child.terminate()  # Exact Popen child still owned and unreaped.
++            child.communicate(timeout=5)
++        self.addCleanup(cleanup)
++        return child
++
++    def test_two_independent_processes_do_not_enter_at_the_same_time(self):
++        with management_lock(self.root):
++            child = self.child("""from pathlib import Path
++import sys
++from unifier.operation_lock import management_lock
++from unifier.errors import UnifierError
++try:
++    with management_lock(Path(sys.argv[1]), timeout=.1):
++        raise AssertionError('overlapping writers')
++except UnifierError as exc:
++    assert 'TIMEOUT' in str(exc)
++""")
++            out, err = child.communicate(timeout=5)
++            self.assertEqual(child.returncode, 0, (out, err))
++        with management_lock(self.root, timeout=0):
++            pass
++
++    def test_crashed_holder_releases_without_deleting_lock_or_transaction(self):
++        child = self.child("""import os, sys
++from pathlib import Path
++from unifier.operation_lock import management_lock
++root=Path(sys.argv[1])
++with management_lock(root):
++    (root/'pending.json').write_text('needs-recovery')
++    os._exit(17)
++""")
++        child.communicate(timeout=5)
++        self.assertEqual(child.returncode, 17)
++        path = self.root / '.lab/state/operations/management.lock'
++        inode = path.stat().st_ino
++        with management_lock(self.root, timeout=0):
++            self.assertEqual((self.root / 'pending.json').read_text(), 'needs-recovery')
++        self.assertEqual(path.stat().st_ino, inode)
++
++    def test_two_process_writers_both_complete_without_overlapping_writes(self):
++        code = """import sys, time
++from pathlib import Path
++from unifier.operation_lock import management_lock
++root=Path(sys.argv[1])
++with management_lock(root, timeout=3):
++    marker=root/'writer-active'
++    assert not marker.exists(), 'overlapping native simulation'
++    marker.touch()
++    with (root/'writes').open('a') as stream:
++        stream.write('enter\\n'); stream.flush()
++        time.sleep(.05)
++        stream.write('exit\\n'); stream.flush()
++    marker.unlink()
++"""
++        first, second = self.child(code), self.child(code)
++        for child in (first, second):
++            out, err = child.communicate(timeout=5)
++            self.assertEqual(child.returncode, 0, (out, err))
++        self.assertEqual((self.root / 'writes').read_text().splitlines(),
++                         ['enter', 'exit', 'enter', 'exit'])
++
++    def test_cancellation_and_busy_never_admit(self):
++        event = threading.Event()
++        with management_lock(self.root):
++            with self.assertRaisesRegex(UnifierError, 'BUSY'):
++                with management_lock(self.root, blocking=False):
++                    self.fail('busy writer admitted')
++            event.set()
++            with self.assertRaisesRegex(UnifierError, 'CANCELLED'):
++                with management_lock(self.root, cancel=event):
++                    self.fail('cancelled writer admitted')
++
++    def test_cancellation_while_waiting_releases_waiter_descriptor(self):
++        event = threading.Event()
++        ready = threading.Event()
++        errors = []
++        def wait():
++            ready.set()
++            try:
++                with management_lock(self.root, cancel=event, timeout=2):
++                    errors.append('unexpected admission')
++            except UnifierError as exc:
++                errors.append(str(exc))
++        with management_lock(self.root):
++            thread = threading.Thread(target=wait)
++            thread.start()
++            try:
++                self.assertTrue(ready.wait(1))
++                event.set()
++            finally:
++                event.set()
++                thread.join(3)
++            self.assertFalse(thread.is_alive())
++        self.assertEqual(len(errors), 1)
++        self.assertIn('CANCELLED', errors[0])
++        with management_lock(self.root, timeout=0):
++            pass
++
++    def test_symbolic_alias_uses_same_inode_but_different_root_is_independent(self):
++        actual = self.root / 'actual'
++        actual.mkdir()
++        alias = self.root / 'alias'
++        alias.symlink_to(actual, target_is_directory=True)
++        with management_lock(actual):
++            with self.assertRaisesRegex(UnifierError, 'BUSY'):
++                with management_lock(alias, blocking=False):
++                    self.fail('alias bypassed writer')
++            with management_lock(self.root / 'other', blocking=False):
++                pass
++
++    def test_exception_closes_lock_and_invalid_timeouts_are_rejected(self):
++        with self.assertRaisesRegex(RuntimeError, 'probe'):
++            with management_lock(self.root):
++                raise RuntimeError('probe')
++        with management_lock(self.root, timeout=0):
++            pass
++        for value in (-1, True, float('nan'), float('inf'), '1'):
++            with self.subTest(value=value), self.assertRaises(UnifierError):
++                with management_lock(self.root, timeout=value):
++                    self.fail('invalid timeout')
++
++
++if __name__ == '__main__':
++    unittest.main()
+--- /dev/null
++++ after/tests/test_package_coordination.py
+@@ -0,0 +1,199 @@
++"""The writer queue covers peer observation through durable final receipts."""
++from concurrent.futures import ThreadPoolExecutor
++from pathlib import Path
++import tempfile
++import threading
++import unittest
++from unittest.mock import patch
++
++from test_packages import PackageBoxes, make_env, package_service
++from unifier.errors import UnifierError
++from unifier.operation_lock import management_lock
++from unifier.identity import binding_for
++from unifier.on_demand import LaunchGroup
++from unifier.runtime import ExecResult
++
++
++class PackageCoordination(unittest.TestCase):
++    def fixture(self):
++        temporary = tempfile.TemporaryDirectory()
++        self.addCleanup(temporary.cleanup)
++        service, runtime = package_service(Path(temporary.name), PackageBoxes())
++        make_env(service, runtime, 'debian13', 'a')
++        make_env(service, runtime, 'fedora44', 'b')
++        runtime.events.clear()
++        return service, runtime
++
++    def test_two_environment_writers_wait_until_final_receipt_and_both_complete(self):
++        service, runtime = self.fixture()
++        first_window = threading.Event()
++        release = threading.Event()
++        second_submitted = threading.Event()
++        second_native = threading.Event()
++        first_persisted = threading.Event()
++        original_save = service.store.save_transaction
++        original_exec = runtime.exec
++        errors = []
++        def save(txn):
++            if txn['environment_id'] == 'a' and txn['finished_at']:
++                first_window.set()
++                if not release.wait(5):
++                    raise AssertionError('test barrier deadline')
++                original_save(txn)
++                first_persisted.set()
++            else:
++                original_save(txn)
++        def execute(name, argv, **kwargs):
++            if kwargs['env_id'] == 'b' and argv[0] == 'dnf':
++                second_native.set()
++                if not first_persisted.is_set():
++                    errors.append('second writer entered before durable first receipt')
++            return original_exec(name, argv, **kwargs)
++        def second():
++            second_submitted.set()
++            return service.install_packages('b', ['probe-b'])
++        service.store.save_transaction = save
++        runtime.exec = execute
++        with ThreadPoolExecutor(max_workers=2) as pool:
++            first = pool.submit(service.install_packages, 'a', ['probe-a'])
++            try:
++                self.assertTrue(first_window.wait(5))
++                queued = pool.submit(second)
++                self.assertTrue(second_submitted.wait(1))
++                self.assertFalse(second_native.wait(.15))
++            finally:
++                release.set()
++            transactions = [first.result(timeout=5), queued.result(timeout=5)]
++        self.assertEqual(errors, [])
++        self.assertTrue(second_native.is_set())
++        self.assertEqual([t['phase'] for t in transactions], ['completed', 'completed'])
++        self.assertTrue(all(all(p['unchanged'] for p in t['other_environments'].values())
++                            for t in transactions))
++
++    def test_queue_timeout_has_no_start_or_native_write_for_any_package_entry(self):
++        service, runtime = self.fixture()
++        original = service.package_coordination_lock
++        service.package_coordination_lock = lambda **kwargs: original(timeout=.01)
++        actions = [
++            lambda: service.install_packages('a', ['hello']),
++            lambda: service.update_packages('a'),
++            lambda: service.remove_packages('a', ['hello']),
++            lambda: service.install_local('a', '/absent/probe.deb'),
++            lambda: service.repair_dependencies('a', ['hello']),
++            lambda: service.recover_packages('a'),
++            lambda: service.remove('b'),
++            lambda: service.create('arch', 'c', [], 'pasta'),
++        ]
++        with management_lock(service.root):
++            for action in actions:
++                with self.assertRaisesRegex(UnifierError, 'COORDINATION_TIMEOUT'):
++                    action()
++        self.assertEqual(runtime.events, [])
++        self.assertEqual(service.transactions_for('a'), [])
++        self.assertTrue(service.store.exists('b'))
++
++    def test_app_start_stop_does_not_wait_for_another_environment_window(self):
++        service, runtime = self.fixture()
++        with management_lock(service.root):
++            service.start('a')
++            service.stop('a')
++        self.assertEqual([e[0] for e in runtime.events if e[0] in {'start', 'stop'}],
++                         ['start', 'stop'])
++
++    def test_stop_refuses_package_writer_even_without_management_lock(self):
++        service, runtime = self.fixture()
++        with service.package_operation_lock('a'):
++            with self.assertRaisesRegex(UnifierError, 'transaction is in progress'):
++                service.stop('a')
++        self.assertEqual(runtime.events, [])
++
++    def test_crash_released_queue_does_not_bypass_pending_recovery(self):
++        service, runtime = self.fixture()
++        record = service.store.load('a')
++        record['package_recovery_required'] = True
++        service.store.save(record, None)
++        with self.assertRaisesRegex(UnifierError, 'recover'):
++            service.install_packages('a', ['hello'])
++        self.assertEqual(runtime.events, [])
++        self.assertTrue(service.store.load('a')['package_recovery_required'])
++
++    def test_external_peer_collection_or_identity_change_remains_a_failure(self):
++        for change in ('remove', 'add', 'generation'):
++            with self.subTest(change=change):
++                service, runtime = self.fixture()
++                original = service._finish_isolation
++                def finish(txn, before, host, env_id):
++                    if change == 'remove':
++                        service.store.delete('b')
++                    elif change == 'add':
++                        record = service.store.load('b')
++                        record['id'] = 'external'
++                        service.store.save(record, None)
++                    else:
++                        record = service.store.load('b')
++                        record['generation'] += 1
++                        service.store.save(record, None)
++                    original(txn, before, host, env_id)
++                with patch.object(service, '_finish_isolation', finish):
++                    txn = service.install_packages('a', ['hello'])
++                self.assertEqual(txn['phase'], 'failed')
++                self.assertEqual(txn['failure_phase'], 'verification')
++                self.assertTrue(txn['verification']['isolation'])
++
++    def test_install_repair_and_recovery_do_not_deadlock_app_and_project_lease_release(self):
++        for operation in ('install', 'repair', 'recover'):
++            with self.subTest(operation=operation):
++                service, runtime = self.fixture()
++                answer = runtime._answer
++                runtime._answer = lambda info, argv: (
++                    ExecResult(0, '', '') if argv == ['test', '-x', '/usr/bin/true']
++                    else answer(info, argv))
++                if operation == 'repair':
++                    self.assertEqual(service.install_packages('a', ['hello'])['phase'], 'completed')
++                service.add_app('a', 'notes', '/usr/bin/true', ['/usr/bin/true'],
++                                desktop_required=False, on_demand=True)
++                group = LaunchGroup(service, 'a')
++                app = group.acquire('notes')
++                project = group.acquire_project('probe-project',
++                    expected_binding=binding_for(service.store.load('a')))
++                entered, release = threading.Event(), threading.Event()
++                if operation == 'recover':
++                    record = service.store.load('a')
++                    record['package_recovery_required'] = True
++                    service.store.save(record, None)
++                    method = '_audit_package_database'
++                    action = lambda: service.recover_packages('a')
++                else:
++                    method = '_package_transaction_locked'
++                    action = (lambda: service.install_packages('a', ['hello'])) if operation == 'install' else (
++                        lambda: service.repair_dependencies('a', ['hello']))
++                original = getattr(service, method)
++                def paused(*args, **kwargs):
++                    entered.set()
++                    if not release.wait(5):
++                        raise AssertionError('lease/writer barrier deadline')
++                    return original(*args, **kwargs)
++                with patch.object(service, method, paused), ThreadPoolExecutor(max_workers=1) as pool:
++                    writer = pool.submit(action)
++                    try:
++                        self.assertTrue(entered.wait(5))
++                        group.release(app)
++                        # The last project lease must fail promptly rather than
++                        # hold lease -> wait for package -> reverse into lease.
++                        with self.assertRaisesRegex(UnifierError, 'transaction is in progress'):
++                            group.release(project)
++                        self.assertTrue(service._require_owned(service.store.load('a')).running)
++                    finally:
++                        release.set()
++                    result = writer.result(timeout=5)
++                self.assertEqual(result.get('status') if operation == 'recover' else result['phase'],
++                                 'recovered' if operation == 'recover' else 'completed')
++                # Auto-stop ownership was retained and can settle after the
++                # writer releases its locks; no user-started instance is taken.
++                token = group.acquire('notes')
++                group.release(token)
++                self.assertFalse(service._require_owned(service.store.load('a')).running)
++
++
++if __name__ == '__main__':
++    unittest.main()
+--- /dev/null
++++ after/tests/test_package_inventory.py
+@@ -0,0 +1,255 @@
++"""Bounded offline DB and real-adapter contracts; never run Podman here."""
++from dataclasses import asdict, replace
++import fcntl
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++import unittest
++from unittest.mock import patch
++
++from test_packages import make_env, package_service
++from unifier.errors import UnifierError
++from unifier.inventory_probe import probe
++from unifier.package_inventory import (
++    MAX_DATABASE_BYTES, observation, parse_dpkg_status, read_dpkg_database,
++)
++from unifier.runtime import PodmanRuntime
++from unifier.view_journal import read_journal, write_journal
++
++
++def stanza(name='base', version='1:2.0-3~deb13', architecture='amd64', state='install ok installed'):
++    return (f'Package: {name}\nStatus: {state}\nArchitecture: {architecture}\n'
++            f'Version: {version}\nDescription: fixture\n continuation\n')
++
++
++class DatabaseContracts(unittest.TestCase):
++    def setUp(self):
++        temporary = tempfile.TemporaryDirectory()
++        self.addCleanup(temporary.cleanup)
++        self.root = Path(temporary.name)
++        self.db = self.root / 'var/lib/dpkg'
++        self.db.mkdir(parents=True)
++        (self.db / 'updates').mkdir()
++        (self.db / 'lock').touch()
++        (self.db / 'status').write_text(stanza())
++
++    def read(self, **kwargs):
++        fd = os.open(self.root, os.O_RDONLY | os.O_DIRECTORY)
++        try:
++            return read_dpkg_database(fd, **kwargs)
++        finally:
++            os.close(fd)
++
++    def test_exact_historical_inventory_preserves_multiarch_rows_and_versions(self):
++        text = (stanza('z') + '\n' + stanza('base', architecture='i386') + '\n'
++                + stanza('base', architecture='amd64', state='deinstall ok config-files'))
++        inventory = parse_dpkg_status(text)
++        self.assertEqual(inventory, 'base\t1:2.0-3~deb13\nbase\t1:2.0-3~deb13\nz\t1:2.0-3~deb13\n')
++        (self.db / 'status').write_text(text)
++        observed, evidence = self.read()
++        self.assertEqual(observed, inventory)
++        self.assertEqual(evidence['native_lock'], 'dpkg-posix-shared')
++        self.assertFalse(evidence['pending_updates'])
++
++    def test_corruption_unknown_states_and_duplicate_identity_are_rejected(self):
++        for text in ('', stanza() + '\n' + stanza(), stanza(state='install ok unknown'),
++                     stanza().replace('Version:', 'Package:'),
++                     stanza().replace('Package: base', 'Package: base\n injected'),
++                     stanza().replace('Architecture: amd64\n', '')):
++            with self.subTest(text=text), self.assertRaises(UnifierError):
++                parse_dpkg_status(text)
++
++    def test_pending_updates_and_missing_lock_refuse_without_creating_files(self):
++        (self.db / 'updates/0001').write_text('unfinished')
++        with self.assertRaisesRegex(UnifierError, 'pending updates'):
++            self.read()
++        (self.db / 'updates/0001').unlink()
++        (self.db / 'lock').unlink()
++        with self.assertRaises(OSError):
++            self.read()
++        self.assertFalse((self.db / 'lock').exists())
++
++    def test_symlink_file_and_parent_escapes_are_refused(self):
++        (self.root / 'outside').write_text(stanza())
++        (self.db / 'status').unlink()
++        (self.db / 'status').symlink_to(self.root / 'outside')
++        with self.assertRaises(OSError):
++            self.read()
++        (self.db / 'status').unlink()
++        (self.db / 'status').write_text(stanza())
++        self.db.rename(self.root / 'outside-db')
++        self.db.symlink_to(self.root / 'outside-db', target_is_directory=True)
++        with self.assertRaises(OSError):
++            self.read()
++
++    def test_sparse_oversize_deadline_and_path_replacement_refuse(self):
++        with (self.db / 'status').open('wb') as stream:
++            stream.truncate(MAX_DATABASE_BYTES + 1)
++        with self.assertRaisesRegex(UnifierError, 'byte budget'):
++            self.read()
++        (self.db / 'status').write_text(stanza())
++        with self.assertRaisesRegex(UnifierError, 'deadline'):
++            self.read(seconds=0)
++        parser = parse_dpkg_status
++        def replace_status(text):
++            replacement = self.db / 'new'
++            replacement.write_text(stanza())
++            replacement.replace(self.db / 'status')
++            return parser(text)
++        with patch('unifier.package_inventory.parse_dpkg_status', replace_status):
++            with self.assertRaisesRegex(UnifierError, 'changed'):
++                self.read()
++
++    def test_native_posix_writer_lock_in_an_independent_process_is_respected(self):
++        # Acquire in this process and ask a different process to read: POSIX
++        # locks are process-associated, so a thread would not test this boundary.
++        with (self.db / 'lock').open('r+') as lock:
++            fcntl.lockf(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
++            code = '''import os, sys
++from unifier.package_inventory import read_dpkg_database
++from unifier.errors import UnifierError
++fd=os.open(sys.argv[1], os.O_RDONLY|os.O_DIRECTORY)
++try:
++    read_dpkg_database(fd)
++except UnifierError as exc:
++    assert 'busy' in str(exc)
++else:
++    raise AssertionError('native writer lock ignored')
++finally:
++    os.close(fd)
++'''
++            result = subprocess.run([sys.executable, '-c', code, str(self.root)],
++                                    capture_output=True, text=True, timeout=5)
++        self.assertEqual(result.returncode, 0, result.stderr)
++        self.assertTrue(self.read()[0])
++
++    def test_database_directory_replacement_does_not_read_a_stale_pinned_tree(self):
++        parser = parse_dpkg_status
++        def replace_directory(text):
++            self.db.rename(self.root / 'old-db')
++            self.db.mkdir()
++            return parser(text)
++        with patch('unifier.package_inventory.parse_dpkg_status', replace_directory):
++            with self.assertRaisesRegex(UnifierError, 'directory changed'):
++                self.read()
++
++
++class AdapterContracts(unittest.TestCase):
++    def setUp(self):
++        temporary = tempfile.TemporaryDirectory()
++        self.addCleanup(temporary.cleanup)
++        self.root = Path(temporary.name)
++        self.service, self.fake = package_service(self.root)
++        self.record = make_env(self.service, self.fake, 'debian13', 'peer')
++        self.record['runtime']['container_id'] = 'a' * 64
++        self.journal = self.root / 'journal.json'
++        self.calls = []
++        db = self.root / 'merged/var/lib/dpkg'
++        db.mkdir(parents=True)
++        (db / 'updates').mkdir()
++        (db / 'lock').touch()
++        (db / 'status').write_text(stanza())
++
++    def runner(self, argv, **kwargs):
++        self.calls.append(argv)
++        if argv[1] == 'inspect':
++            return subprocess.CompletedProcess(argv, 0, json.dumps([{
++                'Id': 'a' * 64, 'Config': {'Labels': {
++                    'multilinux.project': str(self.root), 'multilinux.env': 'peer',
++                    'multilinux.role': 'environment'}},
++                'State': {'Running': False, 'Status': 'exited'}, 'Mounts': [],
++            }]), '')
++        if argv[1] == 'mount':
++            return subprocess.CompletedProcess(argv, 0, str(self.root / 'merged') + '\n', '')
++        if argv[1] == 'umount':
++            return subprocess.CompletedProcess(argv, 0, '', '')
++        raise AssertionError('forbidden runtime command: ' + str(argv))
++
++    def test_helper_acquires_and_releases_only_one_exact_storage_reference(self):
++        value = probe(self.record, self.journal, 'token', run=self.runner)
++        self.assertEqual(value.status, 'supported', value.reason)
++        self.assertEqual(value.inventory, 'base\t1:2.0-3~deb13\n')
++        self.assertEqual(read_journal(str(self.journal))['state'], 'released')
++        self.assertEqual([c[1] for c in self.calls], ['inspect', 'mount', 'inspect', 'inspect', 'umount'])
++        self.assertTrue(all(c[-1] == 'a' * 64 for c in self.calls))
++
++    def test_failed_read_releases_but_failed_release_is_persistent_and_not_retried(self):
++        (self.root / 'merged/var/lib/dpkg/updates/0001').touch()
++        result = probe(self.record, self.journal, 'one', run=self.runner)
++        self.assertEqual(result.status, 'unavailable')
++        self.assertEqual(read_journal(str(self.journal))['state'], 'released')
++        def failed_release(argv, **kwargs):
++            if argv[1] == 'umount':
++                self.calls.append(argv)
++                return subprocess.CompletedProcess(argv, 1, '', 'busy')
++            return self.runner(argv, **kwargs)
++        result = probe(self.record, self.journal, 'two', run=failed_release)
++        self.assertEqual(result.status, 'unavailable')
++        self.assertEqual(read_journal(str(self.journal))['state'], 'release-failed')
++        count = len(self.calls)
++        result = probe(self.record, self.journal, 'three', run=self.runner)
++        self.assertIn('reconciliation', result.reason)
++        self.assertEqual(len(self.calls), count)
++
++    def test_running_foreign_or_shadowed_database_refuses_before_mount(self):
++        for kind in ('running', 'foreign', 'mount'):
++            def altered(argv, **kwargs):
++                response = self.runner(argv, **kwargs)
++                data = json.loads(response.stdout)[0]
++                if kind == 'running':
++                    data['State']['Running'] = True
++                elif kind == 'foreign':
++                    data['Id'] = 'b' * 64
++                else:
++                    data['Mounts'] = [{'Destination': '/var/lib'}]
++                response.stdout = json.dumps([data])
++                return response
++            self.calls.clear()
++            result = probe(self.record, self.journal, kind, run=altered)
++            self.assertEqual(result.status, 'unavailable')
++            self.assertEqual([c[1] for c in self.calls], ['inspect'])
++
++    def test_actual_podman_runtime_uses_helper_contract_and_checks_release_evidence(self):
++        info = self.fake.inspect(self.record['runtime']['container_name'])
++        info = replace(info, container_id='a' * 64, status='exited')
++        def runner(argv, **kwargs):
++            self.assertEqual(argv[:2], ['podman', 'unshare'])
++            journal = Path(argv[argv.index('--journal') + 1])
++            token = argv[argv.index('--token') + 1]
++            write_journal(str(journal), {'state': 'released', 'cid': 'a' * 64, 'token': token})
++            return subprocess.CompletedProcess(argv, 0, json.dumps(asdict(
++                observation(self.record, inventory='base\t1\n'))), '')
++        runtime = PodmanRuntime(runner=runner, check_rootless=False)
++        with patch.object(runtime, '_require_owned', return_value=info):
++            value = runtime.read_inventory_readonly(self.record)
++        self.assertEqual(value.status, 'supported', value.reason)
++        self.assertEqual(value.binding['container_id'], 'a' * 64)
++        # Arch/RPM must refuse explicitly; fake support cannot fill that gap.
++        for target in ('arch', 'fedora44'):
++            record = {**self.record, 'target': target}
++            # Legacy metadata must agree with target; use a fresh valid record.
++            record = make_env(self.service, self.fake, target, 'p-' + target)
++            self.assertEqual(runtime.read_inventory_readonly(record).status, 'unsupported')
++
++    def test_observation_generation_change_refuses_before_native_write(self):
++        make_env(self.service, self.fake, 'fedora44', 'target')
++        original = self.fake.read_inventory_readonly
++        def changed(record):
++            value = original(record)
++            current = self.service.store.load('peer')
++            current['generation'] += 1
++            self.service.store.save(current, None)
++            return value
++        self.fake.read_inventory_readonly = changed
++        self.fake.events.clear()
++        txn = self.service.install_packages('target', ['hello'])
++        self.assertEqual(txn['failure_phase'], 'isolation-preflight')
++        self.assertEqual(txn['native'], [])
++        self.assertFalse(any(e[0] in {'start', 'exec'} for e in self.fake.events))
++
++
++if __name__ == '__main__':
++    unittest.main()
+--- /dev/null
++++ after/docs/包清单只读观测.md
+@@ -0,0 +1,40 @@
++# 包清单只读观测与协调
++
++2026-11-05 工作树实现说明；未部署，真实数据库等价性与多环境分支仍待验收。按 [架构修复计划](架构问题修复计划-20261105.md) 和 [全项目测试规范](测试禁令与规范.md) 执行。
++
++## 协调与兼容
++
++同一物理管理根的 `.lab/state/operations/management.lock` 使用跨进程 flock。锁顺序为管理根协调锁 → 环境包锁 → 生命周期锁；创建为协调锁 → 创建锁，身份迁移为协调锁 → 身份锁。删除同样先协调再取环境包锁和生命周期锁。应用 lease 锁只向生命周期锁或非阻塞环境包锁前进，不回取协调锁；包事务不回取 lease 锁。内部 stop 显式复用已持有的环境包锁。
++
++默认排队期限 30 秒；`PACKAGE_COORDINATION_TIMEOUT/CANCELLED/BUSY` 表示未进入写入阶段。进程异常退出由 OS 释放 flock，锁文件保留；事务和 `needs-recovery` 状态不删除。该锁只协调正式产品入口，无法阻止外部 Podman 或原生包管理操作；外部库存、实例代际或环境集合变化仍使隔离验证失败。
++
++事务原有字段不移除。`other_environments` 每项新增 `binding_before/after`、`observation_before/after`；原清单格式及哈希口径不变。
++
++## 观测契约及首版范围
++
++runtime 的 `read_inventory_readonly(record)` 返回 `InventoryObservation`，包含 `status`、原因、完整实例绑定、发行版、数据库、方法、时间、一致性证据及规范化清单。状态为 `supported/unsupported/unavailable`；只有本次独立读取成功才有清单。注册哈希或缓存不能代替观测。fake 返回同一类型，但证据明确标记 `offline fake only`，不据此推断真实后端可用。
++
++| 后端/状态 | 当前工作树行为 | 验收边界 |
++|---|---|---|
++| 停止态 Debian/dpkg | 实现有限文件读取和原生共享读锁；有更新日志、非标准状态、缺字段、损坏或路径间接时拒绝 | 离线 fixture 已覆盖；与目标发行版 dpkg-query 的真实等价性尚未验收 |
++| 运行态/转换中的同伴 | `unsupported`，不以两次相同读取冒充一致快照 | 尚无运行态快照适配 |
++| Arch/pacman | `unsupported` | `db.lck` 的创建式锁不能由只读 flock 替代；尚未适配 |
++| RPM | `unsupported` | 后端版本及可用宿主工具尚未适配，不安装宿主依赖凑支持 |
++
++dpkg 库最多 32 MiB，输出最多 4 MiB、50,000 个包，数据库读取阶段最多 5 秒。目录逐层以 `O_NOFOLLOW` 打开，文件只接受普通文件，拒绝符号链接/FIFO及路径替换。锁住现有 `var/lib/dpkg/lock`，不创建原生数据库锁；`updates` 非空即拒绝。架构和状态用于验证身份；清单继续使用 `${Package}\t${Version}`、保留多架构重复行并排序，不改变既有哈希口径。`not-installed` 等首版未证明等价的状态明确拒绝。
++
++原生锁只覆盖遵循 dpkg POSIX 锁协议的写者；忽略锁的外部写者不受本产品控制。读前后同时核验文件、目录与容器身份，普通变更被拒绝，不能宣称抵御任意敌对写入。
++
++## 存储引用和中止
++
++真实读取使用 `podman unshare` 内的宿主 Python helper，取得一次精确完整 CID 的 `podman mount` 存储引用，读取后释放一次。它不 start/restart/exec 容器，也不在宿主运行客体程序；但**存在存储挂载引用副作用，属于 T2**，不是普通 T0 查询。源数据库被容器挂载覆盖时拒绝，不猜测卷内文件。测试须先满足 PRE03 的完整覆盖，不能因没有 guest exec 而免除准入。
++
++引用日志位于原管理根 `.lab/state/inventory-observations/<完整CID>.json`，只允许已确认 `released` 后开始下一次观测。`mounting/mounted/releasing/release-failed`、损坏日志或超时一律保留并阻断后续包写入；不删除日志、不猜测 umount、不自动重试。一次读取失败但已确认释放会返回 `unavailable`，旧失败事务保持失败。
++
++当前没有自动处理模糊引用日志的恢复入口。遇到该状态必须核对该完整 CID、token、helper 身份和实际存储引用，交付具体恢复动作后处理；不能将 `pkg recover` 当成存储引用已恢复。后续真实验收必须同时证明准入、读取等价性和存储释放。
++
++## 本轮边界
++
++原有 CLI 反例改为期望正确行为并重放；跨进程锁、超时/取消、前后窗口、外部变更、数据库忙/损坏/替换及引用失败使用离线 fixture。真实固定池只做版本、完整 CID、状态与存储驱动的只读 inspect；不执行本 helper 或挂载。
++
++固定池的 Debian 和 Arch 分属不同管理根，不能证明同管理根多环境分支。没有合规 fixture 和 PRE03 证明时，`FIX01-05` 继续 `BLOCKED`；不新建、迁移或克隆容器补齐。S3 执行所有权、S4 实际加载验证及 GUI 保存重开不因本轮离线通过而完成。

@@ -1,0 +1,100 @@
+{
+  "side": "native",
+  "case": "family",
+  "label": "CFNB",
+  "status": "MEASURED",
+  "cgroup": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-wps-ab-native.service",
+  "env": {
+    "DISPLAY": "127.0.0.1:200",
+    "XAUTHORITY": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/common/Xauthority",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "QT_QPA_PLATFORM": "xcb",
+    "LIBGL_ALWAYS_SOFTWARE": "1",
+    "QT_OPENGL": "software",
+    "QT_QUICK_BACKEND": "software",
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "HOME": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/CFNB/home",
+    "XDG_CONFIG_HOME": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/CFNB/home/.config",
+    "XDG_CACHE_HOME": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/CFNB/home/.cache",
+    "XDG_RUNTIME_DIR": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/CFNB/home/runtime",
+    "XDG_SESSION_TYPE": "x11",
+    "DBUS_SESSION_BUS_ADDRESS": "unix:path=/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/CFNB/home/runtime/no-bus",
+    "TMPDIR": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/CFNB/home/tmp",
+    "FONTCONFIG_FILE": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/common/fonts.conf"
+  },
+  "ready": true,
+  "open_window_seconds": 2.13498934800009,
+  "windows": [
+    {
+      "id": "6291464",
+      "name": "writer.docx - WPS Docs"
+    },
+    {
+      "id": "4194312",
+      "name": "sheet.xlsx - WPS Sheets"
+    },
+    {
+      "id": "2097160",
+      "name": "slides.pptx - WPS Slides"
+    }
+  ],
+  "capture": {
+    "returncode": 0,
+    "stderr": ""
+  },
+  "capture_sampled": {
+    "returncode": 0,
+    "stderr": ""
+  },
+  "summary": {
+    "app_pss_median_mib": 670.72265625,
+    "app_pss_range_mib": [
+      670.673828125,
+      670.72265625
+    ],
+    "app_swap_pss_median_mib": 0.0,
+    "app_processes_median": 3.0,
+    "app_threads_median": 116.0,
+    "idle_cgroup_cpu_one_core_pct": 1.1124472112671349,
+    "host_min_available_mib": 3589.98046875,
+    "pss_errors": 0,
+    "memory_events_before": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 25
+    },
+    "memory_events_after": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 25
+    },
+    "pids_events_before": {
+      "max": 0
+    },
+    "pids_events_after": {
+      "max": 0
+    },
+    "cpu_throttle_delta": 0
+  },
+  "local_core_only": true,
+  "windows_after_quit": [
+    {
+      "id": "4194312",
+      "name": "sheet.xlsx * - WPS Sheets"
+    },
+    {
+      "id": "4194594",
+      "name": "Save the Document?"
+    }
+  ]
+}

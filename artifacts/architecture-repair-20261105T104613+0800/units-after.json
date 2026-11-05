@@ -1,0 +1,92 @@
+{
+  "unifier-fix-20261105-1046-baseline-guard.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-baseline-work.service": {
+    "ActiveState": "failed",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-qwen-s1-guard.service": {
+    "ActiveState": "failed",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-qwen-s1-work.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-s1-guard.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-s1-work.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-s2-guard.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-s2-work.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-interface-guard.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-interface-work.service": {
+    "ActiveState": "failed",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-original-interface-guard.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-original-interface-work.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-final-guard.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-final-work.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-lease-lock-guard.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-lease-lock-work.service": {
+    "ActiveState": "failed",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-lease-lock-corrected-guard.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  "unifier-fix-20261105-1046-lease-lock-corrected-work.service": {
+    "ActiveState": "inactive",
+    "MainPID": "0",
+    "ControlGroup": ""
+  }
+}

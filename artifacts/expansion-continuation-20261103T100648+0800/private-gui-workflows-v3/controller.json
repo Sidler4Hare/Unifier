@@ -1,0 +1,471 @@
+{
+  "status": "FINISHED",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "host_display_sockets_mounted": false,
+  "events": [
+    {
+      "command": "001.request.json",
+      "action": "launch",
+      "started_at": 1793685838.4485366,
+      "host_launcher_pid": 59065,
+      "app_id": "private-wrapper-writer",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/writer-workflow.docx",
+      "finished_at": 1793685838.448963,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "002.request.json",
+      "action": "guest",
+      "started_at": 1793685846.8295863,
+      "returncode": 0,
+      "stdout": "    PID    PPID STAT COMMAND\n      1       0 Ss   /run/podman-init -- /usr/bin/sleep infinity\n      2       1 S    /usr/bin/sleep infinity\n      6       1 Ss   Xvfb :97 -screen 0 1280x800x24 -nolisten tcp -auth /tmp/unifier-private-display/Xauthority\n     12       0 Ss   /bin/bash /usr/bin/wps /home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/writer-workflow.docx\n     19      12 Sl   /opt/kingsoft/wps-office/office6/wpsoffice /prometheus /home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/writer-workflow.docx\n     38       1 Sl   /opt/kingsoft/wps-office/office6/wpscloudsvr /qingbangong /start_from=qingipc autologin\n     47       1 Sl   /opt/kingsoft/wps-office/office6/wps /wps /from_prome /prome-pipe-token=kprometheus.19.19.201676575 /prome-prestart-type=0\n     70       1 Sl   /opt/kingsoft/wps-office/office6/wpsoffice Run -Entry=EntryPoint /opt/kingsoft/wps-office/office6/addons/kcef/libjsapibrowser.so --server=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe --from=qing\n    109      70 S    /opt/kingsoft/wps-office/office6/promecefpluginhost --type=zygote --no-zygote-sandbox --no-sandbox --force-device-scale-factor=1.04237 --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --jbserver=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe\n    112      70 S    /opt/kingsoft/wps-office/office6/promecefpluginhost --type=zygote --no-sandbox --force-device-scale-factor=1.04237 --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --jbserver=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe\n    201     109 Sl   /opt/kingsoft/wps-office/office6/promecefpluginhost --type=gpu-process --no-sandbox --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --gpu-preferences=WAAAAAAAAAAgACAIAAAAAAAAAAAAAAAAAABgAAAAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --use-gl=angle --use-angle=swiftshader-webgl --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --shared-files --field-trial-handle=0,i,16920993024520972470,11137313575013084273,131072 --disable-features=BackForwardCache\n    236      70 Sl   /opt/kingsoft/wps-office/office6/promecefpluginhost --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --no-sandbox --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --shared-files=v8_context_snapshot_data:100 --field-trial-handle=0,i,16920993024520972470,11137313575013084273,131072 --disable-features=BackForwardCache\n    306       0 Rs   ps -eo pid,ppid,stat,args\n",
+      "stderr": "",
+      "finished_at": 1793685846.9609263,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "003.request.json",
+      "action": "capture",
+      "started_at": 1793685846.9620476,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-v3-loaded.png",
+      "finished_at": 1793685847.1940618,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "004.request.json",
+      "action": "guest",
+      "started_at": 1793685908.2487717,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793685908.9983552,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "005.request.json",
+      "action": "guest",
+      "started_at": 1793685908.9990244,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793685909.1083975,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "006.request.json",
+      "action": "capture",
+      "started_at": 1793685909.1090422,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-cycle1-saved.png",
+      "finished_at": 1793685909.316186,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "007.request.json",
+      "action": "guest",
+      "started_at": 1793685943.8479042,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793685944.9712615,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "008.request.json",
+      "action": "guest",
+      "started_at": 1793685944.971918,
+      "returncode": 0,
+      "stdout": "    PID    PPID STAT COMMAND\n      1       0 Ss   /run/podman-init -- /usr/bin/sleep infinity\n      2       1 S    /usr/bin/sleep infinity\n      6       1 Ss   Xvfb :97 -screen 0 1280x800x24 -nolisten tcp -auth /tmp/unifier-private-display/Xauthority\n     12       0 Ss   /bin/bash /usr/bin/wps /home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/writer-workflow.docx\n     19      12 Sl   /opt/kingsoft/wps-office/office6/wpsoffice /prometheus /home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/writer-workflow.docx\n     38       1 Sl   /opt/kingsoft/wps-office/office6/wpscloudsvr /qingbangong /start_from=qingipc autologin\n     47       1 Sl   /opt/kingsoft/wps-office/office6/wps /wps /from_prome /prome-pipe-token=kprometheus.19.19.201676575 /prome-prestart-type=0\n     70       1 Sl   /opt/kingsoft/wps-office/office6/wpsoffice Run -Entry=EntryPoint /opt/kingsoft/wps-office/office6/addons/kcef/libjsapibrowser.so --server=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe --from=qing\n    109      70 S    /opt/kingsoft/wps-office/office6/promecefpluginhost --type=zygote --no-zygote-sandbox --no-sandbox --force-device-scale-factor=1.04237 --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --jbserver=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe\n    112      70 S    /opt/kingsoft/wps-office/office6/promecefpluginhost --type=zygote --no-sandbox --force-device-scale-factor=1.04237 --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --jbserver=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe\n    201     109 Sl   /opt/kingsoft/wps-office/office6/promecefpluginhost --type=gpu-process --no-sandbox --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --gpu-preferences=WAAAAAAAAAAgACAIAAAAAAAAAAAAAAAAAABgAAAAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --use-gl=angle --use-angle=swiftshader-webgl --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --shared-files --field-trial-handle=0,i,16920993024520972470,11137313575013084273,131072 --disable-features=BackForwardCache\n    236      70 Sl   /opt/kingsoft/wps-office/office6/promecefpluginhost --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --no-sandbox --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --shared-files=v8_context_snapshot_data:100 --field-trial-handle=0,i,16920993024520972470,11137313575013084273,131072 --disable-features=BackForwardCache\n    318       0 Rs   ps -eo pid,ppid,stat,args\n",
+      "stderr": "",
+      "finished_at": 1793685945.1022344,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "009.request.json",
+      "action": "capture",
+      "started_at": 1793685945.1028636,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-normal-close.png",
+      "finished_at": 1793685945.2941134,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "010.request.json",
+      "action": "guest",
+      "started_at": 1793685982.831756,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793685984.031116,
+      "launcher_states": [
+        0
+      ]
+    },
+    {
+      "command": "011.request.json",
+      "action": "capture",
+      "started_at": 1793685984.0317895,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-close-button.png",
+      "finished_at": 1793685984.20077,
+      "launcher_states": [
+        0
+      ]
+    },
+    {
+      "command": "012.request.json",
+      "action": "cycle",
+      "started_at": 1793686016.4878635,
+      "launchers": [
+        0
+      ],
+      "display": {
+        "pid": 6,
+        "display": ":97"
+      },
+      "finished_at": 1793686017.5888178,
+      "launcher_states": [
+        0
+      ]
+    },
+    {
+      "command": "013.request.json",
+      "action": "launch",
+      "started_at": 1793686017.5894961,
+      "host_launcher_pid": 61225,
+      "app_id": "private-wrapper-writer",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/writer-workflow.docx",
+      "finished_at": 1793686017.5902917,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "014.request.json",
+      "action": "guest",
+      "started_at": 1793686017.5908551,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793686022.7169225,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "015.request.json",
+      "action": "capture",
+      "started_at": 1793686022.7208533,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-cycle1-reopened.png",
+      "finished_at": 1793686023.4124942,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "016.request.json",
+      "action": "capture",
+      "started_at": 1793686057.1997943,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-cycle1-reopen-ready.png",
+      "finished_at": 1793686057.407093,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "017.request.json",
+      "action": "guest",
+      "started_at": 1793686057.4079137,
+      "returncode": 0,
+      "stdout": "WM_CLASS(STRING) = \"wpsoffice\", \"wpsoffice\"\n_NET_WM_NAME(UTF8_STRING) = \"writer-workflow.docx - WPS Office\"\n_NET_WM_PID(CARDINAL) = 20\n\nWM_CLASS(STRING) = \"wps\", \"wps\"\n_NET_WM_NAME(UTF8_STRING) = \"WPS Office\"\n_NET_WM_PID(CARDINAL) = 48\n\nWM_CLASS(STRING) = \"wps\", \"wps\"\n_NET_WM_NAME(UTF8_STRING) = \"writer-workflow.docx - WPS Docs\"\n_NET_WM_PID(CARDINAL) = 48\n\n",
+      "stderr": "",
+      "finished_at": 1793686057.5389612,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "018.request.json",
+      "action": "guest",
+      "started_at": 1793686092.326325,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793686092.9049516,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "019.request.json",
+      "action": "guest",
+      "started_at": 1793686092.905822,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793686094.1297872,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "020.request.json",
+      "action": "capture",
+      "started_at": 1793686094.1305826,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-save-as-dialog.png",
+      "finished_at": 1793686094.3979073,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "021.request.json",
+      "action": "guest",
+      "started_at": 1793686153.7094476,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793686154.3521109,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "022.request.json",
+      "action": "capture",
+      "started_at": 1793686154.352897,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-save-as-target.png",
+      "finished_at": 1793686154.5244617,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "023.request.json",
+      "action": "guest",
+      "started_at": 1793686154.5252507,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793686155.752145,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "024.request.json",
+      "action": "capture",
+      "started_at": 1793686155.7529268,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-save-as-done.png",
+      "finished_at": 1793686156.0008433,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "025.request.json",
+      "action": "guest",
+      "started_at": 1793686208.3114603,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793686208.5074503,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "026.request.json",
+      "action": "capture",
+      "started_at": 1793686208.508295,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-file-menu.png",
+      "finished_at": 1793686208.7022135,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "027.request.json",
+      "action": "guest",
+      "started_at": 1793686237.7337894,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793686238.4266415,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "028.request.json",
+      "action": "capture",
+      "started_at": 1793686238.4274385,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-export-pdf-dialog.png",
+      "finished_at": 1793686238.6213872,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "029.request.json",
+      "action": "guest",
+      "started_at": 1793686270.6555672,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793686271.9567392,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "030.request.json",
+      "action": "capture",
+      "started_at": 1793686271.9575267,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-export-pdf-done.png",
+      "finished_at": 1793686272.190861,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "031.request.json",
+      "action": "guest",
+      "started_at": 1793686272.1915781,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793686273.3839188,
+      "launcher_states": [
+        0,
+        0
+      ]
+    },
+    {
+      "command": "032.request.json",
+      "action": "cycle",
+      "started_at": 1793686273.3847704,
+      "launchers": [
+        0,
+        0
+      ],
+      "error": "test budget refused: reserve 2 GiB for the host plus 768 MiB for the test container",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private_gui_driver_v3.py\", line 88, in <module>\n    svc.stop('debian13');reply['launchers']=[p.poll() for p in launchers];svc.start('debian13');reply['display']=start_display()\n                                                                          ~~~~~~~~~^^^^^^^^^^^^\n  File \"/home/omg/文档/多兼容linux机/src/unifier/service.py\", line 625, in start\n    self.runtime.start(runtime[\"container_name\"], project=runtime[\"project\"],\n    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                       env_id=record[\"id\"])\n                       ^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omg/文档/多兼容linux机/tools/guarded_test.py\", line 144, in start\n    require_headroom()\n    ~~~~~~~~~~~~~~~~^^\n  File \"/home/omg/文档/多兼容linux机/tools/guarded_test.py\", line 40, in require_headroom\n    raise UnifierError(\"test budget refused: reserve 2 GiB for the host plus \"\n                       \"768 MiB for the test container\")\nunifier.errors.UnifierError: test budget refused: reserve 2 GiB for the host plus 768 MiB for the test container\n",
+      "finished_at": 1793686273.7370281,
+      "launcher_states": [
+        0,
+        0
+      ]
+    },
+    {
+      "command": "033.request.json",
+      "action": "launch",
+      "started_at": 1793686273.7379022,
+      "host_launcher_pid": 63860,
+      "app_id": "private-wrapper-writer",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/writer-workflow.docx",
+      "finished_at": 1793686273.7386408,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "034.request.json",
+      "action": "guest",
+      "started_at": 1793686273.7392795,
+      "returncode": 255,
+      "stdout": "",
+      "stderr": "Error: can only create exec sessions on running containers: container state improper\n",
+      "finished_at": 1793686273.7847989,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "035.request.json",
+      "action": "capture",
+      "started_at": 1793686273.7856061,
+      "error": "Command '['podman', 'exec', '--user', '1000:1000', '--env', 'DISPLAY=:97', '--env', 'XAUTHORITY=/tmp/unifier-private-display/Xauthority', '--env', 'LANG=C.UTF-8', '--env', 'LC_ALL=C.UTF-8', 'e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45', '/usr/bin/prlimit', '--core=0:0', '--', 'xwd', '-silent', '-root', '-screen', '-out', '/dev/stdout']' returned non-zero exit status 255.",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private_gui_driver_v3.py\", line 86, in <module>\n    elif action=='capture':reply.update(capture(payload['name']))\n                                        ~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private_gui_driver_v3.py\", line 65, in capture\n    with xwd.open('wb') as output:subprocess.run(argv_guest(['xwd','-silent','-root','-screen','-out','/dev/stdout']),stdout=output,stderr=subprocess.PIPE,check=True,timeout=15)\n                                  ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib64/python3.14/subprocess.py\", line 578, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['podman', 'exec', '--user', '1000:1000', '--env', 'DISPLAY=:97', '--env', 'XAUTHORITY=/tmp/unifier-private-display/Xauthority', '--env', 'LANG=C.UTF-8', '--env', 'LC_ALL=C.UTF-8', 'e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45', '/usr/bin/prlimit', '--core=0:0', '--', 'xwd', '-silent', '-root', '-screen', '-out', '/dev/stdout']' returned non-zero exit status 255.\n",
+      "finished_at": 1793686273.8144212,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "036.request.json",
+      "action": "finish",
+      "started_at": 1793686368.1730628,
+      "finished": true,
+      "finished_at": 1793686368.1730676,
+      "launcher_states": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "host_before": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "display": {
+    "pid": 6,
+    "display": ":97"
+  },
+  "reserve_monitor_aborted": false,
+  "fixture_cleanup": "DIRECTED_TEST_CONTAINER_STOP",
+  "launcher_states": [
+    0,
+    0,
+    0
+  ],
+  "host_after": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "desktop_identity_unchanged": true
+}

@@ -1,0 +1,37 @@
+{
+  "memory": 9154560,
+  "tasks": 1,
+  "memory_peak": 35561472,
+  "tasks_peak": 5,
+  "memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0,
+    "sock_throttled": 0
+  },
+  "pids_events": {
+    "max": 0
+  },
+  "cpu_stat": {
+    "usage_usec": 2208700,
+    "user_usec": 1608667,
+    "system_usec": 600032,
+    "nice_usec": 0,
+    "core_sched.force_idle_usec": 0,
+    "nr_periods": 55,
+    "nr_throttled": 2,
+    "throttled_usec": 2742,
+    "nr_bursts": 0,
+    "burst_usec": 0
+  },
+  "processes": [
+    {
+      "pid": 364425,
+      "starttime": "17573860",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-consumers-work.service"
+    }
+  ]
+}

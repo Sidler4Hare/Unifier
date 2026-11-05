@@ -1,0 +1,28 @@
+{
+  "identity": {
+    "pid": 243920,
+    "starttime": "16406531",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-audit-20261105-0815-batch1-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "test_package_observation",
+    "test_packages",
+    "test_dependencies",
+    "test_package_recovery",
+    "test_app_entries",
+    "test_app_binding",
+    "test_app_user",
+    "test_package_alias",
+    "test_local_package_paths",
+    "test_install_status",
+    "test_catalog",
+    "test_quality_regressions",
+    "test_compatibility",
+    "test_on_demand",
+    "test_lifecycle_contracts",
+    "-v"
+  ]
+}

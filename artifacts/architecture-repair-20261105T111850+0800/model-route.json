@@ -1,0 +1,8 @@
+{
+  "provider": "local-server",
+  "model": "swift-1.5-iq3_s",
+  "reasoningEffort": "max",
+  "minimal_provider_overlay": true,
+  "dump_audit_passed": true,
+  "fallback_allowed": false
+}

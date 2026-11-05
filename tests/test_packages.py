@@ -101,6 +101,16 @@ class PackageBoxes(FakeRuntime):
         self.package_stdout = ""
         self.package_stderr = ""
 
+    def read_inventory_readonly(self, record):
+        """Model a runtime with independent access to its current package DB."""
+        self._owned(record["runtime"]["container_name"],
+                    record["runtime"]["project"], record["id"])
+        argv = ["pacman", "-Q"] if record["target"] == "arch" else ["dpkg-query"]
+        from unifier.package_inventory import observation
+        return observation(record, inventory=self._inventory(record["id"], argv),
+                           database='fake', method='independent-fake-database',
+                           consistency={'scope': 'offline fake only'})
+
     def copy_in(self, name, host_path, container_path, *, project, env_id):
         self._owned(name, project, env_id)
         self.copies.append((host_path, container_path, env_id))

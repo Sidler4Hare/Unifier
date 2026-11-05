@@ -1,0 +1,14 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-audit-20261105-0815-background",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 60,
+  "private_root": "/tmp/ua1105-bg-3i5k6ff0",
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/shared-architecture-audit-20261105T0815+0800/counterexamples/probes.py",
+    "ArchitectureProbes.test_app_worker_release_does_not_account_for_a_background_child",
+    "-v"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "compare 左 $;.txt": {
+    "sha256": "72820526d58676217fd814268ed53fb84f432022ce2d4108d56a017ef4014e75",
+    "text": "alpha\nleft value 100\n中文保留\nleft untouched $;\n",
+    "uid": 1000
+  },
+  "compare 右 $;.txt": {
+    "sha256": "35de713a5cb69005255ed97c28009d9213963b1e81aa10e59427e74756ae8e51",
+    "text": "alpha\nright value 200\n中文保留\nright untouched $;\n",
+    "uid": 1000
+  }
+}

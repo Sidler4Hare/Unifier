@@ -33,7 +33,7 @@ from unifier.file_routes import project_session_scope
 from unifier.identity import binding_for, validate_binding
 from unifier.json_records import JsonRecordCollection, fsync_directory
 from unifier.on_demand import LaunchGroup, exit_status, process_stamp
-from unifier.runtime import GuestProcess
+from unifier.runtime import ROLE_ENVIRONMENT, GuestProcess, project_label
 from unifier.projects import ProjectRegistry, validate_project_record
 from unifier.registry import DataRootRegistry
 
@@ -876,18 +876,66 @@ class ProjectSessions:
             sid=record.get("guest_sid") or record["guest_pid"],
             token=record.get("guest_token") or "")
 
+    def _verified_instance(self, record: dict) -> tuple:
+        """Re-read the environment and pin the exact container instance.
+
+        Nothing is started or changed here: recovery must not wake an old
+        graphical container just to ask it a question.  The session's journaled
+        binding (UUID, generation, container id) is compared with the live
+        environment record and with the live container's own project/env/role
+        labels, so a same-name replacement, a new generation or a foreign label
+        can never be mistaken for the instance this session executed in.
+
+        Returns ``(container_id, project, environment_id, running)``. A runtime
+        that cannot inspect the pinned id cannot prove this instance's state.
+        """
+        binding = validate_binding(record.get("environment_binding"))
+        environment = self.service.store.load(binding["environment_id"])
+        live = binding_for(environment)
+        if live != binding:
+            raise UnifierError(
+                "the environment instance moved to another generation or "
+                "container since this session was bound")
+        runtime = environment.get("runtime")
+        if not isinstance(runtime, dict):
+            raise UnifierError("environment runtime record is missing")
+        project = runtime.get("project")
+        if not isinstance(project, str) or project != project_label(self.root):
+            raise UnifierError("environment runtime record is incomplete")
+        # A name can be reused between inspection and the subsequent probe.
+        address = binding["container_id"]
+        info = self.service.runtime.inspect(address)
+        if info is None:
+            raise UnifierError("the environment container does not exist")
+        if info.container_id != binding["container_id"]:
+            raise UnifierError(
+                "the live container instance is not the one this session is bound to")
+        if (info.project != project or info.env_id != binding["environment_id"]
+                or info.role != ROLE_ENVIRONMENT):
+            raise UnifierError(
+                "the container is not owned as this project's environment")
+        return address, project, binding["environment_id"], bool(info.running)
+
     def _guest_state(self, record: dict) -> str:
         guest = self._guest_from_record(record)
         if guest is None:
             return "unknown"
         try:
-            environment = self.service.store.load(record["environment_id"])
-            container = environment["runtime"]["container_name"]
             if not hasattr(self.service.runtime, "probe_guest"):
                 return "unknown"
+            address, project, environment_id, running = self._verified_instance(record)
+            if not running:
+                # The exact instance the session was bound to is stopped and is
+                # still that same instance, so nothing inside it can still be
+                # running.  An unknown, replaced or foreign container proves
+                # nothing and stays unknown.
+                return "gone"
+            # Probe inside the instance verified above, addressed by its full
+            # id, never by a name that could have been re-pointed at another
+            # container in the meantime.
             return self.service.runtime.probe_guest(
-                container, guest, project=environment["runtime"]["project"],
-                env_id=record["environment_id"], user=record.get("session_user"))
+                address, guest, project=project, env_id=environment_id,
+                user=record.get("session_user"))
         except Exception:
             return "unknown"
 
@@ -1078,44 +1126,45 @@ class ProjectSessions:
                     "session has no guest pid/start identity; refusing to claim "
                     "cancellation or release its unresolved lease")
             return {"session_uuid": session_uuid, "action": "already-settled"}
-        environment = self.service.store.load(record["environment_id"])
-        container = environment["runtime"]["container_name"]
+        container, project, environment_id, running = self._verified_instance(record)
         user = record.get("session_user")
-        status = self.service.runtime.signal_guest(
-            container, guest, signum, project=environment["runtime"]["project"],
-            env_id=record["environment_id"], user=user)
-        if status == "gone":
+        # A stopped exact instance has no guest left to signal. Never signal a
+        # replacement, even if it reused the same name and guest PID/start.
+        status = (self.service.runtime.signal_guest(
+            container, guest, signum, project=project,
+            env_id=environment_id, user=user) if running else "gone")
+        if not running:
+            confirmed = True
+        elif status == "gone":
             confirmed = self.service.runtime.cleanup_guest(
-                container, guest, project=environment["runtime"]["project"],
-                env_id=record["environment_id"], user=user) == "gone"
+                container, guest, project=project,
+                env_id=environment_id, user=user) == "gone"
         else:
             deadline = time.monotonic() + SIGNAL_GRACE_SECONDS
             confirmed = False
             while time.monotonic() < deadline:
                 if self.service.runtime.probe_guest(
-                        container, guest, project=environment["runtime"]["project"],
-                        env_id=record["environment_id"], user=user) == "gone":
+                        container, guest, project=project,
+                        env_id=environment_id, user=user) == "gone":
                     confirmed = True
                     break
                 time.sleep(0.1)
             if not confirmed and signum != signal.SIGKILL:
                 self.service.runtime.signal_guest(
                     container, guest, signal.SIGKILL,
-                    project=environment["runtime"]["project"],
-                    env_id=record["environment_id"], user=user)
+                    project=project, env_id=environment_id, user=user)
                 deadline = time.monotonic() + 2
                 while time.monotonic() < deadline:
                     if self.service.runtime.probe_guest(
                             container, guest,
-                            project=environment["runtime"]["project"],
-                            env_id=record["environment_id"], user=user) == "gone":
+                            project=project, env_id=environment_id, user=user) == "gone":
                         confirmed = True
                         break
                     time.sleep(0.1)
             if confirmed:
                 confirmed = self.service.runtime.cleanup_guest(
-                    container, guest, project=environment["runtime"]["project"],
-                    env_id=record["environment_id"], user=user) == "gone"
+                    container, guest, project=project,
+                    env_id=environment_id, user=user) == "gone"
         if not confirmed:
             self.store.update(
                 session_uuid, state="unresolved",

@@ -1,0 +1,20 @@
+{
+  "prepared_date": "2026-11-04",
+  "timezone": "Asia/Shanghai",
+  "head": "6f776a61dc599ad8f1c0a476681e892248e55a6b",
+  "dirty_status": " M HANDOFF.md\n M README.md\n M src/unifier/cli.py\n M src/unifier/project_sessions.py\n M src/unifier/runtime.py\n M tests/test_env.py\n?? artifacts/expansion-continuation-20261103T100648+0800/\n?? artifacts/memory-audit-20261103T215844+0800/\n?? artifacts/wps-native-container-ab-20261103T222720+0800/\n?? \"docs/\\345\\256\\242\\344\\275\\223\\345\\217\\227\\346\\216\\247\\350\\257\\267\\346\\261\\202.md\"\n?? \"docs/\\346\\211\\251\\346\\265\\213\\344\\277\\235\\346\\212\\244\\344\\270\\216\\346\\201\\242\\345\\244\\215.md\"\n?? \"docs/\\346\\234\\254\\346\\234\\272\\346\\265\\213\\350\\257\\225\\350\\247\\204\\350\\214\\203.md\"\n?? src/unifier/agent_bridge.py\n?? src/unifier/bridge_client.py\n?? src/unifier/exec_control.py\n?? tests/test_agent_bridge.py\n?? tests/test_agent_cli.py\n?? tests/test_guarded_test.py\n?? tests/test_runtime_control.py\n?? tests/test_session_stopped_recovery.py\n?? tools/guarded_test.py\n",
+  "source_sha256": {
+    "src/unifier/service.py": "77d9b3d2a6eb9e846af6c8374e560c95f8ebb9026f9c1551aac4bfcf9792dbde",
+    "src/unifier/dependencies.py": "472a558ea5b3a3db31311b6f9f508a9d7710def99d385783e84ad61d75d55149",
+    "src/unifier/on_demand.py": "c96254e90a072b7873cc12c359d1f12d6fe29756534ded1fa1489adcf87fa738",
+    "src/unifier/cli.py": "f30b9493393af84fbfa718b8d5a3b86f71dbbc32a49f01f99918897f54da4555",
+    "src/unifier/native_io.py": "eed2519597249825d4a5db539b0978adb5fb721c70592c481741299e318f9f0a",
+    "src/unifier/runtime.py": "d2ed3c72caa0e0727710e873c583a2a43511977abff58ffdf8b3398cfd49f2ba",
+    "tools/guarded_test.py": "3a9027384e6456012c3d4766bd2a71042076ac118b3c0223695f9894f0fc17a0",
+    "tests/test_dependencies.py": "078d0693f69869149f6ad20b330be297266288e8bf4fd63d6f57d55c438bb4d9",
+    "tests/test_on_demand.py": "e5db547299d0b6e1e35dea8d175078b6a5844f639826eee21fe7a51239bbed13",
+    "docs/本机测试规范.md": "2de0988eb79149daded901f291f409d3d3cafe1069c026fbb6df435400044f43",
+    "docs/自动依赖与原生安装交互.md": "288b33ad3b1be8f5fd2573b00ed8b9b05dda1a92470a4e2afbea877db3037b5a"
+  },
+  "index_sha256": "980a69cc8db2c3bc0b3a40e7f4bce9b2b4005493068cf45e0117d62813c00464"
+}

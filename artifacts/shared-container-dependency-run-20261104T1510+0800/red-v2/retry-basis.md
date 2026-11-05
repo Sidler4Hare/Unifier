@@ -1,0 +1,1 @@
+首个 red 尝试因监测器先于工作进程创建 command.log 而出现 FileNotFoundError。原 abort.json/receipt.json 保留；精确work单元已停止且cgroup移除，无容器启动。修正仅为日志尚未创建时跳过日志大小检查；不提高预算、不改变1GiB保留线。本次为该具体准备失败唯一复试，重新完成30秒准入。增加工作进程末尾cgroup事件快照，覆盖极短命令。

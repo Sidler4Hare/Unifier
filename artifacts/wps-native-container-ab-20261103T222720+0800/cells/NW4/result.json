@@ -1,0 +1,45 @@
+{
+  "side": "native",
+  "case": "writer",
+  "label": "NW4",
+  "status": "FAILED",
+  "cgroup": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-wps-ab-native.service",
+  "env": {
+    "DISPLAY": "127.0.0.1:200",
+    "XAUTHORITY": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/common/Xauthority",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "QT_QPA_PLATFORM": "xcb",
+    "LIBGL_ALWAYS_SOFTWARE": "1",
+    "QT_OPENGL": "software",
+    "QT_QUICK_BACKEND": "software",
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "HOME": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW4/home",
+    "XDG_CONFIG_HOME": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW4/home/.config",
+    "XDG_CACHE_HOME": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW4/home/.cache",
+    "XDG_RUNTIME_DIR": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW4/home/runtime",
+    "XDG_SESSION_TYPE": "x11",
+    "DBUS_SESSION_BUS_ADDRESS": "unix:path=/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW4/home/runtime/no-bus",
+    "TMPDIR": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW4/home/tmp",
+    "FONTCONFIG_FILE": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/common/fonts.conf"
+  },
+  "ready": true,
+  "open_window_seconds": 2.2778292770017288,
+  "windows": [
+    {
+      "id": "2097160",
+      "name": "writer.docx - WPS Docs"
+    }
+  ],
+  "capture": {
+    "returncode": 0,
+    "stderr": ""
+  },
+  "capture_sampled": {
+    "returncode": 1,
+    "stderr": "import: unable to open X server `127.0.0.1:200' @ error/import.c/ImportImageCommand/350.\n"
+  },
+  "error": "'NoneType' object is not subscriptable",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/run_cell.py\", line 75, in <module>\n    dt=rows[-1]['at']-rows[0]['at'];cpu=(rows[-1]['cpu']['usage_usec']-rows[0]['cpu']['usage_usec'])/1e6/dt*100\n                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^\nTypeError: 'NoneType' object is not subscriptable\n"
+}

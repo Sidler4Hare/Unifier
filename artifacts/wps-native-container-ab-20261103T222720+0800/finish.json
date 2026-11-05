@@ -1,0 +1,14 @@
+{
+  "at": 1793719345.9019732,
+  "errors": [],
+  "guest_cloud_restored": true,
+  "native_cloud_restored": true,
+  "container_stopped": true,
+  "host_config_unchanged": true,
+  "mounts_unchanged": true,
+  "boot": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+  "kwin": [
+    "1769"
+  ],
+  "native_installed_version": "wps-office-12.1.2.28080.AK.preread.sw-1.x86_64"
+}

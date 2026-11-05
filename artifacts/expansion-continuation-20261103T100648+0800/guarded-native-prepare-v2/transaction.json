@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "id": "txn6eaf928a3e41",
+  "environment_id": "debian13",
+  "operation": "install",
+  "packages": [
+    "xvfb",
+    "xauth",
+    "x11-apps",
+    "fonts-noto-cjk"
+  ],
+  "interactive": false,
+  "stream": false,
+  "dependency_repair": {
+    "status": "not-requested"
+  },
+  "use_command": [],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+    "content_revision": 1,
+    "package_inventory_sha256": "6ad1ed648db9f7f15d0475ecf6aaa0066107ca0e5b2b10c5a8678b6408a18fd9"
+  },
+  "native": [
+    {
+      "argv": [
+        "apt-get",
+        "update"
+      ],
+      "timeout": 180,
+      "state": "finished",
+      "exit_code": 0,
+      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nGet:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]\nIgn:3 https://www.scootersoftware.com/debian bcompare5 InRelease\nGet:4 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]\nHit:5 https://www.scootersoftware.com/debian bcompare5 Release\nGet:7 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [297 kB]\nFetched 388 kB in 3s (131 kB/s)\nReading package lists...\n",
+      "stderr_tail": "",
+      "guest": {
+        "pid": 12,
+        "start": 179660,
+        "pgrp": 12,
+        "sid": 12,
+        "token": "313855da1bb9d0181f97380d9ee1991f"
+      }
+    },
+    {
+      "argv": [
+        "apt-get",
+        "install",
+        "-y",
+        "xvfb",
+        "xauth",
+        "x11-apps",
+        "fonts-noto-cjk"
+      ],
+      "timeout": 300,
+      "state": "finished",
+      "exit_code": 0,
+      "stdout_tail": "atabase ... 70%\r(Reading database ... 75%\r(Reading database ... 80%\r(Reading database ... 85%\r(Reading database ... 90%\r(Reading database ... 95%\r(Reading database ... 100%\r(Reading database ... 44061 files and directories currently installed.)\r\nPreparing to unpack .../00-libuchardet0_0.0.8-1+b2_amd64.deb ...\r\nUnpacking libuchardet0:amd64 (0.0.8-1+b2) ...\r\nSelecting previously unselected package groff-base.\r\nPreparing to unpack .../01-groff-base_1.23.0-9_amd64.deb ...\r\nUnpacking groff-base (1.23.0-9) ...\r\nSelecting previously unselected package libpipeline1:amd64.\r\nPreparing to unpack .../02-libpipeline1_1.5.8-1_amd64.deb ...\r\nUnpacking libpipeline1:amd64 (1.5.8-1) ...\r\nSelecting previously unselected package man-db.\r\nPreparing to unpack .../03-man-db_2.13.1-1_amd64.deb ...\r\nUnpacking man-db (2.13.1-1) ...\r\nSelecting previously unselected package fonts-noto-cjk.\r\nPreparing to unpack .../04-fonts-noto-cjk_1%3a20240730+repack1-1_all.deb ...\r\nUnpacking fonts-noto-cjk (1:20240730+repack1-1) ...\r\nSelecting previously unselected package libfontenc1:amd64.\r\nPreparing to unpack .../05-libfontenc1_1%3a1.1.8-1+b2_amd64.deb ...\r\nUnpacking libfontenc1:amd64 (1:1.1.8-1+b2) ...\r\nSelecting previously unselected package libxcb-damage0:amd64.\r\nPreparing to unpack .../06-libxcb-damage0_1.17.0-2+b1_amd64.deb ...\r\nUnpacking libxcb-damage0:amd64 (1.17.0-2+b1) ...\r\nSelecting previously unselected package libxfont2:amd64.\r\nPreparing to unpack .../07-libxfont2_1%3a2.0.6-1+deb13u1_amd64.deb ...\r\nUnpacking libxfont2:amd64 (1:2.0.6-1+deb13u1) ...\r\nSelecting previously unselected package x11-apps.\r\nPreparing to unpack .../08-x11-apps_7.7+11+b1_amd64.deb ...\r\nUnpacking x11-apps (7.7+11+b1) ...\r\nSelecting previously unselected package x11-xkb-utils.\r\nPreparing to unpack .../09-x11-xkb-utils_7.7+9_amd64.deb ...\r\nUnpacking x11-xkb-utils (7.7+9) ...\r\nSelecting previously unselected package xauth.\r\nPreparing to unpack .../10-xauth_1%3a1.1.2-1.1_amd64.deb ...\r\nUnpacking xauth (1:1.1.2-1.1) ...\r\nSelecting previously unselected package xbitmaps.\r\nPreparing to unpack .../11-xbitmaps_1.1.1-2.2_all.deb ...\r\nUnpacking xbitmaps (1.1.1-2.2) ...\r\nSelecting previously unselected package xfonts-encodings.\r\nPreparing to unpack .../12-xfonts-encodings_1%3a1.0.4-2.2_all.deb ...\r\nUnpacking xfonts-encodings (1:1.0.4-2.2) ...\r\nSelecting previously unselected package xfonts-utils.\r\nPreparing to unpack .../13-xfonts-utils_1%3a7.7+7_amd64.deb ...\r\nUnpacking xfonts-utils (1:7.7+7) ...\r\nSelecting previously unselected package xfonts-base.\r\nPreparing to unpack .../14-xfonts-base_1%3a1.0.5+nmu1_all.deb ...\r\nUnpacking xfonts-base (1:1.0.5+nmu1) ...\r\nSelecting previously unselected package xserver-common.\r\nPreparing to unpack .../15-xserver-common_2%3a21.1.16-1.3+deb13u4_all.deb ...\r\nUnpacking xserver-common (2:21.1.16-1.3+deb13u4) ...\r\nSelecting previously unselected package xvfb.\r\nPreparing to unpack .../16-xvfb_2%3a21.1.16-1.3+deb13u4_amd64.deb ...\r\nUnpacking xvfb (2:21.1.16-1.3+deb13u4) ...\r\nSetting up libpipeline1:amd64 (1.5.8-1) ...\r\nSetting up x11-xkb-utils (7.7+9) ...\r\nSetting up fonts-noto-cjk (1:20240730+repack1-1) ...\r\nSetting up libfontenc1:amd64 (1:1.1.8-1+b2) ...\r\nSetting up xfonts-encodings (1:1.0.4-2.2) ...\r\nSetting up xauth (1:1.1.2-1.1) ...\r\nSetting up libuchardet0:amd64 (0.0.8-1+b2) ...\r\nSetting up xserver-common (2:21.1.16-1.3+deb13u4) ...\r\nSetting up libxfont2:amd64 (1:2.0.6-1+deb13u1) ...\r\nSetting up xbitmaps (1.1.1-2.2) ...\r\nSetting up libxcb-damage0:amd64 (1.17.0-2+b1) ...\r\nSetting up xvfb (2:21.1.16-1.3+deb13u4) ...\r\nSetting up xfonts-utils (1:7.7+7) ...\r\nSetting up xfonts-base (1:1.0.5+nmu1) ...\r\nSetting up groff-base (1.23.0-9) ...\r\nSetting up man-db (2.13.1-1) ...\r\nBuilding database of manual pages ...\r\nCreated symlink '/etc/systemd/system/timers.target.wants/man-db.timer' → '/usr/lib/systemd/system/man-db.timer'.\r\nSetting up x11-apps (7.7+11+b1) ...\r\nProcessing triggers for libc-bin (2.41-12+deb13u4) ...\r\nProcessing triggers for fontconfig (2.15.0-2.3) ...\r\n",
+      "stderr_tail": "",
+      "guest": {
+        "pid": 33,
+        "start": 180109,
+        "pgrp": 33,
+        "sid": 33,
+        "token": "57f1bae62a26742625b754c6feb78d5f"
+      }
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "xvfb": true,
+      "xauth": true,
+      "x11-apps": true,
+      "fonts-noto-cjk": true
+    },
+    "command": null,
+    "command_exit_code": null,
+    "stdout_preview": null,
+    "stdout_sha256": null,
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "rpm",
+      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
+      "count": 2530,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+    "content_revision": 2,
+    "package_inventory_sha256": "3b2a5e425313f173274b42582d65573ea79bdfdccf41d4ef7fb6be931acf2cdf"
+  },
+  "phase": "completed",
+  "environment_binding": {
+    "environment_id": "debian13",
+    "environment_uuid": "ae147c3e-3e65-41ac-ac8d-9257c9202696",
+    "generation": 1,
+    "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45"
+  },
+  "recovery_required": false,
+  "inventory_status": "verified",
+  "failure_phase": null,
+  "started_at": "2026-11-03T11:11:09+08:00",
+  "finished_at": "2026-11-03T11:11:39+08:00"
+}

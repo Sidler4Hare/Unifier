@@ -1,0 +1,107 @@
+{
+  "status": "FINISHED",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "host_display_sockets_mounted": false,
+  "events": [
+    {
+      "command": "001.request.json",
+      "action": "launch",
+      "started_at": 1793689813.9378493,
+      "host_launcher_pid": 85991,
+      "app_id": "private-wrapper-writer",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/writer-workflow.docx",
+      "finished_at": 1793689813.9843526,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "002.request.json",
+      "action": "guest",
+      "started_at": 1793689813.984812,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793689824.1736119,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "003.request.json",
+      "action": "capture",
+      "started_at": 1793689824.175885,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-second-reopen-final.png",
+      "finished_at": 1793689824.4086602,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "004.request.json",
+      "action": "guest",
+      "started_at": 1793690001.3210382,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793690001.8620238,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "005.request.json",
+      "action": "capture",
+      "started_at": 1793690001.8626335,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-second-reopen-verified.png",
+      "finished_at": 1793690002.087982,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "006.request.json",
+      "action": "guest",
+      "started_at": 1793690002.088493,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793690003.2708688,
+      "launcher_states": [
+        0
+      ]
+    },
+    {
+      "command": "007.request.json",
+      "action": "finish",
+      "started_at": 1793690003.2715647,
+      "finished": true,
+      "finished_at": 1793690003.2715669,
+      "launcher_states": [
+        0
+      ]
+    }
+  ],
+  "host_before": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "display": {
+    "pid": 6,
+    "display": ":97"
+  },
+  "reserve_monitor_aborted": false,
+  "fixture_cleanup": "DIRECTED_TEST_CONTAINER_STOP",
+  "launcher_states": [
+    0
+  ],
+  "host_after": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "desktop_identity_unchanged": true
+}

@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "pid": 269261,
+    "starttime": "16475868",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-audit-20261105-0815-review-work.service"
+  },
+  "limits": {
+    "memory.max": "536870912",
+    "memory.high": "402653184",
+    "memory.swap.max": "0",
+    "pids.max": "96",
+    "cpu.max": "100000 100000"
+  }
+}

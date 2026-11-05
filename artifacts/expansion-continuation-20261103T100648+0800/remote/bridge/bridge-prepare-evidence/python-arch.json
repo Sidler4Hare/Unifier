@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "id": "txn5814d826f673",
+  "environment_id": "arch",
+  "operation": "install",
+  "packages": [
+    "python"
+  ],
+  "interactive": false,
+  "stream": false,
+  "dependency_repair": {
+    "status": "not-requested"
+  },
+  "use_command": [
+    "/usr/bin/python3",
+    "--version"
+  ],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+    "content_revision": 1,
+    "package_inventory_sha256": "ebe88df8356ee51c05204e70e02740b33acd72b84d172fd73ea05f1a1b3141e7"
+  },
+  "native": [
+    {
+      "argv": [
+        "pacman-key",
+        "--init"
+      ],
+      "timeout": 180,
+      "state": "finished",
+      "exit_code": 0,
+      "stdout_tail": "==> Generating pacman master key. This may take some time.\n==> Updating trust database...\n",
+      "stderr_tail": "gpg: Generating pacman keyring master key...\ngpg: revocation certificate stored as '/etc/pacman.d/gnupg/openpgp-revocs.d/EA74A67190EE8DC914D28EEDD37DB1AE279DBE2B.rev'\ngpg: Done\ngpg: Note: third-party key signatures using the SHA1 algorithm are rejected\ngpg: (use option \"--allow-weak-key-signatures\" to override)\ngpg: marginals needed: 3  completes needed: 1  trust model: pgp\ngpg: depth: 0  valid:   2  signed:   5  trust: 0-, 0q, 0n, 0m, 0f, 2u\ngpg: depth: 1  valid:   5  signed:  88  trust: 0-, 0q, 0n, 5m, 0f, 0u\ngpg: depth: 2  valid:  78  signed:  18  trust: 78-, 0q, 0n, 0m, 0f, 0u\ngpg: next trustdb check due at 2026-12-31\n",
+      "guest": {
+        "pid": 31,
+        "start": 2976238,
+        "pgrp": 31,
+        "sid": 31,
+        "token": "aa64ea22145c05c415d314107cfe6a67"
+      }
+    },
+    {
+      "argv": [
+        "pacman",
+        "-Syu",
+        "--noconfirm",
+        "--needed",
+        "python"
+      ],
+      "timeout": 900,
+      "state": "finished",
+      "exit_code": 0,
+      "stdout_tail": "4-1             3.54.1-1               0.18 MiB       2.38 MiB\ncore/systemd                  262-1                262.1-1                0.03 MiB      10.68 MiB\ncore/systemd-libs             262-1                262.1-1                0.01 MiB       1.44 MiB\ncore/systemd-sysvcompat       262-1                262.1-1                0.00 MiB       0.01 MiB\ncore/tzdata                   2026e-1              2026f-1                0.00 MiB       0.30 MiB\ncore/zlib                     1:1.3.2-3            1:1.3.2-4              0.00 MiB       0.08 MiB\ncore/python                                        3.14.9-1              73.88 MiB      13.56 MiB\n\nTotal Download Size:    39.93 MiB\nTotal Installed Size:  176.24 MiB\nNet Upgrade Size:       74.60 MiB\n\n:: Proceed with installation? [Y/n] \n:: Retrieving packages...\n python-3.14.9-1-x86_64 downloading...\n systemd-262.1-1-x86_64 downloading...\n gnupg-2.4.9-4-x86_64 downloading...\n sqlite-3.54.1-1-x86_64 downloading...\n linux-api-headers-7.3-1-x86_64 downloading...\n systemd-libs-262.1-1-x86_64 downloading...\n curl-8.23.0-1-x86_64 downloading...\n iproute2-7.3.0-1-x86_64 downloading...\n pacman-7.1.0.r9.g54d9411-3-x86_64 downloading...\n libelf-0.197-1-x86_64 downloading...\n libarchive-3.8.11-1-x86_64 downloading...\n brotli-1.2.1-1-x86_64 downloading...\n ca-certificates-mozilla-3.132-1-x86_64 downloading...\n dbus-1.16.2-2-x86_64 downloading...\n device-mapper-2.03.44-1-x86_64 downloading...\n tzdata-2026f-1-x86_64 downloading...\n libldap-2.7.2-2-x86_64 downloading...\n libngtcp2-1.26.0-1-x86_64 downloading...\n kmod-34.3-1-x86_64 downloading...\n mpdecimal-4.0.1-3-x86_64 downloading...\n libnghttp2-1.71.0-1-x86_64 downloading...\n zlib-1:1.3.2-4-x86_64 downloading...\n libnghttp3-1.19.0-1-x86_64 downloading...\n systemd-sysvcompat-262.1-1-x86_64 downloading...\nchecking keyring...\nchecking package integrity...\nloading package files...\nchecking for file conflicts...\n:: Processing package changes...\nupgrading tzdata...\nupgrading linux-api-headers...\nupgrading zlib...\ninstalling mpdecimal...\nupgrading brotli...\nupgrading libldap...\nupgrading sqlite...\ninstalling python...\nOptional dependencies for python\n    python-setuptools: for building Python packages using tooling that is usually bundled with Python\n    python-pip: for installing Python packages using tooling that is usually bundled with Python\n    python-pipx: for installing Python software not packaged on Arch Linux\n    sqlite: for a default database integration [installed]\n    xz: for lzma [installed]\n    tk: for tkinter\nupgrading systemd-libs...\nupgrading ca-certificates-mozilla...\nupgrading libnghttp2...\nupgrading libnghttp3...\nupgrading libngtcp2...\nupgrading curl...\nupgrading dbus...\nupgrading device-mapper...\nupgrading gnupg...\nupgrading libelf...\nupgrading iproute2...\nupgrading kmod...\nupgrading libarchive...\nupgrading systemd...\nFailed to connect to audit log, ignoring: Invalid argument\nupgrading pacman...\nupgrading systemd-sysvcompat...\n:: Running post-transaction hooks...\n( 1/12) Creating system user accounts...\nFailed to connect to audit log, ignoring: Invalid argument\n( 2/12) Creating temporary files...\n/usr/lib/tmpfiles.d/journal-nocow.conf:26: Failed to resolve specifier: uninitialized /etc/ detected, skipping.\nAll rules containing unresolvable specifiers will be skipped.\n( 3/12) Updating journal message catalog...\n( 4/12) Updating udev hardware database...\n( 5/12) Applying kernel sysctl settings...\n  Skipped: Current root is not booted.\n( 6/12) Reloading system manager configuration...\n  Skipped: Current root is not booted.\n( 7/12) Reloading user manager configuration...\n  Skipped: Current root is not booted.\n( 8/12) Enqueuing marked services...\n  Skipped: Current root is not booted.\n( 9/12) Reloading device manager configuration...\n  Skipped: Current root is not booted.\n(10/12) Arming ConditionNeedsUpdate...\n(11/12) Rebuilding certificate stores...\n(12/12) Reloading system bus configuration...\n  Skipped: Current root is not booted.\n",
+      "stderr_tail": "",
+      "guest": {
+        "pid": 64,
+        "start": 2976571,
+        "pgrp": 64,
+        "sid": 64,
+        "token": "e9d401f7f4e75b8d7538080a8963da93"
+      }
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "python": true
+    },
+    "command": [
+      "/usr/bin/python3",
+      "--version"
+    ],
+    "command_exit_code": 0,
+    "stdout_preview": "Python 3.14.9\n",
+    "stdout_sha256": "0df2ad5b0248e4186d4fae0d8f1c625c88f1030e1ec8243c5c10cc26093b32ae",
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "dpkg-query",
+      "sha256": "d2bfe185338d4d2e3eb739737d9c12db4bef14f32cd3a92a5e43a1b264b71f12",
+      "count": 1138,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "dpkg-query",
+      "sha256": "d2bfe185338d4d2e3eb739737d9c12db4bef14f32cd3a92a5e43a1b264b71f12",
+      "count": 1138,
+      "error": null
+    }
+  },
+  "other_environments": {
+    "fedora44": {
+      "before": "fe112a8a2eed41679f619c2175f8ffce7fb623d5c0d8e00571549fcc87aff19c",
+      "after": "fe112a8a2eed41679f619c2175f8ffce7fb623d5c0d8e00571549fcc87aff19c",
+      "probed_before": "fe112a8a2eed41679f619c2175f8ffce7fb623d5c0d8e00571549fcc87aff19c",
+      "probed_after": "fe112a8a2eed41679f619c2175f8ffce7fb623d5c0d8e00571549fcc87aff19c",
+      "unchanged": true,
+      "error": null
+    }
+  },
+  "revision_after": {
+    "writable_revision": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+    "content_revision": 2,
+    "package_inventory_sha256": "ab825a8e385e4899680a7bb3f235e1f9dc63b6efde1c1253cf15ab7914f4c9f0"
+  },
+  "phase": "completed",
+  "environment_binding": {
+    "environment_id": "arch",
+    "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+    "generation": 1,
+    "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430"
+  },
+  "recovery_required": false,
+  "inventory_status": "verified",
+  "failure_phase": null,
+  "started_at": "2026-11-03T13:46:54+08:00",
+  "finished_at": "2026-11-03T13:47:34+08:00"
+}

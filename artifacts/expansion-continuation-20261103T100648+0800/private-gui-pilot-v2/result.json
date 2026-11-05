@@ -1,0 +1,23 @@
+{
+  "status": "FAIL",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "display": "guest-local Xvfb :97",
+  "host_display_sockets_mounted": false,
+  "workflow_accepted": false,
+  "host_before": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "error": "Traceback (most recent call last):\n  File \"<string>\", line 9, in <module>\n    if os.readlink(proc/'exe').endswith('/Xvfb'):raise RuntimeError('display server already running')\n       ~~~~~~~~~~~^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/proc/1/exe'\n",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private_gui_pilot_v2.py\", line 43, in <module>\n    r=guest(['python3','-c',script]);assert r.returncode==0,r.stderr;result['xvfb']=json.loads(r.stdout);save()\n                                            ^^^^^^^^^^^^^^^\nAssertionError: Traceback (most recent call last):\n  File \"<string>\", line 9, in <module>\n    if os.readlink(proc/'exe').endswith('/Xvfb'):raise RuntimeError('display server already running')\n       ~~~~~~~~~~~^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/proc/1/exe'\n\n",
+  "fixture_cleanup": "DIRECTED_TEST_CONTAINER_STOP",
+  "host_after": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "desktop_identity_unchanged": true
+}

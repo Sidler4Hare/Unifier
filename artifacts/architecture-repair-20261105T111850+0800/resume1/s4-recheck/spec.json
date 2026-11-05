@@ -1,0 +1,15 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-s34-resume1-loader",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 180,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_dependency_evidence",
+    "test_dependencies"
+  ]
+}

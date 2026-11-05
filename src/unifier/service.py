@@ -34,6 +34,8 @@ from unifier.catalog import (
     system_contract,
 )
 from unifier.errors import UnifierError
+from unifier.operation_lock import management_lock
+from unifier.package_inventory import InventoryObservation, normalize_inventory
 from unifier.compatibility import (
     compatibility_mode, observe_host, relationship_plan, require_relationship,
 )
@@ -164,6 +166,8 @@ def _compare_others(before: dict, after: dict) -> dict:
         error = right.get("error") or left.get("error")
         unchanged = (
             error is None
+            and bool(left) and bool(right)
+            and left.get("binding") == right.get("binding")
             and left.get("stored") == right.get("stored")
             and left.get("probed") == left.get("stored")
             and right.get("probed") == right.get("stored")
@@ -175,6 +179,10 @@ def _compare_others(before: dict, after: dict) -> dict:
             "probed_after": right.get("probed"),
             "unchanged": unchanged,
             "error": error,
+            "binding_before": left.get("binding"),
+            "binding_after": right.get("binding"),
+            "observation_before": left.get("observation"),
+            "observation_after": right.get("observation"),
         }
     return compared
 
@@ -225,13 +233,6 @@ def parse_os_release(text: str) -> dict[str, str]:
         key, value = line.split("=", 1)
         values[key] = value.strip().strip('"').strip("'")
     return values
-
-
-def normalize_inventory(text: str) -> str:
-    lines = [line.strip() for line in text.splitlines() if line.strip()]
-    if not lines:
-        raise UnifierError("package inventory is empty")
-    return "\n".join(sorted(lines)) + "\n"
 
 
 class EnvironmentService:
@@ -404,6 +405,12 @@ class EnvironmentService:
     @contextlib.contextmanager
     def _creation_lock(self):
         """Serialize validation through durable record creation across processes."""
+        with self.package_coordination_lock():
+            with self._creation_record_lock():
+                yield
+
+    @contextlib.contextmanager
+    def _creation_record_lock(self):
         path = self.root / ".lab/state/operations/create.lock"
         path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
         descriptor = os.open(path, os.O_CREAT | os.O_RDWR, 0o600)
@@ -518,6 +525,10 @@ class EnvironmentService:
             }
 
         lock_path = self.store.identity_lock_path(env_id)
+        with self.package_coordination_lock():
+            return self._migrate_identity_locked(env_id, lock_path, preflight)
+
+    def _migrate_identity_locked(self, env_id, lock_path, preflight):
         lock_path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
         descriptor = os.open(lock_path, os.O_CREAT | os.O_RDWR, 0o600)
         try:
@@ -694,6 +705,11 @@ class EnvironmentService:
 
     def remove(self, env_id: str) -> None:
         env_id = validate_env_id(env_id)
+        with self.package_coordination_lock():
+            with self.package_operation_lock(env_id, blocking=False):
+                self._remove_locked(env_id)
+
+    def _remove_locked(self, env_id: str) -> None:
         with self._lifecycle_lock(env_id):
             from unifier.project_sessions import assert_environment_not_live
             assert_environment_not_live(self.root, env_id, self)
@@ -978,6 +994,35 @@ class EnvironmentService:
                  timeout: int | None = None, workdir: str | None = None,
                  expected_app_instance_uuid: str | None = None,
                  expected_execution_fingerprint: str | None = None) -> ExecResult:
+        record, launch, effective_workdir = self._prepare_app_execution(
+            app_id, argv, workdir=workdir,
+            expected_app_instance_uuid=expected_app_instance_uuid,
+            expected_execution_fingerprint=expected_execution_fingerprint)
+        runtime = record['runtime']
+        user_options = {'user': launch['user']} if launch.get('user') else {}
+        return self.runtime.exec(
+            runtime['container_name'], argv, project=runtime['project'], env_id=record['id'],
+            workdir=effective_workdir, env=dict(launch['env']), capture=capture,
+            timeout=timeout, **user_options)
+
+    def start_app_execution(self, app_id, argv, *, token, workdir=None,
+                            expected_app_instance_uuid=None,
+                            expected_execution_fingerprint=None):
+        if not callable(getattr(self.runtime, 'start_application_exec', None)):
+            raise UnifierError('runtime cannot supervise application descendants')
+        record, launch, effective_workdir = self._prepare_app_execution(
+            app_id, argv, workdir=workdir,
+            expected_app_instance_uuid=expected_app_instance_uuid,
+            expected_execution_fingerprint=expected_execution_fingerprint)
+        runtime = record['runtime']
+        return self.runtime.start_application_exec(
+            runtime['container_id'], argv, token=token, project=runtime['project'],
+            env_id=record['id'], workdir=effective_workdir, env=dict(launch['env']),
+            user=launch.get('user'), interactive=False, tty=False)
+
+    def _prepare_app_execution(self, app_id, argv, *, workdir=None,
+                               expected_app_instance_uuid=None,
+                               expected_execution_fingerprint=None):
         if not argv or any(not isinstance(item, str) or item == "" for item in argv):
             raise UnifierError("argv must be a non-empty list of non-empty strings")
         launch = self.show_app(app_id)
@@ -1011,11 +1056,7 @@ class EnvironmentService:
             launch, app_instance_uuid=expected_app_instance_uuid,
             execution_fingerprint=expected_execution_fingerprint)
         effective_workdir = workdir_override if workdir is not None else launch.get("workdir")
-        user_options = {"user": launch["user"]} if launch.get("user") else {}
-        return self.runtime.exec(
-            runtime["container_name"], argv, project=runtime["project"], env_id=record["id"],
-            workdir=effective_workdir, env=dict(launch["env"]), capture=capture,
-            timeout=timeout, **user_options)
+        return record, launch, effective_workdir
 
     def export_app(self, app_id: str, *, mime_type: str = "application/x-multilinux-note",
                    extension: str = "mlnote", menu_only: bool = False,
@@ -1361,6 +1402,10 @@ class EnvironmentService:
     def recover_packages(self, env_id: str) -> dict:
         """Reconcile a stopped execution, without silently re-running scripts."""
         env_id = validate_env_id(env_id)
+        with self.package_coordination_lock():
+            return self._recover_packages_locked(env_id)
+
+    def _recover_packages_locked(self, env_id: str) -> dict:
         with self.package_operation_lock(env_id, blocking=False):
             record = self.store.load(env_id)
             self._require_host_compatibility(record)
@@ -1411,20 +1456,22 @@ class EnvironmentService:
                              use_argv=None, local_file: str | None = None,
                              interactive=False, stream=False, repair_dependencies=False,
                              libraries=()) -> dict:
-        """Serialize one native package transaction for an environment.
+        """Serialize the complete isolation window, then the native DB writer.
 
-        The operation lock is held for the whole transaction, including its
-        internal start/stop calls.  A shortcut stop takes the same lock only
-        after the lease lock and refuses rather than interrupting an install.
+        Order: management -> environment package -> lifecycle. Neither the
+        package path nor lifecycle calls acquire a lease lock. Lease holders
+        only try the environment package lock without waiting when stopping.
+        Internal stop calls must not reacquire either package lock.
         """
         env_id = validate_env_id(env_id)
         self.store.load(env_id)
-        with self.package_operation_lock(env_id):
-            self._require_recovered_packages(env_id)
-            return self._package_transaction_locked(
-                env_id, operation, packages, use_argv=use_argv,
-                local_file=local_file, interactive=interactive, stream=stream,
-                repair_dependencies=repair_dependencies, libraries=libraries)
+        with self.package_coordination_lock():
+            with self.package_operation_lock(env_id):
+                self._require_recovered_packages(env_id)
+                return self._package_transaction_locked(
+                    env_id, operation, packages, use_argv=use_argv,
+                    local_file=local_file, interactive=interactive, stream=stream,
+                    repair_dependencies=repair_dependencies, libraries=libraries)
 
     def _package_transaction_locked(self, env_id: str, operation: str,
                                     packages: list[str], *,
@@ -1503,6 +1550,16 @@ class EnvironmentService:
         try:
             other_before = self._other_fingerprints(record["id"])
             host_before = self.host_observer.snapshot()
+            peer_problems = [
+                f"{env_id}: {view['error']}" if view.get("error") else
+                f"{env_id}: read-only peer inventory differs from its registered inventory"
+                for env_id, view in other_before.items()
+                if view.get("error") or view.get("probed") != view.get("stored")
+            ]
+            if peer_problems:
+                txn["failure_phase"] = "isolation-preflight"
+                txn["native_error"] = "; ".join(peer_problems)[-1500:]
+                raise UnifierError(txn["native_error"])
             was_running = self._ensure_running(record["id"])
             record = self.store.load(record["id"])
             steps = self._native_steps(record, operation, names, local_path)
@@ -1806,36 +1863,68 @@ class EnvironmentService:
         for other in self.store.all():
             if other["id"] == env_id:
                 continue
-            probed, error = self._probe_inventory(other)
+            evidence = {}
+            probed, error = self._probe_inventory(other, evidence=evidence)
             found[other["id"]] = {
                 "stored": other["package_inventory_sha256"],
                 "probed": probed,
                 "error": error,
+                "binding": binding_for(other),
+                "observation": evidence,
             }
         return found
 
-    def _probe_inventory(self, record: dict) -> tuple[str | None, str | None]:
-        """Read one peer's inventory. A stopped peer is stopped again afterwards."""
+    def _probe_inventory(self, record: dict, *, evidence=None) -> tuple[str | None, str | None]:
+        """Observe a peer without starting it or executing anything inside it.
+
+        Runtime and fake readers share one explicit observation contract.
+        The registered hash cannot substitute for a current database read.
+        """
         try:
-            info = self._require_owned(record)
-        except UnifierError as exc:
-            return None, str(exc)
-        started_here = False
-        try:
-            if not info.running:
-                self.start(record["id"])
-                started_here = True
-            text = self._read_inventory_record(self.store.load(record["id"]))
-            return hashlib.sha256(text.encode()).hexdigest(), None
+            # A peer start/stop from another product entry must not race a
+            # stopped-database read. Package callers already hold management
+            # coordination; lifecycle paths never reacquire that lock.
+            with self._lifecycle_lock(record['id']):
+                expected = binding_for(record)
+                self._require_record_binding(self.store.load(record['id']), expected)
+                before = self._require_owned(record)
+                reader = getattr(self.runtime, "read_inventory_readonly", None)
+                if not callable(reader):
+                    raise UnifierError("read-only peer inventory unavailable; package operation refused")
+                value = reader(record)
+                if not isinstance(value, InventoryObservation):
+                    raise UnifierError("read-only peer inventory unavailable: reader violated the observation contract")
+                if evidence is not None:
+                    evidence.update(value.evidence())
+                if value.binding != expected or value.target != record['target']:
+                    raise UnifierError('read-only inventory observation binding changed')
+                if value.status != 'supported' or value.inventory is None:
+                    raise UnifierError(value.reason or 'read-only database observation unsupported')
+                text = value.inventory
+                if not isinstance(text, str) or text != normalize_inventory(text):
+                    raise UnifierError('read-only inventory is not canonical text')
+                self._require_record_binding(self.store.load(record['id']), expected)
+                after = self._require_owned(record)
+                if (after.container_id != before.container_id or after.running != before.running
+                        or after.started_at != before.started_at or after.finished_at != before.finished_at):
+                    raise UnifierError('peer container state changed during observation')
+                return hashlib.sha256(text.encode()).hexdigest(), None
         except Exception as exc:
             return None, str(exc)[-500:]
-        finally:
-            if started_here:
-                with contextlib.suppress(Exception):
-                    self.stop(record["id"])
 
     def _operation_lock_path(self, env_id: str) -> Path:
         return self.root / ".lab/state/operations" / f"{env_id}.package.lock"
+
+    def package_coordination_lock(self, *, timeout: float = 30.0,
+                                  cancel=None, blocking: bool = True):
+        """Cross-process admission for package writes and membership changes.
+
+        Waiting has no runtime side effects. This lock is deliberately separate
+        from the per-environment lock used by lease cleanup: app start/stop
+        never waits for a management-root observation window.
+        """
+        return management_lock(self.root, timeout=timeout, cancel=cancel,
+                               blocking=blocking)
 
     def _open_operation_lock(self, env_id: str) -> int:
         path = self._operation_lock_path(env_id)

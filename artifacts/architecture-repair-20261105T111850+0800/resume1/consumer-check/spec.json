@@ -1,0 +1,11 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-s34-resume1-consumers",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 240,
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/architecture-repair-20261105T111850+0800/resume1/final_checks.py"
+  ]
+}

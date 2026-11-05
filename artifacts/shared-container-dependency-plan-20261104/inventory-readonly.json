@@ -1,0 +1,169 @@
+{
+  "mode": "inspect_only_no_container_start",
+  "count": 10,
+  "running": 0,
+  "containers": [
+    {
+      "id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "name": "ml-53c5c8a5-freecad-arch",
+      "running": false,
+      "status": "exited",
+      "project": "/home/omg/.local/share/multilinux/apps/freecad",
+      "mount_sources": [
+        "/run/user/1000/pulse/native",
+        "/run/user/1000/pipewire-0",
+        "/home/omg/文档/Unifier-CAD",
+        "/run/user/1000/wayland-0",
+        "/tmp/.X11-unix/X0",
+        "/run/user/1000/xauth_NCgtEd"
+      ],
+      "memory": 0,
+      "nano_cpus": 0,
+      "pids_limit": 2048,
+      "cgroup_parent": "user.slice",
+      "image": "localhost/multilinux/installstatus-arch@sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6"
+    },
+    {
+      "id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "name": "ml-6b061a2f-meeting",
+      "running": false,
+      "status": "exited",
+      "project": "/home/omg/.local/share/multilinux/apps/wemeet",
+      "mount_sources": [
+        "/home/omg/.local/share/multilinux/documents/wemeet",
+        "/run/user/1000/wayland-0",
+        "/tmp/.X11-unix/X0",
+        "/run/user/1000/pulse/native",
+        "/run/user/1000/pipewire-0",
+        "/home/omg/.local/share/multilinux/apps/wemeet/.lab/desktop/meeting"
+      ],
+      "memory": 0,
+      "nano_cpus": 0,
+      "pids_limit": 2048,
+      "cgroup_parent": "user.slice",
+      "image": "localhost/unifier/wemeet-current@sha256:4abbc8621397cdaf0ad326970d0cba5777dfd60c315cc5ddfb050cd8bcfbd8e1"
+    },
+    {
+      "id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+      "name": "ml-104d8e92-debian13",
+      "running": false,
+      "status": "exited",
+      "project": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+      "mount_sources": [
+        "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+        "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/debian13/files",
+        "/run/user/1000/wayland-0",
+        "/tmp/.X11-unix/X0",
+        "/run/user/1000/xauth_dnPjwq",
+        "/run/user/1000/pulse/native",
+        "/run/user/1000/pipewire-0"
+      ],
+      "memory": 0,
+      "nano_cpus": 0,
+      "pids_limit": 2048,
+      "cgroup_parent": "user.slice",
+      "image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483"
+    },
+    {
+      "id": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+      "name": "ml-104d8e92-arch",
+      "running": false,
+      "status": "exited",
+      "project": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+      "mount_sources": [
+        "/run/user/1000/pulse/native",
+        "/run/user/1000/pipewire-0",
+        "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/shared-project",
+        "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/management/containers/arch/files",
+        "/run/user/1000/wayland-0",
+        "/tmp/.X11-unix/X0",
+        "/run/user/1000/xauth_dnPjwq"
+      ],
+      "memory": 0,
+      "nano_cpus": 0,
+      "pids_limit": 2048,
+      "cgroup_parent": "user.slice",
+      "image": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722"
+    },
+    {
+      "id": "8399ccd38b137d9283b6587007a43744e8d334809ed4864f002f091009ca555e",
+      "name": "ml-45dc9c7d-deps-debian",
+      "running": false,
+      "status": "exited",
+      "project": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031",
+      "mount_sources": [],
+      "memory": 0,
+      "nano_cpus": 0,
+      "pids_limit": 2048,
+      "cgroup_parent": "user.slice",
+      "image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483"
+    },
+    {
+      "id": "d78a392cb1750fc95f5e0476806cfda25b6b06a8c018d2277b01e38bab3fddf8",
+      "name": "ml-45dc9c7d-deps-arch",
+      "running": false,
+      "status": "exited",
+      "project": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031",
+      "mount_sources": [],
+      "memory": 0,
+      "nano_cpus": 0,
+      "pids_limit": 2048,
+      "cgroup_parent": "user.slice",
+      "image": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722"
+    },
+    {
+      "id": "985bd6c89cf3c1fc87a87b4226a809c6f72ec747f4c8e0832cbe62976670a679",
+      "name": "ml-06a72096-deps-debian",
+      "running": false,
+      "status": "exited",
+      "project": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031-r2",
+      "mount_sources": [],
+      "memory": 0,
+      "nano_cpus": 0,
+      "pids_limit": 2048,
+      "cgroup_parent": "user.slice",
+      "image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483"
+    },
+    {
+      "id": "8deb0c8e47240cd2befeef774fde32698ef042545b5f9daebddc2ac3287e1dc7",
+      "name": "ml-06a72096-deps-arch",
+      "running": false,
+      "status": "exited",
+      "project": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031-r2",
+      "mount_sources": [],
+      "memory": 0,
+      "nano_cpus": 0,
+      "pids_limit": 2048,
+      "cgroup_parent": "user.slice",
+      "image": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722"
+    },
+    {
+      "id": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b",
+      "name": "ml-26942dd5-interrupt-debian",
+      "running": false,
+      "status": "exited",
+      "project": "/home/omg/文档/多兼容linux机/.lab/expansion-fix-20261101/environment",
+      "mount_sources": [],
+      "memory": 0,
+      "nano_cpus": 0,
+      "pids_limit": 2048,
+      "cgroup_parent": "user.slice",
+      "image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483"
+    },
+    {
+      "id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+      "name": "ml-2f4a1877-debian13",
+      "running": false,
+      "status": "exited",
+      "project": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment",
+      "mount_sources": [
+        "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared"
+      ],
+      "memory": 805306368,
+      "nano_cpus": 1000000000,
+      "pids_limit": 192,
+      "cgroup_parent": "unifier-tests.slice",
+      "image": "localhost/unifier/guarded-debian-20261103@sha256:1d71c28976c6c8c6fc0a12fe2abc1e3ece64dd90ca1286f21770bcd4821ba9a6"
+    }
+  ]
+}

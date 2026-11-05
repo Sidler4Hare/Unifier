@@ -1,0 +1,30 @@
+{
+  "Sheet fusion": {
+    "guest_cgroup_peak_bytes": 707670016,
+    "guest_cgroup_peak_MiB": 674.89,
+    "source": ".lab/agents/expansion-continuation-20261103T100648+0800/gui-commands-v5/007.reply.json",
+    "raw_counter_text": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 42\n707670016\nmax 5\n",
+    "scope": "Includes private Xvfb, applications, libraries, page cache and charged kernel memory; not an A/B benchmark or exclusive app PSS."
+  },
+  "Sheet independent": {
+    "guest_cgroup_peak_bytes": 686555136,
+    "guest_cgroup_peak_MiB": 654.75,
+    "source": ".lab/agents/expansion-continuation-20261103T100648+0800/gui-commands-v6/036.reply.json",
+    "raw_counter_text": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 24\n686555136\nmax 0\n",
+    "scope": "Includes private Xvfb, applications, libraries, page cache and charged kernel memory; not an A/B benchmark or exclusive app PSS."
+  },
+  "Slides independent": {
+    "guest_cgroup_peak_bytes": 631455744,
+    "guest_cgroup_peak_MiB": 602.2,
+    "source": ".lab/agents/expansion-continuation-20261103T100648+0800/gui-commands-v7/037.reply.json",
+    "raw_counter_text": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 17\n631455744\nmax 0\n",
+    "scope": "Includes private Xvfb, applications, libraries, page cache and charged kernel memory; not an A/B benchmark or exclusive app PSS."
+  },
+  "Compare": {
+    "guest_cgroup_peak_bytes": 82247680,
+    "guest_cgroup_peak_MiB": 78.44,
+    "source": ".lab/agents/expansion-continuation-20261103T100648+0800/gui-commands-v8/024.reply.json",
+    "raw_counter_text": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n82247680\nmax 0\n",
+    "scope": "Includes private Xvfb, applications, libraries, page cache and charged kernel memory; not an A/B benchmark or exclusive app PSS."
+  }
+}

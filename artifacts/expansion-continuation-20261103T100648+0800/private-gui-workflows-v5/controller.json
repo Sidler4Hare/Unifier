@@ -1,0 +1,143 @@
+{
+  "status": "FINISHED",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "host_display_sockets_mounted": false,
+  "events": [
+    {
+      "command": "001.request.json",
+      "action": "launch",
+      "started_at": 1793690629.2909143,
+      "host_launcher_pid": 90133,
+      "app_id": "private-wrapper-sheet",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/sheet-workflow.xlsx",
+      "finished_at": 1793690629.9202313,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "002.request.json",
+      "action": "guest",
+      "started_at": 1793690629.921151,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793690640.3816736,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "003.request.json",
+      "action": "capture",
+      "started_at": 1793690640.3830552,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-ready.png",
+      "finished_at": 1793690641.8060446,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "004.request.json",
+      "action": "guest",
+      "started_at": 1793690729.9264948,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793690735.127867,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "005.request.json",
+      "action": "capture",
+      "started_at": 1793690735.1291595,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-body.png",
+      "finished_at": 1793690735.6148894,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "006.request.json",
+      "action": "guest",
+      "started_at": 1793690735.6159134,
+      "returncode": 0,
+      "stdout": "WM_CLASS(STRING) = \"wpsoffice\", \"wpsoffice\"\n_NET_WM_NAME(UTF8_STRING) = \"sheet-workflow.xlsx - WPS Office\"\n_NET_WM_PID(CARDINAL) = 22\n\n",
+      "stderr": "",
+      "finished_at": 1793690735.812238,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "007.request.json",
+      "action": "guest",
+      "started_at": 1793690866.4972985,
+      "returncode": 0,
+      "stdout": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 42\n707670016\nmax 5\n",
+      "stderr": "",
+      "finished_at": 1793690866.6701527,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "008.request.json",
+      "action": "guest",
+      "started_at": 1793690866.6711655,
+      "returncode": 0,
+      "stdout": "    PID    PPID STAT COMMAND\n      1       0 Ss   /run/podman-init -- /usr/bin/sleep infinity\n      2       1 S    /usr/bin/sleep infinity\n      6       1 Ss   Xvfb :97 -screen 0 1280x800x24 -nolisten tcp -auth /tmp/unifier-private-display/Xauthority\n     15       0 Ss   /bin/bash /usr/bin/et /home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/sheet-workflow.xlsx\n     22      15 Sl   /opt/kingsoft/wps-office/office6/wpsoffice /prometheus /home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/sheet-workflow.xlsx\n     42       1 Sl   /opt/kingsoft/wps-office/office6/wpscloudsvr /qingbangong /start_from=qingipc autologin\n     76       1 Sl   /opt/kingsoft/wps-office/office6/wpsoffice Run -Entry=EntryPoint /opt/kingsoft/wps-office/office6/addons/kcef/libjsapibrowser.so --server=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe --from=qing\n    139      76 S    /opt/kingsoft/wps-office/office6/promecefpluginhost --type=zygote --no-zygote-sandbox --no-sandbox --force-device-scale-factor=1.04237 --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --jbserver=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe\n    146      76 S    /opt/kingsoft/wps-office/office6/promecefpluginhost --type=zygote --no-sandbox --force-device-scale-factor=1.04237 --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --jbserver=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe\n    208     139 Sl   /opt/kingsoft/wps-office/office6/promecefpluginhost --type=gpu-process --no-sandbox --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --gpu-preferences=WAAAAAAAAAAgACAIAAAAAAAAAAAAAAAAAABgAAAAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --use-gl=angle --use-angle=swiftshader-webgl --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --shared-files --field-trial-handle=0,i,6178482907454728296,1556024746948528211,131072 --disable-features=BackForwardCache\n    234      76 Sl   /opt/kingsoft/wps-office/office6/promecefpluginhost --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --no-sandbox --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --shared-files=v8_context_snapshot_data:100 --field-trial-handle=0,i,6178482907454728296,1556024746948528211,131072 --disable-features=BackForwardCache\n    332       0 Rs   ps -eo pid,ppid,stat,args\n",
+      "stderr": "",
+      "finished_at": 1793690866.8199847,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "009.request.json",
+      "action": "guest",
+      "started_at": 1793690866.821344,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793690868.095075,
+      "launcher_states": [
+        0
+      ]
+    },
+    {
+      "command": "010.request.json",
+      "action": "finish",
+      "started_at": 1793690868.0966105,
+      "finished": true,
+      "finished_at": 1793690868.0966144,
+      "launcher_states": [
+        0
+      ]
+    }
+  ],
+  "host_before": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "display": {
+    "pid": 6,
+    "display": ":97"
+  },
+  "reserve_monitor_aborted": false,
+  "fixture_cleanup": "DIRECTED_TEST_CONTAINER_STOP",
+  "launcher_states": [
+    0
+  ],
+  "host_after": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "desktop_identity_unchanged": true
+}

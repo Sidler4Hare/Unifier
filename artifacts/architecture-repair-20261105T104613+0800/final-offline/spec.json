@@ -1,0 +1,23 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-fix-20261105-1046-final",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 300,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_operation_lock",
+    "test_package_coordination",
+    "test_package_inventory",
+    "test_package_observation",
+    "test_cli_shortcuts",
+    "test_dependencies",
+    "test_package_recovery",
+    "test_identity_migration",
+    "test_on_demand",
+    "test_session_stopped_recovery"
+  ]
+}

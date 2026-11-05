@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-11-03T11:00:05.331187+08:00",
+  "test": "32MiB private cgroup rejects 96MiB allocation; no GUI or shared desktop sockets",
+  "returncode": 1,
+  "stdout": "",
+  "stderr": "Running as unit: unifier-guard-memory-proof-20261103.service\n          Finished with result: oom-kill\nMain processes terminated with: code=killed, status=9/KILL\n               Service runtime: 73ms\n             CPU time consumed: 65ms\n                   Memory peak: 32M (swap: 0B)\n",
+  "unit": "Result=oom-kill\nExecMainCode=2\nExecMainStatus=9\nMemoryMax=33554432\nMemorySwapMax=0\n",
+  "before": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "after": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "desktop_identity_unchanged": true,
+  "passed": true
+}

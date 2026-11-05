@@ -1,0 +1,41 @@
+{
+  "side": "native",
+  "case": "writer",
+  "label": "NW2",
+  "status": "FAILED",
+  "cgroup": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-wps-ab-native.service",
+  "env": {
+    "DISPLAY": "127.0.0.1:200",
+    "XAUTHORITY": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/common/Xauthority",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "QT_QPA_PLATFORM": "xcb",
+    "LIBGL_ALWAYS_SOFTWARE": "1",
+    "QT_OPENGL": "software",
+    "QT_QUICK_BACKEND": "software",
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "HOME": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW2/home",
+    "XDG_CONFIG_HOME": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW2/home/.config",
+    "XDG_CACHE_HOME": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW2/home/.cache",
+    "XDG_RUNTIME_DIR": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW2/home/runtime",
+    "XDG_SESSION_TYPE": "x11",
+    "DBUS_SESSION_BUS_ADDRESS": "unix:path=/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW2/home/runtime/no-bus",
+    "TMPDIR": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/cells/NW2/home/tmp",
+    "FONTCONFIG_FILE": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/common/fonts.conf"
+  },
+  "ready": true,
+  "open_window_seconds": 1.5794328060001135,
+  "windows": [
+    {
+      "id": "2097160",
+      "name": "writer.docx - WPS Docs"
+    }
+  ],
+  "capture": {
+    "returncode": 0,
+    "stderr": ""
+  },
+  "error": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/metrics.py\", line 24, in <module>\n    with Path(sys.argv[2]).open('a') as out:out.write(json.dumps(snapshot(sys.argv[1]))+'\\n')\n                                                                 ~~~~~~~~^^^^^^^^^^^^^\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/metrics.py\", line 13, in snapshot\n    proc=Path('/proc')/str(pid);exe=os.readlink(proc/'exe');sm={s.split(':')[0]:int(s.split()[1])*1024 for s in (proc/'smaps_rollup').read_text().splitlines() if ':' in s};st=(proc/'status').read_text()\n                                                                                ~~~^^^^^^^^^^^^^^\nValueError: invalid literal for int() with base 10: '---p'\n",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/run_cell.py\", line 69, in <module>\n    metrics(O/'samples.jsonl',16)\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/run_cell.py\", line 22, in metrics\n    if r.returncode:raise RuntimeError(r.stderr[-2000:])\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/metrics.py\", line 24, in <module>\n    with Path(sys.argv[2]).open('a') as out:out.write(json.dumps(snapshot(sys.argv[1]))+'\\n')\n                                                                 ~~~~~~~~^^^^^^^^^^^^^\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/metrics.py\", line 13, in snapshot\n    proc=Path('/proc')/str(pid);exe=os.readlink(proc/'exe');sm={s.split(':')[0]:int(s.split()[1])*1024 for s in (proc/'smaps_rollup').read_text().splitlines() if ':' in s};st=(proc/'status').read_text()\n                                                                                ~~~^^^^^^^^^^^^^^\nValueError: invalid literal for int() with base 10: '---p'\n\n"
+}

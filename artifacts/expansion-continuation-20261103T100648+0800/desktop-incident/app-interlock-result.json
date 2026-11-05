@@ -1,0 +1,8 @@
+{
+  "status": "PASS_FRESH_APP_WORKER_REFUSED",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "cli_returncode": 1,
+  "container_remained_stopped": true,
+  "started_at_unchanged": true,
+  "synthetic_probe_latch_removed_after_exact_stopped_identity_check": true
+}

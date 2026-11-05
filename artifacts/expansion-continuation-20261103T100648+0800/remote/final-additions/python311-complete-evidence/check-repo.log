@@ -1,0 +1,44 @@
+PASS bundle manifest: 230 entries
+Checking working tree
+PASS Python syntax: 200 files
+PASS legacy module aliases: 42
+PASS five CLI entry points
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn76e327dfaf1c
+fedora44: dnf install -y hello
+fedora44: install completed txn38c1ad376dba
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txnc8d67699c517
+refusing to overwrite an unknown file: /tmp/tmp28vo2r1s/unifier
+use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnba5fd95ce087
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn5d9fbca6acb2
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn464637c5bec8
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn8d3de7df958d
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txna2dbf04b9b63
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnea39700b18f5
+fedora44: dnf install -y hello
+fedora44: install completed txn6e3503ca6913
+unifier: remove deletes the environment's writable root; pass --yes
+removed demo
+----------------------------------------------------------------------
+Ran 711 tests in 67.117s
+
+OK (skipped=7)
+PASS repository check

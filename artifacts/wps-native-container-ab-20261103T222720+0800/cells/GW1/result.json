@@ -1,0 +1,34 @@
+{
+  "side": "guest",
+  "case": "writer",
+  "label": "GW1",
+  "status": "FAILED",
+  "cgroup": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-8399ccd38b137d9283b6587007a43744e8d334809ed4864f002f091009ca555e.scope/container",
+  "env": {
+    "DISPLAY": "127.0.0.1:200",
+    "XAUTHORITY": "/tmp/unifier-wps-ab-20261103/common/Xauthority",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "QT_QPA_PLATFORM": "xcb",
+    "LIBGL_ALWAYS_SOFTWARE": "1",
+    "QT_OPENGL": "software",
+    "QT_QUICK_BACKEND": "software",
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "HOME": "/tmp/unifier-wps-ab-20261103/profiles/GW1",
+    "XDG_CONFIG_HOME": "/tmp/unifier-wps-ab-20261103/profiles/GW1/.config",
+    "XDG_CACHE_HOME": "/tmp/unifier-wps-ab-20261103/profiles/GW1/.cache",
+    "TMPDIR": "/tmp/unifier-wps-ab-20261103/profiles/GW1/tmp",
+    "FONTCONFIG_FILE": "/tmp/unifier-wps-ab-20261103/common/fonts.conf"
+  },
+  "ready": false,
+  "open_window_seconds": 35.12061701199855,
+  "windows": [],
+  "capture": {
+    "returncode": 0,
+    "stderr": ""
+  },
+  "error": "expected document titles absent",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/agents/wps-native-container-ab-20261103T222720+0800/run_cell.py\", line 68, in <module>\n    if not ready:raise RuntimeError('expected document titles absent')\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: expected document titles absent\n",
+  "cleanup_guest": ""
+}

@@ -1,0 +1,172 @@
+{
+  "status": "FAIL",
+  "scope": "host managed ordinary-file operations over Btrfs, tmpfs and userspace fuse2fs ext4 image; no kernel loop mount or guest bind acceptance",
+  "checks": [
+    {
+      "name": "btrfs->tmpfs:0",
+      "ok": true,
+      "state": "DONE",
+      "source": "btrfs",
+      "target": "tmpfs",
+      "bytes": 0
+    },
+    {
+      "name": "btrfs->tmpfs:1",
+      "ok": true,
+      "state": "DONE",
+      "source": "btrfs",
+      "target": "tmpfs",
+      "bytes": 17
+    },
+    {
+      "name": "btrfs->tmpfs:2",
+      "ok": true,
+      "state": "DONE",
+      "source": "btrfs",
+      "target": "tmpfs",
+      "bytes": 131072
+    },
+    {
+      "name": "btrfs->ext4-fuse:0",
+      "ok": true,
+      "state": "DONE",
+      "source": "btrfs",
+      "target": "ext4-fuse",
+      "bytes": 0
+    },
+    {
+      "name": "btrfs->ext4-fuse:1",
+      "ok": true,
+      "state": "DONE",
+      "source": "btrfs",
+      "target": "ext4-fuse",
+      "bytes": 17
+    },
+    {
+      "name": "btrfs->ext4-fuse:2",
+      "ok": true,
+      "state": "DONE",
+      "source": "btrfs",
+      "target": "ext4-fuse",
+      "bytes": 131072
+    },
+    {
+      "name": "tmpfs->btrfs:0",
+      "ok": true,
+      "state": "DONE",
+      "source": "tmpfs",
+      "target": "btrfs",
+      "bytes": 0
+    },
+    {
+      "name": "tmpfs->btrfs:1",
+      "ok": true,
+      "state": "DONE",
+      "source": "tmpfs",
+      "target": "btrfs",
+      "bytes": 17
+    },
+    {
+      "name": "tmpfs->btrfs:2",
+      "ok": true,
+      "state": "DONE",
+      "source": "tmpfs",
+      "target": "btrfs",
+      "bytes": 131072
+    },
+    {
+      "name": "tmpfs->ext4-fuse:0",
+      "ok": true,
+      "state": "DONE",
+      "source": "tmpfs",
+      "target": "ext4-fuse",
+      "bytes": 0
+    },
+    {
+      "name": "tmpfs->ext4-fuse:1",
+      "ok": true,
+      "state": "DONE",
+      "source": "tmpfs",
+      "target": "ext4-fuse",
+      "bytes": 17
+    },
+    {
+      "name": "tmpfs->ext4-fuse:2",
+      "ok": true,
+      "state": "DONE",
+      "source": "tmpfs",
+      "target": "ext4-fuse",
+      "bytes": 131072
+    },
+    {
+      "name": "ext4-fuse->btrfs:0",
+      "ok": true,
+      "state": "DONE",
+      "source": "ext4-fuse",
+      "target": "btrfs",
+      "bytes": 0
+    },
+    {
+      "name": "ext4-fuse->btrfs:1",
+      "ok": true,
+      "state": "DONE",
+      "source": "ext4-fuse",
+      "target": "btrfs",
+      "bytes": 17
+    },
+    {
+      "name": "ext4-fuse->btrfs:2",
+      "ok": true,
+      "state": "DONE",
+      "source": "ext4-fuse",
+      "target": "btrfs",
+      "bytes": 131072
+    },
+    {
+      "name": "ext4-fuse->tmpfs:0",
+      "ok": true,
+      "state": "DONE",
+      "source": "ext4-fuse",
+      "target": "tmpfs",
+      "bytes": 0
+    },
+    {
+      "name": "ext4-fuse->tmpfs:1",
+      "ok": true,
+      "state": "DONE",
+      "source": "ext4-fuse",
+      "target": "tmpfs",
+      "bytes": 17
+    },
+    {
+      "name": "ext4-fuse->tmpfs:2",
+      "ok": true,
+      "state": "DONE",
+      "source": "ext4-fuse",
+      "target": "tmpfs",
+      "bytes": 131072
+    },
+    {
+      "name": "controlled-move:btrfs->ext4-fuse",
+      "ok": true,
+      "state": "DONE"
+    },
+    {
+      "name": "controlled-move:ext4-fuse->tmpfs",
+      "ok": false,
+      "state": "SOURCE_CLEANUP_PENDING"
+    }
+  ],
+  "mkfs": "",
+  "fuse2fs": "FUSE2FS (ext4.img): Warning: fuse2fs does not support using the journal.\nThere may be file system corruption or data loss if\nthe file system is not gracefully unmounted.\n",
+  "mounts": {
+    "btrfs": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/home\",\n         \"source\": \"/dev/nvme0n1p3[/home]\",\n         \"fstype\": \"btrfs\",\n         \"options\": \"rw,relatime,seclabel,compress=zstd:1,ssd,discard=async,space_cache=v2,subvolid=257,subvol=/home\"\n      }\n   ]\n}\n",
+    "tmpfs": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/dev/shm\",\n         \"source\": \"tmpfs\",\n         \"fstype\": \"tmpfs\",\n         \"options\": \"rw,nosuid,nodev,seclabel,inode64,usrquota\"\n      }\n   ]\n}\n",
+    "ext4-fuse": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/fs-fixture/ext4\",\n         \"source\": \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/fs-fixture/ext4.img\",\n         \"fstype\": \"fuse.ext4\",\n         \"options\": \"rw,nosuid,nodev,relatime,user_id=1000,group_id=1000\"\n      }\n   ]\n}\n"
+  },
+  "error": "controlled-move:ext4-fuse->tmpfs failed",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/run_filesystems.py\", line 37, in <module>\n    check('controlled-move:'+source+'->'+target,not (roots[source]/name).exists() and (roots[target]/name).read_bytes()==data,state=r.get('state'))\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/run_filesystems.py\", line 14, in check\n    if not ok:raise RuntimeError(name+' failed')\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: controlled-move:ext4-fuse->tmpfs failed\n",
+  "unmount": "",
+  "unmounted": true,
+  "tmpfs_removed": true
+}

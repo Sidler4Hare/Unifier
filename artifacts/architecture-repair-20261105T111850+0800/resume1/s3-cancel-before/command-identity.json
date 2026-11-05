@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "pid": 382499,
+    "starttime": "18447394",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-cancel-before-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_application_lifecycle.ApplicationLifecycle.test_live_worker_accepts_terminal_proof_after_concurrent_cancel"
+  ]
+}

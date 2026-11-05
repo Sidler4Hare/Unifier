@@ -1,0 +1,47 @@
+{
+  "created_at": "2026-11-04T15:01:26.237305+08:00",
+  "result": "PASS",
+  "scope": "static documentation review and preservation only; not product/runtime acceptance",
+  "changed_documents": {
+    "README.md": "34020327516df8019a363f01563afdd6916a806192140b862029ed139cfdea39",
+    "HANDOFF.md": "a0ab95d13b6834607532920e228460af0660a3a085bd7af0d1bcb2c131a250ad",
+    "docs/仓库维护.md": "6800e4513583cd46be309f2fc8de1f27d02fd359fab4a7b535a215f79d9f1039",
+    "docs/本机测试规范.md": "572ec4ef993c8e05b56ee51be267c413ae69bcee878b6031d7205e412ec5427e",
+    "docs/扩测保护与恢复.md": "412b70a570496b1577db21b8f6277bb7fdfff21bafa5c82af2d733b2e1974d5e",
+    "docs/共享容器与依赖专项测试计划-20261104.md": "b8edf3dbc4d1df6f6dd24122b2ce744a20fe38dc8581e393c1dba909ee463525",
+    "AGENTS.md": "6a4fc0644905be1feada48f0ab82a393adc3e339b746875b064fb8e09151eb49",
+    "docs/测试禁令与规范.md": "e9db3a22757c846892049c96056cd3ddb9549fe422acd90de31417e4374641b5"
+  },
+  "checks": {
+    "policy_sections": 12,
+    "numbered_bans": 12,
+    "local_link_occurrences": 60,
+    "new_broken_links": 0,
+    "original_backups_verified": true,
+    "original_text_insertion_only_verified": [
+      "README.md",
+      "HANDOFF.md",
+      "docs/仓库维护.md",
+      "docs/扩测保护与恢复.md",
+      "docs/共享容器与依赖专项测试计划-20261104.md"
+    ],
+    "local_supplement_intended_replacements": 4,
+    "protected_files_verified": 213,
+    "protected_file_set_and_hashes_unchanged": true,
+    "git_index_entries_unchanged": true,
+    "git_diff_check_exit_code": 0
+  },
+  "preexisting_broken_links": [],
+  "errors": [],
+  "runtime_scope": {
+    "product_tests": "NOT_RUN",
+    "model_inference": "NOT_RUN",
+    "container_runtime": "NOT_RUN",
+    "desktop_automation": "NOT_RUN",
+    "deployment": "NOT_RUN"
+  },
+  "limitations": [
+    "Resource protection implementation was only inspected, not modified or run.",
+    "No live container or desktop state was sampled; historical snapshots were not treated as current state."
+  ]
+}

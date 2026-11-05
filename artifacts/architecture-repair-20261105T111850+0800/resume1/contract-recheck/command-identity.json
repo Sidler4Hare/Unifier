@@ -1,0 +1,15 @@
+{
+  "identity": {
+    "pid": 384634,
+    "starttime": "18487751",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-contracts-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_session_recovery_contract",
+    "test_lifecycle_contracts"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "status": "PARTIAL_GUI_EDIT_SAVE_VERIFIED",
+  "first_save_marker": "UNIFIER-WRITER-CYCLE-1 20261103 literal $;",
+  "docx_sha256": "a302c987c3dad0f9af76c50cfacd20c3b32fa977c36350c8269c5ed323fb0605",
+  "clean_quit": "NOT_VERIFIED",
+  "cleanup": "FORCED_TEST_CLEANUP: PID14/start58740539/exe verified then TERM",
+  "stop_reopen_cycles": 0,
+  "sheets": "OPEN_REQUESTED_BUT_NO_RESPONSIVE_VISIBLE_WINDOW"
+}

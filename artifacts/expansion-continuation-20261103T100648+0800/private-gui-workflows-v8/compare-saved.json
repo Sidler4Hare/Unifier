@@ -1,0 +1,9 @@
+{
+  "status": "PASS_NATIVE_SELECTED_MERGE_SAVE",
+  "selected_line_copied": true,
+  "unselected_difference_retained": true,
+  "right_sha256_unchanged": true,
+  "left_sha256": "bd3484979e13a172ea7b8580486d225e76df10fd242d1a371eee3ab07fc6989e",
+  "left_text": "alpha\nright value 200\n中文保留\nleft untouched $;\n",
+  "host_uid": 1000
+}

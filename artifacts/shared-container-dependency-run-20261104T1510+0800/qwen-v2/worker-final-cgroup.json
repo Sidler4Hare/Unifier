@@ -1,0 +1,35 @@
+{
+  "memory": 38031360,
+  "tasks": 1,
+  "memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0,
+    "sock_throttled": 0
+  },
+  "pids_events": {
+    "max": 0
+  },
+  "cpu_stat": {
+    "usage_usec": 14888176,
+    "user_usec": 13095706,
+    "system_usec": 1792470,
+    "nice_usec": 0,
+    "core_sched.force_idle_usec": 0,
+    "nr_periods": 2371,
+    "nr_throttled": 70,
+    "throttled_usec": 8031056,
+    "nr_bursts": 0,
+    "burst_usec": 0
+  },
+  "processes": [
+    {
+      "pid": 186242,
+      "starttime": "10311120",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-pre02-20261104-1510-qwen2-work.service"
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "source_plan": "/home/omg/文档/多兼容linux机/artifacts/shared-container-dependency-plan-20261104/plan.json",
+  "cases": [
+    {
+      "id": "PRE01",
+      "title": "固定容器池与身份核对",
+      "status": "BLOCKED",
+      "execution_mode": "readonly",
+      "detail": "Candidate original CID/generation records match; full live mount/device/IPC/owner admission not completed; no CID admitted"
+    },
+    {
+      "id": "PRE02",
+      "title": "其他环境包清单核验不得唤醒停止实例",
+      "status": "BLOCKED",
+      "execution_mode": "offline_then_targeted_live",
+      "offline_status": "PASS",
+      "detail": "Old code reproduced FAIL; corrected observation contract passes 8 new tests. Real Podman independent read-only inventory adapter unavailable; real peer branch NOT_RUN"
+    },
+    {
+      "id": "PRE03",
+      "title": "统一准入、资源监测和所有工作进程保护",
+      "status": "BLOCKED",
+      "execution_mode": "readonly_and_offline",
+      "offline_status": "PARTIAL",
+      "detail": "T1 whole-tree cgroup limits and separate guardian verified; T2 container coverage/fault injection not completed; final additional stage refused by PSI admission"
+    },
+    {
+      "id": "PRE04",
+      "title": "正常入口、工具和测试材料就绪",
+      "status": "NOT_RUN",
+      "execution_mode": "readonly_and_offline",
+      "detail": "No live install/loader/GUI fixture preparation"
+    },
+    {
+      "id": "PRE05",
+      "title": "备份、状态基线与受控恢复材料",
+      "status": "PARTIAL",
+      "execution_mode": "readonly",
+      "detail": "Source backups/index/pool records/container baseline preserved; no account or full live fixture backup/admission"
+    },
+    {
+      "id": "SH01",
+      "title": "同发行版多应用串行复用同一实例",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "SH02",
+      "title": "同容器三个轻量应用并发",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "SH03",
+      "title": "关闭一个应用不影响其他租约",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "SH04",
+      "title": "最后受管应用结束后的自动停止",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "SH05",
+      "title": "同一可执行文件的不同调用上下文",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "SH06",
+      "title": "短命启动器被结束时租约仍由真实工作进程持有",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "SH07",
+      "title": "手动启动环境的停止所有权",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "SH08",
+      "title": "启动失败、错误身份和未知状态的局部回收",
+      "status": "NOT_RUN",
+      "execution_mode": "offline_and_live_debian"
+    },
+    {
+      "id": "SH09",
+      "title": "同容器包事务锁竞争与应用共存",
+      "status": "NOT_RUN",
+      "execution_mode": "offline_and_live_debian"
+    },
+    {
+      "id": "SH10",
+      "title": "真实 Writer 与 CLI 共用实例并有界重复",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian_gui"
+    },
+    {
+      "id": "DEP01",
+      "title": "原生声明依赖经正式入口安装",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "DEP02",
+      "title": "未声明 ELF 运行库真实自动补装",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "DEP03",
+      "title": "只在插件中出现的 DT_NEEDED",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "DEP04",
+      "title": "多个应用复用同一提供者",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "DEP05",
+      "title": "重复 repair 的无新增依赖结果",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "DEP06",
+      "title": "移除应用 A 不破坏应用 B 的共享库",
+      "status": "NOT_RUN",
+      "execution_mode": "live_debian"
+    },
+    {
+      "id": "DEP07",
+      "title": "共享提供者兼容升级及不兼容版本边界",
+      "status": "NOT_RUN",
+      "execution_mode": "offline_then_live_fixture_if_ready"
+    },
+    {
+      "id": "DEP08",
+      "title": "运行时构造库名与精确 library 提示",
+      "status": "NOT_RUN",
+      "execution_mode": "offline_and_live_debian_if_missing"
+    },
+    {
+      "id": "DEP09",
+      "title": "无提供者或多提供者时不猜包",
+      "status": "PASS",
+      "execution_mode": "offline",
+      "detail": "Controlled zero/multiple/partial-failed provider responses; no real repository claim"
+    },
+    {
+      "id": "DEP10",
+      "title": "索引错误、安装失败和补装无效的有界退出",
+      "status": "PARTIAL",
+      "execution_mode": "offline",
+      "detail": "Installation nonzero, ineffective repair, failed query and recursive bound covered; full index-failure/recovery matrix not completed"
+    },
+    {
+      "id": "DEP11",
+      "title": "GIO 等外部命令和 GUI 能力缺口",
+      "status": "NOT_RUN",
+      "execution_mode": "offline_and_live_debian"
+    },
+    {
+      "id": "DEP12",
+      "title": "实际搜索路径、符号版本、架构与厂商配置的分类",
+      "status": "PARTIAL",
+      "execution_mode": "offline",
+      "detail": "Wrong ABI/incomplete framing/untrusted providers covered; actual loader/symbol-version/vendor-config fixture NOT_RUN"
+    },
+    {
+      "id": "DEP13",
+      "title": "补库包事务中断与同一实例恢复",
+      "status": "NOT_RUN",
+      "execution_mode": "offline_then_live_debian_fixture"
+    },
+    {
+      "id": "AR01",
+      "title": "Arch 同实例轻量应用复用",
+      "status": "NOT_RUN",
+      "execution_mode": "live_arch"
+    },
+    {
+      "id": "AR02",
+      "title": "Arch 依赖与共享提供者最小复核",
+      "status": "NOT_RUN",
+      "execution_mode": "live_arch"
+    },
+    {
+      "id": "AR03",
+      "title": "Arch keyring、整体升级和交互预算准入",
+      "status": "NOT_RUN",
+      "execution_mode": "readonly_then_live_arch_preparation"
+    },
+    {
+      "id": "END01",
+      "title": "固定池、数据、服务和资源收尾",
+      "status": "PASS",
+      "execution_mode": "readonly_and_owned_cleanup",
+      "detail": "No live containers/apps started; all owned process groups exited; exact container/index/210 unrelated-file preservation checked; daily data full-tree hash not claimed"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "previous_status": "INVALID_FIXTURE",
+  "reason": "Fake xdg-dbus-proxy binds absolute AF_UNIX paths; the deep artifact TMPDIR exceeded the 107-byte limit. Production proxy uses cwd plus relative socket address.",
+  "correction": "Short, unique, mode0700 private HOME/XDG/TMP root; same test/source/budgets. No active session bus or display. Preserve previous failure and private fixture directory.",
+  "retry_limit": 1
+}

@@ -1,0 +1,25 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-audit-20261105-0815-native",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 300,
+  "private_root": "/tmp/ua1105-native-qwydehjv",
+  "environment": {
+    "MULTILINUX_RENDER_NODE": "/nonexistent/unifier-renderD999",
+    "PIPEWIRE_REMOTE": "unifier-nonexistent-test",
+    "PULSE_SERVER": "unix:/nonexistent/unifier-pulse"
+  },
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "test_screencast_native",
+    "test_dmabuf_roundtrip",
+    "test_env_integration",
+    "test_pkg_integration",
+    "test_resources_integration",
+    "test_desktop_integration",
+    "-v"
+  ]
+}

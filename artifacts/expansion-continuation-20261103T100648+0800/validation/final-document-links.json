@@ -1,0 +1,326 @@
+{
+  "status": "PASS_LOCAL_DOCUMENT_LINKS",
+  "checked": 64,
+  "links": [
+    {
+      "file": "README.md",
+      "target": "docs/v0.0.2.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/布局.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "设计/Unifier-架构实验定档-2026-10-23.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "设计/CLI首次配置与发行版专用目录-2026-10-29.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "设计/发行版派系白名单与容器关系-2026-10-28.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "artifacts/host-authority-fix-20261030/report.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "config/targets.toml",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "config/images.lock.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "archive/notes/README.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "设计/腾讯会议跨重启目录身份修复-2026-10-28.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/客体受控请求.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/扩测保护与恢复.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "artifacts/v0.0.1-20261030/report.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "artifacts/unifier-0.0.2.tar.gz",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/v0.0.2.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "artifacts/extension-local-20261031T111237+0800/authorization.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "artifacts/extension-local-20261031T111237+0800/report.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "artifacts/expansion-fix-20261101/report.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/自动依赖与原生安装交互.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/仓库维护.md",
+      "exists": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "archive/notes/README.md",
+      "exists": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "docs/布局.md",
+      "exists": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "README.md",
+      "exists": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "exists": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "docs/扩测保护与恢复.md",
+      "exists": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "artifacts/continued-repair-20261101T154240+0800/report.md",
+      "exists": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "artifacts/expansion-fix-20261101/report.md",
+      "exists": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "artifacts/extension-local-20261031T111237+0800/report.md",
+      "exists": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "docs/仓库维护.md",
+      "exists": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "artifacts/extension-local-20261031T111237+0800/report.md",
+      "exists": true
+    },
+    {
+      "file": "HANDOFF.md",
+      "target": "artifacts/auto-deps-20261031/report.md",
+      "exists": true
+    },
+    {
+      "file": "docs/扩测保护与恢复.md",
+      "target": "../artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "preservation-audit.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "source.patch",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "validation/final-worktree-files.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "desktop-incident/result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "private-gui-workflows-v2/reserve-abort.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "desktop-incident/app-interlock-result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "desktop-incident/resource-containment-proof.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "../../docs/扩测保护与恢复.md",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "remote/dnf-v3/result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "remote/verified-final/bridge-six-cells-v10-evidence/result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "soak/bounded-recovery-v2.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "../../docs/客体受控请求.md",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "qwen-execution.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "private-gui-workflows-v4/writer-result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "private-gui-workflows-v6/sheet-result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "private-gui-workflows-v7/slides-result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "private-gui-workflows-v8/compare-result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "desktop-incident/final-guard-preflight-v2.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "filesystems-r2/result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "enospc/result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "media-attempt1/result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "remote/final-additions/fedora-cli-evidence/result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "remote/final-additions/fedora-pty-resize-evidence/result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "validation/final-offline-v4.log",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "remote/verified-final/python311-verified-evidence/check-repo.log",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "validation/final-source-match.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "remote/final-additions/guarded-soak-evidence/result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "remote/verified-final/final-audit-v2-evidence/result.json",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "protection-drivers/",
+      "exists": true
+    },
+    {
+      "file": "artifacts/expansion-continuation-20261103T100648+0800/report.md",
+      "target": "remaining.json",
+      "exists": true
+    }
+  ]
+}

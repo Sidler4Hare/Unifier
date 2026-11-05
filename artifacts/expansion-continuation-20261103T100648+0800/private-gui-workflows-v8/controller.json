@@ -1,0 +1,342 @@
+{
+  "status": "FINISHED",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "host_display_sockets_mounted": false,
+  "events": [
+    {
+      "command": "001.request.json",
+      "action": "launch",
+      "started_at": 1793712969.8090053,
+      "host_launcher_pid": 109823,
+      "app_id": "private-wrapper-compare",
+      "files": [
+        "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/compare 左 $;.txt",
+        "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/compare 右 $;.txt"
+      ],
+      "finished_at": 1793712970.187181,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "002.request.json",
+      "action": "guest",
+      "started_at": 1793712970.187873,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712975.3091528,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "003.request.json",
+      "action": "capture",
+      "started_at": 1793712975.3095956,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-compare-started.png",
+      "finished_at": 1793712975.5065289,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "004.request.json",
+      "action": "guest",
+      "started_at": 1793713011.5399268,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793713012.2406483,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "005.request.json",
+      "action": "capture",
+      "started_at": 1793713012.241151,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-compare-selected-merge.png",
+      "finished_at": 1793713012.4716063,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "006.request.json",
+      "action": "guest",
+      "started_at": 1793713012.4720933,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793713013.665249,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "007.request.json",
+      "action": "capture",
+      "started_at": 1793713013.665841,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-compare-saved.png",
+      "finished_at": 1793713013.9769642,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "008.request.json",
+      "action": "guest",
+      "started_at": 1793713028.7404478,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793713029.4743207,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "009.request.json",
+      "action": "capture",
+      "started_at": 1793713029.474803,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-compare-session-menu.png",
+      "finished_at": 1793713029.7016943,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "010.request.json",
+      "action": "guest",
+      "started_at": 1793713051.9744215,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793713054.111279,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "011.request.json",
+      "action": "capture",
+      "started_at": 1793713054.1117609,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-compare-quit-attempt.png",
+      "finished_at": 1793713054.304379,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "012.request.json",
+      "action": "guest",
+      "started_at": 1793713097.3472693,
+      "returncode": 0,
+      "stdout": "Available commands:\n  getactivewindow\n  getwindowfocus\n  getwindowname\n  getwindowpid\n  getwindowgeometry\n  getdisplaygeometry\n  search\n  selectwindow\n  help\n  version\n  behave\n  behave_screen_edge\n  click\n  getmouselocation\n  key\n  keydown\n  keyup\n  mousedown\n  mousemove\n  mousemove_relative\n  mouseup\n  set_window\n  type\n  windowactivate\n  windowfocus\n  windowkill\n  windowclose\n  windowmap\n  windowminimize\n  windowmove\n  windowraise\n  windowreparent\n  windowsize\n  windowunmap\n  set_num_desktops\n  get_num_desktops\n  set_desktop\n  get_desktop\n  set_desktop_for_window\n  get_desktop_for_window\n  get_desktop_viewport\n  set_desktop_viewport\n  exec\n  sleep\n",
+      "stderr": "",
+      "finished_at": 1793713097.4780757,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "013.request.json",
+      "action": "guest",
+      "started_at": 1793713097.4786494,
+      "returncode": 0,
+      "stdout": "\nxwininfo: Window id: 0x21f (the root window) (has no name)\n\n  Root window id: 0x21f (the root window) (has no name)\n  Parent window id: 0x0 (none)\n     3 children:\n     0x400007 \"compare 左 $;.txt <--> compare 右 $;.txt - Text Compare - Beyond Compare\": (\"bcompare\" \"bcompare\")  1010x650+135+75  +135+75\n     0x400009 \"bcompare\": ()  1x1+0+0  +0+0\n     0x400005 \"Qt Selection Owner for bcompare\": ()  3x3+0+0  +0+0\n\n",
+      "stderr": "",
+      "finished_at": 1793713097.601943,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "014.request.json",
+      "action": "guest",
+      "started_at": 1793713104.3598619,
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 4, in <module>\n    s=gzip.decompress(p.read_bytes()).decode()\n                      ~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.13/pathlib/_abc.py\", line 625, in read_bytes\n    with self.open(mode='rb') as f:\n         ~~~~~~~~~^^^^^^^^^^^\n  File \"/usr/lib/python3.13/pathlib/_local.py\", line 539, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/usr/share/man/man1/xdotool.1.gz'\n",
+      "finished_at": 1793713104.5246487,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "015.request.json",
+      "action": "guest",
+      "started_at": 1793713104.5252311,
+      "returncode": 0,
+      "stdout": "WM_PROTOCOLS(ATOM): protocols  WM_DELETE_WINDOW, WM_TAKE_FOCUS, _NET_WM_PING, _NET_WM_SYNC_REQUEST\n",
+      "stderr": "",
+      "finished_at": 1793713104.6574616,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "016.request.json",
+      "action": "guest",
+      "started_at": 1793713124.178018,
+      "returncode": 0,
+      "stdout": "{\"close_protocol\": \"WM_DELETE_WINDOW\", \"window\": \"0x400007\", \"forced_signal\": false}\n",
+      "stderr": "",
+      "finished_at": 1793713126.2962058,
+      "launcher_states": [
+        13
+      ]
+    },
+    {
+      "command": "017.request.json",
+      "action": "capture",
+      "started_at": 1793713126.2968588,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-compare-normal-closed.png",
+      "finished_at": 1793713126.4960923,
+      "launcher_states": [
+        13
+      ]
+    },
+    {
+      "command": "018.request.json",
+      "action": "cycle",
+      "started_at": 1793713126.496711,
+      "launchers": [
+        13
+      ],
+      "display": {
+        "pid": 6,
+        "display": ":97"
+      },
+      "finished_at": 1793713127.3998196,
+      "launcher_states": [
+        13
+      ]
+    },
+    {
+      "command": "019.request.json",
+      "action": "launch",
+      "started_at": 1793713127.4004693,
+      "host_launcher_pid": 112017,
+      "app_id": "private-wrapper-compare",
+      "files": [
+        "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/compare 左 $;.txt",
+        "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/compare 右 $;.txt"
+      ],
+      "finished_at": 1793713127.4261758,
+      "launcher_states": [
+        13,
+        null
+      ]
+    },
+    {
+      "command": "020.request.json",
+      "action": "guest",
+      "started_at": 1793713127.4267774,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793713131.5482244,
+      "launcher_states": [
+        13,
+        null
+      ]
+    },
+    {
+      "command": "021.request.json",
+      "action": "capture",
+      "started_at": 1793713131.5489292,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-compare-reopened.png",
+      "finished_at": 1793713131.768049,
+      "launcher_states": [
+        13,
+        null
+      ]
+    },
+    {
+      "command": "022.request.json",
+      "action": "guest",
+      "started_at": 1793713182.3227756,
+      "returncode": 0,
+      "stdout": "#!/bin/sh\n\nBC_LIB=/usr/lib/beyondcompare\nexport BC_LIB\n\nBC_PACKAGE_TYPE=deb_amd64\nexport BC_PACKAGE_TYPE\n\nexport QT_QPA_PLATFORM=xcb\n\nEXEC=\"$BC_LIB/BCompare\"\n\nif [ -n \"$LD_LIBRARY_PATH\" ]; then\nexport LD_LIBRARY_PATH=\"$BC_LIB:$LD_LIBRARY_PATH\"\nelse\nexport LD_LIBRARY_PATH=\"$BC_LIB\"\nfi\n\n#check to see if we have all of the shared libraries.\nif ldd \"$EXEC\" | grep -q \"not found\" ; then\n   echo Some Shared Libraries were not found\n   ldd \"$EXEC\"\n   exit 1\nfi\n\n########################################\n# initialize context menu action scripts for KDE 3.5\nif [ \"$KDE_FULL_SESSION\" = \"true\" ] && [ -f \"$BC_LIB/kde_context_menu\" ] ; then\n\tif [ \"$KDE_SESSION_VERSION\" != \"4\" ] && [ \"$KDE_SESSION_VERSION\" != \"5\" ]; then\n\t\tmkdir -p \"$HOME/.beyondcompare\"\n\t\tif [ -d \"$HOME/.kde/share/apps/konqueror\" ]; then\n\t\t\tmkdir -p \"$HOME/.kde/share/apps/konqueror/servicemenus\"\n\t\tfi\n\t\t\"$BC_LIB/kde_context_menu\"\n\tfi\nfi\n\n########################################\n# execute the program\n# Do NOT rebuild argv into a shell string — that re-parses filenames through\n# bash and enables command injection ($(...), backticks, $var in filenames).\n/bin/bash -c 'exec -a \"$0\" \"$1\" \"${@:2}\"' \"$0\" \"$EXEC\" \"$@\" > /dev/null 2>&1\n\n########################################\n# set exit code / wait on existing instance\nEXIT=$?\nif [ $EXIT = 99 ]; then\n\t# detected existing instance of Beyond Compare\n\tUSER_TMP=${TMPDIR:-/tmp}\n\tEXIT=`cat ${USER_TMP}/BC5_.$$`\n\trm -f ${USER_TMP}/BC5_.$$\nfi\nexit $EXIT\n\n",
+      "stderr": "",
+      "finished_at": 1793713182.440692,
+      "launcher_states": [
+        13,
+        null
+      ]
+    },
+    {
+      "command": "023.request.json",
+      "action": "guest",
+      "started_at": 1793713198.9576252,
+      "returncode": 0,
+      "stdout": "{\"close_protocol\": \"WM_DELETE_WINDOW\", \"window\": \"0x400007\", \"forced_signal\": false}\n",
+      "stderr": "",
+      "finished_at": 1793713201.0880077,
+      "launcher_states": [
+        13,
+        13
+      ]
+    },
+    {
+      "command": "024.request.json",
+      "action": "guest",
+      "started_at": 1793713201.0888321,
+      "returncode": 0,
+      "stdout": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n82247680\nmax 0\n",
+      "stderr": "",
+      "finished_at": 1793713201.2156296,
+      "launcher_states": [
+        13,
+        13
+      ]
+    },
+    {
+      "command": "025.request.json",
+      "action": "capture",
+      "started_at": 1793713201.2162962,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-compare-final-closed.png",
+      "finished_at": 1793713201.4059665,
+      "launcher_states": [
+        13,
+        13
+      ]
+    },
+    {
+      "command": "026.request.json",
+      "action": "finish",
+      "started_at": 1793713201.406751,
+      "finished": true,
+      "finished_at": 1793713201.4067528,
+      "launcher_states": [
+        13,
+        13
+      ]
+    }
+  ],
+  "host_before": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "display": {
+    "pid": 6,
+    "display": ":97"
+  },
+  "reserve_monitor_aborted": false,
+  "fixture_cleanup": "DIRECTED_TEST_CONTAINER_STOP",
+  "launcher_states": [
+    13,
+    13
+  ],
+  "host_after": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "desktop_identity_unchanged": true
+}

@@ -1,0 +1,17 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-s34-resume1-lifecycle",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 180,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_application_lifecycle",
+    "test_application_supervisor",
+    "test_on_demand",
+    "test_app_binding"
+  ]
+}

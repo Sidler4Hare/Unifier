@@ -1,0 +1,157 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_application_supervisor"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 362956,
+    "starttime": "17541616",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-supervisor-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "50331648",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "100000 100000"
+  },
+  "unit_identity": {
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "InvocationID": "8f0dc7748e844bde938888fd9af7a68e",
+    "MainPID": "363150",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-supervisor-work.service"
+  },
+  "worker": {
+    "identity": {
+      "pid": 363150,
+      "starttime": "17544637",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-supervisor-work.service"
+    },
+    "limits": {
+      "memory.max": "536870912",
+      "memory.high": "402653184",
+      "memory.swap.max": "0",
+      "pids.max": "96",
+      "cpu.max": "100000 100000"
+    }
+  },
+  "last_cgroup_metrics": {
+    "memory": 34721792,
+    "tasks": 4,
+    "memory_peak": 47382528,
+    "tasks_peak": 8,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 912915,
+      "user_usec": 752142,
+      "system_usec": 160772,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 14,
+      "nr_throttled": 2,
+      "throttled_usec": 41743,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 363150,
+        "starttime": "17544637",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-supervisor-work.service"
+      },
+      {
+        "pid": 363152,
+        "starttime": "17544650",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-supervisor-work.service"
+      },
+      {
+        "pid": 363173,
+        "starttime": "17544752",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-supervisor-work.service"
+      },
+      {
+        "pid": 363178,
+        "starttime": "17544766",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-supervisor-work.service"
+      }
+    ]
+  },
+  "command_result": {
+    "exit_code": 0,
+    "finished": 1793849122.7579393
+  },
+  "worker_final_cgroup": {
+    "memory": 7929856,
+    "tasks": 1,
+    "memory_peak": 47382528,
+    "tasks_peak": 8,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 956426,
+      "user_usec": 786737,
+      "system_usec": 169688,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 15,
+      "nr_throttled": 2,
+      "throttled_usec": 41743,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 363150,
+        "starttime": "17544637",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-supervisor-work.service"
+      }
+    ]
+  },
+  "already_exited": true,
+  "cgroup_removed": true,
+  "final_unit": {
+    "LoadState": "not-found",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": ""
+  },
+  "reason": null,
+  "min_available_bytes": 3253121024,
+  "peak_memory_bytes": 34721792,
+  "peak_tasks": 6,
+  "elapsed_seconds": 31.760779108997667
+}

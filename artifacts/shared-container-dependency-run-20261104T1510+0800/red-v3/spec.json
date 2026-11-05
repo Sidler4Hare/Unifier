@@ -1,0 +1,1 @@
+{"root":"/home/omg/文档/多兼容linux机","unit":"unifier-pre02-20261104-1510-red3","reserve_bytes":1073741824,"memory_mib":512,"seconds":120,"command":["/usr/bin/python3","-m","unittest","test_package_observation","-v"]}

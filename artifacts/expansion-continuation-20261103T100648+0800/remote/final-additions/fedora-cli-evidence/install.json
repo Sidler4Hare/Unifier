@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "id": "txnff7382bcaf4c",
+  "environment_id": "fedora44",
+  "operation": "install",
+  "packages": [
+    "jq",
+    "ripgrep",
+    "fd-find",
+    "bat",
+    "htop",
+    "sqlite"
+  ],
+  "interactive": false,
+  "stream": false,
+  "dependency_repair": {
+    "status": "not-requested"
+  },
+  "use_command": [
+    "jq",
+    "--version"
+  ],
+  "local_file": null,
+  "revision_before": {
+    "writable_revision": "87224cf1c992f4890b1b1c9b8ffec7d383dc228ce83241636a9016569e7ab287",
+    "content_revision": 1,
+    "package_inventory_sha256": "4fbc88c890ab44ee974f34584be338afd98956bdb78224fc6c8c05b0bb722801"
+  },
+  "native": [
+    {
+      "argv": [
+        "dnf",
+        "install",
+        "-y",
+        "jq",
+        "ripgrep",
+        "fd-find",
+        "bat",
+        "htop",
+        "sqlite"
+      ],
+      "timeout": 300,
+      "state": "finished",
+      "exit_code": 0,
+      "stdout_tail": "Package     Arch   Version         Repository      Size\nInstalling:\n bat        x86_64 0:0.26.1-4.fc44 updates      5.3 MiB\n fd-find    x86_64 0:10.4.2-6.fc44 updates      3.6 MiB\n htop       x86_64 0:3.4.1-3.fc44  fedora     464.3 KiB\n jq         x86_64 0:1.8.1-3.fc44  updates    465.4 KiB\n ripgrep    x86_64 0:15.2.0-1.fc44 updates      4.6 MiB\n sqlite     x86_64 0:3.51.2-2.fc44 updates      1.9 MiB\nInstalling dependencies:\n hwloc-libs x86_64 0:2.14.0-1.fc44 updates      2.9 MiB\n jemalloc   x86_64 0:5.3.0-14.fc44 fedora       1.1 MiB\n libgit2    x86_64 0:1.9.7-1.fc44  updates      1.4 MiB\n libssh2    x86_64 0:1.11.1-9.fc44 updates    338.6 KiB\n llhttp     x86_64 0:9.3.1-1.fc44  fedora      96.6 KiB\n oniguruma  x86_64 0:6.9.10-4.fc44 fedora     770.9 KiB\n\nTransaction Summary:\n Installing:        12 packages\n\n",
+      "stderr_tail": "podata/e32a0c328ac8716e71e3f66e87366a172fea8ecb2f452909a42db9c080cd3704-primary.xml.zck (IP: 198.18.0.73) - http://mirror.de.leaseweb.net/fedora/linux/releases/44/Everything/x86_64/os/repodata/e32a0c328ac8716e71e3f66e87366a172fea8ecb2f452909a42db9c080cd3704-primary.xml.zck\n>>> Status code: 404 for http://mirror.de.leaseweb.net/fedora/linux/releases/44/Everything/x86_64/os/repodata/6a37d36914955dc65cf6dc037c37dcf00c64ded464dc34164a674bf65fa16927-comps-Everything.x86_64.xml.zst (IP: 198.18.0.73) - http://mirror.de.leaseweb.net/fedora/linux/releases/44/Everything/x86_64/os/repodata/6a37d36914955dc65cf6dc037c37dcf00c64ded464dc34164a674bf65fa16927-comps-Everything.x86_64.xml.zst\nRepositories loaded.\nTotal size of inbound packages is 10 MiB. Need to download 10 MiB.\nAfter this operation, 23 MiB extra will be used (install 23 MiB, remove 0 B).\n[ 1/12] jq-0:1.8.1-3.fc44.x86_64        100% |  75.2 KiB/s | 215.5 KiB |  00m03s\n[ 2/12] oniguruma-0:6.9.10-4.fc44.x86_6 100% |  61.1 KiB/s | 220.0 KiB |  00m04s\n>>> Status code: 404 for http://mirror.de.leaseweb.net/fedora/linux/releases/44/Everything/x86_64/os/Packages/o/oniguruma-6.9.10-4.fc44.x86_64.rpm (IP: 198.18.0.73) - http://mirror.de.leaseweb.net/fedora/linux/releases/44/Everything/x86_64/os/Packages/o/oniguruma-6.9.10-4.fc44.x86_64.rpm\n[ 3/12] htop-0:3.4.1-3.fc44.x86_64      100% |  56.4 KiB/s | 203.6 KiB |  00m04s\n>>> Status code: 404 for http://mirror.de.leaseweb.net/fedora/linux/releases/44/Everything/x86_64/os/Packages/h/htop-3.4.1-3.fc44.x86_64.rpm (IP: 198.18.0.73) - http://mirror.de.leaseweb.net/fedora/linux/releases/44/Everything/x86_64/os/Packages/h/htop-3.4.1-3.fc44.x86_64.rpm\n[ 4/12] ripgrep-0:15.2.0-1.fc44.x86_64  100% | 665.1 KiB/s |   1.5 MiB |  00m02s\n[ 5/12] jemalloc-0:5.3.0-14.fc44.x86_64 100% | 173.2 KiB/s | 297.0 KiB |  00m02s\n>>> Status code: 404 for http://mirror.de.leaseweb.net/fedora/linux/releases/44/Everything/x86_64/os/Packages/j/jemalloc-5.3.0-14.fc44.x86_64.rpm (IP: 198.18.0.73) - http://mirror.de.leaseweb.net/fedora/linux/releases/44/Everything/x86_64/os/Packages/j/jemalloc-5.3.0-14.fc44.x86_64.rpm\n[ 6/12] bat-0:0.26.1-4.fc44.x86_64      100% |   1.6 MiB/s |   2.5 MiB |  00m02s\n[ 7/12] hwloc-libs-0:2.14.0-1.fc44.x86_ 100% |   2.0 MiB/s |   2.1 MiB |  00m01s\n[ 8/12] fd-find-0:10.4.2-6.fc44.x86_64  100% | 277.0 KiB/s |   1.2 MiB |  00m05s\n[ 9/12] libgit2-0:1.9.7-1.fc44.x86_64   100% |   1.1 MiB/s | 614.5 KiB |  00m01s\n[10/12] llhttp-0:9.3.1-1.fc44.x86_64    100% |  64.9 KiB/s |  37.8 KiB |  00m01s\n[11/12] libssh2-0:1.11.1-9.fc44.x86_64  100% | 346.7 KiB/s | 149.1 KiB |  00m00s\n[12/12] sqlite-0:3.51.2-2.fc44.x86_64   100% | 217.2 KiB/s | 961.2 KiB |  00m04s\n--------------------------------------------------------------------------------\n[12/12] Total                           100% |   1.0 MiB/s |  10.0 MiB |  00m10s\nRunning transaction\n[ 1/14] Verify package files            100% |  88.0   B/s |  12.0   B |  00m00s\n[ 2/14] Prepare transaction             100% | 444.0   B/s |  12.0   B |  00m00s\n[ 3/14] Installing oniguruma-0:6.9.10-4 100% |  41.9 MiB/s | 773.1 KiB |  00m00s\n[ 4/14] Installing libssh2-0:1.11.1-9.f 100% |  55.4 MiB/s | 340.2 KiB |  00m00s\n[ 5/14] Installing llhttp-0:9.3.1-1.fc4 100% |  23.9 MiB/s |  98.0 KiB |  00m00s\n[ 6/14] Installing libgit2-0:1.9.7-1.fc 100% | 116.6 MiB/s |   1.4 MiB |  00m00s\n[ 7/14] Installing hwloc-libs-0:2.14.0- 100% | 363.4 MiB/s |   2.9 MiB |  00m00s\n[ 8/14] Installing jemalloc-0:5.3.0-14. 100% |  42.7 MiB/s |   1.1 MiB |  00m00s\n[ 9/14] Installing fd-find-0:10.4.2-6.f 100% |  89.8 MiB/s |   3.6 MiB |  00m00s\n[10/14] Installing htop-0:3.4.1-3.fc44. 100% |  19.8 MiB/s | 466.3 KiB |  00m00s\n[11/14] Installing bat-0:0.26.1-4.fc44. 100% | 112.5 MiB/s |   5.3 MiB |  00m00s\n[12/14] Installing jq-0:1.8.1-3.fc44.x8 100% |  20.8 MiB/s | 467.8 KiB |  00m00s\n[13/14] Installing sqlite-0:3.51.2-2.fc 100% |  61.8 MiB/s |   1.9 MiB |  00m00s\n[14/14] Installing ripgrep-0:15.2.0-1.f 100% |  47.5 MiB/s |   4.6 MiB |  00m00s\nComplete!\n",
+      "guest": {
+        "pid": 18,
+        "start": 3252835,
+        "pgrp": 18,
+        "sid": 18,
+        "token": "8eab5721af17679093eff70ec8e80dd8"
+      }
+    }
+  ],
+  "native_error": null,
+  "maintenance": {
+    "status": "ok",
+    "items": [],
+    "system_integration": "unverified",
+    "full_init": false
+  },
+  "verdict": "verified",
+  "verification": {
+    "ok": true,
+    "packages": {
+      "jq": true,
+      "ripgrep": true,
+      "fd-find": true,
+      "bat": true,
+      "htop": true,
+      "sqlite": true
+    },
+    "command": [
+      "jq",
+      "--version"
+    ],
+    "command_exit_code": 0,
+    "stdout_preview": "jq-1.8.1\n",
+    "stdout_sha256": "54331197baf50da2a8a20c930db4125b07765eb93c0c441930bd5bd53421ea62",
+    "problems": []
+  },
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "before": {
+      "available": true,
+      "tool": "dpkg-query",
+      "sha256": "d2bfe185338d4d2e3eb739737d9c12db4bef14f32cd3a92a5e43a1b264b71f12",
+      "count": 1138,
+      "error": null
+    },
+    "after": {
+      "available": true,
+      "tool": "dpkg-query",
+      "sha256": "d2bfe185338d4d2e3eb739737d9c12db4bef14f32cd3a92a5e43a1b264b71f12",
+      "count": 1138,
+      "error": null
+    }
+  },
+  "other_environments": {},
+  "revision_after": {
+    "writable_revision": "87224cf1c992f4890b1b1c9b8ffec7d383dc228ce83241636a9016569e7ab287",
+    "content_revision": 2,
+    "package_inventory_sha256": "82a2a844469a5725d517039656123fd2c4c67d8427dab72d4728e1b03acef441"
+  },
+  "phase": "completed",
+  "environment_binding": {
+    "environment_id": "fedora44",
+    "environment_uuid": "e4b4847d-fe91-4e53-927f-3a603d157fbf",
+    "generation": 1,
+    "container_id": "87224cf1c992f4890b1b1c9b8ffec7d383dc228ce83241636a9016569e7ab287"
+  },
+  "recovery_required": false,
+  "inventory_status": "verified",
+  "failure_phase": null,
+  "started_at": "2026-11-03T14:33:03+08:00",
+  "finished_at": "2026-11-03T14:33:53+08:00"
+}

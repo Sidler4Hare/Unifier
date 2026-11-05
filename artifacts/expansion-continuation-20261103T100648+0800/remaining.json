@@ -1,0 +1,90 @@
+{
+  "status": "EXPANSION_REMAINS_PARTIAL",
+  "timestamp": "2026-11-03T21:45:29+08:00",
+  "items": [
+    {
+      "id": "GUI-WRITER",
+      "status": "PASS_DATA_WORKFLOW_LAYOUT_PARTIAL",
+      "evidence_boundary": "Two edit/save/stop/reopen cycles completed; native DOCX/GUI markers, save-as and PDF export checked. Missing template font and layout fidelity remain unaccepted.",
+      "next_requirement": "Install a legally available matching font or agree a documented substitute; compare actual layout separately."
+    },
+    {
+      "id": "GUI-OFFICE-OTHERS",
+      "status": "PASS_BOUNDED_DATA_WORKFLOWS_VISUAL_EXIT_PARTIAL",
+      "evidence_boundary": "Sheet and Slides each completed two stop/reopen cycles plus save-as-copy reopen in copied independent-mode profile. Compare selected merge/save/stop/reopen passed. Fusion Sheet failed; Compare menu black; Slides copy final normal exit unobserved.",
+      "next_requirement": "Recheck original fusion behavior, Compare menu rendering and Slides copy normal close under guarded private display once headroom recovers; do not substitute data checks for full visual acceptance."
+    },
+    {
+      "id": "GUI-PRIMARY-MATRIX",
+      "status": "PARTIAL",
+      "evidence_boundary": "Nine vendor application installation/lifecycle cells are not all accepted; Fedora GUI requires a suitable desktop context.",
+      "next_requirement": "Per-target real install/update/remove plus app workflows; do not substitute headless CLI."
+    },
+    {
+      "id": "MEDIA-SHARE",
+      "status": "FAIL_EXTERNAL_UNKNOWN",
+      "evidence_boundary": "User confirmed bidirectional audio and dynamic incoming video; share triggered vendor security termination, root cause UNKNOWN. User currently has only one account.",
+      "next_requirement": "Hold share retest until a controlled account/peer condition and bounded media fixture can distinguish account/vendor/portal causes; do not bypass or repeatedly trigger safety termination."
+    },
+    {
+      "id": "MEDIA-CAMERA-ZOOM",
+      "status": "NOT_RUN",
+      "evidence_boundary": "Outgoing local camera was not mounted; Zoom meeting/media and Feishu attachments are not accepted.",
+      "next_requirement": "Dedicated bounded media fixture and attended device/peer tests."
+    },
+    {
+      "id": "AGENT-NATIVE-MODEL",
+      "status": "PARTIAL",
+      "evidence_boundary": "Real Python guest client -> fixed host/guest actions passed on Ubuntu/Fedora/Arch. Guest-native dsh/model tool calls are not covered.",
+      "next_requirement": "Install/configure the guest Agent with scoped credentials and verify actual model tool use."
+    },
+    {
+      "id": "AGENT-HOST-PROVIDER",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_boundary": "Only host-info and project-run exist; no generic host maintenance or host RPM/Flatpak handler provider.",
+      "next_requirement": "Design and implement explicit host-authorized actions before claiming these contracts."
+    },
+    {
+      "id": "AGENT-OTHER-HOST-CELLS",
+      "status": "NOT_RUN",
+      "evidence_boundary": "New six-cell bridge evidence belongs to Ubuntu host + Fedora/Arch; local Fedora + Debian/Arch is separate.",
+      "next_requirement": "Replay on other admitted hosts with exact identities and resource budgets."
+    },
+    {
+      "id": "FILES-WATCHERS",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_boundary": "watcher=false; external changes without revalidation and GUI/IDE refresh are not guaranteed.",
+      "next_requirement": "Implement and validate the notification/cache invalidation contract."
+    },
+    {
+      "id": "FILES-METADATA-TREES",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_boundary": "Complex ACL metadata is refused; general ACL/xattr/tree fidelity and strict snapshots/multi-volume semantics are not implemented.",
+      "next_requirement": "Separate engineering and metadata/tree acceptance; expected refusal is not support."
+    },
+    {
+      "id": "FILES-CLEANUP-FUSE2FS",
+      "status": "EXPECTED_REJECTION",
+      "evidence_boundary": "fuse2fs cannot provide required RENAME_NOREPLACE cleanup. Target copied, source retained as SOURCE_CLEANUP_PENDING.",
+      "next_requirement": "Keep both byte-identical files; do not weaken the no-clobber cleanup contract."
+    },
+    {
+      "id": "LOCAL-GUI-SOAK",
+      "status": "NOT_RUN",
+      "evidence_boundary": "Old local soak interrupted. Remote headless 1804-second dual-guest persistence passed, but local GUI soak not completed. Final guarded start preflight refused low host headroom.",
+      "next_requirement": "Wait until at least 2 GiB host reserve + 768 MiB fixture budget is available, then perform separately monitored 30-minute private-GUI test."
+    },
+    {
+      "id": "PERFORMANCE-IDE-GPU",
+      "status": "NOT_RUN",
+      "evidence_boundary": "No controlled performance SLO, long GUI/IDE workflow or GPU/media acceptance is inferred from these tests.",
+      "next_requirement": "Run separate controlled baselines with appropriate devices and bounded fixtures."
+    },
+    {
+      "id": "AGENT-CRASH-JOURNAL-RECOVERY",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_boundary": "Pending claimed/unresolved request fencing survives broker restart; no automatic request-journal recovery command and no broker-specific graceful signal contract.",
+      "next_requirement": "Implement explicit identity-verified reconciliation and test crash stages before claiming automatic recovery; never delete the journal to bypass an unknown run."
+    }
+  ]
+}

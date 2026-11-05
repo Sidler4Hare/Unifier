@@ -1,0 +1,100 @@
+[
+  {
+    "unit": "unifier-audit-20261105-0815-batch1-guard.service",
+    "ActiveState": "inactive",
+    "InvocationID": "faf145fb2e4a42ecbbbbfca33bf0a97f",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-batch1-work.service",
+    "ActiveState": "failed",
+    "InvocationID": "af410c5bc67a4306a87e979bbde8a57b",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-batch2-guard.service",
+    "ActiveState": "inactive",
+    "InvocationID": "185a0fa564b246f59a9dd38930cb1ec9",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-batch2-work.service",
+    "ActiveState": "failed",
+    "InvocationID": "90d39ec52538466497e6186a6d64eec2",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-native-guard.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-native-work.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-probes-guard.service",
+    "ActiveState": "inactive",
+    "InvocationID": "e3be9a35df684d8180174a84506d6a3b",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-probes-work.service",
+    "ActiveState": "failed",
+    "InvocationID": "a13529a539bc4d7b9ba0b2572069c223",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-background-guard.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-background-work.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-review-guard.service",
+    "ActiveState": "inactive",
+    "InvocationID": "fbb02cbe8d084a64bd45c4147c5ccae9",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-review-work.service",
+    "ActiveState": "failed",
+    "InvocationID": "c7fc3691e4f04a4db3e3e3a519b583be",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-completions-guard.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": ""
+  },
+  {
+    "unit": "unifier-audit-20261105-0815-completions-work.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": ""
+  }
+]

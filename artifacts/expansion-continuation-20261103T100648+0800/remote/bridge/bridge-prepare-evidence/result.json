@@ -1,0 +1,15 @@
+{
+  "status": "PASS_HEADLESS_BRIDGE_PAIR_PREPARED",
+  "steps": [
+    {
+      "environment": "fedora44",
+      "python_before": "",
+      "install_needed": true
+    },
+    {
+      "environment": "arch",
+      "python_before": "",
+      "install_needed": true
+    }
+  ]
+}

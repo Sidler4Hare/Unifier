@@ -1,0 +1,122 @@
+[
+  {
+    "id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+    "name": "ml-53c5c8a5-freecad-arch",
+    "kind": "日常",
+    "project": "/home/omg/.local/share/multilinux/apps/freecad",
+    "created": "2026-10-24T11:16:00.693509117+08:00",
+    "status": "exited",
+    "running": false,
+    "memory_limit": 0,
+    "nano_cpus": 0,
+    "pids_limit": 2048
+  },
+  {
+    "id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+    "name": "ml-6b061a2f-meeting",
+    "kind": "日常",
+    "project": "/home/omg/.local/share/multilinux/apps/wemeet",
+    "created": "2026-10-27T13:48:42.30714529+08:00",
+    "status": "exited",
+    "running": false,
+    "memory_limit": 0,
+    "nano_cpus": 0,
+    "pids_limit": 2048
+  },
+  {
+    "id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+    "name": "ml-104d8e92-debian13",
+    "kind": "测试",
+    "project": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "created": "2026-10-31T11:42:53.03374139+08:00",
+    "status": "exited",
+    "running": false,
+    "memory_limit": 0,
+    "nano_cpus": 0,
+    "pids_limit": 2048
+  },
+  {
+    "id": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+    "name": "ml-104d8e92-arch",
+    "kind": "测试",
+    "project": "/home/omg/文档/多兼容linux机/.lab/extension-local-20261031/environments",
+    "created": "2026-10-31T11:42:55.596702985+08:00",
+    "status": "exited",
+    "running": false,
+    "memory_limit": 0,
+    "nano_cpus": 0,
+    "pids_limit": 2048
+  },
+  {
+    "id": "8399ccd38b137d9283b6587007a43744e8d334809ed4864f002f091009ca555e",
+    "name": "ml-45dc9c7d-deps-debian",
+    "kind": "测试",
+    "project": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031",
+    "created": "2026-10-31T21:26:35.570367091+08:00",
+    "status": "exited",
+    "running": false,
+    "memory_limit": 0,
+    "nano_cpus": 0,
+    "pids_limit": 2048
+  },
+  {
+    "id": "d78a392cb1750fc95f5e0476806cfda25b6b06a8c018d2277b01e38bab3fddf8",
+    "name": "ml-45dc9c7d-deps-arch",
+    "kind": "测试",
+    "project": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031",
+    "created": "2026-10-31T21:28:53.954091015+08:00",
+    "status": "exited",
+    "running": false,
+    "memory_limit": 0,
+    "nano_cpus": 0,
+    "pids_limit": 2048
+  },
+  {
+    "id": "985bd6c89cf3c1fc87a87b4226a809c6f72ec747f4c8e0832cbe62976670a679",
+    "name": "ml-06a72096-deps-debian",
+    "kind": "测试",
+    "project": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031-r2",
+    "created": "2026-10-31T21:41:57.59929861+08:00",
+    "status": "exited",
+    "running": false,
+    "memory_limit": 0,
+    "nano_cpus": 0,
+    "pids_limit": 2048
+  },
+  {
+    "id": "8deb0c8e47240cd2befeef774fde32698ef042545b5f9daebddc2ac3287e1dc7",
+    "name": "ml-06a72096-deps-arch",
+    "kind": "测试",
+    "project": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031-r2",
+    "created": "2026-10-31T21:45:36.444704992+08:00",
+    "status": "exited",
+    "running": false,
+    "memory_limit": 0,
+    "nano_cpus": 0,
+    "pids_limit": 2048
+  },
+  {
+    "id": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b",
+    "name": "ml-26942dd5-interrupt-debian",
+    "kind": "测试",
+    "project": "/home/omg/文档/多兼容linux机/.lab/expansion-fix-20261101/environment",
+    "created": "2026-11-01T10:12:42.192766887+08:00",
+    "status": "exited",
+    "running": false,
+    "memory_limit": 0,
+    "nano_cpus": 0,
+    "pids_limit": 2048
+  },
+  {
+    "id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+    "name": "ml-2f4a1877-debian13",
+    "kind": "测试",
+    "project": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment",
+    "created": "2026-11-03T11:10:41.838837546+08:00",
+    "status": "exited",
+    "running": false,
+    "memory_limit": 805306368,
+    "nano_cpus": 1000000000,
+    "pids_limit": 192
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "status": "INVALID",
+  "scope": "T0 evidence sampler preparation, not product execution",
+  "command": "PYTHONDONTWRITEBYTECODE=1 timeout --signal=TERM --kill-after=2s 55s python3 artifacts/shared-container-dependency-run-20261104T1504+0800/readonly_preflight.py",
+  "observed_exit_code": 1,
+  "observed_error": "MemoryError under sampler RLIMIT_AS=128 MiB, during subprocess construction in initial snapshot",
+  "complete_30s_resource_window": false,
+  "before_json_written": false,
+  "after_json_written": false,
+  "product_tests_executed": 0,
+  "retry_performed": false,
+  "limits_increased": false,
+  "note": "Recorded from observed tool result; original command output remains in chat tool transcript. This is not a raw stderr capture. No background jobs were created."
+}

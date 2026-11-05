@@ -1,0 +1,14 @@
+{
+  "status": "PASS_NATIVE_GUI_SAVED_SLIDE",
+  "stage": "slides-copy-reopened",
+  "filename": "slides copy $;.pptx",
+  "sha256": "fc803f939ccc569aaba4d5a93ab037ab6e5f0742721c01331928f7fc042e0598",
+  "uid": 1000,
+  "texts": [
+    "中文演示测试",
+    "Original line 100",
+    "中文、空格和保存重开",
+    "UNIFIER-PPT-CYCLE-1 $;",
+    "UNIFIER-PPT-CYCLE-2 $;"
+  ]
+}

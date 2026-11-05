@@ -1,0 +1,19 @@
+{
+  "local_host_compositor_gui_automation": false,
+  "aggregate_memory_mib": 1024,
+  "aggregate_swap_mib": 128,
+  "aggregate_tasks": 256,
+  "aggregate_cpu_cores": 1,
+  "controller_GOMAXPROCS": 2,
+  "controller_tasks": 96,
+  "host_reserve_mib": 2048,
+  "container_memory_mib": 768,
+  "persistent_abort_interlock": true,
+  "test_app_worker_uses_guarded_runtime": true,
+  "dependent_commands_stop_after_preflight_failure": true,
+  "proofs": [
+    "resource-containment-proof.json",
+    "../private-gui-workflows-v2/reserve-abort.json",
+    "app-interlock-result.json"
+  ]
+}

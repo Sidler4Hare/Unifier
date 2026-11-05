@@ -1,0 +1,13 @@
+{
+  "identity": {
+    "pid": 266123,
+    "starttime": "16469380",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-audit-20261105-0815-background-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/artifacts/shared-architecture-audit-20261105T0815+0800/counterexamples/probes.py",
+    "ArchitectureProbes.test_app_worker_release_does_not_account_for_a_background_child",
+    "-v"
+  ]
+}

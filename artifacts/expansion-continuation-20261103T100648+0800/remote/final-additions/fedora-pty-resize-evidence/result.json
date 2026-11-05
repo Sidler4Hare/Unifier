@@ -1,0 +1,151 @@
+{
+  "status": "PASS_REAL_GUEST_PTY_RESIZE_AND_Q_EXIT",
+  "initial_guest_tty_size": "31 103",
+  "resized_guest_tty_size": "37 111",
+  "returncode": 0,
+  "session": {
+    "access_scope": {
+      "any_used_mount_read_only": false,
+      "cwd": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+      "file_path": null,
+      "mappings": {
+        "cwd": {
+          "expected_host": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+          "mount": {
+            "container": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+            "host": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+            "options": "z",
+            "same_absolute_path": true
+          },
+          "path": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+          "same_host_object": true
+        },
+        "project_root": {
+          "expected_host": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+          "mount": {
+            "container": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+            "host": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+            "options": "z",
+            "same_absolute_path": true
+          },
+          "path": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+          "same_host_object": true
+        }
+      },
+      "mode": "environment-shared-static-mounts",
+      "policy_enforcement": "routing-only",
+      "policy_note": "read-only is a routing decision; without an OS-level read-only mount it is not a filesystem write guarantee",
+      "project_root": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+      "runtime_read_only": false,
+      "selected_mount": {
+        "container": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+        "host": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+        "options": "z",
+        "same_absolute_path": true
+      },
+      "shared_mounts": [
+        {
+          "container": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+          "host": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+          "options": "z",
+          "same_absolute_path": true
+        }
+      ],
+      "used_mounts": [
+        {
+          "container": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+          "host": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+          "options": "z",
+          "same_absolute_path": true
+        }
+      ],
+      "warning": "All applications in this environment share every static mount. This route is not per-file or per-application isolation."
+    },
+    "argv": [
+      "htop"
+    ],
+    "child_pid": null,
+    "child_stamp": null,
+    "container_id": "87224cf1c992f4890b1b1c9b8ffec7d383dc228ce83241636a9016569e7ab287",
+    "created_at": "2026-11-03T14:36:42+08:00",
+    "cwd": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+    "cwd_dev": 64512,
+    "cwd_ino": 12063057,
+    "env_keys": [],
+    "env_policy": {
+      "allowlist": "explicit-host-keys-only",
+      "dynamic_loader_variables": false,
+      "fallback_commands": false,
+      "host_environment_inherited": false
+    },
+    "environment_binding": {
+      "container_id": "87224cf1c992f4890b1b1c9b8ffec7d383dc228ce83241636a9016569e7ab287",
+      "environment_id": "fedora44",
+      "environment_uuid": "e4b4847d-fe91-4e53-927f-3a603d157fbf",
+      "generation": 1
+    },
+    "environment_id": "fedora44",
+    "environment_uuid": "e4b4847d-fe91-4e53-927f-3a603d157fbf",
+    "error": null,
+    "exit_code": 0,
+    "finished_at": "2026-11-03T14:36:48+08:00",
+    "generation": 1,
+    "guest_pgrp": 12,
+    "guest_pid": 12,
+    "guest_sid": 12,
+    "guest_start": 3275073,
+    "guest_state": "gone",
+    "guest_token": "7a4c5fee857ad0c9ae9882c0311fe44d",
+    "integration_uuid": null,
+    "lease_token": null,
+    "mode": "run",
+    "project_uuid": "b79564a6-31b9-46a4-910b-51748ae35680",
+    "root_dev": 64512,
+    "root_ino": 12063057,
+    "root_uuid": "2d4498aa-4e6a-4bb4-b410-10b7268d20a0",
+    "schema_version": 1,
+    "scope_sha256": "e9b3aa0439745999809f79693dbbc3ed5c5ec1c9b3c4b8e1b35f7ab6cde51aa6",
+    "session_user": "0:0",
+    "session_uuid": "f16e53da-5ce6-4fb2-98a1-e1de25310f07",
+    "signals": [],
+    "state": "exited",
+    "tty": true,
+    "updated_at": "2026-11-03T14:36:48+08:00",
+    "worker_pid": 125995,
+    "worker_stamp": 3274730,
+    "worker_live": false,
+    "child_live": false,
+    "guest_live": false,
+    "environment": {
+      "known": true,
+      "container_id": "87224cf1c992f4890b1b1c9b8ffec7d383dc228ce83241636a9016569e7ab287",
+      "running": false,
+      "status": "exited",
+      "started_at": "2026-11-03T14:36:44.968802609+08:00",
+      "project": "/home/agent/expansion-continuation-20261103/cli-environment-v1",
+      "env_id": "fedora44",
+      "role": "environment"
+    },
+    "lease_recorded": false,
+    "lease_live": false,
+    "effective_state": "exited",
+    "execution_pinned": {
+      "project_uuid": "b79564a6-31b9-46a4-910b-51748ae35680",
+      "root_uuid": "2d4498aa-4e6a-4bb4-b410-10b7268d20a0",
+      "environment_uuid": "e4b4847d-fe91-4e53-927f-3a603d157fbf",
+      "generation": 1,
+      "container_id": "87224cf1c992f4890b1b1c9b8ffec7d383dc228ce83241636a9016569e7ab287",
+      "argv": [
+        "htop"
+      ],
+      "cwd": "/home/agent/expansion-continuation-20261103/cli-shared-v1",
+      "session_user": "0:0",
+      "integration_uuid": null,
+      "scope_sha256": "e9b3aa0439745999809f79693dbbc3ed5c5ec1c9b3c4b8e1b35f7ab6cde51aa6",
+      "guest_pid": 12,
+      "guest_start": 3275073,
+      "guest_sid": 12
+    }
+  },
+  "container_stopped": true
+}

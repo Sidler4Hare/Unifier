@@ -1,0 +1,8 @@
+{
+  "prior_status": "INVALID",
+  "test_assertions": "30 passed, not counted as accepted",
+  "reason": "[Errno 19] No such device",
+  "correction": "Handle ENOENT/ENODEV only after command-result and worker-final-cgroup receipts both exist. Check final memory/pid events. Do not suppress metric errors while a worker lacks completion proof.",
+  "retry_limit": 1,
+  "scope": "T1 runner only, not T2/PRE03 proof"
+}

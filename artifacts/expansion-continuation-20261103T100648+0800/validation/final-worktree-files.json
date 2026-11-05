@@ -1,0 +1,24 @@
+{
+  "head": "6f776a61dc599ad8f1c0a476681e892248e55a6b",
+  "file_sha256": {
+    "HANDOFF.md": "2fd4bed37565fa0e09bc5a3a2422d90ca446790ce6b822f8b85a170ce3916973",
+    "README.md": "b41b17f2e2e008c9a253e585e65a002a95fc2ffd8d90285dfc33ccbe4decf6ac",
+    "src/unifier/cli.py": "f30b9493393af84fbfa718b8d5a3b86f71dbbc32a49f01f99918897f54da4555",
+    "src/unifier/project_sessions.py": "86215dee1e872d40abe3e3f20996a5ee0e788557b58726b7577fc37492dca95d",
+    "src/unifier/runtime.py": "d2ed3c72caa0e0727710e873c583a2a43511977abff58ffdf8b3398cfd49f2ba",
+    "tests/test_env.py": "c26fababf7c39395570a700efd852929b30dc78032bb7a3fd3b2bcac150eadb3",
+    "src/unifier/agent_bridge.py": "1288e1acd496502c22925a00a1d54ce55d1415313c436448270b3f662d34377c",
+    "src/unifier/bridge_client.py": "11123c870a3cbe408a8a4bbf64cc830cb1c24fe2bf0fb6bba791d4e904e4dc68",
+    "src/unifier/exec_control.py": "183ec3678dac5b591dc2089400a0dced1a6e0a0c70eb3a3bcc0d39356a63ae70",
+    "tests/test_agent_bridge.py": "6e089ef8d24efc478f0263481186b8a7023911fca222fade8685b7ac2559e399",
+    "tests/test_agent_cli.py": "10142064faac2ac3832097f6f21693cfbbbb834b5d441b3da91a46a2be814121",
+    "tests/test_guarded_test.py": "9bd69c5c618bc4ebcc9f4a0777a767c3ff94dcfc54cd8ceaa8cceb099548c22b",
+    "tests/test_runtime_control.py": "aa51e2d47e96b9c512fe438c317d06c46dcd2d2aad31b318c8d3fe69e98fe787",
+    "tests/test_session_stopped_recovery.py": "dcf7e4bca67e990d25e09c99fd50024f9d1fdf8b73923707e37e64e23a6baf2c",
+    "tools/guarded_test.py": "3a9027384e6456012c3d4766bd2a71042076ac118b3c0223695f9894f0fc17a0",
+    "docs/客体受控请求.md": "7bfc4fce15baa50f8b80dd0a2e6f809f29c3e44a07ffd5bc1f8f7aed80487d2b",
+    "docs/扩测保护与恢复.md": "4cb11b1915749807c9dced02864ceaf8a13c001f549fadbc6dc39384594f30c7"
+  },
+  "staged": false,
+  "deployed": false
+}

@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "pid": 363152,
+    "starttime": "17544650",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-111850-supervisor-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_application_supervisor"
+  ]
+}

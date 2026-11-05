@@ -1,0 +1,109 @@
+{
+  "status": "FINISHED",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "host_display_sockets_mounted": false,
+  "events": [
+    {
+      "command": "001.request.json",
+      "action": "launch",
+      "started_at": 1793677014.9880645,
+      "host_launcher_pid": 34623,
+      "app_id": "private-native-writer",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/writer-workflow.docx",
+      "finished_at": 1793677015.5770123,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "002.request.json",
+      "action": "guest",
+      "started_at": 1793677025.5920153,
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793677025.818288,
+      "launcher_states": [
+        255
+      ]
+    },
+    {
+      "command": "003.request.json",
+      "action": "capture",
+      "started_at": 1793677025.8196554,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-ready.png",
+      "finished_at": 1793677026.3868315,
+      "launcher_states": [
+        255
+      ]
+    },
+    {
+      "command": "004.request.json",
+      "action": "guest",
+      "started_at": 1793677043.9097488,
+      "returncode": 0,
+      "stdout": "    PID    PPID STAT COMMAND\n      1       0 Ss   /run/podman-init -- /usr/bin/sleep infinity\n      2       1 S    /usr/bin/sleep infinity\n      6       1 Ss   Xvfb :97 -screen 0 1280x800x24 -nolisten tcp -auth /tmp/unifier-private-display/Xauthority\n     21       0 Rs   ps -eo pid,ppid,stat,args\n",
+      "stderr": "",
+      "finished_at": 1793677044.1546817,
+      "launcher_states": [
+        255
+      ]
+    },
+    {
+      "command": "005.request.json",
+      "action": "guest",
+      "started_at": 1793677050.414082,
+      "returncode": 0,
+      "stdout": "#!/bin/bash\n\ngOpt=\n#gOptExt=-multiply\ngTemplateExt=(\"ett\" \"xlt\" \"xltx\" \"xltm\" \"dpt\" \"pot\" \"potx\" \"potm\" \"wpt\" \"dot\" \"dotx\" \"dotm\" \"uott3\")\ngBinPath=$(dirname \"$0\")\nif [ -d \"${gBinPath}/office6\" ]; then\n\tgInstallPath=${gBinPath}\nelse\n\tgInstallPath=/opt/kingsoft/wps-office\nfi\ngApp=wps\ngDaemon=0\ngIsCloud=0\ngIsOA=0\ngIsDocCenter=0\ngIsCloudOA=0\ngIsUrl=0\ngFilePath=\ngFilePaths=()\ngConfigPath=\"${HOME}/.config/Kingsoft/Office.conf\"\ngIsFushion=0\n\nfunction readforcefushionoem()\n{\n\tlocal oempath=\"${gInstallPath}/office6/cfgs/oem.ini\"\n\tif [ -e \"$oempath\" ]; then\n\t\tlocal value=$(awk -F'=' '/^\\[support\\]/{found=1} found && /^(2rZXpCGlD7_t8rRMx_WKnw\\.\\.|X5zahTFK13NP8hUZrmVGlg\\.\\.)=/{print $2; exit} /^\\[/ && !/^\\[support\\]/{if(found) exit}' \"$oempath\")\n\t\tif [ \"$value\" = \"WHfH10HHgeQrW2N48LfXrA..\" ] || [ \"$value\" = \"NzIWerGW1Xz2oWySibc-3g..\" ] || [ \"$value\" = \"grhpbB02ncs-447TFGgEDg..\" ]; then\n\t\t\techo 0\n\t\t\treturn\n\t\tfi\n\tfi\n\techo 1\n}\n\nfunction writelocalcomponentmode()\n{\n\tlocal mode=${1:-prome_fushion}\n\tlocal configDir=$(dirname \"${gConfigPath}\")\n\tmkdir -p \"$configDir\"\n\tif [ ! -e \"${gConfigPath}\" ] || ! grep -q '^\\[6.0\\]' \"${gConfigPath}\"; then\n\t\techo -e \"\\n[6.0]\" >> \"${gConfigPath}\"\n\tfi\n\tlocal section_line=$(awk '/^\\[6.0\\]/{print NR}' \"${gConfigPath}\")\n\tlocal key_line=$(awk -v line=\"$section_line\" -F'=' '$1==\"wpsoffice\\\\Application%20Settings\\\\AppComponentMode\" {if(NR>=line){print NR; exit}}' \"${gConfigPath}\")\n\tif [ -n \"$key_line\" ]; then\n\t\tsed -i \"${key_line}s/=.*/=${mode}/\" \"${gConfigPath}\"\n\telse\n\t\tsed -i \"${section_line}a\\\\wpsoffice\\\\\\\\Application%20Settings\\\\\\\\AppComponentMode=${mode}\" \"${gConfigPath}\"\n\tfi\n}\n\nfunction get_model_type()\n{\n\tcurrentMode=\"\"\n\thaveConf=0\n\tif [ -e \"${gConfigPath}\" ];then\n\t\thaveConf=1\n\tfi\n\tif [ $haveConf -eq 1 ]; then\n\t\tcurrentMode=$(awk -v line=$(awk '/\\[6.0\\]/{print NR}' \"${gConfigPath}\")  -F\"=\" '$1==\"wpsoffice\\\\Application%20Settings\\\\AppComponentMode\" {if(NR>=line){print $2}}' \"${gConfigPath}\")\n\tfi\n\tif [ -z \"$currentMode\" ]; then\n\t\tif [ $(readforcefushionoem) -eq 0 ]; then\n\t\t\tcurrentMode=\"prome_fushion\"\n\t\telse\n\t\t\tcurrentMode=\"prome_independ\"\n\t\tfi\n\t\twritelocalcomponentmode \"$currentMode\"\n\tfi\n\tif [ \"$currentMode\" = \"prome_fushion\" ]; then\n\t\t\tgApp=\"wpsoffice\"\n\t\t\tgIsFushion=1\n\tfi\n}\n\nfunction parse_arg()\n{\n\tif [ \"$1\" == \"-quickstart\" ]; then\n\t\tgOpt=-quickstart\n\t\tgDaemon=1\n\t\treturn 0\n\tfi\n\tget_model_type \"$@\"\n\tif [ $# -eq 1 ] ; then\n\t\tif [[ $1 == ksoqing://* ]] || [[ $1 == ksowps://* ]] || [[ $1 == ksowpp://* ]] || [[ $1 == ksoet://* ]]\n\t\tthen\n\t\t\tgIsCloud=1\n\t\tfi\n\n\t\tif [[ $1 == ksowebstartupwps://* ]] || [[ $1 == ksowebstartupwpp://* ]] || [[ $1 == ksowebstartupet://* ]]\n\t\tthen\n\t\t\tgIsOA=1\n\t\tfi\n\t\t\n\t\tif [[ $1 == ksodoccenter://* ]]\n\t\tthen\n\t\t\tgIsDocCenter=1\n\t\tfi\n\t\t\n\t\tif [[ $1 == ksowpscloudsvr://* ]]\n\t\tthen\n\t\t\tgIsCloudOA=1\n\t\tfi\n\n\t\tgFilePath=$1\n\t\tif [ ${gFilePath:0:7} = \"file://\" ]; then\n\t\t\tif command -v python3 >/dev/null 2>&1; then\n\t\t\t\tgFilePath=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.unquote(sys.argv[1]))' \"$1\")\n\t\t\telif command -v python >/dev/null 2>&1; then\n\t\t\t\tgFilePath=$(python -c 'import sys, urllib; print urllib.unquote(sys.argv[1])' \"$1\")\n\t\t\telse\n\t\t\t\tgFilePath=$(echo \"$1\" | sed 's/%\\([0-9A-Fa-f][0-9A-Fa-f]\\)/\\\\x\\1/g' | xargs -0 echo -e)\n\t\t\tfi\n\t\t\tgFilePath=${gFilePath#file://}\n\t\t\tgIsUrl=1\n\t\tfi\n\n\t\text=\"${1##*.}\"\n\t\tif [ \"\" = \"${ext}\" ] ; then\n\t\t\treturn 0\n\t\tfi\n\n\t\text_lowercase=$(echo $ext | tr '[:upper:]' '[:lower:]')\n\n\t\tfor i in \"${gTemplateExt[@]}\"\n\t\tdo\n\t\t\tif [ \"${ext_lowercase}\" = \"${i}\" ] ; then\n\t\t\t\tgOpt=-t\n\t\t\tfi\n\t\tdone\n\t\tgFilePaths=$gFilePath\n\telif [ $# -gt 1 ] ; then\n\t\tfor file in \"$@\"\n\t\tdo \n\t\t\tgFilePath=$file\n\t\t\tif [ ${gFilePath:0:7} = \"file://\" ]; then\n\t\t\t\tif command -v python3 >/dev/null 2>&1; then\n\t\t\t\t\tgFilePath=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.unquote(sys.argv[1]))' \"$file\")\n\t\t\t\telif command -v python >/dev/null 2>&1; then\n\t\t\t\t\tgFilePath=$(python -c 'import sys, urllib; print urllib.unquote(sys.argv[1])' \"$file\")\n\t\t\t\telse\n\t\t\t\t\tgFilePath=$(echo \"$file\" | sed 's/%\\([0-9A-Fa-f][0-9A-Fa-f]\\)/\\\\x\\1/g' | xargs -0 echo -e)\n\t\t\t\tfi\n\t\t\t\tgFilePath=${gFilePath#file://}\n\t\t\telse\n\t\t\t\treturn 0\t\t\t\t\t\n\t\t\tfi\n\t\t\t\t\n\t\t\tgIsUrl=1\n\t\t\tgFilePaths[${#gFilePaths[@]}]=$gFilePath\n\t\t    \n\t\tdone \n\tfi\n}\n\nfunction run()\n{\n\toldPwd=\"${PWD}\"\n\tif [ -e \"${gInstallPath}/office6/${gApp}\" ] ; then\n\t\tif [ 1 -eq ${gDaemon} ]; then\n\t\t\tnohup ${gInstallPath}/office6/${gApp} ${gOpt} > /dev/null 2>&1 &\n\t\telif [ 1 -eq ${gIsUrl} ]; then\n\t\t\t{ ${gInstallPath}/office6/${gApp}  ${gOptExt} ${gOpt} \"${gFilePaths[@]}\"; } > /dev/null 2>&1\n\t\telif [ 1 -eq ${gIsFushion} ] && [ \"$1\" != \"/prometheus\" ]; then\n\t\t\t{ unset GIO_LAUNCHED_DESKTOP_FILE && ${gInstallPath}/office6/${gApp} /prometheus ${gOptExt} ${gOpt} \"$@\"; } > /dev/null 2>&1\n\t\telse\n\t\t\t{ ${gInstallPath}/office6/${gApp}  ${gOptExt} ${gOpt} \"$@\"; } > /dev/null 2>&1\n\t\tfi\n\telse\n\t\techo \"${gApp} does not exist!\"\n\tfi\n}\n\nfunction main()\n{\n\tparse_arg \"$@\"\n\tif [ 1 -eq ${gIsCloud} ]; then\n\t\t${gInstallPath}/office6/wpscloudsvr \"/qingbangong\" \"$@\"\n\telif [ 1 -eq ${gIsOA} ]; then\n\t\t${gInstallPath}/office6/oa/wpsoaassist.sh \"$@\"\n\telif [ 1 -eq ${gIsCloudOA} ]; then\n\t\t${gInstallPath}/office6/wpscloudsvr \"/jsapihttpserver\" \"$@\"\n\telif [ 1 -eq ${gIsDocCenter} ]; then\n\t\t${gInstallPath}/office6/wpsdoccenter \"$@\"\n\telse\n\t\trun \"$@\"\n\tfi\n\texit 0\n}\n\nmain \"$@\"\n",
+      "stderr": "",
+      "finished_at": 1793677050.5875573,
+      "launcher_states": [
+        255
+      ]
+    },
+    {
+      "command": "006.request.json",
+      "action": "guest",
+      "started_at": 1793677058.5997272,
+      "returncode": 2,
+      "stdout": "-rwxr-xr-x. 1 root root 1403275 Oct  9 08:41 /opt/kingsoft/wps-office/office6/wps\n-rwxr-xr-x. 1 root root    5285 Oct  9 08:41 /usr/bin/wps\n",
+      "stderr": "ls: cannot access '/opt/kingsoft/wps-office/office6/wps6': No such file or directory\n",
+      "finished_at": 1793677058.7804832,
+      "launcher_states": [
+        255
+      ]
+    },
+    {
+      "command": "007.request.json",
+      "action": "finish",
+      "started_at": 1793677082.566244,
+      "finished": true,
+      "finished_at": 1793677082.5662494,
+      "launcher_states": [
+        255
+      ]
+    }
+  ],
+  "host_before": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "display": {
+    "pid": 6,
+    "display": ":97"
+  },
+  "reserve_monitor_aborted": false,
+  "fixture_cleanup": "DIRECTED_TEST_CONTAINER_STOP",
+  "launcher_states": [
+    255
+  ],
+  "host_after": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "desktop_identity_unchanged": true
+}

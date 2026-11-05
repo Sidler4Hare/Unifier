@@ -1,0 +1,28 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "test_package_observation",
+    "-v"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 179247,
+    "starttime": "10274265",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-pre02-20261104-1510-red2-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "50331648",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "25000 100000"
+  },
+  "reason": "admission window below memory/PSI threshold",
+  "min_available_bytes": null,
+  "peak_memory_bytes": 0,
+  "peak_tasks": 0,
+  "elapsed_seconds": 1.5049965429971053
+}

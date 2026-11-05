@@ -1,0 +1,1105 @@
+{
+  "status": "PASS_REAL_GUEST_ORIGIN_SIX_CELLS",
+  "host": "Ubuntu 24.04",
+  "cells": [
+    {
+      "origin": "fedora44",
+      "action_id": "host-info",
+      "status": "PASS",
+      "response": {
+        "action_id": "host-info",
+        "error": null,
+        "protocol_version": 1,
+        "receipt": {
+          "action_id": "host-info",
+          "action_type": "host-info",
+          "claim_expires_at": 1793686147.8067386,
+          "completed_at": 1793685847.8172488,
+          "grant_expires_at": 1793686146.5587218,
+          "host_info": {
+            "boot_id": "7f9c8802-1373-4bd5-88e1-9328da0552c7",
+            "identity": {
+              "egid": 1001,
+              "euid": 1001,
+              "gid": 1001,
+              "pid": 113648,
+              "ppid": 113601,
+              "uid": 1001
+            },
+            "observed_at": 1793685847,
+            "os_release": {
+              "path": "/etc/os-release",
+              "resolved": "/usr/lib/os-release",
+              "values": {
+                "ID": "ubuntu",
+                "ID_LIKE": "debian",
+                "NAME": "Ubuntu",
+                "PRETTY_NAME": "Ubuntu 24.04.5 LTS",
+                "VERSION": "24.04.5 LTS (Noble Numbat)",
+                "VERSION_ID": "24.04"
+              }
+            },
+            "process_identity": {
+              "cgroup": {
+                "lines": [
+                  "0::/user.slice/user-1001.slice/user@1001.service/unifier.slice/unifier-bridge.slice/unifier-bridge-tests.slice/unifier-bridge-six-cells-v7-20261103.service"
+                ],
+                "path": "/proc/self/cgroup",
+                "resolved": "/proc/113648/cgroup"
+              },
+              "gid_map": {
+                "lines": [
+                  "         0          0 4294967295"
+                ],
+                "path": "/proc/self/gid_map",
+                "resolved": "/proc/113648/gid_map"
+              },
+              "status": {
+                "path": "/proc/self/status",
+                "resolved": "/proc/113648/status",
+                "values": {
+                  "CapBnd": "000001ffffffffff",
+                  "CapEff": "0000000000000000",
+                  "NSpgid": "113648",
+                  "NSpid": "113648",
+                  "NSsid": "113648",
+                  "NStgid": "113648",
+                  "Name": "python3",
+                  "NoNewPrivs": "0",
+                  "Seccomp": "0"
+                }
+              },
+              "uid_map": {
+                "lines": [
+                  "         0          0 4294967295"
+                ],
+                "path": "/proc/self/uid_map",
+                "resolved": "/proc/113648/uid_map"
+              }
+            },
+            "source": "host-builtin",
+            "uname": {
+              "machine": "x86_64",
+              "nodename": "b0512",
+              "release": "6.8.0-147-generic",
+              "sysname": "Linux"
+            }
+          },
+          "origin": {
+            "container": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "running": true,
+              "status": "running"
+            },
+            "environment_binding": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "environment_id": "fedora44",
+              "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+              "generation": 1
+            },
+            "environment_id": "fedora44",
+            "session_uuid": "fef9bbe0-ed3e-4f39-9a75-5b1783c16910"
+          },
+          "output_reference": "host-broker-stream",
+          "request_uuid": "f68e648a-5831-4e4a-970d-524aad4fc97f",
+          "reserved_at": 1793685847.8067386,
+          "schema_version": 1,
+          "session": null,
+          "status": "ok",
+          "target": null
+        },
+        "request_uuid": "f68e648a-5831-4e4a-970d-524aad4fc97f",
+        "status": "ok"
+      },
+      "client_identity": {
+        "pid": 18,
+        "uid": 0,
+        "pid_namespace": "pid:[4026532836]",
+        "os_release": "NAME=\"Fedora Linux\"\nVERSION=\"44 (Container Image)\"\nRELEASE_TYPE=stable\nID=fedora\nVERSION_ID=44\nVERSION_CODENAME=\"\"\nPRETTY_NAME=\"Fedora Linux 44 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:44\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f44/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=44\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=44\nSUPPORT_END=2027-05-19\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n"
+      },
+      "long_socket_path_bytes": 187
+    },
+    {
+      "origin": "fedora44",
+      "action_id": "run-fedora44",
+      "status": "PASS",
+      "response": {
+        "action_id": "run-fedora44",
+        "error": null,
+        "protocol_version": 1,
+        "receipt": {
+          "action_id": "run-fedora44",
+          "action_type": "project-run",
+          "broker_accepts_runs": true,
+          "claim_expires_at": 1793686148.2921064,
+          "completed_at": 1793685850.002416,
+          "grant_expires_at": 1793686146.5587218,
+          "host_info": null,
+          "origin": {
+            "container": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "running": true,
+              "status": "running"
+            },
+            "environment_binding": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "environment_id": "fedora44",
+              "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+              "generation": 1
+            },
+            "environment_id": "fedora44",
+            "session_uuid": "fef9bbe0-ed3e-4f39-9a75-5b1783c16910"
+          },
+          "output_reference": "host-broker-stream",
+          "request_uuid": "54a6113d-1919-45dd-aab4-757975c47bea",
+          "reserved_at": 1793685848.2921064,
+          "schema_version": 1,
+          "session": {
+            "argv": [
+              "/usr/bin/python3",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/target.py",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/fedora44-to-fedora44.json",
+              "fedora44"
+            ],
+            "cancel": null,
+            "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+            "environment_binding": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "environment_id": "fedora44",
+              "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+              "generation": 1
+            },
+            "error": null,
+            "exit_code": 0,
+            "guest_state": "gone",
+            "peer_uid": 1001,
+            "project_uuid": "cdd9ef3c-6105-441c-8fbf-77767db98a7a",
+            "scope_sha256": "51e087e8447ff783f5c417900fe40fcd64ff6cb823c558bd1a19172864d5f1e7",
+            "session_user": "0:0",
+            "session_uuid": "c10946fe-7f2b-4dc5-84ef-1d1905a63501",
+            "state": "exited",
+            "timed_out": false
+          },
+          "status": "ok",
+          "target": {
+            "argv": [
+              "/usr/bin/python3",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/target.py",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/fedora44-to-fedora44.json",
+              "fedora44"
+            ],
+            "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+            "environment_binding": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "environment_id": "fedora44",
+              "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+              "generation": 1
+            },
+            "project_uuid": "cdd9ef3c-6105-441c-8fbf-77767db98a7a",
+            "scope_sha256": "51e087e8447ff783f5c417900fe40fcd64ff6cb823c558bd1a19172864d5f1e7",
+            "timeout_seconds": 10
+          }
+        },
+        "request_uuid": "54a6113d-1919-45dd-aab4-757975c47bea",
+        "status": "ok"
+      },
+      "client_identity": {
+        "pid": 18,
+        "uid": 0,
+        "pid_namespace": "pid:[4026532836]",
+        "os_release": "NAME=\"Fedora Linux\"\nVERSION=\"44 (Container Image)\"\nRELEASE_TYPE=stable\nID=fedora\nVERSION_ID=44\nVERSION_CODENAME=\"\"\nPRETTY_NAME=\"Fedora Linux 44 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:44\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f44/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=44\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=44\nSUPPORT_END=2027-05-19\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n"
+      },
+      "long_socket_path_bytes": 187,
+      "target_proof": {
+        "expected_label": "fedora44",
+        "pid": 50,
+        "uid": 0,
+        "gid": 0,
+        "pid_namespace": "pid:[4026532836]",
+        "os_release": "NAME=\"Fedora Linux\"\nVERSION=\"44 (Container Image)\"\nRELEASE_TYPE=stable\nID=fedora\nVERSION_ID=44\nVERSION_CODENAME=\"\"\nPRETTY_NAME=\"Fedora Linux 44 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:44\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f44/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=44\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=44\nSUPPORT_END=2027-05-19\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n",
+        "cgroup": "0::/\n"
+      }
+    },
+    {
+      "origin": "fedora44",
+      "action_id": "run-arch",
+      "status": "PASS",
+      "response": {
+        "action_id": "run-arch",
+        "error": null,
+        "protocol_version": 1,
+        "receipt": {
+          "action_id": "run-arch",
+          "action_type": "project-run",
+          "broker_accepts_runs": true,
+          "claim_expires_at": 1793686150.504795,
+          "completed_at": 1793685853.4483814,
+          "grant_expires_at": 1793686146.5587218,
+          "host_info": null,
+          "origin": {
+            "container": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "running": true,
+              "status": "running"
+            },
+            "environment_binding": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "environment_id": "fedora44",
+              "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+              "generation": 1
+            },
+            "environment_id": "fedora44",
+            "session_uuid": "fef9bbe0-ed3e-4f39-9a75-5b1783c16910"
+          },
+          "output_reference": "host-broker-stream",
+          "request_uuid": "627b53eb-dcb1-447b-8db9-c4f0e4324fe1",
+          "reserved_at": 1793685850.504795,
+          "schema_version": 1,
+          "session": {
+            "argv": [
+              "/usr/bin/python3",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/target.py",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/fedora44-to-arch.json",
+              "arch"
+            ],
+            "cancel": null,
+            "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+            "environment_binding": {
+              "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+              "environment_id": "arch",
+              "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+              "generation": 1
+            },
+            "error": null,
+            "exit_code": 0,
+            "guest_state": "gone",
+            "peer_uid": 1001,
+            "project_uuid": "ef0bd8f2-0221-4d00-8ac2-050f632eaadb",
+            "scope_sha256": "05b4c3afa91d2c05c89b707e489c06cc4583e411cdcd11de0a19d404ae9b63d6",
+            "session_user": "0:0",
+            "session_uuid": "fc3cc483-e037-4d24-b986-0015fb842957",
+            "state": "exited",
+            "timed_out": false
+          },
+          "status": "ok",
+          "target": {
+            "argv": [
+              "/usr/bin/python3",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/target.py",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/fedora44-to-arch.json",
+              "arch"
+            ],
+            "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+            "environment_binding": {
+              "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+              "environment_id": "arch",
+              "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+              "generation": 1
+            },
+            "project_uuid": "ef0bd8f2-0221-4d00-8ac2-050f632eaadb",
+            "scope_sha256": "05b4c3afa91d2c05c89b707e489c06cc4583e411cdcd11de0a19d404ae9b63d6",
+            "timeout_seconds": 10
+          }
+        },
+        "request_uuid": "627b53eb-dcb1-447b-8db9-c4f0e4324fe1",
+        "status": "ok"
+      },
+      "client_identity": {
+        "pid": 18,
+        "uid": 0,
+        "pid_namespace": "pid:[4026532836]",
+        "os_release": "NAME=\"Fedora Linux\"\nVERSION=\"44 (Container Image)\"\nRELEASE_TYPE=stable\nID=fedora\nVERSION_ID=44\nVERSION_CODENAME=\"\"\nPRETTY_NAME=\"Fedora Linux 44 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:44\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f44/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=44\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=44\nSUPPORT_END=2027-05-19\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n"
+      },
+      "long_socket_path_bytes": 187,
+      "target_proof": {
+        "expected_label": "arch",
+        "pid": 18,
+        "uid": 0,
+        "gid": 0,
+        "pid_namespace": "pid:[4026532902]",
+        "os_release": "NAME=\"Arch Linux\"\nPRETTY_NAME=\"Arch Linux\"\nID=arch\nBUILD_ID=rolling\nVERSION_ID=20261011.0.609700\nANSI_COLOR=\"38;2;23;147;209\"\nHOME_URL=\"https://archlinux.org/\"\nDOCUMENTATION_URL=\"https://wiki.archlinux.org/\"\nSUPPORT_URL=\"https://bbs.archlinux.org/\"\nBUG_REPORT_URL=\"https://gitlab.archlinux.org/groups/archlinux/-/issues\"\nPRIVACY_POLICY_URL=\"https://terms.archlinux.org/docs/privacy-policy/\"\nLOGO=archlinux-logo\n",
+        "cgroup": "0::/\n"
+      }
+    },
+    {
+      "origin": "arch",
+      "action_id": "host-info",
+      "status": "PASS",
+      "response": {
+        "action_id": "host-info",
+        "error": null,
+        "protocol_version": 1,
+        "receipt": {
+          "action_id": "host-info",
+          "action_type": "host-info",
+          "claim_expires_at": 1793686159.608245,
+          "completed_at": 1793685859.619658,
+          "grant_expires_at": 1793686158.400675,
+          "host_info": {
+            "boot_id": "7f9c8802-1373-4bd5-88e1-9328da0552c7",
+            "identity": {
+              "egid": 1001,
+              "euid": 1001,
+              "gid": 1001,
+              "pid": 113648,
+              "ppid": 113601,
+              "uid": 1001
+            },
+            "observed_at": 1793685859,
+            "os_release": {
+              "path": "/etc/os-release",
+              "resolved": "/usr/lib/os-release",
+              "values": {
+                "ID": "ubuntu",
+                "ID_LIKE": "debian",
+                "NAME": "Ubuntu",
+                "PRETTY_NAME": "Ubuntu 24.04.5 LTS",
+                "VERSION": "24.04.5 LTS (Noble Numbat)",
+                "VERSION_ID": "24.04"
+              }
+            },
+            "process_identity": {
+              "cgroup": {
+                "lines": [
+                  "0::/user.slice/user-1001.slice/user@1001.service/unifier.slice/unifier-bridge.slice/unifier-bridge-tests.slice/unifier-bridge-six-cells-v7-20261103.service"
+                ],
+                "path": "/proc/self/cgroup",
+                "resolved": "/proc/113648/cgroup"
+              },
+              "gid_map": {
+                "lines": [
+                  "         0          0 4294967295"
+                ],
+                "path": "/proc/self/gid_map",
+                "resolved": "/proc/113648/gid_map"
+              },
+              "status": {
+                "path": "/proc/self/status",
+                "resolved": "/proc/113648/status",
+                "values": {
+                  "CapBnd": "000001ffffffffff",
+                  "CapEff": "0000000000000000",
+                  "NSpgid": "113648",
+                  "NSpid": "113648",
+                  "NSsid": "113648",
+                  "NStgid": "113648",
+                  "Name": "python3",
+                  "NoNewPrivs": "0",
+                  "Seccomp": "0"
+                }
+              },
+              "uid_map": {
+                "lines": [
+                  "         0          0 4294967295"
+                ],
+                "path": "/proc/self/uid_map",
+                "resolved": "/proc/113648/uid_map"
+              }
+            },
+            "source": "host-builtin",
+            "uname": {
+              "machine": "x86_64",
+              "nodename": "b0512",
+              "release": "6.8.0-147-generic",
+              "sysname": "Linux"
+            }
+          },
+          "origin": {
+            "container": {
+              "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+              "running": true,
+              "status": "running"
+            },
+            "environment_binding": {
+              "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+              "environment_id": "arch",
+              "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+              "generation": 1
+            },
+            "environment_id": "arch",
+            "session_uuid": "43264fe9-5ee3-48c1-a273-f48428873bae"
+          },
+          "output_reference": "host-broker-stream",
+          "request_uuid": "57f78f8d-d241-4c22-bdf1-2e943305b22a",
+          "reserved_at": 1793685859.608245,
+          "schema_version": 1,
+          "session": null,
+          "status": "ok",
+          "target": null
+        },
+        "request_uuid": "57f78f8d-d241-4c22-bdf1-2e943305b22a",
+        "status": "ok"
+      },
+      "client_identity": {
+        "pid": 18,
+        "uid": 0,
+        "pid_namespace": "pid:[4026532836]",
+        "os_release": "NAME=\"Arch Linux\"\nPRETTY_NAME=\"Arch Linux\"\nID=arch\nBUILD_ID=rolling\nVERSION_ID=20261011.0.609700\nANSI_COLOR=\"38;2;23;147;209\"\nHOME_URL=\"https://archlinux.org/\"\nDOCUMENTATION_URL=\"https://wiki.archlinux.org/\"\nSUPPORT_URL=\"https://bbs.archlinux.org/\"\nBUG_REPORT_URL=\"https://gitlab.archlinux.org/groups/archlinux/-/issues\"\nPRIVACY_POLICY_URL=\"https://terms.archlinux.org/docs/privacy-policy/\"\nLOGO=archlinux-logo\n"
+      },
+      "long_socket_path_bytes": 183
+    },
+    {
+      "origin": "arch",
+      "action_id": "run-arch",
+      "status": "PASS",
+      "response": {
+        "action_id": "run-arch",
+        "error": null,
+        "protocol_version": 1,
+        "receipt": {
+          "action_id": "run-arch",
+          "action_type": "project-run",
+          "broker_accepts_runs": true,
+          "claim_expires_at": 1793686160.1108687,
+          "completed_at": 1793685861.8714797,
+          "grant_expires_at": 1793686158.400675,
+          "host_info": null,
+          "origin": {
+            "container": {
+              "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+              "running": true,
+              "status": "running"
+            },
+            "environment_binding": {
+              "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+              "environment_id": "arch",
+              "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+              "generation": 1
+            },
+            "environment_id": "arch",
+            "session_uuid": "43264fe9-5ee3-48c1-a273-f48428873bae"
+          },
+          "output_reference": "host-broker-stream",
+          "request_uuid": "c441cfaf-8fd6-4e31-b718-4f3012111f9b",
+          "reserved_at": 1793685860.1108687,
+          "schema_version": 1,
+          "session": {
+            "argv": [
+              "/usr/bin/python3",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/target.py",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/arch-to-arch.json",
+              "arch"
+            ],
+            "cancel": null,
+            "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+            "environment_binding": {
+              "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+              "environment_id": "arch",
+              "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+              "generation": 1
+            },
+            "error": null,
+            "exit_code": 0,
+            "guest_state": "gone",
+            "peer_uid": 1001,
+            "project_uuid": "ef0bd8f2-0221-4d00-8ac2-050f632eaadb",
+            "scope_sha256": "05b4c3afa91d2c05c89b707e489c06cc4583e411cdcd11de0a19d404ae9b63d6",
+            "session_user": "0:0",
+            "session_uuid": "1d0806f0-7536-45eb-89dc-b9a6a4c8d75f",
+            "state": "exited",
+            "timed_out": false
+          },
+          "status": "ok",
+          "target": {
+            "argv": [
+              "/usr/bin/python3",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/target.py",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/arch-to-arch.json",
+              "arch"
+            ],
+            "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+            "environment_binding": {
+              "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+              "environment_id": "arch",
+              "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+              "generation": 1
+            },
+            "project_uuid": "ef0bd8f2-0221-4d00-8ac2-050f632eaadb",
+            "scope_sha256": "05b4c3afa91d2c05c89b707e489c06cc4583e411cdcd11de0a19d404ae9b63d6",
+            "timeout_seconds": 10
+          }
+        },
+        "request_uuid": "c441cfaf-8fd6-4e31-b718-4f3012111f9b",
+        "status": "ok"
+      },
+      "client_identity": {
+        "pid": 18,
+        "uid": 0,
+        "pid_namespace": "pid:[4026532836]",
+        "os_release": "NAME=\"Arch Linux\"\nPRETTY_NAME=\"Arch Linux\"\nID=arch\nBUILD_ID=rolling\nVERSION_ID=20261011.0.609700\nANSI_COLOR=\"38;2;23;147;209\"\nHOME_URL=\"https://archlinux.org/\"\nDOCUMENTATION_URL=\"https://wiki.archlinux.org/\"\nSUPPORT_URL=\"https://bbs.archlinux.org/\"\nBUG_REPORT_URL=\"https://gitlab.archlinux.org/groups/archlinux/-/issues\"\nPRIVACY_POLICY_URL=\"https://terms.archlinux.org/docs/privacy-policy/\"\nLOGO=archlinux-logo\n"
+      },
+      "long_socket_path_bytes": 183,
+      "target_proof": {
+        "expected_label": "arch",
+        "pid": 50,
+        "uid": 0,
+        "gid": 0,
+        "pid_namespace": "pid:[4026532836]",
+        "os_release": "NAME=\"Arch Linux\"\nPRETTY_NAME=\"Arch Linux\"\nID=arch\nBUILD_ID=rolling\nVERSION_ID=20261011.0.609700\nANSI_COLOR=\"38;2;23;147;209\"\nHOME_URL=\"https://archlinux.org/\"\nDOCUMENTATION_URL=\"https://wiki.archlinux.org/\"\nSUPPORT_URL=\"https://bbs.archlinux.org/\"\nBUG_REPORT_URL=\"https://gitlab.archlinux.org/groups/archlinux/-/issues\"\nPRIVACY_POLICY_URL=\"https://terms.archlinux.org/docs/privacy-policy/\"\nLOGO=archlinux-logo\n",
+        "cgroup": "0::/\n"
+      }
+    },
+    {
+      "origin": "arch",
+      "action_id": "run-fedora44",
+      "status": "PASS",
+      "response": {
+        "action_id": "run-fedora44",
+        "error": null,
+        "protocol_version": 1,
+        "receipt": {
+          "action_id": "run-fedora44",
+          "action_type": "project-run",
+          "broker_accepts_runs": true,
+          "claim_expires_at": 1793686162.345324,
+          "completed_at": 1793685865.0953605,
+          "grant_expires_at": 1793686158.400675,
+          "host_info": null,
+          "origin": {
+            "container": {
+              "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+              "running": true,
+              "status": "running"
+            },
+            "environment_binding": {
+              "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+              "environment_id": "arch",
+              "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+              "generation": 1
+            },
+            "environment_id": "arch",
+            "session_uuid": "43264fe9-5ee3-48c1-a273-f48428873bae"
+          },
+          "output_reference": "host-broker-stream",
+          "request_uuid": "debe2530-1df2-42ee-9f6f-f91c05512d25",
+          "reserved_at": 1793685862.345324,
+          "schema_version": 1,
+          "session": {
+            "argv": [
+              "/usr/bin/python3",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/target.py",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/arch-to-fedora44.json",
+              "fedora44"
+            ],
+            "cancel": null,
+            "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+            "environment_binding": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "environment_id": "fedora44",
+              "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+              "generation": 1
+            },
+            "error": null,
+            "exit_code": 0,
+            "guest_state": "gone",
+            "peer_uid": 1001,
+            "project_uuid": "cdd9ef3c-6105-441c-8fbf-77767db98a7a",
+            "scope_sha256": "51e087e8447ff783f5c417900fe40fcd64ff6cb823c558bd1a19172864d5f1e7",
+            "session_user": "0:0",
+            "session_uuid": "e24c2774-69f7-403d-9447-aef7af10ed10",
+            "state": "exited",
+            "timed_out": false
+          },
+          "status": "ok",
+          "target": {
+            "argv": [
+              "/usr/bin/python3",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/target.py",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/arch-to-fedora44.json",
+              "fedora44"
+            ],
+            "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+            "environment_binding": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "environment_id": "fedora44",
+              "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+              "generation": 1
+            },
+            "project_uuid": "cdd9ef3c-6105-441c-8fbf-77767db98a7a",
+            "scope_sha256": "51e087e8447ff783f5c417900fe40fcd64ff6cb823c558bd1a19172864d5f1e7",
+            "timeout_seconds": 10
+          }
+        },
+        "request_uuid": "debe2530-1df2-42ee-9f6f-f91c05512d25",
+        "status": "ok"
+      },
+      "client_identity": {
+        "pid": 18,
+        "uid": 0,
+        "pid_namespace": "pid:[4026532836]",
+        "os_release": "NAME=\"Arch Linux\"\nPRETTY_NAME=\"Arch Linux\"\nID=arch\nBUILD_ID=rolling\nVERSION_ID=20261011.0.609700\nANSI_COLOR=\"38;2;23;147;209\"\nHOME_URL=\"https://archlinux.org/\"\nDOCUMENTATION_URL=\"https://wiki.archlinux.org/\"\nSUPPORT_URL=\"https://bbs.archlinux.org/\"\nBUG_REPORT_URL=\"https://gitlab.archlinux.org/groups/archlinux/-/issues\"\nPRIVACY_POLICY_URL=\"https://terms.archlinux.org/docs/privacy-policy/\"\nLOGO=archlinux-logo\n"
+      },
+      "long_socket_path_bytes": 183,
+      "target_proof": {
+        "expected_label": "fedora44",
+        "pid": 18,
+        "uid": 0,
+        "gid": 0,
+        "pid_namespace": "pid:[4026532902]",
+        "os_release": "NAME=\"Fedora Linux\"\nVERSION=\"44 (Container Image)\"\nRELEASE_TYPE=stable\nID=fedora\nVERSION_ID=44\nVERSION_CODENAME=\"\"\nPRETTY_NAME=\"Fedora Linux 44 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:44\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f44/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=44\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=44\nSUPPORT_END=2027-05-19\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n",
+        "cgroup": "0::/\n"
+      }
+    }
+  ],
+  "negative": [
+    {
+      "origin": "fedora44",
+      "status": "PASS_EXPECTED_REFUSAL",
+      "response": {
+        "action_id": "run-arch",
+        "error": {
+          "code": "duplicate-request",
+          "message": "request 627b53eb-dcb1-447b-8db9-c4f0e4324fe1 was already received"
+        },
+        "protocol_version": 1,
+        "receipt": null,
+        "request_uuid": "627b53eb-dcb1-447b-8db9-c4f0e4324fe1",
+        "status": "rejected"
+      }
+    },
+    {
+      "origin": "fedora44",
+      "status": "PASS_EXPECTED_REFUSAL",
+      "response": {
+        "action_id": "unknown-action",
+        "error": {
+          "code": "unknown-action",
+          "message": "action unknown-action is not part of the host-issued scope"
+        },
+        "protocol_version": 1,
+        "receipt": null,
+        "request_uuid": "21f865df-de70-4fad-9bbd-eb3df91c88f6",
+        "status": "rejected"
+      }
+    },
+    {
+      "origin": "fedora44",
+      "status": "PASS_EXPECTED_REFUSAL",
+      "response": {
+        "action_id": "host-info",
+        "error": {
+          "code": "bad-token",
+          "message": "token must be 64..256 lowercase hex characters"
+        },
+        "protocol_version": 1,
+        "receipt": null,
+        "request_uuid": "10bbfa72-2e92-468c-b33c-93ae90cf9917",
+        "status": "rejected"
+      }
+    },
+    {
+      "origin": "fedora44",
+      "status": "PASS_EXPECTED_REVOKED",
+      "response": {
+        "protocol_version": 1,
+        "request_uuid": "2384bc1b-197e-4a84-b967-4f299ac2b9f0",
+        "action_id": "host-info",
+        "status": "rejected",
+        "receipt": null,
+        "error": {
+          "code": "token-revoked",
+          "message": "the token is on the host revoke list"
+        }
+      }
+    },
+    {
+      "origin": "arch",
+      "status": "PASS_EXPECTED_REFUSAL",
+      "response": {
+        "action_id": "run-fedora44",
+        "error": {
+          "code": "duplicate-request",
+          "message": "request debe2530-1df2-42ee-9f6f-f91c05512d25 was already received"
+        },
+        "protocol_version": 1,
+        "receipt": null,
+        "request_uuid": "debe2530-1df2-42ee-9f6f-f91c05512d25",
+        "status": "rejected"
+      }
+    },
+    {
+      "origin": "arch",
+      "status": "PASS_EXPECTED_REFUSAL",
+      "response": {
+        "action_id": "unknown-action",
+        "error": {
+          "code": "unknown-action",
+          "message": "action unknown-action is not part of the host-issued scope"
+        },
+        "protocol_version": 1,
+        "receipt": null,
+        "request_uuid": "ad1b7b69-185b-40c4-9c78-ebfdc221f6b5",
+        "status": "rejected"
+      }
+    },
+    {
+      "origin": "arch",
+      "status": "PASS_EXPECTED_REFUSAL",
+      "response": {
+        "action_id": "host-info",
+        "error": {
+          "code": "bad-token",
+          "message": "token must be 64..256 lowercase hex characters"
+        },
+        "protocol_version": 1,
+        "receipt": null,
+        "request_uuid": "b1516beb-870c-4165-af09-e4bc5d1a8d79",
+        "status": "rejected"
+      }
+    },
+    {
+      "origin": "arch",
+      "status": "PASS_EXPECTED_REVOKED",
+      "response": {
+        "protocol_version": 1,
+        "request_uuid": "887a8094-66dc-4ec9-81f9-e82302530da5",
+        "action_id": "host-info",
+        "status": "rejected",
+        "receipt": null,
+        "error": {
+          "code": "token-revoked",
+          "message": "the token is on the host revoke list"
+        }
+      }
+    }
+  ],
+  "origins": [
+    {
+      "origin": "fedora44",
+      "session": {
+        "access_scope": {
+          "any_used_mount_read_only": false,
+          "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+          "file_path": null,
+          "mappings": {
+            "cwd": {
+              "expected_host": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+              "mount": {
+                "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+                "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+                "options": "z",
+                "same_absolute_path": true
+              },
+              "path": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+              "same_host_object": true
+            },
+            "project_root": {
+              "expected_host": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+              "mount": {
+                "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+                "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+                "options": "z",
+                "same_absolute_path": true
+              },
+              "path": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+              "same_host_object": true
+            }
+          },
+          "mode": "environment-shared-static-mounts",
+          "policy_enforcement": "routing-only",
+          "policy_note": "read-only is a routing decision; without an OS-level read-only mount it is not a filesystem write guarantee",
+          "project_root": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+          "runtime_read_only": false,
+          "selected_mount": {
+            "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+            "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+            "options": "z",
+            "same_absolute_path": true
+          },
+          "shared_mounts": [
+            {
+              "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+              "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+              "options": "z",
+              "same_absolute_path": true
+            }
+          ],
+          "used_mounts": [
+            {
+              "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+              "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+              "options": "z",
+              "same_absolute_path": true
+            }
+          ],
+          "warning": "All applications in this environment share every static mount. This route is not per-file or per-application isolation."
+        },
+        "argv": [
+          "/usr/bin/python3",
+          "/home/agent/expansion-continuation-20261103/bridge-shared/origin.py",
+          "/home/agent/expansion-continuation-20261103/bridge-shared",
+          "origin-v7-fedora44"
+        ],
+        "child_pid": null,
+        "child_stamp": null,
+        "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+        "created_at": "2026-11-03T14:04:03+08:00",
+        "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+        "cwd_dev": 64512,
+        "cwd_ino": 12062688,
+        "env_keys": [
+          "UNIFIER_AGENT_TOKEN"
+        ],
+        "env_policy": {
+          "allowlist": "explicit-host-keys-only",
+          "dynamic_loader_variables": false,
+          "fallback_commands": false,
+          "host_environment_inherited": false
+        },
+        "environment_binding": {
+          "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+          "environment_id": "fedora44",
+          "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+          "generation": 1
+        },
+        "environment_id": "fedora44",
+        "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+        "error": null,
+        "exit_code": 0,
+        "finished_at": "2026-11-03T14:04:14+08:00",
+        "generation": 1,
+        "guest_pgrp": 18,
+        "guest_pid": 18,
+        "guest_sid": 18,
+        "guest_start": 3079060,
+        "guest_state": "gone",
+        "guest_token": "e8514d5441079874d9e86adc3225c2a6",
+        "integration_uuid": null,
+        "lease_token": null,
+        "mode": "run",
+        "project_uuid": "cdd9ef3c-6105-441c-8fbf-77767db98a7a",
+        "root_dev": 64512,
+        "root_ino": 12062688,
+        "root_uuid": "5a4609d6-4869-41d6-8a55-6281703d63c8",
+        "schema_version": 1,
+        "scope_sha256": "51e087e8447ff783f5c417900fe40fcd64ff6cb823c558bd1a19172864d5f1e7",
+        "session_user": "0:0",
+        "session_uuid": "fef9bbe0-ed3e-4f39-9a75-5b1783c16910",
+        "signals": [],
+        "state": "exited",
+        "tty": false,
+        "updated_at": "2026-11-03T14:04:14+08:00",
+        "worker_pid": 113648,
+        "worker_stamp": 3078582,
+        "worker_live": true,
+        "child_live": false,
+        "guest_live": false,
+        "environment": {
+          "known": true,
+          "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+          "running": false,
+          "status": "exited",
+          "started_at": "2026-11-03T14:04:04.718153593+08:00",
+          "project": "/home/agent/expansion-continuation-20261103/bridge-environments",
+          "env_id": "fedora44",
+          "role": "environment"
+        },
+        "lease_recorded": false,
+        "lease_live": false,
+        "effective_state": "exited",
+        "execution_pinned": {
+          "project_uuid": "cdd9ef3c-6105-441c-8fbf-77767db98a7a",
+          "root_uuid": "5a4609d6-4869-41d6-8a55-6281703d63c8",
+          "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+          "generation": 1,
+          "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+          "argv": [
+            "/usr/bin/python3",
+            "/home/agent/expansion-continuation-20261103/bridge-shared/origin.py",
+            "/home/agent/expansion-continuation-20261103/bridge-shared",
+            "origin-v7-fedora44"
+          ],
+          "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+          "session_user": "0:0",
+          "integration_uuid": null,
+          "scope_sha256": "51e087e8447ff783f5c417900fe40fcd64ff6cb823c558bd1a19172864d5f1e7",
+          "guest_pid": 18,
+          "guest_start": 3079060,
+          "guest_sid": 18
+        }
+      },
+      "returncode": {
+        "returncode": 0
+      },
+      "broker_unresolved_runs": []
+    },
+    {
+      "origin": "arch",
+      "session": {
+        "access_scope": {
+          "any_used_mount_read_only": false,
+          "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+          "file_path": null,
+          "mappings": {
+            "cwd": {
+              "expected_host": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+              "mount": {
+                "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+                "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+                "options": "z",
+                "same_absolute_path": true
+              },
+              "path": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+              "same_host_object": true
+            },
+            "project_root": {
+              "expected_host": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+              "mount": {
+                "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+                "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+                "options": "z",
+                "same_absolute_path": true
+              },
+              "path": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+              "same_host_object": true
+            }
+          },
+          "mode": "environment-shared-static-mounts",
+          "policy_enforcement": "routing-only",
+          "policy_note": "read-only is a routing decision; without an OS-level read-only mount it is not a filesystem write guarantee",
+          "project_root": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+          "runtime_read_only": false,
+          "selected_mount": {
+            "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+            "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+            "options": "z",
+            "same_absolute_path": true
+          },
+          "shared_mounts": [
+            {
+              "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+              "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+              "options": "z",
+              "same_absolute_path": true
+            }
+          ],
+          "used_mounts": [
+            {
+              "container": "/home/agent/expansion-continuation-20261103/bridge-shared",
+              "host": "/home/agent/expansion-continuation-20261103/bridge-shared",
+              "options": "z",
+              "same_absolute_path": true
+            }
+          ],
+          "warning": "All applications in this environment share every static mount. This route is not per-file or per-application isolation."
+        },
+        "argv": [
+          "/usr/bin/python3",
+          "/home/agent/expansion-continuation-20261103/bridge-shared/origin.py",
+          "/home/agent/expansion-continuation-20261103/bridge-shared",
+          "origin-v7-arch"
+        ],
+        "child_pid": null,
+        "child_stamp": null,
+        "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+        "created_at": "2026-11-03T14:04:15+08:00",
+        "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+        "cwd_dev": 64512,
+        "cwd_ino": 12062695,
+        "env_keys": [
+          "UNIFIER_AGENT_TOKEN"
+        ],
+        "env_policy": {
+          "allowlist": "explicit-host-keys-only",
+          "dynamic_loader_variables": false,
+          "fallback_commands": false,
+          "host_environment_inherited": false
+        },
+        "environment_binding": {
+          "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+          "environment_id": "arch",
+          "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+          "generation": 1
+        },
+        "environment_id": "arch",
+        "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+        "error": null,
+        "exit_code": 0,
+        "finished_at": "2026-11-03T14:04:26+08:00",
+        "generation": 1,
+        "guest_pgrp": 18,
+        "guest_pid": 18,
+        "guest_sid": 18,
+        "guest_start": 3080241,
+        "guest_state": "gone",
+        "guest_token": "a6c156022b82a16573b1e526db2ab72d",
+        "integration_uuid": null,
+        "lease_token": null,
+        "mode": "run",
+        "project_uuid": "ef0bd8f2-0221-4d00-8ac2-050f632eaadb",
+        "root_dev": 64512,
+        "root_ino": 12062695,
+        "root_uuid": "6274653c-b4f3-4868-aa00-261e0023aa92",
+        "schema_version": 1,
+        "scope_sha256": "05b4c3afa91d2c05c89b707e489c06cc4583e411cdcd11de0a19d404ae9b63d6",
+        "session_user": "0:0",
+        "session_uuid": "43264fe9-5ee3-48c1-a273-f48428873bae",
+        "signals": [],
+        "state": "exited",
+        "tty": false,
+        "updated_at": "2026-11-03T14:04:26+08:00",
+        "worker_pid": 113648,
+        "worker_stamp": 3078582,
+        "worker_live": true,
+        "child_live": false,
+        "guest_live": false,
+        "environment": {
+          "known": true,
+          "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+          "running": false,
+          "status": "exited",
+          "started_at": "2026-11-03T14:04:16.548879586+08:00",
+          "project": "/home/agent/expansion-continuation-20261103/bridge-environments",
+          "env_id": "arch",
+          "role": "environment"
+        },
+        "lease_recorded": false,
+        "lease_live": false,
+        "effective_state": "exited",
+        "execution_pinned": {
+          "project_uuid": "ef0bd8f2-0221-4d00-8ac2-050f632eaadb",
+          "root_uuid": "6274653c-b4f3-4868-aa00-261e0023aa92",
+          "environment_uuid": "5b2111b6-f07e-4a95-9791-8a208343ba13",
+          "generation": 1,
+          "container_id": "aa38e5466b9665765aefe9931f5550eec78631bfa820121469391845cef7e430",
+          "argv": [
+            "/usr/bin/python3",
+            "/home/agent/expansion-continuation-20261103/bridge-shared/origin.py",
+            "/home/agent/expansion-continuation-20261103/bridge-shared",
+            "origin-v7-arch"
+          ],
+          "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-arch",
+          "session_user": "0:0",
+          "integration_uuid": null,
+          "scope_sha256": "05b4c3afa91d2c05c89b707e489c06cc4583e411cdcd11de0a19d404ae9b63d6",
+          "guest_pid": 18,
+          "guest_start": 3080241,
+          "guest_sid": 18
+        }
+      },
+      "returncode": {
+        "returncode": 0
+      },
+      "broker_unresolved_runs": []
+    }
+  ],
+  "host_identity": {
+    "pid": 113648,
+    "uid": 1001,
+    "gid": 1001,
+    "pid_namespace": "pid:[4026531836]",
+    "boot_id": "7f9c8802-1373-4bd5-88e1-9328da0552c7"
+  },
+  "source_sha256": {
+    "runtime.py": "38215908a01451cdea57172c99a08ab0f66ab5bf9c6addbeb429c2c9c2fd98a7",
+    "exec_control.py": "183ec3678dac5b591dc2089400a0dced1a6e0a0c70eb3a3bcc0d39356a63ae70",
+    "project_sessions.py": "ce896139e8623776eddcabefd9435755bf04ff75194cc14cb2c4facb569eb4ed",
+    "agent_bridge.py": "f88471bb869ade258688da3cca7fb8b1bfab690200513b3aca495ee1806f5c6c",
+    "bridge_client.py": "11123c870a3cbe408a8a4bbf64cc830cb1c24fe2bf0fb6bba791d4e904e4dc68"
+  },
+  "worker_threads_live": 0,
+  "containers_after": {
+    "fedora44": "stopped",
+    "arch": "stopped"
+  }
+}

@@ -24,6 +24,7 @@ from unifier.runtime import (
     ContainerState,
     CreateSpec,
     ExecResult,
+    GuestProcess,
     PodmanRuntime,
     container_name,
     creation_argv,
@@ -101,9 +102,59 @@ class FakeRuntime:
         self.fail_inventory = False
         self.events = []
         self.next_code = 0
+        self.application_receipts = {}
+
+    def start_application_exec(self, name, argv, *, token, project, env_id,
+                               workdir, env, user=None, **kwargs):
+        info = self._owned(name, project, env_id)
+        options = {'user': user} if user is not None else {}
+        result = self.exec(info.name, argv, project=project, env_id=env_id,
+                           workdir=workdir, env=env, capture=False, timeout=None, **options)
+        guest = GuestProcess(90000 + len(self.application_receipts), 10, 90000, 90000,
+                             token, 'subreaper-v1')
+        self.application_receipts[token] = {
+            'token': token, 'ownership': 'subreaper-v1', 'state': 'exited',
+            'all_children_reaped': True, 'exit_code': result.returncode,
+            'pid': guest.pid, 'start': guest.start, 'pgrp': guest.pgrp, 'sid': guest.sid,
+        }
+        runtime = self
+        class FakeApplicationExecution:
+            def __init__(self):
+                self.guest = guest
+            def poll(self):
+                return result.returncode
+            def signal(self, number):
+                return runtime.signal_application_guest(name, guest, number,
+                    project=project, env_id=env_id, user=user)
+        return FakeApplicationExecution()
+
+    def observe_application(self, name, token, *, project, env_id, user=None):
+        self._owned(name, project, env_id)
+        return dict(self.application_receipts.get(token) or {'state': 'unknown'})
+
+    def signal_application_guest(self, name, guest, number, *, project, env_id, user=None):
+        self._owned(name, project, env_id)
+        value = self.application_receipts.get(guest.token)
+        if not value or value.get('pid') != guest.pid or value.get('start') != guest.start:
+            return 'unknown'
+        value.update(state='exited', all_children_reaped=True, exit_code=128 + int(number))
+        return 'signalled'
 
     def inspect(self, name):
-        return self.containers.get(name)
+        return self.containers.get(name) or next(
+            (info for info in self.containers.values() if info.container_id == name), None)
+
+    def read_inventory_readonly(self, record):
+        from unifier.package_inventory import observation
+        from unifier.packages import inventory_argv
+        info = self._owned(record['runtime']['container_name'],
+                           record['runtime']['project'], record['id'])
+        result = self._captured(info, inventory_argv(record))
+        if result.returncode:
+            raise UnifierError(result.stderr or 'fake database unavailable')
+        return observation(record, inventory=result.stdout, database='fake',
+                           method='independent-fake-database',
+                           consistency={'scope': 'offline fake only'})
 
     def create(self, spec):
         self.events.append(("create", spec))
@@ -158,7 +209,7 @@ class FakeRuntime:
         return ExecResult(0, "", "")
 
     def _owned(self, name, project, env_id):
-        info = self.containers.get(name)
+        info = self.inspect(name)
         if info is None:
             raise UnifierError(f"container {name} does not exist")
         if info.project != project or info.env_id != env_id or info.role != ROLE_ENVIRONMENT:

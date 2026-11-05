@@ -1,0 +1,6 @@
+test_app_worker_release_does_not_account_for_a_background_child (__main__.ArchitectureProbes.test_app_worker_release_does_not_account_for_a_background_child) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.018s
+
+OK

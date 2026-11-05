@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-03T10:20:06.932991+08:00",
+  "product": "Feishu Debian 7.72.23-0",
+  "cid": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+  "audio_send_receive": "PASS_USER_CONFIRMED_REAL_PEER",
+  "video_receive": "PASS_USER_CONFIRMED_CONTINUOUS_PEER_VIDEO",
+  "local_camera_send": "NOT_RUN_DEVICE_NOT_MOUNTED",
+  "screen_share": "FAIL_MEETING_TERMINATED_SECURITY_WARNING",
+  "user_observation": "提示了安全问题自动终止了会议",
+  "audio_mechanism_evidence": [
+    "pulse-sinks.json",
+    "pulse-sources.json"
+  ],
+  "safety_warning_exact_text": "检测到安全问题",
+  "scope": "bounded attended user acceptance; not full media acceptance",
+  "root_cause": "UNKNOWN: vendor/security warning observed; same-account policy, account risk and local portal failure have not been distinguished",
+  "user_followup": "用户认为可能是飞书自身限制或同账号共享，未经验证"
+}

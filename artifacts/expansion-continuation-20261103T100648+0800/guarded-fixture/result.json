@@ -1,0 +1,16 @@
+{
+  "status": "PASS_HEADLESS_GUARDED_FIXTURE_CREATED_STOPPED",
+  "scope": "preserved installed fixture snapshot -> new headless test root; no host desktop/audio/GPU/device mounts",
+  "source_container": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+  "image_id": "4ac1a92255c4dd1162bebd0fad2f930b61463883274e37746de5f12c3484e2bc",
+  "snapshot": {
+    "id": "4ac1a92255c4dd1162bebd0fad2f930b61463883274e37746de5f12c3484e2bc",
+    "digest": "sha256:1d71c28976c6c8c6fc0a12fe2abc1e3ece64dd90ca1286f21770bcd4821ba9a6",
+    "reference": "localhost/unifier/guarded-debian-20261103@sha256:1d71c28976c6c8c6fc0a12fe2abc1e3ece64dd90ca1286f21770bcd4821ba9a6",
+    "size": 7401330877,
+    "private_login_state": "retained locally in fixture image; not exported"
+  },
+  "container_id": "e16c92c03f5c3bfe845505d1b5e111a5e90d3b986b18706f73cf2efbbe4cee7e",
+  "environment_root": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment",
+  "shared_root": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared"
+}

@@ -1,0 +1,18 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-s34-111850-consumers",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 300,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_on_demand",
+    "test_app_binding",
+    "test_runtime_control",
+    "test_package_coordination",
+    "test_session_stopped_recovery"
+  ]
+}

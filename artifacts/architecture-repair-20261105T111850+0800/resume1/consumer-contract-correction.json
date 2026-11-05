@@ -1,0 +1,10 @@
+{
+  "failure": "Legacy APP lease expected to expire from host PID alone",
+  "plan_contract": "S3 requires legacy APP leases lacking guest proof to be retained as unknown",
+  "correction": "Retain legacy APP assertion; keep separate host-only stale-lease expiration fixture and verify unknown legacy lease prevents auto-stop",
+  "source_change": false,
+  "allowed_extra_files": [
+    "tests/test_session_recovery_contract.py",
+    "tests/test_lifecycle_contracts.py"
+  ]
+}

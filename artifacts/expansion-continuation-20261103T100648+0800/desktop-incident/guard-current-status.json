@@ -1,0 +1,9 @@
+{
+  "status": "GUARD_ABORT_PROVEN",
+  "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+  "observed_kwin_pid": 1769,
+  "abort_receipt": "../private-gui-workflows-v2/reserve-abort.json",
+  "effect": "only the exact dedicated test container was stopped; desktop boot and KWin identity unchanged",
+  "gui_restart_gate": "MemAvailable >= 2 GiB reserve + 768 MiB fixture hard budget",
+  "current_policy": "continue low-memory offline and bounded remote headless work; no host-compositor GUI automation"
+}

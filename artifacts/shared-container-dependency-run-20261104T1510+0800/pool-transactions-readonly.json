@@ -1,0 +1,38 @@
+[
+  {
+    "root": ".lab/guarded-expansion-20261103/environment",
+    "id": "txn6eaf928a3e41",
+    "environment_id": "debian13",
+    "phase": "completed",
+    "failure_phase": null,
+    "recovery_required": false,
+    "inventory_status": "verified"
+  },
+  {
+    "root": ".lab/auto-deps-20261031",
+    "id": "txnaef42e39c1b3",
+    "environment_id": "deps-arch",
+    "phase": "failed",
+    "failure_phase": "verification",
+    "recovery_required": null,
+    "inventory_status": null
+  },
+  {
+    "root": ".lab/auto-deps-20261031",
+    "id": "txn65925cc5d3fd",
+    "environment_id": "deps-debian",
+    "phase": "failed",
+    "failure_phase": "dependency-repair",
+    "recovery_required": null,
+    "inventory_status": null
+  },
+  {
+    "root": ".lab/auto-deps-20261031",
+    "id": "txn88965f94ebaa",
+    "environment_id": "deps-debian",
+    "phase": "completed",
+    "failure_phase": null,
+    "recovery_required": null,
+    "inventory_status": null
+  }
+]

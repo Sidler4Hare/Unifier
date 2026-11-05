@@ -1,0 +1,11 @@
+{
+  "max_simultaneous_writers": 1,
+  "entry_order": [
+    "serial-a",
+    "serial-b"
+  ],
+  "phases": [
+    "completed",
+    "completed"
+  ]
+}

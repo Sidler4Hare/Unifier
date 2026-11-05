@@ -1,0 +1,13 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-audit-20261105-0815-completions",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 120,
+  "private_root": "/tmp/ua1105-cases-ygob05us",
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/shared-architecture-audit-20261105T0815+0800/completions/contracts.py",
+    "-v"
+  ]
+}

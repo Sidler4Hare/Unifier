@@ -1,0 +1,640 @@
+{
+  "status": "FAILED",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "host_display_sockets_mounted": false,
+  "events": [
+    {
+      "command": "001.request.json",
+      "action": "guest",
+      "started_at": 1793691239.752666,
+      "returncode": 0,
+      "stdout": "CONFIG_EXISTS True\nwpsoffice\\Application%20Settings\\AppComponentMode=prome_fushion\net 31 \tlocal mode=${1:-prome_fushion}\net 38 \tlocal key_line=$(awk -v line=\"$section_line\" -F'=' '$1==\"wpsoffice\\\\Application%20Settings\\\\AppComponentMode\" {if(NR>=line){print NR; exit}}' \"${gConfigPath}\")\net 42 \t\tsed -i \"${section_line}a\\\\wpsoffice\\\\\\\\Application%20Settings\\\\\\\\AppComponentMode=${mode}\" \"${gConfigPath}\"\net 54 \t\tcurrentMode=$(awk -v line=$(awk '/\\[6.0\\]/{print NR}' \"${gConfigPath}\")  -F\"=\" '$1==\"wpsoffice\\\\Application%20Settings\\\\AppComponentMode\" {if(NR>=line){print $2}}' \"${gConfigPath}\")\net 58 \t\t\tcurrentMode=\"prome_fushion\"\net 60 \t\t\tcurrentMode=\"prome_independ\"\net 64 \tif [ \"$currentMode\" = \"prome_fushion\" ]; then\nwps 38 \tlocal mode=${1:-prome_fushion}\nwps 45 \tlocal key_line=$(awk -v line=\"$section_line\" -F'=' '$1==\"wpsoffice\\\\Application%20Settings\\\\AppComponentMode\" {if(NR>=line){print NR; exit}}' \"${gConfigPath}\")\nwps 49 \t\tsed -i \"${section_line}a\\\\wpsoffice\\\\\\\\Application%20Settings\\\\\\\\AppComponentMode=${mode}\" \"${gConfigPath}\"\nwps 61 \t\tcurrentMode=$(awk -v line=$(awk '/\\[6.0\\]/{print NR}' \"${gConfigPath}\")  -F\"=\" '$1==\"wpsoffice\\\\Application%20Settings\\\\AppComponentMode\" {if(NR>=line){print $2}}' \"${gConfigPath}\")\nwps 65 \t\t\tcurrentMode=\"prome_fushion\"\nwps 67 \t\t\tcurrentMode=\"prome_independ\"\nwps 71 \tif [ \"$currentMode\" = \"prome_fushion\" ]; then\nwpp 31 \tlocal mode=${1:-prome_fushion}\nwpp 38 \tlocal key_line=$(awk -v line=\"$section_line\" -F'=' '$1==\"wpsoffice\\\\Application%20Settings\\\\AppComponentMode\" {if(NR>=line){print NR; exit}}' \"${gConfigPath}\")\nwpp 42 \t\tsed -i \"${section_line}a\\\\wpsoffice\\\\\\\\Application%20Settings\\\\\\\\AppComponentMode=${mode}\" \"${gConfigPath}\"\nwpp 54 \t\tcurrentMode=$(awk -v line=$(awk '/\\[6.0\\]/{print NR}' \"${gConfigPath}\")  -F\"=\" '$1==\"wpsoffice\\\\Application%20Settings\\\\AppComponentMode\" {if(NR>=line){print $2}}' \"${gConfigPath}\")\nwpp 58 \t\t\tcurrentMode=\"prome_fushion\"\nwpp 60 \t\t\tcurrentMode=\"prome_independ\"\nwpp 64 \tif [ \"$currentMode\" = \"prome_fushion\" ]; then\n",
+      "stderr": "",
+      "finished_at": 1793691239.9764256,
+      "launcher_states": []
+    },
+    {
+      "command": "002.request.json",
+      "action": "guest",
+      "started_at": 1793691263.2572217,
+      "returncode": 0,
+      "stdout": "{\"before_sha256\": \"be0a4f56b30728af24cfeee5910fef3d39a7adf9da7967ec5ee7b758adac5808\", \"after_sha256\": \"e743ee3caf4f85cdc9d5a623526a40d49fcaf8d390fc8b968ad21f392b725e1c\", \"mode\": \"prome_independ\", \"private_backup_exists\": true}\n",
+      "stderr": "",
+      "finished_at": 1793691263.4598315,
+      "launcher_states": []
+    },
+    {
+      "command": "003.request.json",
+      "action": "launch",
+      "started_at": 1793691263.4611666,
+      "host_launcher_pid": 94217,
+      "app_id": "private-wrapper-sheet",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/sheet-workflow.xlsx",
+      "finished_at": 1793691263.5887952,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "004.request.json",
+      "action": "guest",
+      "started_at": 1793691263.5899975,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793691274.495214,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "005.request.json",
+      "action": "capture",
+      "started_at": 1793691274.578029,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-independent-ready.png",
+      "finished_at": 1793691275.9174752,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "006.request.json",
+      "action": "guest",
+      "started_at": 1793691314.4750726,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793691316.756698,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "007.request.json",
+      "action": "capture",
+      "started_at": 1793691316.7742283,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-cycle1-saved.png",
+      "finished_at": 1793691317.3200681,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "008.request.json",
+      "action": "guest",
+      "started_at": 1793691317.3211555,
+      "returncode": 0,
+      "stdout": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 11\n684687360\nmax 0\n",
+      "stderr": "",
+      "finished_at": 1793691317.4831822,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "009.request.json",
+      "action": "guest",
+      "started_at": 1793691359.293649,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793691365.9579003,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "010.request.json",
+      "action": "capture",
+      "started_at": 1793691365.9593792,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-cycle1-corrected.png",
+      "finished_at": 1793691366.43221,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "011.request.json",
+      "action": "guest",
+      "started_at": 1793712456.1555526,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712457.3839955,
+      "launcher_states": [
+        0
+      ]
+    },
+    {
+      "command": "012.request.json",
+      "action": "cycle",
+      "started_at": 1793712457.3845553,
+      "launchers": [
+        0
+      ],
+      "display": {
+        "pid": 6,
+        "display": ":97"
+      },
+      "finished_at": 1793712458.3797443,
+      "launcher_states": [
+        0
+      ]
+    },
+    {
+      "command": "013.request.json",
+      "action": "launch",
+      "started_at": 1793712458.3803504,
+      "host_launcher_pid": 96898,
+      "app_id": "private-wrapper-sheet",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/sheet-workflow.xlsx",
+      "finished_at": 1793712458.4036047,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "014.request.json",
+      "action": "guest",
+      "started_at": 1793712458.4041867,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712466.5655773,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "015.request.json",
+      "action": "capture",
+      "started_at": 1793712466.5692098,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-first-reopened.png",
+      "finished_at": 1793712466.7983375,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "016.request.json",
+      "action": "guest",
+      "started_at": 1793712506.5897052,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712511.106335,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "017.request.json",
+      "action": "capture",
+      "started_at": 1793712511.1070118,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-cycle2-saved.png",
+      "finished_at": 1793712511.3058727,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "018.request.json",
+      "action": "guest",
+      "started_at": 1793712511.3065643,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712512.5456297,
+      "launcher_states": [
+        0,
+        0
+      ]
+    },
+    {
+      "command": "019.request.json",
+      "action": "cycle",
+      "started_at": 1793712512.54654,
+      "launchers": [
+        0,
+        0
+      ],
+      "display": {
+        "pid": 6,
+        "display": ":97"
+      },
+      "finished_at": 1793712513.6200798,
+      "launcher_states": [
+        0,
+        0
+      ]
+    },
+    {
+      "command": "020.request.json",
+      "action": "launch",
+      "started_at": 1793712513.6208267,
+      "host_launcher_pid": 98360,
+      "app_id": "private-wrapper-sheet",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/sheet-workflow.xlsx",
+      "finished_at": 1793712513.6459973,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "021.request.json",
+      "action": "guest",
+      "started_at": 1793712513.6466975,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712520.7820966,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "022.request.json",
+      "action": "capture",
+      "started_at": 1793712520.784929,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-second-reopened.png",
+      "finished_at": 1793712521.0229192,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "023.request.json",
+      "action": "guest",
+      "started_at": 1793712539.8335278,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712541.0478559,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "024.request.json",
+      "action": "capture",
+      "started_at": 1793712541.048619,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-saveas-dialog.png",
+      "finished_at": 1793712541.2836983,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "025.request.json",
+      "action": "guest",
+      "started_at": 1793712559.5531878,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712560.7405221,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "026.request.json",
+      "action": "capture",
+      "started_at": 1793712560.7414951,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-filemenu.png",
+      "finished_at": 1793712560.9711347,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "027.request.json",
+      "action": "guest",
+      "started_at": 1793712571.9829614,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712573.1705348,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "028.request.json",
+      "action": "capture",
+      "started_at": 1793712573.17132,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-saveas-menu.png",
+      "finished_at": 1793712573.3922617,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "029.request.json",
+      "action": "guest",
+      "started_at": 1793712595.9165921,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712598.2486684,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "030.request.json",
+      "action": "capture",
+      "started_at": 1793712598.2494533,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-copy-saved.png",
+      "finished_at": 1793712598.4831548,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "031.request.json",
+      "action": "guest",
+      "started_at": 1793712598.4839132,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712599.6763456,
+      "launcher_states": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "command": "032.request.json",
+      "action": "cycle",
+      "started_at": 1793712599.6772084,
+      "launchers": [
+        0,
+        0,
+        0
+      ],
+      "display": {
+        "pid": 6,
+        "display": ":97"
+      },
+      "finished_at": 1793712600.7876906,
+      "launcher_states": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "command": "033.request.json",
+      "action": "launch",
+      "started_at": 1793712600.7884226,
+      "host_launcher_pid": 100351,
+      "app_id": "private-wrapper-sheet",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/sheet copy $;.xlsx",
+      "finished_at": 1793712600.815976,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "034.request.json",
+      "action": "guest",
+      "started_at": 1793712600.8166614,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712608.0022163,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "035.request.json",
+      "action": "capture",
+      "started_at": 1793712608.0053601,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-copy-reopened.png",
+      "finished_at": 1793712608.2032893,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "036.request.json",
+      "action": "guest",
+      "started_at": 1793712626.9748929,
+      "returncode": 0,
+      "stdout": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 24\n686555136\nmax 0\n",
+      "stderr": "",
+      "finished_at": 1793712627.1136394,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "037.request.json",
+      "action": "guest",
+      "started_at": 1793712627.1144621,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712628.3076818,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "038.request.json",
+      "action": "capture",
+      "started_at": 1793712628.3086636,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-closed.png",
+      "finished_at": 1793712628.5731673,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "039.request.json",
+      "action": "guest",
+      "started_at": 1793712646.0942848,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712646.7837198,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "040.request.json",
+      "action": "capture",
+      "started_at": 1793712646.7845833,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-sheet-copy-verified.png",
+      "finished_at": 1793712646.9836028,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "041.request.json",
+      "action": "guest",
+      "started_at": 1793712646.9844458,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712648.1817079,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "command": "042.request.json",
+      "action": "cycle",
+      "started_at": 1793712648.182503,
+      "launchers": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "display": {
+        "pid": 6,
+        "display": ":97"
+      },
+      "finished_at": 1793712649.1938884,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "command": "043.request.json",
+      "action": "launch",
+      "started_at": 1793712649.194727,
+      "host_launcher_pid": 101969,
+      "app_id": "private-wrapper-slides",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/slides-workflow.pptx",
+      "finished_at": 1793712649.6193244,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "044.request.json",
+      "action": "guest",
+      "started_at": 1793712649.6201088,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712657.7771811,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "045.request.json",
+      "action": "capture",
+      "started_at": 1793712657.7813237,
+      "error": "Command '['podman', 'exec', '--user', '1000:1000', '--env', 'DISPLAY=:97', '--env', 'XAUTHORITY=/tmp/unifier-private-display/Xauthority', '--env', 'LANG=C.UTF-8', '--env', 'LC_ALL=C.UTF-8', 'e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45', '/usr/bin/prlimit', '--core=0:0', '--', 'xwd', '-silent', '-root', '-screen', '-out', '/dev/stdout']' returned non-zero exit status 1.",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private_gui_driver_v6.py\", line 88, in <module>\n    elif action=='capture':reply.update(capture(payload['name']))\n                                        ~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private_gui_driver_v6.py\", line 67, in capture\n    with xwd.open('wb') as output:subprocess.run(argv_guest(['xwd','-silent','-root','-screen','-out','/dev/stdout']),stdout=output,stderr=subprocess.PIPE,check=True,timeout=15)\n                                  ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib64/python3.14/subprocess.py\", line 578, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['podman', 'exec', '--user', '1000:1000', '--env', 'DISPLAY=:97', '--env', 'XAUTHORITY=/tmp/unifier-private-display/Xauthority', '--env', 'LANG=C.UTF-8', '--env', 'LC_ALL=C.UTF-8', 'e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45', '/usr/bin/prlimit', '--core=0:0', '--', 'xwd', '-silent', '-root', '-screen', '-out', '/dev/stdout']' returned non-zero exit status 1.\n",
+      "finished_at": 1793712657.9731488,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        0,
+        null
+      ]
+    }
+  ],
+  "host_before": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "display": {
+    "pid": 6,
+    "display": ":97"
+  },
+  "error": "command failed; abandoning dependent GUI commands: Command '['podman', 'exec', '--user', '1000:1000', '--env', 'DISPLAY=:97', '--env', 'XAUTHORITY=/tmp/unifier-private-display/Xauthority', '--env', 'LANG=C.UTF-8', '--env', 'LC_ALL=C.UTF-8', 'e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45', '/usr/bin/prlimit', '--core=0:0', '--', 'xwd', '-silent', '-root', '-screen', '-out', '/dev/stdout']' returned non-zero exit status 1.",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private_gui_driver_v6.py\", line 95, in <module>\n    if 'error' in reply:raise RuntimeError('command failed; abandoning dependent GUI commands: '+str(reply['error']))\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: command failed; abandoning dependent GUI commands: Command '['podman', 'exec', '--user', '1000:1000', '--env', 'DISPLAY=:97', '--env', 'XAUTHORITY=/tmp/unifier-private-display/Xauthority', '--env', 'LANG=C.UTF-8', '--env', 'LC_ALL=C.UTF-8', 'e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45', '/usr/bin/prlimit', '--core=0:0', '--', 'xwd', '-silent', '-root', '-screen', '-out', '/dev/stdout']' returned non-zero exit status 1.\n",
+  "fixture_cleanup": "DIRECTED_TEST_CONTAINER_STOP",
+  "launcher_states": [
+    0,
+    0,
+    0,
+    0,
+    137
+  ],
+  "host_after": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "desktop_identity_unchanged": true
+}

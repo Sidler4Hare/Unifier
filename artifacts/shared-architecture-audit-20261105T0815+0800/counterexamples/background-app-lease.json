@@ -1,0 +1,28 @@
+{
+  "scope": "host-owned child models a daemonized guest app; container runtime is fake",
+  "child_pid": 266191,
+  "child_alive_after_launcher": true,
+  "environment_state": "stopped",
+  "leases": {},
+  "runtime_events": [
+    [
+      "start",
+      "ml-38afc98d-debian13"
+    ],
+    [
+      "exec",
+      "ml-38afc98d-debian13",
+      [
+        "uname",
+        "-r"
+      ],
+      null,
+      {},
+      true
+    ],
+    [
+      "stop",
+      "ml-38afc98d-debian13"
+    ]
+  ]
+}

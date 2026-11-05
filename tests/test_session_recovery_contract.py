@@ -1,4 +1,4 @@
-"""Lease retention must follow guest proof, not a dead project worker PID."""
+"""APP and project lease retention follows guest proof, not a dead worker PID."""
 import json
 import os
 from pathlib import Path
@@ -31,12 +31,14 @@ class UnresolvedProjectLeaseTests(unittest.TestCase):
         self.group.path.write_text(json.dumps({"leases": leases, "auto_stop": True,
                                               "bridge": None, "container_id": "fixture-id"}))
 
-    def test_dead_project_worker_is_not_proof_its_guest_has_exited(self):
+    def test_dead_workers_do_not_prove_project_or_legacy_app_guests_have_exited(self):
         self.save({"unresolved": dict(self.stale, kind="project-session", project_uuid="fixture-project"),
-                   "expired-app": dict(self.stale, app_id="legacy-app")})
+                   "unresolved-app": dict(self.stale, app_id="legacy-app"),
+                   "expired-host": dict(self.stale)})
         leases = self.group.read()["leases"]
         self.assertIn("unresolved", leases)
-        self.assertNotIn("expired-app", leases)
+        self.assertIn("unresolved-app", leases)
+        self.assertNotIn("expired-host", leases)
 
     def test_releasing_another_lease_must_not_stop_an_unresolved_guest(self):
         self.save({"unresolved": dict(self.stale, kind="project-session", project_uuid="fixture-project"),

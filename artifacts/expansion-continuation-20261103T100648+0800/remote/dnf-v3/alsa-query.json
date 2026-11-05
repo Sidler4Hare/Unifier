@@ -1,0 +1,7 @@
+{
+  "environment_id": "fedora44",
+  "package": "alsa-lib",
+  "present": true,
+  "exit_code": 0,
+  "detail": "alsa-lib\t1.2.16.1-1.fc44.x86_64"
+}

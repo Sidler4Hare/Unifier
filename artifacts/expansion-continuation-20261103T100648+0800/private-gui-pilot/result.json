@@ -1,0 +1,38 @@
+{
+  "status": "FAIL",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "display": "guest-local Xvfb :97",
+  "host_display_sockets_mounted": false,
+  "workflow_accepted": false,
+  "host_before": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "xvfb": {
+    "pid": 6,
+    "display": ":97"
+  },
+  "windows": [
+    {
+      "window_id": 2097160,
+      "guest_pid": 36,
+      "exe": "/opt/kingsoft/wps-office/office6/wpsoffice",
+      "properties": "_NET_WM_PID(CARDINAL) = 36\nWM_CLASS(STRING) = \"wpsoffice\", \"wpsoffice\"\n_NET_WM_NAME(UTF8_STRING) = \"金山办公 Software License Agreement and Privacy Policy\"\n",
+      "width": 687,
+      "height": 330
+    }
+  ],
+  "error": "Command '['podman', 'cp', 'e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45:/tmp/unifier-private-display/window.xwd', '/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-gui-writer.xwd']' timed out after 20 seconds",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private_gui_pilot.py\", line 61, in <module>\n    subprocess.run(['podman','cp',cid+':/tmp/unifier-private-display/window.xwd',str(CTL/'private-gui-writer.xwd')],check=True,capture_output=True,timeout=20)\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib64/python3.14/subprocess.py\", line 557, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib64/python3.14/subprocess.py\", line 1221, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib64/python3.14/subprocess.py\", line 2154, in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib64/python3.14/subprocess.py\", line 1268, in _check_timeout\n    raise TimeoutExpired(\n    ...<2 lines>...\n            stderr=b''.join(stderr_seq) if stderr_seq else None)\nsubprocess.TimeoutExpired: Command '['podman', 'cp', 'e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45:/tmp/unifier-private-display/window.xwd', '/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-gui-writer.xwd']' timed out after 20 seconds\n",
+  "fixture_cleanup": "DIRECTED_TEST_CONTAINER_STOP",
+  "launcher_returncode": 137,
+  "host_after": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "desktop_identity_unchanged": true
+}

@@ -1,0 +1,1 @@
+上一轮元数据查询因T1私有HOME/XDG命中了空的独立Podman存储，固定CID均不可见；该样本为INVALID_CONTEXT，不是实际容器删除或产品缺陷。没有发出create/start/mount/exec。此次唯一纠正：仅此只读查询恢复原Podman存储定位所需HOME/XDG路径，仍清除显示/会话DBus/音频连接；不改cgroup manager、不操作容器、不使用新管理根。重新30秒准入后只读完整CID和容器列表。

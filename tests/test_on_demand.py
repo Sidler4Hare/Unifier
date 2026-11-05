@@ -44,8 +44,11 @@ class ManagedLifetime(unittest.TestCase):
     def test_exception_releases_lease_and_stops_started_environment(self):
         with tempfile.TemporaryDirectory() as temporary:
             service, _runtime = ready(Path(temporary))
-            def fail(*_args): raise RuntimeError('launch failed')
-            service._open_app_unmanaged = fail
+            def fail(*_args, **_kwargs):
+                error = RuntimeError('launch failed')
+                error.execution_started = False
+                raise error
+            service.start_app_execution = fail
             with self.assertRaisesRegex(RuntimeError, 'launch failed'):
                 managed_open(service, 'notes', [])
             self.assertEqual(service.inspect('debian13')['runtime_state'], 'stopped')

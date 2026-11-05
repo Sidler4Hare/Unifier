@@ -1,0 +1,17 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-fix-20261105-1046-original-interface",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 120,
+  "environment": {
+    "HOME": "/home/omg",
+    "XDG_CONFIG_HOME": "/home/omg/.config",
+    "XDG_DATA_HOME": "/home/omg/.local/share",
+    "XDG_RUNTIME_DIR": "/run/user/1000"
+  },
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/architecture-repair-20261105T104613+0800/storage-interface-original/inspect.py"
+  ]
+}

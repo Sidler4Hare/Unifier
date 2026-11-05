@@ -1,0 +1,92 @@
+{
+  "status": "PARTIAL",
+  "finished_at": "2026-11-04T15:31:59.901804+08:00",
+  "source_head": "6f776a61dc599ad8f1c0a476681e892248e55a6b",
+  "execution": "T1 offline only",
+  "red_tests": {
+    "ran": 1,
+    "failures": 1,
+    "exit_code": 1
+  },
+  "post_fix_tests": {
+    "ran": 64,
+    "passed": 64,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0
+  },
+  "additional_boundary_tests": "NOT_RUN: no qualified 30s PSI window within 60s",
+  "qwen": "First attempt missing credential before model; second bounded attempt timed out without edits; Codex implemented/reviewed/tested fix",
+  "resources": {
+    "reserve_bytes": 1073741824,
+    "override": "Explicit user authorization in this chat; only this run",
+    "min_available_bytes": 2268950528,
+    "max_full_avg10": 6.38,
+    "max_some_avg10": 6.9,
+    "validation_min_available_bytes": 2464886784,
+    "validation_observed_peak_bytes": 37642240,
+    "validation_observed_peak_tasks": 2,
+    "validation_final_events": {
+      "memory": 11399168,
+      "tasks": 1,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "pids_events": {
+        "max": 0
+      },
+      "cpu_stat": {
+        "usage_usec": 1991142,
+        "user_usec": 1246738,
+        "system_usec": 744404,
+        "nice_usec": 0,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 62,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "processes": [
+        {
+          "pid": 203668,
+          "starttime": "10346796",
+          "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-pre02-20261104-1510-validation-work.service"
+        }
+      ]
+    },
+    "memory_peak_counter": "UNKNOWN; sampled memory.current peak only, no memory.peak captured",
+    "final_admission_refusal": "no continuous 30s admission window within 60s"
+  },
+  "preservation": {
+    "untouched_files_checked": 210,
+    "unexpected_source_doc_changes": [],
+    "index_entries_equal": true,
+    "containers_equal": true,
+    "containers_before": 10,
+    "containers_after": 10,
+    "all_containers_exited": true,
+    "pool_records_unchanged": true,
+    "boot_equal": true,
+    "kwin_identity_equal": true,
+    "all_owned_units_have_no_live_pid": true,
+    "owned_cgroups_removed": true
+  },
+  "live_tests_run": 0,
+  "containers_created": 0,
+  "containers_started": 0,
+  "host_settings_modified": false,
+  "deployed": false,
+  "committed": false,
+  "pushed": false,
+  "workflow_acceptance": "NOT_RUN",
+  "product_limit": "Without a genuine read_inventory_readonly runtime capability, package transactions in a root with peer registrations now refuse before native writes. Podman has no implementation in this change.",
+  "remaining": "Real peer inspection, complete T2 protection/fixed-pool admission, CLI/package/GUI shared-container cases, Arch quota admission, and final extra boundary checks"
+}

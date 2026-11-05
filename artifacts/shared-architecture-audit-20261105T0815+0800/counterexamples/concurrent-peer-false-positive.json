@@ -1,0 +1,234 @@
+{
+  "scope": "two fake environments in one bounded offline process; not real concurrent containers",
+  "transactions": [
+    {
+      "schema_version": 1,
+      "id": "txn6dbe722352a5",
+      "environment_id": "a",
+      "operation": "install",
+      "packages": [
+        "probe-a"
+      ],
+      "interactive": false,
+      "stream": false,
+      "dependency_repair": {
+        "status": "not-requested"
+      },
+      "use_command": [],
+      "local_file": null,
+      "revision_before": {
+        "writable_revision": "cid-a",
+        "content_revision": 1,
+        "package_inventory_sha256": "dd4f60def13151a0af5b156039274a1abe4536cde058f4bc9d892b874aabc722"
+      },
+      "native": [
+        {
+          "argv": [
+            "apt-get",
+            "update"
+          ],
+          "timeout": 180,
+          "state": "finished",
+          "exit_code": 0,
+          "stdout_tail": "",
+          "stderr_tail": ""
+        },
+        {
+          "argv": [
+            "apt-get",
+            "install",
+            "-y",
+            "probe-a"
+          ],
+          "timeout": 300,
+          "state": "finished",
+          "exit_code": 0,
+          "stdout_tail": "",
+          "stderr_tail": ""
+        }
+      ],
+      "native_error": null,
+      "maintenance": {
+        "status": "ok",
+        "items": [],
+        "system_integration": "unverified",
+        "full_init": false
+      },
+      "verdict": "failed",
+      "verification": {
+        "ok": false,
+        "packages": {
+          "probe-a": true
+        },
+        "command": null,
+        "command_exit_code": null,
+        "stdout_preview": null,
+        "stdout_sha256": null,
+        "problems": [],
+        "isolation": [
+          "b inventory changed"
+        ]
+      },
+      "host_entries": {
+        "added": [],
+        "removed": []
+      },
+      "host_packages": {
+        "before": {
+          "available": true,
+          "tool": "rpm",
+          "sha256": "abc",
+          "count": 1,
+          "error": null
+        },
+        "after": {
+          "available": true,
+          "tool": "rpm",
+          "sha256": "abc",
+          "count": 1,
+          "error": null
+        }
+      },
+      "other_environments": {
+        "b": {
+          "before": "f2d538986331ad80fc24096a14f86c16411c49d312117e184f22b243f74754c0",
+          "after": "687d17423698de61a857308077415d42f38e18650c46f159987d643914f1ade0",
+          "probed_before": "f2d538986331ad80fc24096a14f86c16411c49d312117e184f22b243f74754c0",
+          "probed_after": "687d17423698de61a857308077415d42f38e18650c46f159987d643914f1ade0",
+          "unchanged": false,
+          "error": null
+        }
+      },
+      "revision_after": {
+        "writable_revision": "cid-a",
+        "content_revision": 2,
+        "package_inventory_sha256": "fac22657df6fc540517238ea1e367f8c8a87598bddc589a078315bc039c133e1"
+      },
+      "phase": "failed",
+      "environment_binding": {
+        "environment_id": "a",
+        "environment_uuid": "de633fe4-4dbf-45e3-be1a-d89c38db9396",
+        "generation": 1,
+        "container_id": "cid-a"
+      },
+      "recovery_required": false,
+      "inventory_status": "verified",
+      "failure_phase": "verification",
+      "started_at": "2026-10-19T12:00:04+08:00",
+      "finished_at": "2026-10-19T12:00:14+08:00"
+    },
+    {
+      "schema_version": 1,
+      "id": "txn49c43e794d1e",
+      "environment_id": "b",
+      "operation": "install",
+      "packages": [
+        "probe-b"
+      ],
+      "interactive": false,
+      "stream": false,
+      "dependency_repair": {
+        "status": "not-requested"
+      },
+      "use_command": [],
+      "local_file": null,
+      "revision_before": {
+        "writable_revision": "cid-b",
+        "content_revision": 1,
+        "package_inventory_sha256": "f2d538986331ad80fc24096a14f86c16411c49d312117e184f22b243f74754c0"
+      },
+      "native": [
+        {
+          "argv": [
+            "dnf",
+            "install",
+            "-y",
+            "probe-b"
+          ],
+          "timeout": 300,
+          "state": "finished",
+          "exit_code": 0,
+          "stdout_tail": "",
+          "stderr_tail": ""
+        }
+      ],
+      "native_error": null,
+      "maintenance": {
+        "status": "ok",
+        "items": [],
+        "system_integration": "unverified",
+        "full_init": false
+      },
+      "verdict": "failed",
+      "verification": {
+        "ok": false,
+        "packages": {
+          "probe-b": true
+        },
+        "command": null,
+        "command_exit_code": null,
+        "stdout_preview": null,
+        "stdout_sha256": null,
+        "problems": [],
+        "isolation": [
+          "a inventory changed"
+        ]
+      },
+      "host_entries": {
+        "added": [],
+        "removed": []
+      },
+      "host_packages": {
+        "before": {
+          "available": true,
+          "tool": "rpm",
+          "sha256": "abc",
+          "count": 1,
+          "error": null
+        },
+        "after": {
+          "available": true,
+          "tool": "rpm",
+          "sha256": "abc",
+          "count": 1,
+          "error": null
+        }
+      },
+      "other_environments": {
+        "a": {
+          "before": "dd4f60def13151a0af5b156039274a1abe4536cde058f4bc9d892b874aabc722",
+          "after": "fac22657df6fc540517238ea1e367f8c8a87598bddc589a078315bc039c133e1",
+          "probed_before": "dd4f60def13151a0af5b156039274a1abe4536cde058f4bc9d892b874aabc722",
+          "probed_after": "fac22657df6fc540517238ea1e367f8c8a87598bddc589a078315bc039c133e1",
+          "unchanged": false,
+          "error": null
+        }
+      },
+      "revision_after": {
+        "writable_revision": "cid-b",
+        "content_revision": 2,
+        "package_inventory_sha256": "687d17423698de61a857308077415d42f38e18650c46f159987d643914f1ade0"
+      },
+      "phase": "failed",
+      "environment_binding": {
+        "environment_id": "b",
+        "environment_uuid": "0f963308-0ff0-4f78-8332-2d27cde173d1",
+        "generation": 1,
+        "container_id": "cid-b"
+      },
+      "recovery_required": false,
+      "inventory_status": "verified",
+      "failure_phase": "verification",
+      "started_at": "2026-10-19T12:00:03+08:00",
+      "finished_at": "2026-10-19T12:00:13+08:00"
+    }
+  ],
+  "installed": {
+    "a": [
+      "probe-a"
+    ],
+    "b": [
+      "probe-b"
+    ]
+  }
+}

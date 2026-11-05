@@ -1,0 +1,231 @@
+{
+  "status": "PASS_LOCAL_PRESERVATION",
+  "timestamp": "2026-11-03T21:46:53+0800",
+  "head": "6f776a61dc599ad8f1c0a476681e892248e55a6b",
+  "index_entry_semantics_equal": true,
+  "index_entry_sha256": "ff5694cc73d5975a7fe981dfaad826181a6ea0782e2a93301b0c617ebd06590c",
+  "original_containers": [
+    {
+      "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "name": "ml-53c5c8a5-freecad-arch",
+      "daily": true,
+      "same_instance": true,
+      "stopped": true,
+      "configuration_equal": {
+        "Config": true,
+        "HostConfig": true,
+        "Mounts": true
+      },
+      "state_equal": true,
+      "started_at_before": "2026-10-31T10:17:44.182630074+08:00",
+      "started_at_after": "2026-10-31T10:17:44.182630074+08:00"
+    },
+    {
+      "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "name": "ml-6b061a2f-meeting",
+      "daily": true,
+      "same_instance": true,
+      "stopped": true,
+      "configuration_equal": {
+        "Config": true,
+        "HostConfig": true,
+        "Mounts": true
+      },
+      "state_equal": true,
+      "started_at_before": "2026-10-28T20:47:17.749622632+08:00",
+      "started_at_after": "2026-10-28T20:47:17.749622632+08:00"
+    },
+    {
+      "container_id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+      "name": "ml-104d8e92-debian13",
+      "daily": false,
+      "same_instance": true,
+      "stopped": true,
+      "configuration_equal": {
+        "Config": true,
+        "HostConfig": true,
+        "Mounts": true
+      },
+      "state_equal": false,
+      "started_at_before": "2026-10-31T11:50:39.256267308+08:00",
+      "started_at_after": "2026-11-03T10:07:41.41748525+08:00"
+    },
+    {
+      "container_id": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+      "name": "ml-104d8e92-arch",
+      "daily": false,
+      "same_instance": true,
+      "stopped": true,
+      "configuration_equal": {
+        "Config": true,
+        "HostConfig": true,
+        "Mounts": true
+      },
+      "state_equal": false,
+      "started_at_before": "2026-10-31T12:51:36.0752321+08:00",
+      "started_at_after": "2026-11-03T10:19:21.32808251+08:00"
+    },
+    {
+      "container_id": "8399ccd38b137d9283b6587007a43744e8d334809ed4864f002f091009ca555e",
+      "name": "ml-45dc9c7d-deps-debian",
+      "daily": false,
+      "same_instance": true,
+      "stopped": true,
+      "configuration_equal": {
+        "Config": true,
+        "HostConfig": true,
+        "Mounts": true
+      },
+      "state_equal": true,
+      "started_at_before": "2026-10-31T21:35:14.442119201+08:00",
+      "started_at_after": "2026-10-31T21:35:14.442119201+08:00"
+    },
+    {
+      "container_id": "d78a392cb1750fc95f5e0476806cfda25b6b06a8c018d2277b01e38bab3fddf8",
+      "name": "ml-45dc9c7d-deps-arch",
+      "daily": false,
+      "same_instance": true,
+      "stopped": true,
+      "configuration_equal": {
+        "Config": true,
+        "HostConfig": true,
+        "Mounts": true
+      },
+      "state_equal": true,
+      "started_at_before": "2026-10-31T21:36:23.512175806+08:00",
+      "started_at_after": "2026-10-31T21:36:23.512175806+08:00"
+    },
+    {
+      "container_id": "985bd6c89cf3c1fc87a87b4226a809c6f72ec747f4c8e0832cbe62976670a679",
+      "name": "ml-06a72096-deps-debian",
+      "daily": false,
+      "same_instance": true,
+      "stopped": true,
+      "configuration_equal": {
+        "Config": true,
+        "HostConfig": true,
+        "Mounts": true
+      },
+      "state_equal": true,
+      "started_at_before": "2026-10-31T21:51:37.805555623+08:00",
+      "started_at_after": "2026-10-31T21:51:37.805555623+08:00"
+    },
+    {
+      "container_id": "8deb0c8e47240cd2befeef774fde32698ef042545b5f9daebddc2ac3287e1dc7",
+      "name": "ml-06a72096-deps-arch",
+      "daily": false,
+      "same_instance": true,
+      "stopped": true,
+      "configuration_equal": {
+        "Config": true,
+        "HostConfig": true,
+        "Mounts": true
+      },
+      "state_equal": true,
+      "started_at_before": "2026-10-31T21:47:56.295748923+08:00",
+      "started_at_after": "2026-10-31T21:47:56.295748923+08:00"
+    },
+    {
+      "container_id": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b",
+      "name": "ml-26942dd5-interrupt-debian",
+      "daily": false,
+      "same_instance": true,
+      "stopped": true,
+      "configuration_equal": {
+        "Config": true,
+        "HostConfig": true,
+        "Mounts": true
+      },
+      "state_equal": true,
+      "started_at_before": "2026-11-01T10:21:28.947800301+08:00",
+      "started_at_after": "2026-11-01T10:21:28.947800301+08:00"
+    }
+  ],
+  "original_count": 9,
+  "historical_tracked_paths_modified": false,
+  "changed_tracked_files": [
+    "HANDOFF.md",
+    "README.md",
+    "src/unifier/cli.py",
+    "src/unifier/project_sessions.py",
+    "src/unifier/runtime.py",
+    "tests/test_env.py"
+  ],
+  "local_container_states": [
+    {
+      "id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "names": [
+        "ml-53c5c8a5-freecad-arch"
+      ],
+      "state": "exited"
+    },
+    {
+      "id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "names": [
+        "ml-6b061a2f-meeting"
+      ],
+      "state": "exited"
+    },
+    {
+      "id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+      "names": [
+        "ml-104d8e92-debian13"
+      ],
+      "state": "exited"
+    },
+    {
+      "id": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+      "names": [
+        "ml-104d8e92-arch"
+      ],
+      "state": "exited"
+    },
+    {
+      "id": "8399ccd38b137d9283b6587007a43744e8d334809ed4864f002f091009ca555e",
+      "names": [
+        "ml-45dc9c7d-deps-debian"
+      ],
+      "state": "exited"
+    },
+    {
+      "id": "d78a392cb1750fc95f5e0476806cfda25b6b06a8c018d2277b01e38bab3fddf8",
+      "names": [
+        "ml-45dc9c7d-deps-arch"
+      ],
+      "state": "exited"
+    },
+    {
+      "id": "985bd6c89cf3c1fc87a87b4226a809c6f72ec747f4c8e0832cbe62976670a679",
+      "names": [
+        "ml-06a72096-deps-debian"
+      ],
+      "state": "exited"
+    },
+    {
+      "id": "8deb0c8e47240cd2befeef774fde32698ef042545b5f9daebddc2ac3287e1dc7",
+      "names": [
+        "ml-06a72096-deps-arch"
+      ],
+      "state": "exited"
+    },
+    {
+      "id": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b",
+      "names": [
+        "ml-26942dd5-interrupt-debian"
+      ],
+      "state": "exited"
+    },
+    {
+      "id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+      "names": [
+        "ml-2f4a1877-debian13"
+      ],
+      "state": "exited"
+    }
+  ],
+  "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+  "kwin_pids": [
+    "1769"
+  ],
+  "scope_limit": "Daily file contents did not have a fresh whole-tree before manifest in this run; only container identity/configuration/state equality is claimed."
+}

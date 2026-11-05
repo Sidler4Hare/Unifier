@@ -1,0 +1,166 @@
+Checking working tree
+PASS Python syntax: 213 files
+PASS legacy module aliases: 42
+PASS five CLI entry points
+PASS repository check
+test_a_non_portable_control_descriptor_fails_closed (test_runtime_control.ControlArgumentShape.test_a_non_portable_control_descriptor_fails_closed) ... ok
+test_control_channel_is_preserve_fds_1_and_never_preserve_fd (test_runtime_control.ControlArgumentShape.test_control_channel_is_preserve_fds_1_and_never_preserve_fd) ... ok
+test_control_free_execs_ask_for_no_preserved_descriptor (test_runtime_control.ControlArgumentShape.test_control_free_execs_ask_for_no_preserved_descriptor) ... ok
+test_guest_wrapper_is_told_to_use_the_container_side_fd_3 (test_runtime_control.ControlArgumentShape.test_guest_wrapper_is_told_to_use_the_container_side_fd_3) ... ok
+test_host_helper_wraps_the_exec_without_a_pythonpath_dependency (test_runtime_control.ControlArgumentShape.test_host_helper_wraps_the_exec_without_a_pythonpath_dependency) ... ok
+test_session_environment_can_reference_names_without_exposing_values (test_runtime_control.ControlArgumentShape.test_session_environment_can_reference_names_without_exposing_values) ... ok
+test_tty_and_user_variants_still_only_ask_for_one_descriptor (test_runtime_control.ControlArgumentShape.test_tty_and_user_variants_still_only_ask_for_one_descriptor) ... ok
+test_a_caller_that_already_holds_the_pipe_on_fd_3_still_works (test_runtime_control.HostExecHelper.test_a_caller_that_already_holds_the_pipe_on_fd_3_still_works) ... ok
+test_helper_exit_status_and_signal_describe_the_execed_program (test_runtime_control.HostExecHelper.test_helper_exit_status_and_signal_describe_the_execed_program) ... ok
+test_helper_fails_closed_before_running_anything (test_runtime_control.HostExecHelper.test_helper_fails_closed_before_running_anything) ... ok
+test_helper_runs_by_path_with_no_package_and_no_pythonpath (test_runtime_control.HostExecHelper.test_helper_runs_by_path_with_no_package_and_no_pythonpath) ... ok
+test_only_fd_3_carries_control_data_when_the_pipe_fd_is_far_above_three (test_runtime_control.HostExecHelper.test_only_fd_3_carries_control_data_when_the_pipe_fd_is_far_above_three) ... ok
+test_remap_refuses_to_shadow_or_lose_the_descriptor (test_runtime_control.HostExecHelper.test_remap_refuses_to_shadow_or_lose_the_descriptor) ... ok
+test_handshake_refusal_fails_closed_and_clears_the_proxy (test_runtime_control.RealHandshake.test_handshake_refusal_fails_closed_and_clears_the_proxy) ... ok
+test_handshake_timeout_kills_the_proxy_group (test_runtime_control.RealHandshake.test_handshake_timeout_kills_the_proxy_group) ... ok
+test_package_transaction_reaches_the_guest_with_the_same_channel (test_runtime_control.RealHandshake.test_package_transaction_reaches_the_guest_with_the_same_channel) ... ok
+test_private_session_environment_reaches_guest_without_argv_or_parent_mutation (test_runtime_control.RealHandshake.test_private_session_environment_reaches_guest_without_argv_or_parent_mutation) ... ok
+test_session_handshake_reports_a_real_identity_over_fd_3 (test_runtime_control.RealHandshake.test_session_handshake_reports_a_real_identity_over_fd_3) ... ok
+test_streams_stay_separate_and_ready_never_reaches_stdout (test_runtime_control.RealHandshake.test_streams_stay_separate_and_ready_never_reaches_stdout) ... ok
+test_the_runtime_never_remaps_a_descriptor_in_the_calling_process (test_runtime_control.RealHandshake.test_the_runtime_never_remaps_a_descriptor_in_the_calling_process) ... ok
+test_environment_remove_trusts_confirmed_gone_guest_after_stop (test_project_sessions.Execution.test_environment_remove_trusts_confirmed_gone_guest_after_stop) ... ok
+test_execute_revalidates_and_runs_literal_argv_with_pinned_user (test_project_sessions.Execution.test_execute_revalidates_and_runs_literal_argv_with_pinned_user) ... ok
+test_nonzero_and_127_exits_are_exact (test_project_sessions.Execution.test_nonzero_and_127_exits_are_exact) ... ok
+test_scope_change_after_plan_is_refused (test_project_sessions.Execution.test_scope_change_after_plan_is_refused) ... ok
+test_shared_group_single_start_and_no_premature_stop (test_project_sessions.Execution.test_shared_group_single_start_and_no_premature_stop) ... ok
+test_signalled_guest_normalizes_proxy_exit15_but_voluntary_15_is_exact (test_project_sessions.Execution.test_signalled_guest_normalizes_proxy_exit15_but_voluntary_15_is_exact) ... ok
+test_stale_pin_is_refused_before_any_start (test_project_sessions.Execution.test_stale_pin_is_refused_before_any_start) ... ok
+test_unproven_signal_does_not_turn_a_voluntary_exit_into_143 (test_project_sessions.Execution.test_unproven_signal_does_not_turn_a_voluntary_exit_into_143) ... ok
+test_user_pin_replaced_after_plan_is_refused_before_start (test_project_sessions.Execution.test_user_pin_replaced_after_plan_is_refused_before_start) ... ok
+test_cleanup_group_mode_covers_an_own_process_group_without_session (test_project_sessions.GuestProtocol.test_cleanup_group_mode_covers_an_own_process_group_without_session) ... ok
+test_cleanup_removes_only_this_sessions_background_child (test_project_sessions.GuestProtocol.test_cleanup_removes_only_this_sessions_background_child) ... ok
+test_probe_and_targeted_signal_use_pid_plus_start (test_project_sessions.GuestProtocol.test_probe_and_targeted_signal_use_pid_plus_start) ... ok
+test_wrapper_reports_pid_start_session_and_keeps_argv_literal (test_project_sessions.GuestProtocol.test_wrapper_reports_pid_start_session_and_keeps_argv_literal) ... ok
+test_alias_replacement_does_not_reuse_authority (test_project_sessions.Planning.test_alias_replacement_does_not_reuse_authority) ... ok
+test_environment_variable_policy_never_inherits_path_or_loaders (test_project_sessions.Planning.test_environment_variable_policy_never_inherits_path_or_loaders) ... ok
+test_keep_id_pins_the_host_document_identity_and_other_namespaces_fail (test_project_sessions.Planning.test_keep_id_pins_the_host_document_identity_and_other_namespaces_fail) ... ok
+test_nested_root_shadow_mount_and_readonly_mismatch_are_refused (test_project_sessions.Planning.test_nested_root_shadow_mount_and_readonly_mismatch_are_refused) ... ok
+test_plan_pins_identity_cwd_scope_user_and_has_zero_runtime_effects (test_project_sessions.Planning.test_plan_pins_identity_cwd_scope_user_and_has_zero_runtime_effects) ... ok
+test_root_or_cwd_symlink_replacement_is_refused (test_project_sessions.Planning.test_root_or_cwd_symlink_replacement_is_refused) ... ok
+test_confirmed_gone_guest_releases_a_token_without_host_worker_identity (test_project_sessions.RecoveryAndCancellation.test_confirmed_gone_guest_releases_a_token_without_host_worker_identity) ... ok
+test_confirmed_gone_guest_releases_its_lease (test_project_sessions.RecoveryAndCancellation.test_confirmed_gone_guest_releases_its_lease) ... ok
+test_dead_proxy_without_guest_proof_keeps_the_lease_unresolved (test_project_sessions.RecoveryAndCancellation.test_dead_proxy_without_guest_proof_keeps_the_lease_unresolved) ... ok
+test_direct_cancel_targets_guest_with_same_user_and_releases_only_after_proof (test_project_sessions.RecoveryAndCancellation.test_direct_cancel_targets_guest_with_same_user_and_releases_only_after_proof) ... ok
+test_launcher_spawns_one_detached_worker_and_maps_status (test_project_sessions.RecoveryAndCancellation.test_launcher_spawns_one_detached_worker_and_maps_status) ... ok
+test_live_and_unknown_guest_keep_the_lease (test_project_sessions.RecoveryAndCancellation.test_live_and_unknown_guest_keep_the_lease) ... ok
+test_planned_session_that_never_started_is_failed (test_project_sessions.RecoveryAndCancellation.test_planned_session_that_never_started_is_failed) ... ok
+test_recover_never_releases_a_live_worker_or_child (test_project_sessions.RecoveryAndCancellation.test_recover_never_releases_a_live_worker_or_child) ... ok
+test_run_cli_special_parses_argv_after_double_dash (test_project_sessions.RecoveryAndCancellation.test_run_cli_special_parses_argv_after_double_dash) ... ok
+test_shell_tty_is_only_granted_for_a_real_terminal (test_project_sessions.RecoveryAndCancellation.test_shell_tty_is_only_granted_for_a_real_terminal) ... ok
+test_exec_argv_adds_i_for_pipes_t_only_when_requested_and_user (test_project_sessions.RuntimeArguments.test_exec_argv_adds_i_for_pipes_t_only_when_requested_and_user) ... ok
+test_a_live_instance_is_probed_at_the_pinned_container_id (test_session_stopped_recovery.StoppedInstanceReleasesItsLease.test_a_live_instance_is_probed_at_the_pinned_container_id) ... ok
+test_exactly_stopped_instance_is_gone_and_releases_the_lease (test_session_stopped_recovery.StoppedInstanceReleasesItsLease.test_exactly_stopped_instance_is_gone_and_releases_the_lease) ... ok
+test_generation_move_and_label_mismatch_are_not_proof (test_session_stopped_recovery.StoppedInstanceReleasesItsLease.test_generation_move_and_label_mismatch_are_not_proof) ... ok
+test_id_inspection_failure_never_falls_back_to_a_mutable_name (test_session_stopped_recovery.StoppedInstanceReleasesItsLease.test_id_inspection_failure_never_falls_back_to_a_mutable_name) ... ok
+test_recovery_keeps_worker_and_proxy_boundaries (test_session_stopped_recovery.StoppedInstanceReleasesItsLease.test_recovery_keeps_worker_and_proxy_boundaries) ... ok
+test_relative_state_root_uses_the_same_canonical_project_label (test_session_stopped_recovery.StoppedInstanceReleasesItsLease.test_relative_state_root_uses_the_same_canonical_project_label) ... ok
+test_replacement_of_the_same_name_keeps_the_session_unresolved (test_session_stopped_recovery.StoppedInstanceReleasesItsLease.test_replacement_of_the_same_name_keeps_the_session_unresolved) ... ok
+test_uninspectable_container_stays_unknown (test_session_stopped_recovery.StoppedInstanceReleasesItsLease.test_uninspectable_container_stays_unknown) ... ok
+test_confirmed_cancel_does_not_block_retirement_after_container_stopped (test_session_recovery_contract.UnresolvedProjectLeaseTests.test_confirmed_cancel_does_not_block_retirement_after_container_stopped) ... ok
+test_dead_project_worker_is_not_proof_its_guest_has_exited (test_session_recovery_contract.UnresolvedProjectLeaseTests.test_dead_project_worker_is_not_proof_its_guest_has_exited) ... FAIL
+test_releasing_another_lease_must_not_stop_an_unresolved_guest (test_session_recovery_contract.UnresolvedProjectLeaseTests.test_releasing_another_lease_must_not_stop_an_unresolved_guest) ... ok
+test_adoption_lists_other_legacy_containers_for_the_same_target (test_cli_shortcuts.AdditionalContracts.test_adoption_lists_other_legacy_containers_for_the_same_target) ... ok
+test_argument_error_is_localized (test_cli_shortcuts.AdditionalContracts.test_argument_error_is_localized) ... ok
+test_existing_headless_environment_is_not_silently_reused_as_desktop (test_cli_shortcuts.AdditionalContracts.test_existing_headless_environment_is_not_silently_reused_as_desktop) ... ok
+test_init_json_stdout_is_one_document (test_cli_shortcuts.AdditionalContracts.test_init_json_stdout_is_one_document) ... ok
+test_install_refuses_ambiguous_multiple_environments_for_one_target (test_cli_shortcuts.AdditionalContracts.test_install_refuses_ambiguous_multiple_environments_for_one_target) ... ok
+test_installer_refuses_to_overwrite_an_unknown_file (test_cli_shortcuts.AdditionalContracts.test_installer_refuses_to_overwrite_an_unknown_file) ... refusing to overwrite an unknown file: /home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800/resume1/consumer-check/private/tmp/tmpiakxvf7b/unifier
+use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly
+ok
+test_low_level_help_is_reachable_without_a_runtime (test_cli_shortcuts.AdditionalContracts.test_low_level_help_is_reachable_without_a_runtime) ... ok
+test_missing_local_package_is_refused_before_runtime (test_cli_shortcuts.AdditionalContracts.test_missing_local_package_is_refused_before_runtime) ... ok
+test_supervised_open_worker_inherits_the_installation_root (test_cli_shortcuts.AdditionalContracts.test_supervised_open_worker_inherits_the_installation_root) ... ok
+test_adopt_reads_identity_without_modifying_legacy_state_and_reports_mount_truth (test_cli_shortcuts.Adoption.test_adopt_reads_identity_without_modifying_legacy_state_and_reports_mount_truth) ... ok
+test_adopt_refuses_to_replace_a_new_environment (test_cli_shortcuts.Adoption.test_adopt_refuses_to_replace_a_new_environment) ... ok
+test_auto_persists_and_is_cleared_by_a_new_explicit_choice (test_cli_shortcuts.HelpAndLanguage.test_auto_persists_and_is_cleared_by_a_new_explicit_choice) ... ok
+test_chinese_and_english_help_are_real_translations (test_cli_shortcuts.HelpAndLanguage.test_chinese_and_english_help_are_real_translations) ... ok
+test_help_never_builds_runtime_and_writes_no_state (test_cli_shortcuts.HelpAndLanguage.test_help_never_builds_runtime_and_writes_no_state) ... ok
+test_language_precedence_and_persistence (test_cli_shortcuts.HelpAndLanguage.test_language_precedence_and_persistence) ... ok
+test_concurrent_init_creates_one_container_per_target (test_cli_shortcuts.InitAndConfigure.test_concurrent_init_creates_one_container_per_target) ... ok
+test_configure_disable_keeps_container_and_does_not_stop_it (test_cli_shortcuts.InitAndConfigure.test_configure_disable_keeps_container_and_does_not_stop_it) ... ok
+test_dirs_and_path_use_the_configured_root_and_do_not_start (test_cli_shortcuts.InitAndConfigure.test_dirs_and_path_use_the_configured_root_and_do_not_start) ... ok
+test_interactive_selection_omits_host_family_and_keeps_legacy_data (test_cli_shortcuts.InitAndConfigure.test_interactive_selection_omits_host_family_and_keeps_legacy_data) ... ok
+test_none_is_an_explicit_empty_selection_without_runtime_calls (test_cli_shortcuts.InitAndConfigure.test_none_is_an_explicit_empty_selection_without_runtime_calls) ... ok
+test_noninteractive_without_selection_fails_instead_of_waiting (test_cli_shortcuts.InitAndConfigure.test_noninteractive_without_selection_fails_instead_of_waiting) ... ok
+test_partial_failure_is_recorded_and_can_continue_without_redoing_ready_target (test_cli_shortcuts.InitAndConfigure.test_partial_failure_is_recorded_and_can_continue_without_redoing_ready_target) ... ok
+test_same_family_selection_refuses_before_image_or_container_side_effects (test_cli_shortcuts.InitAndConfigure.test_same_family_selection_refuses_before_image_or_container_side_effects) ... ok
+test_selected_targets_are_the_only_images_pulled_and_environments_created (test_cli_shortcuts.InitAndConfigure.test_selected_targets_are_the_only_images_pulled_and_environments_created) ... ok
+test_start_cannot_acknowledge_an_already_running_same_family_environment (test_cli_shortcuts.InitAndConfigure.test_start_cannot_acknowledge_an_already_running_same_family_environment) ... ok
+test_disabled_target_install_has_no_transaction_or_container_side_effect (test_cli_shortcuts.InstallAndRun.test_disabled_target_install_has_no_transaction_or_container_side_effect) ... ok
+test_install_discovers_one_entry_and_run_reuses_the_same_instance (test_cli_shortcuts.InstallAndRun.test_install_discovers_one_entry_and_run_reuses_the_same_instance) ... debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txna44a72817a68
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnb5deb68dcfae
+ok
+test_local_format_mismatch_is_refused_before_any_runtime_call (test_cli_shortcuts.InstallAndRun.test_local_format_mismatch_is_refused_before_any_runtime_call) ... ok
+test_low_level_control_state_is_written_under_unifier_home (test_cli_shortcuts.IsolatedRoot.test_low_level_control_state_is_written_under_unifier_home) ... ok
+test_only_selected_targets_are_pulled (test_cli_shortcuts.LabPullFilter.test_only_selected_targets_are_pulled) ... Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+ok
+test_existing_ready_view_is_used_and_never_revoked (test_cli_shortcuts.LsCommand.test_existing_ready_view_is_used_and_never_revoked) ... ok
+test_running_uses_runtime_exec_argv_and_does_not_open_a_view (test_cli_shortcuts.LsCommand.test_running_uses_runtime_exec_argv_and_does_not_open_a_view) ... ok
+test_stopped_opens_and_releases_only_its_own_view (test_cli_shortcuts.LsCommand.test_stopped_opens_and_releases_only_its_own_view) ... ok
+test_view_failure_reports_recovery_and_does_not_return_fake_empty_output (test_cli_shortcuts.LsCommand.test_view_failure_reports_recovery_and_does_not_return_fake_empty_output) ... ok
+test_changed_container_id_cannot_stay_ready_or_mounted (test_cli_shortcuts.MissingEnvironmentStatus.test_changed_container_id_cannot_stay_ready_or_mounted) ... ok
+test_removed_environment_is_missing_not_ready_or_mounted (test_cli_shortcuts.MissingEnvironmentStatus.test_removed_environment_is_missing_not_ready_or_mounted) ... ok
+test_adopt_rejects_stale_uuid_or_container_identity (test_cli_shortcuts.RepairContracts.test_adopt_rejects_stale_uuid_or_container_identity) ... ok
+test_adopt_requires_versioned_identity_and_proves_runtime (test_cli_shortcuts.RepairContracts.test_adopt_requires_versioned_identity_and_proves_runtime) ... ok
+test_desktop_exec_parser_keeps_component_arguments_and_literal_percent (test_cli_shortcuts.RepairContracts.test_desktop_exec_parser_keeps_component_arguments_and_literal_percent) ... ok
+test_exec_arguments_distinguish_components_and_are_registered_literally (test_cli_shortcuts.RepairContracts.test_exec_arguments_distinguish_components_and_are_registered_literally) ... debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn6467c63462ed
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn6e0acab1622e
+ok
+test_help_anywhere_before_double_dash_has_no_runtime_and_respects_boundary (test_cli_shortcuts.RepairContracts.test_help_anywhere_before_double_dash_has_no_runtime_and_respects_boundary) ... ok
+test_json_stdout_has_no_progress_text (test_cli_shortcuts.RepairContracts.test_json_stdout_has_no_progress_text) ... debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn07fe755b9f03
+ok
+test_record_uuid_replacement_is_refused_before_start (test_cli_shortcuts.RepairContracts.test_record_uuid_replacement_is_refused_before_start) ... ok
+test_reinit_and_install_refuse_a_record_with_the_wrong_target_or_identity (test_cli_shortcuts.RepairContracts.test_reinit_and_install_refuse_a_record_with_the_wrong_target_or_identity) ... ok
+test_same_alias_is_namespaced_per_target_and_run_picks_the_right_instance (test_cli_shortcuts.RepairContracts.test_same_alias_is_namespaced_per_target_and_run_picks_the_right_instance) ... debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn97d5a1dccdda
+fedora44: dnf install -y hello
+fedora44: install completed txne413c6ce76ac
+ok
+test_service_stop_itself_refuses_an_active_package_lock (test_cli_shortcuts.RepairContracts.test_service_stop_itself_refuses_an_active_package_lock) ... ok
+test_stop_refuses_corrupt_or_live_occupancy_without_stopping (test_cli_shortcuts.RepairContracts.test_stop_refuses_corrupt_or_live_occupancy_without_stopping) ... ok
+test_stop_refuses_while_a_native_package_transaction_holds_the_lock (test_cli_shortcuts.RepairContracts.test_stop_refuses_while_a_native_package_transaction_holds_the_lock) ... ok
+test_stopped_ls_requests_projected_link_semantics (test_cli_shortcuts.RepairContracts.test_stopped_ls_requests_projected_link_semantics) ... ok
+test_absolute_and_dotdot_links_resolve_inside_the_view_not_the_host (test_cli_shortcuts.SafeGuestListing.test_absolute_and_dotdot_links_resolve_inside_the_view_not_the_host) ... ok
+test_dotdot_is_clamped_at_the_view_root (test_cli_shortcuts.SafeGuestListing.test_dotdot_is_clamped_at_the_view_root) ... ok
+test_path_join_bug_is_not_used_for_absolute_links (test_cli_shortcuts.SafeGuestListing.test_path_join_bug_is_not_used_for_absolute_links) ... ok
+test_file_worker_spawn_inherits_root (test_cli_shortcuts.WorkerRoot.test_file_worker_spawn_inherits_root) ... ok
+test_worker_environment_pins_one_absolute_root (test_cli_shortcuts.WorkerRoot.test_worker_environment_pins_one_absolute_root) ... ok
+
+======================================================================
+FAIL: test_dead_project_worker_is_not_proof_its_guest_has_exited (test_session_recovery_contract.UnresolvedProjectLeaseTests.test_dead_project_worker_is_not_proof_its_guest_has_exited)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_session_recovery_contract.py", line 39, in test_dead_project_worker_is_not_proof_its_guest_has_exited
+    self.assertNotIn("expired-app", leases)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'expired-app' unexpectedly found in {'unresolved': {'pid': 383984, 'stamp': 18474729, 'kind': 'project-session', 'project_uuid': 'fixture-project'}, 'expired-app': {'pid': 383984, 'stamp': 18474729, 'app_id': 'legacy-app'}}
+
+----------------------------------------------------------------------
+Ran 115 tests in 18.150s
+
+FAILED (failures=1)
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800/resume1/final_checks.py", line 5, in <module>
+    subprocess.run([sys.executable, "-m", "unittest", "-v", "test_runtime_control", "test_project_sessions", "test_session_stopped_recovery", "test_session_recovery_contract", "test_cli_shortcuts"], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', '-v', 'test_runtime_control', 'test_project_sessions', 'test_session_stopped_recovery', 'test_session_recovery_contract', 'test_cli_shortcuts']' returned non-zero exit status 1.

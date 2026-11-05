@@ -1,0 +1,197 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "test_agent_bridge",
+    "test_agent_cli",
+    "test_atomic_io",
+    "test_audio_route",
+    "test_cli_guest_paths",
+    "test_cli_primary_acceptance",
+    "test_cli_shortcuts",
+    "test_controlled_move",
+    "test_data_roots",
+    "test_desktop",
+    "test_desktop_integrations",
+    "test_desktop_recovery_authority",
+    "test_env",
+    "test_file_control",
+    "test_file_operations",
+    "test_file_routes",
+    "test_fuse_view",
+    "test_guarded_test",
+    "test_host_authority",
+    "test_identity_migration",
+    "test_integration_policy",
+    "test_lab",
+    "test_native_io",
+    "test_portal_bridge",
+    "test_project_resize",
+    "test_project_sessions",
+    "test_projection_boundaries",
+    "test_projection_controller",
+    "test_projection_directory",
+    "test_projection_fd",
+    "test_projection_objects",
+    "test_projection_rename",
+    "test_projection_support",
+    "test_release_install",
+    "test_release_regressions",
+    "test_repo_tools",
+    "test_resources",
+    "test_root_identity",
+    "test_runtime_control",
+    "test_screencast",
+    "test_screencast_contract",
+    "test_session_recovery_contract",
+    "test_session_stopped_recovery",
+    "test_share_label",
+    "test_startup_trace",
+    "test_view_backend",
+    "test_view_mount_options",
+    "test_views",
+    "test_xauthority_mount",
+    "test_lifecycle_contracts.BridgeLifecycle.test_bridge_survives_while_another_lease_is_live",
+    "test_lifecycle_contracts.BridgeLifecycle.test_last_release_stops_the_environment_and_removes_the_bridge",
+    "test_lifecycle_contracts.BridgeLifecycle.test_live_proxy_is_reused_and_broken_one_is_rebuilt",
+    "-v"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 246881,
+    "starttime": "16432009",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-audit-20261105-0815-batch2-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "50331648",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "25000 100000"
+  },
+  "unit_identity": {
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "InvocationID": "90d39ec52538466497e6186a6d64eec2",
+    "MainPID": "249700",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-audit-20261105-0815-batch2-work.service"
+  },
+  "worker": {
+    "identity": {
+      "pid": 249700,
+      "starttime": "16435045",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-audit-20261105-0815-batch2-work.service"
+    },
+    "limits": {
+      "memory.max": "536870912",
+      "memory.high": "402653184",
+      "memory.swap.max": "0",
+      "pids.max": "96",
+      "cpu.max": "100000 100000"
+    }
+  },
+  "last_cgroup_metrics": {
+    "memory": 174272512,
+    "tasks": 4,
+    "memory_peak": 227102720,
+    "tasks_peak": 13,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 41915532,
+      "user_usec": 37857918,
+      "system_usec": 4057614,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 489,
+      "nr_throttled": 80,
+      "throttled_usec": 201204,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 249700,
+        "starttime": "16435045",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-audit-20261105-0815-batch2-work.service"
+      },
+      {
+        "pid": 249702,
+        "starttime": "16435057",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-audit-20261105-0815-batch2-work.service"
+      }
+    ]
+  },
+  "command_result": {
+    "exit_code": 1,
+    "finished": 1793838076.5181282
+  },
+  "worker_final_cgroup": {
+    "memory": 138428416,
+    "tasks": 1,
+    "memory_peak": 227102720,
+    "tasks_peak": 13,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 41925676,
+      "user_usec": 37862073,
+      "system_usec": 4063603,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 490,
+      "nr_throttled": 80,
+      "throttled_usec": 201204,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 249700,
+        "starttime": "16435045",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-audit-20261105-0815-batch2-work.service"
+      }
+    ]
+  },
+  "final_unit": {
+    "LoadState": "loaded",
+    "ActiveState": "failed",
+    "InvocationID": "90d39ec52538466497e6186a6d64eec2",
+    "MainPID": "0",
+    "Result": "exit-code",
+    "ExecMainCode": "1",
+    "ExecMainStatus": "1",
+    "ControlGroup": ""
+  },
+  "cgroup_removed": true,
+  "reason": null,
+  "min_available_bytes": 2673655808,
+  "peak_memory_bytes": 217169920,
+  "peak_tasks": 8,
+  "elapsed_seconds": 81.52185707700119
+}

@@ -1,0 +1,64 @@
+{
+  "status": "FAILED",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "host_display_sockets_mounted": false,
+  "events": [
+    {
+      "command": "001.request.json",
+      "action": "launch",
+      "started_at": 1793677092.9136674,
+      "host_launcher_pid": 36720,
+      "app_id": "private-wrapper-writer",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/writer-workflow.docx",
+      "finished_at": 1793677093.5132997,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "002.request.json",
+      "action": "guest",
+      "started_at": 1793677105.6308784,
+      "returncode": 0,
+      "stdout": "2097160\n8388613\n",
+      "stderr": "",
+      "finished_at": 1793677106.1904197,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "003.request.json",
+      "action": "capture",
+      "started_at": 1793677106.1922588,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-writer-wrapper-ready.png",
+      "finished_at": 1793677107.410641,
+      "launcher_states": [
+        null
+      ]
+    }
+  ],
+  "host_before": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "display": {
+    "pid": 6,
+    "display": ":97"
+  },
+  "error": "reserve monitor aborted fixture",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private_gui_driver_v2.py\", line 77, in <module>\n    if monitor.aborted:raise RuntimeError('reserve monitor aborted fixture')\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: reserve monitor aborted fixture\n",
+  "fixture_cleanup": "DIRECTED_TEST_CONTAINER_STOP",
+  "launcher_states": [
+    137
+  ],
+  "host_after": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "desktop_identity_unchanged": true
+}

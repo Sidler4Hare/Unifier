@@ -1,0 +1,83 @@
+{
+  "scope": "PLAN_STRUCTURE_AND_AUTHORING_PRESERVATION_ONLY",
+  "product_tests_run": false,
+  "containers_started": false,
+  "checks": [
+    {
+      "name": "32 unique cases",
+      "ok": true
+    },
+    {
+      "name": "5 admission 10 shared 13 dependency 3 Arch 1 teardown",
+      "ok": true
+    },
+    {
+      "name": "all NOT_RUN",
+      "ok": true
+    },
+    {
+      "name": "26 P0 and 6 P1",
+      "ok": true
+    },
+    {
+      "name": "execution order covers all cases once",
+      "ok": true
+    },
+    {
+      "name": "dependency order is acyclic and consistent",
+      "ok": true
+    },
+    {
+      "name": "all cases have steps oracles and scope",
+      "ok": true
+    },
+    {
+      "name": "unconditional finally cleanup last",
+      "ok": true
+    },
+    {
+      "name": "zero new containers one active instance",
+      "ok": true
+    },
+    {
+      "name": "candidate pins are distinct existing stopped CIDs",
+      "ok": true
+    },
+    {
+      "name": "G01 explicitly blocks live execution",
+      "ok": true
+    },
+    {
+      "name": "source head and files unchanged",
+      "ok": true
+    },
+    {
+      "name": "Git index unchanged",
+      "ok": true
+    },
+    {
+      "name": "same 10 CIDs and running states",
+      "ok": true
+    },
+    {
+      "name": "container limits and mounts unchanged",
+      "ok": true
+    },
+    {
+      "name": "Markdown references resolve",
+      "ok": true
+    },
+    {
+      "name": "case cards include all IDs",
+      "ok": true
+    }
+  ],
+  "passed": 17,
+  "failed": 0,
+  "containers_before": 10,
+  "containers_after": 10,
+  "running_after": 0,
+  "case_status_counts": {
+    "NOT_RUN": 32
+  }
+}

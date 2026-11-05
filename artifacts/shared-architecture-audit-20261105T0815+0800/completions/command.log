@@ -1,0 +1,8 @@
+test_all_four_transaction_kinds_refuse_unknown_peer_before_write (__main__.RemainingContracts.test_all_four_transaction_kinds_refuse_unknown_peer_before_write) ... ok
+test_failed_index_refresh_stops_dependency_repair_without_provider_query (__main__.RemainingContracts.test_failed_index_refresh_stops_dependency_repair_without_provider_query) ... ok
+test_two_same_environment_requests_have_one_native_writer (__main__.RemainingContracts.test_two_same_environment_requests_have_one_native_writer) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.165s
+
+OK

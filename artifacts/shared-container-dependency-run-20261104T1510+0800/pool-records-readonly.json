@@ -1,0 +1,62 @@
+[
+  {
+    "distro": "debian13",
+    "cid_candidate": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+    "management_root": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment",
+    "record_path": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment/.lab/state/environments/debian13.json",
+    "record_sha256": "3a56a2b36f5d382c1c2e4a81aabb088cbf3a34c452b06fdd909aab41971b48ce",
+    "id": "debian13",
+    "environment_uuid": "ae147c3e-3e65-41ac-ac8d-9257c9202696",
+    "generation": 1,
+    "runtime": {
+      "backend": "podman",
+      "container_name": "ml-2f4a1877-debian13",
+      "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+      "project": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment",
+      "network": "pasta",
+      "share_label_policy": "shared-relabel",
+      "selinux_label": "default",
+      "full_init": false,
+      "user_namespace": "keep-id",
+      "devices": [],
+      "ipc": "private",
+      "rootless": true
+    },
+    "package_inventory_status": "verified",
+    "recorded_cid_matches": true,
+    "lease_files": [
+      ".lab/leases/debian13.lifecycle.lock",
+      ".lab/leases/debian13.lock",
+      ".lab/leases/debian13.json"
+    ]
+  },
+  {
+    "distro": "arch",
+    "cid_candidate": "d78a392cb1750fc95f5e0476806cfda25b6b06a8c018d2277b01e38bab3fddf8",
+    "management_root": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031",
+    "record_path": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031/.lab/state/environments/deps-arch.json",
+    "record_sha256": "e45fe6f16bcb3dbb7791a0c7d457dc7fb9badd4a5b5e325fba1901dee62cedfd",
+    "id": "deps-arch",
+    "environment_uuid": "bdc90f69-b6b5-4a70-a22a-a8094a192d90",
+    "generation": 1,
+    "runtime": {
+      "backend": "podman",
+      "container_name": "ml-45dc9c7d-deps-arch",
+      "container_id": "d78a392cb1750fc95f5e0476806cfda25b6b06a8c018d2277b01e38bab3fddf8",
+      "project": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031",
+      "network": "pasta",
+      "share_label_policy": "preserve-host",
+      "selinux_label": "default",
+      "full_init": false,
+      "user_namespace": "rootless-default",
+      "devices": [],
+      "ipc": "private",
+      "rootless": true
+    },
+    "package_inventory_status": null,
+    "recorded_cid_matches": true,
+    "lease_files": [
+      ".lab/leases/deps-arch.lifecycle.lock"
+    ]
+  }
+]

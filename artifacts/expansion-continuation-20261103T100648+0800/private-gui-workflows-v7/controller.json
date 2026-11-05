@@ -1,0 +1,541 @@
+{
+  "status": "FINISHED",
+  "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "host_display_sockets_mounted": false,
+  "events": [
+    {
+      "command": "001.request.json",
+      "action": "guest",
+      "started_at": 1793712711.768266,
+      "returncode": 0,
+      "stdout": "#!/bin/bash\n\ngOpt=\n#gOptExt=-multiply\ngTemplateExt=(\"dpt\" \"pot\" \"potx\" \"potm\" \"uopt3\")\ngBinPath=$(dirname \"$0\")\nif [ -d \"${gBinPath}/office6\" ]; then\n\tgInstallPath=${gBinPath}\nelse\n\tgInstallPath=/opt/kingsoft/wps-office\nfi\ngApp=wpp\ngDaemon=0\ngConfigPath=\"${HOME}/.config/Kingsoft/Office.conf\"\ngIsFushion=0\n\nfunction readforcefushionoem()\n{\n\tlocal oempath=\"${gInstallPath}/office6/cfgs/oem.ini\"\n\tif [ -e \"$oempath\" ]; then\n\t\tlocal value=$(awk -F'=' '/^\\[support\\]/{found=1} found && /^(2rZXpCGlD7_t8rRMx_WKnw\\.\\.|X5zahTFK13NP8hUZrmVGlg\\.\\.)=/{print $2; exit} /^\\[/ && !/^\\[support\\]/{if(found) exit}' \"$oempath\")\n\t\tif [ \"$value\" = \"WHfH10HHgeQrW2N48LfXrA..\" ] || [ \"$value\" = \"NzIWerGW1Xz2oWySibc-3g..\" ] || [ \"$value\" = \"grhpbB02ncs-447TFGgEDg..\" ]; then\n\t\t\techo 0\n\t\t\treturn\n\t\tfi\n\tfi\n\techo 1\n}\n\nfunction writelocalcomponentmode()\n{\n\tlocal mode=${1:-prome_fushion}\n\tlocal configDir=$(dirname \"${gConfigPath}\")\n\tmkdir -p \"$configDir\"\n\tif [ ! -e \"${gConfigPath}\" ] || ! grep -q '^\\[6.0\\]' \"${gConfigPath}\"; then\n\t\techo -e \"\\n[6.0]\" >> \"${gConfigPath}\"\n\tfi\n\tlocal section_line=$(awk '/^\\[6.0\\]/{print NR}' \"${gConfigPath}\")\n\tlocal key_line=$(awk -v line=\"$section_line\" -F'=' '$1==\"wpsoffice\\\\Application%20Settings\\\\AppComponentMode\" {if(NR>=line){print NR; exit}}' \"${gConfigPath}\")\n\tif [ -n \"$key_line\" ]; then\n\t\tsed -i \"${key_line}s/=.*/=${mode}/\" \"${gConfigPath}\"\n\telse\n\t\tsed -i \"${section_line}a\\\\wpsoffice\\\\\\\\Application%20Settings\\\\\\\\AppComponentMode=${mode}\" \"${gConfigPath}\"\n\tfi\n}\n\nfunction get_model_type()\n{\n\tcurrentMode=\"\"\n\thaveConf=0\n\tif [ -e \"${gConfigPath}\" ];then\n\t\thaveConf=1\n\tfi\n\tif [ $haveConf -eq 1 ]; then\n\t\tcurrentMode=$(awk -v line=$(awk '/\\[6.0\\]/{print NR}' \"${gConfigPath}\")  -F\"=\" '$1==\"wpsoffice\\\\Application%20Settings\\\\AppComponentMode\" {if(NR>=line){print $2}}' \"${gConfigPath}\")\n\tfi\n\tif [ -z \"$currentMode\" ]; then\n\t\tif [ $(readforcefushionoem) -eq 0 ]; then\n\t\t\tcurrentMode=\"prome_fushion\"\n\t\telse\n\t\t\tcurrentMode=\"prome_independ\"\n\t\tfi\n\t\twritelocalcomponentmode \"$currentMode\"\n\tfi\n\tif [ \"$currentMode\" = \"prome_fushion\" ]; then\n\t\t\tgApp=\"wpsoffice\"\n\t\t\tgIsFushion=1\n\tfi\n}\n\nfunction parse_arg()\n{\n\tif [ \"$1\" == \"-quickstart\" ]; then\n\t\tgOpt=-quickstart\n\t\tgDaemon=1\n\t\treturn 0\n\tfi\n\tget_model_type \"$@\"\n\tif [ $# -eq 1 ] ; then\n\t\text=\"${1##*.}\"\n\t\tif [ \"\" = \"${ext}\" ] ; then\n\t\t\treturn 0\n\t\tfi\n\n\t\text_lowercase=$(echo $ext | tr '[:upper:]' '[:lower:]')\n\n\t\tfor i in \"${gTemplateExt[@]}\"\n\t\tdo\n\t\t\tif [ \"${ext_lowercase}\" = \"${i}\" ] ; then\n\t\t\t\tgOpt=-t\n\t\t\tfi\n\t\tdone\n\tfi\n}\n\nfunction run()\n{\n\toldPwd=\"${PWD}\"\n\tif [ -e \"${gInstallPath}/office6/${gApp}\" ] ; then\n\t\tif [ 1 -eq ${gDaemon} ]; then\n\t\t\tnohup ${gInstallPath}/office6/${gApp} ${gOpt} > /dev/null 2>&1 &\n\t\telif [ 1 -eq ${gIsFushion} ] && [ \"$1\" != \"/prometheus\" ]; then\n\t\t\t{ unset GIO_LAUNCHED_DESKTOP_FILE && ${gInstallPath}/office6/${gApp} /prometheus ${gOptExt} ${gOpt} \"$@\"; } > /dev/null 2>&1\n\t\telse\n\t\t\t{ ${gInstallPath}/office6/${gApp} ${gOptExt} ${gOpt} \"$@\"; } > /dev/null 2>&1\n\t\tfi\n\telse\n\t\techo \"${gApp} does not exist!\"\n\tfi\n}\n\nfunction main()\n{\n\tparse_arg \"$@\"\n\trun \"$@\"\n\texit 0\n}\n\nmain \"$@\"\n\nXVFB_LOG _XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n_XSERVTransmkdir: Mode of /tmp/.X11-unix should be set to 1777\n_XSERVTransmkdir: this may cause subsequent errors\n_XSERVTransSocketCreateListener: failed to bind listener\n_XSERVTransSocketUNIXCreateListener: ...SocketCreateListener() failed\n_XSERVTransMakeAllCOTSServerListeners: failed to create listener for unix\n\nwpsoffice\\Application%20Settings\\AppComponentMode=prome_independ\nwpsoffice\\Application%20Settings\\RestartAppInfo=\nplugins\\kstartpage\\usingPreloadShareDlg=true\nplugins\\kappmgr\\CloudSvrAppList=\"version:12.1.2.29183|AK20250819HCSFXA,AK20250819VFFERA,airesourceshop,batchcompress,docerlibrary,docerresourceshop,docershop,editpof,editpom,eduworkbench,kaiaccompanywrite,kbarcode,kdocfinalizedlist,kdocfinalizedmgr,kdoctranslatepane,kexportimage,kextractpage,kocrtool,kofd2wordv2,kpdf2wordv2,kpdffromscanner,kphoneticsymbol,kproofread,kqrcode,kscreengrabtray,ksplitmerge,kwebprinttohome,pdfadvancedtool,pdfpageoperator,pdfpagesize,photo2pdf,picture_resourceshop_split,wpsacademy\"\nplugins\\kstartpage\\rightAppInfo\\entrysInfo\\localEntrysStorageFlag=true\nwpscloudsvr\\Application%20Settings\\exitsource\\quickexit=117\nplugins\\kstartpage\\homepageActiveTime\\duration=291\nplugins\\kstartpage\\homepageActiveTime\\period=b2e|\nplugins\\kstartpage\\homepageActiveTime\\homepageVersion=2023\nplugins\\kstartpage\\homepageActiveTime\\homepageSubVersion=4.0\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CommonEntrys\\filelist_noref=0\ncommon\\StartupPerf\\wpsoffice\\LastTime=1793685983\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CommonEntrys\\wpscomate=1\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CommonEntrys\\cooperation=2\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CommonEntrys\\email=3\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CommonEntrys\\calendar=4\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CommonEntrys\\todo=5\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CommonEntrys\\docershopcommonentry=6\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CommonEntrys\\appcenter=7\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CommonEntrys\\digitalemployee=8\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CommonEntrys\\wpsaiassistant=9\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CommonEntrys\\wpsainote=10\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\FeaturedEntrys\\kpdf2wordv2%26ConvertToHome=0\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\FeaturedEntrys\\docerresourceshop=1\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\FeaturedEntrys\\ksplitmerge=2\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\FeaturedEntrys\\photo2pdf=3\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\FeaturedEntrys\\kocrtool=4\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CompanyEntrys\\managecompany=0\nplugins\\kstartpage\\officenav_new_v1\\seqEntry\\CompanyEntrys\\createcompany=1\ncommon\\CloudFileDialog\\FileDialogGeometry\\isMaximized=false\ncommon\\CloudFileDialog\\pageconfig\\viewMode=16\ncommon\\CloudFileDialog\\FileDialogGeometry\\posX=180\ncommon\\CloudFileDialog\\FileDialogGeometry\\posY=119\ncommon\\CloudFileDialog\\FileDialogGeometry\\height=562\ncommon\\CloudFileDialog\\PathMemoryInfo\\openTypeOpenFileBusinessPathInfo\\LastPath=/home/omg/\\x6587\\x6863/\\x591a\\x517c\\x5bb9linux\\x673a/.lab/extension-local-20261031/shared-project/continuation-20261103\nwps\\Application%20Settings\\RestartAppInfo=\"321,63,45\"\net\\Application%20Settings\\RestartAppInfo=\"1699,50\"\nwps\\Application%20Settings\\DisplayTaskPaneAtStartup=0\nwps\\Application%20Settings\\StartupShowNavigationPane=0\nwps\\Application%20Settings\\PreferCloudSaveLocations=1\nwps\\Application%20Settings\\StartupPath=\ncommon\\StartupPerf\\wps\\OpenTimes=237, 326, 210\ncommon\\StartupPerf\\wps\\RenderTimes=11, 12, 11\ncommon\\StartupPerf\\wps\\PerceivedOpenTimes=283, 360, 241\ncommon\\StartupPerf\\wps\\StartupTimes=3485, 3694, 3661\ncommon\\StartupPerf\\wps\\LastTime=1793685983\ncommon\\UserInfo\\KSOFirstStartFlag=101\nplugins\\Translation\\startfrom=\ncommon\\CloudFileDialog\\PathMemoryInfo\\saveTypeCommonPathInfo\\LastPath=/home/omg/\\x6587\\x6863/\\x591a\\x517c\\x5bb9linux\\x673a/.lab/guarded-expansion-20261103/shared\ncommon\\StartupPerf\\wpsoffice\\WpsOpenTimes=1084, 688\ncommon\\StartupPerf\\wpsoffice\\StartupTimes=193, 328, 404\ncommon\\StartupPerf\\wpsoffice\\EtOpenTimes=3474\ncommon\\StartupPerf\\et\\OpenTimes=3914, 2086, 1500, 649\ncommon\\StartupPerf\\et\\RenderTimes=531, 137, 295, 202\ncommon\\StartupPerf\\et\\PerceivedOpenTimes=4734, 2315, 1821, 875\net\\Application%20Settings\\ShowStartupDialog=0\ncommon\\StartupPerf\\et\\StartupTimes=922, 390, 454, 494\ncommon\\StartupPerf\\et\\LastTime=1793712456\net\\Application%20Settings\\AltStartup=\nwpp\\Application%20Settings\\RestartAppInfo=22\n",
+      "stderr": "",
+      "finished_at": 1793712711.8802683,
+      "launcher_states": []
+    },
+    {
+      "command": "002.request.json",
+      "action": "guest",
+      "started_at": 1793712729.6503558,
+      "returncode": 0,
+      "stdout": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n149917696\nmax 0\n",
+      "stderr": "",
+      "finished_at": 1793712729.7824972,
+      "launcher_states": []
+    },
+    {
+      "command": "003.request.json",
+      "action": "launch",
+      "started_at": 1793712729.7831063,
+      "host_launcher_pid": 103582,
+      "app_id": "private-wrapper-slides",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/slides-workflow.pptx",
+      "finished_at": 1793712729.8088827,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "004.request.json",
+      "action": "guest",
+      "started_at": 1793712729.8095114,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712734.37654,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "005.request.json",
+      "action": "guest",
+      "started_at": 1793712734.3784833,
+      "returncode": 0,
+      "stdout": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 13\n644919296\nmax 0\n",
+      "stderr": "",
+      "finished_at": 1793712735.0015717,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "006.request.json",
+      "action": "guest",
+      "started_at": 1793712735.0022795,
+      "returncode": 0,
+      "stdout": "    PID    PPID STAT COMMAND\n      1       0 Ss   /run/podman-init -- /usr/bin/sleep infinity\n      2       1 S    /usr/bin/sleep infinity\n      6       1 Ss   Xvfb :97 -screen 0 1280x800x24 -nolisten tcp -auth /tmp/unifier-private-display/Xauthority\n     15       0 Ss   /bin/bash /usr/bin/wpp /home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/slides-workflow.pptx\n     22      15 Sl   /opt/kingsoft/wps-office/office6/wpp /home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/slides-workflow.pptx\n     42       1 Sl   /opt/kingsoft/wps-office/office6/wpscloudsvr /qingbangong /start_from=qingipc autologin\n     95       1 Sl   /opt/kingsoft/wps-office/office6/wpsoffice Run -Entry=EntryPoint /opt/kingsoft/wps-office/office6/addons/kcef/libjsapibrowser.so --server=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe --from=qing\n    187      95 S    /opt/kingsoft/wps-office/office6/promecefpluginhost --type=zygote --no-zygote-sandbox --no-sandbox --force-device-scale-factor=1.04237 --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --jbserver=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe\n    189      95 S    /opt/kingsoft/wps-office/office6/promecefpluginhost --type=zygote --no-sandbox --force-device-scale-factor=1.04237 --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --jbserver=browser.a3ba19ec797144349ea5dbc1b742aca1.29183.e72254dacc1f8bf6.dpi1.04167.pipe\n    223     187 Sl   /opt/kingsoft/wps-office/office6/promecefpluginhost --type=gpu-process --no-sandbox --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --gpu-preferences=WAAAAAAAAAAgACAIAAAAAAAAAAAAAAAAAABgAAAAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --use-gl=angle --use-angle=swiftshader-webgl --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --shared-files --field-trial-handle=0,i,11262524521477886008,8141127865308337496,131072 --disable-features=BackForwardCache\n    262      95 Sl   /opt/kingsoft/wps-office/office6/promecefpluginhost --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --no-sandbox --locales-dir-path=/opt/kingsoft/wps-office/office6/addons/cef/locales --log-severity=disable --resources-dir-path=/opt/kingsoft/wps-office/office6/addons/cef --lang=zh-CN --user-data-dir=/home/multilinux-1000/.config/cef_user_data --log-file=/opt/kingsoft/wps-office/office6/addons/cef/debug.log --shared-files=v8_context_snapshot_data:100 --field-trial-handle=0,i,11262524521477886008,8141127865308337496,131072 --disable-features=BackForwardCache\n    278       0 Rs   ps -eo pid,ppid,stat,args\n",
+      "stderr": "",
+      "finished_at": 1793712735.1727955,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "007.request.json",
+      "action": "capture",
+      "started_at": 1793712735.1738572,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-slides-v7-started.png",
+      "finished_at": 1793712735.395356,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "008.request.json",
+      "action": "guest",
+      "started_at": 1793712759.919672,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712760.6247964,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "009.request.json",
+      "action": "capture",
+      "started_at": 1793712760.6254997,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-slides-body.png",
+      "finished_at": 1793712760.7972772,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "010.request.json",
+      "action": "guest",
+      "started_at": 1793712788.5768363,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712791.1998396,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "011.request.json",
+      "action": "capture",
+      "started_at": 1793712791.200746,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-slides-cycle1-saved.png",
+      "finished_at": 1793712791.3954628,
+      "launcher_states": [
+        null
+      ]
+    },
+    {
+      "command": "012.request.json",
+      "action": "guest",
+      "started_at": 1793712812.1668136,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712813.3792858,
+      "launcher_states": [
+        0
+      ]
+    },
+    {
+      "command": "013.request.json",
+      "action": "cycle",
+      "started_at": 1793712813.3801103,
+      "launchers": [
+        0
+      ],
+      "display": {
+        "pid": 6,
+        "display": ":97"
+      },
+      "finished_at": 1793712814.3651621,
+      "launcher_states": [
+        0
+      ]
+    },
+    {
+      "command": "014.request.json",
+      "action": "launch",
+      "started_at": 1793712814.3659186,
+      "host_launcher_pid": 105329,
+      "app_id": "private-wrapper-slides",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/slides-workflow.pptx",
+      "finished_at": 1793712814.3883915,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "015.request.json",
+      "action": "guest",
+      "started_at": 1793712814.3891559,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712820.558764,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "016.request.json",
+      "action": "guest",
+      "started_at": 1793712820.5609007,
+      "returncode": 0,
+      "stdout": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 23\n663330816\nmax 0\n",
+      "stderr": "",
+      "finished_at": 1793712820.6764674,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "017.request.json",
+      "action": "guest",
+      "started_at": 1793712820.6773458,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712821.3731742,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "018.request.json",
+      "action": "capture",
+      "started_at": 1793712821.373897,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-slides-first-reopened.png",
+      "finished_at": 1793712821.5830984,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "019.request.json",
+      "action": "guest",
+      "started_at": 1793712834.5976815,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712837.2943964,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "020.request.json",
+      "action": "capture",
+      "started_at": 1793712837.2953563,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-slides-cycle2-saved.png",
+      "finished_at": 1793712837.494483,
+      "launcher_states": [
+        0,
+        null
+      ]
+    },
+    {
+      "command": "021.request.json",
+      "action": "guest",
+      "started_at": 1793712837.4954917,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712838.6876464,
+      "launcher_states": [
+        0,
+        0
+      ]
+    },
+    {
+      "command": "022.request.json",
+      "action": "cycle",
+      "started_at": 1793712838.6892588,
+      "launchers": [
+        0,
+        0
+      ],
+      "display": {
+        "pid": 6,
+        "display": ":97"
+      },
+      "finished_at": 1793712839.8946798,
+      "launcher_states": [
+        0,
+        0
+      ]
+    },
+    {
+      "command": "023.request.json",
+      "action": "launch",
+      "started_at": 1793712839.8955007,
+      "host_launcher_pid": 106717,
+      "app_id": "private-wrapper-slides",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/slides-workflow.pptx",
+      "finished_at": 1793712839.9225903,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "024.request.json",
+      "action": "guest",
+      "started_at": 1793712839.9233198,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712846.060385,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "025.request.json",
+      "action": "guest",
+      "started_at": 1793712846.0612721,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712846.757527,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "026.request.json",
+      "action": "capture",
+      "started_at": 1793712846.7583911,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-slides-second-reopened.png",
+      "finished_at": 1793712846.9834604,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "027.request.json",
+      "action": "guest",
+      "started_at": 1793712863.7517598,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712865.4586124,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "028.request.json",
+      "action": "capture",
+      "started_at": 1793712865.4595408,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-slides-saveas-dialog.png",
+      "finished_at": 1793712865.703364,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "029.request.json",
+      "action": "guest",
+      "started_at": 1793712890.4804504,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712892.8816562,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "030.request.json",
+      "action": "capture",
+      "started_at": 1793712892.8825383,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-slides-copy-saved.png",
+      "finished_at": 1793712893.0799086,
+      "launcher_states": [
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "031.request.json",
+      "action": "guest",
+      "started_at": 1793712893.0807052,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712894.264467,
+      "launcher_states": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "command": "032.request.json",
+      "action": "cycle",
+      "started_at": 1793712894.265644,
+      "launchers": [
+        0,
+        0,
+        0
+      ],
+      "display": {
+        "pid": 6,
+        "display": ":97"
+      },
+      "finished_at": 1793712895.3970127,
+      "launcher_states": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "command": "033.request.json",
+      "action": "launch",
+      "started_at": 1793712895.3979077,
+      "host_launcher_pid": 108119,
+      "app_id": "private-wrapper-slides",
+      "file": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/slides copy $;.pptx",
+      "finished_at": 1793712895.420768,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "034.request.json",
+      "action": "guest",
+      "started_at": 1793712895.421882,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712906.765035,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "035.request.json",
+      "action": "guest",
+      "started_at": 1793712906.8695805,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712911.4649694,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "036.request.json",
+      "action": "capture",
+      "started_at": 1793712911.568612,
+      "private_screenshot": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/private-slides-copy-reopened.png",
+      "finished_at": 1793712919.9286785,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "037.request.json",
+      "action": "guest",
+      "started_at": 1793712919.940057,
+      "returncode": 0,
+      "stdout": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 17\n631455744\nmax 0\n",
+      "stderr": "",
+      "finished_at": 1793712920.4996626,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "038.request.json",
+      "action": "guest",
+      "started_at": 1793712920.5077162,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "finished_at": 1793712922.3850563,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    },
+    {
+      "command": "039.request.json",
+      "action": "finish",
+      "started_at": 1793712922.3948245,
+      "finished": true,
+      "finished_at": 1793712922.3948426,
+      "launcher_states": [
+        0,
+        0,
+        0,
+        null
+      ]
+    }
+  ],
+  "host_before": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "display": {
+    "pid": 6,
+    "display": ":97"
+  },
+  "reserve_monitor_aborted": false,
+  "fixture_cleanup": "DIRECTED_TEST_CONTAINER_STOP",
+  "launcher_states": [
+    0,
+    0,
+    0,
+    137
+  ],
+  "host_after": {
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "kwin_pids": [
+      "1769"
+    ]
+  },
+  "desktop_identity_unchanged": true
+}

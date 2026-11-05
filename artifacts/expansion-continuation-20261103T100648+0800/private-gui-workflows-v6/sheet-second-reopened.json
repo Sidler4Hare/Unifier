@@ -1,0 +1,81 @@
+{
+  "status": "PASS_NATIVE_GUI_SAVED_CELLS",
+  "stage": "sheet-second-reopened",
+  "filename": "sheet-workflow.xlsx",
+  "sha256": "1cb50d2be174c705ad33f50d565ba5d1c6f4e224b4e723050c8a07e99d5badf6",
+  "uid": 1000,
+  "cells": {
+    "A1": {
+      "value": "项目",
+      "formula": null
+    },
+    "B1": {
+      "value": "数量",
+      "formula": null
+    },
+    "C1": {
+      "value": "单价",
+      "formula": null
+    },
+    "D1": {
+      "value": "金额",
+      "formula": null
+    },
+    "A2": {
+      "value": "样本 A",
+      "formula": null
+    },
+    "B2": {
+      "value": "5",
+      "formula": null
+    },
+    "C2": {
+      "value": "3",
+      "formula": null
+    },
+    "D2": {
+      "value": "15",
+      "formula": "B2*C2"
+    },
+    "A3": {
+      "value": "中文 样本",
+      "formula": null
+    },
+    "B3": {
+      "value": "4",
+      "formula": null
+    },
+    "C3": {
+      "value": "5",
+      "formula": null
+    },
+    "D3": {
+      "value": "20",
+      "formula": "B3*C3"
+    },
+    "A4": {
+      "value": "合计",
+      "formula": null
+    },
+    "D4": {
+      "value": "35",
+      "formula": "SUM(D2:D3)"
+    },
+    "A6": {
+      "value": "UNIFIER-SHEET-CYCLE-1 $;",
+      "formula": null
+    },
+    "B6": {
+      "value": "222",
+      "formula": null
+    },
+    "D6": {
+      "value": "322",
+      "formula": "SUM(100,B6)"
+    },
+    "A7": {
+      "value": "UNIFIER-SHEET-CYCLE-2 $;",
+      "formula": null
+    }
+  }
+}

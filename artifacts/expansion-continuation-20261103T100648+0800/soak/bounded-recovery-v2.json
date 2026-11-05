@@ -1,0 +1,44 @@
+{
+  "status": "PASS_STOPPED_SESSION_RECOVERY",
+  "timestamp": "2026-11-03T13:41:54.047728+08:00",
+  "sessions": [
+    {
+      "session_uuid": "944737f7-f793-4111-a46e-6d827628c6a7",
+      "action": "recovered",
+      "state": "interrupted",
+      "lease": "released"
+    },
+    {
+      "session_uuid": "3b2d6337-166b-4ed7-b9ca-d24cc72e6072",
+      "action": "recovered",
+      "state": "interrupted",
+      "lease": "released"
+    }
+  ],
+  "databases": {
+    "debian13": {
+      "integrity": [
+        [
+          "ok"
+        ]
+      ],
+      "saved_rows": [
+        84,
+        3570
+      ]
+    },
+    "arch": {
+      "integrity": [
+        [
+          "ok"
+        ]
+      ],
+      "saved_rows": [
+        84,
+        3570
+      ]
+    }
+  },
+  "original_test_containers_restarted": false,
+  "accepted_as_30_min_soak": false
+}

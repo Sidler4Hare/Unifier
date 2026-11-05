@@ -3,9 +3,13 @@
 Inspect data with readelf, never execute a vendor binary/ldd as root. This
 checks installed package ELF objects (including dlopen-loaded plugins), not
 arbitrary library names constructed at runtime, ABI versions or GUI behavior.
+
+The evidence is static: SONAME/NEEDED edges, the ldconfig name snapshot and
+the recorded RPATH/RUNPATH/$ORIGIN strings. No loader is invoked, so a name
+that exists somewhere in the package is only an unverified candidate and no
+search-path resolution, symbol version or dlopen outcome is claimed.
 """
 from __future__ import annotations
-
 from pathlib import PurePosixPath
 import re
 
@@ -93,8 +97,15 @@ def parse_scan(output: str) -> list[dict]:
             raise UnifierError(f"dependency inspection supports x86_64 ELF64 only: {path}")
         needed = re.findall(r"\(NEEDED\).*?Shared library: \[([^\]]+)\]", body)
         sonames = re.findall(r"\(SONAME\).*?Library soname: \[([^\]]+)\]", body)
+        rpath = re.findall(r'\(RPATH\).*?Library rpath: \[([^\]]*)\]', body)
+        runpath = re.findall(r'\(RUNPATH\).*?Library runpath: \[([^\]]*)\]', body)
+        if len(rpath) > 1 or len(runpath) > 1:
+            raise UnifierError('ambiguous ELF search path tags')
         objects.append({"path": path, "needed": [validate_library(n) for n in needed],
-                        "sonames": [validate_library(n) for n in sonames]})
+                        "sonames": [validate_library(n) for n in sonames],
+                        "architecture": "x86_64", "origin": str(PurePosixPath(path).parent),
+                        "rpath": rpath[0].split(':') if rpath else [],
+                        "runpath": runpath[0].split(':') if runpath else []})
     return objects
 
 
@@ -107,7 +118,13 @@ class DependencyRepair:
         self.report = {"status": "checking", "scope": "package-elf-needed",
                        "objects": 0, "rounds": [], "unresolved": [],
                        "bundled_candidates": [], "installed": [],
-                       "runtime_loading": "unverified"}
+                       "runtime_loading": "unverified", "workflow": "unverified",
+                       "elf_objects": [], "dependency_edges": [],
+                       "static_resolution": {"status": "checking", "scope": "names-only"},
+                       "evidence_scope": {"search_paths": "recorded-not-resolved",
+                           "origin": "lexical-path-only", "runpath_transitivity": "unverified",
+                           "symbol_versions": "unverified", "dlopen": "unverified",
+                           "wrapper_environment": "unverified"}}
         transaction["dependency_repair"] = self.report
 
     def capture(self, argv: list[str], *, accepted=(0,), timeout=120):
@@ -127,6 +144,7 @@ class DependencyRepair:
             return self._run(packages, libraries)
         except Exception as exc:
             self.report["status"] = "unresolved"
+            self.report['static_resolution']['status'] = 'unresolved'
             self.report["error"] = str(exc)
             raise
 
@@ -172,20 +190,41 @@ class DependencyRepair:
             # can themselves have undeclared dependencies. Re-read both.
             scope = sorted(packages | set(self.report["installed"]))
             objects = self.inspect_packages(scope)
+            self.report['elf_objects'] = objects
             self.report["objects"] = len(objects)
             self.report["packages"] = scope
             required = hints | {name for obj in objects for name in obj["needed"]}
             bundled = {name for obj in objects for name in obj["sonames"]}
             bundled.update(PurePosixPath(obj["path"]).name for obj in objects)
             available = set()
+            cache_paths = {}
             if required:
                 cache = self.capture(["/bin/sh", "-c", CACHE, "unifier-cache"]).stdout
                 available = {line.split()[0] for line in cache.splitlines() if " => " in line}
+                for line in cache.splitlines():
+                    if ' => ' in line:
+                        name, path = line.split()[0], line.rsplit(' => ', 1)[1].strip()
+                        if not path.startswith('/') or any(ord(c) < 32 for c in path):
+                            raise UnifierError('invalid loader cache path')
+                        cache_paths.setdefault(name, []).append(path)
+            self.report['dependency_edges'] = [{
+                'object': obj['path'], 'needed': name,
+                'cache_candidates': sorted(cache_paths.get(name, [])),
+                'bundled_candidates': sorted(candidate['path'] for candidate in objects
+                    if name in candidate['sonames'] or PurePosixPath(candidate['path']).name == name),
+                'rpath': obj['rpath'], 'runpath': obj['runpath'], 'origin': obj['origin'],
+                'loader_resolution': 'unverified',
+            } for obj in objects for name in obj['needed']]
             self.report["bundled_candidates"] = sorted((required - available) & bundled - repository_required)
             missing = sorted(required - available - (bundled - repository_required))
             self.report["unresolved"] = missing
             if not missing:
-                self.report["status"] = "repaired" if self.report["installed"] else "no-missing-elf-dependencies"
+                if self.report['bundled_candidates']:
+                    self.report['status'] = 'bundled-candidates-unverified'
+                    self.report['static_resolution']['status'] = 'bundled-candidates-unverified'
+                else:
+                    self.report['status'] = 'repaired' if self.report['installed'] else 'no-missing-elf-dependencies'
+                    self.report['static_resolution']['status'] = 'names-accounted-for'
                 return self.report
             if attempt == 2:
                 raise UnifierError("dependency repair did not converge: " + ", ".join(missing))

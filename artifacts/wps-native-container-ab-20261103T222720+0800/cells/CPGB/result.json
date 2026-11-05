@@ -1,0 +1,96 @@
+{
+  "side": "guest",
+  "case": "slides",
+  "label": "CPGB",
+  "status": "MEASURED",
+  "cgroup": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-8399ccd38b137d9283b6587007a43744e8d334809ed4864f002f091009ca555e.scope/container",
+  "env": {
+    "DISPLAY": "127.0.0.1:200",
+    "XAUTHORITY": "/tmp/unifier-wps-ab-20261103/common/Xauthority",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "QT_QPA_PLATFORM": "xcb",
+    "LIBGL_ALWAYS_SOFTWARE": "1",
+    "QT_OPENGL": "software",
+    "QT_QUICK_BACKEND": "software",
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "HOME": "/tmp/unifier-wps-ab-20261103/profiles/CPGB",
+    "XDG_CONFIG_HOME": "/tmp/unifier-wps-ab-20261103/profiles/CPGB/.config",
+    "XDG_CACHE_HOME": "/tmp/unifier-wps-ab-20261103/profiles/CPGB/.cache",
+    "XDG_RUNTIME_DIR": "/tmp/unifier-wps-ab-20261103/profiles/CPGB/runtime",
+    "XDG_SESSION_TYPE": "x11",
+    "DBUS_SESSION_BUS_ADDRESS": "unix:path=/tmp/unifier-wps-ab-20261103/profiles/CPGB/runtime/no-bus",
+    "TMPDIR": "/tmp/unifier-wps-ab-20261103/profiles/CPGB/tmp",
+    "FONTCONFIG_FILE": "/tmp/unifier-wps-ab-20261103/common/fonts.conf"
+  },
+  "ready": true,
+  "open_window_seconds": 10.221635870999307,
+  "windows": [
+    {
+      "id": "2097160",
+      "name": "slides.pptx - WPS Slides"
+    }
+  ],
+  "capture": {
+    "returncode": 0,
+    "stderr": ""
+  },
+  "dismissed_default_app_dialogs": [
+    {
+      "id": "2097186",
+      "name": "WPS Office"
+    }
+  ],
+  "capture_sampled": {
+    "returncode": 0,
+    "stderr": ""
+  },
+  "windows_sampled": [
+    {
+      "id": "2097160",
+      "name": "slides.pptx - WPS Slides"
+    }
+  ],
+  "summary": {
+    "app_pss_median_mib": 312.736328125,
+    "app_pss_range_mib": [
+      312.736328125,
+      312.736328125
+    ],
+    "app_swap_pss_median_mib": 0.0,
+    "app_processes_median": 1.0,
+    "app_threads_median": 35.0,
+    "idle_cgroup_cpu_one_core_pct": 0.6312543905320741,
+    "host_min_available_mib": 3665.6875,
+    "pss_errors": 0,
+    "memory_events_before": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "memory_events_after": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events_before": {
+      "max": 0
+    },
+    "pids_events_after": {
+      "max": 0
+    },
+    "cpu_throttle_delta": 0
+  },
+  "local_core_only": true,
+  "windows_after_quit": [],
+  "cleanup_guest": ""
+}

@@ -1,0 +1,247 @@
+{
+  "status": "FAIL",
+  "host": "Ubuntu 24.04",
+  "cells": [
+    {
+      "origin": "fedora44",
+      "action_id": "host-info",
+      "status": "PASS",
+      "response": {
+        "action_id": "host-info",
+        "error": null,
+        "protocol_version": 1,
+        "receipt": {
+          "action_id": "host-info",
+          "action_type": "host-info",
+          "claim_expires_at": 1793685453.965029,
+          "completed_at": 1793685153.9696438,
+          "grant_expires_at": 1793685452.7406838,
+          "host_info": {
+            "boot_id": "7f9c8802-1373-4bd5-88e1-9328da0552c7",
+            "identity": {
+              "egid": 1001,
+              "euid": 1001,
+              "gid": 1001,
+              "pid": 100788,
+              "ppid": 100743,
+              "uid": 1001
+            },
+            "observed_at": 1793685153,
+            "os_release": {
+              "path": "/etc/os-release",
+              "resolved": "/usr/lib/os-release",
+              "values": {
+                "ID": "ubuntu",
+                "ID_LIKE": "debian",
+                "NAME": "Ubuntu",
+                "PRETTY_NAME": "Ubuntu 24.04.5 LTS",
+                "VERSION": "24.04.5 LTS (Noble Numbat)",
+                "VERSION_ID": "24.04"
+              }
+            },
+            "process_identity": {
+              "cgroup": {
+                "lines": [
+                  "0::/user.slice/user-1001.slice/user@1001.service/unifier.slice/unifier-bridge.slice/unifier-bridge-tests.slice/unifier-bridge-six-cells-v3-20261103.service"
+                ],
+                "path": "/proc/self/cgroup",
+                "resolved": "/proc/100788/cgroup"
+              },
+              "gid_map": {
+                "lines": [
+                  "         0          0 4294967295"
+                ],
+                "path": "/proc/self/gid_map",
+                "resolved": "/proc/100788/gid_map"
+              },
+              "status": {
+                "path": "/proc/self/status",
+                "resolved": "/proc/100788/status",
+                "values": {
+                  "CapBnd": "000001ffffffffff",
+                  "CapEff": "0000000000000000",
+                  "NSpgid": "100788",
+                  "NSpid": "100788",
+                  "NSsid": "100788",
+                  "NStgid": "100788",
+                  "Name": "python3",
+                  "NoNewPrivs": "0",
+                  "Seccomp": "0"
+                }
+              },
+              "uid_map": {
+                "lines": [
+                  "         0          0 4294967295"
+                ],
+                "path": "/proc/self/uid_map",
+                "resolved": "/proc/100788/uid_map"
+              }
+            },
+            "source": "host-builtin",
+            "uname": {
+              "machine": "x86_64",
+              "nodename": "b0512",
+              "release": "6.8.0-147-generic",
+              "sysname": "Linux"
+            }
+          },
+          "origin": {
+            "container": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "running": true,
+              "status": "running"
+            },
+            "environment_binding": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "environment_id": "fedora44",
+              "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+              "generation": 1
+            },
+            "environment_id": "fedora44",
+            "session_uuid": "9b1675eb-8473-4dd2-b51f-f53aeb7a079e"
+          },
+          "output_reference": "host-broker-stream",
+          "request_uuid": "9f0512f2-003b-46fd-8b9a-105e159cbe4b",
+          "reserved_at": 1793685153.965029,
+          "schema_version": 1,
+          "session": null,
+          "status": "ok",
+          "target": null
+        },
+        "request_uuid": "9f0512f2-003b-46fd-8b9a-105e159cbe4b",
+        "status": "ok"
+      },
+      "client_identity": {
+        "pid": 18,
+        "uid": 0,
+        "pid_namespace": "pid:[4026532836]",
+        "os_release": "NAME=\"Fedora Linux\"\nVERSION=\"44 (Container Image)\"\nRELEASE_TYPE=stable\nID=fedora\nVERSION_ID=44\nVERSION_CODENAME=\"\"\nPRETTY_NAME=\"Fedora Linux 44 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:44\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f44/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=44\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=44\nSUPPORT_END=2027-05-19\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n"
+      },
+      "long_socket_path_bytes": 187
+    },
+    {
+      "origin": "fedora44",
+      "action_id": "run-fedora44",
+      "status": "PASS",
+      "response": {
+        "action_id": "run-fedora44",
+        "error": null,
+        "protocol_version": 1,
+        "receipt": {
+          "action_id": "run-fedora44",
+          "action_type": "project-run",
+          "broker_accepts_runs": true,
+          "claim_expires_at": 1793685454.430276,
+          "completed_at": 1793685155.9723563,
+          "grant_expires_at": 1793685452.7406838,
+          "host_info": null,
+          "origin": {
+            "container": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "running": true,
+              "status": "running"
+            },
+            "environment_binding": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "environment_id": "fedora44",
+              "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+              "generation": 1
+            },
+            "environment_id": "fedora44",
+            "session_uuid": "9b1675eb-8473-4dd2-b51f-f53aeb7a079e"
+          },
+          "output_reference": "host-broker-stream",
+          "request_uuid": "8ae7b237-1807-4a20-b4e8-16ead7098752",
+          "reserved_at": 1793685154.430276,
+          "schema_version": 1,
+          "session": {
+            "argv": [
+              "/usr/bin/python3",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/target.py",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/fedora44-to-fedora44.json",
+              "fedora44"
+            ],
+            "cancel": null,
+            "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+            "environment_binding": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "environment_id": "fedora44",
+              "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+              "generation": 1
+            },
+            "error": null,
+            "exit_code": 0,
+            "guest_state": "gone",
+            "peer_uid": 1001,
+            "project_uuid": "cdd9ef3c-6105-441c-8fbf-77767db98a7a",
+            "scope_sha256": "51e087e8447ff783f5c417900fe40fcd64ff6cb823c558bd1a19172864d5f1e7",
+            "session_user": "0:0",
+            "session_uuid": "50167712-7c8b-415b-aa3b-76f4432ca686",
+            "state": "exited",
+            "timed_out": false
+          },
+          "status": "ok",
+          "target": {
+            "argv": [
+              "/usr/bin/python3",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/target.py",
+              "/home/agent/expansion-continuation-20261103/bridge-shared/fedora44-to-fedora44.json",
+              "fedora44"
+            ],
+            "cwd": "/home/agent/expansion-continuation-20261103/bridge-shared/project-fedora44",
+            "environment_binding": {
+              "container_id": "31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156",
+              "environment_id": "fedora44",
+              "environment_uuid": "808394a7-e158-47ef-a1d8-9cb24070de5b",
+              "generation": 1
+            },
+            "project_uuid": "cdd9ef3c-6105-441c-8fbf-77767db98a7a",
+            "scope_sha256": "51e087e8447ff783f5c417900fe40fcd64ff6cb823c558bd1a19172864d5f1e7",
+            "timeout_seconds": 10
+          }
+        },
+        "request_uuid": "8ae7b237-1807-4a20-b4e8-16ead7098752",
+        "status": "ok"
+      },
+      "client_identity": {
+        "pid": 18,
+        "uid": 0,
+        "pid_namespace": "pid:[4026532836]",
+        "os_release": "NAME=\"Fedora Linux\"\nVERSION=\"44 (Container Image)\"\nRELEASE_TYPE=stable\nID=fedora\nVERSION_ID=44\nVERSION_CODENAME=\"\"\nPRETTY_NAME=\"Fedora Linux 44 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:44\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f44/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=44\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=44\nSUPPORT_END=2027-05-19\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n"
+      },
+      "long_socket_path_bytes": 187,
+      "target_proof": {
+        "expected_label": "fedora44",
+        "pid": 50,
+        "uid": 0,
+        "gid": 0,
+        "pid_namespace": "pid:[4026532836]",
+        "os_release": "NAME=\"Fedora Linux\"\nVERSION=\"44 (Container Image)\"\nRELEASE_TYPE=stable\nID=fedora\nVERSION_ID=44\nVERSION_CODENAME=\"\"\nPRETTY_NAME=\"Fedora Linux 44 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:44\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f44/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=44\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=44\nSUPPORT_END=2027-05-19\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n",
+        "cgroup": "0::/\n"
+      }
+    }
+  ],
+  "negative": [],
+  "origins": [],
+  "host_identity": {
+    "pid": 100788,
+    "uid": 1001,
+    "gid": 1001,
+    "pid_namespace": "pid:[4026531836]",
+    "boot_id": "7f9c8802-1373-4bd5-88e1-9328da0552c7"
+  },
+  "source_sha256": {
+    "runtime.py": "38215908a01451cdea57172c99a08ab0f66ab5bf9c6addbeb429c2c9c2fd98a7",
+    "exec_control.py": "183ec3678dac5b591dc2089400a0dced1a6e0a0c70eb3a3bcc0d39356a63ae70",
+    "project_sessions.py": "ce896139e8623776eddcabefd9435755bf04ff75194cc14cb2c4facb569eb4ed",
+    "agent_bridge.py": "37296c8d80d706f4a3c085db2f1395221227ec4428b965fffed4aacd5239674d",
+    "bridge_client.py": "8fb2f8907eb1ab41ae1189bdc7e72061d4919bcb0346da57082df0b177813b0a"
+  },
+  "error": "[Errno 2] No such file or directory: '/proc/0/ns/pid'",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/agent/expansion-continuation-20261103/remote-bridge-six-cells-v3.py\", line 76, in <module>\n    target=action.removeprefix('run-');proof=json.loads((SHARED/(origin_id+'-to-'+target+'.json')).read_text());assert ('ID=fedora' if target=='fedora44' else 'ID=arch') in proof['os_release'];assert proof['pid_namespace']!=result['host_identity']['pid_namespace'];i=rt.inspect(svc.store.load(target)['runtime']['container_id']);assert i.container_id==response['receipt']['target']['environment_binding']['container_id'];assert proof['pid_namespace']==os.readlink('/proc/'+str(i.pid)+'/ns/pid');assert response['receipt']['session']['exit_code']==0;cell['target_proof']=proof\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/proc/0/ns/pid'\n",
+  "worker_threads_live": 0,
+  "containers_after": {
+    "fedora44": "stopped",
+    "arch": "stopped"
+  }
+}

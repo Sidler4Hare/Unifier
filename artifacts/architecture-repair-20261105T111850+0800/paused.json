@@ -1,0 +1,45 @@
+{
+  "reason": "USER_PAUSED",
+  "at": 1793849962.0526035,
+  "run": "/home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800",
+  "units": [
+    {
+      "unit": "unifier-s34-111850-loader-work.service",
+      "before": {
+        "ActiveState": "failed",
+        "InvocationID": "7a4871b402514674b73a03be79e6701c",
+        "MainPID": "0",
+        "ExecStart": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800/offline_runner.py worker /home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800/s4-acceptance/spec.json ; ignore_errors=no ; start_time=[Thu 2026-11-05 11:38:50 CST] ; stop_time=[Thu 2026-11-05 11:38:54 CST] ; pid=366689 ; code=exited ; status=1 }",
+        "ControlGroup": ""
+      },
+      "action": "already-quiescent",
+      "after": {
+        "ActiveState": "failed",
+        "InvocationID": "7a4871b402514674b73a03be79e6701c",
+        "MainPID": "0",
+        "ExecStart": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800/offline_runner.py worker /home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800/s4-acceptance/spec.json ; ignore_errors=no ; start_time=[Thu 2026-11-05 11:38:50 CST] ; stop_time=[Thu 2026-11-05 11:38:54 CST] ; pid=366689 ; code=exited ; status=1 }",
+        "ControlGroup": ""
+      }
+    },
+    {
+      "unit": "unifier-s34-111850-loader-guard.service",
+      "before": {
+        "ActiveState": "inactive",
+        "InvocationID": "752f585d31e44a04928c47ad74c611e0",
+        "MainPID": "0",
+        "ExecStart": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800/offline_runner.py guard /home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800/s4-acceptance/spec.json ; ignore_errors=no ; start_time=[Thu 2026-11-05 11:38:20 CST] ; stop_time=[Thu 2026-11-05 11:38:54 CST] ; pid=366614 ; code=exited ; status=0 }",
+        "ControlGroup": ""
+      },
+      "action": "already-quiescent",
+      "after": {
+        "ActiveState": "inactive",
+        "InvocationID": "752f585d31e44a04928c47ad74c611e0",
+        "MainPID": "0",
+        "ExecStart": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800/offline_runner.py guard /home/omg/文档/多兼容linux机/artifacts/architecture-repair-20261105T111850+0800/s4-acceptance/spec.json ; ignore_errors=no ; start_time=[Thu 2026-11-05 11:38:20 CST] ; stop_time=[Thu 2026-11-05 11:38:54 CST] ; pid=366614 ; code=exited ; status=0 }",
+        "ControlGroup": ""
+      }
+    }
+  ],
+  "tests_receipt_exists": true,
+  "all_quiescent": true
+}

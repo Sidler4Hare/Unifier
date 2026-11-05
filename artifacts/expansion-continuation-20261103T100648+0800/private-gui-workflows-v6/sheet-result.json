@@ -1,0 +1,39 @@
+{
+  "status": "PASS_BOUNDED_PRIVATE_SHEET_DATA_WORKFLOW",
+  "default_fusion_attempt": "FAILED_APP_ERROR_WITH_PIDS_MAX_EVENTS_5_NO_OOM",
+  "workaround": "copied test profile only: prome_independ",
+  "profile_change": {
+    "before_sha256": "be0a4f56b30728af24cfeee5910fef3d39a7adf9da7967ec5ee7b758adac5808",
+    "after_sha256": "e743ee3caf4f85cdc9d5a623526a40d49fcaf8d390fc8b968ad21f392b725e1c",
+    "mode": "prome_independ",
+    "private_backup_exists": true
+  },
+  "original_stop_reopen_cycles": 2,
+  "save_as_copy_reopened": true,
+  "formula_cache_totals": [
+    29,
+    35
+  ],
+  "new_formula_cache": [
+    211,
+    322
+  ],
+  "preserved_chinese_cells": true,
+  "literal_filename": "sheet copy $;.xlsx",
+  "host_desktop_integration_accepted": false,
+  "font_layout_fidelity_accepted": false,
+  "fixture": "isolated snapshot of existing Debian install; not fresh vendor installation",
+  "evidence": [
+    "sheet-first-reopened.json",
+    "sheet-second-reopened.json",
+    "sheet-copy-reopened.json",
+    "controller.json"
+  ],
+  "sheet_normal_exit_codes": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "controller_final_status": "FAILED later during slides launch; does not replace individual sheet checks"
+}

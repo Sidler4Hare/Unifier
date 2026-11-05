@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "pid": 203670,
+    "starttime": "10346808",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-pre02-20261104-1510-validation-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "test_package_observation",
+    "test_packages",
+    "test_dependencies",
+    "test_package_recovery",
+    "test_guarded_test",
+    "test_on_demand",
+    "-v"
+  ]
+}

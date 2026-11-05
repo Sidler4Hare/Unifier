@@ -1,0 +1,146 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_application_lifecycle.ApplicationLifecycle.test_live_worker_accepts_terminal_proof_after_concurrent_cancel"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 382290,
+    "starttime": "18444359",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-cancel-before-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "50331648",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "100000 100000"
+  },
+  "unit_identity": {
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "InvocationID": "2d2cebab26a7496595324972448ea05b",
+    "MainPID": "382497",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-cancel-before-work.service"
+  },
+  "worker": {
+    "identity": {
+      "pid": 382497,
+      "starttime": "18447377",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-cancel-before-work.service"
+    },
+    "limits": {
+      "memory.max": "536870912",
+      "memory.high": "402653184",
+      "memory.swap.max": "0",
+      "pids.max": "96",
+      "cpu.max": "100000 100000"
+    }
+  },
+  "last_cgroup_metrics": {
+    "memory": 33955840,
+    "tasks": 4,
+    "memory_peak": 46510080,
+    "tasks_peak": 7,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 585023,
+      "user_usec": 497134,
+      "system_usec": 87889,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 9,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 382497,
+        "starttime": "18447377",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-cancel-before-work.service"
+      },
+      {
+        "pid": 382499,
+        "starttime": "18447394",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-cancel-before-work.service"
+      }
+    ]
+  },
+  "command_result": {
+    "exit_code": 1,
+    "finished": 1793858149.7014318
+  },
+  "worker_final_cgroup": {
+    "memory": 8626176,
+    "tasks": 1,
+    "memory_peak": 46510080,
+    "tasks_peak": 7,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 640385,
+      "user_usec": 544295,
+      "system_usec": 96089,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 11,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 382497,
+        "starttime": "18447377",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-s34-resume1-cancel-before-work.service"
+      }
+    ]
+  },
+  "final_unit": {
+    "LoadState": "loaded",
+    "ActiveState": "failed",
+    "InvocationID": "2d2cebab26a7496595324972448ea05b",
+    "MainPID": "0",
+    "Result": "exit-code",
+    "ExecMainCode": "1",
+    "ExecMainStatus": "1",
+    "ControlGroup": ""
+  },
+  "cgroup_removed": true,
+  "reason": null,
+  "min_available_bytes": 3259224064,
+  "peak_memory_bytes": 37191680,
+  "peak_tasks": 4,
+  "elapsed_seconds": 31.277541431998543
+}

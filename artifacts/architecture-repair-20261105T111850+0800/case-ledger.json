@@ -1,0 +1,148 @@
+{
+  "original_plan_preserved": true,
+  "cases": [
+    {
+      "original_case_id": "PRE02",
+      "title": "其他环境包清单核验不得唤醒停止实例",
+      "status": "PARTIAL",
+      "scope": "Prior S1/S2 offline proof; exact same-root multi-environment live fixture unavailable.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "PRE03",
+      "title": "统一准入、资源监测和所有工作进程保护",
+      "status": "BLOCKED",
+      "scope": "No independently accepted real-container aggregate-cgroup/event guardian.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "SH03",
+      "title": "关闭一个应用不影响其他租约",
+      "status": "PARTIAL",
+      "scope": "T1 process/lease mechanism support only; original live-CID workflow not accepted.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "SH04",
+      "title": "最后受管应用结束后的自动停止",
+      "status": "PARTIAL",
+      "scope": "T1 process/lease mechanism support only; original live-CID workflow not accepted.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "SH06",
+      "title": "短命启动器被结束时租约仍由真实工作进程持有",
+      "status": "PARTIAL",
+      "scope": "T1 process/lease mechanism support only; original live-CID workflow not accepted.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "SH07",
+      "title": "手动启动环境的停止所有权",
+      "status": "PARTIAL",
+      "scope": "T1 process/lease mechanism support only; original live-CID workflow not accepted.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "SH08",
+      "title": "启动失败、错误身份和未知状态的局部回收",
+      "status": "PARTIAL",
+      "scope": "T1 process/lease mechanism support only; original live-CID workflow not accepted.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "SH10",
+      "title": "真实 Writer 与 CLI 共用实例并有界重复",
+      "status": "BLOCKED",
+      "scope": "PRE03/T2 prerequisites and real GUI workflow not accepted.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "DEP08",
+      "title": "运行时构造库名与精确 library 提示",
+      "status": "NOT_RUN",
+      "scope": "Target/container branch not run; current T1 runner is not PRE03 proof.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "DEP09",
+      "title": "无提供者或多提供者时不猜包",
+      "status": "PASS",
+      "scope": "T1 fake repository/provider/install failure contracts only; no real repo result.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "DEP10",
+      "title": "索引错误、安装失败和补装无效的有界退出",
+      "status": "PASS",
+      "scope": "T1 fake repository/provider/install failure contracts only; no real repo result.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "DEP12",
+      "title": "实际搜索路径、符号版本、架构与厂商配置的分类",
+      "status": "PARTIAL",
+      "scope": "T1 ELF path/ABI/symbol-version/transitivity proved; vendor JSON and real guest not accepted.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    },
+    {
+      "original_case_id": "END01",
+      "title": "固定池、数据、服务和资源收尾",
+      "status": "PARTIAL",
+      "scope": "All owned T1 units quiescent; no live inventory or accounts touched/rechecked.",
+      "reserve_bytes": 1073741824,
+      "evidence": [
+        "test-summary.json",
+        "units-after.json"
+      ]
+    }
+  ]
+}

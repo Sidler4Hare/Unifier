@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-11-05T11:04:55+08:00",
+  "requested_targets": [
+    "debian13"
+  ],
+  "excluded_targets": {},
+  "targets": {
+    "debian13": {
+      "image_id": "id-6438e483",
+      "locked_reference": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "reported_image_size_bytes": 1,
+      "elapsed_seconds": 0.0
+    }
+  },
+  "finished_at": "2026-11-05T11:04:55+08:00",
+  "size_note": "Per-image reported size, not additive unique physical disk usage. Pull duration is not an application benchmark."
+}
