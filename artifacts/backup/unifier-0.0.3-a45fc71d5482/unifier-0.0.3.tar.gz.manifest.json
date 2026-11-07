@@ -1,0 +1,1059 @@
+{
+  "schema_version": 1,
+  "version": "0.0.3",
+  "source_kind": "working-tree",
+  "files": {
+    ".gitattributes": {
+      "kind": "file",
+      "sha256": "4ded971748ace984ffe56c2b757b2f5914c35572880b3496af1a13616603a672"
+    },
+    ".gitignore": {
+      "kind": "file",
+      "sha256": "84bd8e5efc71629c171d219b8f1f8d212d23c1fbe4a570089183e688f0f3b18d"
+    },
+    "AGENTS.md": {
+      "kind": "file",
+      "sha256": "7c1b39b5753bec86d12038023c0bc49c2e098055f24cfc5f161c6dde1afa4023"
+    },
+    "HANDOFF.md": {
+      "kind": "file",
+      "sha256": "b581216becbc1283730a2cb462cb7fdf360932ad1dc39eba8ad35995d2890a6a"
+    },
+    "README.md": {
+      "kind": "file",
+      "sha256": "b2c30ef72bc849755d27e157ca9ce571b0a331104d50d41953af8e3e3f648595"
+    },
+    "bin/unifier": {
+      "kind": "file",
+      "sha256": "749dd07b69dd85dfff543701e04a26ce268b33f2dab7bd13c08bf78d1ed358db"
+    },
+    "config/images.lock.json": {
+      "kind": "file",
+      "sha256": "9effc95f32804154c3ccab113067f86846b41f2b7b6d77dd050e59b96755aada"
+    },
+    "config/targets.toml": {
+      "kind": "file",
+      "sha256": "43d3e3234dc2966fa694b650716ef9a41bde0b8231cc35139eb52c11333dfbed"
+    },
+    "docs/v0.0.1.md": {
+      "kind": "file",
+      "sha256": "47bbf3e73ab2c0480363e580f9ce8b323110239bee07a94708535f34c050f42a"
+    },
+    "docs/v0.0.2.md": {
+      "kind": "file",
+      "sha256": "568415bf64c0e0a8a7750504e1481cb27b968848fe2dcbbb2d91797b0402b665"
+    },
+    "docs/v0.0.3.md": {
+      "kind": "file",
+      "sha256": "ef4c91343415b9ebaa41e8ed81fce009e501fff12f6521c2b07f6f2aababc6b7"
+    },
+    "docs/仓库维护.md": {
+      "kind": "file",
+      "sha256": "809a6c9f68b294c163cbf6ed292935e4a59eb360e0880b25448b4584be8d4912"
+    },
+    "docs/依赖自动化迭代.md": {
+      "kind": "file",
+      "sha256": "3fe98dfecadf5faf9ac7cbe678559d2081fac402ba56dbdbe52fcc86bbfb1ce1"
+    },
+    "docs/共享容器与依赖专项测试计划-20261104.md": {
+      "kind": "file",
+      "sha256": "53b33383085dcec810620003a5a1a2fc8b966e606344448a8d633906a9074459"
+    },
+    "docs/包清单只读观测.md": {
+      "kind": "file",
+      "sha256": "c91c3248fa3ff50d436cc507f5c6c0866d1677c3817baacc9faa3a09b41442a8"
+    },
+    "docs/客体受控请求.md": {
+      "kind": "file",
+      "sha256": "7bfc4fce15baa50f8b80dd0a2e6f809f29c3e44a07ffd5bc1f8f7aed80487d2b"
+    },
+    "docs/布局.md": {
+      "kind": "file",
+      "sha256": "cf2ccc64f8e26d4d1c1489c198acbccef09371a990df67018eff6bb26d7e3d6d"
+    },
+    "docs/应用执行所有权.md": {
+      "kind": "file",
+      "sha256": "4450b8b5ce24ceb64ed0339ecff5e56b8fd00c75bb50959415a3a417d1029afc"
+    },
+    "docs/扩测保护与恢复.md": {
+      "kind": "file",
+      "sha256": "466b26e6b84bffed74ee86bf81370f5031468d07cf540bfcaa0a8050ae66ac66"
+    },
+    "docs/本机测试规范.md": {
+      "kind": "file",
+      "sha256": "1a86eec98b1dad8969fe651db0f5abb3a3b54cb4c8f5b1a9922ed7d9afe0f236"
+    },
+    "docs/架构问题修复计划-20261105.md": {
+      "kind": "file",
+      "sha256": "e6252680c5bddd6252e86f86333999f159cf44a161af34b5a354da91bad31a77"
+    },
+    "docs/测试禁令与规范.md": {
+      "kind": "file",
+      "sha256": "75f6506e294134813aa242aa3c98ffb6fc81170226edc1fa19508136e072a740"
+    },
+    "docs/自动依赖与原生安装交互.md": {
+      "kind": "file",
+      "sha256": "b5afc4d01cde3a96bd434fdf14946dab598c24f4927eaffbf0dfa6fe2a32bb4f"
+    },
+    "fixtures/dmabuf_roundtrip.c": {
+      "kind": "file",
+      "sha256": "c44bf22e49ef500626f6ec68980f125ddf42624e5c5e03a4df43c26eb4624d06"
+    },
+    "fixtures/lab-smoke.sh": {
+      "kind": "file",
+      "sha256": "a18c469ec5a054c775d8d39066dbfdca4f38cd9d4505c74bdf9ebec6f1efb17a"
+    },
+    "fixtures/launch_mousepad.py": {
+      "kind": "file",
+      "sha256": "c336c4fb1cbcc04df2faadd930bf3414be0489b84be4c6346d41cb00d86d7396"
+    },
+    "fixtures/mousepad_control.py": {
+      "kind": "file",
+      "sha256": "d08abd96b1e9e0f2b6dd842752a98bbd905cc86899d58a74281540e0cc38e15c"
+    },
+    "fixtures/resource_probe.c": {
+      "kind": "file",
+      "sha256": "067675d016ccfa5dbd3cc1453edf8e191518fadd30cfba653a95a8313c556376"
+    },
+    "fixtures/screencast_consumer.c": {
+      "kind": "file",
+      "sha256": "3889097c92cef98057568de52f70e66b612ac74a298e083245d6e16e2fe0b73a"
+    },
+    "fixtures/share_target.py": {
+      "kind": "file",
+      "sha256": "9f3b7fa188d6388f38aab971dfdfb012a10b04c739cfdbbb74b6927764433d55"
+    },
+    "fixtures/wayland_clipboard.py": {
+      "kind": "file",
+      "sha256": "a7c5d997eb7d28f62ed6f391de6ee8b472c029f5f3afe1ba13b67a97fab62cb9"
+    },
+    "fixtures/wayland_handshake.py": {
+      "kind": "file",
+      "sha256": "764c0c1c1fbfdc240e67cdcff48cf905d5443209311a79601ca45cc27d991c4c"
+    },
+    "fixtures/x11_window_input.py": {
+      "kind": "file",
+      "sha256": "a9ba9c9484e4427f19ad8a923709c343faa74185efa6461464f898e70748a80a"
+    },
+    "src/multilinux/__init__.py": {
+      "kind": "file",
+      "sha256": "4799d72bbdacc227facc307db849b9e67f5a4585449e5df422efaab0d668aaf2"
+    },
+    "src/multilinux/__main__.py": {
+      "kind": "file",
+      "sha256": "7de165a644b3769993fe09a0dd2a3a4385aa912db895413b0377de2377d59bc1"
+    },
+    "src/multilinux/app_entries.py": {
+      "kind": "file",
+      "sha256": "9c107214749ddc14c6033c5e0920bf93e691d48d57e68b66e82437ba68c9a32f"
+    },
+    "src/multilinux/atomic_io.py": {
+      "kind": "file",
+      "sha256": "dca1e27ee0af6f567fe2815cbb172dc8b8bf067b2090352ced6189590e338425"
+    },
+    "src/multilinux/catalog.py": {
+      "kind": "file",
+      "sha256": "fadd45cca9903cacd7e4bf1332c6cc8bc511991e5d09317aa287bac4f8eb6dff"
+    },
+    "src/multilinux/cli.py": {
+      "kind": "file",
+      "sha256": "89bffcc864296f724de3dd09ef967ea39b08ea9ce57bb35e21f0430ba640a41d"
+    },
+    "src/multilinux/compatibility.py": {
+      "kind": "file",
+      "sha256": "c2c56a4485738594dc856e1bed13ace633a26d75773d52f12225131aab7d33c0"
+    },
+    "src/multilinux/control.py": {
+      "kind": "file",
+      "sha256": "8319413ca4f89b47609fffd11bb80d10bed75636c0f26af93386707ff07fec70"
+    },
+    "src/multilinux/desktop.py": {
+      "kind": "file",
+      "sha256": "5acd564eb4fea6006aea466527d4fd0def22a67e280edcdb988a781853f31cad"
+    },
+    "src/multilinux/desktop_integrations.py": {
+      "kind": "file",
+      "sha256": "36c9ba8468456352403ae6e5847254ffb2b8db59437a387e8e239179788df65d"
+    },
+    "src/multilinux/errors.py": {
+      "kind": "file",
+      "sha256": "9adb7e28bafe05598e0f10ff964d87da05f97bfd3beb5171234ac0502be42489"
+    },
+    "src/multilinux/file_operations.py": {
+      "kind": "file",
+      "sha256": "3c2579bea2ae55c89aee4540444b2f72171a1f3a3e8af8a1e9c332698026ce26"
+    },
+    "src/multilinux/file_routes.py": {
+      "kind": "file",
+      "sha256": "069c32c85abedee0b25ed50169d8e01acb39dc2e9673d7af787fe4904dc3abe8"
+    },
+    "src/multilinux/fuse_view.py": {
+      "kind": "file",
+      "sha256": "04c0fc33257dd5a6b138e2b763c657aade6490cbba05e6bf1db79558487f26d9"
+    },
+    "src/multilinux/fuse_view_legacy.py": {
+      "kind": "file",
+      "sha256": "3aee0eac91df8cf55410161aab88cb0e2acd349d7c8c31289b6ee755c8865cf6"
+    },
+    "src/multilinux/guest_paths.py": {
+      "kind": "file",
+      "sha256": "47e2ee97cd2c09b870e89c71e0037d872bd45edbd9091697f3248b219271da55"
+    },
+    "src/multilinux/handlers.py": {
+      "kind": "file",
+      "sha256": "d4899ad292ac9498a537985998fa1a9e3240f40ce7b01eb1a1e678d3e159fe28"
+    },
+    "src/multilinux/i18n.py": {
+      "kind": "file",
+      "sha256": "abbbcb070d00ed85d3b1e80a637d1cb4bbc9b21826a00198733b1272a2539a4f"
+    },
+    "src/multilinux/identity.py": {
+      "kind": "file",
+      "sha256": "efc73a9a9eeac6039e35d86896865dca65a82e441c613d9c3180b1acf2c7e3ff"
+    },
+    "src/multilinux/install.py": {
+      "kind": "file",
+      "sha256": "4638d7513bc1e220ff926656079df6f48a09649bcc2b914ebb3e7a774c357969"
+    },
+    "src/multilinux/install_state.py": {
+      "kind": "file",
+      "sha256": "dbda890a906947ab85209e4c20d763e2093e87b126675a074419545bd256fc4c"
+    },
+    "src/multilinux/json_records.py": {
+      "kind": "file",
+      "sha256": "627e6195dbf7a04e34e806d325ace0e4ea5f11b82f0ac13c3998853d086c89db"
+    },
+    "src/multilinux/lease.py": {
+      "kind": "file",
+      "sha256": "0e19cffd1b7c2eb822ff3fdc89a2f6c71817d75438462cfc6f718181101fae41"
+    },
+    "src/multilinux/on_demand.py": {
+      "kind": "file",
+      "sha256": "6b4ec2ff05093ba108f18eb3e15cda97f926aecfaf21b35eae44e0b55b446cd4"
+    },
+    "src/multilinux/packages.py": {
+      "kind": "file",
+      "sha256": "a2d2c0f5e4428b0429bcbc6d291b7986835a80a92568bd64b13528d6d38db7cb"
+    },
+    "src/multilinux/project.py": {
+      "kind": "file",
+      "sha256": "05cc81aa7117a57bc938d1cb7630bf365335df2d5cb865adbd6d5c53a86e0d5e"
+    },
+    "src/multilinux/project_sessions.py": {
+      "kind": "file",
+      "sha256": "1c57289bbc878ee79ed8f56042b6a07fa73d7bb926f1f8ba72e2214f87e1be23"
+    },
+    "src/multilinux/projection.py": {
+      "kind": "file",
+      "sha256": "9666ea3e10ec914fc502ab010f16b72664e09dad0f0a679cfc4cd7ec5b84cb95"
+    },
+    "src/multilinux/projects.py": {
+      "kind": "file",
+      "sha256": "df6e9c9c637a3ba0c4e9d541e273b94df88e62f7cfac65ae378c2b9ff4e72cd7"
+    },
+    "src/multilinux/registry.py": {
+      "kind": "file",
+      "sha256": "7f20bc2e1dbb0b90cb2f510f13bb33c05c1400c43bfbd47704a4727bb9cae0db"
+    },
+    "src/multilinux/resources.py": {
+      "kind": "file",
+      "sha256": "9bf320f68a3061549555b6e651dbde4afd4cc09a952a90d76b608687bdf0180b"
+    },
+    "src/multilinux/root_identity.py": {
+      "kind": "file",
+      "sha256": "59a43ecb7b00460c00b3d79e02ac83c4088694be3263ac1ba1d39616b9a71315"
+    },
+    "src/multilinux/routing.py": {
+      "kind": "file",
+      "sha256": "a81371947333a4abe05da87e869be3965dad7b7891df1ad7586f60055c8b6743"
+    },
+    "src/multilinux/runtime.py": {
+      "kind": "file",
+      "sha256": "58c705d05552802fc9f0679944967cd42c33c1e9d5a991c3e9e2aa340af7b404"
+    },
+    "src/multilinux/screencast.py": {
+      "kind": "file",
+      "sha256": "2e485d64046868b63bf376d585cde23642fbad0086932b368cb41c3e0713ab3a"
+    },
+    "src/multilinux/service.py": {
+      "kind": "file",
+      "sha256": "76108c852e52166472bb2125610f0f6f2ca7597709047948e200cbab4d9dc46f"
+    },
+    "src/multilinux/share_label.py": {
+      "kind": "file",
+      "sha256": "5d072c4eb979855543761537e7861b5b0d4f80d3cf80817f1f6a876ced346f81"
+    },
+    "src/multilinux/shortcuts.py": {
+      "kind": "file",
+      "sha256": "170bc9b672b9f4c39d21afaca40b516d835bbb5b9da9e6458982dd41044731c2"
+    },
+    "src/multilinux/store.py": {
+      "kind": "file",
+      "sha256": "7cf3cc80f37c6b7b811486b780d0e0f7a2149c4db77558ae97b3f0b91793aa38"
+    },
+    "src/multilinux/view_backend.py": {
+      "kind": "file",
+      "sha256": "653c5212c4071dfabdb14cb534c3659cda094ab27f1e34ac41e542136b10642c"
+    },
+    "src/multilinux/view_backend_legacy.py": {
+      "kind": "file",
+      "sha256": "bc8bad726a737ee4055c19b5b16155ceaf8bdfc8032c918a80d12dacf4bf5efb"
+    },
+    "src/multilinux/view_broker.py": {
+      "kind": "file",
+      "sha256": "75ccfa709c77b4a816aef47936e7f9f1e2f4d1bc048d0297c0d43de9a60c100e"
+    },
+    "src/multilinux/view_journal.py": {
+      "kind": "file",
+      "sha256": "0c88e10f27a142614f3984fa5fbb3ce11e1d81514602a9684b2071305fb16ef8"
+    },
+    "src/multilinux/views.py": {
+      "kind": "file",
+      "sha256": "0830d263418b8c0f0a0fba2f88b5b5871f1b0fa0d2d68b7cf6bb071e70b8127d"
+    },
+    "src/unifier/__init__.py": {
+      "kind": "file",
+      "sha256": "e83c72b0621e5114d10c46dc453a8721d50247f1d66ea16bfe5864f7795a4cc2"
+    },
+    "src/unifier/__main__.py": {
+      "kind": "file",
+      "sha256": "345f257f19d37df49b9f11da876b949d57b390e73e213c54b7dc612fafe74795"
+    },
+    "src/unifier/agent_bridge.py": {
+      "kind": "file",
+      "sha256": "1288e1acd496502c22925a00a1d54ce55d1415313c436448270b3f662d34377c"
+    },
+    "src/unifier/app_entries.py": {
+      "kind": "file",
+      "sha256": "496e2f35c453e8d4d3437577e6cc5f543a3e41e3bcb0f3ab5c3e1fd994b1f5e6"
+    },
+    "src/unifier/application_leases.py": {
+      "kind": "file",
+      "sha256": "d7f5d700f64b9e67e7b886b18447efae0b3ea3a03e2d96ec1003556b5f3b62f4"
+    },
+    "src/unifier/application_supervisor.py": {
+      "kind": "file",
+      "sha256": "478f54aefe52b6271cc113e8ff8fe9d726f53c0b74aa8e04541c90fff67efc9b"
+    },
+    "src/unifier/atomic_io.py": {
+      "kind": "file",
+      "sha256": "6fbf5531b14bffbbc98c5c27b12a2843a7fb2278f41c8f81e1273460bef680b2"
+    },
+    "src/unifier/bridge_client.py": {
+      "kind": "file",
+      "sha256": "11123c870a3cbe408a8a4bbf64cc830cb1c24fe2bf0fb6bba791d4e904e4dc68"
+    },
+    "src/unifier/catalog.py": {
+      "kind": "file",
+      "sha256": "24515c3b29eb66f64272f74307bff0bf0f1f1f65c8fadb51ca7635c38ef9d63f"
+    },
+    "src/unifier/cli.py": {
+      "kind": "file",
+      "sha256": "b74764557749aca62571d04ec2aee2456ba8bd9ae83d5df10202778a6eb07c57"
+    },
+    "src/unifier/compatibility.py": {
+      "kind": "file",
+      "sha256": "ab61d7065b5cefcf155a5e51222f78e2d236a8128377ab004a9bed1b1a15cf30"
+    },
+    "src/unifier/control.py": {
+      "kind": "file",
+      "sha256": "b7f8b23a7a66dac1e6ae07e5b9dcc116e8819287317c84c8191ff723e467e4c2"
+    },
+    "src/unifier/dependencies.py": {
+      "kind": "file",
+      "sha256": "4bab7084bc888342aaf7565116f53c9201b0bda4622c10d0a211ce5342b40c8f"
+    },
+    "src/unifier/dependency_diagnostics.py": {
+      "kind": "file",
+      "sha256": "7ab1cf6852cf4cff3a5bd6e7b917cdb0f27862eaef33069dbfeb473914230c6a"
+    },
+    "src/unifier/desktop.py": {
+      "kind": "file",
+      "sha256": "6a30d002ef29c4ec3c9ffeeb2ee4cf8fd623c53a6abfc3884d1123e0e825da02"
+    },
+    "src/unifier/desktop_integrations.py": {
+      "kind": "file",
+      "sha256": "16b02877697f9b94b03e1949b38b57740482b22d727fab9b3af7c376b3c0aba6"
+    },
+    "src/unifier/errors.py": {
+      "kind": "file",
+      "sha256": "99359638f45cceca7135627f73b1a974e9ab94f5365c1ff116de5b6ff6015f4c"
+    },
+    "src/unifier/exec_control.py": {
+      "kind": "file",
+      "sha256": "02ef2ef5116677b3e622e7fc3ab10310420cde861cec38c8e32cbb71b27142c0"
+    },
+    "src/unifier/file_operation_cleanup.py": {
+      "kind": "file",
+      "sha256": "f02bfee2a7fe807a93ce706aaaf8eb6c8b79817e9f92fa020e54363818fdf36b"
+    },
+    "src/unifier/file_operation_journal.py": {
+      "kind": "file",
+      "sha256": "181f751074ec7d70095556be62d54c12b5a679a74b8cd39cd9091c2756f7a090"
+    },
+    "src/unifier/file_operation_publish.py": {
+      "kind": "file",
+      "sha256": "84f96c3138859c330fb7f8bd1584144b2c27491437b9821ff125b20d47ca9774"
+    },
+    "src/unifier/file_operations.py": {
+      "kind": "file",
+      "sha256": "5af75437b5aceab78492cc0dfe8079f06c7f1804064a2c587052570b756e78f3"
+    },
+    "src/unifier/file_routes.py": {
+      "kind": "file",
+      "sha256": "8ed8e7b5080da145189842128dcd6a2043518e923815239e4408c485dddb18a8"
+    },
+    "src/unifier/fuse_view.py": {
+      "kind": "file",
+      "sha256": "b9a38f19e576c0a6be0e58f240da5523c6e49699560dd46d364b15dbc2be4180"
+    },
+    "src/unifier/fuse_view_legacy.py": {
+      "kind": "file",
+      "sha256": "d28b63b3f1abc0e36f84ca0eca592c5406928a3503e58e122376dc794225287e"
+    },
+    "src/unifier/guest_paths.py": {
+      "kind": "file",
+      "sha256": "0c0db0078bde92277aa4923e1e780b9e52a69c5b34d8895532f3bfada623a3f2"
+    },
+    "src/unifier/handlers.py": {
+      "kind": "file",
+      "sha256": "8ebd1ae4bd7f9a5dbaa7688325144caf081f3b43195823c3720d0202f4c6b873"
+    },
+    "src/unifier/i18n.py": {
+      "kind": "file",
+      "sha256": "181d96df65b21d11067cef0b052423066fe2b32f26d6d4e66d8afdfe2ed6802e"
+    },
+    "src/unifier/identity.py": {
+      "kind": "file",
+      "sha256": "8a40db1943f7dc2330ec07b12475fe9da066378628f6da1c8d61be2d1684337b"
+    },
+    "src/unifier/install.py": {
+      "kind": "file",
+      "sha256": "44b5da9de16fba961db1d73628aba3d8fcf8c17bfbeb4b84eee011fd71531cdd"
+    },
+    "src/unifier/install_state.py": {
+      "kind": "file",
+      "sha256": "d6796640e867ede10c6e395c502325ad6d64bebdee11a59d04d2e07ebb6a0fe0"
+    },
+    "src/unifier/inventory_probe.py": {
+      "kind": "file",
+      "sha256": "e3ca602033d9d29cf39900a4f5c7b53dc78dacbfb56b3fc2af714e276a542769"
+    },
+    "src/unifier/json_records.py": {
+      "kind": "file",
+      "sha256": "704042860044c1f1f854b851990aa9a3b71b2851f28bb2b9a0b6f2202ecb33a1"
+    },
+    "src/unifier/lease.py": {
+      "kind": "file",
+      "sha256": "92f5902ed59a6ce69ff003ed784b2a5d865134c9ca746e35f0468aafb4320dc5"
+    },
+    "src/unifier/loader_verification.py": {
+      "kind": "file",
+      "sha256": "8e5e07784c8a6a3485898b1925d551ba823c9e39d2e260567dd859b53d4171c5"
+    },
+    "src/unifier/native_io.py": {
+      "kind": "file",
+      "sha256": "eed2519597249825d4a5db539b0978adb5fb721c70592c481741299e318f9f0a"
+    },
+    "src/unifier/on_demand.py": {
+      "kind": "file",
+      "sha256": "ad559c4f2e9e5813ef0417122e40be34ed4b0dd4f16ba6548a4717ce6ff19f8b"
+    },
+    "src/unifier/operation_lock.py": {
+      "kind": "file",
+      "sha256": "83ee0df261ae8240c15567f25d498013452c9dc6d6646eefb12c0bf64a81af77"
+    },
+    "src/unifier/package_inventory.py": {
+      "kind": "file",
+      "sha256": "974f6c30564bdf92950dd0db8da32e0dcd3c4a835b22cfb6be18c1b5e135fc11"
+    },
+    "src/unifier/package_offer.py": {
+      "kind": "file",
+      "sha256": "8a5d1531461c22389adff28db1ed088f5a2bef4318c70ab14d24d01b5a3a5aed"
+    },
+    "src/unifier/packages.py": {
+      "kind": "file",
+      "sha256": "fbc6de487327e0cd424444a005484b88add56b71c47c78adf7833c5a27b74e9f"
+    },
+    "src/unifier/project.py": {
+      "kind": "file",
+      "sha256": "ca35b4734b8af02fe664068e3c0173ffc30ab88e33ad58a55d10d7644cc38102"
+    },
+    "src/unifier/project_sessions.py": {
+      "kind": "file",
+      "sha256": "86215dee1e872d40abe3e3f20996a5ee0e788557b58726b7577fc37492dca95d"
+    },
+    "src/unifier/projection.py": {
+      "kind": "file",
+      "sha256": "724a0e6981c14dda97176e9bf1456797b7b1f2feae070b5f97afa1a8b99bc256"
+    },
+    "src/unifier/projects.py": {
+      "kind": "file",
+      "sha256": "2260721149600183eb6c42286ba191eb60b9d869a094c72c13516af196699170"
+    },
+    "src/unifier/registry.py": {
+      "kind": "file",
+      "sha256": "4602c2ef6c9acea5d8aaed7cac22f7c1504f6d6d37a455f6b517f528d7602e82"
+    },
+    "src/unifier/resources.py": {
+      "kind": "file",
+      "sha256": "b4eebe0a022ef36b31274c1dc125752869c7692b117e22ae2741980278921c37"
+    },
+    "src/unifier/root_identity.py": {
+      "kind": "file",
+      "sha256": "58da4de1dc47a01ef017c7234a8878358f8f1d6af628df4f375755dede247dbf"
+    },
+    "src/unifier/routing.py": {
+      "kind": "file",
+      "sha256": "e6f6d19655327065f95f4959f1d3bfd31c4118ea410762f4bf6de4362c33e999"
+    },
+    "src/unifier/runtime.py": {
+      "kind": "file",
+      "sha256": "e1dfcf2ee0a1ec22acdcf67910105c8d889b00f85043b9fdf28ed02e10333040"
+    },
+    "src/unifier/screencast.py": {
+      "kind": "file",
+      "sha256": "edeaa41ef84435c77fa76dae86e9fe3107d80eabb91ac77dde05a9a54181ba9f"
+    },
+    "src/unifier/service.py": {
+      "kind": "file",
+      "sha256": "847692d5d3bf44fb8c571796c62ed8bf568f52c2878ec0e34f67850e18a8447f"
+    },
+    "src/unifier/share_label.py": {
+      "kind": "file",
+      "sha256": "27121400e19b7e3611557e09abf44b4dee0dd3a33ff908402f1abf9a8720dc29"
+    },
+    "src/unifier/shortcuts.py": {
+      "kind": "file",
+      "sha256": "a2d5020101ea2a983bc321bd43e0a8ac0ab3d8b12278c214e75958b3e1cf4a1c"
+    },
+    "src/unifier/store.py": {
+      "kind": "file",
+      "sha256": "b3dc6486f4fa02325e32a926b4ec91a35299bd521934dfb6e22a21b9334c7418"
+    },
+    "src/unifier/view_backend.py": {
+      "kind": "file",
+      "sha256": "20302b58a73d207822ff356a07243036cd2e7a2801aea462e73f4d0552d17bc4"
+    },
+    "src/unifier/view_backend_legacy.py": {
+      "kind": "file",
+      "sha256": "9b4245280119beac79eafaf5167cc2382d636d198f41bb28ca1ee3d051fa5e85"
+    },
+    "src/unifier/view_broker.py": {
+      "kind": "file",
+      "sha256": "19702664adc70e1c3fd49f35a84f45c75cf759a6e952b5b918d0294284bf6219"
+    },
+    "src/unifier/view_journal.py": {
+      "kind": "file",
+      "sha256": "9820024bc09bd0c0f8ad3ef7755d8310b220ca15f4e5062e179bf172bf40e344"
+    },
+    "src/unifier/views.py": {
+      "kind": "file",
+      "sha256": "80770656f4c7cae98b31fcc61874acf74ac6cb27c087adda327f8678551609cc"
+    },
+    "tests/podman_test_support.py": {
+      "kind": "file",
+      "sha256": "fc32f84deef2b7bf7ebeaf558830bdc497eb0eaefcc81335212afae741b0f61b"
+    },
+    "tests/test_agent_bridge.py": {
+      "kind": "file",
+      "sha256": "a2a806f6934530d68ebbaac0376bcb4579578eecd017ad190f7186edc843e359"
+    },
+    "tests/test_agent_cli.py": {
+      "kind": "file",
+      "sha256": "10142064faac2ac3832097f6f21693cfbbbb834b5d441b3da91a46a2be814121"
+    },
+    "tests/test_app_binding.py": {
+      "kind": "file",
+      "sha256": "ec9a454e65ff99c678a48388556bcd747ea5b74980a490d21f70a55f32031c54"
+    },
+    "tests/test_app_entries.py": {
+      "kind": "file",
+      "sha256": "7fc695fc69937980867784096217d906502feed386339a7201745712c33ba698"
+    },
+    "tests/test_app_user.py": {
+      "kind": "file",
+      "sha256": "487b2aca893749a9098681bb1553bbcf797f7c6383f2d89476adfc5868efd74d"
+    },
+    "tests/test_application_lifecycle.py": {
+      "kind": "file",
+      "sha256": "5de00ed352b6918b2b5aed886f6d50db94d8eac288211030d9e970eeb6e3d926"
+    },
+    "tests/test_application_supervisor.py": {
+      "kind": "file",
+      "sha256": "30bd6de66f7756f1f9734ec07b1ff4c5c72dc0c5a1e00aa2e033a2a11defd486"
+    },
+    "tests/test_atomic_io.py": {
+      "kind": "file",
+      "sha256": "0b3b1c6827c965b901d6120dfcb1497930cf99e2b8fc270d9b4ae31a1d08f57a"
+    },
+    "tests/test_audio_route.py": {
+      "kind": "file",
+      "sha256": "e3cbc5e46c5f97b0f625aaace00ab8026d802f58c85990f69c29e8b2c69e2e4a"
+    },
+    "tests/test_catalog.py": {
+      "kind": "file",
+      "sha256": "e6833626ef4600a2aafe648c2eacae1d62654d5231d18b94f05fecb985892ef2"
+    },
+    "tests/test_cli_guest_paths.py": {
+      "kind": "file",
+      "sha256": "5934c26102e079bdeb45331f11132e99cba25ebd34c11470b7bcf8cd1ed7fe5f"
+    },
+    "tests/test_cli_primary_acceptance.py": {
+      "kind": "file",
+      "sha256": "d0d5429141cdc9654b444c325b9b586915c90b7c03035c29da2e4248e04e9f7b"
+    },
+    "tests/test_cli_shortcuts.py": {
+      "kind": "file",
+      "sha256": "31f5069f926f54d80b69b2f7a345d41a60915080fa9fa2ef54ae1369b6a49dcc"
+    },
+    "tests/test_compatibility.py": {
+      "kind": "file",
+      "sha256": "3ddf0cb62216e580288260cb8f42b35c21a7be30e06496c6bcbe4ab00ad84b46"
+    },
+    "tests/test_controlled_move.py": {
+      "kind": "file",
+      "sha256": "3366b436f782f02e4afcd6c41a597dab4c1e81e272503530a671410c7158b2c3"
+    },
+    "tests/test_data_roots.py": {
+      "kind": "file",
+      "sha256": "479df15b7552f010c869db5d9dfe99ba5aedcaaed01aa7a78f21ab601883f3fb"
+    },
+    "tests/test_dependencies.py": {
+      "kind": "file",
+      "sha256": "078d0693f69869149f6ad20b330be297266288e8bf4fd63d6f57d55c438bb4d9"
+    },
+    "tests/test_dependency_diagnostic_repair.py": {
+      "kind": "file",
+      "sha256": "6068b65151a1f20e932c9b4c740c1dd51819a85f78a9f1e57c8bcd26dff0db0f"
+    },
+    "tests/test_dependency_diagnostics.py": {
+      "kind": "file",
+      "sha256": "dc88564e72ff80a14dde7e9fa9db336d361e4a8f3c6713f2ca91b83ec48bee41"
+    },
+    "tests/test_dependency_evidence.py": {
+      "kind": "file",
+      "sha256": "6b492b518f5f9775b6d5d481a904977750c524b378b96764815848d56f089cd4"
+    },
+    "tests/test_desktop.py": {
+      "kind": "file",
+      "sha256": "dfec79888eed9f71b0e5f76eb826886a5bf2f6e32b6c01198a7d6c6ae240ec30"
+    },
+    "tests/test_desktop_integration.py": {
+      "kind": "file",
+      "sha256": "c839388fdc8e5503b239517e2e9b22d3ee7865e88fd6b1017282cb0c1b5c36be"
+    },
+    "tests/test_desktop_integrations.py": {
+      "kind": "file",
+      "sha256": "80ac86454a06522e49a4c2df9a09a90c118e1599be7eef7de66e99d4a25461b4"
+    },
+    "tests/test_desktop_recovery_authority.py": {
+      "kind": "file",
+      "sha256": "b5374ae4a401c4dd581fdd1b2e74adb139cf060c11e444a230f4cb8418073a1b"
+    },
+    "tests/test_dmabuf_roundtrip.py": {
+      "kind": "file",
+      "sha256": "eb1d210f5ebf809716b26d2b1838548165f9ca42eec3f41ff8d89402ee5042ef"
+    },
+    "tests/test_env.py": {
+      "kind": "file",
+      "sha256": "8ca18970735e3983fd22aadabed13154f9675e1f5a16d30b7cc59224d4bd7ae6"
+    },
+    "tests/test_env_integration.py": {
+      "kind": "file",
+      "sha256": "d72ad423eb86e555d132f096214b8789afd34de7fa5e0943a279f926c64141ad"
+    },
+    "tests/test_exec_control_empty_arguments.py": {
+      "kind": "file",
+      "sha256": "884e3b7e0f86609a14e966e5e1537e54a2f9e5c2aef4f02bdc2500e8191148c4"
+    },
+    "tests/test_file_control.py": {
+      "kind": "file",
+      "sha256": "345fd7ea2d267996930956d589f26979d13c3a35702dfcea24c84b506dbdd27f"
+    },
+    "tests/test_file_operations.py": {
+      "kind": "file",
+      "sha256": "bcfdc85abb8edb476115f6942038428e755fd53e7af1bc6f0c8bf1859ea41bbc"
+    },
+    "tests/test_file_routes.py": {
+      "kind": "file",
+      "sha256": "0be2aca077d5071f1d14dcd7a17c0ec12fbb2d21e472780b368b66488666e95d"
+    },
+    "tests/test_fuse_view.py": {
+      "kind": "file",
+      "sha256": "259841b053f623c7a30a8eef59a8d441090d0e7294ce1efc3dbead213a9c49a0"
+    },
+    "tests/test_guarded_test.py": {
+      "kind": "file",
+      "sha256": "9bd69c5c618bc4ebcc9f4a0777a767c3ff94dcfc54cd8ceaa8cceb099548c22b"
+    },
+    "tests/test_host_authority.py": {
+      "kind": "file",
+      "sha256": "3ee315521c7cd575ef41786e04241b43711d7ebce632b5a6aadd3f02b3c9125e"
+    },
+    "tests/test_identity_migration.py": {
+      "kind": "file",
+      "sha256": "daa1b1ab1b39566538b786fa772893f40c2b4b020b70bdd50d2c7512113caf93"
+    },
+    "tests/test_install_status.py": {
+      "kind": "file",
+      "sha256": "e2876ee0293d875f7557e981b63a536354d57765bbb4e82ffa46e0045fa8a67e"
+    },
+    "tests/test_integration_policy.py": {
+      "kind": "file",
+      "sha256": "2b49696346a0605bd9f38c538899cd06aa4b03046bde3bfe0ed8fc36bd0b461e"
+    },
+    "tests/test_lab.py": {
+      "kind": "file",
+      "sha256": "ca6194c33ad2d1e256ec011a04ad37c2b621172c369363e92e7aee897927081f"
+    },
+    "tests/test_lifecycle_contracts.py": {
+      "kind": "file",
+      "sha256": "db00fbe137a4ea49dc1ebc14e43ff47b1ae8707d93e8fbb2e48d47c7c138b120"
+    },
+    "tests/test_local_package_paths.py": {
+      "kind": "file",
+      "sha256": "02d32f865953946f4fd2c1c9ed4ef8d6186e7695900dbac0123c92779e7f7f11"
+    },
+    "tests/test_native_io.py": {
+      "kind": "file",
+      "sha256": "85a7b4717836035e3a76bc66149e5aeb3afe17ae25785d090be935953e0e934a"
+    },
+    "tests/test_on_demand.py": {
+      "kind": "file",
+      "sha256": "b63c32ce49c2f6f65a19515f6a2d08a9d1125fcafffa1b3e4bd370f0ed02ea4b"
+    },
+    "tests/test_operation_lock.py": {
+      "kind": "file",
+      "sha256": "6cf407e49e246e36dcb9f413e8cdbb1d64f6b84126ba9e99ed335923c4717511"
+    },
+    "tests/test_package_alias.py": {
+      "kind": "file",
+      "sha256": "bde953db04212e2be036f7600bc090d156c2fc27ce7e4a900c4ce57bdc4884bf"
+    },
+    "tests/test_package_coordination.py": {
+      "kind": "file",
+      "sha256": "22c52ba0c04817243e35be402919f3fb46aa5c78bc51c7bd013149b7a4b24061"
+    },
+    "tests/test_package_inventory.py": {
+      "kind": "file",
+      "sha256": "46a92164eb8322bc4ccc0b37cd97612e74ac68990c12f8e833ffad28a06bc6da"
+    },
+    "tests/test_package_observation.py": {
+      "kind": "file",
+      "sha256": "ffc08131c1ba9b5b41619a8c3394907e85bb5e1b82545e9bb4cb65d32fdf7d79"
+    },
+    "tests/test_package_offer.py": {
+      "kind": "file",
+      "sha256": "1dc27193ec2c54db983dc26e4bfded5060969eedf53048649b430cd8dff5d808"
+    },
+    "tests/test_package_recovery.py": {
+      "kind": "file",
+      "sha256": "cc19036690a57561133cf5be50f297332c0b1af258a852035b991c357ee208a5"
+    },
+    "tests/test_packages.py": {
+      "kind": "file",
+      "sha256": "860341ac51d747eb8b921231262ba61b5d9dd59933a2bcade4d7fe2fef0abf10"
+    },
+    "tests/test_pkg_integration.py": {
+      "kind": "file",
+      "sha256": "40cb88f34ec47273ed795bd443e6c01bad549f11d2ef36f81b73eb51ce443fed"
+    },
+    "tests/test_portal_bridge.py": {
+      "kind": "file",
+      "sha256": "d7769919825c4f01e3e924867296b9d1d27eb4a62974cda2d75011d87b8022a2"
+    },
+    "tests/test_project_resize.py": {
+      "kind": "file",
+      "sha256": "e5314d977e40613882c25f8ecf8e78555ba02e9369d91498cdfee5b7aed42092"
+    },
+    "tests/test_project_sessions.py": {
+      "kind": "file",
+      "sha256": "f41b9c4ca14c1165688d928d746aaa384195d0a3a3e19de28b1aee8e29bea1b7"
+    },
+    "tests/test_projection_boundaries.py": {
+      "kind": "file",
+      "sha256": "62211edfc298d87a6570965071f0fcfc92ba4aef48aa81c263010fbfe97b47a6"
+    },
+    "tests/test_projection_controller.py": {
+      "kind": "file",
+      "sha256": "13f7ea1e81348a59091eeb80db1d0d4ab1bf51bff1e93b63f5fa51571ccff113"
+    },
+    "tests/test_projection_directory.py": {
+      "kind": "file",
+      "sha256": "5f6252ad20b123da0cdd8760c36e05b1a464d2588f550611159884e07d7fc517"
+    },
+    "tests/test_projection_fd.py": {
+      "kind": "file",
+      "sha256": "a8327af71d546f9e2869ff2276ce168f6a8c55bc4f6e65b15604eda5a500c0e2"
+    },
+    "tests/test_projection_objects.py": {
+      "kind": "file",
+      "sha256": "957a6e23dce536d257a88b6797afb66629b0f53848ede98510a159067719cd82"
+    },
+    "tests/test_projection_rename.py": {
+      "kind": "file",
+      "sha256": "71a280fed8d83349b6b9b4a40416317ee2e26e8a638b5e7b05eb2ec39f0b0ed2"
+    },
+    "tests/test_projection_support.py": {
+      "kind": "file",
+      "sha256": "4cd37292d3d0977eb2f0d6d1b543540c7fb80d99896380ec9280c62c0c7a53e9"
+    },
+    "tests/test_quality_regressions.py": {
+      "kind": "file",
+      "sha256": "88d85f25816f056bc81ccfcb815ae25f4690f343fd13a64bfddd6cf382017b22"
+    },
+    "tests/test_release_install.py": {
+      "kind": "file",
+      "sha256": "732b7ec0a11666dfe56ad82d0aa1e8e1026b3380f38dc08edb05c37c0c0b65a5"
+    },
+    "tests/test_release_regressions.py": {
+      "kind": "file",
+      "sha256": "b57df49f855242bc96c4dcb7b9f1a567e05e9e32b98141123e6431ecb9ae5e38"
+    },
+    "tests/test_repo_tools.py": {
+      "kind": "file",
+      "sha256": "f0cedc233bae0f66e7ac348c0422edb46d2090e8c10591e53e777ea18bdbc2e8"
+    },
+    "tests/test_resources.py": {
+      "kind": "file",
+      "sha256": "544eb7fac4b8e339f237b9e10d6fe9a647f666004e9d0341a11295d347c1eaf1"
+    },
+    "tests/test_resources_integration.py": {
+      "kind": "file",
+      "sha256": "276f2acd9ab9f2eb46f305a3140b200f9bcef81f9005c0e99b78730ec077ea27"
+    },
+    "tests/test_reuse_guard_policy.py": {
+      "kind": "file",
+      "sha256": "b374206cb0a21c2ba232ef2965af1ac27fd28620e1bbdece05d0a14ba902ae62"
+    },
+    "tests/test_reuse_test_guard.py": {
+      "kind": "file",
+      "sha256": "5210654b358274c593c8ca93f55cfa855fab55e317f7e0ad442663936545fe7a"
+    },
+    "tests/test_root_identity.py": {
+      "kind": "file",
+      "sha256": "9f0fb4e8234d37d4df7cde393a57aad664bb5a7146b2082b1fea758bc921faa8"
+    },
+    "tests/test_runtime_control.py": {
+      "kind": "file",
+      "sha256": "cb4b4b51c484bc8401da86877ddf1b663aeb9ae0dc19184f9ab75c954f66a590"
+    },
+    "tests/test_screencast.py": {
+      "kind": "file",
+      "sha256": "79fc1d36ae7fc3af9945af9ad493d3e56ff574e6e2582347c0d2f9037e5e1caa"
+    },
+    "tests/test_screencast_contract.py": {
+      "kind": "file",
+      "sha256": "c046d579b37503083a53286ad32bb39b317268cd70288830bfdca194c1097b68"
+    },
+    "tests/test_screencast_native.py": {
+      "kind": "file",
+      "sha256": "32297fcb01ec2c160e5dc5ad9baf4385e3cc67aa014582d606147d567bc4f00e"
+    },
+    "tests/test_session_recovery_contract.py": {
+      "kind": "file",
+      "sha256": "5e4c9f5067f9e6ebbb377a3d99ca06dacf427e04d404f1a1c79d6bc6ee3e1319"
+    },
+    "tests/test_session_stopped_recovery.py": {
+      "kind": "file",
+      "sha256": "dcf7e4bca67e990d25e09c99fd50024f9d1fdf8b73923707e37e64e23a6baf2c"
+    },
+    "tests/test_share_label.py": {
+      "kind": "file",
+      "sha256": "6f93078af72fce5a8c0f7d7ee2b182a59af715d5732822fd80a988ce50e537df"
+    },
+    "tests/test_startup_trace.py": {
+      "kind": "file",
+      "sha256": "ed6cbf086b3c12b6265b6c00454dc0244877ceba16c908fcefdda451ea4f1723"
+    },
+    "tests/test_view_backend.py": {
+      "kind": "file",
+      "sha256": "d579fbfceae36380967527725d4d46f072c558f9443d91c7a9608f5e9374ada2"
+    },
+    "tests/test_view_mount_options.py": {
+      "kind": "file",
+      "sha256": "ec4e9861bcb0a2c5239d7f2f31712ddd7dd5fb8e61f818204ef80445522f4845"
+    },
+    "tests/test_views.py": {
+      "kind": "file",
+      "sha256": "06a7438352e25c94276605910d274ee6f65f6f4e82363aeea06d49c58afa1562"
+    },
+    "tests/test_xauthority_mount.py": {
+      "kind": "file",
+      "sha256": "57ad1b131caa969c7dbeddd91385f5a1008bb8c9c2c7a73a342333e361aae68c"
+    },
+    "tools/audio_route.py": {
+      "kind": "file",
+      "sha256": "3b4ee5815bc0397ce05ee774117431ab4d7c112eaadac346adb41886fc227fd2"
+    },
+    "tools/build_release.py": {
+      "kind": "file",
+      "sha256": "5ea1eee84cc58b6ae9f4524aba854a8f0eb1deb7237664330d259cc634097709"
+    },
+    "tools/check_repo.py": {
+      "kind": "file",
+      "sha256": "53d9071b71cc0af3b8761cffb4733ea26a95ba476090283eac64ff4324f90388"
+    },
+    "tools/collect_host_baseline.py": {
+      "kind": "file",
+      "sha256": "03677ad71234be7743a61463b3570952f6b82d5d0f7341ba4fe74f3fa00a3449"
+    },
+    "tools/guarded_test.py": {
+      "kind": "file",
+      "sha256": "3a9027384e6456012c3d4766bd2a71042076ac118b3c0223695f9894f0fc17a0"
+    },
+    "tools/install_unifier.py": {
+      "kind": "file",
+      "sha256": "c7be407b97d22f30917943246dc53139d4b7743d50a09e1fb5e73247db7ec322"
+    },
+    "tools/kwin_window_probe.py": {
+      "kind": "file",
+      "sha256": "9f86ababba6cbb6aa66cc9c48f03cce1c15e7573c1acb243f89f54a3682e0161"
+    },
+    "tools/lab.py": {
+      "kind": "file",
+      "sha256": "82df3a0393f482778d6a6257315e0ffb12bcb423db806ae28f06c3a85ee084fb"
+    },
+    "tools/ml.py": {
+      "kind": "symlink",
+      "target": "unifier.py"
+    },
+    "tools/prepare_concurrency.py": {
+      "kind": "file",
+      "sha256": "3fd9057ccdafb24a42aa0e2bac4e505725f6438b68e2cd6acaa378eb2be91571"
+    },
+    "tools/prepare_install_status.py": {
+      "kind": "file",
+      "sha256": "5774d0ded94cb08829d94084245c869a706245fe978022e0c4ec76d65233064c"
+    },
+    "tools/prepare_lifecycle.py": {
+      "kind": "file",
+      "sha256": "c8e3bcc6a8568fcdd8642bb7809e2ddc61b5fc99295d017f87048a00d73e1ece"
+    },
+    "tools/prepare_startup.py": {
+      "kind": "file",
+      "sha256": "0fe52c69bef7f2b1ae3feb50b9e70840e4d132bf12a737b3c01852ddeccdb7e0"
+    },
+    "tools/probe_arch_complex.py": {
+      "kind": "file",
+      "sha256": "45f71dc720add7be1e44f60100bd1ff628d0f2f32a528ced6668dec716d969cc"
+    },
+    "tools/probe_concurrency.py": {
+      "kind": "file",
+      "sha256": "a0f3283beb1594bff764e791378db5f00ce66c432c409883c1e6292bbe4c46fb"
+    },
+    "tools/probe_desktop_apps.py": {
+      "kind": "file",
+      "sha256": "16a6ce2f11b7c4eb62b4ecdb49c89de6517603d3b30f12d575c309f010abeb63"
+    },
+    "tools/probe_desktop_protocols.py": {
+      "kind": "file",
+      "sha256": "a711b4b6c05db1f86cb01b6e082367f7f5e104ed549487a023a6732663c77ab6"
+    },
+    "tools/probe_file_sharing.py": {
+      "kind": "file",
+      "sha256": "e90d11e9e4d14ede05f5695a58f84bfd660150cf788293b430c10ec9d3d5ff15"
+    },
+    "tools/probe_freecad_macro.py": {
+      "kind": "file",
+      "sha256": "46a948900755dfaa953f983cd7ab27b3a0e34a88fae6941721ce196a566d721b"
+    },
+    "tools/probe_headless.py": {
+      "kind": "file",
+      "sha256": "0d86281bd86af80dddf5a9053253af4aaf954e49681bd754ad4d8e36f8f0324d"
+    },
+    "tools/probe_install_status.py": {
+      "kind": "file",
+      "sha256": "3b0a046f9ea85958b653ba4adfbd05e1a042fb83202d3de59b62ac54f40c353a"
+    },
+    "tools/probe_lifecycle.py": {
+      "kind": "file",
+      "sha256": "275017408393f622f471b719375d05630781641bae123c4146d74efd98e70888"
+    },
+    "tools/probe_resources.py": {
+      "kind": "file",
+      "sha256": "0efe7c61353fb7ba72ccd0e11c7f107566a6a83e23a4888a8f7d423137600d54"
+    },
+    "tools/probe_screencast.py": {
+      "kind": "file",
+      "sha256": "bc7d2845bc939d3cd09d9ec9b25770d9dc639d6132bc6b632bf38b81b6751c5b"
+    },
+    "tools/probe_startup.py": {
+      "kind": "file",
+      "sha256": "30f342d264fb18018ff6898fb286b0e4078cfe4f3b7264bc2c2da8822d74f37c"
+    },
+    "tools/probe_startup_failures.py": {
+      "kind": "file",
+      "sha256": "c188d4c70a7869c7967f3e6655f8c4a2d5efe6bb538c2e8b06db8d9056fbadfd"
+    },
+    "tools/probe_startup_phases.py": {
+      "kind": "file",
+      "sha256": "3deef866db254743e1f8663545f1ea6ca39c11c4bccbe93bbc1d14506c09eee0"
+    },
+    "tools/probe_tencent_meeting.py": {
+      "kind": "file",
+      "sha256": "d1ca551f0488b327d3d6b8ad9c538a704dfc7be4cc44d2f389bb86661a6c1208"
+    },
+    "tools/probe_wayland_media.py": {
+      "kind": "file",
+      "sha256": "d2410991723fca06e6af0280e946895ee38b1080a1ddf2e52d5c2cc5ae68b820"
+    },
+    "tools/reuse_guard_policy.py": {
+      "kind": "file",
+      "sha256": "44b60814e6011e4f709749acb4a338ca588f150cf1b0a0f1b2cb2268618cf3f5"
+    },
+    "tools/reuse_test_guard.py": {
+      "kind": "file",
+      "sha256": "c7b7de0ce17b8a464079efefe74857d6f13cdf089cbe001da278a0054070b8a5"
+    },
+    "tools/run_archived_probe.py": {
+      "kind": "file",
+      "sha256": "77edeef67819ee21e3fc39b4f2b14ce6dd7d3c00626e46da8c4cba1b543ccf48"
+    },
+    "tools/startup_observer.py": {
+      "kind": "file",
+      "sha256": "42743d0bc48f74dc80bfa910c7fc2f35d81a93d0bbcff377892d47c1a3d08461"
+    },
+    "tools/trace_startup_entry.py": {
+      "kind": "file",
+      "sha256": "e0c7174780cd0c43d2266f88c140fccd5c6430d9a3337df312abbc5b922bd683"
+    },
+    "tools/unifier.py": {
+      "kind": "file",
+      "sha256": "09b9f6ab73c144a11835bacd7f6069dd9226aeacb7b91726677041679356bcd2"
+    },
+    "tools/verify_startup_evidence.py": {
+      "kind": "file",
+      "sha256": "a6cb8fbecce5abb037399ad8fdf8e1f407453a324517789382ddb26642657cc4"
+    },
+    "设计/CLI安装管理页-2026-11-07.md": {
+      "kind": "file",
+      "sha256": "5818193bc71bef37ad6f6733846dab1ef49033ef579e0e023cb35877c58395b4"
+    },
+    "设计/CLI首次配置与发行版专用目录-2026-10-29.md": {
+      "kind": "file",
+      "sha256": "b069fe42109d54c526ac6e5261699be58f4432a8ff27b4961c7f5e21e9f59718"
+    },
+    "设计/Ubuntu-Server白名单与容器验收-2026-10-28.md": {
+      "kind": "file",
+      "sha256": "d8726621f3e00faa7fa4d2b35a2577de09e418c1e58d2e2f22cbd738bec328ad"
+    },
+    "设计/Unifier-架构实验定档-2026-10-23.md": {
+      "kind": "file",
+      "sha256": "6b935d972777b88f025d33cc14e5ba327787f0ef76425ab1192fd8b622727820"
+    },
+    "设计/发行版派系白名单与容器关系-2026-10-28.md": {
+      "kind": "file",
+      "sha256": "34bb1231499ce639c3e03720ca404d89433921b54c15bddf6564d3c74f7f5200"
+    },
+    "设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md": {
+      "kind": "file",
+      "sha256": "7129ceaf620d98396b2bc1510630c5f12b93e44a78c730e8e0bcd1daf36077c5"
+    },
+    "设计/腾讯会议跨重启目录身份修复-2026-10-28.md": {
+      "kind": "file",
+      "sha256": "579e0abb2ad36431fa349b97aebb89d5eb65add69f21dbdd73530586a9d1e39a"
+    }
+  }
+}

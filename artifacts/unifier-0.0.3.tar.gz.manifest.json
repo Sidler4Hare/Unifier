@@ -17,11 +17,11 @@
     },
     "HANDOFF.md": {
       "kind": "file",
-      "sha256": "59d5d2f081c1ffb891490e59982db4ee30632e3514c770f06113b24922cab757"
+      "sha256": "8b46884e9c4be9c422ac26541c78ba3d5399259e25a37a826e7d83c787c92427"
     },
     "README.md": {
       "kind": "file",
-      "sha256": "a5fb36275645e38a0490ed91c837df5edc382dbd973ace9edf557cc1423ce686"
+      "sha256": "b2c30ef72bc849755d27e157ca9ce571b0a331104d50d41953af8e3e3f648595"
     },
     "bin/unifier": {
       "kind": "file",
@@ -45,7 +45,7 @@
     },
     "docs/v0.0.3.md": {
       "kind": "file",
-      "sha256": "8509389ea927ee07508983c8ee5dc656b413f37a054776cb12e7eb20c797d2ce"
+      "sha256": "2316af460ab8f77eca613bd7ff3dc1d706099f5f4f97474b5430d2cc0c7dde0d"
     },
     "docs/仓库维护.md": {
       "kind": "file",
@@ -69,7 +69,7 @@
     },
     "docs/布局.md": {
       "kind": "file",
-      "sha256": "89b7ba92b369adcc3112d1dbc21f373feccd19ad75c889ff1de15706160a7e8f"
+      "sha256": "cf2ccc64f8e26d4d1c1489c198acbccef09371a990df67018eff6bb26d7e3d6d"
     },
     "docs/应用执行所有权.md": {
       "kind": "file",
@@ -421,7 +421,7 @@
     },
     "src/unifier/i18n.py": {
       "kind": "file",
-      "sha256": "a18656d771a4b71b92c5c52740922c29f5cf9857e246d1259bd659029dc2d9ed"
+      "sha256": "181d96df65b21d11067cef0b052423066fe2b32f26d6d4e66d8afdfe2ed6802e"
     },
     "src/unifier/identity.py": {
       "kind": "file",
@@ -466,6 +466,10 @@
     "src/unifier/package_inventory.py": {
       "kind": "file",
       "sha256": "974f6c30564bdf92950dd0db8da32e0dcd3c4a835b22cfb6be18c1b5e135fc11"
+    },
+    "src/unifier/package_offer.py": {
+      "kind": "file",
+      "sha256": "8a5d1531461c22389adff28db1ed088f5a2bef4318c70ab14d24d01b5a3a5aed"
     },
     "src/unifier/packages.py": {
       "kind": "file",
@@ -521,7 +525,7 @@
     },
     "src/unifier/shortcuts.py": {
       "kind": "file",
-      "sha256": "0b243c540b2843172388590674ace6e05f25d7b75684dcec46950c7d2388edaa"
+      "sha256": "4a55dc4dd7f27e45bbac1367036daef93393d613c37ed7236e0da371a5afa6f2"
     },
     "src/unifier/store.py": {
       "kind": "file",
@@ -738,6 +742,10 @@
     "tests/test_package_observation.py": {
       "kind": "file",
       "sha256": "ffc08131c1ba9b5b41619a8c3394907e85bb5e1b82545e9bb4cb65d32fdf7d79"
+    },
+    "tests/test_package_offer.py": {
+      "kind": "file",
+      "sha256": "7cdafec052d56bd34a2f19a7ed0a84770d308c316e1c3dcab57873c68cf21ad9"
     },
     "tests/test_package_recovery.py": {
       "kind": "file",
@@ -1018,6 +1026,10 @@
     "tools/verify_startup_evidence.py": {
       "kind": "file",
       "sha256": "a6cb8fbecce5abb037399ad8fdf8e1f407453a324517789382ddb26642657cc4"
+    },
+    "设计/CLI安装管理页-2026-11-07.md": {
+      "kind": "file",
+      "sha256": "5818193bc71bef37ad6f6733846dab1ef49033ef579e0e023cb35877c58395b4"
     },
     "设计/CLI首次配置与发行版专用目录-2026-10-29.md": {
       "kind": "file",

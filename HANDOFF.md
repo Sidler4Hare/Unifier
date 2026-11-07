@@ -6,7 +6,7 @@
 
 ## 接手时先记住
 
-- 2026-11-07 维护：日常入口已切到当前树重新组装的 v0.0.3，目录是 `~/.local/share/unifier-code/releases/0.0.3-9abfa193275c`，`unifier --version` 为 0.0.3。源码包 `artifacts/unifier-0.0.3.tar.gz` 的 SHA-256 是 `9abfa193275c5e56d34f4655328d2afd4171bf268c49622b844de4a273bddae5`。11 月 5 日的旧包字节在 `artifacts/backup/unifier-0.0.3-20261105/`。已安装的 0.0.1 和两份 0.0.2 代码目录移到 `~/.local/share/unifier-code/backup/`，回退链接是 `~/.local/bin/.unifier-0.0.2.rollback`。FreeCAD 与腾讯会议的数据根没动，只把它们的启动包装改到这一版代码。用户数据 `~/.local/share/unifier` 保留。这次切换不是新的实机验收。
+- 2026-11-07 维护：日常入口已切到当前树重新组装的 v0.0.3，目录是 `~/.local/share/unifier-code/releases/0.0.3-892b1623c220`，`unifier --version` 为 0.0.3。源码包 `artifacts/unifier-0.0.3.tar.gz` 的 SHA-256 是 `892b1623c220311d9cd3b770cfcf4236070b8d0fc7bd81f3822d27c20616a032`。11 月 5 日的旧包字节在 `artifacts/backup/unifier-0.0.3-20261105/`。已安装的 0.0.1 和两份 0.0.2 代码目录移到 `~/.local/share/unifier-code/backup/`，回退链接是 `~/.local/bin/.unifier-0.0.2.rollback`。FreeCAD 与腾讯会议的数据根没动，只把它们的启动包装改到这一版代码。用户数据 `~/.local/share/unifier` 保留。这次切换不是新的实机验收。
 
 - 2026-11-06 续测见 [本轮回执](artifacts/expansion-resume-20261106T095650+0800/report.md)。原固定 Debian CID 的最小启动/执行/停止已通过，并取得 init、conmon、pasta 和控制器的汇总 cgroup 证据；完整共享负载仍未通过。真实 APP 路径发现并修复默认空参数被拒绝、客体 HOME 覆盖宿主 Podman 环境两处问题；通过匿名 env-file 传递客体环境，保持宿主客户端配置与凭据 argv 边界。多应用复测被 PSI 保护中止，随后停止态包库探针被控制器子组回收保护提前中止，原始失败/中止锁保留。固定 CID 已停止，正式 app recover 已释放中止执行的租约。当前控制器 192 MiB/64 任务不足，扩大子预算尚未执行；不要把最小样本当作全部 PRE03/SH/DEP 放行。收尾审计 `final-audit.json` 仍是 FAIL，只有索引文件哈希不同；索引树与 HEAD 树一致，说明见该回执的 `index-clarification.json`。END01 操作收尾已记录。2026-11-06 已授权并执行一次 384 MiB 控制器的停止态包库复试，容器启动前再次因回收压力中止，见 `inventory-pilot-384/`。同一保护类不再自动复试。v0.0.3 现有源码包和日常 v0.0.2 安装版均未重建或部署这批修复。
 

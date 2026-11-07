@@ -32,11 +32,22 @@ from unifier.install import (
 from unifier.install_state import InstallState
 from unifier.routing import route_package
 from unifier.native_io import add_package_arguments, package_options
+from unifier.package_offer import (
+    DESKTOP_ID,
+    admission,
+    host_launch_argv,
+    load_state,
+    parse_choice,
+    remove_registration,
+    select_host_desktop,
+    whitelist_formats,
+    write_registration,
+)
 
 
 SHORTCUTS = (
     "init", "configure", "list", "status", "dirs", "path", "ls",
-    "install", "run", "start", "stop", "adopt", "language", "help",
+    "install", "offer", "run", "start", "stop", "adopt", "language", "help",
 )
 GUEST_LIST_SCRIPT = r'''
 set -u
@@ -1800,6 +1811,148 @@ def cmd_language(ctx: Context, argv: list[str]) -> int:
     return 0
 
 
+def _offer_dirs(ctx: Context) -> tuple[Path, Path]:
+    values = ctx.environ if ctx.environ is not None else os.environ
+    data_home = Path(values.get("XDG_DATA_HOME") or (Path.home() / ".local/share"))
+    return data_home / "applications", data_home / "mime"
+
+
+def _query_default(mime: str):
+    import subprocess
+    try:
+        result = subprocess.run(["xdg-mime", "query", "default", mime],
+                                capture_output=True, text=True, timeout=5)
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    name = (result.stdout or "").strip().split(";", 1)[0].strip()
+    from unifier.package_offer import DESKTOP_NAME
+    if result.returncode or not name or name == DESKTOP_ID or not DESKTOP_NAME.fullmatch(name):
+        return None
+    return name
+
+
+def _host_desktop_ids(directories: list[Path]) -> set[str]:
+    found = set()
+    for directory in directories:
+        if not directory.is_dir():
+            continue
+        for path in directory.glob("*.desktop"):
+            if path.is_file():
+                found.add(path.name)
+    return found
+
+
+def _handoff(ctx: Context, path: str, mime: str | None) -> int:
+    import shutil
+    import subprocess
+    state = load_state(ctx.root)
+    saved = (state.get("previous") or {}).get(mime) if mime else None
+    applications, _mime = _offer_dirs(ctx)
+    available = _host_desktop_ids([
+        applications, Path("/usr/local/share/applications"), Path("/usr/share/applications"),
+    ])
+    chosen = select_host_desktop(saved, available)
+    if not chosen:
+        ctx.error(ctx.t("offer.no_handler"))
+        return 1
+    tool = "gio" if shutil.which("gio") else "gtk-launch" if shutil.which("gtk-launch") else None
+    if tool is None:
+        ctx.error(ctx.t("offer.no_handler"))
+        return 1
+    argv = host_launch_argv(chosen, path, tool=tool)
+    subprocess.Popen(argv, start_new_session=True)
+    ctx.print(ctx.t("offer.handoff", handler=chosen))
+    return 0
+
+
+def _refresh_desktop(applications: Path, mime_root: Path) -> None:
+    import subprocess
+    for argv in (["update-desktop-database", str(applications)],
+                 ["update-mime-database", str(mime_root)]):
+        try:
+            subprocess.run(argv, capture_output=True, text=True, timeout=30)
+        except (OSError, subprocess.TimeoutExpired):
+            continue
+
+
+def cmd_offer(ctx: Context, argv: list[str], *, facts=None, handoff=None) -> int:
+    parser = _Parser(prog="unifier offer")
+    parser.add_argument("file", nargs="?")
+    parser.add_argument("--yes", action="store_true")
+    parser.add_argument("--host", action="store_true")
+    parser.add_argument("--setup", action="store_true")
+    parser.add_argument("--remove", action="store_true")
+    parser.add_argument("--json", action="store_true")
+    args = parser.parse_args(argv)
+    modes = [args.yes, args.host, args.setup, args.remove]
+    if sum(bool(item) for item in modes) > 1:
+        raise UnifierError(ctx.t("error.arguments", detail="choose only one of --yes, --host, --setup, --remove"))
+    from unifier.compatibility import observe_host
+    facts = facts or observe_host()
+    handoff = handoff or _handoff
+    applications, mime_root = _offer_dirs(ctx)
+    if args.setup or args.remove:
+        if args.remove:
+            remove_registration(ctx.root, applications, mime_root)
+            _refresh_desktop(applications, mime_root)
+            ctx.print(ctx.t("offer.removed"))
+            return 0
+        formats = whitelist_formats(facts)
+        if not formats:
+            ctx.print(ctx.t("offer.nothing"))
+            return 0
+        write_registration(ctx.root, applications, mime_root, facts=facts,
+                           launcher=str(launcher_path()), query_default=_query_default)
+        _refresh_desktop(applications, mime_root)
+        ctx.print(ctx.t("offer.registered", formats=", ".join(formats)))
+        return 0
+    if not args.file:
+        raise UnifierError(ctx.t("error.arguments", detail="a package file is required"))
+    try:
+        route = route_package(args.file, ctx.catalog()[0]["targets"])
+    except UnifierError as exc:
+        raise UnifierError(ctx.t("install.package_error", detail=str(exc))) from exc
+    decision = admission(route, facts)
+    mime = None
+    from unifier.package_offer import FORMAT_MIMES
+    if route["format"] in FORMAT_MIMES:
+        mime = FORMAT_MIMES[route["format"]][0]
+    if not decision["enter"]:
+        key = "offer.host_native" if decision["reason"] == "host-native" else "offer.outside"
+        ctx.print(ctx.t(key))
+        if args.json:
+            _emit(ctx, {"schema_version": 1, "enter": False, **decision, "path": route["path"]})
+        return handoff(ctx, route["path"], mime)
+    if args.host:
+        return handoff(ctx, route["path"], mime)
+    if args.yes:
+        return cmd_install(ctx, [route["path"]])
+    if not ctx.is_tty():
+        raise UnifierError(ctx.t("offer.noninteractive"))
+    ctx.print(ctx.t("offer.title"))
+    ctx.print(ctx.t("offer.file", name=Path(route["path"]).name))
+    ctx.print(ctx.t("offer.format", format=route["format"]))
+    ctx.print(ctx.t("offer.target", targets=", ".join(decision["targets"])))
+    ctx.print(ctx.t("offer.choice_y"))
+    ctx.print(ctx.t("offer.choice_n"))
+    ctx.print(ctx.t("offer.prompt"))
+    try:
+        answer = ctx.ask("")
+    except EOFError as exc:
+        raise UnifierError(ctx.t("error.eof")) from exc
+    try:
+        choice = parse_choice(answer)
+    except UnifierError as exc:
+        raise UnifierError(ctx.t("offer.bad_choice")) from exc
+    if choice == "host":
+        return handoff(ctx, route["path"], mime)
+    return cmd_install(ctx, [route["path"]])
+
+
+def launcher_path():
+    return Path(__file__).resolve().parents[2] / "bin" / "unifier"
+
+
 def _wants_help(argv: list[str]) -> bool:
     head = argv[:argv.index("--")] if "--" in argv else argv
     return any(item in {"-h", "--help"} for item in head[1:])
@@ -1840,6 +1993,7 @@ def main(argv: list[str], *, context: Context | None = None,
         "path": cmd_path,
         "ls": cmd_ls,
         "install": cmd_install,
+        "offer": cmd_offer,
         "run": cmd_run,
         "start": cmd_start,
         "stop": cmd_stop,
@@ -1985,6 +2139,20 @@ _HELP = {
                ],
                ["unifier install ./software.deb --exec /usr/bin/freecad",
                 "unifier install --target arch freecad --exec /usr/bin/freecad"]),
+    },
+    "offer": {
+        "zh-CN": ("unifier offer FILE | --setup | --remove",
+                  [("--yes", "不询问，直接用 Unifier 安装。仅白名单跨派系包有效。"),
+                   ("--host", "不询问，交给宿主原来的打开方式。"),
+                   ("--setup", "登记外来包的双击入口。宿主自己的包格式不登记。"),
+                   ("--remove", "恢复登记前的宿主打开方式。")],
+                  ["unifier offer ./软件.deb", "unifier offer --setup"]),
+        "en": ("unifier offer FILE | --setup | --remove",
+               [("--yes", "skip the question and install with Unifier. Only a cross-family whitelist package is accepted."),
+                ("--host", "skip the question and hand the file to the host opener."),
+                ("--setup", "register the double-click entry for foreign packages. The host's own format is not registered."),
+                ("--remove", "restore the host openers saved before registration.")],
+               ["unifier offer ./software.deb", "unifier offer --setup"]),
     },
     "run": {
         "zh-CN": ("unifier run [--target TARGET] APP [-- ARGS]",
