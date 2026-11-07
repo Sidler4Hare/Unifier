@@ -1,0 +1,6 @@
+{
+  "pid": 583652,
+  "starttime": "38677710",
+  "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+  "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1107-bincheck-work.service"
+}

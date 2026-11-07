@@ -1,0 +1,331 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "id": "DEP01",
+      "status": "PASS",
+      "evidence": {
+        "recheck": "0002000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7fdf39aec000-7fdf39aed000 rw-p 00003000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n",
+        "version": "0.1.11-2"
+      }
+    },
+    {
+      "id": "DEP02",
+      "status": "PASS",
+      "evidence": {
+        "recheck": "00:56 4756935                    /usr/lib/x86_64-linux-gnu/libfastjson.so.4.3.0\n7fac276a1000-7fac276a2000 rw-p 0000d000 00:56 4756935                    /usr/lib/x86_64-linux-gnu/libfastjson.so.4.3.0\n"
+      }
+    },
+    {
+      "id": "DEP03",
+      "status": "PASS",
+      "evidence": {
+        "repair": {
+          "id": "txn19b8da0fcb6f",
+          "phase": "completed",
+          "failure_phase": null,
+          "native_error": null,
+          "verification": {
+            "ok": true,
+            "packages": {
+              "unifier-round1107c": true
+            },
+            "command": null,
+            "command_exit_code": null,
+            "stdout_preview": null,
+            "stdout_sha256": null,
+            "problems": []
+          },
+          "repair_status": "repaired",
+          "repair_installed": [
+            "libconfig11"
+          ],
+          "repair_unresolved": [],
+          "started_at": "2026-11-07T22:15:07+08:00",
+          "finished_at": "2026-11-07T22:15:21+08:00"
+        },
+        "scanned": [
+          "/usr/bin/unifier-round1107c",
+          "/usr/lib/unifier-round1107c/plugin.so",
+          "/usr/lib/x86_64-linux-gnu/libconfig.so.11",
+          "/usr/lib/x86_64-linux-gnu/libconfig.so.11.1.0"
+        ],
+        "oracle": "ok 1107"
+      }
+    },
+    {
+      "id": "DEP04",
+      "status": "PASS",
+      "evidence": {
+        "version": "0.1.11-2",
+        "transaction": {
+          "id": "txn30e14d5cdcdb",
+          "phase": "completed",
+          "failure_phase": null,
+          "native_error": null,
+          "verification": {
+            "ok": true,
+            "packages": {
+              "unifier-round1107e": true
+            },
+            "command": [
+              "/usr/bin/unifier-round1107e"
+            ],
+            "command_exit_code": 0,
+            "stdout_preview": "ok\n7ff73b995000-7ff73b996000 r--p 00000000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7ff73b996000-7ff73b997000 r-xp 00001000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7ff73b997000-7ff73b998000 r--p 00002000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7ff73b998000-7ff73b999000 r--p 00002000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7ff73b999000-7ff73b99a000 rw-p 00",
+            "stdout_sha256": "e6154032e2e490a7b449e7e2eeafad88eaf0a75886452e0073e07d42148a883a",
+            "problems": []
+          },
+          "repair_status": "not-requested",
+          "repair_installed": null,
+          "repair_unresolved": null,
+          "started_at": "2026-11-07T22:15:21+08:00",
+          "finished_at": "2026-11-07T22:15:28+08:00"
+        },
+        "load_a": "/libestr.so.0.0.0\n7f8fdab2d000-7f8fdab2e000 r--p 00002000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7f8fdab2e000-7f8fdab2f000 rw-p 00003000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n",
+        "load_e": "/libestr.so.0.0.0\n7efe06825000-7efe06826000 r--p 00002000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7efe06826000-7efe06827000 rw-p 00003000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n"
+      }
+    },
+    {
+      "id": "DEP05",
+      "status": "PASS",
+      "evidence": {
+        "repairs": [
+          {
+            "id": "txn6a07ec1fd30e",
+            "phase": "completed",
+            "failure_phase": null,
+            "native_error": null,
+            "verification": {
+              "ok": true,
+              "packages": {
+                "unifier-round1107a": true,
+                "unifier-round1107e": true
+              },
+              "command": null,
+              "command_exit_code": null,
+              "stdout_preview": null,
+              "stdout_sha256": null,
+              "problems": []
+            },
+            "repair_status": "no-missing-elf-dependencies",
+            "repair_installed": [],
+            "repair_unresolved": [],
+            "started_at": "2026-11-07T22:15:29+08:00",
+            "finished_at": "2026-11-07T22:15:32+08:00"
+          },
+          {
+            "id": "txn7912c56064e3",
+            "phase": "completed",
+            "failure_phase": null,
+            "native_error": null,
+            "verification": {
+              "ok": true,
+              "packages": {
+                "unifier-round1107a": true,
+                "unifier-round1107e": true
+              },
+              "command": null,
+              "command_exit_code": null,
+              "stdout_preview": null,
+              "stdout_sha256": null,
+              "problems": []
+            },
+            "repair_status": "no-missing-elf-dependencies",
+            "repair_installed": [],
+            "repair_unresolved": [],
+            "started_at": "2026-11-07T22:15:32+08:00",
+            "finished_at": "2026-11-07T22:15:35+08:00"
+          }
+        ]
+      }
+    },
+    {
+      "id": "DEP06",
+      "status": "PASS",
+      "evidence": {
+        "remove": {
+          "id": "txnaf6d6cd52ad1",
+          "phase": "completed",
+          "failure_phase": null,
+          "native_error": null,
+          "verification": {
+            "ok": true,
+            "packages": {
+              "unifier-round1107a": false
+            },
+            "command": [
+              "/usr/bin/unifier-round1107a"
+            ],
+            "command_exit_code": 127,
+            "stdout_preview": "",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "problems": []
+          },
+          "repair_status": "not-requested",
+          "repair_installed": null,
+          "repair_unresolved": null,
+          "started_at": "2026-11-07T22:15:35+08:00",
+          "finished_at": "2026-11-07T22:15:39+08:00"
+        },
+        "survivor": "/libestr.so.0.0.0\n7f7c863eb000-7f7c863ec000 r--p 00002000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7f7c863ec000-7f7c863ed000 rw-p 00003000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n",
+        "version": "0.1.11-2"
+      }
+    },
+    {
+      "id": "DEP08",
+      "status": "PASS",
+      "evidence": {
+        "static": {
+          "id": "txnb29fb76ac31f",
+          "phase": "completed",
+          "failure_phase": null,
+          "native_error": null,
+          "verification": {
+            "ok": true,
+            "packages": {
+              "unifier-round1107h": true
+            },
+            "command": null,
+            "command_exit_code": null,
+            "stdout_preview": null,
+            "stdout_sha256": null,
+            "problems": []
+          },
+          "repair_status": "no-missing-elf-dependencies",
+          "repair_installed": [],
+          "repair_unresolved": [],
+          "started_at": "2026-11-07T22:15:47+08:00",
+          "finished_at": "2026-11-07T22:15:50+08:00"
+        },
+        "hinted": {
+          "id": "txnf46315b0fe9f",
+          "phase": "completed",
+          "failure_phase": null,
+          "native_error": null,
+          "verification": {
+            "ok": true,
+            "packages": {},
+            "command": null,
+            "command_exit_code": null,
+            "stdout_preview": null,
+            "stdout_sha256": null,
+            "problems": []
+          },
+          "repair_status": "repaired",
+          "repair_installed": [
+            "libcapstone5"
+          ],
+          "repair_unresolved": [],
+          "started_at": "2026-11-07T22:15:51+08:00",
+          "finished_at": "2026-11-07T22:16:05+08:00"
+        },
+        "pre_exit": 1,
+        "oracle": "ok /lib/x86_64-linux-gnu/libcapstone.so.5"
+      }
+    },
+    {
+      "id": "SH09",
+      "status": "PASS",
+      "evidence": {
+        "first": {
+          "id": "txn3390a8a2a61f",
+          "phase": "completed",
+          "failure_phase": null,
+          "native_error": null,
+          "verification": {
+            "ok": true,
+            "packages": {
+              "unifier-round1107p": true
+            },
+            "command": null,
+            "command_exit_code": null,
+            "stdout_preview": null,
+            "stdout_sha256": null,
+            "problems": []
+          },
+          "repair_status": "not-requested",
+          "repair_installed": null,
+          "repair_unresolved": null,
+          "started_at": "2026-11-07T22:16:06+08:00",
+          "finished_at": "2026-11-07T22:16:14+08:00"
+        },
+        "second": {
+          "id": "txnd3a901a3eab2",
+          "phase": "completed",
+          "failure_phase": null,
+          "native_error": null,
+          "verification": {
+            "ok": true,
+            "packages": {
+              "unifier-round1107q": true
+            },
+            "command": null,
+            "command_exit_code": null,
+            "stdout_preview": null,
+            "stdout_sha256": null,
+            "problems": []
+          },
+          "repair_status": "not-requested",
+          "repair_installed": null,
+          "repair_unresolved": null,
+          "started_at": "2026-11-07T22:16:14+08:00",
+          "finished_at": "2026-11-07T22:16:23+08:00"
+        },
+        "heartbeat_before": 1,
+        "heartbeat_after": 86
+      }
+    },
+    {
+      "id": "DEP11",
+      "status": "FEATURE_GAP",
+      "evidence": {
+        "gio": "",
+        "note": "ELF repair does not install missing external commands"
+      }
+    },
+    {
+      "id": "DEP07",
+      "status": "BLOCKED",
+      "evidence": {
+        "reason": "no signed private fixture repository"
+      }
+    },
+    {
+      "id": "DEP13",
+      "status": "BLOCKED",
+      "evidence": {
+        "reason": "an interrupted apt database on the only fixed Debian CID is not a safe recover fixture"
+      }
+    },
+    {
+      "id": "SH10",
+      "status": "BLOCKED",
+      "evidence": {
+        "reason": "private Writer workflow was not started on the active desktop"
+      }
+    },
+    {
+      "id": "AR01",
+      "status": "BLOCKED",
+      "evidence": {
+        "reason": "fixed Arch CID has no admitted RAM/CPU quota"
+      }
+    },
+    {
+      "id": "AR02",
+      "status": "BLOCKED",
+      "evidence": {
+        "reason": "fixed Arch CID has no admitted RAM/CPU quota"
+      }
+    },
+    {
+      "id": "AR03",
+      "status": "BLOCKED",
+      "evidence": {
+        "reason": "fixed Arch CID has no admitted RAM/CPU quota"
+      }
+    }
+  ],
+  "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45"
+}

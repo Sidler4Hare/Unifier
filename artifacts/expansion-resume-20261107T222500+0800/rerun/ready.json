@@ -1,0 +1,33 @@
+{
+  "monitor": {
+    "pid": 587946,
+    "starttime": "38719120",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-resume-1107-fix2-guard.service"
+  },
+  "worker": {
+    "pid": 588035,
+    "starttime": "38722133",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1107-fix2-work.service"
+  },
+  "aggregate": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice",
+  "aggregate_limits": {
+    "memory.max": "1073741824",
+    "memory.swap.max": "134217728",
+    "pids.max": "256",
+    "cpu.max": "100000 100000"
+  },
+  "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "controller_budget": {
+    "memory_max": 402653184,
+    "memory_high": 301989888,
+    "tasks_max": 128
+  },
+  "controller_limits": {
+    "memory_max": 402653184,
+    "memory_high": 301989888,
+    "memory_swap_max": 0,
+    "tasks_max": 128
+  }
+}

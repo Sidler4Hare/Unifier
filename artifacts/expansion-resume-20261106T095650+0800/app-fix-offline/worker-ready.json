@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "pid": 420245,
+    "starttime": "25712215",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-resume-1106-appfix-work.service"
+  },
+  "limits": {
+    "memory.max": "536870912",
+    "memory.high": "402653184",
+    "memory.swap.max": "0",
+    "pids.max": "96",
+    "cpu.max": "100000 100000"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "scope": "one fixed stopped Debian inventory adapter; same-root peer branch is still BLOCKED",
+  "observation": {
+    "status": "supported",
+    "reason": null,
+    "binding": {
+      "environment_id": "debian13",
+      "environment_uuid": "ae147c3e-3e65-41ac-ac8d-9257c9202696",
+      "generation": 1,
+      "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45"
+    },
+    "target": "debian13",
+    "database": "dpkg",
+    "method": "locked-stopped-database",
+    "observed_at": "2026-11-07T13:42:27.354755+00:00",
+    "consistency": {
+      "native_lock": "dpkg-posix-shared",
+      "pending_updates": false,
+      "database_bytes": 613608,
+      "status_sha256": "2d55c0ed2d5ebacc79c46392430e2e7d29cb54a026613a57cf63123d90bbd427",
+      "scope": "stopped container; cooperative native writers only",
+      "storage_reference_token": "8f2c60aa93768786c6d0a53b82971ad8",
+      "container_state": {
+        "started_at": "2026-11-07T21:40:00.301777157+08:00",
+        "finished_at": "2026-11-07T21:40:02.274985585+08:00",
+        "status": "exited",
+        "mounts": [
+          {
+            "Type": "bind",
+            "Source": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/guarded-expansion-20261103/shared",
+            "Destination": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/guarded-expansion-20261103/shared",
+            "Driver": "",
+            "Mode": "",
+            "Options": [
+              "rbind"
+            ],
+            "RW": true,
+            "Propagation": "rprivate"
+          }
+        ]
+      }
+    },
+    "sha256": "3b2a5e425313f173274b42582d65573ea79bdfdccf41d4ef7fb6be931acf2cdf"
+  },
+  "storage_journal": {
+    "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+    "owner_pid": 573699,
+    "schema_version": 1,
+    "state": "released",
+    "token": "8f2c60aa93768786c6d0a53b82971ad8",
+    "updated_at": 1794058947.4364772
+  },
+  "equal": true,
+  "native_exit": 0,
+  "package_count": 670,
+  "native_sha256": "3b2a5e425313f173274b42582d65573ea79bdfdccf41d4ef7fb6be931acf2cdf"
+}

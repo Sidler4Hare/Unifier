@@ -1,0 +1,11 @@
+{
+  "Id": "unifier-resume-1107-fixtures-work.service",
+  "ActiveState": "active",
+  "InvocationID": "4b59925f74cb4f6582bf3afd9e2c2db9",
+  "MainPID": "584667",
+  "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1107-fixtures-work.service",
+  "CPUQuotaPerSecUSec": "1s",
+  "MemoryMax": "402653184",
+  "MemorySwapMax": "0",
+  "TasksMax": "128"
+}

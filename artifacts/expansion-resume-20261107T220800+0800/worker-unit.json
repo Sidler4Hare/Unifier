@@ -1,0 +1,11 @@
+{
+  "Id": "unifier-resume-1107-depcase-work.service",
+  "ActiveState": "active",
+  "InvocationID": "05ea030e1c884f82bafd7e11a1290d62",
+  "MainPID": "578931",
+  "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1107-depcase-work.service",
+  "CPUQuotaPerSecUSec": "1s",
+  "MemoryMax": "402653184",
+  "MemorySwapMax": "0",
+  "TasksMax": "128"
+}

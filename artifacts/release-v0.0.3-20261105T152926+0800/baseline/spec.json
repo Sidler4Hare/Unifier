@@ -1,0 +1,12 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-v003-baseline-20261105t152926",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 300,
+  "private_root": "/tmp/unifier-v003-20261105/baseline",
+  "command": [
+    "/usr/bin/python3",
+    "tools/check_repo.py"
+  ]
+}

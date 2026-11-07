@@ -1,0 +1,22 @@
+{
+  "monitor": {
+    "pid": 410792,
+    "starttime": "19411964",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-minimum-guard.service"
+  },
+  "worker": {
+    "pid": 410896,
+    "starttime": "19414991",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-accept-161115-minimum-work.service"
+  },
+  "aggregate": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice",
+  "aggregate_limits": {
+    "memory.max": "1073741824",
+    "memory.swap.max": "134217728",
+    "pids.max": "256",
+    "cpu.max": "100000 100000"
+  },
+  "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45"
+}

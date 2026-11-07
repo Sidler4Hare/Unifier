@@ -1,0 +1,59 @@
+{
+  "status": "FAIL",
+  "cases": [
+    {
+      "id": "TOOLCHAIN",
+      "status": "FAIL",
+      "evidence": {
+        "id": "txndc409242e448",
+        "phase": "failed",
+        "verdict": "failed",
+        "failure_phase": "runtime",
+        "native_error": "native package command timed out; inspect package state before retrying",
+        "verification": {
+          "ok": false,
+          "packages": {
+            "gcc": false,
+            "binutils": false,
+            "dpkg-dev": false,
+            "apt-file": false
+          },
+          "command": null,
+          "command_exit_code": null,
+          "stdout_preview": null,
+          "stdout_sha256": null,
+          "problems": [
+            "runtime failed"
+          ]
+        },
+        "repair_status": "not-requested",
+        "repair_installed": null,
+        "repair_unresolved": null,
+        "started_at": "2026-11-07T21:55:40+08:00",
+        "finished_at": "2026-11-07T22:00:59+08:00",
+        "native_argv": [
+          [
+            "apt-get",
+            "update"
+          ],
+          [
+            "apt-get",
+            "install",
+            "-y",
+            "gcc",
+            "binutils",
+            "dpkg-dev",
+            "apt-file"
+          ]
+        ],
+        "native_exits": [
+          0,
+          15
+        ]
+      }
+    }
+  ],
+  "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "error": "toolchain install did not complete",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261107T220800+0800/driver.py\", line 123, in <module>\n    raise RuntimeError(\"toolchain install did not complete\")\nRuntimeError: toolchain install did not complete\n"
+}

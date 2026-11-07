@@ -1,0 +1,4 @@
+{
+  "returncode": 0,
+  "stderr": "Running as unit: unifier-resume-1107-depcase-guard.service\n          Finished with result: success\nMain processes terminated with: code=exited, status=0/SUCCESS\n               Service runtime: 5min 50.321s\n             CPU time consumed: 2.828s\n                   Memory peak: 28.2M (swap: 0B)\n"
+}

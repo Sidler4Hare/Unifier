@@ -1,0 +1,59 @@
+Reproduced old client HOME pollution with the same regression.
+Checking working tree
+PASS Python syntax: 221 files
+PASS legacy module aliases: 42
+PASS five CLI entry points
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnef6cda1fc329
+fedora44: dnf install -y hello
+fedora44: install completed txnc819304e7270
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn7781fd3c392e
+refusing to overwrite an unknown file: /tmp/urfinal1106/tmp/tmp508gd5z8/unifier
+use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnd0abb2a82300
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn486d9ed9de74
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txne6f949ef5c46
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnc5d11c605aa4
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn07df5db1bd3a
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn85f94d5da25d
+fedora44: dnf install -y hello
+fedora44: install completed txn1932f219d185
+unifier: remove deletes the environment's writable root; pass --yes
+removed demo
+/usr/lib64/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=427830) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+/usr/lib64/python3.14/site-packages/gi/overrides/__init__.py:159: PyGIDeprecationWarning: GLib.unix_signal_add_full is deprecated; use GLibUnix.signal_add_full instead
+  value = getattr(proxy, attr)
+----------------------------------------------------------------------
+Ran 832 tests in 60.704s
+
+OK (skipped=5)
+PASS repository check
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261106T095650+0800/final-validation/audit.py", line 21, in <module>
+    lease=json.loads((project/'.lab/leases'/(eid+'.json')).read_text())
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib64/python3.14/pathlib/__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031/.lab/leases/deps-arch.json'

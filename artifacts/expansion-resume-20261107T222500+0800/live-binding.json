@@ -1,0 +1,125 @@
+{
+  "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "started_at": "2026-11-07T22:11:25.707519577+08:00",
+  "init": {
+    "pid": 584729,
+    "starttime": "38701081",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope/container"
+  },
+  "scope": {
+    "Id": "libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope",
+    "ActiveState": "active",
+    "InvocationID": "a8c28134bce546ffb7bf23be5a0e50d2",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope",
+    "CPUQuotaPerSecUSec": "1s",
+    "MemoryMax": "805306368",
+    "MemorySwapMax": "939524096",
+    "TasksMax": "192"
+  },
+  "coverage_verified": true,
+  "conmon": {
+    "pid": 584726,
+    "starttime": "38701080",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1107-fixtures-work.service"
+  },
+  "guest_limits": {
+    "memory.max": 805306368,
+    "memory.swap.max": 134217728,
+    "pids.max": 192,
+    "cpu.max": {
+      "quota": 100000,
+      "period": 100000
+    },
+    "chain": [
+      {
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope/container",
+        "limits": {
+          "memory.max": "805306368",
+          "memory.swap.max": "134217728",
+          "pids.max": "192",
+          "cpu.max": "100000 100000"
+        }
+      },
+      {
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope",
+        "limits": {
+          "memory.max": "805306368",
+          "memory.swap.max": "939524096",
+          "pids.max": "192",
+          "cpu.max": "100000 100000"
+        }
+      },
+      {
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice",
+        "limits": {
+          "memory.max": "1073741824",
+          "memory.swap.max": "134217728",
+          "pids.max": "256",
+          "cpu.max": "100000 100000"
+        }
+      }
+    ]
+  },
+  "aggregate_processes": [
+    {
+      "pid": 584729,
+      "starttime": "38701081",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope/container",
+      "comm": "podman-init"
+    },
+    {
+      "pid": 584745,
+      "starttime": "38701085",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope/container",
+      "comm": "sleep"
+    },
+    {
+      "pid": 584667,
+      "starttime": "38701038",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1107-fixtures-work.service",
+      "comm": "python3"
+    },
+    {
+      "pid": 584669,
+      "starttime": "38701043",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1107-fixtures-work.service",
+      "comm": "podman"
+    },
+    {
+      "pid": 584676,
+      "starttime": "38701048",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1107-fixtures-work.service",
+      "comm": "python3"
+    },
+    {
+      "pid": 584726,
+      "starttime": "38701080",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1107-fixtures-work.service",
+      "comm": "conmon"
+    },
+    {
+      "pid": 584741,
+      "starttime": "38701084",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1107-fixtures-work.service",
+      "comm": "pasta.avx2"
+    }
+  ],
+  "network_helpers": [
+    {
+      "pid": 584741,
+      "starttime": "38701084",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1107-fixtures-work.service"
+    }
+  ],
+  "network_namespace_path": "/run/user/1000/netns/netns-0a329b5e-eb9c-b805-8a6e-ca3235085cde"
+}

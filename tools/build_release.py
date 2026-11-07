@@ -32,7 +32,7 @@ def build(output: Path) -> dict:
         paths.extend(p for p in (ROOT / directory).rglob("*")
                      if (p.is_file() or p.is_symlink()) and "__pycache__" not in p.parts
                      and p.suffix != ".pyc")
-    paths.extend(ROOT / p for p in ("README.md", "HANDOFF.md", ".gitignore", ".gitattributes"))
+    paths.extend(ROOT / p for p in ("README.md", "HANDOFF.md", "AGENTS.md", ".gitignore", ".gitattributes"))
     manifest = {"schema_version": 1, "version": __version__, "source_kind": "working-tree", "files": {}}
     snapshots = {}
     for path in sorted(paths):

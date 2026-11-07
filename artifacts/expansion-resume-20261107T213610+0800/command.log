@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261106T095650+0800/shared-cli-envfix/driver.py", line 112, in <module>
+    a=launch('A','shared1');sa=ready(a);cold=info(config)['State']['StartedAt']
+                               ~~~~~^^^
+  File "/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261106T095650+0800/shared-cli-envfix/driver.py", line 78, in ready
+    return until(lambda:state(child))
+  File "/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261106T095650+0800/shared-cli-envfix/driver.py", line 57, in until
+    raise RuntimeError('bounded oracle wait expired')
+RuntimeError: bounded oracle wait expired

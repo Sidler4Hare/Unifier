@@ -1,0 +1,48 @@
+PASS bundle manifest: 255 entries
+Checking working tree
+PASS Python syntax: 216 files
+PASS legacy module aliases: 42
+PASS five CLI entry points
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnb2f2ae871d2f
+fedora44: dnf install -y hello
+fedora44: install completed txnde0e0925f4e8
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn4b393fadbde6
+refusing to overwrite an unknown file: /tmp/u3p-152926/tmp/tmpsmr29pwa/unifier
+use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn56b091fe84d1
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn1a961fb42724
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txnaa79fa29e93e
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn719649822d02
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn73d248204635
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txne37209200cee
+fedora44: dnf install -y hello
+fedora44: install completed txn9b7183fd5aaf
+unifier: remove deletes the environment's writable root; pass --yes
+removed demo
+/usr/lib64/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=400447) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+/usr/lib64/python3.14/site-packages/gi/overrides/__init__.py:159: PyGIDeprecationWarning: GLib.unix_signal_add_full is deprecated; use GLibUnix.signal_add_full instead
+  value = getattr(proxy, attr)
+----------------------------------------------------------------------
+Ran 802 tests in 66.084s
+
+OK (skipped=5)
+PASS repository check

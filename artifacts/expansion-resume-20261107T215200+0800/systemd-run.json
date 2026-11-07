@@ -1,0 +1,4 @@
+{
+  "returncode": 0,
+  "stderr": "Running as unit: unifier-resume-1107-inv-guard.service\n          Finished with result: success\nMain processes terminated with: code=exited, status=0/SUCCESS\n               Service runtime: 32.919s\n             CPU time consumed: 331ms\n                   Memory peak: 25.4M (swap: 0B)\n"
+}

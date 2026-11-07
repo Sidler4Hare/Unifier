@@ -1,0 +1,132 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261106T095650+0800/app-recover-home/driver.py"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 423037,
+    "starttime": "25792967",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-resume-1106-recoverhome-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "max",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "100000 100000"
+  },
+  "unit_identity": {
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "InvocationID": "21c0e33787b04d9bbce9b10533fef307",
+    "MainPID": "423122",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-resume-1106-recoverhome-work.service"
+  },
+  "worker": {
+    "identity": {
+      "pid": 423122,
+      "starttime": "25795984",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-resume-1106-recoverhome-work.service"
+    },
+    "limits": {
+      "memory.max": "536870912",
+      "memory.high": "402653184",
+      "memory.swap.max": "0",
+      "pids.max": "96",
+      "cpu.max": "100000 100000"
+    }
+  },
+  "last_cgroup_metrics": {
+    "memory": 6299648,
+    "tasks": 1,
+    "memory_peak": 59043840,
+    "tasks_peak": 17,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 633422,
+      "user_usec": 473107,
+      "system_usec": 160314,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 9,
+      "nr_throttled": 3,
+      "throttled_usec": 12085,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": []
+  },
+  "command_result": {
+    "exit_code": 1,
+    "finished": 1793931635.5649996
+  },
+  "worker_final_cgroup": {
+    "memory": 8855552,
+    "tasks": 1,
+    "memory_peak": 59043840,
+    "tasks_peak": 17,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 623917,
+      "user_usec": 466460,
+      "system_usec": 157457,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 9,
+      "nr_throttled": 3,
+      "throttled_usec": 12085,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 423122,
+        "starttime": "25795984",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-resume-1106-recoverhome-work.service"
+      }
+    ]
+  },
+  "final_unit": {
+    "LoadState": "loaded",
+    "ActiveState": "failed",
+    "InvocationID": "21c0e33787b04d9bbce9b10533fef307",
+    "MainPID": "0",
+    "Result": "exit-code",
+    "ExecMainCode": "1",
+    "ExecMainStatus": "1",
+    "ControlGroup": ""
+  },
+  "cgroup_removed": true,
+  "reason": null,
+  "min_available_bytes": 4963835904,
+  "peak_memory_bytes": 56107008,
+  "peak_tasks": 15,
+  "elapsed_seconds": 31.0231594509969
+}

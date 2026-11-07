@@ -1,0 +1,37 @@
+{
+  "memory": 11755520,
+  "tasks": 1,
+  "memory_peak": 60149760,
+  "tasks_peak": 8,
+  "memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0,
+    "sock_throttled": 0
+  },
+  "pids_events": {
+    "max": 0
+  },
+  "cpu_stat": {
+    "usage_usec": 1710194,
+    "user_usec": 1448588,
+    "system_usec": 261605,
+    "nice_usec": 0,
+    "core_sched.force_idle_usec": 0,
+    "nr_periods": 28,
+    "nr_throttled": 1,
+    "throttled_usec": 1071,
+    "nr_bursts": 0,
+    "burst_usec": 0
+  },
+  "processes": [
+    {
+      "pid": 409602,
+      "starttime": "19370754",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-pre03offline-work.service"
+    }
+  ]
+}

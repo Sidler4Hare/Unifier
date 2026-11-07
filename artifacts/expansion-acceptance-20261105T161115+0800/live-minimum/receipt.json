@@ -1,0 +1,30 @@
+{
+  "reason": null,
+  "monitor": {
+    "pid": 410792,
+    "starttime": "19411964",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-minimum-guard.service"
+  },
+  "min_available_bytes": 5183168512,
+  "peak_memory_bytes": 159375360,
+  "peak_tasks": 21,
+  "cleanup": {
+    "status": "NO_START",
+    "worker_final": {
+      "Id": "unifier-accept-161115-minimum-work.service",
+      "ActiveState": "inactive",
+      "InvocationID": "",
+      "MainPID": "0",
+      "ControlGroup": "",
+      "CPUQuotaPerSecUSec": "infinity",
+      "MemoryMax": "infinity",
+      "MemorySwapMax": "infinity",
+      "TasksMax": "9063"
+    }
+  },
+  "command_result": {
+    "exit_code": 1,
+    "at": 1793867827.535416
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-accept-161115-inspectfields",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 120,
+  "private_root": "/tmp/uaf1611",
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/expansion-acceptance-20261105T161115+0800/inspect-fields/driver.py"
+  ],
+  "environment": {
+    "HOME": "/home/omg",
+    "XDG_DATA_HOME": "/home/omg/.local/share",
+    "XDG_CONFIG_HOME": "/home/omg/.config",
+    "XDG_RUNTIME_DIR": "/run/user/1000"
+  }
+}

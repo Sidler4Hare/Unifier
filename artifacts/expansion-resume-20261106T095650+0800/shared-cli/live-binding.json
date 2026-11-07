@@ -1,0 +1,139 @@
+{
+  "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "started_at": "2026-11-06T10:03:19.205427967+08:00",
+  "init": {
+    "pid": 419496,
+    "starttime": "25692428",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope/container"
+  },
+  "scope": {
+    "Id": "libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope",
+    "ActiveState": "active",
+    "InvocationID": "bf0835620d014bb5bb8ba96b5c216c9e",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope",
+    "CPUQuotaPerSecUSec": "1s",
+    "MemoryMax": "805306368",
+    "MemorySwapMax": "939524096",
+    "TasksMax": "192"
+  },
+  "coverage_verified": true,
+  "conmon": {
+    "pid": 419493,
+    "starttime": "25692427",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1106-shared-work.service"
+  },
+  "guest_limits": {
+    "memory.max": 805306368,
+    "memory.swap.max": 134217728,
+    "pids.max": 192,
+    "cpu.max": {
+      "quota": 100000,
+      "period": 100000
+    },
+    "chain": [
+      {
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope/container",
+        "limits": {
+          "memory.max": "805306368",
+          "memory.swap.max": "134217728",
+          "pids.max": "192",
+          "cpu.max": "100000 100000"
+        }
+      },
+      {
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope",
+        "limits": {
+          "memory.max": "805306368",
+          "memory.swap.max": "939524096",
+          "pids.max": "192",
+          "cpu.max": "100000 100000"
+        }
+      },
+      {
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice",
+        "limits": {
+          "memory.max": "1073741824",
+          "memory.swap.max": "134217728",
+          "pids.max": "256",
+          "cpu.max": "100000 100000"
+        }
+      }
+    ]
+  },
+  "aggregate_processes": [
+    {
+      "pid": 418934,
+      "starttime": "25691630",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1106-shared-work.service",
+      "comm": "python3"
+    },
+    {
+      "pid": 418936,
+      "starttime": "25691639",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1106-shared-work.service",
+      "comm": "podman"
+    },
+    {
+      "pid": 418941,
+      "starttime": "25691644",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1106-shared-work.service",
+      "comm": "python3"
+    },
+    {
+      "pid": 419405,
+      "starttime": "25692277",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1106-shared-work.service",
+      "comm": "python3"
+    },
+    {
+      "pid": 419428,
+      "starttime": "25692335",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1106-shared-work.service",
+      "comm": "python3"
+    },
+    {
+      "pid": 419493,
+      "starttime": "25692427",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1106-shared-work.service",
+      "comm": "conmon"
+    },
+    {
+      "pid": 419508,
+      "starttime": "25692433",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1106-shared-work.service",
+      "comm": "pasta.avx2"
+    },
+    {
+      "pid": 419496,
+      "starttime": "25692428",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope/container",
+      "comm": "podman-init"
+    },
+    {
+      "pid": 419512,
+      "starttime": "25692435",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/libpod-e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45.scope/container",
+      "comm": "sleep"
+    }
+  ],
+  "network_helpers": [
+    {
+      "pid": 419508,
+      "starttime": "25692433",
+      "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1106-shared-work.service"
+    }
+  ],
+  "network_namespace_path": "/run/user/1000/netns/netns-ed098441-44d2-d013-b493-ffe1b7a42d46"
+}

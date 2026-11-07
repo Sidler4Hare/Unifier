@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "pid": 411784,
+    "starttime": "19444645",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-inspectfields-work.service"
+  },
+  "limits": {
+    "memory.max": "536870912",
+    "memory.high": "402653184",
+    "memory.swap.max": "0",
+    "pids.max": "96",
+    "cpu.max": "100000 100000"
+  }
+}

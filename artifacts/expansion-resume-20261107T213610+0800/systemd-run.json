@@ -1,0 +1,4 @@
+{
+  "returncode": 0,
+  "stderr": "Running as unit: unifier-resume-1107-sh2-guard.service\n          Finished with result: success\nMain processes terminated with: code=exited, status=0/SUCCESS\n               Service runtime: 1min 770ms\n             CPU time consumed: 405ms\n                   Memory peak: 23.6M (swap: 0B)\n"
+}

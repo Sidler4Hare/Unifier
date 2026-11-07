@@ -1,0 +1,53 @@
+{
+  "reason": null,
+  "monitor": {
+    "pid": 587946,
+    "starttime": "38719120",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-resume-1107-fix2-guard.service"
+  },
+  "controller_budget": {
+    "memory_max": 402653184,
+    "memory_high": 301989888,
+    "tasks_max": 128
+  },
+  "min_available_bytes": 4632829952,
+  "peak_memory_bytes": 805289984,
+  "peak_tasks": 42,
+  "cleanup": {
+    "status": "STOPPED",
+    "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+    "state": {
+      "OciVersion": "1.2.1",
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-07T22:14:56.686027541+08:00",
+      "FinishedAt": "2026-11-07T22:16:23.849212751+08:00",
+      "CheckpointedAt": "0001-01-01T00:00:00Z",
+      "RestoredAt": "0001-01-01T00:00:00Z",
+      "StoppedByUser": true
+    },
+    "worker_final": {
+      "Id": "unifier-resume-1107-fix2-work.service",
+      "ActiveState": "inactive",
+      "InvocationID": "",
+      "MainPID": "0",
+      "ControlGroup": "",
+      "CPUQuotaPerSecUSec": "infinity",
+      "MemoryMax": "infinity",
+      "MemorySwapMax": "infinity",
+      "TasksMax": "9063"
+    }
+  },
+  "command_result": {
+    "exit_code": 0,
+    "at": 1794060984.13643
+  }
+}

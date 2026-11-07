@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-06T11:02:06.958964+08:00",
+  "purpose": "Explain final-audit.json index_unchanged=false without rewriting that receipt.",
+  "head": "fbfbece91e859289de1cbdad5f467cc74d5301f1",
+  "head_tree": "27e11768e4bdf7f4747e2ccac3908c61757bbd5f",
+  "index_tree": "27e11768e4bdf7f4747e2ccac3908c61757bbd5f",
+  "staged_matches_head": true,
+  "cached_paths": [],
+  "opening_index_sha256": "218db3016763a4029f5e33871f8048103624c2765a3ef8211e3c14c15ec1d2ea",
+  "index_sha256_after_status_refresh": "9b4b83f1a138f1f7a87d6846c155b93270853237cf1db05929daa7d92fe7c09d",
+  "interpretation": "The committable index matches HEAD. The index file bytes differ from the opening snapshot because later git status and git write-tree refreshed cached stat fields. No opening index copy exists, so the byte delta was not reconstructed. The index was not reset, cleaned, or updated with git add.",
+  "final_audit_json_status": "FAIL",
+  "final_audit_json_rewritten": false,
+  "containers_rechecked": {
+    "count": 10,
+    "states": "all exited",
+    "ids_match_final_audit": true
+  },
+  "units_rechecked": "sampled resume units MainPID=0 and empty ControlGroup; unifier-tests.slice TasksCurrent=0",
+  "daily_launcher": "/home/omg/.local/share/unifier-code/releases/0.0.2-b656bf73abfe/bin/unifier",
+  "end01": "operational closeout recorded PASS; original audit receipt stays FAIL on the index file hash"
+}

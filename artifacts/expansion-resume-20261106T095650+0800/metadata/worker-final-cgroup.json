@@ -1,0 +1,37 @@
+{
+  "memory": 56659968,
+  "tasks": 1,
+  "memory_peak": 77570048,
+  "tasks_peak": 7,
+  "memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0,
+    "sock_throttled": 0
+  },
+  "pids_events": {
+    "max": 0
+  },
+  "cpu_stat": {
+    "usage_usec": 373547,
+    "user_usec": 269155,
+    "system_usec": 104391,
+    "nice_usec": 0,
+    "core_sched.force_idle_usec": 0,
+    "nr_periods": 6,
+    "nr_throttled": 0,
+    "throttled_usec": 0,
+    "nr_bursts": 0,
+    "burst_usec": 0
+  },
+  "processes": [
+    {
+      "pid": 417764,
+      "starttime": "25663331",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-resume-1106-metadata-work.service"
+    }
+  ]
+}

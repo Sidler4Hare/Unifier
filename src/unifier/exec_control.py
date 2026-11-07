@@ -15,7 +15,7 @@ starts.  Doing that in the caller means dup2() inside a possibly multi-threaded
 supervisor right between fork and exec, which is not safe, and ``preexec_fn``
 has the same problem while also being unsafe with threads.  This module does the
 move in a child that was already forked with ``close_fds`` finished: it takes
-exactly one inherited descriptor, remaps it to 3, closes the original number and
+the inherited control descriptor, remaps it to 3, closes the original number and
 execs the requested program.  Because it execs, the caller's proxy keeps one
 process: its exit status and delivered signals still describe the real program.
 
@@ -48,8 +48,9 @@ def control_exec_argv(control_fd, command, *, interpreter=None):
     """Return the argv that runs ``command`` with ``control_fd`` moved to FD 3.
 
     ``control_fd`` is the caller's still-open write end of the control pipe.  It
-    must be passed to the child with ``pass_fds=(control_fd,)``; nothing else is
-    inherited, so the guest never sees unrelated descriptors.
+    must be passed to the child with ``pass_fds``. The caller may also pass a
+    private env-file descriptor for Podman to consume; ``--preserve-fds 1``
+    still carries only FD 3 into the guest.
     """
     if isinstance(control_fd, bool) or not isinstance(control_fd, int) \
             or control_fd < CONTROL_GUEST_FD:
@@ -57,9 +58,13 @@ def control_exec_argv(control_fd, command, *, interpreter=None):
     command = list(command)
     if not command:
         raise ValueError("exec helper needs a program to exec")
+    if not isinstance(command[0], str) or not command[0]:
+        raise ValueError("exec helper needs a non-empty program")
     for item in command:
-        if not isinstance(item, str) or not item:
-            raise ValueError("exec helper argv must be non-empty strings")
+        # execve permits empty argument values. The APP protocol deliberately
+        # uses one for its default receipt root; never drop or rewrite it.
+        if not isinstance(item, str) or '\0' in item:
+            raise ValueError("exec helper argv must be NUL-free strings")
     return [interpreter or (sys.executable or "python3"), SCRIPT_PATH,
             str(control_fd), "--", *command]
 
@@ -74,8 +79,8 @@ def _fail(detail):
 def remap_control_fd(control_fd):
     """Move ``control_fd`` onto 3 and close the original number.
 
-    Only called after ``close_fds`` has run, so 0/1/2 plus the single inherited
-    descriptor are all that exist.  An occupied FD 3 would silently shadow a
+    Only called after ``close_fds`` has run, so 0/1/2 plus explicitly inherited
+    descriptors are all that exist. An occupied FD 3 would silently shadow a
     stream, so the helper refuses instead of guessing which descriptor Podman
     would carry into the guest.
     """

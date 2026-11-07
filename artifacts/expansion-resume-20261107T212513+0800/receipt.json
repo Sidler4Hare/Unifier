@@ -1,0 +1,32 @@
+{
+  "reason": "CONTROLLER_INVALID_RECLAIM_PRESSURE",
+  "monitor": {
+    "pid": 568251,
+    "starttime": "38431749",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-resume-1107-sh-guard.service"
+  },
+  "controller_budget": {
+    "memory_max": 402653184,
+    "memory_high": 301989888,
+    "tasks_max": 128
+  },
+  "min_available_bytes": 3554836480,
+  "peak_memory_bytes": 302477312,
+  "peak_tasks": 9,
+  "cleanup": {
+    "status": "NO_START",
+    "worker_final": {
+      "Id": "unifier-resume-1107-sh-work.service",
+      "ActiveState": "inactive",
+      "InvocationID": "",
+      "MainPID": "0",
+      "ControlGroup": "",
+      "CPUQuotaPerSecUSec": "infinity",
+      "MemoryMax": "infinity",
+      "MemorySwapMax": "infinity",
+      "TasksMax": "9063"
+    }
+  },
+  "command_result": null
+}

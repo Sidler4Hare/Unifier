@@ -1,0 +1,48 @@
+Checking working tree
+PASS Python syntax: 221 files
+PASS legacy module aliases: 42
+PASS five CLI entry points
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnd4278aa45c03
+fedora44: dnf install -y hello
+fedora44: install completed txn191cd3ada9a0
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn126a633296dd
+refusing to overwrite an unknown file: /tmp/urfull1106/tmp/tmprq5e4b0p/unifier
+use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnddf5e7483620
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnc341a7733d44
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn0663d8a97e43
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn6beaa55d0c8b
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn95a713b432a3
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn0f4d15a62128
+fedora44: dnf install -y hello
+fedora44: install completed txn2765c52cca29
+unifier: remove deletes the environment's writable root; pass --yes
+removed demo
+/usr/lib64/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=424916) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+/usr/lib64/python3.14/site-packages/gi/overrides/__init__.py:159: PyGIDeprecationWarning: GLib.unix_signal_add_full is deprecated; use GLibUnix.signal_add_full instead
+  value = getattr(proxy, attr)
+----------------------------------------------------------------------
+Ran 831 tests in 61.561s
+
+OK (skipped=5)
+PASS repository check
+{"status": "PASS", "scope": "formal app recover on exact stopped CID; start/exec/stop mutations forbidden by runner", "recovery": [{"token": "bd3ccaa24f014419aad96f849a805187", "action": "released", "proof": {"state": "exited", "all_children_reaped": true, "proof": "exact-container-stopped", "exit_code": null}}], "after_leases": {"leases": {}, "auto_stop": false, "bridge": null, "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45", "container_started_at": "2026-11-06T10:26:42.557938413+08:00", "schema_version": 3}, "runtime_calls": [["podman", "inspect"], ["podman", "inspect"], ["podman", "inspect"], ["podman", "inspect"], ["podman", "inspect"], ["podman", "inspect"], ["podman", "inspect"], ["podman", "inspect"]]}

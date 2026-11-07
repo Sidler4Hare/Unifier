@@ -1,0 +1,162 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_reuse_guard_policy",
+    "test_reuse_test_guard",
+    "test_guarded_test",
+    "test_package_observation",
+    "test_package_coordination",
+    "test_application_lifecycle"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 409532,
+    "starttime": "19367737",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-pre03offline-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "max",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "100000 100000"
+  },
+  "unit_identity": {
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "InvocationID": "a17d72f9de5b485b8cd8feb8060225a6",
+    "MainPID": "409602",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-pre03offline-work.service"
+  },
+  "worker": {
+    "identity": {
+      "pid": 409602,
+      "starttime": "19370754",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-pre03offline-work.service"
+    },
+    "limits": {
+      "memory.max": "536870912",
+      "memory.high": "402653184",
+      "memory.swap.max": "0",
+      "pids.max": "96",
+      "cpu.max": "100000 100000"
+    }
+  },
+  "last_cgroup_metrics": {
+    "memory": 49315840,
+    "tasks": 4,
+    "memory_peak": 60149760,
+    "tasks_peak": 8,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 1643406,
+      "user_usec": 1391595,
+      "system_usec": 251811,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 26,
+      "nr_throttled": 1,
+      "throttled_usec": 1071,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 409602,
+        "starttime": "19370754",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-pre03offline-work.service"
+      },
+      {
+        "pid": 409604,
+        "starttime": "19370771",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-pre03offline-work.service"
+      },
+      {
+        "pid": 409639,
+        "starttime": "19371010",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-pre03offline-work.service"
+      },
+      {
+        "pid": 409640,
+        "starttime": "19371015",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-pre03offline-work.service"
+      }
+    ]
+  },
+  "command_result": {
+    "exit_code": 0,
+    "finished": 1793867385.1763968
+  },
+  "worker_final_cgroup": {
+    "memory": 11755520,
+    "tasks": 1,
+    "memory_peak": 60149760,
+    "tasks_peak": 8,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 1710194,
+      "user_usec": 1448588,
+      "system_usec": 261605,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 28,
+      "nr_throttled": 1,
+      "throttled_usec": 1071,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 409602,
+        "starttime": "19370754",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-pre03offline-work.service"
+      }
+    ]
+  },
+  "already_exited": true,
+  "cgroup_removed": true,
+  "final_unit": {
+    "LoadState": "not-found",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": ""
+  },
+  "reason": null,
+  "min_available_bytes": 5295931392,
+  "peak_memory_bytes": 50335744,
+  "peak_tasks": 6,
+  "elapsed_seconds": 33.00070042399602
+}

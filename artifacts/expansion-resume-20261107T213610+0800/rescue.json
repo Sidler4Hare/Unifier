@@ -1,0 +1,14 @@
+{
+  "status": "NO_START",
+  "worker_final": {
+    "Id": "unifier-resume-1107-sh2-work.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": "",
+    "CPUQuotaPerSecUSec": "infinity",
+    "MemoryMax": "infinity",
+    "MemorySwapMax": "infinity",
+    "TasksMax": "9063"
+  }
+}

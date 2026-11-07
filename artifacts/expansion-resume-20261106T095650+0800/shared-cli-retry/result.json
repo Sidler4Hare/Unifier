@@ -1,0 +1,14 @@
+{
+  "status": "FAIL",
+  "cases": [],
+  "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "registrations": {
+    "A": "accept1106-a",
+    "B": "accept1106-b",
+    "C": "accept1106-c",
+    "BAD": "accept1106-bad"
+  },
+  "shared_inputs": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared/acceptance-1106",
+  "error": "bounded oracle wait expired",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261106T095650+0800/shared-cli-retry/driver.py\", line 112, in <module>\n    a=launch('A','shared1');sa=ready(a);cold=info(config)['State']['StartedAt']\n                               ~~~~~^^^\n  File \"/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261106T095650+0800/shared-cli-retry/driver.py\", line 78, in ready\n    return until(lambda:state(child))\n  File \"/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261106T095650+0800/shared-cli-retry/driver.py\", line 57, in until\n    raise RuntimeError('bounded oracle wait expired')\nRuntimeError: bounded oracle wait expired\n"
+}

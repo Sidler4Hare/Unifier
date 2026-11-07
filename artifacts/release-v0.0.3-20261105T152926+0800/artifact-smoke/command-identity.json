@@ -1,0 +1,11 @@
+{
+  "identity": {
+    "pid": 401693,
+    "starttime": "19105193",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-smoke-20261105t152926-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/artifacts/release-v0.0.3-20261105T152926+0800/artifact_smoke.py"
+  ]
+}

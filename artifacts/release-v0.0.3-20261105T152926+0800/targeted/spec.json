@@ -1,0 +1,22 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-v003-targeted-20261105t152926",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 300,
+  "private_root": "/tmp/u3t-152926",
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_dependency_diagnostics",
+    "test_dependency_diagnostic_repair",
+    "test_dependencies",
+    "test_dependency_evidence",
+    "test_package_recovery",
+    "test_package_coordination",
+    "test_release_install",
+    "test_views.RawLinkControl"
+  ]
+}

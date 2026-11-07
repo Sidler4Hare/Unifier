@@ -1,0 +1,37 @@
+{
+  "memory": 254328832,
+  "tasks": 1,
+  "memory_peak": 402915328,
+  "tasks_peak": 23,
+  "memory_events": {
+    "low": 0,
+    "high": 35,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0,
+    "sock_throttled": 0
+  },
+  "pids_events": {
+    "max": 0
+  },
+  "cpu_stat": {
+    "usage_usec": 55814550,
+    "user_usec": 50303764,
+    "system_usec": 5510785,
+    "nice_usec": 0,
+    "core_sched.force_idle_usec": 0,
+    "nr_periods": 657,
+    "nr_throttled": 102,
+    "throttled_usec": 772429,
+    "nr_bursts": 0,
+    "burst_usec": 0
+  },
+  "processes": [
+    {
+      "pid": 397280,
+      "starttime": "19017405",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-baseline-20261105t152926-work.service"
+    }
+  ]
+}

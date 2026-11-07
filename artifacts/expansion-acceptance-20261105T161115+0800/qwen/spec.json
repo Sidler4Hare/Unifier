@@ -1,0 +1,12 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-accept-161115-qwen",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 512,
+  "seconds": 240,
+  "private_root": "/tmp/uaq1611",
+  "command": [
+    "/usr/bin/python3",
+    "/tmp/unifier-acceptance-20261105T161115/qwen/qwen-launch.py"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "identity": {
+    "pid": 398235,
+    "starttime": "19028475",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-qwen-20261105t152926-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "/tmp/unifier-v003-20261105/qwen/qwen-launch.py"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "bundle_entries": 255,
+  "bundle_matches_current_source": true,
+  "mismatches": [],
+  "original_release_artifacts_unchanged": {
+    "artifacts/unifier-0.0.1.tar.gz.validation.log": true,
+    "artifacts/unifier-0.0.1.tar.gz": true,
+    "artifacts/unifier-0.0.1.tar.gz.sha256": true,
+    "artifacts/unifier-0.0.1.tar.gz.manifest.json": true,
+    "artifacts/unifier-0.0.2.tar.gz.validation.log": true,
+    "artifacts/unifier-0.0.2.tar.gz": true,
+    "artifacts/unifier-0.0.2.tar.gz.sha256": true,
+    "artifacts/unifier-0.0.2.tar.gz.manifest.json": true
+  },
+  "docs": 24,
+  "local_links": 136,
+  "missing_links": [],
+  "index_bytes_unchanged": false,
+  "boot_id_unchanged": true,
+  "daily_launcher_target": "/home/omg/.local/share/unifier-code/releases/0.0.2-b656bf73abfe/bin/unifier",
+  "git_cached_diff_empty": true
+}

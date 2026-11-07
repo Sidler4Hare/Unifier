@@ -1,0 +1,48 @@
+{
+  "reason": null,
+  "monitor": {
+    "pid": 412422,
+    "starttime": "19469452",
+    "boot_id": "6bac6ae6-c583-48b1-af8e-fc533c23407b",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-minimumretry-guard.service"
+  },
+  "min_available_bytes": 5217968128,
+  "peak_memory_bytes": 287457280,
+  "peak_tasks": 22,
+  "cleanup": {
+    "status": "STOPPED",
+    "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+    "state": {
+      "OciVersion": "1.2.1",
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-05T16:46:41.231740103+08:00",
+      "FinishedAt": "2026-11-05T16:46:41.479342245+08:00",
+      "CheckpointedAt": "0001-01-01T00:00:00Z",
+      "RestoredAt": "0001-01-01T00:00:00Z",
+      "StoppedByUser": true
+    },
+    "worker_final": {
+      "Id": "unifier-accept-161115-minimumretry-work.service",
+      "ActiveState": "inactive",
+      "InvocationID": "",
+      "MainPID": "0",
+      "ControlGroup": "",
+      "CPUQuotaPerSecUSec": "infinity",
+      "MemoryMax": "infinity",
+      "MemorySwapMax": "infinity",
+      "TasksMax": "9063"
+    }
+  },
+  "command_result": {
+    "exit_code": 1,
+    "at": 1793868402.001032
+  }
+}

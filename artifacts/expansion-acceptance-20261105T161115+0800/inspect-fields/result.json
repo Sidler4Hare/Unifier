@@ -1,0 +1,38 @@
+{
+  "pid_fields": {
+    "ConmonPidFile": "/run/user/1000/containers/overlay-containers/e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45/userdata/conmon.pid",
+    "PidFile": "/run/user/1000/containers/overlay-containers/e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45/userdata/pidfile"
+  },
+  "state": {
+    "OciVersion": "1.2.1",
+    "Status": "exited",
+    "Running": false,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 0,
+    "ExitCode": 143,
+    "Error": "",
+    "StartedAt": "2026-11-05T16:37:06.672404745+08:00",
+    "FinishedAt": "2026-11-05T16:37:06.899190071+08:00",
+    "CheckpointedAt": "0001-01-01T00:00:00Z",
+    "RestoredAt": "0001-01-01T00:00:00Z",
+    "StoppedByUser": true
+  },
+  "cmd": [
+    "infinity"
+  ],
+  "entrypoint": [
+    "/usr/bin/sleep"
+  ],
+  "network": {
+    "SandboxID": "",
+    "SandboxKey": ""
+  },
+  "labels": {
+    "multilinux.env": "debian13",
+    "multilinux.project": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment",
+    "multilinux.role": "environment"
+  }
+}

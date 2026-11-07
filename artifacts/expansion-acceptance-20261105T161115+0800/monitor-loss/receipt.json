@@ -1,0 +1,149 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/artifacts/expansion-acceptance-20261105T161115+0800/monitor-loss/verify.py"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 409979,
+    "starttime": "19384726",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-lossverify-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "max",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "100000 100000"
+  },
+  "unit_identity": {
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "InvocationID": "e4a5b20eeafc431585306750577144ca",
+    "MainPID": "410174",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-lossverify-work.service"
+  },
+  "worker": {
+    "identity": {
+      "pid": 410174,
+      "starttime": "19387742",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-lossverify-work.service"
+    },
+    "limits": {
+      "memory.max": "134217728",
+      "memory.high": "100663296",
+      "memory.swap.max": "0",
+      "pids.max": "64",
+      "cpu.max": "25000 100000"
+    }
+  },
+  "last_cgroup_metrics": {
+    "memory": 18223104,
+    "tasks": 3,
+    "memory_peak": 18403328,
+    "tasks_peak": 3,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 153092,
+      "user_usec": 133221,
+      "system_usec": 19870,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 14,
+      "nr_throttled": 4,
+      "throttled_usec": 271604,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 410174,
+        "starttime": "19387742",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-lossverify-work.service"
+      },
+      {
+        "pid": 410176,
+        "starttime": "19387767",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-lossverify-work.service"
+      },
+      {
+        "pid": 410177,
+        "starttime": "19387794",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-lossverify-work.service"
+      }
+    ]
+  },
+  "command_result": {
+    "exit_code": 0,
+    "finished": 1793867553.929931
+  },
+  "worker_final_cgroup": {
+    "memory": 7319552,
+    "tasks": 1,
+    "memory_peak": 18403328,
+    "tasks_peak": 3,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 174614,
+      "user_usec": 150686,
+      "system_usec": 23928,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 15,
+      "nr_throttled": 4,
+      "throttled_usec": 271604,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 410174,
+        "starttime": "19387742",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-lossverify-work.service"
+      }
+    ]
+  },
+  "already_exited": true,
+  "cgroup_removed": true,
+  "final_unit": {
+    "LoadState": "not-found",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": ""
+  },
+  "reason": null,
+  "min_available_bytes": 5302018048,
+  "peak_memory_bytes": 18403328,
+  "peak_tasks": 3,
+  "elapsed_seconds": 31.840025813995453
+}

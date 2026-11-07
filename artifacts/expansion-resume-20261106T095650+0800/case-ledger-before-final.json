@@ -1,0 +1,26 @@
+{
+  "overall": "IN_PROGRESS",
+  "PRE03": {
+    "status": "PASS",
+    "scope": "original fixed Debian CLI startup/exec/stop; full init/conmon/pasta/controller aggregate coverage, prior T1 faults and independent systemd cleanup proof",
+    "evidence": [
+      "offline-regression/command.log",
+      "live-minimum/result.json",
+      "live-minimum/receipt.json"
+    ],
+    "not_covered": [
+      "Arch admission",
+      "private GUI readiness",
+      "native package fault injection"
+    ]
+  },
+  "PRE02": {
+    "status": "PARTIAL",
+    "scope": "offline contract passes; same-management-root multi-environment real fixture unavailable"
+  },
+  "Arch": {
+    "status": "BLOCKED",
+    "reason": "original CPU/RAM limits absent; no automatic reconfiguration"
+  },
+  "new_containers": 0
+}

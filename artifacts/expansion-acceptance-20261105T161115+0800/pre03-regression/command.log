@@ -1,0 +1,25 @@
+test_hard_events_are_invalid_even_if_current_usage_is_low (test_reuse_guard_policy.PolicyTests.test_hard_events_are_invalid_even_if_current_usage_is_low) ... ok
+test_identity_controller_heartbeat_and_deadline (test_reuse_guard_policy.PolicyTests.test_identity_controller_heartbeat_and_deadline) ... ok
+test_invalid_or_lowered_budget_refuses (test_reuse_guard_policy.PolicyTests.test_invalid_or_lowered_budget_refuses) ... ok
+test_low_memory_requires_two_samples_and_recovers (test_reuse_guard_policy.PolicyTests.test_low_memory_requires_two_samples_and_recovers) ... ok
+test_memory_and_tasks_stop_below_hard_limit (test_reuse_guard_policy.PolicyTests.test_memory_and_tasks_stop_below_hard_limit) ... ok
+test_pid_reuse_boot_and_cgroup_mismatch_never_authorize_stop (test_reuse_guard_policy.PolicyTests.test_pid_reuse_boot_and_cgroup_mismatch_never_authorize_stop) ... ok
+test_pressure_requires_two_seconds_and_recovers (test_reuse_guard_policy.PolicyTests.test_pressure_requires_two_seconds_and_recovers) ... ok
+test_queue_closes_at_eighty_percent (test_reuse_guard_policy.PolicyTests.test_queue_closes_at_eighty_percent) ... ok
+test_unreadable_incomplete_negative_nonfinite_metrics_fail_closed (test_reuse_guard_policy.PolicyTests.test_unreadable_incomplete_negative_nonfinite_metrics_fail_closed) ... ok
+test_aborted_attempt_cannot_start_a_fresh_product_worker (test_reuse_test_guard.SupervisorContracts.test_aborted_attempt_cannot_start_a_fresh_product_worker) ... ok
+test_changed_scope_is_not_stopped_even_if_proxy_is_dead (test_reuse_test_guard.SupervisorContracts.test_changed_scope_is_not_stopped_even_if_proxy_is_dead) ... ok
+test_conmon_pidfile_is_bounded_and_never_follows_links (test_reuse_test_guard.SupervisorContracts.test_conmon_pidfile_is_bounded_and_never_follows_links) ... ok
+test_controller_unit_replacement_is_not_stopped (test_reuse_test_guard.SupervisorContracts.test_controller_unit_replacement_is_not_stopped) ... ok
+test_dead_proxy_does_not_prove_guest_exit_exact_scope_is_cleaned (test_reuse_test_guard.SupervisorContracts.test_dead_proxy_does_not_prove_guest_exit_exact_scope_is_cleaned) ... ok
+test_exact_running_execution_is_stopped_and_verified (test_reuse_test_guard.SupervisorContracts.test_exact_running_execution_is_stopped_and_verified) ... ok
+test_interrupted_start_without_guest_binding_preserves_unknown (test_reuse_test_guard.SupervisorContracts.test_interrupted_start_without_guest_binding_preserves_unknown) ... ok
+test_missing_conmon_field_keeps_init_stop_binding (test_reuse_test_guard.SupervisorContracts.test_missing_conmon_field_keeps_init_stop_binding) ... ok
+test_registered_cleanup_binding_is_saved_before_coverage_refusal (test_reuse_test_guard.SupervisorContracts.test_registered_cleanup_binding_is_saved_before_coverage_refusal) ... ok
+test_replaced_container_execution_is_never_stopped (test_reuse_test_guard.SupervisorContracts.test_replaced_container_execution_is_never_stopped) ... ok
+test_zero_container_budget_and_wrong_cid_refuse_before_native_calls (test_reuse_test_guard.SupervisorContracts.test_zero_container_budget_and_wrong_cid_refuse_before_native_calls) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.127s
+
+OK

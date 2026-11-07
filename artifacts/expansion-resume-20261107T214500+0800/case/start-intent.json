@@ -1,0 +1,20 @@
+{
+  "at": 1794058800.1925251,
+  "before": {
+    "OciVersion": "1.2.1",
+    "Status": "exited",
+    "Running": false,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 0,
+    "ExitCode": 143,
+    "Error": "",
+    "StartedAt": "2026-11-07T21:39:55.286060538+08:00",
+    "FinishedAt": "2026-11-07T21:39:58.633972378+08:00",
+    "CheckpointedAt": "0001-01-01T00:00:00Z",
+    "RestoredAt": "0001-01-01T00:00:00Z",
+    "StoppedByUser": true
+  }
+}

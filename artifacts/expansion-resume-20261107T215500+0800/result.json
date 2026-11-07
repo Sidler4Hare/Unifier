@@ -1,0 +1,423 @@
+{
+  "status": "PASS",
+  "scope": "read-only guest toolchain/repository plan; no package change",
+  "tools": "/usr/bin/dpkg-deb\n",
+  "installed": "binutils\t\tun \ndpkg-dev\t\tun \ngcc\t\tun \n",
+  "installed_query_exit": 1,
+  "cached_packages": {
+    "gcc": {
+      "exit_code": 0,
+      "Package": "gcc",
+      "Version": "4:14.2.0-1",
+      "Installed-Size": "36",
+      "Filename": "pool/main/g/gcc-defaults/gcc_14.2.0-1_amd64.deb",
+      "Size": "5136",
+      "SHA256": "eee65c41a441c57c05f754ced1b9d093956966a1c7da9938c3ec00d3dc2f905d"
+    },
+    "binutils": {
+      "exit_code": 0,
+      "Package": "binutils",
+      "Version": "2.44-3",
+      "Installed-Size": "1073",
+      "Filename": "pool/main/b/binutils/binutils_2.44-3_amd64.deb",
+      "Size": "265400",
+      "SHA256": "6bc08c02539ba53b5e748142397144c499f9b20b5fa9bb56431545db124addeb"
+    },
+    "dpkg-dev": {
+      "exit_code": 0,
+      "Package": "dpkg-dev",
+      "Version": "1.22.22",
+      "Installed-Size": "1725",
+      "Filename": "pool/main/d/dpkg/dpkg-dev_1.22.22_all.deb",
+      "Size": "1337268",
+      "SHA256": "6d4020421740a70e1fb9c41b07f8bb8306d93aef6fea1a8ce11a1f839921f414"
+    },
+    "apt-file": {
+      "exit_code": 0,
+      "Package": "apt-file",
+      "Version": "3.3",
+      "Installed-Size": "89",
+      "Filename": "pool/main/a/apt-file/apt-file_3.3_all.deb",
+      "Size": "39104",
+      "SHA256": "64bf1c0d9f7a5ced5592ac006e024ce2401a1c11579fc907f06884b81cee2949"
+    },
+    "libestr0": {
+      "exit_code": 0,
+      "Package": "libestr0",
+      "Version": "0.1.11-2",
+      "Installed-Size": "31",
+      "Filename": "pool/main/libe/libestr/libestr0_0.1.11-2_amd64.deb",
+      "Size": "9048",
+      "SHA256": "efd7769772d7300429aa22ace8f697667e030da04d62029d892439692cfa4b9f"
+    },
+    "libestr-dev": {
+      "exit_code": 0,
+      "Package": "libestr-dev",
+      "Version": "0.1.11-2",
+      "Installed-Size": "44",
+      "Filename": "pool/main/libe/libestr/libestr-dev_0.1.11-2_amd64.deb",
+      "Size": "12632",
+      "SHA256": "a09b3fc8d5eafad4b3594c33e99045cee89378813a786bf6eb78c039859065ad"
+    },
+    "libfastjson4": {
+      "exit_code": 0,
+      "Package": "libfastjson4",
+      "Version": "1.2304.0-2",
+      "Installed-Size": "80",
+      "Filename": "pool/main/libf/libfastjson/libfastjson4_1.2304.0-2_amd64.deb",
+      "Size": "28944",
+      "SHA256": "ce5ce8672287493effde70831a2ed00c244979e15d62a58c23dde772b1fc9072"
+    },
+    "libfastjson-dev": {
+      "exit_code": 0,
+      "Package": "libfastjson-dev",
+      "Version": "1.2304.0-2",
+      "Installed-Size": "167",
+      "Filename": "pool/main/libf/libfastjson/libfastjson-dev_1.2304.0-2_amd64.deb",
+      "Size": "43936",
+      "SHA256": "97cb2186470edea1011c015fe9fc043e09f11082f14b3abf0954c9110689dd39"
+    },
+    "libconfig9": {
+      "exit_code": 100
+    },
+    "libconfig-dev": {
+      "exit_code": 0,
+      "Package": "libconfig-dev",
+      "Version": "1.7.3-2",
+      "Installed-Size": "173",
+      "Filename": "pool/main/libc/libconfig/libconfig-dev_1.7.3-2_amd64.deb",
+      "Size": "70832",
+      "SHA256": "1c488427fc9c7427ff1cc9ae91d119c60fa3418793cefd562f650d5274d3123b"
+    },
+    "libcapstone5": {
+      "exit_code": 0,
+      "Package": "libcapstone5",
+      "Version": "5.0.7-1~deb13u1",
+      "Installed-Size": "9148",
+      "Filename": "pool/main/c/capstone/libcapstone5_5.0.7-1~deb13u1_amd64.deb",
+      "Size": "778216",
+      "SHA256": "775187a7be26bb0b076d1979a02163b943dbc13eb4adb0efc503223a03c75422"
+    },
+    "libcapstone-dev": {
+      "exit_code": 0,
+      "Package": "libcapstone-dev",
+      "Version": "5.0.7-1~deb13u1",
+      "Installed-Size": "10989",
+      "Filename": "pool/main/c/capstone/libcapstone-dev_5.0.7-1~deb13u1_amd64.deb",
+      "Size": "867024",
+      "SHA256": "f60112ad947ab758befa869f8ab57e5b78c5a261c0c8a9ea8efb5f2b7a755a93"
+    }
+  },
+  "simulation_exit": 0,
+  "pending_toolchain": [
+    {
+      "package": "liblocale-gettext-perl",
+      "version": "1.07-7+b1",
+      "download_bytes": 15344,
+      "installed_kib": 53
+    },
+    {
+      "package": "liblzma5",
+      "version": "5.8.1-1+deb13u2",
+      "download_bytes": 309696,
+      "installed_kib": 435
+    },
+    {
+      "package": "bzip2",
+      "version": "1.0.8-6",
+      "download_bytes": 40520,
+      "installed_kib": 113
+    },
+    {
+      "package": "manpages",
+      "version": "6.9.1-1",
+      "download_bytes": 1393160,
+      "installed_kib": 1668
+    },
+    {
+      "package": "xz-utils",
+      "version": "5.8.1-1+deb13u2",
+      "download_bytes": 659760,
+      "installed_kib": 1424
+    },
+    {
+      "package": "libapt-pkg-perl",
+      "version": "0.1.42",
+      "download_bytes": 68328,
+      "installed_kib": 221
+    },
+    {
+      "package": "libregexp-assemble-perl",
+      "version": "0.38-2",
+      "download_bytes": 77788,
+      "installed_kib": 238
+    },
+    {
+      "package": "apt-file",
+      "version": "3.3",
+      "download_bytes": 39104,
+      "installed_kib": 89
+    },
+    {
+      "package": "libsframe1",
+      "version": "2.44-3",
+      "download_bytes": 78360,
+      "installed_kib": 110
+    },
+    {
+      "package": "binutils-common",
+      "version": "2.44-3",
+      "download_bytes": 2508768,
+      "installed_kib": 16098
+    },
+    {
+      "package": "libbinutils",
+      "version": "2.44-3",
+      "download_bytes": 534440,
+      "installed_kib": 2390
+    },
+    {
+      "package": "libgprofng0",
+      "version": "2.44-3",
+      "download_bytes": 807764,
+      "installed_kib": 4034
+    },
+    {
+      "package": "libctf-nobfd0",
+      "version": "2.44-3",
+      "download_bytes": 155672,
+      "installed_kib": 293
+    },
+    {
+      "package": "libctf0",
+      "version": "2.44-3",
+      "download_bytes": 88616,
+      "installed_kib": 232
+    },
+    {
+      "package": "binutils-x86-64-linux-gnu",
+      "version": "2.44-3",
+      "download_bytes": 1013844,
+      "installed_kib": 5990
+    },
+    {
+      "package": "binutils",
+      "version": "2.44-3",
+      "download_bytes": 265400,
+      "installed_kib": 1073
+    },
+    {
+      "package": "libc-dev-bin",
+      "version": "2.41-12+deb13u4",
+      "download_bytes": 59960,
+      "installed_kib": 126
+    },
+    {
+      "package": "linux-libc-dev",
+      "version": "6.12.115-2",
+      "download_bytes": 3049692,
+      "installed_kib": 11103
+    },
+    {
+      "package": "libcrypt-dev",
+      "version": "1:4.4.38-1",
+      "download_bytes": 119040,
+      "installed_kib": 345
+    },
+    {
+      "package": "rpcsvc-proto",
+      "version": "1.4.3-1",
+      "download_bytes": 63268,
+      "installed_kib": 246
+    },
+    {
+      "package": "libc6-dev",
+      "version": "2.41-12+deb13u4",
+      "download_bytes": 1994660,
+      "installed_kib": 12542
+    },
+    {
+      "package": "libcc1-0",
+      "version": "14.2.0-19",
+      "download_bytes": 42796,
+      "installed_kib": 140
+    },
+    {
+      "package": "libitm1",
+      "version": "14.2.0-19",
+      "download_bytes": 25956,
+      "installed_kib": 115
+    },
+    {
+      "package": "libasan8",
+      "version": "14.2.0-19",
+      "download_bytes": 2725272,
+      "installed_kib": 10695
+    },
+    {
+      "package": "liblsan0",
+      "version": "14.2.0-19",
+      "download_bytes": 1204164,
+      "installed_kib": 3782
+    },
+    {
+      "package": "libtsan2",
+      "version": "14.2.0-19",
+      "download_bytes": 2460216,
+      "installed_kib": 8807
+    },
+    {
+      "package": "libubsan1",
+      "version": "14.2.0-19",
+      "download_bytes": 1074340,
+      "installed_kib": 3319
+    },
+    {
+      "package": "libhwasan0",
+      "version": "14.2.0-19",
+      "download_bytes": 1487768,
+      "installed_kib": 4850
+    },
+    {
+      "package": "libquadmath0",
+      "version": "14.2.0-19",
+      "download_bytes": 145068,
+      "installed_kib": 296
+    },
+    {
+      "package": "libgcc-14-dev",
+      "version": "14.2.0-19",
+      "download_bytes": 2672328,
+      "installed_kib": 17357
+    },
+    {
+      "package": "gcc-14-x86-64-linux-gnu",
+      "version": "14.2.0-19",
+      "download_bytes": 21389968,
+      "installed_kib": 68460
+    },
+    {
+      "package": "gcc-14",
+      "version": "14.2.0-19",
+      "download_bytes": 540064,
+      "installed_kib": 622
+    },
+    {
+      "package": "gcc-x86-64-linux-gnu",
+      "version": "4:14.2.0-1",
+      "download_bytes": 1436,
+      "installed_kib": 23
+    },
+    {
+      "package": "gcc",
+      "version": "4:14.2.0-1",
+      "download_bytes": 5136,
+      "installed_kib": 36
+    },
+    {
+      "package": "libstdc++-14-dev",
+      "version": "14.2.0-19",
+      "download_bytes": 2375760,
+      "installed_kib": 22065
+    },
+    {
+      "package": "g++-14-x86-64-linux-gnu",
+      "version": "14.2.0-19",
+      "download_bytes": 12114812,
+      "installed_kib": 36931
+    },
+    {
+      "package": "g++-14",
+      "version": "14.2.0-19",
+      "download_bytes": 22544,
+      "installed_kib": 35
+    },
+    {
+      "package": "g++-x86-64-linux-gnu",
+      "version": "4:14.2.0-1",
+      "download_bytes": 1200,
+      "installed_kib": 11
+    },
+    {
+      "package": "g++",
+      "version": "4:14.2.0-1",
+      "download_bytes": 1344,
+      "installed_kib": 13
+    },
+    {
+      "package": "make",
+      "version": "4.4.1-2",
+      "download_bytes": 463104,
+      "installed_kib": 1766
+    },
+    {
+      "package": "libdpkg-perl",
+      "version": "1.22.22",
+      "download_bytes": 650808,
+      "installed_kib": 2091
+    },
+    {
+      "package": "patch",
+      "version": "2.8-2",
+      "download_bytes": 134328,
+      "installed_kib": 242
+    },
+    {
+      "package": "dpkg-dev",
+      "version": "1.22.22",
+      "download_bytes": 1337268,
+      "installed_kib": 1725
+    },
+    {
+      "package": "build-essential",
+      "version": "12.12",
+      "download_bytes": 4624,
+      "installed_kib": 17
+    },
+    {
+      "package": "libfakeroot",
+      "version": "1.37.1.1-1",
+      "download_bytes": 29556,
+      "installed_kib": 157
+    },
+    {
+      "package": "fakeroot",
+      "version": "1.37.1.1-1",
+      "download_bytes": 75996,
+      "installed_kib": 225
+    },
+    {
+      "package": "libalgorithm-diff-perl",
+      "version": "1.201-1",
+      "download_bytes": 43296,
+      "installed_kib": 129
+    },
+    {
+      "package": "libalgorithm-diff-xs-perl",
+      "version": "0.04-9",
+      "download_bytes": 11100,
+      "installed_kib": 46
+    },
+    {
+      "package": "libalgorithm-merge-perl",
+      "version": "0.08-5",
+      "download_bytes": 11788,
+      "installed_kib": 43
+    },
+    {
+      "package": "libfile-fcntllock-perl",
+      "version": "0.22-4+b4",
+      "download_bytes": 34564,
+      "installed_kib": 130
+    },
+    {
+      "package": "manpages-dev",
+      "version": "6.9.1-1",
+      "download_bytes": 2122084,
+      "installed_kib": 3978
+    }
+  ],
+  "toolchain_download_bytes": 66551872,
+  "toolchain_installed_bytes": 252855296,
+  "disk": "Filesystem        1B-blocks         Used    Available Use% Mounted on\noverlay        509332160512 260363735040 247818153984  52% /\noverlay        509332160512 260363735040 247818153984  52% /\n/dev/nvme0n1p3 509332160512 260363735040 247818153984  52% /home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared\n"
+}

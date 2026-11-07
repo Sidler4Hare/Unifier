@@ -1,0 +1,7 @@
+{
+  "endpoint_is_numeric_address": true,
+  "endpoint_is_loopback": false,
+  "endpoint_matches_host_interface": false,
+  "server_started_by_job": false,
+  "client_cgroup_enforced": true
+}

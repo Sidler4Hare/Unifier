@@ -1,0 +1,24 @@
+debian13: apt-get update
+debian13: apt-get install -y /tmp/ml-incoming/unifier-round1107a.deb
+debian13: install-local completed txn238cae22048f
+debian13: apt-get update
+debian13: apt-get install -y /tmp/ml-incoming/unifier-round1107b.deb
+debian13: install-local completed txnbd3009a9825e
+debian13: apt-get update
+debian13: apt-get install -y binutils
+debian13: apt-get update
+debian13: apt-get install -y apt-file
+debian13: apt-file update
+automatic dependency repair: libfastjson4
+debian13: apt-get update
+debian13: apt-get install -y libfastjson4
+debian13: repair-dependencies completed txn0576e06ea3d6
+debian13: apt-get update
+debian13: apt-get install -y /tmp/ml-incoming/unifier-round1107c.deb
+debian13: install-local failed txn48e1cb531cf4
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261107T222500+0800/driver.py", line 100, in <module>
+    txn = require_txn(install_deb("unifier-round1107c"))
+  File "/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261107T222500+0800/driver.py", line 60, in require_txn
+    raise RuntimeError(json.dumps(summarize(txn), ensure_ascii=False)[-2000:])
+RuntimeError: {"id": "txn48e1cb531cf4", "phase": "failed", "failure_phase": "native-command", "native_error": null, "verification": {"ok": false, "packages": {"unifier-round1107c": false}, "command": null, "command_exit_code": null, "stdout_preview": null, "stdout_sha256": null, "problems": ["native command failed"]}, "repair_status": "not-requested", "repair_installed": null, "repair_unresolved": null, "started_at": "2026-11-07T22:12:23+08:00", "finished_at": "2026-11-07T22:12:31+08:00"}

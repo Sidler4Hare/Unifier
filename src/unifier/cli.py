@@ -149,6 +149,10 @@ def build_parser() -> argparse.ArgumentParser:
     repair.add_argument("id")
     repair.add_argument("packages", nargs="*", help="installed packages whose ELF files are checked")
     repair.add_argument("--library", action="append", default=[], help="exact missing SONAME from a runtime error")
+    repair.add_argument("--from-log", metavar="FILE",
+                        help="extract exact missing SONAMEs from a saved loader/dlopen error log")
+    repair.add_argument("--diagnose-only", action="store_true",
+                        help="classify --from-log locally without accessing an environment or installing packages")
     add_package_arguments(repair)
     repair.set_defaults(func=cmd_pkg_repair)
 
@@ -801,8 +805,24 @@ def cmd_pkg_install(args) -> int:
 
 
 def cmd_pkg_repair(args) -> int:
+    diagnostic_path = getattr(args, "from_log", None)
+    if getattr(args, "diagnose_only", False):
+        if not diagnostic_path or args.packages or args.library:
+            raise UnifierError("--diagnose-only requires --from-log without packages or --library")
+        from unifier.dependency_diagnostics import read_diagnostics
+        report = read_diagnostics(diagnostic_path)
+        candidate = bool(report["libraries"]) and all(
+            issue["kind"] == "missing-library" for issue in report["issues"])
+        print(json.dumps({"mode": "diagnostic-only", "library_repair_candidate": candidate,
+                          "provider_resolution": "not-run",
+                          "runtime_loading": "unverified", "workflow": "unverified",
+                          **report}, ensure_ascii=False, indent=2))
+        return 0
+    options = package_options(args)
+    if diagnostic_path:
+        options["diagnostics_path"] = diagnostic_path
     txn = service_factory().repair_dependencies(args.id, args.packages, libraries=args.library,
-                                                **package_options(args))
+                                                **options)
     return _print_transaction(txn)
 
 

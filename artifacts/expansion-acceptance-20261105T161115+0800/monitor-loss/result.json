@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "scope": "T1 host-only disjoint-unit monitor-loss proof; no container started",
+  "probe_returncode": 255,
+  "rescue": {
+    "status": "NO_START",
+    "worker_final": {
+      "Id": "unifier-accept-161115-orphan.service",
+      "ActiveState": "inactive",
+      "InvocationID": "",
+      "MainPID": "0",
+      "ControlGroup": "",
+      "CPUQuotaPerSecUSec": "infinity",
+      "MemoryMax": "infinity",
+      "MemorySwapMax": "infinity",
+      "TasksMax": "9063"
+    }
+  },
+  "orphan_final": {
+    "Id": "unifier-accept-161115-orphan.service",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "ControlGroup": "",
+    "CPUQuotaPerSecUSec": "infinity",
+    "MemoryMax": "infinity",
+    "MemorySwapMax": "infinity",
+    "TasksMax": "9063"
+  }
+}

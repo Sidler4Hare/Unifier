@@ -1,0 +1,38 @@
+{
+  "version": "0.0.3",
+  "status": "SOURCE_BUNDLE_VERIFIED",
+  "sha256": "9aa7885ad6e81d07ebc19d34ae82583e6cb940b4ecda0c092c98f53d24597a96",
+  "bundle_bytes": 792131,
+  "manifest_entries": 255,
+  "offline_tests": {
+    "run": 802,
+    "passed": 797,
+    "skipped": 5,
+    "failures": 0
+  },
+  "new_tests": 15,
+  "targeted_tests_before_final_cli_field_refinement": 58,
+  "private_install_upgrade_diagnosis_rollback": "PASS",
+  "daily_deployment": "NOT_RUN",
+  "real_container_acceptance": "BLOCKED_PRE03",
+  "commit": "NOT_RUN",
+  "push": "NOT_RUN",
+  "changed_baseline_files": [
+    "src/unifier/__init__.py",
+    "src/unifier/service.py",
+    "src/unifier/cli.py",
+    "tools/build_release.py",
+    "docs/自动依赖与原生安装交互.md",
+    "docs/v0.0.2.md",
+    "docs/布局.md",
+    "docs/架构问题修复计划-20261105.md",
+    "docs/仓库维护.md",
+    "README.md",
+    "HANDOFF.md"
+  ],
+  "baseline_files_missing": [],
+  "baseline_files_preserved": 246,
+  "all_owned_units_exited": true,
+  "index_content_matches_HEAD": true,
+  "index_byte_hash_unchanged": false
+}

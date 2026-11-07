@@ -1,0 +1,53 @@
+# Unifier v0.0.1 测试版
+
+首版范围是 Linux x86_64、glibc、rootless Podman、cgroup v2 的 CLI 和跨派系客体管理。客体为 Debian 13、Fedora 44、Arch；同派系客体明确拒绝。宿主白名单准入不等于该宿主上的全部应用已验证。
+
+## 安装与检查
+
+先准备 Python 3.11+、Podman、Skopeo、用户 UID/GID 映射；需要文件视图时还需可用的 `/dev/fuse` 和 `fusermount3`。发行版相关依赖由管理员通过宿主包管理器安装，`doctor` 只检查而不修改系统。
+
+校验发布包旁的 SHA-256 文件，将包解压到准备长期保留的代码目录。不要把用户数据目录当成代码目录，也不要移动已有安装的数据根。
+
+```bash
+tar -xzf unifier-0.0.1.tar.gz
+cd unifier-0.0.1
+python3 tools/check_repo.py
+python3 tools/lab.py doctor
+python3 tools/install_unifier.py
+unifier --version
+unifier init
+```
+
+没有 Git 的源码包也能直接运行 `check_repo.py`：先逐项验证包内清单，再执行离线检查。条件集成跳过不算真实 Podman/FUSE/GUI 验收。图形应用需要在首次 `init` 时指定 `--desktop`。
+
+用户数据默认位于 `~/.local/share/unifier`，可用绝对路径 `UNIFIER_HOME` 显式指定。升级和回退必须使用同一个数据根；运行中的应用和 worker 先正常退出。
+
+## 升级、回退和卸载入口
+
+保留旧代码目录，把新包解压到另一个长期目录。从新目录执行：
+
+```bash
+python3 tools/check_repo.py
+python3 tools/install_unifier.py --upgrade
+unifier --version
+```
+
+`--upgrade` 只切换已识别的 Unifier 符号链接，打印同目录的 `.unifier-*.rollback` 备份路径。回退时正常退出应用，将该备份链接移动回原来的 `unifier` 路径，例如 `mv -Tf -- /实际备份链接 /原bin目录/unifier`，然后运行 `unifier --version`。不要删除仍被回退链接引用的旧代码目录。升级不会重建容器，也不会复制或清空用户数据；不同未来版本的数据 schema 兼容性仍需单独确认。
+
+卸载命令入口只删除自己安装的 `~/.local/bin/unifier` 符号链接，保留源码、容器和数据。需要退役容器时使用明确的环境删除命令并先备份业务数据。
+
+## 本版修复与能力边界
+
+- Python 3.11/3.12 缺少 `fcntl.F_SETOWN_EX` 名称时，仍使用 Linux UAPI 的同一线程定向操作获取租约，不降级删除保护。
+- 停止视图列举目录时，受限链接目标不再阻断可读兄弟目录；显式访问受限目标仍返回错误，I/O 和 FD 耗尽错误不隐藏。
+- 普通文件在每次属性重验证时使页面缓存失效，不再把 size/mtime/ctime 相同当作内容未变的证明。保留 mmap；没有后台 watcher，单独读取已有 mmap 而不触发重验证不保证看见外部修改。这一保守策略有缓存性能成本，尚无跨后端性能承诺。
+- 外部 rename 后相对链接和嵌套挂载的路径上下文已修复。旧 FD/mmap 继续引用原对象。
+- 普通共享项目用直接 bind；停止环境视图是只读、实时视图，不是严格快照。ACL/xattr 全保真、递归树受管复制、通用 IDE 和完整跨环境 Agent 尚未交付。
+- 本版不把摄像头、共享屏幕、虚拟 GPU 或完整会议媒体当成已验收能力。宿主 RPM/Flatpak 的统一 handler 和图形管理页仍在后续范围。
+- 真实 GPU DMA-BUF 用例归入 `MULTILINUX_INTEGRATION=1` 显式集成测试，离线检查不依据“存在 render 节点”就默认支持 GPU。原虚拟 GPU 的 `gbm_alloc` unsupported 记录保留；未通过专项不表示支持。
+
+## 问题反馈
+
+记录 `unifier --version`、`python3 --version`、`python3 tools/lab.py doctor`、实际命令、退出码、错误输出，以及宿主/客体和 desktop/headless 类型。需要关联精确源码时附 `BUNDLE-MANIFEST.json`。不要提交登录凭据、私钥、业务文件或完整 HOME。保留失败现场和原始日志，避免通过重装清掉复现依据。
+
+当前验证与尚未完成的发布关口见仓库中的 `artifacts/v0.0.1-20261030/report.md`；该运行记录独立于便携源码包。

@@ -1,0 +1,35 @@
+{
+  "status": "PAUSED_BY_USER",
+  "at": "2026-11-05T16:51:53.372384+08:00",
+  "reason": "user preparing to power off machine",
+  "automatic_resume": false,
+  "all_registered_units_exited": true,
+  "aggregate_tasks_at_pause": 0,
+  "fixed_debian_last_verified_state": "exited / Running=false / PID=0",
+  "latest_cleanup_receipt": "live-minimum-retry/rescue.json",
+  "PRE03": "PARTIAL; NOT PASSED",
+  "offline_first_batch": 52,
+  "offline_correction_regressions": 20,
+  "counts_overlap": true,
+  "monitor_loss_host_unit_probe": "PASS_T1_HOST_ONLY",
+  "live_attempts": [
+    {
+      "path": "live-minimum",
+      "status": "INVALID_ADAPTER",
+      "reason": "incorrect ConmonPid field assumption, fixed with bounded ConmonPidFile reader"
+    },
+    {
+      "path": "live-minimum-retry",
+      "status": "INVALID_ADAPTER",
+      "reason": "actual guest cgroup limits differ; inspect complete ancestor chain before further execution"
+    }
+  ],
+  "shared_cli_dependency_gui_workflows_this_turn": "NOT_RUN",
+  "new_containers": 0,
+  "package_transactions_this_turn": 0,
+  "daily_deployment_changed": false,
+  "v003_bundle_unchanged": true,
+  "durable_private_state_backups": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-acceptance-20261105T161115+0800/private-backup",
+  "code_not_committed": true,
+  "resume_requirement": "New boot requires fresh original-CID/UUID/generation/lease/limits/resource audit; runtime slice settings, old PID/starttime and /tmp paths must not be reused as live evidence."
+}

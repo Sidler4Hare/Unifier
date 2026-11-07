@@ -105,6 +105,8 @@ entries = descriptors()
 alive = set(number for number, _ in entries)
 report(["MODE=" + mode,
         "OPEN3=%s" % (3 in alive),
+        "HOST_HOME=" + os.environ.get("HOME", ""),
+        "HOST_RUNTIME=" + os.environ.get("XDG_RUNTIME_DIR", ""),
         "EXTRA=" + ",".join("%d:%s" % pair for pair in sorted(entries) if pair[0] > 3),
         "ARGV=" + " ".join(argv).replace("\n", "|")])
 if 3 not in alive:
@@ -144,6 +146,14 @@ while index < len(argv):
     item = argv[index]
     if item in ("-i", "-t"):
         index += 1
+    elif item == "--env-file":
+        path = argv[index + 1]
+        with open(path) as stream:
+            for line in stream:
+                key, value = line.rstrip("\n").split("=", 1)
+                os.environ[key] = value
+        os.close(int(path.rsplit("/", 1)[1]))
+        index += 2
     elif item in ("--user", "--workdir", "--env", "--preserve-fds"):
         index += 2
     elif item.startswith("--"):
@@ -697,6 +707,8 @@ class RealHandshake(unittest.TestCase):
         audit = extra_descriptors(report)
         for number, target in audit:
             self.assertGreater(number, 3)
+            if target == '/memfd:unifier-guest-env (deleted)':
+                continue  # Podman consumes and closes this before the guest exec.
             self.assertEqual(os.path.realpath(target), os.path.realpath(str(self.shim)),
                              f"descriptor {number}:{target} leaked into the exec")
         self.assertNotIn("pipe:[", report, "the control pipe leaked into the exec")
@@ -723,8 +735,25 @@ class RealHandshake(unittest.TestCase):
         self.assertEqual(output, value.encode())
         self.assertEqual(error, b"")
         self.assertNotIn(value, " ".join(self.last_command))
-        self.assertIn(key, self.last_command)
+        self.assertIn('--env-file', self.last_command)
         self.assertEqual(os.environ.get(key), before)
+
+    def test_guest_home_and_runtime_do_not_redirect_the_host_client(self):
+        self.report = self.root / 'report-home'
+        parent_home = os.environ.get('HOME', '')
+        parent_runtime = os.environ.get('XDG_RUNTIME_DIR', '')
+        execution = self.runtime.start_session_exec(
+            CONTAINER, ['/bin/sh', '-c', 'printf "%s|%s" "$HOME" "$XDG_RUNTIME_DIR"'],
+            project=PROJECT, env_id=ENV_ID, workdir=None,
+            env={'HOME': '/nonexistent-guest-home', 'XDG_RUNTIME_DIR': '/run/guest-only'},
+            user='1000:1000', interactive=True, tty=False)
+        output, error = execution.process.communicate(timeout=20)
+        self.assertEqual(execution.process.returncode, 0, error)
+        self.assertEqual(output, b'/nonexistent-guest-home|/run/guest-only')
+        report = self.read_report()
+        self.assertIn('HOST_HOME=' + parent_home + '\n', report)
+        self.assertIn('HOST_RUNTIME=' + parent_runtime + '\n', report)
+        self.assertNotIn('/nonexistent-guest-home', ' '.join(self.last_command))
 
     def test_session_handshake_reports_a_real_identity_over_fd_3(self):
         self.report = self.root / "report-session"

@@ -1,0 +1,11 @@
+{
+  "Id": "unifier-accept-161115-minimum-work.service",
+  "ActiveState": "active",
+  "InvocationID": "fb1f2fd08c3d431c933f905c60accd50",
+  "MainPID": "410896",
+  "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-accept-161115-minimum-work.service",
+  "CPUQuotaPerSecUSec": "1s",
+  "MemoryMax": "201326592",
+  "MemorySwapMax": "0",
+  "TasksMax": "64"
+}

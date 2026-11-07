@@ -1,0 +1,393 @@
+{
+  "overall": "PARTIAL",
+  "original_plan_unchanged": true,
+  "new_container_budget": 0,
+  "new_containers": 0,
+  "cases": [
+    {
+      "id": "PRE01",
+      "status": "PASS",
+      "execution_mode": "readonly",
+      "product_scope": "original ten-CID pool and selected Debian/Arch binding frozen",
+      "evidence": [
+        "inventory-before.json"
+      ],
+      "feature_gaps": []
+    },
+    {
+      "id": "PRE02",
+      "status": "BLOCKED",
+      "execution_mode": "offline and invalid live pilot",
+      "product_scope": "offline observer/root-coordination contracts pass; no safe real same-root peer; stopped DB pilot ended before result",
+      "evidence": [
+        "full-offline/command.log",
+        "inventory-equivalence/receipt.json",
+        "inventory-pilot-384/receipt.json"
+      ],
+      "feature_gaps": [
+        "same-root second fixture",
+        "live database equivalence and storage release"
+      ]
+    },
+    {
+      "id": "PRE03",
+      "status": "BLOCKED",
+      "execution_mode": "offline and limited live",
+      "product_scope": "minimum Debian full cgroup coverage PASS; full APP job aborted PSI; controller early reclaim protection validated offline/live",
+      "evidence": [
+        "live-minimum/result.json",
+        "shared-cli-envfix/receipt.json",
+        "controller-safety-offline/command.log",
+        "inventory-equivalence/receipt.json"
+      ],
+      "feature_gaps": [
+        "controller sub-budget insufficient",
+        "GUI and Arch admission"
+      ]
+    },
+    {
+      "id": "PRE04",
+      "status": "BLOCKED",
+      "execution_mode": "partial preparation",
+      "product_scope": "formal real CLI entry pinned; dependency toolchain/private GUI readiness not complete",
+      "evidence": [
+        "post-app-fix-source.json"
+      ],
+      "feature_gaps": [
+        "dependency-probe not started",
+        "guest fixture toolchain not prepared"
+      ]
+    },
+    {
+      "id": "PRE05",
+      "status": "PASS",
+      "execution_mode": "readonly",
+      "product_scope": "frozen source/index/releases and selected metadata recovery copies; only private new CLI inputs permitted",
+      "evidence": [
+        "before.json",
+        "inventory-before.json",
+        "execution.md"
+      ],
+      "feature_gaps": []
+    },
+    {
+      "id": "SH01",
+      "status": "INVALID",
+      "execution_mode": "live invalid attempt",
+      "product_scope": "whole case not accepted; first APP heartbeat reached but group sample aborted",
+      "evidence": [
+        "shared-cli-envfix/receipt.json"
+      ],
+      "feature_gaps": [
+        "complete shared runtime lifecycle"
+      ]
+    },
+    {
+      "id": "SH02",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "requires controller budget and prior cases",
+      "evidence": [
+        "shared-cli-envfix/receipt.json"
+      ],
+      "feature_gaps": [
+        "complete shared runtime lifecycle"
+      ]
+    },
+    {
+      "id": "SH03",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "requires controller budget and prior cases",
+      "evidence": [
+        "shared-cli-envfix/receipt.json"
+      ],
+      "feature_gaps": [
+        "complete shared runtime lifecycle"
+      ]
+    },
+    {
+      "id": "SH04",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "requires controller budget and prior cases",
+      "evidence": [
+        "shared-cli-envfix/receipt.json"
+      ],
+      "feature_gaps": [
+        "complete shared runtime lifecycle"
+      ]
+    },
+    {
+      "id": "SH05",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "requires controller budget and prior cases",
+      "evidence": [
+        "shared-cli-envfix/receipt.json"
+      ],
+      "feature_gaps": [
+        "complete shared runtime lifecycle"
+      ]
+    },
+    {
+      "id": "SH06",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "requires controller budget and prior cases",
+      "evidence": [
+        "shared-cli-envfix/receipt.json"
+      ],
+      "feature_gaps": [
+        "complete shared runtime lifecycle"
+      ]
+    },
+    {
+      "id": "SH07",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "requires controller budget and prior cases",
+      "evidence": [
+        "shared-cli-envfix/receipt.json"
+      ],
+      "feature_gaps": [
+        "complete shared runtime lifecycle"
+      ]
+    },
+    {
+      "id": "SH08",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "requires controller budget and prior cases",
+      "evidence": [
+        "shared-cli-envfix/receipt.json"
+      ],
+      "feature_gaps": [
+        "complete shared runtime lifecycle"
+      ]
+    },
+    {
+      "id": "SH09",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "requires controller budget and prior cases",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "native package lock/GUI admission"
+      ]
+    },
+    {
+      "id": "SH10",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "requires controller budget and prior cases",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "native package lock/GUI admission"
+      ]
+    },
+    {
+      "id": "DEP01",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "live positive path not accepted",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "live guest fixture/transaction not executed"
+      ]
+    },
+    {
+      "id": "DEP02",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "live positive path not accepted",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "live guest fixture/transaction not executed"
+      ]
+    },
+    {
+      "id": "DEP03",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "live positive path not accepted",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "live guest fixture/transaction not executed"
+      ]
+    },
+    {
+      "id": "DEP04",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "live positive path not accepted",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "live guest fixture/transaction not executed"
+      ]
+    },
+    {
+      "id": "DEP05",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "live positive path not accepted",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "live guest fixture/transaction not executed"
+      ]
+    },
+    {
+      "id": "DEP06",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "live positive path not accepted",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "live guest fixture/transaction not executed"
+      ]
+    },
+    {
+      "id": "DEP07",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "live positive path not accepted",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "live guest fixture/transaction not executed"
+      ]
+    },
+    {
+      "id": "DEP08",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "live positive path not accepted",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "live guest fixture/transaction not executed"
+      ]
+    },
+    {
+      "id": "DEP09",
+      "status": "PASS",
+      "execution_mode": "offline",
+      "product_scope": "negative provider and bounded failure contracts; no live repository closure",
+      "evidence": [
+        "full-offline/command.log",
+        "../../tests/test_dependencies.py",
+        "../../tests/test_dependency_diagnostic_repair.py"
+      ],
+      "feature_gaps": []
+    },
+    {
+      "id": "DEP10",
+      "status": "PASS",
+      "execution_mode": "offline",
+      "product_scope": "negative provider and bounded failure contracts; no live repository closure",
+      "evidence": [
+        "full-offline/command.log",
+        "../../tests/test_dependencies.py",
+        "../../tests/test_dependency_diagnostic_repair.py"
+      ],
+      "feature_gaps": []
+    },
+    {
+      "id": "DEP11",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "live positive path not accepted",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "live guest fixture/transaction not executed"
+      ]
+    },
+    {
+      "id": "DEP12",
+      "status": "BLOCKED",
+      "execution_mode": "offline mechanism only",
+      "product_scope": "loader/path/ABI classification fixtures pass locally; guest loader not accepted",
+      "evidence": [
+        "full-offline/command.log"
+      ],
+      "feature_gaps": [
+        "live guest fixture/transaction not executed"
+      ]
+    },
+    {
+      "id": "DEP13",
+      "status": "BLOCKED",
+      "execution_mode": "not admitted",
+      "product_scope": "live positive path not accepted",
+      "evidence": [
+        "next-execution-proposal.md"
+      ],
+      "feature_gaps": [
+        "live guest fixture/transaction not executed"
+      ]
+    },
+    {
+      "id": "AR01",
+      "status": "BLOCKED",
+      "execution_mode": "readonly",
+      "product_scope": "fixed Arch CID lacks CPU/RAM limits; no automatic update/replacement",
+      "evidence": [
+        "inventory-before.json"
+      ],
+      "feature_gaps": []
+    },
+    {
+      "id": "AR02",
+      "status": "BLOCKED",
+      "execution_mode": "readonly",
+      "product_scope": "fixed Arch CID lacks CPU/RAM limits; no automatic update/replacement",
+      "evidence": [
+        "inventory-before.json"
+      ],
+      "feature_gaps": []
+    },
+    {
+      "id": "AR03",
+      "status": "BLOCKED",
+      "execution_mode": "readonly",
+      "product_scope": "fixed Arch CID lacks CPU/RAM limits; no automatic update/replacement",
+      "evidence": [
+        "inventory-before.json"
+      ],
+      "feature_gaps": []
+    },
+    {
+      "id": "END01",
+      "status": "PASS",
+      "execution_mode": "readonly",
+      "product_scope": "original ten CIDs still exited; round units quiescent; staged tree equals HEAD; index file bytes differ after stat-cache refresh; final-audit.json left as FAIL",
+      "evidence": [
+        "final-audit.json",
+        "index-clarification.json"
+      ],
+      "feature_gaps": [
+        "index file sha256 differs from the opening snapshot; committable index matches HEAD"
+      ]
+    }
+  ]
+}

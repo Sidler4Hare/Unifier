@@ -1,0 +1,4 @@
+{
+  "rc": 0,
+  "stderr": "Running as unit: unifier-resume-1107-fixtures-guard.service\n          Finished with result: success\nMain processes terminated with: code=exited, status=0/SUCCESS\n               Service runtime: 1min 36.741s\n             CPU time consumed: 877ms\n                   Memory peak: 28.8M (swap: 0B)\n"
+}

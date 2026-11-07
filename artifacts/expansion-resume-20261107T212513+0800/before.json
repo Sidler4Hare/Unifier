@@ -1,0 +1,11 @@
+{
+  "head": "fbfbece91e859289de1cbdad5f467cc74d5301f1",
+  "id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "name": "ml-2f4a1877-debian13",
+  "running": false,
+  "status": "exited",
+  "started_at": "2026-11-06T10:26:42.557938413+08:00",
+  "finished_at": "2026-11-06T10:26:50.747218563+08:00",
+  "oom_killed": false,
+  "exit_code": 143
+}

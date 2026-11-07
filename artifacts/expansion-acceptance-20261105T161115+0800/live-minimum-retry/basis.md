@@ -1,0 +1,1 @@
+唯一一次有依据重放：原尝试INVALID_ADAPTER，实际inspect提供ConmonPidFile，已只读确认原CID停止。适配器改为有界、不跟随链接读取pidfile并验证完整CID argv；init/scope身份在读取conmon之前持久登记，新增两项回归。原失败和记录保留，预算、原CID、项目根及门槛不变。

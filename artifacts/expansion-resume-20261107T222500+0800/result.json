@@ -1,0 +1,94 @@
+{
+  "status": "FAIL",
+  "cases": [
+    {
+      "id": "DEP01",
+      "status": "PASS",
+      "evidence": {
+        "transaction": {
+          "id": "txn238cae22048f",
+          "phase": "completed",
+          "failure_phase": null,
+          "native_error": null,
+          "verification": {
+            "ok": true,
+            "packages": {
+              "unifier-round1107a": true
+            },
+            "command": [
+              "/usr/bin/unifier-round1107a"
+            ],
+            "command_exit_code": 0,
+            "stdout_preview": "ok\n7ff3bd2ba000-7ff3bd2bb000 r--p 00000000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7ff3bd2bb000-7ff3bd2bc000 r-xp 00001000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7ff3bd2bc000-7ff3bd2bd000 r--p 00002000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7ff3bd2bd000-7ff3bd2be000 r--p 00002000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7ff3bd2be000-7ff3bd2bf000 rw-p 00",
+            "stdout_sha256": "4d0e061e67fc22aeeccc4b2af954a1ab0e3f5933d32b111c84e6f37a40b47624",
+            "problems": []
+          },
+          "repair_status": "not-requested",
+          "repair_installed": null,
+          "repair_unresolved": null,
+          "started_at": "2026-11-07T22:11:26+08:00",
+          "finished_at": "2026-11-07T22:11:35+08:00"
+        },
+        "oracle": "         /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7f9ff3768000-7f9ff3769000 r--p 00002000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7f9ff3769000-7f9ff376a000 r--p 00002000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n7f9ff376a000-7f9ff376b000 rw-p 00003000 00:56 4754992                    /usr/lib/x86_64-linux-gnu/libestr.so.0.0.0\n",
+        "version": "0.1.11-2"
+      }
+    },
+    {
+      "id": "DEP02",
+      "status": "PASS",
+      "evidence": {
+        "install": {
+          "id": "txnbd3009a9825e",
+          "phase": "completed",
+          "failure_phase": null,
+          "native_error": null,
+          "verification": {
+            "ok": true,
+            "packages": {
+              "unifier-round1107b": true
+            },
+            "command": null,
+            "command_exit_code": null,
+            "stdout_preview": null,
+            "stdout_sha256": null,
+            "problems": []
+          },
+          "repair_status": "not-requested",
+          "repair_installed": null,
+          "repair_unresolved": null,
+          "started_at": "2026-11-07T22:11:36+08:00",
+          "finished_at": "2026-11-07T22:11:42+08:00"
+        },
+        "repair": {
+          "id": "txn0576e06ea3d6",
+          "phase": "completed",
+          "failure_phase": null,
+          "native_error": null,
+          "verification": {
+            "ok": true,
+            "packages": {
+              "unifier-round1107b": true
+            },
+            "command": null,
+            "command_exit_code": null,
+            "stdout_preview": null,
+            "stdout_sha256": null,
+            "problems": []
+          },
+          "repair_status": "repaired",
+          "repair_installed": [
+            "libfastjson4"
+          ],
+          "repair_unresolved": [],
+          "started_at": "2026-11-07T22:11:43+08:00",
+          "finished_at": "2026-11-07T22:12:23+08:00"
+        },
+        "pre_exit": 127,
+        "oracle": "             /usr/lib/x86_64-linux-gnu/libfastjson.so.4.3.0\n7f2d37314000-7f2d37315000 r--p 0000c000 00:56 4756935                    /usr/lib/x86_64-linux-gnu/libfastjson.so.4.3.0\n7f2d37315000-7f2d37316000 rw-p 0000d000 00:56 4756935                    /usr/lib/x86_64-linux-gnu/libfastjson.so.4.3.0\n"
+      }
+    }
+  ],
+  "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "error": "{\"id\": \"txn48e1cb531cf4\", \"phase\": \"failed\", \"failure_phase\": \"native-command\", \"native_error\": null, \"verification\": {\"ok\": false, \"packages\": {\"unifier-round1107c\": false}, \"command\": null, \"command_exit_code\": null, \"stdout_preview\": null, \"stdout_sha256\": null, \"problems\": [\"native command failed\"]}, \"repair_status\": \"not-requested\", \"repair_installed\": null, \"repair_unresolved\": null, \"started_at\": \"2026-11-07T22:12:23+08:00\", \"finished_at\": \"2026-11-07T22:12:31+08:00\"}",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261107T222500+0800/driver.py\", line 100, in <module>\n    txn = require_txn(install_deb(\"unifier-round1107c\"))\n  File \"/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261107T222500+0800/driver.py\", line 60, in require_txn\n    raise RuntimeError(json.dumps(summarize(txn), ensure_ascii=False)[-2000:])\nRuntimeError: {\"id\": \"txn48e1cb531cf4\", \"phase\": \"failed\", \"failure_phase\": \"native-command\", \"native_error\": null, \"verification\": {\"ok\": false, \"packages\": {\"unifier-round1107c\": false}, \"command\": null, \"command_exit_code\": null, \"stdout_preview\": null, \"stdout_sha256\": null, \"problems\": [\"native command failed\"]}, \"repair_status\": \"not-requested\", \"repair_installed\": null, \"repair_unresolved\": null, \"started_at\": \"2026-11-07T22:12:23+08:00\", \"finished_at\": \"2026-11-07T22:12:31+08:00\"}\n"
+}

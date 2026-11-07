@@ -1358,14 +1358,27 @@ class EnvironmentService:
             interactive=interactive, stream=stream, repair_dependencies=repair_dependencies)
 
     def repair_dependencies(self, env_id: str, packages: list[str], *, libraries=(),
-                            interactive=False, stream=False) -> dict:
+                            interactive=False, stream=False, diagnostics_path=None) -> dict:
         from unifier.dependencies import validate_library
         libraries = [validate_library(name) for name in libraries]
+        dependency_input = None
+        if diagnostics_path is not None:
+            from unifier.dependency_diagnostics import read_diagnostics
+            dependency_input = read_diagnostics(diagnostics_path)
+            blocked = sorted({issue["kind"] for issue in dependency_input["issues"]
+                              if issue["kind"] != "missing-library"})
+            if blocked:
+                raise UnifierError("diagnostic log contains failures outside automatic library repair: "
+                                   + ", ".join(blocked) + "; use --diagnose-only for classification")
+            if not dependency_input["libraries"]:
+                raise UnifierError("diagnostic log contains no exact missing-library error")
+            libraries = sorted(set(libraries) | set(dependency_input["libraries"]))
         if not packages and not libraries:
             raise UnifierError("dependency repair requires installed packages or --library")
         return self._package_transaction(env_id, "repair-dependencies", packages,
                                          interactive=interactive, stream=stream,
-                                         repair_dependencies=True, libraries=libraries)
+                                         repair_dependencies=True, libraries=libraries,
+                                         dependency_input=dependency_input)
 
     def transactions_for(self, env_id: str) -> list[dict]:
         return self.store.transactions_for(validate_env_id(env_id))
@@ -1455,7 +1468,7 @@ class EnvironmentService:
     def _package_transaction(self, env_id: str, operation: str, packages: list[str], *,
                              use_argv=None, local_file: str | None = None,
                              interactive=False, stream=False, repair_dependencies=False,
-                             libraries=()) -> dict:
+                             libraries=(), dependency_input=None) -> dict:
         """Serialize the complete isolation window, then the native DB writer.
 
         Order: management -> environment package -> lifecycle. Neither the
@@ -1471,13 +1484,15 @@ class EnvironmentService:
                 return self._package_transaction_locked(
                     env_id, operation, packages, use_argv=use_argv,
                     local_file=local_file, interactive=interactive, stream=stream,
-                    repair_dependencies=repair_dependencies, libraries=libraries)
+                    repair_dependencies=repair_dependencies, libraries=libraries,
+                    dependency_input=dependency_input)
 
     def _package_transaction_locked(self, env_id: str, operation: str,
                                     packages: list[str], *,
                                     use_argv=None,
                                     local_file: str | None = None, interactive=False,
-                                    stream=False, repair_dependencies=False, libraries=()) -> dict:
+                                    stream=False, repair_dependencies=False, libraries=(),
+                                    dependency_input=None) -> dict:
         record = self.store.load(validate_env_id(env_id))
         self._require_host_compatibility(record)
         self._package_container_ref(record)
@@ -1543,6 +1558,8 @@ class EnvironmentService:
             "finished_at": None,
         }
         inventory_text = None
+        if dependency_input is not None:
+            txn["dependency_input"] = dependency_input
         was_running = None
         other_before = None
         host_before = None

@@ -1,0 +1,75 @@
+{
+  "all_owned_units_exited": true,
+  "units": [
+    {
+      "Id": "unifier-v003-baseline-20261105t152926-work.service",
+      "ActiveState": "failed",
+      "MainPID": "0",
+      "Result": "exit-code",
+      "ControlGroup": ""
+    },
+    {
+      "Id": "unifier-v003-baseline-20261105t152926-guard.service",
+      "ActiveState": "inactive",
+      "MainPID": "0",
+      "Result": "success",
+      "ControlGroup": ""
+    },
+    {
+      "Id": "unifier-v003-qwen-20261105t152926-work.service",
+      "ActiveState": "failed",
+      "MainPID": "0",
+      "Result": "exit-code",
+      "ControlGroup": ""
+    },
+    {
+      "Id": "unifier-v003-qwen-20261105t152926-guard.service",
+      "ActiveState": "inactive",
+      "MainPID": "0",
+      "Result": "success",
+      "ControlGroup": ""
+    },
+    {
+      "Id": "unifier-v003-targeted-20261105t152926-work.service",
+      "ActiveState": "inactive",
+      "MainPID": "0",
+      "Result": "success",
+      "ControlGroup": ""
+    },
+    {
+      "Id": "unifier-v003-targeted-20261105t152926-guard.service",
+      "ActiveState": "inactive",
+      "MainPID": "0",
+      "Result": "success",
+      "ControlGroup": ""
+    },
+    {
+      "Id": "unifier-v003-build-20261105t152926-work.service",
+      "ActiveState": "inactive",
+      "MainPID": "0",
+      "Result": "success",
+      "ControlGroup": ""
+    },
+    {
+      "Id": "unifier-v003-build-20261105t152926-guard.service",
+      "ActiveState": "inactive",
+      "MainPID": "0",
+      "Result": "success",
+      "ControlGroup": ""
+    },
+    {
+      "Id": "unifier-v003-smoke-20261105t152926-work.service",
+      "ActiveState": "inactive",
+      "MainPID": "0",
+      "Result": "success",
+      "ControlGroup": ""
+    },
+    {
+      "Id": "unifier-v003-smoke-20261105t152926-guard.service",
+      "ActiveState": "inactive",
+      "MainPID": "0",
+      "Result": "success",
+      "ControlGroup": ""
+    }
+  ]
+}

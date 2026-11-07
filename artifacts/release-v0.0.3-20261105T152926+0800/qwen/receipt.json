@@ -1,0 +1,138 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "/tmp/unifier-v003-20261105/qwen/qwen-launch.py"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 398143,
+    "starttime": "19025444",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-qwen-20261105t152926-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "max",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "100000 100000"
+  },
+  "unit_identity": {
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "InvocationID": "2f4dd046c02a4ac7b59031d9b2c64699",
+    "MainPID": "398233",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-qwen-20261105t152926-work.service"
+  },
+  "worker": {
+    "identity": {
+      "pid": 398233,
+      "starttime": "19028460",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-qwen-20261105t152926-work.service"
+    },
+    "limits": {
+      "memory.max": "536870912",
+      "memory.high": "402653184",
+      "memory.swap.max": "0",
+      "pids.max": "96",
+      "cpu.max": "100000 100000"
+    }
+  },
+  "last_cgroup_metrics": {
+    "memory": 165019648,
+    "tasks": 2,
+    "memory_peak": 337166336,
+    "tasks_peak": 38,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 13488014,
+      "user_usec": 11414258,
+      "system_usec": 2073756,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 1946,
+      "nr_throttled": 55,
+      "throttled_usec": 5811694,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 398233,
+        "starttime": "19028460",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-qwen-20261105t152926-work.service"
+      }
+    ]
+  },
+  "command_result": {
+    "exit_code": 1,
+    "finished": 1793864180.3296747
+  },
+  "worker_final_cgroup": {
+    "memory": 165281792,
+    "tasks": 1,
+    "memory_peak": 337166336,
+    "tasks_peak": 38,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 13488923,
+      "user_usec": 11415167,
+      "system_usec": 2073756,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 1946,
+      "nr_throttled": 55,
+      "throttled_usec": 5811694,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 398233,
+        "starttime": "19028460",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-qwen-20261105t152926-work.service"
+      }
+    ]
+  },
+  "final_unit": {
+    "LoadState": "loaded",
+    "ActiveState": "failed",
+    "InvocationID": "2f4dd046c02a4ac7b59031d9b2c64699",
+    "MainPID": "0",
+    "Result": "exit-code",
+    "ExecMainCode": "1",
+    "ExecMainStatus": "1",
+    "ControlGroup": ""
+  },
+  "cgroup_removed": true,
+  "reason": null,
+  "min_available_bytes": 3758981120,
+  "peak_memory_bytes": 333352960,
+  "peak_tasks": 37,
+  "elapsed_seconds": 251.22380195499863
+}

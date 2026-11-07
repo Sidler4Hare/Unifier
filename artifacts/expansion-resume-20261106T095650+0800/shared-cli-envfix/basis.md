@@ -1,0 +1,1 @@
+New attempt after concrete host/guest environment fix; original failures preserved. CLI workload and resource thresholds unchanged. 51 targeted offline tests pass. Recover exact stopped CID lease before admission. No new containers.

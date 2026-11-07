@@ -1,0 +1,18 @@
+{
+  "unit": "unifier-accept-161115-minimum",
+  "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+  "project": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment",
+  "env_id": "debian13",
+  "environment_uuid": "ae147c3e-3e65-41ac-ac8d-9257c9202696",
+  "generation": 1,
+  "container_name": "ml-2f4a1877-debian13",
+  "shared": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared",
+  "image_lock": "/home/omg/文档/多兼容linux机/.lab/agents/expansion-continuation-20261103T100648+0800/guarded-images.lock.json",
+  "private_root": "/tmp/uat2min1611",
+  "reserve_bytes": 1073741824,
+  "seconds": 120,
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/文档/多兼容linux机/artifacts/expansion-acceptance-20261105T161115+0800/live-minimum/driver.py"
+  ]
+}

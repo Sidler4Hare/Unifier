@@ -1,0 +1,16 @@
+test_parent_swap_cap_is_accepted_without_changing_container_limits (test_reuse_test_guard.SupervisorContracts.test_parent_swap_cap_is_accepted_without_changing_container_limits) ... ERROR
+
+======================================================================
+ERROR: test_parent_swap_cap_is_accepted_without_changing_container_limits (test_reuse_test_guard.SupervisorContracts.test_parent_swap_cap_is_accepted_without_changing_container_limits)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/tests/test_reuse_test_guard.py", line 143, in test_parent_swap_cap_is_accepted_without_changing_container_limits
+    binding=guard.capture_binding(self.config,self.out)
+  File "/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261106T095650+0800/before/tools/reuse_test_guard.py", line 201, in capture_binding
+    raise RuntimeError('actual guest cgroup limits differ')
+RuntimeError: actual guest cgroup limits differ
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (errors=1)

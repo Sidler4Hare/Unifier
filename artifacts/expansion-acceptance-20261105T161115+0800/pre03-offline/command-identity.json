@@ -1,0 +1,19 @@
+{
+  "identity": {
+    "pid": 409604,
+    "starttime": "19370771",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-accept-161115-pre03offline-work.service"
+  },
+  "argv": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_reuse_guard_policy",
+    "test_reuse_test_guard",
+    "test_guarded_test",
+    "test_package_observation",
+    "test_package_coordination",
+    "test_application_lifecycle"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "unifier-resume-1106-sharedretry-work.service",
+  "ActiveState": "active",
+  "InvocationID": "d1a6327830154f1abc1a6a3e8816c192",
+  "MainPID": "420965",
+  "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1106-sharedretry-work.service",
+  "CPUQuotaPerSecUSec": "1s",
+  "MemoryMax": "201326592",
+  "MemorySwapMax": "0",
+  "TasksMax": "64"
+}

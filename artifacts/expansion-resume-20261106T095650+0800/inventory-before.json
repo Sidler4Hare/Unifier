@@ -1,0 +1,300 @@
+{
+  "version": "podman version 5.8.9",
+  "all": [
+    {
+      "Id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
+      "Names": [
+        "ml-53c5c8a5-freecad-arch"
+      ],
+      "State": "exited",
+      "Status": "Exited (143) 6 days ago",
+      "Image": "localhost/multilinux/installstatus-arch@sha256:9733d4d09b22b0d20d34c7b6477ae5ebc347d64384ff2a0af045afa82917fec6",
+      "Created": 1792811760
+    },
+    {
+      "Id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
+      "Names": [
+        "ml-6b061a2f-meeting"
+      ],
+      "State": "exited",
+      "Status": "Exited (143) 8 days ago",
+      "Image": "localhost/unifier/wemeet-current@sha256:4abbc8621397cdaf0ad326970d0cba5777dfd60c315cc5ddfb050cd8bcfbd8e1",
+      "Created": 1793080122
+    },
+    {
+      "Id": "076f6017d2a47a3fd6e2c996d6fb819c7c8ec2159d0fbb436be2a6e4bbd0e5d7",
+      "Names": [
+        "ml-104d8e92-debian13"
+      ],
+      "State": "exited",
+      "Status": "Exited (143) 2 days ago",
+      "Image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "Created": 1793418173
+    },
+    {
+      "Id": "ca04aa07e2aa2709765f8037218cf4bd54951c402c03ba3d28f16223c14178fa",
+      "Names": [
+        "ml-104d8e92-arch"
+      ],
+      "State": "exited",
+      "Status": "Exited (143) 2 days ago",
+      "Image": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "Created": 1793418175
+    },
+    {
+      "Id": "8399ccd38b137d9283b6587007a43744e8d334809ed4864f002f091009ca555e",
+      "Names": [
+        "ml-45dc9c7d-deps-debian"
+      ],
+      "State": "exited",
+      "Status": "Exited (143) 2 days ago",
+      "Image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "Created": 1793453195
+    },
+    {
+      "Id": "d78a392cb1750fc95f5e0476806cfda25b6b06a8c018d2277b01e38bab3fddf8",
+      "Names": [
+        "ml-45dc9c7d-deps-arch"
+      ],
+      "State": "exited",
+      "Status": "Exited (143) 5 days ago",
+      "Image": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "Created": 1793453333
+    },
+    {
+      "Id": "985bd6c89cf3c1fc87a87b4226a809c6f72ec747f4c8e0832cbe62976670a679",
+      "Names": [
+        "ml-06a72096-deps-debian"
+      ],
+      "State": "exited",
+      "Status": "Exited (143) 5 days ago",
+      "Image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "Created": 1793454117
+    },
+    {
+      "Id": "8deb0c8e47240cd2befeef774fde32698ef042545b5f9daebddc2ac3287e1dc7",
+      "Names": [
+        "ml-06a72096-deps-arch"
+      ],
+      "State": "exited",
+      "Status": "Exited (143) 5 days ago",
+      "Image": "docker.io/library/archlinux@sha256:363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722",
+      "Created": 1793454336
+    },
+    {
+      "Id": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b",
+      "Names": [
+        "ml-26942dd5-interrupt-debian"
+      ],
+      "State": "exited",
+      "Status": "Exited (143) 5 days ago",
+      "Image": "docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483",
+      "Created": 1793499162
+    },
+    {
+      "Id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+      "Names": [
+        "ml-2f4a1877-debian13"
+      ],
+      "State": "exited",
+      "Status": "Exited (143) 17 hours ago",
+      "Image": "localhost/unifier/guarded-debian-20261103@sha256:1d71c28976c6c8c6fc0a12fe2abc1e3ece64dd90ca1286f21770bcd4821ba9a6",
+      "Created": 1793675441
+    }
+  ],
+  "selected": [
+    {
+      "cid": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-11-05T16:46:41.231740103+08:00",
+        "FinishedAt": "2026-11-05T16:46:41.479342245+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "conmon_pid": null,
+      "host_config": {
+        "CgroupParent": "unifier-tests.slice",
+        "CgroupMode": "private",
+        "Cgroups": "default",
+        "Memory": 805306368,
+        "MemorySwap": 939524096,
+        "PidsLimit": 192,
+        "NanoCpus": 1000000000,
+        "CpuPeriod": 100000,
+        "CpuQuota": 100000,
+        "IpcMode": "private",
+        "PidMode": "private",
+        "NetworkMode": "pasta",
+        "Privileged": false,
+        "Devices": [],
+        "RestartPolicy": {
+          "Name": "no",
+          "MaximumRetryCount": 0
+        },
+        "Ulimits": [
+          {
+            "Name": "RLIMIT_NOFILE",
+            "Soft": 524288,
+            "Hard": 524288
+          },
+          {
+            "Name": "RLIMIT_NPROC",
+            "Soft": 30211,
+            "Hard": 30211
+          }
+        ],
+        "SecurityOpt": []
+      },
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared",
+          "Destination": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/shared",
+          "Driver": "",
+          "Mode": "",
+          "Options": [
+            "rbind"
+          ],
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "labels": {
+        "multilinux.env": "debian13",
+        "multilinux.project": "/home/omg/文档/多兼容linux机/.lab/guarded-expansion-20261103/environment",
+        "multilinux.role": "environment"
+      },
+      "environment_variable_names": [
+        "PATH",
+        "container",
+        "HOME",
+        "HOSTNAME"
+      ],
+      "environment_binding": {
+        "id": "debian13",
+        "target": "debian13",
+        "schema_version": 2,
+        "environment_uuid": "ae147c3e-3e65-41ac-ac8d-9257c9202696",
+        "generation": 1,
+        "package_inventory_sha256": "3b2a5e425313f173274b42582d65573ea79bdfdccf41d4ef7fb6be931acf2cdf",
+        "package_recovery_required": false
+      },
+      "record_files_sha256": {
+        ".lab/state/environments/debian13.json": "e25fa2a9937a35646e8b6c1e8535943504da3a13fed6dba1fe8031b695031980",
+        ".lab/leases/debian13.json": "46e36e70f7c5cdbf8613999b5633429dd5f381db03d8e7637576c53af4d24ed9",
+        ".lab/state/transactions/txn6eaf928a3e41.json": "7f278051bcb1e2af0c066c2ba8bd900a809969be80d6dea07ae2ce631ec5ed22"
+      },
+      "leases": {
+        "leases": {},
+        "auto_stop": false,
+        "bridge": null,
+        "container_id": "e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45",
+        "container_started_at": "2026-11-03T21:38:46.940861468+08:00"
+      },
+      "abort_latch": {
+        "exists": false,
+        "sha256": null
+      }
+    },
+    {
+      "cid": "d78a392cb1750fc95f5e0476806cfda25b6b06a8c018d2277b01e38bab3fddf8",
+      "state": {
+        "OciVersion": "1.2.1",
+        "Status": "exited",
+        "Running": false,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 0,
+        "ExitCode": 143,
+        "Error": "",
+        "StartedAt": "2026-10-31T21:36:23.512175806+08:00",
+        "FinishedAt": "2026-10-31T21:36:23.902009265+08:00",
+        "CheckpointedAt": "0001-01-01T00:00:00Z",
+        "RestoredAt": "0001-01-01T00:00:00Z",
+        "StoppedByUser": true
+      },
+      "conmon_pid": null,
+      "host_config": {
+        "CgroupParent": "user.slice",
+        "CgroupMode": "private",
+        "Cgroups": "default",
+        "Memory": 0,
+        "MemorySwap": 0,
+        "PidsLimit": 2048,
+        "NanoCpus": 0,
+        "CpuPeriod": 0,
+        "CpuQuota": 0,
+        "IpcMode": "shareable",
+        "PidMode": "private",
+        "NetworkMode": "pasta",
+        "Privileged": false,
+        "Devices": [],
+        "RestartPolicy": {
+          "Name": "no",
+          "MaximumRetryCount": 0
+        },
+        "Ulimits": [
+          {
+            "Name": "RLIMIT_NOFILE",
+            "Soft": 524288,
+            "Hard": 524288
+          },
+          {
+            "Name": "RLIMIT_NPROC",
+            "Soft": 30211,
+            "Hard": 30211
+          }
+        ],
+        "SecurityOpt": []
+      },
+      "mounts": [],
+      "labels": {
+        "multilinux.env": "deps-arch",
+        "multilinux.project": "/home/omg/文档/多兼容linux机/.lab/auto-deps-20261031",
+        "multilinux.role": "environment"
+      },
+      "environment_variable_names": [
+        "PATH",
+        "container",
+        "LANG",
+        "HOME",
+        "HOSTNAME"
+      ],
+      "environment_binding": {
+        "id": "deps-arch",
+        "target": "arch",
+        "schema_version": 2,
+        "environment_uuid": "bdc90f69-b6b5-4a70-a22a-a8094a192d90",
+        "generation": 1,
+        "package_inventory_sha256": "c6a5332804f04ac191457e24ada3a9622a4ab8d6d5c593ed228948f57448b92e",
+        "package_recovery_required": null
+      },
+      "record_files_sha256": {
+        ".lab/state/environments/deps-arch.json": "e45fe6f16bcb3dbb7791a0c7d457dc7fb9badd4a5b5e325fba1901dee62cedfd",
+        ".lab/state/transactions/txnaef42e39c1b3.json": "b0ffffc660a2085929f2e188dd881208667d2590a156fb71ec0b6117acef58ce",
+        ".lab/state/transactions/txn65925cc5d3fd.json": "a39f993f9cacab28d430578e6acf3cc835d0e73439edda6a13b96ee2f76830f2",
+        ".lab/state/transactions/txn88965f94ebaa.json": "8f9863fad58bdfe81bf3254cb40b3973d00ba131798c0cb8125875e9ef0e8e7c"
+      },
+      "leases": null,
+      "abort_latch": {
+        "exists": false,
+        "sha256": null
+      }
+    }
+  ],
+  "rootless_query_only": true,
+  "slice": "ActiveState=active\nControlGroup=/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice\nTasksCurrent=0\nCPUQuotaPerSecUSec=1s\nMemoryHigh=805306368\nMemoryMax=1073741824\nMemorySwapMax=134217728\nTasksMax=256\n"
+}

@@ -1,0 +1,18 @@
+{
+  "root": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a",
+  "unit": "unifier-accept-161115-lossverify",
+  "reserve_bytes": 1073741824,
+  "memory_mib": 128,
+  "extra_memory_mib": 64,
+  "tasks_max": 64,
+  "cpu_quota": "25%",
+  "seconds": 90,
+  "private_root": "/tmp/ual1611",
+  "command": [
+    "/usr/bin/python3",
+    "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/expansion-acceptance-20261105T161115+0800/monitor-loss/verify.py"
+  ],
+  "environment": {
+    "XDG_RUNTIME_DIR": "/run/user/1000"
+  }
+}

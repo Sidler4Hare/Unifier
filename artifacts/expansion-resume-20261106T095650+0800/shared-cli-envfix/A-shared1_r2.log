@@ -1,0 +1,33 @@
+Traceback (most recent call last):
+  File "/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261106T095650+0800/guarded_entry.py", line 19, in <module>
+    raise SystemExit(cli.main())
+                     ~~~~~~~~^^
+  File "/home/omg/文档/多兼容linux机/src/unifier/cli.py", line 1415, in main
+    return cmd_app_worker(args)
+  File "/home/omg/文档/多兼容linux机/src/unifier/cli.py", line 981, in cmd_app_worker
+    result = managed_open(
+        service_factory(), args.id, list(getattr(args, 'extra', None) or []), **pins)
+  File "/home/omg/文档/多兼容linux机/src/unifier/on_demand.py", line 423, in managed_open
+    return execute_application(group, app_id, argv, pins=pins)
+  File "/home/omg/文档/多兼容linux机/src/unifier/application_leases.py", line 78, in execute_application
+    if execution.signal(number) not in {'signalled', 'gone'}:
+       ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/src/unifier/runtime.py", line 632, in signal
+    return self.runtime.signal_application_guest(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.name, self.guest, signum, project=self.project, env_id=self.env_id, user=self.user)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/src/unifier/runtime.py", line 1018, in signal_application_guest
+    self._require_owned(name, project, env_id)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/src/unifier/runtime.py", line 1171, in _require_owned
+    info = self.inspect(name)
+  File "/home/omg/文档/多兼容linux机/src/unifier/runtime.py", line 760, in inspect
+    result = self.runner(["podman", "inspect", "--format", "json", name],
+                         capture=True, timeout=20)
+  File "/home/omg/文档/多兼容linux机/tools/reuse_test_guard.py", line 306, in checked_run
+    verify_permission(config, out, enqueue=verb != 'stop')
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omg/文档/多兼容linux机/tools/reuse_test_guard.py", line 279, in verify_permission
+    raise RuntimeError('test attempt is latched or queue closed')
+RuntimeError: test attempt is latched or queue closed

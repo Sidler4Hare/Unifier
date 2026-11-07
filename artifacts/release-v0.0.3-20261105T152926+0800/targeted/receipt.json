@@ -1,0 +1,154 @@
+{
+  "reserve_bytes": 1073741824,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "test_dependency_diagnostics",
+    "test_dependency_diagnostic_repair",
+    "test_dependencies",
+    "test_dependency_evidence",
+    "test_package_recovery",
+    "test_package_coordination",
+    "test_release_install",
+    "test_views.RawLinkControl"
+  ],
+  "scope": "T1 offline only; containers and GUI not admitted",
+  "supervisor": {
+    "pid": 399484,
+    "starttime": "19063018",
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-targeted-20261105t152926-guard.service"
+  },
+  "supervisor_limits": {
+    "memory.max": "67108864",
+    "memory.high": "max",
+    "memory.swap.max": "0",
+    "pids.max": "16",
+    "cpu.max": "100000 100000"
+  },
+  "unit_identity": {
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "InvocationID": "7f8e233b97314f209474d39e017edb05",
+    "MainPID": "399590",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-targeted-20261105t152926-work.service"
+  },
+  "worker": {
+    "identity": {
+      "pid": 399590,
+      "starttime": "19066034",
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-targeted-20261105t152926-work.service"
+    },
+    "limits": {
+      "memory.max": "536870912",
+      "memory.high": "402653184",
+      "memory.swap.max": "0",
+      "pids.max": "96",
+      "cpu.max": "100000 100000"
+    }
+  },
+  "last_cgroup_metrics": {
+    "memory": 39112704,
+    "tasks": 2,
+    "memory_peak": 46063616,
+    "tasks_peak": 5,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 1970202,
+      "user_usec": 1492190,
+      "system_usec": 478012,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 24,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 399590,
+        "starttime": "19066034",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-targeted-20261105t152926-work.service"
+      },
+      {
+        "pid": 399592,
+        "starttime": "19066051",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-targeted-20261105t152926-work.service"
+      }
+    ]
+  },
+  "command_result": {
+    "exit_code": 0,
+    "finished": 1793864337.6768465
+  },
+  "worker_final_cgroup": {
+    "memory": 11173888,
+    "tasks": 1,
+    "memory_peak": 46063616,
+    "tasks_peak": 5,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0,
+      "sock_throttled": 0
+    },
+    "pids_events": {
+      "max": 0
+    },
+    "cpu_stat": {
+      "usage_usec": 1990776,
+      "user_usec": 1508854,
+      "system_usec": 481921,
+      "nice_usec": 0,
+      "core_sched.force_idle_usec": 0,
+      "nr_periods": 25,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "processes": [
+      {
+        "pid": 399590,
+        "starttime": "19066034",
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v003-targeted-20261105t152926-work.service"
+      }
+    ]
+  },
+  "already_exited": true,
+  "cgroup_removed": true,
+  "final_unit": {
+    "LoadState": "not-found",
+    "ActiveState": "inactive",
+    "InvocationID": "",
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainCode": "0",
+    "ExecMainStatus": "0",
+    "ControlGroup": ""
+  },
+  "reason": null,
+  "min_available_bytes": 3891064832,
+  "peak_memory_bytes": 45707264,
+  "peak_tasks": 5,
+  "elapsed_seconds": 32.75153319899982
+}

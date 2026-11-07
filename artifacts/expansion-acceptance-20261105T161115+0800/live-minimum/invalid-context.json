@@ -1,0 +1,7 @@
+{
+  "status": "INVALID_ADAPTER",
+  "reason": "Podman 5.8.9 inspect exposes conmon PID via a pidfile, not a ConmonPid top-level integer. Driver finally stopped the original fixed CID; aggregate TasksCurrent=0.",
+  "product_workflow": "NOT_RUN",
+  "retry_limit": 1,
+  "correction": "Inspect actual field; persist init/scope stop identity before conmon parsing; add regressions."
+}

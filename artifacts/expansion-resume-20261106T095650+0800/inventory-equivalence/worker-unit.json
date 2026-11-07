@@ -1,0 +1,11 @@
+{
+  "Id": "unifier-resume-1106-invproof-work.service",
+  "ActiveState": "active",
+  "InvocationID": "66cf52bd22fc4dcc8df66ba669b01116",
+  "MainPID": "426939",
+  "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-resume-1106-invproof-work.service",
+  "CPUQuotaPerSecUSec": "1s",
+  "MemoryMax": "201326592",
+  "MemorySwapMax": "0",
+  "TasksMax": "64"
+}

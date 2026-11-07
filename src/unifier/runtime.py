@@ -486,7 +486,40 @@ def host_exec_command(write_fd: int, command: list[str]) -> list[str]:
     try:
         return control_exec_argv(write_fd, command)
     except ValueError as exc:
-        raise UnifierError(f"cannot build control exec command: {exc}") from exc
+        error = UnifierError(f"cannot build control exec command: {exc}")
+        error.execution_started = False  # Rejected before any proxy/guest spawn.
+        raise error from exc
+
+
+def guest_environment_fd(env: dict[str, str]) -> int:
+    """Make a private anonymous Podman env-file without changing its host env.
+
+    In particular, guest HOME/XDG_RUNTIME_DIR must not redirect the host
+    client's storage or connection lookup. Values also stay out of argv and
+    persistent files. Only the control descriptor is preserved into the guest.
+    """
+    lines = []
+    for key, value in env.items():
+        if (not isinstance(key, str) or not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*', key)
+                or not isinstance(value, str) or any(c in value for c in '\0\n\r')):
+            error = UnifierError('invalid guest environment entry')
+            error.execution_started = False
+            raise error
+        lines.append(f'{key}={value}\n')
+    data = ''.join(lines).encode()
+    if len(data) > 1024 * 1024:
+        error = UnifierError('guest environment exceeds 1 MiB')
+        error.execution_started = False
+        raise error
+    fd = os.memfd_create('unifier-guest-env', os.MFD_CLOEXEC)
+    try:
+        with os.fdopen(os.dup(fd), 'wb') as stream:
+            stream.write(data)
+        os.lseek(fd, 0, os.SEEK_SET)
+        return fd
+    except BaseException:
+        os.close(fd)
+        raise
 
 
 def guest_session_argv(argv: list[str], *, token: str, control_fd: int,
@@ -901,6 +934,7 @@ class PodmanRuntime:
             raise UnifierError('unsupported execution ownership protocol')
         token = execution_token or secrets.token_hex(16)
         read_fd, write_fd = os.pipe()
+        environment_fd = None
         process = None
         try:
             # ``pass_fds`` makes the write end inheritable in the child only.
@@ -910,19 +944,19 @@ class PodmanRuntime:
                                            state_root=self.application_state_root)
                      if ownership == 'subreaper-v1' else
                      guest_session_argv(argv, token=token, control_fd=CONTROL_FD, tty=tty))
-            command = host_exec_command(write_fd, exec_argv(
-                name, guest, workdir=workdir, env=env, user=user,
-                interactive=interactive, tty=tty, control_fd=CONTROL_FD,
-                env_from_process=True))
+            command = exec_argv(
+                name, guest, workdir=workdir, env={}, user=user,
+                interactive=interactive, tty=tty, control_fd=CONTROL_FD)
+            if env:
+                environment_fd = guest_environment_fd(env)
+                command[2:2] = ['--env-file', f'/proc/self/fd/{environment_fd}']
+            command = host_exec_command(write_fd, command)
             try:
-                # ProjectSessions already validates its explicit key allowlist.
-                # Podman copies --env KEY from its own environment, keeping
-                # credentials out of both the helper's and Podman's argv.
-                child_environment = dict(os.environ)
-                child_environment.update(env)
                 process = self.popen(
                     command, stdin=None, stdout=None, stderr=None,
-                    process_group=0, pass_fds=(write_fd,), env=child_environment)
+                    process_group=0,
+                    pass_fds=((write_fd, environment_fd) if environment_fd is not None
+                              else (write_fd,)), env=dict(os.environ))
             except (OSError, ValueError) as exc:
                 raise UnifierError(f"cannot start podman exec: {exc}") from exc
         except BaseException:
@@ -931,6 +965,8 @@ class PodmanRuntime:
             raise
         finally:
             os.close(write_fd)
+            if environment_fd is not None:
+                os.close(environment_fd)
         if on_spawn is not None:
             on_spawn(process)
         try:

@@ -1,0 +1,11 @@
+{
+  "Id": "unifier-accept-161115-orphan.service",
+  "ActiveState": "active",
+  "InvocationID": "924a645f23e54815bd16c5bcb5bfee3b",
+  "MainPID": "410180",
+  "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice/unifier-accept-161115-orphan.service",
+  "CPUQuotaPerSecUSec": "500ms",
+  "MemoryMax": "33554432",
+  "MemorySwapMax": "0",
+  "TasksMax": "8"
+}
