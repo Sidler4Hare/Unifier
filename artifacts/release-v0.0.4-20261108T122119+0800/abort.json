@@ -1,0 +1,15 @@
+{
+  "reason": "memory pressure",
+  "sample": {
+    "t": 75.757,
+    "mem_available_kib": 3534032,
+    "psi_some_avg10": 4.35,
+    "psi_full_avg10": 4.35,
+    "cgroup": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/unifier-v004-build.service",
+    "memory_current": 352243712,
+    "memory_max": 536870912,
+    "pids_current": 3,
+    "pids_max": 96
+  },
+  "time": "2026-11-08T12:26:10+0800"
+}

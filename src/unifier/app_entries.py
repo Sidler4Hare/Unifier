@@ -84,3 +84,53 @@ def desktop_exec_argv(text: str) -> list[str] | None:
             except UnifierError:
                 return None
     return None
+
+
+def desktop_menu_fields(text: str) -> dict:
+    """Read the menu identity from the first Desktop Entry group.
+
+    The result is data for a host menu entry. It does not copy file
+    associations, and a later group cannot override this one.
+    """
+    fields = {
+        "name": None, "icon": None, "wm_class": None,
+        "no_display": False, "hidden": False, "terminal": False,
+        "localized_names": {},
+    }
+    section = None
+    seen = False
+    for raw in text.splitlines():
+        line = raw.strip()
+        if line.startswith("[") and line.endswith("]"):
+            if seen:
+                break
+            section = line[1:-1].strip()
+            seen = section == "Desktop Entry"
+            continue
+        if section != "Desktop Entry" or not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip()
+        if key == "Name" and fields["name"] is None:
+            fields["name"] = value or None
+        elif key.startswith("Name[") and key.endswith("]") and value and key not in fields["localized_names"]:
+            fields["localized_names"][key] = value
+        elif key == "Icon" and fields["icon"] is None:
+            fields["icon"] = value or None
+        elif key == "StartupWMClass" and fields["wm_class"] is None:
+            fields["wm_class"] = value or None
+        elif key == "NoDisplay":
+            fields["no_display"] = value.lower() == "true"
+        elif key == "Hidden":
+            fields["hidden"] = value.lower() == "true"
+        elif key == "Terminal":
+            fields["terminal"] = value.lower() == "true"
+    return fields
+
+
+def host_menu_icon(icon: str | None) -> str | None:
+    """Keep a theme icon name. An absolute guest path is not a host file."""
+    if not icon or "/" in icon or icon in {".", ".."}:
+        return None
+    return icon

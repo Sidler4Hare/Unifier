@@ -46,7 +46,15 @@ def check(root: Path, *, quick: bool) -> None:
                        MULTILINUX_INTEGRATION="0", MULTILINUX_EVIDENCE="0",
                        PYTHONPATH=os.pathsep.join([str(root / "src"), str(root)]))
     with tempfile.TemporaryDirectory(prefix="unifier-check-home-") as temporary:
-        environment["UNIFIER_HOME"] = str(Path(temporary) / "installation")
+        private = Path(temporary)
+        environment["UNIFIER_HOME"] = str(private / "installation")
+        # Menu export follows XDG_DATA_HOME. A private directory stops the
+        # offline suite from writing the user's real software list.
+        for name in ("xdg-data", "xdg-config", "xdg-cache"):
+            (private / name).mkdir()
+        environment["XDG_DATA_HOME"] = str(private / "xdg-data")
+        environment["XDG_CONFIG_HOME"] = str(private / "xdg-config")
+        environment["XDG_CACHE_HOME"] = str(private / "xdg-cache")
         sources = [p for name in ("src", "tests", "tools")
                    for p in (root / name).rglob("*.py") if "__pycache__" not in p.parts]
         for path in sources:

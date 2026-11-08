@@ -25,7 +25,7 @@ from zoneinfo import ZoneInfo
 
 # Keep the historical service.parse_desktop_exec import available to callers.
 from unifier.app_entries import (
-    desktop_exec_argv, package_entry_kind, parse_desktop_exec,
+    desktop_exec_argv, desktop_menu_fields, package_entry_kind, parse_desktop_exec,
 )
 from unifier.catalog import (
     plan_change,
@@ -1061,9 +1061,12 @@ class EnvironmentService:
     def export_app(self, app_id: str, *, mime_type: str = "application/x-multilinux-note",
                    extension: str = "mlnote", menu_only: bool = False,
                    display_name: str | None = None, icon: str | None = None,
-                   wm_class: str | None = None, desktop_alias: str | None = None) -> dict:
+                   wm_class: str | None = None, desktop_alias: str | None = None,
+                   terminal: bool = False, extra_fields: dict | None = None) -> dict:
         if menu_only:
-            return self._export_menu_app(app_id, display_name, icon, wm_class, desktop_alias)
+            return self._export_menu_app(
+                app_id, display_name, icon, wm_class, desktop_alias,
+                terminal=terminal, extra_fields=extra_fields)
         if not MIME_TYPE.fullmatch(mime_type):
             raise UnifierError(
                 "file association type must look like application/x-multilinux-note")
@@ -1113,7 +1116,8 @@ class EnvironmentService:
         self.store.save_launch(launch)
         return launch
 
-    def _export_menu_app(self, app_id, display_name, icon, wm_class, desktop_alias):
+    def _export_menu_app(self, app_id, display_name, icon, wm_class, desktop_alias,
+                         terminal=False, extra_fields=None):
         launch = self.show_app(app_id)
         if launch.get('export'):
             raise UnifierError(f"application {app_id} is already exported")
@@ -1125,7 +1129,8 @@ class EnvironmentService:
         text = render_desktop_entry(
             launcher=[sys.executable, str((self.root / 'tools/unifier.py').resolve()), 'app', 'open', app_id, '--'],
             app_id=app_id, environment_id=record['id'], project=record['runtime']['project'],
-            mime_type=None, name=display_name or app_id, icon=icon, wm_class=wm_class)
+            mime_type=None, name=display_name or app_id, icon=icon, wm_class=wm_class,
+            terminal=bool(terminal), extra_fields=extra_fields)
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding='utf-8')
         try:
@@ -1286,7 +1291,8 @@ class EnvironmentService:
             for path in listing.get("files") or []:
                 kind = package_entry_kind(path)
                 if kind == "executable":
-                    argv, source, desktop_id = [path], f"package-file:{package}", None
+                    argv, source = [path], f"package-file:{package}"
+                    desktop_id_value, menu = None, None
                 elif kind == "desktop":
                     record = self.store.load(validate_env_id(env_id))
                     result = self._capture_discovery(record["id"], ["cat", path], timeout=30)
@@ -1300,14 +1306,22 @@ class EnvironmentService:
                             argv[0] = self.resolve_executable(env_id, argv[0])
                         except UnifierError:
                             continue
-                    source, desktop_id = f"desktop:{path}", Path(path).stem
+                    source, desktop_id_value = f"desktop:{path}", Path(path).stem
+                    menu = desktop_menu_fields(result.stdout or "")
                 else:
                     continue
-                # First occurrence wins; arguments distinguish app components.
-                candidates.setdefault(tuple(argv), {
-                    "argv": list(argv), "executable": argv[0], "source": source,
-                    "path": path, "desktop_id": desktop_id,
-                })
+                # First occurrence wins the launch identity. A later desktop
+                # file with the same argv still supplies the menu name.
+                key = tuple(argv)
+                current = candidates.get(key)
+                if current is None:
+                    candidates[key] = {
+                        "argv": list(argv), "executable": argv[0], "source": source,
+                        "path": path, "desktop_id": desktop_id_value,
+                        "menu": menu if kind == "desktop" else None,
+                    }
+                elif kind == "desktop" and not current.get("menu"):
+                    current["menu"] = menu
         return list(candidates.values())
 
     def query_package(self, env_id: str, name: str) -> dict:

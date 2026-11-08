@@ -1270,6 +1270,37 @@ def _launch_matches(launch: dict, executable: str, argv: list[str]) -> bool:
             and list(launch.get("argv") or []) == list(argv))
 
 
+def _publish_installed_menu(ctx: Context, service, launch: dict, alias: str,
+                            menu: dict | None) -> dict | None:
+    """Put the installed application in the host menu without a file association.
+
+    A package that marks its own desktop entry hidden stays out of the menu.
+    An existing menu entry is left in place. Failure here does not undo the
+    package transaction or the launch record.
+    """
+    from unifier.app_entries import host_menu_icon
+    exported = launch.get("export") or {}
+    if exported.get("desktop_path"):
+        ctx.print(ctx.t("install.menu_kept", app=alias))
+        return launch
+    if menu and (menu.get("no_display") or menu.get("hidden")):
+        ctx.print(ctx.t("install.menu_hidden", app=alias))
+        return launch
+    display_name = (menu or {}).get("name") or alias
+    try:
+        updated = service.export_app(
+            launch["id"], menu_only=True, display_name=display_name,
+            icon=host_menu_icon((menu or {}).get("icon")),
+            wm_class=(menu or {}).get("wm_class"),
+            terminal=bool((menu or {}).get("terminal")),
+            extra_fields=(menu or {}).get("localized_names") or None)
+    except UnifierError as exc:
+        ctx.error(ctx.t("install.menu_failed", app=alias, detail=str(exc)))
+        return None
+    ctx.print(ctx.t("install.menu_added", app=display_name))
+    return updated
+
+
 def _emit(ctx: Context, payload: dict | list) -> None:
     print(json.dumps(payload, ensure_ascii=False, indent=2), file=ctx.out)
 
@@ -1366,6 +1397,7 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
     source = "explicit"
     base_argv = None
     suggested = None
+    menu = None
     if executable:
         executable = service.resolve_executable(env_id, executable)
         base_argv = [executable]
@@ -1378,6 +1410,7 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
         executable = choice.get("executable")
         base_argv = list(choice.get("argv") or [executable])
         suggested = choice.get("desktop_id")
+        menu = choice.get("menu")
         source = choice.get("source") or "discovered"
         if not executable:
             raise UnifierError(ctx.t("install.entry_required",
@@ -1417,12 +1450,24 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
             return 1
         ctx.print(ctx.t("install.app_added", app=alias, target=target,
                         environment=env_id))
+    published = _publish_installed_menu(ctx, service, launch, alias, menu)
+    if published is None:
+        if args.json:
+            _emit(ctx, {"schema_version": 1, "target": target,
+                        "environment_id": env_id, "transaction": txn,
+                        "app": alias, "app_id": launch.get("id"),
+                        "executable": executable, "argv": full_argv,
+                        "entry_source": source, "menu": None})
+        return 1
+    launch = published
+    exported = launch.get("export") or {}
     if args.json:
         _emit(ctx, {"schema_version": 1, "target": target,
                     "environment_id": env_id, "transaction": txn,
                     "app": alias, "app_id": launch.get("id"),
                     "executable": executable, "argv": full_argv,
-                    "entry_source": source})
+                    "entry_source": source,
+                    "menu": exported.get("desktop_path")})
     else:
         ctx.print(ctx.t("install.app_name", app=alias))
     return 0
@@ -2126,6 +2171,7 @@ _HELP = {
                       ("--app ID", "应用登记标识；默认取入口 basename。"),
                       ("--package NAME", "本地包的已安装包名，用于从包文件发现入口。"),
                       ("--gui", "声明桌面应用；无桌面容器会拒绝而不是静默运行。"),
+                      ("软件列表", "安装成功后写入宿主应用菜单。不改文件的默认打开方式；安装包标明不显示的入口不会写入。"),
                   ],
                   ["unifier install ./软件.deb --exec /usr/bin/freecad",
                    "unifier install --target arch freecad --exec /usr/bin/freecad"]),
@@ -2136,6 +2182,7 @@ _HELP = {
                    ("--app ID", "registered application id; defaults to the entry basename."),
                    ("--package NAME", "installed package name for a local file, used for entry discovery."),
                    ("--gui", "declare a desktop application; a headless container is refused rather than run silently."),
+                   ("application menu", "a successful install adds a host menu entry. File associations stay unchanged, and an entry the package marks hidden is not added."),
                ],
                ["unifier install ./software.deb --exec /usr/bin/freecad",
                 "unifier install --target arch freecad --exec /usr/bin/freecad"]),

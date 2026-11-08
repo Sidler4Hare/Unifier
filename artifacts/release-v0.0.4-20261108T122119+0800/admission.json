@@ -1,0 +1,8 @@
+{
+  "samples": 120,
+  "need_kib": 1703936,
+  "min_available_kib": 3413284,
+  "max_psi_some": 0.18,
+  "max_psi_full": 0.18,
+  "admitted": true
+}

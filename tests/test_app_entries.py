@@ -8,7 +8,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests")]
 
-from unifier.app_entries import desktop_exec_argv, parse_desktop_exec
+from unifier.app_entries import desktop_exec_argv, desktop_menu_fields, host_menu_icon, parse_desktop_exec
 from unifier.errors import UnifierError
 from unifier.packages import parse_package_files
 from unifier.runtime import ExecResult
@@ -80,6 +80,28 @@ class AppEntries(unittest.TestCase):
         self.assertIsNone(desktop_exec_argv('Name=Missing Exec\n'))
         self.assertIs(legacy_parse_desktop_exec, parse_desktop_exec)
 
+    def test_menu_fields_keep_the_visible_name_and_drop_guest_icon_paths(self):
+        text = "\n".join([
+            "[Desktop Entry]",
+            "Name=Hello",
+            "Name[zh_CN]=你好",
+            "Icon=/usr/share/icons/hicolor/48x48/apps/hello.png",
+            "StartupWMClass=hello",
+            "NoDisplay=false",
+            "",
+            "[Desktop Action Extra]",
+            "Name=Hidden action",
+        ])
+        fields = desktop_menu_fields(text)
+        self.assertEqual(fields["name"], "Hello")
+        self.assertEqual(fields["localized_names"], {"Name[zh_CN]": "你好"})
+        self.assertEqual(fields["wm_class"], "hello")
+        self.assertFalse(fields["no_display"])
+        self.assertIsNone(host_menu_icon(fields["icon"]))
+        self.assertEqual(host_menu_icon("hello"), "hello")
+        hidden = desktop_menu_fields("[Desktop Entry]\nName=Secret\nNoDisplay=true\n")
+        self.assertTrue(hidden["no_display"])
+
     def test_discovery_deduplicates_argv_and_keeps_first_source_and_components(self):
         with tempfile.TemporaryDirectory() as temporary:
             ctx, runtime = ready_context(Path(temporary))
@@ -102,6 +124,8 @@ class AppEntries(unittest.TestCase):
                 ["/usr/bin/app", "--component=sheets"]])
             self.assertEqual(candidates[0]["source"], "package-file:app")
             self.assertIsNone(candidates[0]["desktop_id"])
+            self.assertEqual(candidates[0]["menu"]["name"], None)
+            self.assertEqual(candidates[1]["menu"]["name"], None)
             self.assertEqual(candidates[1]["desktop_id"], "second")
             self.assertEqual(service.inspect("debian13")["runtime_state"], "stopped")
 

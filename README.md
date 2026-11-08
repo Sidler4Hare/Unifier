@@ -1,8 +1,8 @@
-# Unifier v0.0.3
+# Unifier v0.0.4
 
 Unifier 在共享宿主内核上运行 Debian 13、Fedora 44 和 Arch 的原生用户空间，各自保留 apt、dnf、pacman。
 
-当前为 v0.0.3 测试版，汇总包事务协调、停止态 Debian 清单观测、APP 执行租约、受控请求桥，并支持从运行错误日志提取缺库提示、通过原生仓库补装及复查。安装、升级、回退和能力限制见 [版本说明](docs/v0.0.3.md)。日常安装版没有在源码组装时自动升级。`unifier --version` 可核对版本；精确源码以发布包内清单为准。
+当前为 v0.0.4 测试版。它包含 v0.0.3 的包事务协调、停止态 Debian 清单观测、APP 执行租约、受控请求桥和从运行错误日志提取缺库提示，并在 `unifier install` 成功后把所选入口写入软件列表，不改文件的默认打开方式。安装、升级、回退和能力限制见 [版本说明](docs/v0.0.4.md)。组装源码包不会自动改日常入口；2026-11-08 已另行切到这一版。`unifier --version` 可核对版本；精确源码以发布包内清单为准。
 
 现行代码在 `src/unifier`。用户入口是 `unifier`（`bin/unifier`，本机已装到 `~/.local/bin/unifier`）。诊断入口是 `python3 tools/unifier.py`。`tools/ml.py` 和 `python -m multilinux` 进入同一实现。布局、证据位置和仍保留的旧标识见 [docs/布局.md](docs/布局.md)。
 
@@ -12,6 +12,7 @@ Unifier 在共享宿主内核上运行 Debian 13、Fedora 44 和 Arch 的原生�
 - 架构基线是 [2026-10-23 定档](设计/Unifier-架构实验定档-2026-10-23.md)。定档正文停留在那一天；文件投影、受管复制与移动、项目会话和纯 CLI 已经在现行代码里。
 - 用户命令见 [纯 CLI 首次配置与发行版专用目录](设计/CLI首次配置与发行版专用目录-2026-10-29.md)。每个选中的发行版一个日常容器。`unifier init` 做首次选择，`install` / `run` 按发行版安装和启动，`dirs` / `path` / `ls` 查看专用目录。
 - 宿主准入见 [发行版派系白名单](设计/发行版派系白名单与容器关系-2026-10-28.md)。客体仍是上面三个锁定目标。查看用 `python3 tools/unifier.py compat list`、`compat check`、`compat matrix`。
+- 先后顺序见 [远期规划](设计/远期规划-2026-11-08.md)。先收口这三个目标，再考虑 Alpine、openSUSE 以及更后面的发行版、性能、其他 CPU/GPU 和游戏。那份规划不授权拉镜像或新建容器。
 - 宿主与客体同派系时禁止创建和运行容器，Ubuntu → Debian 也拒绝。首次选择仅列出跨派系目标；旧同派系环境保留数据和恢复入口，不自动删除，也不把拒绝转换成宿主执行。
 - 同一安装根每个 target 只允许一个容器，底层 `env create --id` 也检查，创建全程加跨进程锁；已承接或停用保留的环境仍占用对应 target。运行态 `ls` 同样检查宿主准入。修复与部署记录见 [母发行版权威修复](artifacts/host-authority-fix-20261030/report.md)。
 - 目标与镜像锁是 [config/targets.toml](config/targets.toml) 和 [config/images.lock.json](config/images.lock.json)。
@@ -26,14 +27,14 @@ Btrfs 上的数据根用文件系统 UUID、子卷身份和目录 inode 识别�
 
 ## 仍开放
 
-- v0.0.3 增加 `pkg repair-deps --from-log` 和纯本地 `--diagnose-only`，无需手工摘抄明确缺库错误中的 SONAME；ABI/权限/命令/插件问题分类处理，不以补库完成宣称应用可用。当前源码包的独立验收与剩余阻断见 [组装报告](artifacts/release-v0.0.3-20261105T152926+0800/report.md)。以下日期条目保留各阶段的历史范围；v0.0.2 后的源码增量已纳入 v0.0.3，日常部署仍另行核验。
+- v0.0.3 增加 `pkg repair-deps --from-log` 和纯本地 `--diagnose-only`，无需手工摘抄明确缺库错误中的 SONAME；ABI/权限/命令/插件问题分类处理，不以补库完成宣称应用可用。该版源码包的独立验收见 [组装报告](artifacts/release-v0.0.3-20261105T152926+0800/report.md)。以下日期条目保留各阶段的历史范围；这些增量已进入 v0.0.4，验收数字仍属于当时的树。
 
-- 2026-11-05：架构修复 S1–S4 已在工作树实现，整体仍是 **PARTIAL**。停止态 Debian 只读清单、管理根包事务排队、APP subreaper 租约和 bundled 候选分层有有界离线回执，见 [首轮报告](artifacts/architecture-repair-20261105T104613+0800/report.md)与[续轮报告](artifacts/architecture-repair-20261105T111850+0800/report.md)。运行态同伴、Arch/RPM 清单、同管理根真实多环境、通用单实例、目标发行版加载器和私有 GUI 没有实机验收。PRE03 不合格，相关 T2 保持 BLOCKED。发布包 [unifier-0.0.2.tar.gz](artifacts/unifier-0.0.2.tar.gz) 不包含这批增量。2026-11-07 重新组装的 [unifier-0.0.3.tar.gz](artifacts/unifier-0.0.3.tar.gz) 和日常入口包含当前树。11 月 3 日的 726 项全仓检查早于这批改动。下一步是当前树的有界全量离线检查，然后才是 PRE03 和一台既有 Debian CID 的最小准入。顺序见 [架构修复计划](docs/架构问题修复计划-20261105.md)和[共享容器专项](docs/共享容器与依赖专项测试计划-20261104.md)。
-- 2026-11-03 续测修复控制 FD 在 Ubuntu/runc 下的兼容性、停止实例会话恢复，并加入显式授权的客体请求桥原型。受保护的私有显示下，Writer、Sheet、演示完成两轮保存/停机重开，Beyond Compare 完成选择性合并/保存/重开；字体、菜单和部分关闭行为仍有边界。六个远端请求组合、30 分钟 headless 持久性、本机 726 项及 Python 3.11 回归有独立回执，那些数字描述的是当时的树。发布包和日常部署没有随后重建；完整结果、桌面事故保护及未完成台账见 [续测报告](artifacts/expansion-continuation-20261103T100648+0800/report.md)、[受控请求说明](docs/客体受控请求.md)和[扩测保护](docs/扩测保护与恢复.md)。
+- 2026-11-05：架构修复 S1–S4 已在工作树实现，整体仍是 **PARTIAL**。停止态 Debian 只读清单、管理根包事务排队、APP subreaper 租约和 bundled 候选分层有有界离线回执，见 [首轮报告](artifacts/architecture-repair-20261105T104613+0800/report.md)与[续轮报告](artifacts/architecture-repair-20261105T111850+0800/report.md)。运行态同伴、Arch/RPM 清单、同管理根真实多环境、通用单实例、目标发行版加载器和私有 GUI 没有实机验收。PRE03 不合格，相关 T2 保持 BLOCKED。发布包 [unifier-0.0.2.tar.gz](artifacts/unifier-0.0.2.tar.gz) 不包含这批增量。2026-11-07 重新组装的 [unifier-0.0.3.tar.gz](artifacts/unifier-0.0.3.tar.gz) 包含当时的树。11 月 3 日的 726 项全仓检查早于这批改动。2026-11-08 的 [unifier-0.0.4.tar.gz](artifacts/unifier-0.0.4.tar.gz) 在此之上补上安装后的软件列表登记。12:26 的中止记录保留。最小 Debian 启动/执行/停止和一次停止态清单对齐已经有回执；完整 PRE03、Arch/RPM 清单和同管理根仍未通过。现行顺序见 [远期规划](设计/远期规划-2026-11-08.md)，用例边界仍见 [架构修复计划](docs/架构问题修复计划-20261105.md)和[共享容器专项](docs/共享容器与依赖专项测试计划-20261104.md)。
+- 2026-11-03 续测修复控制 FD 在 Ubuntu/runc 下的兼容性、停止实例会话恢复，并加入显式授权的客体请求桥原型。受保护的私有显示下，Writer、Sheet、演示完成两轮保存/停机重开，Beyond Compare 完成选择性合并/保存/重开；字体、菜单和部分关闭行为仍有边界。六个远端请求组合、30 分钟 headless 持久性、本机 726 项及 Python 3.11 回归有独立回执，那些数字描述的是当时的树。这批源码后来进入 v0.0.3 和 v0.0.4，当日没有单独重建发布包。完整结果、桌面事故保护及未完成台账见 [续测报告](artifacts/expansion-continuation-20261103T100648+0800/report.md)、[受控请求说明](docs/客体受控请求.md)和[扩测保护](docs/扩测保护与恢复.md)。
 - 停止环境的只读投影用 FUSE，普通共享项目用直接 bind。外部通知仍是 `watcher=false`。严格快照、ACL/xattr、长压和通用 IDE 未验收。跨宿主已有基础容器/CLI 记录，应用与文件专项仍逐项验收。lookup 锚点有预算，超限明确拒绝。
 - v0.0.1 修复旧 Python 租约名称缺失、受限链接阻断目录列举和时间戳碰撞下的重验证。rename 链接/嵌套挂载与旧 FD/mmap 已完成本机真实 FUSE 复验；每次属性重验证都会使普通文件页面失效，性能代价尚未量化。见 [本轮记录](artifacts/v0.0.1-20261030/report.md)。
 - 受管移动在带上显式源清理授权时才删除源。文件处理器目前只有 `environment-app`。
-- 当前便携源码包是 [unifier-0.0.3.tar.gz](artifacts/unifier-0.0.3.tar.gz)，附校验和、逐文件清单及独立解包回归日志。旧包保持历史原件。步骤见 [版本说明](docs/v0.0.3.md)；具体宿主验证范围以本轮记录为准。
+- 当前便携源码包是 [unifier-0.0.4.tar.gz](artifacts/unifier-0.0.4.tar.gz)，附校验和、逐文件清单及独立解包回归日志。旧包保持历史原件。步骤见 [版本说明](docs/v0.0.4.md)；具体宿主验证范围以本轮记录为准。
 - 2026-10-31 已获准启动本机扩大测试，下载限制解除，由 dsh Command Code 的 DeepSeek V4.1 Flash 实施、主控独立复核。修订 3 按宿主派系分配：本机先 Debian/WPS、Arch/Zoom，Fedora 客体应用等待非 Fedora 桌面；新增 jq、ripgrep、fd、bat、SQLite、htop 开源 CLI 及 apt/dnf/pacman 包管理专项，apk 单列未实现边界；覆盖同名/同类型应用、Agent、文件回归及 CLI01–CLI14。见 [扩展测试计划](设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md)及[本轮授权和执行证据](artifacts/extension-local-20261031T111237+0800/authorization.json)。
 - 10 月 31 日完成 54 次共享回放、12 个 CLI 核心单元、4 个 PTY 工作流和两个本地原生包补测；飞书登录窗口已确认。旧轮次的 597 项回归和保留客体见 [历史报告](artifacts/extension-local-20261031T111237+0800/report.md)。这些修复与随后自动补库、原生交互一起纳入 v0.0.2；11 月 1 日新增包事务中断日志、定向进程树清理、未知状态保护和 `pkg recover`。本轮验证与部署见 [修复回执](artifacts/expansion-fix-20261101/report.md)。完整 GUI 保存/媒体、Agent 与长压仍逐项验收。
 

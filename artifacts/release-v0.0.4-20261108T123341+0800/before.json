@@ -1,0 +1,34 @@
+{
+  "time": "2026-11-08T12:35:10+0800",
+  "head": "5471b54ed060ea9601d82c52fdf2efbb8dd34a5b",
+  "dirty": " M HANDOFF.md\n M README.md\n M \"docs/\\344\\273\\223\\345\\272\\223\\347\\273\\264\\346\\212\\244.md\"\n M \"docs/\\345\\270\\203\\345\\261\\200.md\"\n M src/unifier/__init__.py\n M src/unifier/app_entries.py\n M src/unifier/i18n.py\n M src/unifier/service.py\n M src/unifier/shortcuts.py\n M tests/test_app_entries.py\n M tests/test_cli_shortcuts.py\n?? artifacts/release-v0.0.4-20261108T122119+0800/\n?? artifacts/release-v0.0.4-20261108T123341+0800/\n?? docs/v0.0.4.md\n",
+  "files_sha256": {
+    "HANDOFF.md": "18a4a213bdc7156129b16102da4acb0400415d9e129a710374a2a7df7b511bbf",
+    "README.md": "ba15c0d2707ca8532fe26691cc2428a538052c885f4e6e7bbb178b5f04cf7ba7",
+    "src/unifier/__init__.py": "a47630cd1bba230ead80de40e5e1da4213e8af591d4908f4c6fbf8a2caabe51c",
+    "src/unifier/app_entries.py": "478d63fda97f91d375f97834088869e749ba8b96538f3c8640bbcb1043d5c64b",
+    "src/unifier/i18n.py": "c56414945edab93b63c30dabe8329114e0850909f7d31b454073ef4f6726e7c9",
+    "src/unifier/service.py": "af3eca23366cf01e5fad218a38b917b5481f5d864a82f8fb1ac6f6f6932ccb17",
+    "src/unifier/shortcuts.py": "12d9d634044eb40b1ff01da57ca473a7d069f0a62d1f1e1e357382e94ecd9cda",
+    "tests/test_app_entries.py": "bdfec3d34837eb7d6c190af57f01dc73120d3a75924d03d67cc212a1420e6a6a",
+    "tests/test_cli_shortcuts.py": "0d6ea829ed731b20d5adcd39a8a239fa5f4819666767bd3d6b9bb32569fa2b23",
+    "docs/v0.0.4.md": "c12d18f30e9c86bb29fe18d7956edd305f224465aeec615c5588e8d5c043fe1e"
+  },
+  "boot_id": "b3cc7803-0a9b-4189-be9a-aa06cf601995",
+  "meminfo_kib": {
+    "MemTotal": 7794964,
+    "MemAvailable": 4827048,
+    "SwapTotal": 21880824,
+    "SwapFree": 20473124
+  },
+  "psi": "some avg10=0.00 avg60=0.01 avg300=0.10 total=7575690\nfull avg10=0.00 avg60=0.01 avg300=0.10 total=7395323\n",
+  "kwin": {
+    "name": "kwin_wayland",
+    "pid": 1803,
+    "starttime": "2638"
+  },
+  "launcher": "/home/omg/.local/share/unifier-code/releases/0.0.3-892b1623c220/bin/unifier",
+  "prior_attempt": "artifacts/release-v0.0.4-20261108T122119+0800",
+  "containers": "not queried; none authorized",
+  "desktop_session": "not operated"
+}

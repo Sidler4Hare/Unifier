@@ -1,0 +1,51 @@
+PASS bundle manifest: 264 entries
+Checking working tree
+PASS Python syntax: 223 files
+PASS legacy module aliases: 42
+PASS five CLI entry points
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnd193301d25f2
+fedora44: dnf install -y hello
+fedora44: install completed txnd720d27771b5
+arch: pacman-key --init
+arch: pacman -Syu --noconfirm --needed hello
+arch: install completed txn3e9048c43516
+refusing to overwrite an unknown file: /tmp/tmpkarybfk6/unifier
+use --upgrade for a previous Unifier symlink; unknown files must be renamed explicitly
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn1cc1a2fded72
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txnc0d11a8b342a
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn472cf1844d46
+Pulling debian13: docker.io/library/debian@sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+Ready: debian13
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txn9a77f613018f
+debian13: apt-get update
+debian13: apt-get install -y wps-office
+debian13: install completed txncbcbff1f0310
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn03ff145ab3ad
+debian13: apt-get update
+debian13: apt-get install -y hello
+debian13: install completed txn2bffe47bfb9d
+fedora44: dnf install -y hello
+fedora44: install completed txn4718b58b5e69
+unifier: remove deletes the environment's writable root; pass --yes
+removed demo
+/usr/lib64/python3.14/multiprocessing/popen_fork.py:76: DeprecationWarning: This process (pid=38033) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+/usr/lib64/python3.14/site-packages/gi/overrides/__init__.py:159: PyGIDeprecationWarning: GLib.unix_signal_add_full is deprecated; use GLibUnix.signal_add_full instead
+  value = getattr(proxy, attr)
+----------------------------------------------------------------------
+Ran 846 tests in 62.878s
+
+OK (skipped=5)
+PASS repository check

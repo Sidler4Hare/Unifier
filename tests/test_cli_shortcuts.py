@@ -25,6 +25,7 @@ from unifier import cli, i18n, shortcuts
 from unifier.errors import UnifierError
 from unifier.guest_paths import list_guest_directories, open_guest_directory
 from unifier.install import load_catalog, worker_environment
+from unifier.desktop import HostDesktop
 from unifier.runtime import ExecResult
 from test_env import FakeRuntime
 
@@ -37,6 +38,15 @@ SERVICE_KWARGS = {
     "host_kernel": "host-kernel", "host_facts": HOST_FACTS,
     "uid": 1000, "gid": 1000,
 }
+
+
+def isolated_desktop_kwargs(root):
+    """Keep menu export inside the test root. The real host menu stays untouched."""
+    root = Path(root)
+    return {
+        "host_desktop": HostDesktop(root / "host-applications", root / "host-mime"),
+        "cache_runner": lambda argv: ExecResult(0, "", ""),
+    }
 
 
 class ShortcutRuntime(FakeRuntime):
@@ -105,7 +115,8 @@ def context(root, runtime=None, *, isatty=False, input_fn=None,
         stdin_isatty=isatty, input_fn=input_fn,
         out=out or StringIO(), err=err or StringIO(),
         environ=dict(os.environ) if environ is None else environ,
-        locale_files=locale_files, service_kwargs=SERVICE_KWARGS)
+        locale_files=locale_files,
+        service_kwargs={**SERVICE_KWARGS, **isolated_desktop_kwargs(root)})
 
 
 def run_ctx(ctx, argv):
@@ -230,7 +241,7 @@ class InitAndConfigure(unittest.TestCase):
                                ("fedora", "fedora44"), ("arch", "arch")):
             with self.subTest(distro=distro), tempfile.TemporaryDirectory() as temporary:
                 ctx = context(Path(temporary))
-                ctx.service_kwargs = {**SERVICE_KWARGS, "host_facts": {
+                ctx.service_kwargs = {**ctx.service_kwargs, "host_facts": {
                     **HOST_FACTS, "os_release": {"ID": distro}}}
                 with mock.patch.object(ctx.runtime, "image_info",
                                        side_effect=AssertionError("image inspection reached")):
@@ -245,7 +256,7 @@ class InitAndConfigure(unittest.TestCase):
     def test_interactive_selection_omits_host_family_and_keeps_legacy_data(self):
         with tempfile.TemporaryDirectory() as temporary:
             ctx = context(Path(temporary), isatty=True, input_fn=lambda _: "1")
-            ctx.service_kwargs = {**SERVICE_KWARGS, "host_facts": {
+            ctx.service_kwargs = {**ctx.service_kwargs, "host_facts": {
                 **HOST_FACTS, "os_release": {"ID": "ubuntu"}}}
             chosen = shortcuts._interactive_selection(ctx, ["debian13"])
             self.assertEqual(chosen, ["fedora44"])
@@ -257,7 +268,7 @@ class InitAndConfigure(unittest.TestCase):
             service = ctx.service_for("debian13")
             service.start("debian13")
             facts = {**HOST_FACTS, "os_release": {"ID": "ubuntu"}}
-            ctx.service_kwargs = {**SERVICE_KWARGS, "host_facts": facts}
+            ctx.service_kwargs = {**ctx.service_kwargs, "host_facts": facts}
             service.host_facts = facts
             before = ctx.state.path.read_bytes()
             with mock.patch.object(runtime, "inspect", side_effect=AssertionError("runtime reached")):
@@ -555,19 +566,30 @@ class InstallAndRun(unittest.TestCase):
         }
         runtime.desktop_files = {
             "/usr/share/applications/hello.desktop":
-                "[Desktop Entry]\nName=Hello\nExec=/usr/bin/hello %f\n",
+                "[Desktop Entry]\nName=Hello\nName[zh_CN]=你好\n"
+                "Icon=/usr/share/icons/hello.png\nExec=/usr/bin/hello %f\n",
         }
         return runtime
 
     def _service(self, root, runtime):
+        from unifier.desktop import HostDesktop
         from unifier.service import EnvironmentService
         class StaticHost:
             def snapshot(self):
                 return {"packages": {"available": True, "tool": "rpm",
                                      "sha256": "host", "count": 1, "error": None},
                         "entries": {"directory": "/tmp/apps", "names": []}}
-        return EnvironmentService(root, runtime, CONFIG, LOCK,
-                                  host_observer=StaticHost(), **SERVICE_KWARGS)
+        class Cached:
+            returncode = 0
+            stdout = ""
+            stderr = ""
+        # The menu entry must land in this private directory, never the
+        # user's real application menu.
+        desktop = HostDesktop(root / "host-applications", root / "host-mime")
+        return EnvironmentService(
+            root, runtime, CONFIG, LOCK, host_observer=StaticHost(),
+            host_desktop=desktop, cache_runner=lambda _argv: Cached(),
+            **SERVICE_KWARGS)
 
     def test_install_discovers_one_entry_and_run_reuses_the_same_instance(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -586,10 +608,21 @@ class InstallAndRun(unittest.TestCase):
             self.assertEqual(payload["app"], "hello")
             self.assertEqual(payload["executable"], "/usr/bin/hello")
             self.assertEqual(payload["transaction"]["phase"], "completed")
+            menu = Path(payload["menu"])
+            self.assertTrue(menu.is_file())
+            entry = menu.read_text(encoding="utf-8")
+            self.assertIn("Name=Hello", entry)
+            self.assertIn("Name[zh_CN]=你好", entry)
+            self.assertNotIn("Icon=", entry)
+            self.assertNotIn("MimeType=", entry)
+            self.assertFalse((root / "host-applications" / "mimeapps.list").exists())
             record = service.store.load("debian13")
             first_cid = record["runtime"]["container_id"]
             code, out, err = run_ctx(ctx, ["install", "hello", "--json"])
             self.assertEqual(code, 0, (out, err))
+            again = json.loads(out)
+            self.assertEqual(again["menu"], str(menu))
+            self.assertEqual(list((root / "host-applications").glob("*.desktop")), [menu])
             self.assertEqual(service.store.load("debian13")["runtime"]["container_id"],
                              first_cid)
             # run uses the registered launch record and exact environment.
@@ -639,6 +672,24 @@ class InstallAndRun(unittest.TestCase):
             self.assertEqual(code, 1)
             self.assertIn("not accepted", err)
             self.assertEqual(runtime.events, [])
+
+    def test_hidden_package_stays_out_of_the_application_menu(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            runtime.desktop_files["/usr/share/applications/hello.desktop"] = (
+                "[Desktop Entry]\nName=Hello\nNoDisplay=true\nExec=/usr/bin/hello\n")
+            ctx = context(root, runtime)
+            self.assertEqual(run_ctx(ctx, ["init", "--target", "debian13", "--yes"])[0], 0)
+            service = self._service(root, runtime)
+            ctx.services[str(root)] = service
+            code, out, err = run_ctx(ctx, ["install", "hello", "--json"])
+            self.assertEqual(code, 0, (out, err))
+            payload = json.loads(out)
+            self.assertEqual(payload["app"], "hello")
+            self.assertIsNone(payload["menu"])
+            self.assertEqual(list((root / "host-applications").glob("*.desktop")), [])
+            self.assertFalse((root / "host-applications" / "mimeapps.list").exists())
 
 
 class MissingEnvironmentStatus(unittest.TestCase):
@@ -1007,7 +1058,8 @@ class AdditionalContracts(unittest.TestCase):
                             "entries": {"directory": "/tmp/apps", "names": []}}
             service = EnvironmentService(root, runtime, CONFIG, LOCK,
                                          host_observer=StaticHost(),
-                                         **SERVICE_KWARGS)
+                                         **SERVICE_KWARGS,
+                                         **isolated_desktop_kwargs(root))
             runtime.identities["other"] = dict(runtime.identities["debian13"])
             # Old duplicate records must still be detected without making new ones legal.
             with mock.patch.object(service, "_require_unique_target"):
@@ -1051,7 +1103,8 @@ class RepairContracts(unittest.TestCase):
                         "entries": {"directory": "/tmp/apps", "names": []}}
         return EnvironmentService(root, runtime, CONFIG, LOCK,
                                   host_observer=StaticHost(),
-                                  **SERVICE_KWARGS)
+                                  **SERVICE_KWARGS,
+                                  **isolated_desktop_kwargs(root))
 
     def _legacy(self, root, runtime, env_id="freecad"):
         runtime.identities[env_id] = dict(runtime.identities["debian13"])
