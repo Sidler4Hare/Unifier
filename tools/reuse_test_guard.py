@@ -19,7 +19,8 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT)]
-from tools.reuse_guard_policy import GuardPolicy, same_execution
+from tools.reuse_guard_policy import GuardPolicy, approved_mounts, same_execution
+from tools.test_runtime import SESSION_VARIABLES, cgroup_diagnostics, result_exit_code, short_temporary_directory
 
 MIB = 1024**2
 CG = Path('/sys/fs/cgroup')
@@ -262,7 +263,7 @@ def load_metrics(group):
     return {'memory': int((path / 'memory.current').read_text()),
             'tasks': int((path / 'pids.current').read_text()),
             'events': fields('memory.events'), 'pids_events': fields('pids.events'),
-            'cpu': fields('cpu.stat'), **memory_classes(group)}
+            'cpu': fields('cpu.stat'), **memory_classes(group), **cgroup_diagnostics(path)}
 
 
 def host():
@@ -297,8 +298,12 @@ def info(config):
             or hc.get('PidMode') != 'private' or hc.get('Privileged')
             or hc.get('Devices') or hc.get('RestartPolicy', {}).get('Name') != 'no'):
         raise RuntimeError('fixed container limits/isolation are not admitted')
-    expected = config['shared']
-    if any(m['Source'] != expected or m['Destination'] != expected for m in value['Mounts']):
+    try:
+        expected = approved_mounts(config)
+    except ValueError as exc:
+        raise RuntimeError(str(exc)) from exc
+    actual = [(mount.get('Source'), mount.get('Destination')) for mount in value['Mounts']]
+    if sorted(actual) != sorted(expected):
         raise RuntimeError('unapproved mount')
     if any(key in {'DISPLAY', 'WAYLAND_DISPLAY', 'DBUS_SESSION_BUS_ADDRESS', 'XAUTHORITY'}
            for key in (item.split('=', 1)[0] for item in value['Config'].get('Env', []))):
@@ -360,8 +365,48 @@ def capture_binding(config, out, *, new_start=False):
     if value['HostConfig'].get('NetworkMode') == 'pasta' and not (
             network_helpers or any(p['comm'].startswith('pasta') for p in binding['aggregate_processes'])):
         raise RuntimeError('pasta process coverage could not be established')
+    apply_guest_memory_high(config, binding, out, new_start=new_start)
     put(out/'live-binding.json', binding)
     return binding
+
+
+def apply_guest_memory_high(config, binding, out, *, new_start=False):
+    """Optional tighter reclaim line inside an already verified test cgroup.
+
+    No HostConfig, hard limit, ancestor or host setting changes. The guest
+    cgroup vanishes at stop. Never raise an existing, tighter watermark.
+    """
+    if 'guest_memory_high' not in config:
+        return
+    requested = config['guest_memory_high']
+    if type(requested) is not int or requested != 512*MIB:
+        raise RuntimeError('guest reclaim watermark is not an admitted tighter profile')
+    if not binding.get('coverage_verified') or binding['cid'] != config['cid']:
+        raise RuntimeError('guest reclaim requires verified execution coverage')
+    path = cgroup_dir(binding['init']['cgroup'])/'memory.high'
+    descriptor = os.open(path, os.O_RDWR | os.O_NOFOLLOW | os.O_CLOEXEC)
+    try:
+        value = os.read(descriptor, 64).decode().strip()
+        if value != 'max' and (not value.isdecimal() or int(value) < requested):
+            raise RuntimeError('existing guest watermark is tighter or unreadable; refusing to raise it')
+        current = info(config)
+        if (not current['State']['Running'] or current['State']['StartedAt'] != binding['started_at']
+                or not same_execution(binding['init'], process(current['State']['Pid']))):
+            raise RuntimeError('guest execution changed before reclaim setup')
+        if new_start:
+            os.lseek(descriptor, 0, os.SEEK_SET)
+            os.write(descriptor, str(requested).encode())
+        elif value != str(requested):
+            raise RuntimeError('guest reclaim watermark changed after admission')
+    finally:
+        os.close(descriptor)
+    if path.read_text().strip() != str(requested):
+        raise RuntimeError('guest reclaim watermark did not take effect')
+    binding['guest_memory_high'] = requested
+    if new_start:
+        put(out/'guest-watermark.json', {'cid':config['cid'], 'init':binding['init'],
+            'started_at':binding['started_at'], 'previous':value, 'memory_high':requested,
+            'hard_limits_unchanged':True})
 
 
 def verify_permission(config, out, *, enqueue=True):
@@ -473,6 +518,16 @@ def cleanup(config, out):
 
 
 def worker(config, out):
+    def interrupted(signum, _frame):
+        raise SystemExit(128 + signum)
+    signal.signal(signal.SIGTERM, interrupted)
+    signal.signal(signal.SIGINT, interrupted)
+    with short_temporary_directory() as temporary:
+        put(out/'temporary.json', {'path':str(temporary), 'cleanup':'worker-owned'})
+        return run_worker(config, out, temporary)
+
+
+def run_worker(config, out, temporary):
     (out/'command.log').touch()
     (out/'events.jsonl').touch()
     put(out/'worker-heartbeat.json', {'at':time.monotonic()})
@@ -492,12 +547,11 @@ def worker(config, out):
         put(out/'worker-heartbeat.json', {'at':time.monotonic()})
         time.sleep(.05)
     private = Path(config['private_root']); private.mkdir(mode=0o700, exist_ok=True)
-    env = dict(os.environ)
-    for key in ('DISPLAY', 'WAYLAND_DISPLAY', 'DBUS_SESSION_BUS_ADDRESS', 'XAUTHORITY',
-                'SESSION_MANAGER', 'SSH_AUTH_SOCK'):
-        env.pop(key, None)
+    # Podman needs its original host HOME/XDG runtime to find the fixed rootless
+    # storage. Guest HOME/configuration is separately passed by the product.
+    env = {key:value for key,value in os.environ.items() if key not in SESSION_VARIABLES}
     env.update(PYTHONPATH=str(ROOT/'src')+':'+str(ROOT), UNIFIER_HOME=config['project'],
-               TMPDIR=str(private), PYTHONDONTWRITEBYTECODE='1', GOMAXPROCS='1',
+               TMPDIR=str(temporary), PYTHONDONTWRITEBYTECODE='1', GOMAXPROCS='1',
                LC_ALL='C', LANG='C', MULTILINUX_INTEGRATION='0', MULTILINUX_EVIDENCE='0',
                UNIFIER_TEST_SPEC=str(out/'spec.json'))
     with (out/'command.log').open('wb') as log:
@@ -523,7 +577,7 @@ def worker(config, out):
 
 def guard(config, out):
     reason = None; events = None; event_output = None; log = None
-    minimum = None; maximum = tasks_peak = 0; cleanup_result = None
+    minimum = None; maximum = tasks_peak = 0; cleanup_result = None; job_lock = None
     budget = controller_budget(config)
     start = time.monotonic(); deadline = start+config['seconds']+65
     monitor = process(os.getpid()); worker_unit = config['unit']+'-work.service'
@@ -543,6 +597,10 @@ def guard(config, out):
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     initial = load_metrics(aggregate)
     try:
+        jobpath = ROOT/'.lab/agents/test-job.lock'
+        jobpath.parent.mkdir(parents=True, exist_ok=True)
+        job_lock = os.open(jobpath, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW | os.O_CLOEXEC, 0o600)
+        fcntl.flock(job_lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         if (out/'abort.json').exists():
             raise RuntimeError('persistent attempt abort exists')
         if int(limits(monitor['cgroup'])['memory.max']) != 64*MIB:
@@ -674,12 +732,15 @@ def guard(config, out):
         except Exception as exc:
             reason = (reason or '')+' '+str(exc)
         os.close(lock)
+        if job_lock is not None:
+            os.close(job_lock)
         put(out/'receipt.json', {'reason':reason, 'monitor':monitor,
             'controller_budget':budget,
             'min_available_bytes':minimum, 'peak_memory_bytes':maximum,
             'peak_tasks':tasks_peak, 'cleanup':cleanup_result,
             'command_result':get(out/'command-result.json') if (out/'command-result.json').exists() else None})
-    return 2 if reason else 0
+    return result_exit_code(reason, get(out/'command-result.json')
+                            if (out/'command-result.json').exists() else None)
 
 
 def main():

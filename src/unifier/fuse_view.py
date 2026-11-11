@@ -23,6 +23,7 @@ import errno
 import json
 import os
 from pathlib import Path
+import resource
 import signal
 import socket
 import stat
@@ -623,6 +624,28 @@ def _load_spec(path: str) -> dict:
     return payload
 
 
+def raise_nofile_soft_limit():
+    """Raise RLIMIT_NOFILE soft limit to the hard limit for the FUSE worker.
+
+    Hosts commonly default to a soft limit of 1024, which a deep projection
+    exhausts long before the hard limit. The hard limit is never changed.
+    Returns the (soft, hard) pair in effect afterwards.
+    """
+    soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)
+    target = hard
+    if hard == resource.RLIM_INFINITY:
+        try:
+            target = int(Path("/proc/sys/fs/nr_open").read_text().strip())
+        except (OSError, ValueError):
+            target = 1048576
+    if soft != resource.RLIM_INFINITY and soft < target:
+        try:
+            resource.setrlimit(resource.RLIMIT_NOFILE, (target, hard))
+        except (OSError, ValueError):
+            pass
+    return resource.getrlimit(resource.RLIMIT_NOFILE)
+
+
 def run_fuse(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(prog="unifier view _fuse")
     parser.add_argument("--mountpoint", required=True)
@@ -633,6 +656,7 @@ def run_fuse(argv: list[str]) -> int:
     parser.add_argument("--ready-file", default="")
     parser.add_argument("--nonce", default="")
     args = parser.parse_args(argv)
+    raise_nofile_soft_limit()
     spec = _load_spec(args.spec)
     id_data = spec["id_map"]
     id_map = IdMap(**id_data)

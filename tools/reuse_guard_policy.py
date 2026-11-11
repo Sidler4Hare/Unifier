@@ -16,7 +16,6 @@ class GuardPolicy:
     memory_samples: int = 0
     task_samples: int = 0
     pressure_since: float | None = None
-    reclaim_since: float | None = None
 
     def __post_init__(self):
         if (type(self.reserve) is not int or self.reserve < GIB
@@ -42,21 +41,16 @@ class GuardPolicy:
             return 'ABORTED_METRICS'
         if any(sample[key] for key in ('oom_events', 'max_events', 'pids_events')):
             return 'INVALID_HARD_LIMIT'
-        if 'high_events' in sample:
-            if type(sample['high_events']) is not int or sample['high_events'] < 0:
+        # memory.events high is cumulative: one file-cache reclaim leaves it
+        # raised for the rest of the cgroup's life. Stopping on that count,
+        # or on anonymous memory at 75% while the hard line is 90%, aborted
+        # runs that were still inside their budget. A bad reading still fails.
+        # The hard line below remains 90% for two samples.
+        for key in ('high_events', 'anon', 'file'):
+            if key not in sample:
+                continue
+            if type(sample[key]) is not int or sample[key] < 0:
                 return 'ABORTED_METRICS'
-            # Cumulative high events stay raised after reclaim. File cache is
-            # supposed to cross memory.high and be dropped; only anonymous
-            # memory that remains above the high line for two seconds is
-            # controller pressure. Missing anon still fails closed.
-            if sample['high_events'] and 'anon' not in sample:
-                return 'INVALID_RECLAIM_PRESSURE'
-            anon = sample.get('anon', 0)
-            if sample['high_events'] and (type(anon) is not int or anon < 0):
-                return 'ABORTED_METRICS'
-            reclaiming = bool(sample['high_events']) and anon >= self.memory_limit * 3 // 4
-            self.reclaim_since = ((now if self.reclaim_since is None else self.reclaim_since)
-                                  if reclaiming else None)
         self.low_samples = self.low_samples + 1 if sample['available'] < self.reserve else 0
         self.memory_samples = self.memory_samples + 1 if sample['memory'] >= self.memory_limit * .9 else 0
         self.task_samples = self.task_samples + 1 if sample['tasks'] >= self.task_limit * .9 else 0
@@ -71,14 +65,55 @@ class GuardPolicy:
             return 'ABORTED_TASKS'
         if self.pressure_since is not None and now - self.pressure_since >= 2:
             return 'ABORTED_PSI'
-        if self.reclaim_since is not None and now - self.reclaim_since >= 2:
-            return 'INVALID_RECLAIM_PRESSURE'
         return None
 
     def may_enqueue(self, sample):
         """Close the queue before its emergency stop line, never hide a bad sample."""
         return (isinstance(sample, dict) and type(sample.get('tasks')) is int
                 and 0 <= sample['tasks'] < self.task_limit * .8)
+
+
+_DESKTOP_MARKERS = (
+    '/wayland', '/pulse/', '/pipewire', '/.X11-unix/', 'xauth',
+    '/dev/dri/', '/dev/video', '/dev/snd/',
+)
+
+
+def desktop_path(path):
+    """Host session sockets and devices are never an admitted test mount."""
+    return (not isinstance(path, str) or not path.startswith('/')
+            or '\0' in path or any(marker in path for marker in _DESKTOP_MARKERS))
+
+
+def approved_mounts(config):
+    """Exact host/container pairs a fixed container may bind.
+
+    ``mounts`` lists the environment's own project directories. Without it,
+    the single ``shared`` string used by the Debian fixture still applies.
+    A desktop socket is refused even when a spec names it.
+    """
+    if not isinstance(config, dict):
+        raise ValueError('unapproved mount')
+    if 'mounts' in config:
+        listed = config['mounts']
+        if not isinstance(listed, list):
+            raise ValueError('unapproved mount')
+        pairs = []
+        for item in listed:
+            if not isinstance(item, dict):
+                raise ValueError('unapproved mount')
+            source = item.get('source')
+            destination = item.get('destination')
+            if desktop_path(source) or desktop_path(destination):
+                raise ValueError('host desktop mount')
+            pairs.append((source, destination))
+        if len(pairs) != len(set(pairs)):
+            raise ValueError('unapproved mount')
+        return pairs
+    shared = config.get('shared')
+    if desktop_path(shared):
+        raise ValueError('host desktop mount')
+    return [(shared, shared)]
 
 
 def same_execution(expected, observed):

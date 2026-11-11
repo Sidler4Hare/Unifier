@@ -159,6 +159,10 @@ def build_parser() -> argparse.ArgumentParser:
     recover = pkg_ops.add_parser("recover", help="audit and reconcile an interrupted package transaction")
     recover.add_argument("id")
     recover.set_defaults(func=cmd_pkg_recover)
+    storage_recover = pkg_ops.add_parser('recover-storage',
+        help='release one proven orphaned inventory storage reference without starting the environment')
+    storage_recover.add_argument('id')
+    storage_recover.set_defaults(func=cmd_pkg_recover_storage)
 
     update = pkg_ops.add_parser("update", help="upgrade packages already installed in the environment")
     update.add_argument("id")
@@ -832,6 +836,12 @@ def cmd_pkg_repair(args) -> int:
     txn = service_factory().repair_dependencies(args.id, args.packages, libraries=args.library,
                                                 **options)
     return _print_transaction(txn)
+
+
+def cmd_pkg_recover_storage(args) -> int:
+    result = service_factory().recover_inventory_storage(args.id)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 1 if result.get('status') == 'unresolved' else 0
 
 
 def cmd_pkg_recover(args) -> int:

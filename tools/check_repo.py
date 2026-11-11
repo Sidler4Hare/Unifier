@@ -15,6 +15,8 @@ import tempfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from tools.test_runtime import offline_environment, short_temporary_directory
 
 
 def verify_bundle(root: Path) -> None:
@@ -41,20 +43,9 @@ def run(root: Path, environment: dict[str, str], command: list[str]) -> None:
 
 
 def check(root: Path, *, quick: bool) -> None:
-    environment = dict(os.environ)
-    environment.update(PYTHONDONTWRITEBYTECODE="1", LC_ALL="C", LANG="C",
-                       MULTILINUX_INTEGRATION="0", MULTILINUX_EVIDENCE="0",
-                       PYTHONPATH=os.pathsep.join([str(root / "src"), str(root)]))
-    with tempfile.TemporaryDirectory(prefix="unifier-check-home-") as temporary:
+    with short_temporary_directory() as temporary:
         private = Path(temporary)
-        environment["UNIFIER_HOME"] = str(private / "installation")
-        # Menu export follows XDG_DATA_HOME. A private directory stops the
-        # offline suite from writing the user's real software list.
-        for name in ("xdg-data", "xdg-config", "xdg-cache"):
-            (private / name).mkdir()
-        environment["XDG_DATA_HOME"] = str(private / "xdg-data")
-        environment["XDG_CONFIG_HOME"] = str(private / "xdg-config")
-        environment["XDG_CACHE_HOME"] = str(private / "xdg-cache")
+        environment = offline_environment(root, private, private / 'tmp')
         sources = [p for name in ("src", "tests", "tools")
                    for p in (root / name).rglob("*.py") if "__pycache__" not in p.parts]
         for path in sources:

@@ -117,6 +117,7 @@ class DependencyRepair:
         self.readelf_ready = False
         self.report = {"status": "checking", "scope": "package-elf-needed",
                        "objects": 0, "rounds": [], "unresolved": [],
+                       "unresolvable": {"absent": [], "ambiguous": []},
                        "bundled_candidates": [], "installed": [],
                        "runtime_loading": "unverified", "workflow": "unverified",
                        "elf_objects": [], "dependency_edges": [],
@@ -238,7 +239,8 @@ class DependencyRepair:
                 elif self.target == "arch":
                     self.change([(["pacman", "-Fy"], 900)])
                 provider_ready = True
-            resolution = {"missing": missing, "providers": {}, "selected": [], "queries": {}}
+            resolution = {"missing": missing, "providers": {}, "selected": [], "queries": {},
+                          "unselectable": []}
             self.report["rounds"].append(resolution)
             for library in missing:
                 result = self.capture(provider_command(self.target, library), accepted=(0, 1), timeout=180)
@@ -249,11 +251,24 @@ class DependencyRepair:
                                        + library + ": " + result.stderr[-1500:])
                 candidates = provider_names(self.target, result.stdout)
                 resolution["providers"][library] = candidates
-                if len(candidates) != 1:
-                    raise UnifierError(f"dependency {library} has {len(candidates)} repository providers; "
-                                       "automatic selection is unresolved")
-                resolution["selected"].extend(candidates)
+                if len(candidates) == 1:
+                    resolution["selected"].extend(candidates)
+                else:
+                    # Zero or several repository providers cannot be selected
+                    # automatically, but that must not discard the providers
+                    # resolved for the other missing libraries of this round.
+                    resolution["unselectable"].append(
+                        {"library": library, "providers": len(candidates)})
+            self.report["unresolvable"] = {
+                "absent": sorted(item["library"] for item in resolution["unselectable"]
+                                 if not item["providers"]),
+                "ambiguous": sorted(item["library"] for item in resolution["unselectable"]
+                                    if item["providers"] > 1)}
             selected = sorted(set(resolution["selected"]))
+            if not selected:
+                blocked = resolution["unselectable"][0]
+                raise UnifierError(f"dependency {blocked['library']} has {blocked['providers']} "
+                                   "repository providers; automatic selection is unresolved")
             if set(selected) <= set(self.report["installed"]):
                 raise UnifierError("installed provider did not satisfy the missing library")
             self.service.log("automatic dependency repair: " + ", ".join(selected))

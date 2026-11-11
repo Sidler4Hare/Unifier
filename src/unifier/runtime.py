@@ -69,7 +69,7 @@ class ContainerState:
     oom_killed: bool | None
     exit_code: int | None
     conmon_pid: int | None = None
-    # (source, destination, writable, kind), from the actual container.
+    bind_mounts: tuple[tuple[str, str, bool], ...] | None = None
     mounts: tuple[tuple[str, str, bool, str], ...] = ()
 
 
@@ -657,6 +657,15 @@ class SessionExecution:
 def container_state_from_inspect(name: str, data: dict) -> ContainerState:
     labels = (data.get("Config") or {}).get("Labels") or {}
     state = data.get("State") or {}
+    mounts = data.get("Mounts")
+    binds = None
+    if isinstance(mounts, list):
+        binds = tuple((mount["Source"], mount["Destination"], mount["RW"])
+                      for mount in mounts
+                      if isinstance(mount, dict) and mount.get("Type") == "bind"
+                      and isinstance(mount.get("Source"), str)
+                      and isinstance(mount.get("Destination"), str)
+                      and isinstance(mount.get("RW"), bool))
     return ContainerState(
         name=name,
         container_id=data.get("Id") or "",
@@ -672,10 +681,11 @@ def container_state_from_inspect(name: str, data: dict) -> ContainerState:
         oom_killed=state.get("OOMKilled"),
         exit_code=state.get("ExitCode"),
         conmon_pid=state.get("ConmonPid") or None,
+        bind_mounts=binds,
         mounts=tuple(
             (item.get("Source") or "", item["Destination"],
              item.get("RW") is True, item.get("Type") or "")
-            for item in data.get("Mounts") or []
+            for item in (mounts if isinstance(mounts, list) else [])
             if isinstance(item, dict) and isinstance(item.get("Destination"), str)
         ),
     )
@@ -748,6 +758,40 @@ class PodmanRuntime:
             return value
         except (OSError, ValueError, TypeError, UnifierError) as exc:
             return observation(record, status='unavailable', reason=str(exc)[-500:])
+        finally:
+            os.close(descriptor)
+
+    def recover_inventory_storage(self, record):
+        """Explicit recovery under the service's management/lifecycle locks."""
+        runtime = record['runtime']
+        cid = runtime['container_id']
+        info = self._require_owned(runtime['container_name'], runtime['project'], record['id'])
+        if info.container_id != cid or info.running:
+            raise UnifierError('inventory recovery requires the exact stopped instance')
+        if not re.fullmatch(r'[0-9a-f]{64}', cid):
+            raise UnifierError('inventory recovery requires a full CID')
+        directory = Path(runtime['project']) / '.lab/state/inventory-observations'
+        if not directory.exists():
+            return {'status': 'not-needed'}
+        descriptor = os.open(directory / (cid + '.lock'),
+                             os.O_CREAT | os.O_RDWR | os.O_CLOEXEC | os.O_NOFOLLOW, 0o600)
+        try:
+            fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            minimal = {key: record[key] for key in ('id', 'target', 'schema_version',
+                                                   'environment_uuid', 'generation')}
+            minimal['runtime'] = {key: runtime[key] for key in ('container_id', 'project')}
+            result = self.runner(
+                ['podman', 'unshare', sys.executable, str(Path(__file__).with_name('inventory_probe.py')),
+                 '--record', json.dumps(minimal), '--journal', str(directory / (cid + '.json')),
+                 '--recover'], capture=True, timeout=40)
+            if len(result.stdout or '') > 65536:
+                raise UnifierError('inventory recovery output exceeds budget')
+            value = json.loads(result.stdout)
+            if not isinstance(value, dict) or 'status' not in value:
+                raise UnifierError('inventory recovery returned an invalid result')
+            if result.returncode and value['status'] != 'unresolved':
+                raise UnifierError('inventory recovery helper failed')
+            return value
         finally:
             os.close(descriptor)
 

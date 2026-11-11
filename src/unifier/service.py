@@ -236,6 +236,13 @@ def parse_os_release(text: str) -> dict[str, str]:
     return values
 
 
+
+def _record_finalize_error(txn: dict, step: str, exc: BaseException) -> None:
+    """Record a finalization step failure without aborting the remaining steps."""
+    txn.setdefault("finalize_errors", []).append(
+        {"step": step, "error": f"{type(exc).__name__}: {exc}"[-1500:]})
+    txn["recovery_required"] = True
+
 class EnvironmentService:
     def __init__(self, root: Path, runtime, config: dict, lock: dict, *,
                  host_kernel: str | None = None, clock=None, uid: int | None = None,
@@ -1146,8 +1153,14 @@ class EnvironmentService:
     def _export_menu_app(self, app_id, display_name, icon, wm_class, desktop_alias,
                          terminal=False, extra_fields=None):
         launch = self.show_app(app_id)
-        if launch.get('export'):
-            raise UnifierError(f"application {app_id} is already exported")
+        exported = launch.get('export')
+        if exported:
+            stale = (exported.get('mode') == 'menu'
+                     and not Path(exported.get('desktop_path') or '').is_file())
+            if not stale:
+                raise UnifierError(f"application {app_id} is already exported")
+            # The recorded menu entry was removed outside Unifier; re-register it.
+            launch['export'] = None
         name = validate_app_id(desktop_alias) if desktop_alias else desktop_id(self.root, app_id)
         path = self.host_desktop.applications / (name + '.desktop')
         if path.exists():
@@ -1459,6 +1472,20 @@ class EnvironmentService:
         with self.package_coordination_lock():
             return self._recover_packages_locked(env_id)
 
+    def recover_inventory_storage(self, env_id: str) -> dict:
+        env_id = validate_env_id(env_id)
+        with self.package_coordination_lock():
+            with self.package_operation_lock(env_id, blocking=False):
+                with self._lifecycle_lock(env_id):
+                    record = self.store.load(env_id)
+                    reader = getattr(self.runtime, 'recover_inventory_storage', None)
+                    if not callable(reader):
+                        raise UnifierError('runtime has no inventory storage recovery adapter')
+                    binding = binding_for(record)
+                    result = reader(record)
+                    self._require_record_binding(self.store.load(env_id), binding)
+                    return {'environment_id': env_id, **result}
+
     def _recover_packages_locked(self, env_id: str) -> dict:
         with self.package_operation_lock(env_id, blocking=False):
             record = self.store.load(env_id)
@@ -1641,70 +1668,109 @@ class EnvironmentService:
                 txn["failure_phase"] = "runtime"
                 txn["native_error"] = str(exc)[-1500:]
         finally:
-            # A timeout can follow successful writes. Reconcile while the
-            # container still runs, but never race an unverified guest process.
-            uncertain = any(step.get("state") in {"starting", "running", "interrupted"}
-                            and step.get("cleanup") not in {"gone", "container-stopped"}
-                            for step in txn["native"])
+            self._finalize_package_transaction(
+                record, txn, inventory_text, was_running, other_before, host_before)
+        return txn
+
+    def _finalize_package_transaction(self, record, txn, inventory_text,
+                                      was_running, other_before, host_before):
+        """Attempt independent cleanup stages, preserving a durable failure journal.
+
+        A failed stage cannot prove reconciliation. Keep subsequent package
+        writes blocked until explicit recovery, without masking the primary
+        native error. Persistent journal write failure is raised to the caller;
+        the already-saved running journal remains the recovery barrier.
+        """
+        def attempt(stage, action, default=None):
+            try:
+                return action()
+            except Exception as exc:
+                _record_finalize_error(txn, stage, exc)
+                legacy_field = {"inventory-read": "inventory_error",
+                                "inventory-verify": "inventory_error",
+                                "database-audit": "recovery_error", "stop": "stop_error"}.get(stage)
+                if legacy_field:
+                    txn[legacy_field] = str(exc)[-1500:]
+                txn["inventory_status"] = "unknown"
+                if txn["failure_phase"] is None:
+                    txn["failure_phase"] = "finalization"
+                return default
+
+        try:
+            uncertain = any(
+                step.get("state") in {"starting", "running", "interrupted"}
+                and step.get("cleanup") not in {"gone", "container-stopped"}
+                for step in txn["native"])
             if uncertain:
                 txn["recovery_required"] = True
                 txn["inventory_status"] = "unknown"
             elif inventory_text is None and txn["native"]:
-                try:
-                    inventory_text = self._read_inventory_record(self.store.load(record["id"]))
-                    txn["verification"] = self._verify(
-                        record, operation, names, [], inventory_text, txn)
-                except Exception as exc:
-                    txn["recovery_required"] = True
-                    txn["inventory_error"] = str(exc)[-1500:]
+                inventory_text = attempt(
+                    "inventory-read", lambda: self._read_inventory_record(
+                        self.store.load(record["id"])))
+                if inventory_text is not None:
+                    txn["verification"] = attempt(
+                        "inventory-verify", lambda: self._verify(
+                            record, txn["operation"], txn["packages"], [], inventory_text, txn))
             if txn["failure_phase"] is not None and txn["native"] and not uncertain:
-                try:
-                    self._audit_package_database(record, txn)
-                except Exception as exc:
-                    txn["recovery_required"] = True
-                    txn["recovery_error"] = str(exc)[-1500:]
-            if inventory_text is not None:
+                attempt("database-audit", lambda: self._audit_package_database(record, txn))
+            if inventory_text is not None and not uncertain and not txn.get("finalize_errors"):
                 txn["inventory_status"] = "verified"
             elif txn["native"]:
                 txn["inventory_status"] = "unknown"
-            # Only a successful start gives this transaction stop ownership.
-            # Preflight failures leave the previous runtime state unknown.
             if was_running is False and not uncertain:
-                with contextlib.suppress(Exception):
+                def stop_owned():
                     self._package_container_ref(record)
                     self.stop(record["id"], package_lock_held=True)
-            record = self.store.load(record["id"])
-            if inventory_text is not None or _syu_succeeded(txn["native"]):
-                record = self._commit_inventory(record, inventory_text, txn)
-            if txn["native"]:
-                record["package_inventory_status"] = txn["inventory_status"]
-                record["package_recovery_required"] = txn["recovery_required"]
-                self.store.save(record, None)
-            self._finish_isolation(txn, other_before, host_before, record["id"])
+                attempt("stop", stop_owned)
+            record = attempt("record-read", lambda: self.store.load(record["id"]), record)
+            if not uncertain and (inventory_text is not None or _syu_succeeded(txn["native"])):
+                record = attempt(
+                    "inventory-commit", lambda: self._commit_inventory(record, inventory_text, txn), record)
+            attempt("isolation", lambda: self._finish_isolation(
+                txn, other_before, host_before, record["id"]))
             if txn.get("verification") and not txn["verification"].get("ok") and txn["failure_phase"] is None:
                 txn["failure_phase"] = "verification"
             if txn.get("verification") is None and txn["failure_phase"] is None:
                 txn["failure_phase"] = "runtime"
-            if not txn["native"] and txn["failure_phase"] is None and operation != "repair-dependencies":
+            if not txn["native"] and txn["failure_phase"] is None and txn["operation"] != "repair-dependencies":
                 txn["failure_phase"] = "runtime"
                 txn["native_error"] = "no native package command was run"
             txn["revision_after"] = {
-                "writable_revision": record["writable_revision"],
+                "writable_revision": record.get("writable_revision"),
                 "content_revision": int(record.get("content_revision") or 1),
-                "package_inventory_sha256": record["package_inventory_sha256"],
+                "package_inventory_sha256": record.get("package_inventory_sha256"),
             }
+        finally:
+            # Always attempt the journal, even if an unexpected error interrupts
+            # the coordinator itself. Never turn an incomplete cleanup into PASS.
+            import sys
+            if sys.exc_info()[0] is not None:
+                txn["recovery_required"] = True
+                txn["inventory_status"] = "unknown"
+                txn["failure_phase"] = txn["failure_phase"] or "finalization"
+            txn["finished_at"] = attempt("timestamp", self.clock, txn.get("started_at"))
+            if txn["native"]:
+                def save_recovery_state():
+                    latest = self.store.load(record["id"])
+                    latest["package_inventory_status"] = txn["inventory_status"]
+                    latest["package_recovery_required"] = txn["recovery_required"]
+                    self.store.save(latest, None)
+                attempt("record-save", save_recovery_state)
             txn["phase"] = ("needs-recovery" if txn["recovery_required"] else
                             "completed" if txn["failure_phase"] is None else "failed")
             maintenance = txn.get("maintenance") or {}
-            maintenance["status"] = "warnings" if maintenance.get("items") else "ok"
-            maintenance["system_integration"] = "unverified"
-            maintenance["full_init"] = False
+            maintenance.update(status="warnings" if maintenance.get("items") else "ok",
+                               system_integration="unverified", full_init=False)
             txn["maintenance"] = maintenance
             txn["verdict"] = transaction_verdict(txn["phase"], maintenance)
-            txn["finished_at"] = self.clock()
-            self.store.save_transaction(txn)
-            self.log(f"{txn['environment_id']}: {txn['operation']} {txn['phase']} {txn['id']}")
-        return txn
+            try:
+                self.store.save_transaction(txn)
+            except Exception as exc:
+                raise UnifierError(
+                    f"cannot persist final package transaction {txn['id']}; "
+                    "recovery is required; inspect the existing transaction journal") from exc
+        self.log(f"{txn['environment_id']}: {txn['operation']} {txn['phase']} {txn['id']}")
 
     def _native_steps(self, record: dict, operation: str, names: list[str],
                       local_path: Path | None) -> list[tuple[list[str], int]]:
@@ -2193,6 +2259,7 @@ class EnvironmentService:
             view["pending_package_transactions"] = [txn["id"] for txn in pending]
         view["environment_uuid"] = record.get("environment_uuid")
         view["generation"] = record.get("generation")
+        view["runtime_bind_mounts"] = None
         view["share_label_policy"] = effective_share_label_policy(record)
         try:
             view["compatibility"] = self.compatibility_plan(record["target"])
@@ -2207,6 +2274,8 @@ class EnvironmentService:
             view["resources"] = None
         else:
             view["runtime_state"] = "running" if info.running else "stopped"
+            if info.container_id == record["runtime"].get("container_id"):
+                view["runtime_bind_mounts"] = info.bind_mounts
             view["writable_revision"] = info.container_id
             view["resources"] = {
                 "status": info.status,

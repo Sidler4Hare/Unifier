@@ -17,6 +17,8 @@ if __package__ in {None, ''}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from unifier.errors import UnifierError
+from unifier.identity import binding_for
+from unifier.on_demand import process_stamp
 from unifier.package_inventory import observation, read_dpkg_database
 from unifier.view_journal import read_journal, write_journal
 
@@ -55,9 +57,13 @@ def probe(record, journal, token, *, run=subprocess.run):
     owned = False
     result = None
     error = None
+    owner = {'pid': os.getpid(), 'stamp': process_stamp(os.getpid()),
+             'boot_id': Path('/proc/sys/kernel/random/boot_id').read_text().strip()}
     def stamp(state, **extra):
         write_journal(str(journal), {'schema_version': 1, 'state': state, 'cid': cid,
-                      'token': token, 'owner_pid': os.getpid(), 'updated_at': time.time(), **extra})
+                      'token': token, 'owner_pid': os.getpid(), 'owner': owner,
+                      'environment_binding': binding_for(record),
+                      'updated_at': time.time(), **extra})
     previous = read_journal(str(journal))
     if journal.exists() and (previous is None or previous.get('state') != 'released'):
         return observation(record, status='unavailable', reason='inventory storage journal needs reconciliation')
@@ -106,16 +112,66 @@ def probe(record, journal, token, *, run=subprocess.run):
             else result)
 
 
+def recover(record, journal, *, run=subprocess.run):
+    """Release one proven orphaned reference. Ambiguous crash windows remain fenced."""
+    value = read_journal(str(journal))
+    if value is None:
+        return {'status': 'unresolved' if journal.exists() else 'not-needed',
+                'reason': 'journal missing or unreadable'}
+    cid = record['runtime']['container_id']
+    if (value.get('cid') != cid or value.get('environment_binding') != binding_for(record)
+            or not isinstance(value.get('token'), str) or not value['token']):
+        return {'status': 'unresolved', 'reason': 'journal ownership is incomplete or changed'}
+    if value.get('state') == 'released':
+        return {'status': 'already-released', 'token': value['token']}
+    if value.get('state') != 'mounted':
+        return {'status': 'unresolved', 'reason': 'ambiguous acquisition/release window',
+                'journal_state': value.get('state')}
+    owner = value.get('owner') or {}
+    if (not isinstance(owner.get('pid'), int) or owner['pid'] <= 0
+            or not isinstance(owner.get('stamp'), int) or not owner.get('boot_id')):
+        return {'status': 'unresolved', 'reason': 'helper process identity is incomplete'}
+    boot = Path('/proc/sys/kernel/random/boot_id').read_text().strip()
+    if owner['boot_id'] != boot:
+        return {'status': 'unresolved', 'reason': 'storage reference crossed a host reboot'}
+    stamp = process_stamp(owner['pid'])
+    if stamp == owner['stamp'] or (stamp is None and Path(f"/proc/{owner['pid']}").exists()):
+        return {'status': 'unresolved', 'reason': 'helper is live or its liveness is unknown'}
+    inspect_stopped(cid, record['runtime']['project'], record['id'], run=run)
+    # The caller holds the observation lock across read, identity checks and release.
+    value.update(state='releasing', recovery_started_at=time.time())
+    write_journal(str(journal), value)
+    try:
+        result = run(['podman', 'umount', cid], capture_output=True, text=True,
+                     timeout=10, check=False)
+        if result.returncode:
+            raise UnifierError('owned storage release failed')
+    except Exception as exc:
+        value.update(state='release-failed', recovery_error=str(exc)[-500:])
+        write_journal(str(journal), value)
+        return {'status': 'unresolved', 'reason': str(exc)[-500:]}
+    value.update(state='released', recovered_at=time.time())
+    write_journal(str(journal), value)
+    return {'status': 'recovered', 'token': value['token'], 'container_id': cid}
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('--record', required=True)
     parser.add_argument('--journal', required=True)
-    parser.add_argument('--token', required=True)
+    parser.add_argument('--token')
+    parser.add_argument('--recover', action='store_true')
     args = parser.parse_args(argv)
     def interrupted(_number, _frame):
         raise UnifierError('inventory observer interrupted')
     signal.signal(signal.SIGTERM, interrupted)
     signal.signal(signal.SIGINT, interrupted)
+    if args.recover:
+        value = recover(json.loads(args.record), Path(args.journal))
+        print(json.dumps(value, ensure_ascii=False))
+        return 0 if value['status'] in {'recovered', 'already-released', 'not-needed'} else 1
+    if not args.token:
+        parser.error('--token is required for observation')
     value = probe(json.loads(args.record), Path(args.journal), args.token)
     from dataclasses import asdict
     print(json.dumps(asdict(value), ensure_ascii=False))

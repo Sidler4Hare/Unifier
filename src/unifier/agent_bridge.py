@@ -81,6 +81,7 @@ import uuid
 from unifier.errors import UnifierError
 from unifier.identity import binding_for, validate_binding
 from unifier.json_records import JsonRecordCollection
+from unifier.on_demand import process_stamp
 from unifier.project_sessions import ProjectSessions, validate_env_keys
 
 
@@ -790,6 +791,8 @@ class RequestLedger:
                 "state": "claimed",
                 "claimed_at": now,
                 "expires_at": now + float(ttl_seconds),
+                "owner": {"pid": os.getpid(), "stamp": process_stamp(os.getpid()),
+                          "boot_id": Path('/proc/sys/kernel/random/boot_id').read_text().strip()},
             }
             records.append(claim)
             try:
@@ -799,6 +802,36 @@ class RequestLedger:
                 raise BridgeError("ledger-write",
                                   f"cannot reserve the request: {exc}") from exc
             return dict(claim)
+
+    def bind_execution(self, request_uuid: str, pinned: dict) -> None:
+        """Persist the exact session before execute can submit any guest work."""
+        with self.collection.locked(True):
+            records = self._read()
+            for item in records:
+                if item['request_uuid'] == request_uuid:
+                    if item['state'] != 'claimed' or item.get('execution'):
+                        raise BridgeError('ledger-state', 'request is not an unbound claim')
+                    item['execution'] = _copy_json(pinned)
+                    self.collection.write_unlocked(records)
+                    return
+            raise BridgeError('ledger-lost', 'request disappeared before execution')
+
+    def recover_record(self, expected: dict, proof: dict) -> dict:
+        """Compare-and-set a terminal failure, preserving the original receipt."""
+        with self.collection.locked(True):
+            records = self._read()
+            for index, item in enumerate(records):
+                if item['request_uuid'] != expected['request_uuid']:
+                    continue
+                if item != expected:
+                    raise BridgeError('ledger-changed', 'request changed during recovery')
+                updated = dict(item, state='failed', finished_at=float(self.clock()),
+                               recovery={'previous_state': item['state'], **proof})
+                validate_request_record(updated)
+                records[index] = updated
+                self.collection.write_unlocked(records)
+                return updated
+            raise BridgeError('ledger-lost', 'request disappeared during recovery')
 
     def settle(self, request_uuid: str, state: str, *, receipt=None,
                error: str | None = None) -> dict:
@@ -1287,7 +1320,7 @@ class AgentBridge:
 
     # ----- execution ------------------------------------------------------
     def _run_action(self, action: Action, plan: dict, origin: dict,
-                    peer_uid: int | None) -> tuple:
+                    peer_uid: int | None, request_uuid: str) -> tuple:
         """Run the pinned action; returns (status, session_receipt)."""
         try:
             record = self.sessions.create_session(
@@ -1342,6 +1375,7 @@ class AgentBridge:
                 guest_state=None, timed_out=False, cancel=None,
                 error="the project access scope changed between the host plan "
                       "and the journaled session; nothing was executed")
+        self.ledger.bind_execution(request_uuid, pinned)
         session_result = self._execute_bounded(record["session_uuid"],
                                                float(action.timeout_seconds))
         return session_result["status"], dict(pinned, **{
@@ -1379,6 +1413,59 @@ class AgentBridge:
                    and item["state"] in {"claimed", "unresolved"}
                    for item in self.ledger.records())
 
+    def recover_requests(self) -> list:
+        """Reconcile this origin's dead requests; never replay or cancel work."""
+        results = []
+        boot = Path('/proc/sys/kernel/random/boot_id').read_text().strip()
+        for item in self.ledger.records():
+            if (item['origin_session_uuid'] != self.policy.origin_session_uuid
+                    or item['state'] not in {'claimed', 'unresolved'}):
+                continue
+            answer = {'request_uuid': item['request_uuid'], 'action': 'unresolved'}
+            results.append(answer)
+            try:
+                owner = item.get('owner') or {}
+                if not (isinstance(owner.get('pid'), int) and owner['pid'] > 0
+                        and isinstance(owner.get('stamp'), int) and owner.get('boot_id')):
+                    raise UnifierError('legacy request has no broker process identity')
+                if owner['boot_id'] == boot:
+                    stamp = process_stamp(owner['pid'])
+                    if stamp == owner['stamp']:
+                        answer['action'] = 'kept-live-broker'
+                        continue
+                    if stamp is None and Path(f"/proc/{owner['pid']}").exists():
+                        raise UnifierError('broker liveness is ambiguous')
+                pinned = item.get('execution')
+                if not isinstance(pinned, dict) or not is_canonical_uuid(pinned.get('session_uuid')):
+                    raise UnifierError('request has no durable execution binding')
+                view = self.sessions.show(pinned['session_uuid'])
+                for key in ('project_uuid', 'environment_binding', 'argv', 'cwd', 'scope_sha256'):
+                    if view.get(key) != pinned.get(key):
+                        raise UnifierError(f'request/session {key} changed')
+                self.sessions._verified_instance(view)
+                if view.get('worker_live') or view.get('child_live'):
+                    answer['action'] = 'kept-live-session'
+                    continue
+                never_started = (view['state'] == 'planned' and not view.get('guest_pid')
+                                 and not view.get('lease_token'))
+                if not never_started and view.get('guest_state') != 'gone':
+                    raise UnifierError('guest termination is unproven')
+                recovery = self.sessions.recover(pinned['session_uuid'])
+                after = self.sessions.show(pinned['session_uuid'])
+                self.sessions._verified_instance(after)
+                if (after.get('worker_live') or after.get('child_live')
+                        or after.get('lease_token') or after.get('lease_live')
+                        or after['state'] not in {'exited', 'failed', 'interrupted', 'retired'}):
+                    raise UnifierError('session recovery is incomplete')
+                proof = {'session_uuid': pinned['session_uuid'], 'session_recovery': recovery,
+                         'proof': 'never-submitted' if never_started else 'guest-gone',
+                         'replayed': False}
+                self.ledger.recover_record(item, proof)
+                answer.update(action='recovered', **proof)
+            except (UnifierError, OSError, ValueError, KeyError) as exc:
+                answer['reason'] = str(exc)[:ERROR_MESSAGE_CHARS]
+        return results
+
     def _settle_unresolved(self) -> list:
         """Precise wrap-up on stop: target each unresolved guest identity once.
 
@@ -1412,7 +1499,12 @@ class AgentBridge:
 
         thread = threading.Thread(target=worker, name="unifier-agent-run", daemon=True)
         thread.start()
-        thread.join(timeout)
+        deadline = time.monotonic() + timeout
+        while thread.is_alive() and not self._stopping:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                break
+            thread.join(min(.1, remaining))
         timed_out = thread.is_alive()
         cancel = None
         if timed_out:
@@ -1572,7 +1664,7 @@ class AgentBridge:
                 ledger_state = "completed"
                 error = None
             else:
-                status, session = self._run_action(action, plan, origin, peer_uid)
+                status, session = self._run_action(action, plan, origin, peer_uid, request_uuid)
                 receipt = dict(base, host_info=None,
                                target={"project_uuid": action.project_uuid,
                                        "environment_binding": dict(action.environment_binding),
@@ -1663,7 +1755,6 @@ class AgentBridge:
         if self._server is None:
             self.bind()
         served = 0
-        self._stopping = False
         # Snapshot the listener: close() may drop self._server while this
         # thread is parked in accept(), and a closed listener must end the loop.
         server = self._server
@@ -1811,15 +1902,26 @@ def main(argv=None) -> int:
     parser.add_argument("--root", help="unifier state root (default: installed root)")
     parser.add_argument("--once", action="store_true",
                         help="serve exactly one request and exit")
+    parser.add_argument('--recover', action='store_true',
+                        help='reconcile dead requests without starting a listener or replaying work')
     parser.add_argument("--max-requests", type=int,
                         help="serve at most this many requests and exit")
     args = parser.parse_args(argv)
     bridge = None
+    handlers = {}
     try:
         policy = load_policy(args.policy)
         service = service_for_root(args.root)
         sessions = ProjectSessions(service.root, service)
         bridge = AgentBridge(policy, sessions)
+        if args.recover:
+            result = bridge.recover_requests()
+            print(json.dumps(result, ensure_ascii=False))
+            return 1 if any(row['action'] != 'recovered' for row in result) else 0
+        def stop_requested(_number, _frame):
+            bridge._stopping = True
+        for number in (signal.SIGTERM, signal.SIGHUP, signal.SIGINT):
+            handlers[number] = signal.signal(number, stop_requested)
         path = bridge.bind()
         # Only the path is logged: the token stays out of every log line.
         print(f"agent bridge listening on {path}", flush=True)
@@ -1830,11 +1932,15 @@ def main(argv=None) -> int:
         print(f"agent bridge: {exc}", file=sys.stderr, flush=True)
         return 2
     finally:
-        if bridge is not None:
-            try:
-                bridge.stop()
-            finally:
-                bridge.close()
+        try:
+            if bridge is not None:
+                try:
+                    bridge.stop()
+                finally:
+                    bridge.close()
+        finally:
+            for number, handler in handlers.items():
+                signal.signal(number, handler)
 
 
 if __name__ == "__main__":
