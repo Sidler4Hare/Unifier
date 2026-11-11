@@ -1,8 +1,8 @@
-# Unifier v0.0.4
+# Unifier v0.0.5
 
 Unifier 在共享宿主内核上运行 Debian 13、Fedora 44 和 Arch 的原生用户空间，各自保留 apt、dnf、pacman。
 
-当前为 v0.0.4 测试版。它包含 v0.0.3 的包事务协调、停止态 Debian 清单观测、APP 执行租约、受控请求桥和从运行错误日志提取缺库提示，并在 `unifier install` 成功后把所选入口写入软件列表，不改文件的默认打开方式。安装、升级、回退和能力限制见 [版本说明](docs/v0.0.4.md)。组装源码包不会自动改日常入口；2026-11-08 已另行切到这一版。`unifier --version` 可核对版本；精确源码以发布包内清单为准。
+当前源码为 v0.0.5 测试版，包含日常 r6 已部署的原生 Portal 文件交付，以及请求超时终态、异常重建快照回收和全局排队字节预算三项修复。`unifier --version` 可核对当前入口版本，精确源码以发布包内清单为准。发布验收和回退范围见 [版本说明](docs/v0.0.5.md)。
 
 现行代码在 `src/unifier`。用户入口是 `unifier`（`bin/unifier`，本机已装到 `~/.local/bin/unifier`）。诊断入口是 `python3 tools/unifier.py`。`tools/ml.py` 和 `python -m multilinux` 进入同一实现。布局、证据位置和仍保留的旧标识见 [docs/布局.md](docs/布局.md)。
 
@@ -34,7 +34,7 @@ Btrfs 上的数据根用文件系统 UUID、子卷身份和目录 inode 识别�
 - 停止环境的只读投影用 FUSE，普通共享项目用直接 bind。外部通知仍是 `watcher=false`。严格快照、ACL/xattr、长压和通用 IDE 未验收。跨宿主已有基础容器/CLI 记录，应用与文件专项仍逐项验收。lookup 锚点有预算，超限明确拒绝。
 - v0.0.1 修复旧 Python 租约名称缺失、受限链接阻断目录列举和时间戳碰撞下的重验证。rename 链接/嵌套挂载与旧 FD/mmap 已完成本机真实 FUSE 复验；每次属性重验证都会使普通文件页面失效，性能代价尚未量化。见 [本轮记录](artifacts/v0.0.1-20261030/report.md)。
 - 受管移动在带上显式源清理授权时才删除源。文件处理器目前只有 `environment-app`。
-- 当前便携源码包是 [unifier-0.0.4.tar.gz](artifacts/unifier-0.0.4.tar.gz)，附校验和、逐文件清单及独立解包回归日志。旧包保持历史原件。步骤见 [版本说明](docs/v0.0.4.md)；具体宿主验证范围以本轮记录为准。
+- v0.0.5 便携源码包的输出目录为项目外的 `~/.local/share/unifier-code/packages/0.0.5/`。v0.0.4 的包与校验信息见 [历史版本说明](docs/v0.0.4.md)。
 - 2026-10-31 已获准启动本机扩大测试，下载限制解除，由 dsh Command Code 的 DeepSeek V4.1 Flash 实施、主控独立复核。修订 3 按宿主派系分配：本机先 Debian/WPS、Arch/Zoom，Fedora 客体应用等待非 Fedora 桌面；新增 jq、ripgrep、fd、bat、SQLite、htop 开源 CLI 及 apt/dnf/pacman 包管理专项，apk 单列未实现边界；覆盖同名/同类型应用、Agent、文件回归及 CLI01–CLI14。见 [扩展测试计划](设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md)及[本轮授权和执行证据](artifacts/extension-local-20261031T111237+0800/authorization.json)。
 - 10 月 31 日完成 54 次共享回放、12 个 CLI 核心单元、4 个 PTY 工作流和两个本地原生包补测；飞书登录窗口已确认。旧轮次的 597 项回归和保留客体见 [历史报告](artifacts/extension-local-20261031T111237+0800/report.md)。这些修复与随后自动补库、原生交互一起纳入 v0.0.2；11 月 1 日新增包事务中断日志、定向进程树清理、未知状态保护和 `pkg recover`。本轮验证与部署见 [修复回执](artifacts/expansion-fix-20261101/report.md)。完整 GUI 保存/媒体、Agent 与长压仍逐项验收。
 

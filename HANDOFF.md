@@ -1,10 +1,12 @@
-# Unifier v0.0.4 当前接手入口
+# Unifier v0.0.5 当前接手入口
 
 现行包是 `src/unifier`，用户入口是 `unifier`，诊断入口是 `python3 tools/unifier.py`。`src/multilinux` 和 `tools/ml.py` 只做旧名字转发。证据在 `archive/evidence`，根目录 `evidence` 是符号链接。已完成的阶段稿和早期调研在 [archive/notes](archive/notes/README.md)。布局见 [docs/布局.md](docs/布局.md)。
 
 分支是 `codex/unifier-v2-control`。产品行为以仓库根 [README.md](README.md) 和 `设计/` 里留下的说明为准。先后顺序见 [远期规划](设计/远期规划-2026-11-08.md)：先做完 Debian 13、Fedora 44、Arch，再扩展其他发行版。下面带日期的条目保留各轮结束时的说法，不覆盖这个顺序。
 
 ## 接手时先记住
+
+- v0.0.5 发布范围包括日常 r6 的原生 Portal 文件交付和三项 Portal 行为修复。前一轮工作树定向 112 项通过，全仓 938 项中 5 项条件跳过。隔离发布包验收及日常切换以本轮发布回执为准。见 [版本说明](docs/v0.0.5.md)和 [Portal 首批修复验收](docs/Portal首批修复验收-20261111.md)。
 
 - 2026-11-08：v0.0.4 在安装成功后把所选启动入口写入宿主软件列表，不改文件默认打开方式；包内标为隐藏的入口不进菜单。日常入口是 `~/.local/share/unifier-code/releases/0.0.4-b04db4836d79`，`unifier --version` 为 0.0.4。源码包 `artifacts/unifier-0.0.4.tar.gz` 的 SHA-256 是 `b04db4836d799f76369912ab68e175d0c308a5ee5c78f69191f50374579f9462`。0.0.3 目录保留，回退链接是 `~/.local/bin/.unifier-e_irnbfl.rollback`，稳定名是 `~/.local/bin/.unifier-0.0.3.rollback`。FreeCAD 与腾讯会议只改了启动包装里的代码目录，数据根没动。12:26 的中止记录在 [第一次组装](artifacts/release-v0.0.4-20261108T122119+0800/report.md)，切换细节见 [复跑记录](artifacts/release-v0.0.4-20261108T123341+0800/report.md)。这次切换不是 PRE03 或新的应用验收。
 
@@ -39,7 +41,7 @@
 - 投影：普通项目直接 bind；只读 FUSE 只浏览停止的环境，活动视图会挡住启动。外部通知 `watcher=false`。严格快照、ACL/xattr、长压、通用 IDE 未过。普通文件页面在每次属性重验证时失效，无重验证的 mmap 读取不保证发现外部修改。
 - 投影 rename 两个反例当前均通过，本机真实 FUSE 也覆盖相对链接、嵌套挂载和旧 FD。旧 Python 租约、受限链接目录列举与时间戳碰撞修复及本轮验证范围见 `artifacts/v0.0.1-20261030/report.md`。
 - 受管移动只有显式源清理才删源。`handlers.py` 的 provider 仍只有 `environment-app`。
-- 版本在 `src/unifier/__init__.py`，`unifier --version` 在本版源码中显示 0.0.4。发布构建入口是 `python3 tools/build_release.py`，当前源码包为 `artifacts/unifier-0.0.4.tar.gz`。升级会保留入口回退链接，步骤见 `docs/v0.0.4.md`。旧包与旧回执保留，不代替本版验收。
+- 版本在 `src/unifier/__init__.py`，`unifier --version` 在本版源码中显示 0.0.5。发布构建入口为 `python3 tools/build_release.py --output <包路径>`，v0.0.5 的包输出到项目外的 `~/.local/share/unifier-code/packages/0.0.5/`。回退入口为旧 r6，见 [版本说明](docs/v0.0.5.md)。
 - 三宿主跨派系六组合的基础结果已在 `artifacts/server-cross-host-correction-20261030T210239+0800/`，不是完整应用扩大测试。扩大计划仍在 `设计/扩展可用性与Agent跨环境测试计划-2026-10-27.md`，当前修订 3 与机器矩阵在 `artifacts/extension-test-plan-20261031/`；按每宿主两个准入客体安排，旧矩阵保持历史原件。
 - 2026-10-31 已获授权实施本机扩测，下载限制解除。[扩测回执](artifacts/extension-local-20261031T111237+0800/report.md) 记录 54 次共享文件回放、12 个 CLI 核心单元、4 个真实 PTY 工作流及两个本地原生包；飞书缺失 ALSA 库导致的 SIGTRAP 已修复并独立确认登录窗口。停止后 z/Z 视图核验、缺失环境误报 ready、TTY 缩放转发和本地包 Unicode 文件名均已修复；该日离线回归 597 项，592 通过、5 跳过。修复现纳入 v0.0.2，部署以 11 月 1 日回执为准，历史未部署状态不代表当前状态。GUI 编辑/保存/账号媒体、Agent 受控桥和长压仍未完成；不能把安装或窗口观察算成完整工作流。两个日常容器及原有暂存条目保留。该日结束时仓库仍有未提交改动；已纳入 v0.0.2 的范围以 11 月 1 日回执为准。
 - 2026-10-31 晚：容器安装后自动补 ELF 运行库（apt-file / pacman -F / dnf）和原生安装提示兼容已实现并真实验收：Debian 飞书自动补 14 包、Arch 补 alsa-lib，复查干净，隔离不变；PTY 提示 y/n、`--yes`、`--json` 均通过。经 apt 安装时缩放不传进 dpkg 维护脚本（APT 自带 PTY），未改。见 [回执](artifacts/auto-deps-20261031/report.md)。测试客体 `ml-06a72096-deps-*`、`ml-45dc9c7d-deps-*` 已停止保留。

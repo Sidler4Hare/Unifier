@@ -53,25 +53,36 @@ class PolicyTests(unittest.TestCase):
             x=sample();x[key]=1
             self.assertEqual(self.policy().check(x,now=1),'INVALID_HARD_LIMIT')
 
-    def test_local_controller_pressure_is_not_hidden_by_unused_aggregate_memory(self):
-        aggregate=sample();aggregate['memory']=385*1024**2
-        self.assertIsNone(self.policy().check(aggregate,now=1))
-        controller=GuardPolicy(memory_limit=192*1024**2,task_limit=64,deadline=1000)
-        local=sample();local.update(memory=145*1024**2,high_events=1)
-        self.assertEqual(controller.check(local,now=1),'INVALID_RECLAIM_PRESSURE')
-        local['high_events']=-1
-        self.assertEqual(controller.check(local,now=1),'ABORTED_METRICS')
-        local['high_events']=0;local['memory']=173*1024**2
-        self.assertIsNone(controller.check(local,now=2))
-        self.assertEqual(controller.check(local,now=2.25),'ABORTED_MEMORY')
-        fresh=GuardPolicy(memory_limit=384*1024**2,task_limit=128,deadline=1000)
-        cached=sample();cached.update(memory=300*1024**2,high_events=116,anon=40*1024**2,file=258*1024**2)
-        self.assertIsNone(fresh.check(cached,now=10))
-        self.assertIsNone(fresh.check(cached,now=13))
-        resident=sample();resident.update(memory=300*1024**2,high_events=4,anon=300*1024**2,file=8*1024**2)
-        self.assertIsNone(fresh.check(resident,now=20))
-        self.assertIsNone(fresh.check(resident,now=21.9))
-        self.assertEqual(fresh.check(resident,now=22),'INVALID_RECLAIM_PRESSURE')
+    def test_controller_memory_limit_applies_even_with_aggregate_headroom(self):
+        aggregate = sample()
+        aggregate['memory'] = 385 * 1024**2
+        self.assertIsNone(self.policy().check(aggregate, now=1))
+        controller = GuardPolicy(memory_limit=192 * 1024**2, task_limit=64, deadline=1000)
+        local = sample()
+        local.update(memory=145 * 1024**2, high_events=1)
+        self.assertIsNone(controller.check(local, now=1))
+        self.assertIsNone(controller.check(local, now=3))
+
+        # 173 MiB exceeds r6's 90% line for a 192 MiB controller.
+        local.update(memory=173 * 1024**2, high_events=0)
+        self.assertIsNone(controller.check(local, now=4))
+        self.assertEqual(controller.check(local, now=4.25), 'ABORTED_MEMORY')
+
+    def test_reclaim_counters_are_diagnostic_below_memory_limit(self):
+        controller = GuardPolicy(memory_limit=384 * 1024**2, task_limit=128, deadline=1000)
+        for now, anon, file, high_events in ((10, 40, 258, 116), (20, 300, 8, 4)):
+            with self.subTest(anon=anon, file=file):
+                local = sample()
+                local.update(memory=300 * 1024**2, high_events=high_events,
+                             anon=anon * 1024**2, file=file * 1024**2)
+                self.assertIsNone(controller.check(local, now=now))
+                self.assertIsNone(controller.check(local, now=now + 3))
+
+        for key in ('high_events', 'anon', 'file'):
+            with self.subTest(invalid_metric=key):
+                invalid = sample()
+                invalid[key] = -1
+                self.assertEqual(controller.check(invalid, now=30), 'ABORTED_METRICS')
 
     def test_queue_closes_at_eighty_percent(self):
         p=self.policy();x=sample();x['tasks']=204

@@ -6,6 +6,7 @@ PodmanRuntime; the environment service itself remains the real implementation.
 """
 
 from contextlib import redirect_stderr, redirect_stdout
+from dataclasses import replace
 from io import StringIO
 import hashlib
 import json
@@ -74,7 +75,11 @@ class ShortcutRuntime(FakeRuntime):
     def create(self, spec):
         if spec.env_id in self.fail_create:
             raise UnifierError("simulated create failure for " + spec.env_id)
-        return super().create(spec)
+        container_id = super().create(spec)
+        self.containers[spec.name] = replace(
+            self.containers[spec.name],
+            bind_mounts=tuple((host, guest, True) for host, guest in spec.mounts))
+        return container_id
 
     def exec(self, name, argv, *, project, env_id, workdir, env, capture, timeout):
         if self.exec_handler is not None:
