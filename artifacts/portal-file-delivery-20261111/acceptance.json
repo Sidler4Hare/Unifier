@@ -1,0 +1,85 @@
+{
+  "date": "2026-11-11",
+  "base_commit": "c947077f127cf142c78796bf64d6d1542c1ab091",
+  "scope": "Portal chooser entry, GTK Native prerequisite, selected-file delivery, minimal path-validation dependencies, tests and documentation",
+  "source_sha256": {
+    "src/unifier/cli.py": "30e6273a0696e376fa4143a71768c0307fcf1f980907191e6b76e6a4e3ac7673",
+    "src/unifier/runtime.py": "10752061385bf610395bac67f02a2f3ea11a6bbf67838044d7f87148dcb92821",
+    "src/unifier/service.py": "57c6ca3f72713b975b632c98da6933bb614d0342e4bb56cdb0ee8bcbe5a99c64",
+    "src/unifier/on_demand.py": "eba8201fdeb02dc66a39d3c9855c40e33293997cbe5e2a48ceb7d727f5aca87f",
+    "src/unifier/file_chooser.py": "977baffc5f76c102ff208e6e2181a450f122f11c9fc8fb24ea5226cc067d11dd",
+    "src/unifier/kdialog_args.py": "fadf95f52962be2e413b65cfd131b384c2310ea997a75cecf21502ce671ceee1",
+    "src/unifier/kdialog_portal.py": "35ae8952c22dd4186f8e32a44c8480e8a203d77408998993a72f7e5f2c1ae8f4",
+    "src/unifier/zenity_args.py": "b2912b6edc25b7bb020c1d0a6c85731198c395196730f185d3f586ec52c0c188",
+    "src/unifier/native_library_launcher.py": "b918aa7865be80c3d286ec411317d6a0bd2d00916267e71e545fbe2898183c34",
+    "src/unifier/portal_delivery.py": "53861931c6dc1b0f90b27f73186114a4d6ed56f76b84757e6492ffb8cc0abcc2",
+    "src/unifier/portal_file_bridge.py": "54eac4c417c1ff3deb34a7a93dd56e163d087b56bbd6859c577e10e4d5a85019",
+    "src/unifier/host_share_paths.py": "0476924fb497f508c87b8cea1de9d2e509f79f9b7df5fdfbb9d9494deedc1e76",
+    "src/unifier/host_share_policy.py": "a582cee6080b260cc860e6ab30c6101688b643e98e6975cf4c9cc769b313240d",
+    "tests/test_file_chooser.py": "ef8a371332ed27f0fde7438ab7e305f74a20758ca5ff4477271763431afbd6a6",
+    "tests/test_portal_bridge.py": "cd1e241fb6889eaeceaace5efed1241f98b0fc4890b13bb401e70cb39e16fbbe",
+    "tests/test_portal_delivery.py": "0ed54fdd84bc0244e77d892e936b964a853170edee582e59f4aa7c014a2b3d35",
+    "tests/test_portal_file_bridge.py": "f55d1388e5369dfec40382f48d1acd60e5f9fac09972267c6a2cd350eac76742",
+    "tests/test_native_library_launcher.py": "d409aab47f3dbd3118ec8f975ac854443a6c737c4c3ef90f495604181edd9792",
+    "tests/test_native_library_runtime.py": "9ca5077a1259e07e817c18a51816ad6535437455fc3bd8a7d8793929db769c61",
+    "tests/test_host_share_paths.py": "d309b26eb8432878b46b4c8de1165df04e0b2e8fbd08a86fc2de7478eb5f91a1",
+    "tests/test_host_share_policy.py": "3896fb74fdd03af667748e80915266a3935ace93b5eb9b5c57d33f86bd2f4e4c"
+  },
+  "historical_checks": {
+    "working_tree": {
+      "tests": 919,
+      "skipped": 5,
+      "exit_code": 0
+    },
+    "daily_r6_candidate": {
+      "tests": 66,
+      "skipped": 0,
+      "exit_code": 0
+    }
+  },
+  "manual_workflow": {
+    "status": "PASS_USER_CONFIRMED_WORKFLOW",
+    "application": "DingTalk Linux 8.3.1-Release.261008001",
+    "release": "0.0.4-wt20261111-c947077f-dirty-r6",
+    "selected_bytes": 930304,
+    "events": [
+      "OpenFile",
+      "selection-prepared",
+      "selection-delivered",
+      "selected-file-read"
+    ],
+    "delivered_at": "2026-11-11T18:51:43+08:00",
+    "user_confirmed_upload": true,
+    "limitations": [
+      "IN_ACCESS does not identify the reading process",
+      "no server-side upload receipt captured",
+      "not an automated T3/PRE03 acceptance",
+      "single DingTalk workflow; not all toolkit/backends certified"
+    ]
+  },
+  "isolated_commit_snapshot": {
+    "status": "PASS",
+    "command": "python3 tools/check_repo.py --staged",
+    "checked_index_tree": "c62acd1601e98b636d029b4c3446c111bcfd2e62",
+    "tests": 915,
+    "skipped": 5,
+    "exit_code": 0,
+    "syntax_files": 239,
+    "legacy_aliases": 42,
+    "cli_entry_points": 5,
+    "snapshot_storage": "private disk directory; only Git export placement changed; test short TMPDIR unchanged",
+    "first_attempt": {
+      "status": "INVALID",
+      "reason": "ABORTED_PSI",
+      "temporary_and_cgroup_removed": true
+    },
+    "retry": {
+      "min_available_bytes": 3089637376,
+      "peak_memory_bytes": 379797504,
+      "peak_tasks": 21,
+      "cgroup_removed": true,
+      "temporary_removed": true
+    },
+    "final_delta": "After testing only documentation and this acceptance summary changed; source/test fingerprints unchanged."
+  }
+}

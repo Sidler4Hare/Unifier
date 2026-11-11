@@ -24,6 +24,7 @@ import time
 import uuid
 
 from unifier.errors import UnifierError
+from unifier.file_chooser import preflight_picker, verified_shares
 from unifier.identity import binding_for, validate_binding
 from unifier.runtime import ExecResult
 
@@ -93,6 +94,20 @@ def _terminate(pid, stamp, socket=None):
 def stop_bridge(bridge):
     if not bridge:
         return
+    delivery = bridge.get('file_delivery') or {}
+    _terminate(delivery.get('pid'), delivery.get('stamp'), delivery.get('socket'))
+    selected = delivery.get('selection_directory')
+    if selected and process_stamp(delivery.get('pid')) != delivery.get('stamp'):
+        selected = Path(selected)
+        expected_parent = Path(delivery['socket']).parent
+        try:
+            info = selected.lstat()
+            if (selected.parent == expected_parent and selected.name.startswith('selected-')
+                    and not selected.is_symlink()
+                    and [info.st_dev, info.st_ino] == delivery.get('selection_identity')):
+                shutil.rmtree(selected)
+        except FileNotFoundError:
+            pass
     _terminate(bridge.get('pid'), bridge.get('stamp'), bridge.get('socket'))
 
 
@@ -106,7 +121,7 @@ def _bridge_alive(bridge):
             and Path(bridge['socket']).is_socket())
 
 
-def start_bridge(record, bridge=None):
+def _start_bus_bridge(record, bridge=None):
     settings = (record.get('desktop') or {}).get('portal_proxy')
     if not settings:
         return None
@@ -165,6 +180,56 @@ def start_bridge(record, bridge=None):
         socket.unlink(missing_ok=True)
         raise UnifierError('desktop portal proxy did not become ready')
     return {'pid': process.pid, 'stamp': process_stamp(process.pid), 'socket': str(socket)}
+
+
+def start_bridge(record, bridge=None, *, file_delivery=False, mounts=()):
+    current = _start_bus_bridge(record, bridge)
+    if not file_delivery or current is None:
+        return current
+    settings = record['desktop']['portal_proxy']
+    directory = Path(settings['directory'])
+    shares = verified_shares(record, mounts)
+    existing = current.get('file_delivery')
+    if _bridge_alive(existing):
+        if existing.get('shares') != [list(item) for item in shares]:
+            raise UnifierError('Portal delivery shares changed during an active lease')
+        return current
+    if existing:
+        _terminate(existing.get('pid'), existing.get('stamp'), existing.get('socket'))
+    socket = directory / 'files-bus'
+    socket.unlink(missing_ok=True)
+    audit_dir = directory.parent.parent / 'portal-delivery'
+    audit_dir.mkdir(mode=0o700, exist_ok=True)
+    audit = audit_dir / (record['id'] + '-' + uuid.uuid4().hex + '.jsonl')
+    # Isolated interpreter imports only this release, never guest-writable cwd.
+    command = ['/usr/bin/python3', '-I', '-c',
+               'import sys; sys.path.insert(0, sys.argv.pop(1)); from unifier.portal_file_bridge import main; main()',
+               str(Path(__file__).resolve().parent.parent), '--guest', settings['container'],
+               '--shares', json.dumps(shares), '--parent', str(current['pid']),
+               '--stamp', str(current['stamp'])]
+    with audit.open('xb') as log:
+        os.chmod(audit, 0o600)
+        process = subprocess.Popen(command, cwd=directory, stdin=subprocess.DEVNULL,
+                                   stdout=log, stderr=log, start_new_session=True)
+    entry = {'pid': process.pid, 'stamp': process_stamp(process.pid), 'socket': str(socket),
+             'audit': str(audit), 'shares': [list(item) for item in shares]}
+    deadline = time.monotonic() + BRIDGE_READY_SECONDS
+    ready = False
+    while time.monotonic() < deadline and process.poll() is None:
+        if socket.is_socket() and b'"event": "ready"' in audit.read_bytes()[:8192]:
+            ready = True
+            break
+        time.sleep(.02)
+    if not ready:
+        _terminate(entry['pid'], entry['stamp'], entry['socket'])
+        if current is not bridge:
+            stop_bridge(current)
+        raise UnifierError(f'Portal selected-file delivery did not become ready; see {audit}')
+    ready_record = next(json.loads(line) for line in audit.read_text().splitlines()
+                        if json.loads(line).get('event') == 'ready')
+    entry.update(selection_directory=ready_record['selection_directory'],
+                 selection_identity=ready_record['selection_identity'])
+    return {**current, 'file_delivery': entry}
 
 
 class LaunchGroup:
@@ -261,6 +326,7 @@ class LaunchGroup:
                     launch, app_instance_uuid=expected_app_instance_uuid,
                     execution_fingerprint=expected_execution_fingerprint)
                 binding = self.service._validate_launch_binding(launch, record=record)
+                preflight_picker(record, launch)
                 expected_app = {
                     "app_id": app_id,
                     "app_instance_uuid": expected_app_instance_uuid,
@@ -276,7 +342,11 @@ class LaunchGroup:
             if not state['leases']:
                 state['auto_stop'] = self._inherits_auto_stop(state, info) or not info.running
                 state['container_id'] = info.container_id
-            bridge = start_bridge(record, state.get('bridge'))
+            if app_id is not None and launch['env'].get('UNIFIER_FILE_CHOOSER') in (
+                    'gtk-portal', 'gtk-native-portal', 'qt-portal'):
+                bridge = start_bridge(record, state.get('bridge'), file_delivery=True, mounts=info.mounts)
+            else:
+                bridge = start_bridge(record, state.get('bridge'))
             entry = {'pid': os.getpid(), 'stamp': process_stamp(os.getpid())}
             if app_id is not None:
                 entry.update(app_id=app_id, kind='application',

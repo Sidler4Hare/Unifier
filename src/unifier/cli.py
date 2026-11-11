@@ -193,6 +193,8 @@ def build_parser() -> argparse.ArgumentParser:
     add.add_argument("--as-host-user", action="store_true",
                      help="run this application with the host UID/GID; requires --userns keep-id")
     add.add_argument('--on-demand', action='store_true', help='start its environment on open and stop after the last managed application exits')
+    add.add_argument('--headless', action='store_true',
+                     help='register a CLI application in an environment without desktop bindings')
     add.add_argument('--package-file', help='record package format, SHA-256 and target; the installer is not needed on subsequent opens')
     add.add_argument("--set", action="append", default=None, metavar="KEY=VALUE",
                      help="extra environment value stored in the launch record; repeatable")
@@ -200,6 +202,12 @@ def build_parser() -> argparse.ArgumentParser:
     app_show = app_ops.add_parser("show", help="print one launch record")
     app_show.add_argument("id")
     app_show.set_defaults(func=cmd_app_show)
+    from unifier.file_chooser import MODES
+
+    chooser = app_ops.add_parser("file-chooser", help="show or select the application's file chooser mode")
+    chooser.add_argument("id")
+    chooser.add_argument("mode", nargs="?", choices=MODES)
+    chooser.set_defaults(func=cmd_app_file_chooser)
     leases = app_ops.add_parser('leases', help='inspect shared application and project leases')
     leases.add_argument('environment')
     leases.set_defaults(func=cmd_app_leases)
@@ -880,21 +888,41 @@ def _set_overlay(items) -> dict[str, str]:
 
 
 def cmd_app_add(args) -> int:
+    from unifier.file_chooser import MODE_KEY
+
     argv = [args.executable, *list(getattr(args, "argv", None) or [])]
     options = {"as_host_user": True} if args.as_host_user else {}
+    overlay = _set_overlay(args.set)
     if args.on_demand:
         options['on_demand'] = True
+    if getattr(args, "headless", False):
+        if overlay.get(MODE_KEY, "headless") != "headless":
+            raise UnifierError("--headless conflicts with a graphical file chooser mode")
+        overlay[MODE_KEY] = "headless"
+        options["desktop_required"] = False
     if args.package_file:
         options["package_origin"] = _route_package(args.package_file)
     launch = service_factory().add_app(
         args.environment, args.id, args.executable, argv,
-        workdir=args.workdir, env_overlay=_set_overlay(args.set), **options)
+        workdir=args.workdir, env_overlay=overlay, **options)
     print(f"added {launch['id']} in {launch['environment_id']}")
     return 0
 
 
 def cmd_app_show(args) -> int:
     print(json.dumps(service_factory().show_app(args.id), ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_app_file_chooser(args) -> int:
+    from unifier.file_chooser import MODE_KEY
+
+    service = service_factory()
+    if args.mode is not None:
+        launch = service.set_app_file_chooser(args.id, args.mode)
+    else:
+        launch = service.show_app(args.id)
+    print(launch["env"].get(MODE_KEY, "native"))
     return 0
 
 

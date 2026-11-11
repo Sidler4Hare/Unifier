@@ -69,6 +69,8 @@ class ContainerState:
     oom_killed: bool | None
     exit_code: int | None
     conmon_pid: int | None = None
+    # (source, destination, writable, kind), from the actual container.
+    mounts: tuple[tuple[str, str, bool, str], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -670,6 +672,12 @@ def container_state_from_inspect(name: str, data: dict) -> ContainerState:
         oom_killed=state.get("OOMKilled"),
         exit_code=state.get("ExitCode"),
         conmon_pid=state.get("ConmonPid") or None,
+        mounts=tuple(
+            (item.get("Source") or "", item["Destination"],
+             item.get("RW") is True, item.get("Type") or "")
+            for item in data.get("Mounts") or []
+            if isinstance(item, dict) and isinstance(item.get("Destination"), str)
+        ),
     )
 
 

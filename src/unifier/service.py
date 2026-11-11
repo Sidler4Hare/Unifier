@@ -34,6 +34,7 @@ from unifier.catalog import (
     system_contract,
 )
 from unifier.errors import UnifierError
+from unifier.file_chooser import MODE_KEY, configured_environment, launch_argv, launch_environment, preflight_picker
 from unifier.operation_lock import management_lock
 from unifier.package_inventory import InventoryObservation, normalize_inventory
 from unifier.compatibility import (
@@ -763,6 +764,7 @@ class EnvironmentService:
             if not ENV_KEY.fullmatch(key) or not isinstance(value, str) or value == "" or "\n" in value:
                 raise UnifierError(f"invalid application environment value: {key}")
             env[key] = value
+        configured_environment(record, env, on_demand=on_demand)
         user = None
         if as_host_user:
             if record["runtime"].get("user_namespace") != "keep-id":
@@ -907,6 +909,21 @@ class EnvironmentService:
         self._validate_launch_binding(launch)
         return launch
 
+    def set_app_file_chooser(self, app_id: str, mode: str) -> dict:
+        with management_lock(self.root):
+            launch = self.show_app(app_id)
+            record = self.store.load(launch["environment_id"])
+            self._validate_launch_binding(launch, record=record)
+            env = dict(launch["env"])
+            env[MODE_KEY] = mode
+            configured_environment(record, env, on_demand=launch.get("on_demand"))
+            if mode == "native":
+                env.pop(MODE_KEY)
+            if env != launch["env"]:
+                launch["env"] = env
+                self.store.save_launch(launch)
+            return launch
+
     def validate_integration_launch(self, integration_uuid: str, *, app_id=None,
                                     project_uuid=None, app_instance_uuid=None,
                                     execution_fingerprint=None) -> dict:
@@ -994,30 +1011,37 @@ class EnvironmentService:
                  timeout: int | None = None, workdir: str | None = None,
                  expected_app_instance_uuid: str | None = None,
                  expected_execution_fingerprint: str | None = None) -> ExecResult:
-        record, launch, effective_workdir = self._prepare_app_execution(
+        record, launch, effective_workdir, env = self._prepare_app_execution(
             app_id, argv, workdir=workdir,
             expected_app_instance_uuid=expected_app_instance_uuid,
             expected_execution_fingerprint=expected_execution_fingerprint)
         runtime = record['runtime']
         user_options = {'user': launch['user']} if launch.get('user') else {}
+        argv = launch_argv(record, launch, argv)
         return self.runtime.exec(
             runtime['container_name'], argv, project=runtime['project'], env_id=record['id'],
-            workdir=effective_workdir, env=dict(launch['env']), capture=capture,
+            workdir=effective_workdir, env=env, capture=capture,
             timeout=timeout, **user_options)
 
     def start_app_execution(self, app_id, argv, *, token, workdir=None,
                             expected_app_instance_uuid=None,
                             expected_execution_fingerprint=None):
-        if not callable(getattr(self.runtime, 'start_application_exec', None)):
-            raise UnifierError('runtime cannot supervise application descendants')
-        record, launch, effective_workdir = self._prepare_app_execution(
-            app_id, argv, workdir=workdir,
-            expected_app_instance_uuid=expected_app_instance_uuid,
-            expected_execution_fingerprint=expected_execution_fingerprint)
+        try:
+            if not callable(getattr(self.runtime, 'start_application_exec', None)):
+                raise UnifierError('runtime cannot supervise application descendants')
+            record, launch, effective_workdir, env = self._prepare_app_execution(
+                app_id, argv, workdir=workdir,
+                expected_app_instance_uuid=expected_app_instance_uuid,
+                expected_execution_fingerprint=expected_execution_fingerprint)
+            argv = launch_argv(record, launch, argv)
+        except (UnifierError, OSError, ValueError) as exc:
+            # This path has not submitted a guest application to the runtime.
+            exc.execution_started = False
+            raise
         runtime = record['runtime']
         return self.runtime.start_application_exec(
             runtime['container_id'], argv, token=token, project=runtime['project'],
-            env_id=record['id'], workdir=effective_workdir, env=dict(launch['env']),
+            env_id=record['id'], workdir=effective_workdir, env=env,
             user=launch.get('user'), interactive=False, tty=False)
 
     def _prepare_app_execution(self, app_id, argv, *, workdir=None,
@@ -1031,6 +1055,7 @@ class EnvironmentService:
             execution_fingerprint=expected_execution_fingerprint)
         binding = self._validate_launch_binding(launch)
         record = self.store.load(launch["environment_id"])
+        preflight_picker(record, launch)
         workdir_override = None
         if workdir is not None:
             workdir_override = self._shared_workdir(record, workdir)
@@ -1055,8 +1080,10 @@ class EnvironmentService:
         self._require_app_execution(
             launch, app_instance_uuid=expected_app_instance_uuid,
             execution_fingerprint=expected_execution_fingerprint)
+        preflight_picker(record, launch)
         effective_workdir = workdir_override if workdir is not None else launch.get("workdir")
-        return record, launch, effective_workdir
+        env = launch_environment(record, launch, getattr(info, "mounts", ()), self.root)
+        return record, launch, effective_workdir, env
 
     def export_app(self, app_id: str, *, mime_type: str = "application/x-multilinux-note",
                    extension: str = "mlnote", menu_only: bool = False,
