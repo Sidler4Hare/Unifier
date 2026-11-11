@@ -1,4 +1,5 @@
 """Private bus protocol acceptance: no desktop, account, or real container."""
+from concurrent.futures import Future
 import json
 import os
 from pathlib import Path
@@ -8,13 +9,229 @@ import subprocess
 import tempfile
 import threading
 import time
+from types import SimpleNamespace
 import unittest
+from unittest.mock import Mock, patch
 
 try:
     from gi.repository import Gio, GLib
-    from unifier.portal_file_bridge import CHOOSER, PORTAL, REQUEST, connect, stamp
+    from unifier.portal_file_bridge import (
+        CHOOSER, PORTAL, REQUEST, REQUEST_PREFIX, REQUEST_TIMEOUT, Client,
+        connect, queued_message_size, stamp,
+    )
 except ImportError:
     Gio = None
+
+
+class FakeConnection:
+    def __init__(self):
+        self.serial = 1
+        self.sent = []
+
+    def get_unique_name(self):
+        return ':1.9'
+
+    def send_message(self, message, flags):
+        if not flags & Gio.DBusSendMessageFlags.PRESERVE_SERIAL:
+            self.serial += 1
+            message.set_serial(self.serial)
+        self.sent.append(message)
+        return True, message.get_serial()
+
+
+@unittest.skipUnless(Gio, 'requires host GIO message types')
+class PortalBridgeState(unittest.TestCase):
+    def setUp(self):
+        self.now = 0
+        self.owner = ':1.3'
+        self.relay = SimpleNamespace(
+            busy=0, clients=set(), clock=lambda: self.now, emit=Mock(),
+            executor=Mock(), portal_owner=Mock(return_value=self.owner),
+            store=Mock(), queue_lock=threading.Lock(), queue_limit=1024,
+            queued_bytes=0,
+        )
+        self.idles = []
+        idle = patch.object(GLib, 'idle_add', side_effect=self.enqueue)
+        idle.start()
+        self.addCleanup(idle.stop)
+        self.client = self.make_client()
+
+    def enqueue(self, callback, *args, **kwargs):
+        self.idles.append((callback, args))
+        return len(self.idles)
+
+    def make_client(self):
+        client = Client.__new__(Client)
+        client.relay = self.relay
+        client.up, client.down = FakeConnection(), FakeConnection()
+        client.closed = client.close_scheduled = False
+        client.hello = True
+        client.requests, client.paths, client.upstream_calls, client.pending = {}, {}, {}, {}
+        client.retired, client.expired_paths, client.filters = [], set(), []
+        self.relay.clients.add(client)
+        return client
+
+    def chooser(self, token='fixture'):
+        message = Gio.DBusMessage.new_method_call(
+            PORTAL, '/org/freedesktop/portal/desktop', CHOOSER, 'OpenFile')
+        message.set_serial(110)
+        options = {} if token is None else {'handle_token': GLib.Variant('s', token)}
+        message.set_body(GLib.Variant('(ssa{sv})', ('', 'fixture', options)))
+        self.client.outgoing(message)
+        return self.client.up.sent[-1]
+
+    def handle(self, call, path):
+        reply = Gio.DBusMessage.new_method_reply(call)
+        reply.set_sender(self.owner)
+        reply.set_serial(80)
+        reply.set_body(GLib.Variant('(o)', (path,)))
+        self.client.incoming(reply)
+
+    def response_message(self, path, status=0):
+        signal = Gio.DBusMessage.new_signal(path, REQUEST, 'Response')
+        signal.set_sender(self.owner)
+        signal.set_serial(81)
+        signal.set_body(GLib.Variant('(ua{sv})', (status, {})))
+        return signal
+
+    def response(self, path, status=0):
+        self.client.incoming(self.response_message(path, status))
+
+    def test_timeout_after_handle_retires_signal_and_revokes_completed_copy(self):
+        call = self.chooser()
+        path = REQUEST_PREFIX + '1_9/fixture'
+        self.handle(call, path)
+        future = Future()
+        self.relay.executor.submit.return_value = future
+        self.response(path)
+        self.now = REQUEST_TIMEOUT
+        self.client.expire()
+        self.client.expire()
+        self.response(path)
+        close = self.client.up.sent[-1]
+        self.assertEqual(len(self.client.up.sent), 2)
+        self.assertEqual((close.get_destination(), close.get_path(), close.get_member()),
+                         (self.owner, path, 'Close'))
+        self.assertTrue(close.get_flags() & Gio.DBusMessageFlags.NO_REPLY_EXPECTED)
+        self.assertNotEqual(close.get_serial(), call.get_serial())
+        self.assertEqual(len(self.client.down.sent), 2)
+        self.assertEqual(self.client.down.sent[0].get_reply_serial(), 110)
+        self.assertEqual(self.client.down.sent[1].get_body().unpack(), (2, {}))
+        result = ['file:///guest/snapshot']
+        future.set_result(result)
+        callback, args = self.idles.pop()
+        callback(*args)
+        self.relay.store.revoke.assert_called_once_with(result)
+        self.assertEqual(self.relay.busy, 0)
+        self.assertEqual(len(self.client.down.sent), 2)
+
+    def test_timeout_before_handle_sends_only_method_error_and_closes_late_handle(self):
+        call = self.chooser(token=None)
+        self.now = REQUEST_TIMEOUT
+        self.client.expire()
+        path = REQUEST_PREFIX + '1_9/late'
+        self.response(path)
+        self.handle(call, path)
+        self.response(path)
+        self.assertEqual(len(self.client.down.sent), 1)
+        error = self.client.down.sent[0]
+        self.assertEqual(error.get_message_type(), Gio.DBusMessageType.ERROR)
+        self.assertEqual(error.get_reply_serial(), 110)
+        self.assertEqual([m.get_member() for m in self.client.up.sent], ['OpenFile', 'Close'])
+        self.assertEqual(self.client.up.sent[-1].get_path(), path)
+        self.assertFalse(self.client.upstream_calls)
+        self.chooser(token='late')
+        self.assertEqual(self.client.down.sent[-1].get_message_type(), Gio.DBusMessageType.ERROR)
+        self.assertEqual(len(self.client.up.sent), 2)
+
+    def test_early_response_expiration_releases_bytes_without_signal(self):
+        call = self.chooser()
+        path = REQUEST_PREFIX + '1_9/fixture'
+        self.response(path, 1)
+        self.assertGreater(self.relay.queued_bytes, 0)
+        self.assertFalse(self.client.down.sent)
+        self.now = REQUEST_TIMEOUT
+        self.client.expire()
+        self.handle(call, path)
+        self.assertEqual(self.relay.queued_bytes, 0)
+        self.assertEqual(len(self.client.down.sent), 1)
+        self.assertEqual(self.client.down.sent[0].get_message_type(), Gio.DBusMessageType.ERROR)
+        self.assertEqual([m.get_member() for m in self.client.up.sent], ['OpenFile', 'Close'])
+
+    def test_early_responses_share_queue_budget(self):
+        self.chooser('first')
+        self.chooser('other')
+        response = self.response_message(REQUEST_PREFIX + '1_9/first', 1)
+        size = queued_message_size(response, response.get_body().get_size())
+        self.relay.queue_limit = size
+        self.client.incoming(response)
+        self.response(REQUEST_PREFIX + '1_9/other', 1)
+        self.assertEqual(self.relay.queued_bytes, size)
+        self.assertEqual(len(self.idles), 1)
+        callback, args = self.idles.pop()
+        callback(*args)
+        self.assertEqual(self.relay.queued_bytes, 0)
+        self.assertFalse(self.client.requests)
+
+    def test_non_chooser_reply_translation_and_internal_reply_filtering(self):
+        for guest_serial, error in ((250, False), (251, True)):
+            message = Gio.DBusMessage.new_method_call(
+                PORTAL, '/org/freedesktop/portal/desktop', 'org.freedesktop.DBus.Properties', 'Get')
+            message.set_serial(guest_serial)
+            self.client.outgoing(message)
+            call = self.client.up.sent[-1]
+            if error:
+                reply = Gio.DBusMessage.new_method_error_literal(call, 'org.freedesktop.DBus.Error.Failed', 'fixture')
+            else:
+                reply = Gio.DBusMessage.new_method_reply(call)
+            reply.set_serial(82)
+            self.client.incoming(reply)
+            self.assertEqual(self.client.down.sent[-1].get_reply_serial(), guest_serial)
+            self.client.incoming(reply)
+        self.assertEqual(len(self.client.down.sent), 2)
+        self.assertFalse(self.client.upstream_calls)
+
+    def test_queue_aggregate_budget_releases_on_dispatch_and_close(self):
+        first, second = self.client, self.make_client()
+        message = Gio.DBusMessage.new_signal('/fixture', 'example.Fixture', 'Signal')
+        message.set_body(GLib.Variant('(s)', ('fixture',)))
+        size = queued_message_size(message, message.get_body().get_size())
+        self.assertGreater(size, message.get_body().get_size())
+        self.relay.queue_limit = size * 2
+        first.filtered(None, message, True, True)
+        second.filtered(None, message, True, True)
+        self.assertEqual(self.relay.queued_bytes, size * 2)
+        for _ in range(3):
+            second.filtered(None, message, True, True)
+        self.assertEqual(len(self.idles), 3)
+        callback, args = self.idles[2]
+        callback(*args)
+        self.assertEqual(self.relay.queued_bytes, size)
+        for callback, args in self.idles[:2]:
+            callback(*args)
+        self.assertEqual(self.relay.queued_bytes, 0)
+        self.assertEqual(len(first.down.sent), 1)
+        self.assertFalse(second.down.sent)
+        second.filtered(None, message, True, True)
+        self.assertEqual(len(self.idles), 3)
+
+    def test_queue_dispatch_error_releases_all_client_bytes(self):
+        message = Gio.DBusMessage.new_signal('/fixture', 'example.Fixture', 'Signal')
+        self.client.incoming = Mock(side_effect=ValueError('fixture'))
+        for _ in range(2):
+            self.client.filtered(None, message, True, True)
+        for callback, args in self.idles:
+            callback(*args)
+        self.assertTrue(self.client.closed)
+        self.assertEqual(self.relay.queued_bytes, 0)
+
+    def test_queue_idle_registration_failure_releases_bytes(self):
+        message = Gio.DBusMessage.new_signal('/fixture', 'example.Fixture', 'Signal')
+        with patch.object(GLib, 'idle_add', side_effect=[RuntimeError('fixture'), 1]) as idle:
+            self.client.filtered(None, message, True, True)
+            self.assertEqual(idle.call_count, 2)
+        self.assertFalse(self.client.pending)
+        self.assertEqual(self.relay.queued_bytes, 0)
 
 
 @unittest.skipUnless(Gio and shutil.which('dbus-daemon'), 'requires host GIO and private D-Bus')
@@ -55,6 +272,11 @@ class PortalBridgeProtocol(unittest.TestCase):
         self.spoof = False
         self.defer_response = False
         self.calls = []
+        self.close_senders = []
+        self.closed_request = threading.Event()
+        self.client = None
+
+    def start_relay(self, *, request_timeout=None):
         self.audit = (self.root / 'audit').open('wb')
         self.addCleanup(self.audit.close)
         # Relay connects to a private bus. The product connects to the existing
@@ -68,12 +290,16 @@ class PortalBridgeProtocol(unittest.TestCase):
             time.sleep(.01)
         self.assertTrue((self.root / 'bus').is_socket())
         env = dict(os.environ, PYTHONPATH=str(Path(__file__).resolve().parents[1] / 'src'))
+        env['G_DEBUG'] = 'fatal-criticals'
+        env['UNIFIER_FIXTURE_REQUEST_TIMEOUT'] = str(
+            REQUEST_TIMEOUT if request_timeout is None else request_timeout)
         for name in ('DISPLAY', 'WAYLAND_DISPLAY', 'DBUS_SESSION_BUS_ADDRESS'):
             env.pop(name, None)
         self.relay = subprocess.Popen(['/usr/bin/python3', '-c',
             'from unittest.mock import patch; from collections import namedtuple; '
-            'from unifier.portal_file_bridge import main; '
-            'patch("unifier.portal_delivery.shutil.disk_usage", return_value=namedtuple("Disk", "total used free")(100*1024**3, 0, 90*1024**3)).start(); main()',
+            'import os; import unifier.portal_file_bridge as bridge; '
+            'bridge.REQUEST_TIMEOUT = float(os.environ["UNIFIER_FIXTURE_REQUEST_TIMEOUT"]); '
+            'patch("unifier.portal_delivery.shutil.disk_usage", return_value=namedtuple("Disk", "total used free")(100*1024**3, 0, 90*1024**3)).start(); bridge.main()',
             '--guest', '/run/multilinux-portal', '--shares', '[]', '--parent', str(os.getpid()),
             '--stamp', str(stamp(os.getpid()))], cwd=self.root, env=env, stdout=self.audit, stderr=self.audit)
         self.addCleanup(self.stop, self.relay)
@@ -117,6 +343,8 @@ class PortalBridgeProtocol(unittest.TestCase):
             info = Gio.DBusNodeInfo.new_for_xml('<node><interface name="org.freedesktop.portal.Request"><method name="Close"/></interface></node>').interfaces[0]
             def close_called(c, sender, p, interface, method, args, call):
                 call.return_value(None)
+                self.close_senders.append(sender)
+                self.closed_request.set()
                 connection.emit_signal(sender, request, REQUEST, 'Response', payload)
             registration = connection.register_object(request, info, close_called, None, None)
             self.addCleanup(connection.unregister_object, registration)
@@ -132,7 +360,9 @@ class PortalBridgeProtocol(unittest.TestCase):
         if not self.early and not self.defer_response:
             connection.emit_signal(sender, request, REQUEST, 'Response', payload)
 
-    def select(self, *, options=None, method='OpenFile', close=False):
+    def select(self, *, options=None, method='OpenFile', close=False, response_timeout=5):
+        if self.client is None:
+            self.start_relay()
         completed = threading.Event()
         results = []
         sub = self.client.signal_subscribe(None, REQUEST, 'Response', None, None,
@@ -147,10 +377,11 @@ class PortalBridgeProtocol(unittest.TestCase):
         if close:
             self.client.call_sync(PORTAL, reply.unpack()[0], REQUEST, 'Close', None, None,
                                   Gio.DBusCallFlags.NONE, 2000, None)
-        self.assertTrue(completed.wait(5), (self.root / 'audit').read_text())
+        self.assertTrue(completed.wait(response_timeout), (self.root / 'audit').read_text())
         return results
 
     def test_success_probe_translation_read_and_cleanup(self):
+        self.start_relay()
         version = self.client.call_sync(PORTAL, '/org/freedesktop/portal/desktop',
             'org.freedesktop.DBus.Properties', 'Get', GLib.Variant('(ss)', (CHOOSER, 'version')),
             None, Gio.DBusCallFlags.NONE, 2000, None)
@@ -189,6 +420,14 @@ class PortalBridgeProtocol(unittest.TestCase):
     def test_close_rejects_a_late_success(self):
         self.defer_response = True
         self.assertEqual(self.select(close=True)[0][0], 1)
+        self.assertFalse(list(self.root.glob('selected-*/*')))
+
+    def test_timeout_close_crosses_proxy_as_original_request_owner(self):
+        self.defer_response = True
+        self.start_relay(request_timeout=0.1)
+        self.assertEqual(self.select(response_timeout=3), [(2, {})])
+        self.assertTrue(self.closed_request.wait(3), (self.root / 'audit').read_text())
+        self.assertEqual(self.close_senders, [self.calls[0][0]])
         self.assertFalse(list(self.root.glob('selected-*/*')))
 
     def test_write_selection_is_explicit_failure(self):

@@ -18,6 +18,7 @@ import os
 from pathlib import Path
 import shutil
 import signal
+import stat
 import subprocess
 import sys
 import time
@@ -25,7 +26,7 @@ import uuid
 
 from unifier.errors import UnifierError
 from unifier.file_chooser import preflight_picker, verified_shares
-from unifier.identity import binding_for, validate_binding
+from unifier.identity import binding_for, identity, validate_binding
 from unifier.runtime import ExecResult
 
 # Set for the detached worker so a second supervision layer can never recurse.
@@ -91,41 +92,155 @@ def _terminate(pid, stamp, socket=None):
             pass
 
 
-def stop_bridge(bridge):
-    if not bridge:
+def _bridge_directory(bridge, record):
+    if not isinstance(bridge, dict) or not isinstance(bridge.get('socket'), str):
+        raise UnifierError('invalid Portal bridge ownership record')
+    if record is None:
+        directory = Path(bridge['socket']).parent
+    else:
+        settings = (record.get('desktop') or {}).get('portal_proxy') or {}
+        if not settings.get('directory'):
+            raise UnifierError('Portal bridge has no registered directory')
+        directory = Path(settings['directory'])
+        owner = identity(record)
+        if 'environment_identity' in bridge and bridge['environment_identity'] != (
+                list(owner) if owner is not None else None):
+            raise UnifierError('Portal bridge belongs to a different environment generation')
+    if (not directory.is_absolute() or directory.resolve() != directory
+            or Path(bridge['socket']) != directory / 'bus'):
+        raise UnifierError('Portal bus socket is outside its registered directory')
+    return directory
+
+
+def _stop_bridge_process(entry):
+    pid, stamp = entry.get('pid'), entry.get('stamp')
+    if type(pid) is not int or pid <= 0 or type(stamp) is not int or stamp <= 0:
+        raise UnifierError('Portal bridge process identity is missing or invalid')
+    _terminate(pid, stamp)
+    deadline = time.monotonic() + BRIDGE_STOP_SECONDS
+    while process_stamp(pid) == stamp:
+        if time.monotonic() >= deadline:
+            raise UnifierError(f'Portal bridge process {pid} did not exit')
+        time.sleep(.02)
+
+
+def _reclaim_snapshot(parent_fd, directory, name, expected):
+    path = directory / name
+    try:
+        selected_fd = os.open(name, os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=parent_fd)
+    except FileNotFoundError:
         return
-    delivery = bridge.get('file_delivery') or {}
-    _terminate(delivery.get('pid'), delivery.get('stamp'), delivery.get('socket'))
-    selected = delivery.get('selection_directory')
-    if selected and process_stamp(delivery.get('pid')) != delivery.get('stamp'):
-        selected = Path(selected)
-        expected_parent = Path(delivery['socket']).parent
+    except NotADirectoryError as exc:
+        raise UnifierError(f'Portal snapshot directory identity changed: {path}') from exc
+    try:
+        info = os.fstat(selected_fd)
+        if [info.st_dev, info.st_ino] != expected:
+            raise UnifierError(f'Portal snapshot directory identity changed: {path}')
+        # The guest sees the bridge mount. Keep deletion relative to the
+        # verified inode even if its directory entry is moved or replaced.
+        with os.scandir(selected_fd) as children:
+            for child in children:
+                if child.is_dir(follow_symlinks=False):
+                    shutil.rmtree(child.name, dir_fd=selected_fd)
+                else:
+                    os.unlink(child.name, dir_fd=selected_fd)
         try:
-            info = selected.lstat()
-            if (selected.parent == expected_parent and selected.name.startswith('selected-')
-                    and not selected.is_symlink()
-                    and [info.st_dev, info.st_ino] == delivery.get('selection_identity')):
-                shutil.rmtree(selected)
+            current = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
+        except FileNotFoundError as exc:
+            raise UnifierError(f'Portal snapshot directory moved during cleanup: {path}') from exc
+        if [current.st_dev, current.st_ino] != expected:
+            raise UnifierError(f'Portal snapshot directory identity changed: {path}')
+        os.rmdir(name, dir_fd=parent_fd)
+    finally:
+        os.close(selected_fd)
+
+
+def _remove_bridge_files(directory, socket_name, selection=None):
+    try:
+        parent_fd = os.open(directory, os.O_DIRECTORY | os.O_NOFOLLOW)
+    except FileNotFoundError:
+        return
+    try:
+        if selection is not None:
+            _reclaim_snapshot(parent_fd, directory, *selection)
+        try:
+            socket_info = os.stat(socket_name, dir_fd=parent_fd, follow_symlinks=False)
         except FileNotFoundError:
-            pass
-    _terminate(bridge.get('pid'), bridge.get('stamp'), bridge.get('socket'))
+            return
+        if not stat.S_ISSOCK(socket_info.st_mode):
+            raise UnifierError(f'Portal socket path is not a socket: {directory / socket_name}')
+        os.unlink(socket_name, dir_fd=parent_fd)
+    finally:
+        os.close(parent_fd)
+
+
+def _stop_file_delivery(delivery, directory):
+    socket = directory / 'files-bus'
+    if not isinstance(delivery, dict) or delivery.get('socket') != str(socket):
+        raise UnifierError('Portal delivery socket is outside its registered directory')
+    _stop_bridge_process(delivery)
+    selected = delivery.get('selection_directory')
+    expected = delivery.get('selection_identity')
+    if not isinstance(selected, str) or not isinstance(expected, list) or (
+            len(expected) != 2 or any(type(value) is not int or value < 0 for value in expected)):
+        raise UnifierError('Portal snapshot ownership record is incomplete')
+    selected = Path(selected)
+    if selected.parent != directory or not selected.name.startswith('selected-'):
+        raise UnifierError(f'Portal snapshot directory is outside its registered directory: {selected}')
+    try:
+        _remove_bridge_files(directory, socket.name, (selected.name, expected))
+    except OSError as exc:
+        raise UnifierError(f'cannot clean up Portal delivery at {selected}: {exc}') from exc
+
+
+def stop_bridge(bridge, *, record=None):
+    if bridge is None:
+        return
+    directory = _bridge_directory(bridge, record)
+    error = None
+    try:
+        delivery = bridge.get('file_delivery')
+        if delivery is not None:
+            _stop_file_delivery(delivery, directory)
+    except UnifierError as exc:
+        error = exc
+    try:
+        _stop_bridge_process(bridge)
+        _remove_bridge_files(directory, 'bus')
+    except (OSError, UnifierError) as exc:
+        message = f'cannot clean up Portal bus at {directory}: {exc}'
+        if error is not None:
+            message = f'{error}; {message}'
+        raise UnifierError(message) from exc
+    if error is not None:
+        raise error
 
 
 def _bridge_alive(bridge):
     """A usable bridge needs both a live process and its bound socket."""
-    if not bridge:
+    if not isinstance(bridge, dict):
         return False
-    return (bridge.get('stamp') is not None
-            and process_stamp(bridge.get('pid')) == bridge.get('stamp')
-            and bool(bridge.get('socket'))
-            and Path(bridge['socket']).is_socket())
+    pid, stamp, socket = bridge.get('pid'), bridge.get('stamp'), bridge.get('socket')
+    if type(pid) is not int or pid <= 0 or type(stamp) is not int or stamp <= 0:
+        return False
+    if not isinstance(socket, str) or process_stamp(pid) != stamp:
+        return False
+    try:
+        return stat.S_ISSOCK(Path(socket).lstat().st_mode)
+    except FileNotFoundError:
+        return False
 
 
 def _start_bus_bridge(record, bridge=None):
     settings = (record.get('desktop') or {}).get('portal_proxy')
+    if bridge is not None:
+        _bridge_directory(bridge, record)
     if not settings:
         return None
     directory = Path(settings['directory'])
+    owner = identity(record)
+    if not directory.is_absolute() or directory.resolve() != directory:
+        raise UnifierError('Portal bridge directory is not a canonical host path')
     directory.mkdir(parents=True, exist_ok=True, mode=0o700)
     directory.chmod(0o700)
     auth = os.environ.get('XAUTHORITY')
@@ -139,7 +254,7 @@ def _start_bus_bridge(record, bridge=None):
         return bridge
     if bridge:
         # Half of a bridge is never reused: the proxy died or its socket is gone.
-        stop_bridge(bridge)
+        stop_bridge(bridge, record=record)
     executable = shutil.which('xdg-dbus-proxy')
     if not executable:
         raise UnifierError('desktop portals require host xdg-dbus-proxy')
@@ -179,7 +294,8 @@ def _start_bus_bridge(record, bridge=None):
                     pass
         socket.unlink(missing_ok=True)
         raise UnifierError('desktop portal proxy did not become ready')
-    return {'pid': process.pid, 'stamp': process_stamp(process.pid), 'socket': str(socket)}
+    return {'pid': process.pid, 'stamp': process_stamp(process.pid), 'socket': str(socket),
+            'environment_identity': list(owner) if owner is not None else None}
 
 
 def start_bridge(record, bridge=None, *, file_delivery=False, mounts=()):
@@ -190,12 +306,13 @@ def start_bridge(record, bridge=None, *, file_delivery=False, mounts=()):
     directory = Path(settings['directory'])
     shares = verified_shares(record, mounts)
     existing = current.get('file_delivery')
-    if _bridge_alive(existing):
+    if (isinstance(existing, dict) and existing.get('socket') == str(directory / 'files-bus')
+            and _bridge_alive(existing)):
         if existing.get('shares') != [list(item) for item in shares]:
             raise UnifierError('Portal delivery shares changed during an active lease')
         return current
-    if existing:
-        _terminate(existing.get('pid'), existing.get('stamp'), existing.get('socket'))
+    if existing is not None:
+        _stop_file_delivery(existing, directory)
     socket = directory / 'files-bus'
     socket.unlink(missing_ok=True)
     audit_dir = directory.parent.parent / 'portal-delivery'
@@ -223,13 +340,15 @@ def start_bridge(record, bridge=None, *, file_delivery=False, mounts=()):
     if not ready:
         _terminate(entry['pid'], entry['stamp'], entry['socket'])
         if current is not bridge:
-            stop_bridge(current)
+            stop_bridge(current, record=record)
         raise UnifierError(f'Portal selected-file delivery did not become ready; see {audit}')
     ready_record = next(json.loads(line) for line in audit.read_text().splitlines()
                         if json.loads(line).get('event') == 'ready')
     entry.update(selection_directory=ready_record['selection_directory'],
                  selection_identity=ready_record['selection_identity'])
-    return {**current, 'file_delivery': entry}
+    owner = identity(record)
+    return {**current, 'file_delivery': entry,
+            'environment_identity': list(owner) if owner is not None else None}
 
 
 class LaunchGroup:
@@ -371,10 +490,12 @@ class LaunchGroup:
                     expected_app=expected_app)
             except BaseException:
                 state['leases'].pop(token, None)  # No app exec has been attempted.
-                if not state['leases']:
-                    stop_bridge(bridge)
-                    state['bridge'] = None
-                self.save(state)
+                try:
+                    if not state['leases']:
+                        stop_bridge(bridge, record=record)
+                        state['bridge'] = None
+                finally:
+                    self.save(state)
                 raise
             info = self.service._require_owned(self.service.store.load(self.env_id))
             if (had_leases and state.get('auto_stop')
@@ -443,6 +564,7 @@ class LaunchGroup:
                 self.save(state)
 
     def _close_group(self, state):
+        record = None
         try:
             record = self.service.store.load(self.env_id)
             info = self.service._require_owned(record)
@@ -462,7 +584,10 @@ class LaunchGroup:
         finally:
             # The last lease is gone: no application can still be using the
             # filtered host portal proxy, so its bridge is always removed.
-            stop_bridge(state.get('bridge'))
+            bridge = state.get('bridge')
+            if bridge is not None and record is None:
+                raise UnifierError('cannot verify the registered Portal bridge during cleanup')
+            stop_bridge(bridge, record=record)
             state['bridge'] = None
 
 

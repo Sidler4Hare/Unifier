@@ -25,6 +25,18 @@ CHOOSER = 'org.freedesktop.portal.FileChooser'
 REQUEST = 'org.freedesktop.portal.Request'
 BUS = 'org.freedesktop.DBus'
 PRESERVE = Gio.DBusSendMessageFlags.PRESERVE_SERIAL
+MAX_MESSAGE_BODY = 16 * 1024**2
+MAX_QUEUED_BYTES = 32 * 1024**2
+REQUEST_TIMEOUT = 300
+REQUEST_PREFIX = '/org/freedesktop/portal/desktop/request/'
+
+
+def queued_message_size(message, body_size):
+    # GVariant storage sizes are estimates. Include space for the fixed
+    # D-Bus header, header field tags, alignment and variant metadata.
+    return 128 + body_size + sum(message.get_header(field).get_size() + 16
+                                 for field in message.get_header_fields()
+                                 if field)
 
 
 def variants(value):
@@ -57,12 +69,14 @@ class Client:
         self.requests = {}
         self.paths = {}
         self.retired = deque(maxlen=256)
-        self.pending = 0
-        self.lock = threading.Lock()
+        self.expired_paths = set()
+        self.upstream_calls = {}
+        self.pending = {}
+        self.close_scheduled = False
         self.filters = [(self.down, self.down.add_filter(self.filtered, False)),
                         (self.up, self.up.add_filter(self.filtered, True))]
-        self.down.connect('closed', lambda *_: GLib.idle_add(self.close))
-        self.up.connect('closed', lambda *_: GLib.idle_add(self.close))
+        self.down.connect('closed', self.schedule_close)
+        self.up.connect('closed', self.schedule_close)
         self.down.start_message_processing()
 
     def filtered(self, connection, message, incoming, upstream):
@@ -70,31 +84,59 @@ class Client:
             return message
         # GIO invokes filters on its I/O thread. Never make synchronous bus
         # calls here; bounded dispatch and disk work run outside that thread.
-        with self.lock:
-            self.pending += 1
-            overflow = self.pending > 256
         body = message.get_body()
-        if overflow or (body is not None and body.get_size() > 16*1024**2):
-            GLib.idle_add(self.close)
-        else:
-            GLib.idle_add(self.dispatch, message, upstream)
+        body_size = body.get_size() if body is not None else 0
+        size = queued_message_size(message, body_size)
+        with self.relay.queue_lock:
+            if self.closed or self.close_scheduled:
+                return None
+            if (len(self.pending) >= 256 or body_size > MAX_MESSAGE_BODY
+                    or self.relay.queued_bytes + size > self.relay.queue_limit):
+                self.schedule_close_locked()
+                return None
+            ticket = object()
+            self.pending[ticket] = (message, upstream, size)
+            self.relay.queued_bytes += size
+            try:
+                GLib.idle_add(self.dispatch, ticket)
+            except Exception:
+                self.pending.pop(ticket)
+                self.relay.queued_bytes -= size
+                self.schedule_close_locked()
         return None
+
+    def schedule_close(self, *_):
+        with self.relay.queue_lock:
+            self.schedule_close_locked()
+
+    def schedule_close_locked(self):
+        if not self.closed and not self.close_scheduled:
+            self.close_scheduled = True
+            GLib.idle_add(self.close, priority=GLib.PRIORITY_DEFAULT)
 
     def send(self, destination, message):
         if not self.closed:
             destination.send_message(message, PRESERVE)
 
-    def fail(self, call, reason):
+    @staticmethod
+    def error_reply(call, reason):
         reply = Gio.DBusMessage.new_method_error_literal(call,
                     'org.freedesktop.portal.Error.Failed', reason)
         reply.set_sender(PORTAL)
-        self.down.send_message(reply, Gio.DBusSendMessageFlags.NONE)
+        return reply
 
-    def dispatch(self, message, upstream):
-        with self.lock:
-            self.pending -= 1
-        if self.closed:
-            return False
+    def fail(self, call, reason):
+        self.down.send_message(self.error_reply(call, reason), Gio.DBusSendMessageFlags.NONE)
+
+    def dispatch(self, ticket):
+        with self.relay.queue_lock:
+            queued = self.pending.pop(ticket, None)
+            if queued is None:
+                return False
+            message, upstream, size = queued
+            self.relay.queued_bytes -= size
+            if self.closed or self.close_scheduled:
+                return False
         try:
             if upstream:
                 self.incoming(message)
@@ -107,6 +149,7 @@ class Client:
 
     def outgoing(self, message):
         call = message.get_message_type() == Gio.DBusMessageType.METHOD_CALL
+        request = None
         if call and message.get_interface() == BUS and message.get_member() == 'Hello':
             if self.hello:
                 self.fail(message, 'Hello already completed')
@@ -124,9 +167,10 @@ class Client:
             request = self.paths.get(message.get_path())
             if request:
                 request['cancelled'].set()
+            request = None
         if (call and message.get_destination() == PORTAL and message.get_interface() == CHOOSER
                 and message.get_member() in ('OpenFile', 'SaveFile', 'SaveFiles')):
-            if len(self.requests) >= 16 or self.relay.busy >= 16:
+            if len(self.requests) >= 16 or self.relay.busy >= 16 or len(self.expired_paths) >= 256:
                 self.fail(message, 'too many pending file selections')
                 return
             body = message.get_body()
@@ -138,58 +182,151 @@ class Client:
             if owner is None:
                 self.fail(message, 'host Portal owner is unavailable')
                 return
-            request = {'serial': message.get_serial(), 'owner': owner,
+            request = {'timeout_reply': self.error_reply(message, 'file selection timed out'), 'owner': owner,
                        'method': message.get_member(), 'options': options,
-                       'cancelled': threading.Event(), 'started': time.monotonic(),
-                       'responding': False, 'paths': set()}
-            self.requests[message.get_serial()] = request
+                       'cancelled': threading.Event(), 'started': self.relay.clock(),
+                       'responding': False, 'paths': set(), 'handle': None,
+                       'early_response': None}
             token = options.get('handle_token')
             if isinstance(token, str) and token and all(c.isascii() and (c.isalnum() or c == '_') for c in token):
-                path = '/org/freedesktop/portal/desktop/request/' + self.up.get_unique_name()[1:].replace('.', '_') + '/' + token
+                path = REQUEST_PREFIX + self.up.get_unique_name()[1:].replace('.', '_') + '/' + token
+                if path in self.paths or path in self.retired or path in self.expired_paths:
+                    self.fail(message, 'file selection handle is already in use')
+                    return
                 self.paths[path] = request
                 request['paths'].add(path)
             self.relay.emit(event='file-chooser-call', method=request['method'], client=self.up.get_unique_name())
         forwarded = message.copy()
         forwarded.set_sender(None)
-        self.send(self.up, forwarded)
+        expects_reply = call and not (message.get_flags() & Gio.DBusMessageFlags.NO_REPLY_EXPECTED)
+        if expects_reply and len(self.upstream_calls) >= 4096:
+            if request:
+                self.forget(request)
+            self.fail(message, 'too many pending relay calls')
+            return
+        # Let GIO allocate all outgoing serials on this connection, including
+        # timeout Close messages, and translate replies back to guest serials.
+        sent, serial = self.up.send_message(forwarded, Gio.DBusSendMessageFlags.NONE)
+        if not sent:
+            self.close()
+            return
+        if expects_reply:
+            self.upstream_calls[serial] = (message.get_serial(), request)
+        if request:
+            request['serial'] = serial
+            self.requests[serial] = request
 
     def forget(self, request):
-        self.requests.pop(request['serial'], None)
+        self.requests.pop(request.get('serial'), None)
+        self.take_early_response(request)
         for path in request['paths']:
             if self.paths.get(path) is request:
                 self.paths.pop(path, None)
             self.retired.append(path)
 
+    def take_early_response(self, request):
+        early = request.pop('early_response', None)
+        if early is None:
+            return None
+        message, size = early
+        with self.relay.queue_lock:
+            self.relay.queued_bytes -= size
+        return message
+
+    @staticmethod
+    def request_handle(message):
+        body = message.get_body()
+        if body is not None and body.get_type_string() == '(o)':
+            path = body.unpack()[0]
+            if path.startswith(REQUEST_PREFIX):
+                return path
+        return None
+
+    def close_host_request(self, request, path):
+        call = Gio.DBusMessage.new_method_call(request['owner'], path, REQUEST, 'Close')
+        call.set_flags(Gio.DBusMessageFlags.NO_REPLY_EXPECTED)
+        # No callback or pending reply is needed. GIO queues the send on the
+        # connection that originally owned this request.
+        try:
+            self.up.send_message(call, Gio.DBusSendMessageFlags.NONE)
+        except GLib.Error as exc:
+            self.relay.emit(event='request-close-failed', code=type(exc).__name__)
+
     def incoming(self, message):
         kind = message.get_message_type()
         if kind in (Gio.DBusMessageType.METHOD_RETURN, Gio.DBusMessageType.ERROR):
-            request = self.requests.get(message.get_reply_serial())
+            reply_serial = message.get_reply_serial()
+            call = self.upstream_calls.get(reply_serial)
+            if call is None:
+                return
+            guest_serial, request = call
+            if request and not request.get('expired'):
+                self.expire_request(request, self.relay.clock())
+                guest_serial, request = self.upstream_calls[reply_serial]
+            self.upstream_calls.pop(reply_serial)
+            if request and request.get('expired'):
+                path = None
+                if kind == Gio.DBusMessageType.METHOD_RETURN and message.get_sender() == request['owner']:
+                    path = self.request_handle(message)
+                if path is not None:
+                    if path in self.paths:
+                        self.close()
+                        return
+                    self.expired_paths.add(path)
+                    if path not in request['paths']:
+                        self.close_host_request(request, path)
+                return
+            message = message.copy()
+            message.set_reply_serial(guest_serial)
             if request:
                 if kind == Gio.DBusMessageType.ERROR:
                     request['cancelled'].set()
                     self.forget(request)
-                elif message.get_sender() != request['owner']:
-                    self.close()
-                    return
                 else:
-                    body = message.get_body()
-                    if body is None or body.get_type_string() != '(o)':
-                        self.close()
-                        return
-                    path = body.unpack()[0]
-                    if not path.startswith('/org/freedesktop/portal/desktop/request/'):
+                    path = self.request_handle(message)
+                    if (path is None or message.get_sender() != request['owner']
+                            or path in self.retired or path in self.expired_paths
+                            or (path in self.paths and self.paths[path] is not request)):
                         self.close()
                         return
                     self.paths[path] = request
                     request['paths'].add(path)
+                    request['handle'] = path
+                    self.send(self.down, message)
+                    early = self.take_early_response(request)
+                    if early is not None:
+                        self.incoming(early)
+                    return
         if (kind == Gio.DBusMessageType.SIGNAL and message.get_interface() == REQUEST
                 and message.get_member() == 'Response'):
             request = self.paths.get(message.get_path())
-            if request is None and message.get_path() in self.retired:
-                return
+            if request is None:
+                path = message.get_path()
+                if path in self.retired or path in self.expired_paths:
+                    return
+                # A timed-out call can receive a Response on a previously
+                # unknown path before the handle reply identifies that path.
+                if any(pending and pending.get('expired') and pending['owner'] == message.get_sender()
+                       for _, pending in self.upstream_calls.values()):
+                    return
             if request:
                 # Identity is verified on both sides of the asynchronous call.
                 if message.get_sender() != request['owner'] or request['responding']:
+                    return
+                if self.expire_request(request, self.relay.clock()):
+                    return
+                if request['handle'] is None:
+                    # Hold the first signal until the handle reply is sent.
+                    # Expiration before that reply must send only a method error.
+                    if request.get('early_response') is None:
+                        body = message.get_body()
+                        size = queued_message_size(message, body.get_size() if body is not None else 0)
+                        with self.relay.queue_lock:
+                            if self.relay.queued_bytes + size > self.relay.queue_limit:
+                                self.schedule_close_locked()
+                                return
+                            self.relay.queued_bytes += size
+                            request['early_response'] = message, size
                     return
                 if self.relay.portal_owner() != request['owner']:
                     request['cancelled'].set()
@@ -235,13 +372,18 @@ class Client:
         return False
 
     def finish(self, request, message, result, error):
-        self.forget(request)
-        if self.closed or request['cancelled'].is_set():
+        if (self.closed or self.close_scheduled or self.requests.get(request['serial']) is not request
+                or self.expire_request(request, self.relay.clock())):
             if result:
                 self.relay.store.revoke(result)
             return
+        self.forget(request)
         forwarded = message.copy()
-        if error:
+        if request['cancelled'].is_set():
+            if result:
+                self.relay.store.revoke(result)
+            forwarded.set_body(GLib.Variant('(ua{sv})', (1, {})))
+        elif error:
             forwarded.set_body(GLib.Variant('(ua{sv})', (2, {})))
             self.relay.emit(event='selection-refused', code=error)
         else:
@@ -253,19 +395,51 @@ class Client:
         self.send(self.down, forwarded)
 
     def expire(self):
+        now = self.relay.clock()
         for request in list(self.requests.values()):
-            if time.monotonic() - request['started'] > 300:
-                request['cancelled'].set()
-                self.forget(request)
+            self.expire_request(request, now)
+
+    def expire_request(self, request, now):
+        if now - request['started'] < REQUEST_TIMEOUT:
+            return False
+        request['cancelled'].set()
+        self.expired_paths.update(request['paths'])
+        self.forget(request)
+        path = request['handle']
+        if path is None:
+            if request['serial'] in self.upstream_calls:
+                self.upstream_calls[request['serial']] = (None, {
+                    'expired': True, 'owner': request['owner'], 'paths': request['paths']})
+            reply = request['timeout_reply']
+        else:
+            reply = Gio.DBusMessage.new_signal(path, REQUEST, 'Response')
+            reply.set_sender(request['owner'])
+            reply.set_destination(self.up.get_unique_name())
+            reply.set_body(GLib.Variant('(ua{sv})', (2, {})))
+        try:
+            self.down.send_message(reply, Gio.DBusSendMessageFlags.NONE)
+        except GLib.Error as exc:
+            self.relay.emit(event='timeout-response-failed', code=type(exc).__name__)
+            self.schedule_close()
+        for close_path in (path,) if path is not None else request['paths']:
+            self.close_host_request(request, close_path)
+        self.relay.emit(event='request-expired', method=request['method'])
+        return True
 
     def close(self):
-        if self.closed:
-            return False
-        self.closed = True
+        with self.relay.queue_lock:
+            if self.closed:
+                return False
+            self.closed = True
+            self.relay.queued_bytes -= sum(size for _, _, size in self.pending.values())
+            self.pending.clear()
         for request in self.requests.values():
             request['cancelled'].set()
+            self.take_early_response(request)
         self.requests.clear()
         self.paths.clear()
+        self.expired_paths.clear()
+        self.upstream_calls.clear()
         for connection, identity in self.filters:
             connection.remove_filter(identity)
             if not connection.is_closed():
@@ -275,11 +449,18 @@ class Client:
 
 
 class Relay:
-    def __init__(self, directory, guest, shares, *, upstream='unix:path=bus', parent=None):
+    def __init__(self, directory, guest, shares, *, upstream='unix:path=bus', parent=None,
+                 queue_limit=MAX_QUEUED_BYTES, clock=time.monotonic):
         self.directory = Path(directory)
         self.upstream = upstream
         self.parent = parent
         self.clients = set()
+        self.clock = clock
+        # Budget for frames awaiting main-context dispatch or a handle reply.
+        # GIO transport buffers and copy state are outside this wire estimate.
+        self.queue_lock = threading.Lock()
+        self.queue_limit = queue_limit
+        self.queued_bytes = 0
         self.audit_bytes = 0
         self.watches = {}
         self.libc = ctypes.CDLL(None, use_errno=True)
