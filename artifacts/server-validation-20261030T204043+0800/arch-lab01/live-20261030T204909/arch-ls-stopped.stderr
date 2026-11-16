@@ -1,3 +1,0 @@
-arch: container is stopped; listing /etc through a read-only view
-arch: opening a short-lived read-only view 3fe66e9a-1874-4e94-a4c2-43938f5f98bb; only this view is released afterwards.
-unifier: arch: cannot read the read-only view: view=3fe66e9a-1874-4e94-a4c2-43938f5f98bb state=ready mountpoint=/home/dev/server-validation-20261030T204043+0800/live-20261030T204909/cli-installation/.lab/state/views/3fe66e9a-1874-4e94-a4c2-43938f5f98bb/mount. The view record and recovery information were kept; run unifier view status, and unifier view recover if needed.

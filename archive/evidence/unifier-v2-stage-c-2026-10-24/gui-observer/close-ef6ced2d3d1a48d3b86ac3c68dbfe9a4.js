@@ -1,1 +1,0 @@
-for (const w of workspace.windowList()) { if (w.pid === 195769 && String(w.internalId) === "{8d3aadf0-a6da-45a7-befb-b8062b8d6087}" && String(w.resourceClass) === "org.kde.dolphin") { w.closeWindow(); } }

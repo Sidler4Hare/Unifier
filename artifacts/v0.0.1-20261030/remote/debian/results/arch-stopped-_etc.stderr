@@ -1,2 +1,0 @@
-arch: container is stopped; listing /etc through a read-only view
-arch: opening a short-lived read-only view c85abd1a-4304-4eb5-b35b-6594bef07bbe; only this view is released afterwards.

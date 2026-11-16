@@ -1,1 +1,0 @@
-for (const w of workspace.windowList()) { if (w.pid === 846422 && String(w.internalId) === "{bc2058df-59c0-48d5-98b1-bab646c563fc}" && String(w.resourceClass).toLowerCase().indexOf("freecad") !== -1) { w.closeWindow(); } }

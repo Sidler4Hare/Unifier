@@ -1,4 +1,0 @@
-{
-  "ok": false,
-  "error": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project/control/gui-control.FCMacro\", line 100, in tick\n    result={'ok':True,'result':execute(json.loads(path.read_text()))}\n                               ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/host-project/control/gui-control.FCMacro\", line 49, in execute\n    raise RuntimeError('action not unique/enabled: '+name)\nRuntimeError: action not unique/enabled: Std_Save\n"
-}

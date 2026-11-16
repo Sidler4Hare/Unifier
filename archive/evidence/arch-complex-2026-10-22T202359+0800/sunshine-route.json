@@ -1,8 +1,0 @@
-{
-  "path": "/home/omg/文档/多兼容linux机/evidence/arch-complex-2026-10-22T202359+0800/downloads/sunshine-2026.914.233613-1-x86_64.pkg.tar.zst",
-  "sha256": "17eb8c4d823a2693038f40aeeab56943ef0d5d6ace8ac90b3693905b0acbba87",
-  "format": "arch",
-  "target": "arch",
-  "size_bytes": 9445660,
-  "validation": "native-package-manager-required"
-}

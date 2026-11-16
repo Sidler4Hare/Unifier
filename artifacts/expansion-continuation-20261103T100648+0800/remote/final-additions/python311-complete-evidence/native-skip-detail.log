@@ -1,7 +1,0 @@
-setUpClass (test_screencast_native.NativeConsumerTests) ... skipped "native build dependencies are missing: Package libpipewire-0.3 was not found in the pkg-config search path.\nPerhaps you should add the directory containing `libpipewire-0.3.pc'\nto the PKG_CONFIG_PATH environment variable\nPackage 'libpipewire-0.3', required by 'virtual:world', not found\nPackage 'libdrm', required by 'virtual:world', not found\nPackage 'gbm', required by 'virtual:world', not found\nPackage 'egl', required by 'virtual:world', not found\nPackage 'glesv2', required by 'virtual:world', not found"
-setUpClass (test_dmabuf_roundtrip.DmaBufRoundtripTests) ... skipped "pkg-config cannot resolve gbm egl glesv2 libdrm: Package gbm was not found in the pkg-config search path.\nPerhaps you should add the directory containing `gbm.pc'\nto the PKG_CONFIG_PATH environment variable\nPackage 'gbm', required by 'virtual:world', not found\nPackage 'egl', required by 'virtual:world', not found\nPackage 'glesv2', required by 'virtual:world', not found\nPackage 'libdrm', required by 'virtual:world', not found"
-
-----------------------------------------------------------------------
-Ran 0 tests in 0.027s
-
-OK (skipped=2)

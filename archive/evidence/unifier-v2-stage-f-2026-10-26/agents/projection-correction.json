@@ -1,5 +1,0 @@
-{
-  "measured_sha256": "1f540537442333cd2a6083b1956802cb7a1286a44d099f213db3f035c6391b27",
-  "corrected_sha256": "5b8330f972722edae9add84f6190b76d96292ed74249851c608c70d715bfe269",
-  "reason": "Relative link contract is projected-link, not unchanged readlink text; see design stage C and view_backend.projected_link. Original failed summary is retained; independent semantic recheck required."
-}

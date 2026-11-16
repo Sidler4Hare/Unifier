@@ -1,9 +1,0 @@
-# prior user choice
-[Default Applications]
-application/x-multilinux-eprobe-6b1a63e9=original-eprobe.desktop;
-text/plain=unrelated-user-choice.desktop;
-
-application/x-multilinux-eprobe-6b1a63e9=original-eprobe.desktop;
-[Added Associations]
-application/x-multilinux-eprobe-6b1a63e9=original-eprobe.desktop;
-# later user choice

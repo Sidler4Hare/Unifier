@@ -1,6 +1,0 @@
-ActiveState=active
-ControlGroup=/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice
-MemoryCurrent=22753280
-TasksCurrent=0
-MemoryMax=1073741824
-TasksMax=256

@@ -1,4 +1,0 @@
-PASS bundle manifest: 207 entries
-{"phase": "build", "passed": true}
-{"phase": "reopen", "passed": true}
-{"passed": true, "error": null, "work": "/home/omg/文档/Unifier-CAD/v0.0.1-acceptance-20261031T101657"}

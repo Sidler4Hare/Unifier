@@ -1,7 +1,0 @@
-{
-  "status": "FAILED_DEPLOYMENT_CONFIGURATION",
-  "container_id": "b9dd15c5fccf9f02a1033d6c824066563713fb3f8cfe5bea37b73378417cefdb",
-  "cycles": [],
-  "scope": "Real menu/window/normal WM close, shared data and lifecycle; no login, meeting or camera acceptance.",
-  "reason": "Private image source did not match targets.toml and lock lacked os/architecture; actual CLI refused before start. Repaired in a separate attempt."
-}

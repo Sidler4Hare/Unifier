@@ -1,7 +1,0 @@
-{
-  "role": "phase",
-  "provider": "command-code",
-  "model": "deepseek/deepseek-v4.1-flash",
-  "session_id": "session-a36617c6-89f3-4e8d-82ce-8981dc67b5dd",
-  "status": "completed"
-}

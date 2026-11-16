@@ -1,5 +1,0 @@
-Traceback (most recent call last):
-  File "/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261106T095650+0800/app-recover-home/driver.py", line 16, in <module>
-    rt=PodmanRuntime(runner=readonly);before=rt.inspect(config['cid']);assert before is not None and not before.running and before.container_id==config['cid']
-                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError

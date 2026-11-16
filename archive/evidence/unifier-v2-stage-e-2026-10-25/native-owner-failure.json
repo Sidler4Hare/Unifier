@@ -1,9 +1,0 @@
-{
-  "host_uid": 1000,
-  "host_gid": 1000,
-  "new_file_uid": 524288,
-  "new_file_gid": 524288,
-  "content": "owned",
-  "container_config_user": "0",
-  "user_namespace": "keep-id"
-}

@@ -1,6 +1,0 @@
-test_install_repair_and_recovery_do_not_deadlock_app_and_project_lease_release (test_package_coordination.PackageCoordination.test_install_repair_and_recovery_do_not_deadlock_app_and_project_lease_release) ... ok
-
-----------------------------------------------------------------------
-Ran 1 test in 0.593s
-
-OK

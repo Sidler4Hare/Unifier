@@ -1,1 +1,0 @@
-首个fixture的nested bind由runtime适配器注入，未进入初始shared_mounts契约。首轮AF_UNIX失败后已通过修复后的recover清理；所有本次容器和卷已删除。新fixture将在CreateSpec中初始冻结bind，避免伪造来源政策。旧状态和失败报告保留供核对。

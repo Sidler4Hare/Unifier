@@ -1,5 +1,0 @@
-[KPaintEnv] parse bundled hardacc json failed: "/opt/kingsoft/wps-office/office6/addons/kpaintconfig/mui/linux/1.3.json" "object is missing after a comma"
-[KPaintEGL] queryAllGpuDevices: scanned 0 DRM render node(s)
-[KPaintEnv] initHardAccDeviceList: found 0 GPU device(s)
-qt.qpa.plugin: Could not find the Qt platform plugin "wayland" in ""
-qt.qpa.plugin: Could not find the Qt platform plugin "wayland" in ""

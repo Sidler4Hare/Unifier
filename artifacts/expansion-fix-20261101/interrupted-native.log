@@ -1,158 +1,0 @@
-interrupt-debian: apt-get update
-Get:1 http://deb.debian.org/debian trixie InRelease [140 kB]
-Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
-Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
-Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]
-Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [1108 B]
-Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [292 kB]
-Fetched 10.2 MB in 8s (1263 kB/s)
-Reading package lists...
-interrupt-debian: apt-get install -y /tmp/ml-incoming/probe-1.0.deb
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following NEW packages will be installed:
-  unifier-interrupt-probe
-0 upgraded, 1 newly installed, 0 to remove and 2 not upgraded.
-Need to get 0 B/596 B of archives.
-After this operation, 0 B of additional disk space will be used.
-Get:1 /tmp/ml-incoming/probe-1.0.deb unifier-interrupt-probe all 1.0 [596 B]
-Selecting previously unselected package unifier-interrupt-probe.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4951 files and directories currently installed.)
-Preparing to unpack /tmp/ml-incoming/probe-1.0.deb ...
-Unpacking unifier-interrupt-probe (1.0) ...
-dpkg: error processing archive /tmp/ml-incoming/probe-1.0.deb (--unpack):
- unable to create '/usr/share/unifier-interrupt-probe/version.dpkg-new' (while processing 'usr/share/unifier-interrupt-probe/version'): No such file or directory
-Errors were encountered while processing:
- /tmp/ml-incoming/probe-1.0.deb
-E: Sub-process /usr/bin/dpkg returned an error code (1)
-interrupt-debian: install-local failed txn1f3d73a1ff93
-{
-  "schema_version": 1,
-  "id": "txn1f3d73a1ff93",
-  "environment_id": "interrupt-debian",
-  "operation": "install-local",
-  "packages": [
-    "unifier-interrupt-probe"
-  ],
-  "interactive": false,
-  "stream": true,
-  "dependency_repair": {
-    "status": "not-requested"
-  },
-  "use_command": [],
-  "local_file": "/home/omg/文档/多兼容linux机/artifacts/expansion-fix-20261101/probe-1.0.deb",
-  "revision_before": {
-    "writable_revision": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b",
-    "content_revision": 1,
-    "package_inventory_sha256": "fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4"
-  },
-  "native": [
-    {
-      "argv": [
-        "apt-get",
-        "update"
-      ],
-      "timeout": 180,
-      "state": "finished",
-      "exit_code": 0,
-      "stdout_tail": "Get:1 http://deb.debian.org/debian trixie InRelease [140 kB]\nGet:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]\nGet:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]\nGet:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]\nGet:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [1108 B]\nGet:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [292 kB]\nFetched 10.2 MB in 8s (1263 kB/s)\nReading package lists...\n",
-      "stderr_tail": "",
-      "guest": {
-        "pid": 7,
-        "start": 41489941,
-        "pgrp": 7,
-        "sid": 7,
-        "token": "6d8ad8e8d5135340745a9027f847651b"
-      }
-    },
-    {
-      "argv": [
-        "apt-get",
-        "install",
-        "-y",
-        "/tmp/ml-incoming/probe-1.0.deb"
-      ],
-      "timeout": 300,
-      "state": "finished",
-      "exit_code": 100,
-      "stdout_tail": "Reading package lists...\nBuilding dependency tree...\nReading state information...\nThe following NEW packages will be installed:\n  unifier-interrupt-probe\n0 upgraded, 1 newly installed, 0 to remove and 2 not upgraded.\nNeed to get 0 B/596 B of archives.\nAfter this operation, 0 B of additional disk space will be used.\nGet:1 /tmp/ml-incoming/probe-1.0.deb unifier-interrupt-probe all 1.0 [596 B]\nSelecting previously unselected package unifier-interrupt-probe.\r\n(Reading database ... \r(Reading database ... 5%\r(Reading database ... 10%\r(Reading database ... 15%\r(Reading database ... 20%\r(Reading database ... 25%\r(Reading database ... 30%\r(Reading database ... 35%\r(Reading database ... 40%\r(Reading database ... 45%\r(Reading database ... 50%\r(Reading database ... 55%\r(Reading database ... 60%\r(Reading database ... 65%\r(Reading database ... 70%\r(Reading database ... 75%\r(Reading database ... 80%\r(Reading database ... 85%\r(Reading database ... 90%\r(Reading database ... 95%\r(Reading database ... 100%\r(Reading database ... 4951 files and directories currently installed.)\r\nPreparing to unpack /tmp/ml-incoming/probe-1.0.deb ...\r\nUnpacking unifier-interrupt-probe (1.0) ...\r\ndpkg: error processing archive /tmp/ml-incoming/probe-1.0.deb (--unpack):\r\n unable to create '/usr/share/unifier-interrupt-probe/version.dpkg-new' (while processing 'usr/share/unifier-interrupt-probe/version'): No such file or directory\r\nErrors were encountered while processing:\r\n /tmp/ml-incoming/probe-1.0.deb\r\n",
-      "stderr_tail": "E: Sub-process /usr/bin/dpkg returned an error code (1)\n",
-      "guest": {
-        "pid": 25,
-        "start": 41490950,
-        "pgrp": 25,
-        "sid": 25,
-        "token": "3f5aabc1e3f94dff0db71a7d71e40e1c"
-      }
-    }
-  ],
-  "native_error": null,
-  "maintenance": {
-    "status": "ok",
-    "items": [],
-    "system_integration": "unverified",
-    "full_init": false
-  },
-  "verdict": "failed",
-  "verification": {
-    "ok": false,
-    "packages": {
-      "unifier-interrupt-probe": false
-    },
-    "command": null,
-    "command_exit_code": null,
-    "stdout_preview": null,
-    "stdout_sha256": null,
-    "problems": [
-      "native command failed"
-    ]
-  },
-  "host_entries": {
-    "added": [],
-    "removed": []
-  },
-  "host_packages": {
-    "before": {
-      "available": true,
-      "tool": "rpm",
-      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
-      "count": 2530,
-      "error": null
-    },
-    "after": {
-      "available": true,
-      "tool": "rpm",
-      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
-      "count": 2530,
-      "error": null
-    }
-  },
-  "other_environments": {},
-  "revision_after": {
-    "writable_revision": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b",
-    "content_revision": 1,
-    "package_inventory_sha256": "fedda2af286ded4a88d7f798319cdf1203bb7dfadcea36d7f5c7725dc17fded4"
-  },
-  "phase": "failed",
-  "environment_binding": {
-    "environment_id": "interrupt-debian",
-    "environment_uuid": "9997bea3-892a-463e-b1ba-3effdbdb8dcb",
-    "generation": 1,
-    "container_id": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b"
-  },
-  "recovery_required": false,
-  "inventory_status": "verified",
-  "failure_phase": "native-command",
-  "started_at": "2026-11-01T10:12:45+08:00",
-  "finished_at": "2026-11-01T10:13:07+08:00",
-  "database_audit": {
-    "argv": [
-      "dpkg",
-      "--audit"
-    ],
-    "exit_code": 0,
-    "stdout_tail": "",
-    "stderr_tail": ""
-  }
-}

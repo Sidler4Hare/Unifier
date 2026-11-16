@@ -1,7 +1,0 @@
-{
-  "status": "FAILED",
-  "container_id": "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5",
-  "cycles": [],
-  "scope": "Installed menu, visible window, normal WM close and auto-stop; no login or meeting/media acceptance",
-  "error": "RuntimeError: KWin window probe did not return a result"
-}

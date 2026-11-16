@@ -1,7 +1,0 @@
-debian13: installing package(s) through the native transaction: fd-find.
-debian13: apt-get update
-debian13: apt-get install -y fd-find
-debian13: install completed txnae61e6338334
-Native package transaction completed: txnae61e6338334. A successful package transaction does not prove the application entry works.
-debian13: using explicit entry /usr/bin/fdfind.
-Registered application fd (target debian13, environment debian13).

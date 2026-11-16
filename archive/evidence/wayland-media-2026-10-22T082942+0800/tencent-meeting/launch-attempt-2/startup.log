@@ -1,5 +1,0 @@
-wemeet:WemeetSatrt
-MESA: error: Failed to query drm device.
-glx: failed to create dri3 screen
-failed to load driver: iris
-[3:3:1022/085202.112650:ERROR:zygote_host_impl_linux.cc(90)] Running as root without --no-sandbox is not supported. See https://crbug.com/638180.

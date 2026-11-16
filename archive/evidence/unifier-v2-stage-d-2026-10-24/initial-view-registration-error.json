@@ -1,6 +1,0 @@
-{
-  "stage": "native C-to-D source-view registration",
-  "error": "NameError: backend is not defined in DataRootRegistry._validate_record source_view branch",
-  "fix": "primary used record[backend] after a real initial failure; source-view native validation continues",
-  "view_was_revoked": true
-}

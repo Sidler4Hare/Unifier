@@ -1,6 +1,0 @@
-arch: installing package(s) through the native transaction: bat.
-arch: pacman -Syu --noconfirm --needed bat
-arch: install completed txne20c56327dc3
-Native package transaction completed: txne20c56327dc3. A successful package transaction does not prove the application entry works.
-arch: using explicit entry /usr/bin/bat.
-Registered application bat (target arch, environment arch).

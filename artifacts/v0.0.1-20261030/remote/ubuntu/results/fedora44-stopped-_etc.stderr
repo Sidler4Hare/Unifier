@@ -1,2 +1,0 @@
-fedora44: container is stopped; listing /etc through a read-only view
-fedora44: opening a short-lived read-only view 6e756bde-64c5-4caf-ac22-8160e345b2af; only this view is released afterwards.

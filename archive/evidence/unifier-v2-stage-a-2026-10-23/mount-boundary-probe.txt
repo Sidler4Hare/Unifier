@@ -1,2 +1,0 @@
-$ unshare --user --map-root-user --mount --propagation private python3 .lab/agents/unifier-v2-stage-a-20261023/probe_mount_boundary.py
-{"same_device": true, "refused": true, "reason": "path crosses a mount boundary inside the data root; refusing it"}

@@ -1,1 +1,0 @@
-{"audit_exit": 0, "audit": "", "audit_err": "", "query_exit": 1, "query": "binutils\tun \t\ndpkg-dev\tun \t\ngcc\tun \t\n", "query_err": "dpkg-query: no packages found matching apt-file\ndpkg-query: no packages found matching libc6-dev\n"}

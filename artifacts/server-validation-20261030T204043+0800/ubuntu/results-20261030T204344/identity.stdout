@@ -1,1 +1,0 @@
-uid=1001(agent) gid=1001(agent) groups=1001(agent),4(adm),114(libvirt),988(docker),994(kvm),999(systemd-journal)

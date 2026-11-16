@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/home/omg/文档/多兼容linux机/tools/probe_tencent_meeting.py", line 133, in main
-    window_id=main_window['internalId'])
-  File "/home/omg/文档/多兼容linux机/tools/probe_desktop_apps.py", line 67, in need
-    raise RuntimeError(message)
-RuntimeError: no application window; launcher exit=1

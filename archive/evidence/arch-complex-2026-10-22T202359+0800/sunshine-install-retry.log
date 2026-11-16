@@ -1,3 +1,0 @@
-complex-arch: pacman -Syu --noconfirm
-complex-arch: pacman -U --noconfirm /tmp/ml-incoming/sunshine-2026.914.233613-1-x86_64.pkg.tar.zst
-complex-arch: install-local failed txn48d44761cf34

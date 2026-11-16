@@ -1,8 +1,0 @@
-{
-  "root": "/home/omg/文档/多兼容linux机",
-  "backup": "/home/omg/文档/Unifier-backups/20261027-133146-before-runtime-consolidation",
-  "stamp": "20261027-133146",
-  "scope": "archive old test runtimes; migrate Tencent Meeting to current implementation; preserve daily FreeCAD and user documents",
-  "status": "LOCAL_RUNTIME_CONSOLIDATION_AND_MIGRATION_ACCEPTED",
-  "completed_at": "2026-10-27T14:02:24.940425+08:00"
-}

@@ -1,5 +1,0 @@
-{
-  "exit_code": 1,
-  "stdout": "",
-  "stderr": "Traceback (most recent call last):\n  File \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/run_gui_steps.py\", line 88, in <module>\n    if __name__=='__main__':main()\n                            ~~~~^^\n  File \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/run_gui_steps.py\", line 53, in main\n    capture('03-saved-model')\n    ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/home/omg/文档/多兼容linux机/evidence/unifier-v2-stage-b-2026-10-24/live-freecad/run_gui_steps.py\", line 36, in capture\n    result=screenshot(HERE/'observer','Unifier v2 B FreeCAD acceptance',HERE/(name+'.png'))\n  File \"/home/omg/文档/多兼容linux机/tools/kwin_window_probe.py\", line 90, in screenshot\n    raise RuntimeError(f\"expected one active experiment window, got {before}\")\nRuntimeError: expected one active experiment window, got []\n"
-}

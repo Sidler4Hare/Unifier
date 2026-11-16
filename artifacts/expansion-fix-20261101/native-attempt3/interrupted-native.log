@@ -1,154 +1,0 @@
-interrupt-debian: apt-get update
-Hit:1 http://deb.debian.org/debian trixie InRelease
-Hit:2 http://deb.debian.org/debian trixie-updates InRelease
-Hit:3 http://deb.debian.org/debian-security trixie-security InRelease
-Reading package lists...
-interrupt-debian: apt-get install -y /tmp/ml-incoming/probe-3.0.deb
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following packages will be upgraded:
-  unifier-interrupt-probe
-1 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
-Need to get 0 B/596 B of archives.
-After this operation, 0 B of additional disk space will be used.
-Get:1 /tmp/ml-incoming/probe-3.0.deb unifier-interrupt-probe all 3.0 [596 B]
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4952 files and directories currently installed.)
-Preparing to unpack /tmp/ml-incoming/probe-3.0.deb ...
-Unpacking unifier-interrupt-probe (3.0) over (2.0) ...
-Setting up unifier-interrupt-probe (3.0) ...
-WAIT_READY
-interrupt-debian: install-local needs-recovery txn2db125f1f14f
-{
-  "schema_version": 1,
-  "id": "txn2db125f1f14f",
-  "environment_id": "interrupt-debian",
-  "operation": "install-local",
-  "packages": [
-    "unifier-interrupt-probe"
-  ],
-  "interactive": false,
-  "stream": true,
-  "dependency_repair": {
-    "status": "not-requested"
-  },
-  "use_command": [],
-  "local_file": "/home/omg/文档/多兼容linux机/artifacts/expansion-fix-20261101/native-attempt3/probe-3.0.deb",
-  "revision_before": {
-    "writable_revision": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b",
-    "content_revision": 5,
-    "package_inventory_sha256": "286d6d0ccd427596d8c932b7b05dfe1ba4cc232c2a66207e0537d692d9f08561"
-  },
-  "native": [
-    {
-      "argv": [
-        "apt-get",
-        "update"
-      ],
-      "timeout": 180,
-      "state": "finished",
-      "exit_code": 0,
-      "stdout_tail": "Hit:1 http://deb.debian.org/debian trixie InRelease\nHit:2 http://deb.debian.org/debian trixie-updates InRelease\nHit:3 http://deb.debian.org/debian-security trixie-security InRelease\nReading package lists...\n",
-      "stderr_tail": "",
-      "guest": {
-        "pid": 7,
-        "start": 41512341,
-        "pgrp": 7,
-        "sid": 7,
-        "token": "879b56bea95e87441556267b4eee453d"
-      }
-    },
-    {
-      "argv": [
-        "apt-get",
-        "install",
-        "-y",
-        "/tmp/ml-incoming/probe-3.0.deb"
-      ],
-      "timeout": 300,
-      "state": "interrupted",
-      "exit_code": 15,
-      "stdout_tail": "Reading package lists...\nBuilding dependency tree...\nReading state information...\nThe following packages will be upgraded:\n  unifier-interrupt-probe\n1 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.\nNeed to get 0 B/596 B of archives.\nAfter this operation, 0 B of additional disk space will be used.\nGet:1 /tmp/ml-incoming/probe-3.0.deb unifier-interrupt-probe all 3.0 [596 B]\n(Reading database ... \r(Reading database ... 5%\r(Reading database ... 10%\r(Reading database ... 15%\r(Reading database ... 20%\r(Reading database ... 25%\r(Reading database ... 30%\r(Reading database ... 35%\r(Reading database ... 40%\r(Reading database ... 45%\r(Reading database ... 50%\r(Reading database ... 55%\r(Reading database ... 60%\r(Reading database ... 65%\r(Reading database ... 70%\r(Reading database ... 75%\r(Reading database ... 80%\r(Reading database ... 85%\r(Reading database ... 90%\r(Reading database ... 95%\r(Reading database ... 100%\r(Reading database ... 4952 files and directories currently installed.)\r\nPreparing to unpack /tmp/ml-incoming/probe-3.0.deb ...\r\nUnpacking unifier-interrupt-probe (3.0) over (2.0) ...\r\nSetting up unifier-interrupt-probe (3.0) ...\r\nWAIT_READY\r\n",
-      "stderr_tail": "",
-      "guest": {
-        "pid": 23,
-        "start": 41512613,
-        "pgrp": 23,
-        "sid": 23,
-        "token": "a3ae6aeda13834b08fef441f07fe286b"
-      },
-      "cleanup": "gone",
-      "error": "native package command interrupted by SIGTERM"
-    }
-  ],
-  "native_error": "native package command interrupted by SIGTERM",
-  "maintenance": {
-    "status": "ok",
-    "items": [],
-    "system_integration": "unverified",
-    "full_init": false
-  },
-  "verdict": "failed",
-  "verification": {
-    "ok": false,
-    "packages": {
-      "unifier-interrupt-probe": true
-    },
-    "command": null,
-    "command_exit_code": null,
-    "stdout_preview": null,
-    "stdout_sha256": null,
-    "problems": [
-      "runtime failed"
-    ]
-  },
-  "host_entries": {
-    "added": [],
-    "removed": []
-  },
-  "host_packages": {
-    "before": {
-      "available": true,
-      "tool": "rpm",
-      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
-      "count": 2530,
-      "error": null
-    },
-    "after": {
-      "available": true,
-      "tool": "rpm",
-      "sha256": "a2de94d84398c138ebc6f4e1058b78f3af071a70c7c396bad3ccd8a1b97a2ca6",
-      "count": 2530,
-      "error": null
-    }
-  },
-  "other_environments": {},
-  "revision_after": {
-    "writable_revision": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b",
-    "content_revision": 6,
-    "package_inventory_sha256": "bcfa0efdfba64bc82d2549d3a10f7c0278c2dc93be3388b4d107cdebbadba8fd"
-  },
-  "phase": "needs-recovery",
-  "environment_binding": {
-    "environment_id": "interrupt-debian",
-    "environment_uuid": "9997bea3-892a-463e-b1ba-3effdbdb8dcb",
-    "generation": 1,
-    "container_id": "d8720702648d9246175c59e8e73abf9b5a153ed889ed35db662474faee74166b"
-  },
-  "recovery_required": true,
-  "inventory_status": "verified",
-  "failure_phase": "runtime",
-  "started_at": "2026-11-01T10:16:31+08:00",
-  "finished_at": "2026-11-01T10:16:46+08:00",
-  "exit_code": 143,
-  "database_audit": {
-    "argv": [
-      "dpkg",
-      "--audit"
-    ],
-    "exit_code": 0,
-    "stdout_tail": "The following packages are only half configured, probably due to problems\nconfiguring them the first time.  The configuration should be retried using\ndpkg --configure <package> or the configure menu option in dselect:\n unifier-interrupt-probe isolated interrupt fixture\n\n",
-    "stderr_tail": ""
-  },
-  "recovery_error": "native package database needs repair; inspect pkg show and repair it inside this environment before pkg recover"
-}

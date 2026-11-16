@@ -1,7 +1,0 @@
-debian13: installing local package /home/omg/文档/多兼容linux机/artifacts/extension-local-20261031T111237+0800/native-jq-files/中文 空格 $; jq.deb through the native transaction.
-debian13: apt-get update
-debian13: apt-get install -y /tmp/ml-incoming/中文 空格 $; jq.deb
-debian13: install-local completed txnfd1ebf119649
-Native package transaction completed: txnfd1ebf119649. A successful package transaction does not prove the application entry works.
-debian13: using explicit entry /usr/bin/jq.
-Application jq is already registered; reusing the launch record.

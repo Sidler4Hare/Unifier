@@ -1,1 +1,0 @@
-for (const w of workspace.windowList()) { if (w.pid === 841842 && String(w.internalId) === "{4fe2a0b4-ac19-492e-a2e6-cd1aacd5e414}" && String(w.resourceClass).toLowerCase().indexOf("wemeet") !== -1) { w.closeWindow(); } }

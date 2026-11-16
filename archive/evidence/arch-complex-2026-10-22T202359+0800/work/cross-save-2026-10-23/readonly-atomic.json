@@ -1,7 +1,0 @@
-{
-  "protocol": "temp-fsync-replace",
-  "temp": "只读笔记.txt.editor.tmp",
-  "inode_before": 3052193,
-  "inode_after": 3052226,
-  "error": null
-}

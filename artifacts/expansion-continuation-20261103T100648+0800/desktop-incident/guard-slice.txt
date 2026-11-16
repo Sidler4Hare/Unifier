@@ -1,7 +1,0 @@
-ActiveState=active
-ControlGroup=/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice
-CPUQuotaPerSecUSec=1s
-MemoryHigh=805306368
-MemoryMax=1073741824
-MemorySwapMax=134217728
-TasksMax=256

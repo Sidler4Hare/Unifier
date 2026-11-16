@@ -1,2 +1,0 @@
-arch: pacman -Syu --noconfirm --needed less
-arch: install failed txn35efc2a8457f

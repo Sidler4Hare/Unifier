@@ -1,7 +1,0 @@
-debian13: installing package(s) through the native transaction: bat.
-debian13: apt-get update
-debian13: apt-get install -y bat
-debian13: install completed txnb414d4a0f1e4
-Native package transaction completed: txnb414d4a0f1e4. A successful package transaction does not prove the application entry works.
-debian13: using explicit entry /usr/bin/batcat.
-Registered application bat (target debian13, environment debian13).
