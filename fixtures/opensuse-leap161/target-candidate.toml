@@ -1,0 +1,27 @@
+# Design and offline fixture only. The runnable catalog is config/targets.toml.
+schema_version = 1
+platform = "linux/amd64"
+runtime = "podman"
+
+[targets.opensuse-leap161]
+display_name = "openSUSE Leap 16.1"
+source = "registry.opensuse.org/opensuse/leap:16.1"
+expected_id = "opensuse-leap"
+expected_version_id = "16.1"
+package_manager = "zypper"
+package_database = "rpm"
+family = "suse"
+libc = "glibc"
+layout = "fhs"
+package_driver = "zypper"
+package_format = "rpm"
+runtime_backend = "podman-rootless"
+update_policy = "versioned-release"
+documentation = "https://get.opensuse.org/leap/16.1/"
+
+[candidate_image]
+checked_on = 2026-11-12
+index_digest = "sha256:65a21515d62c7af67808e7aef29e0bcfdb609d95f9fe811fad7649d56c4b3dfa"
+manifest_digest = "sha256:51a6a3336f8dd6c7d6de0660972b6c1c2be437d5c23cb7142f514c917dab4bbb"
+config_digest = "sha256:a1c8e271fa95b998c0205cbc664b23e3dddce7469790c43ed340c4e314fdbb45"
+compressed_layer_bytes = 42770728

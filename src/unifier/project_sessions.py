@@ -328,6 +328,14 @@ class ProjectSessions:
             raise UnifierError(
                 "environment container instance changed; create a new project session")
         scope = project_session_scope(environment, root["locator"], cwd)
+        from unifier.file_access import require_registered_permission
+        from unifier.file_access_store import AccessStore
+        purpose = 'read' if project['access_policy'] == 'read-only' or root['access_policy'] == 'read-only' else 'edit'
+        require_registered_permission(project, purpose)
+        require_registered_permission(root, purpose)
+        policy = AccessStore(self.root).policy()
+        policy.require(root['locator'], purpose, directory=True)
+        policy.require(cwd, purpose, directory=True)
         read_only_policy = (project["access_policy"] == "read-only"
                             or root["access_policy"] == "read-only")
         if read_only_policy:

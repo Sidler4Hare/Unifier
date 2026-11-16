@@ -558,6 +558,9 @@ class ViewManager:
                 raise UnifierError(f"view mountpoint already exists: {mount_dir}")
         else:
             mount_dir = view_dir / "mount"
+        from unifier.file_access_store import AccessStore
+        access_policy = AccessStore(self.root).policy()
+        access_policy.require(str(mount_dir), 'browse', directory=True)
         runtime_dir = _runtime_dir_for(view_uuid)
         with self.service._lifecycle_lock(env_id):
             record = self.service.store.load(env_id)
@@ -596,6 +599,8 @@ class ViewManager:
                 "last_error": None,
                 "cleanup_errors": [],
                 "readonly": True,
+                "file_access": {"policy_revision": access_policy.revision, "purpose": "browse",
+                                "scope": "environment", "enforcement": "read-only-projection"},
                 "backend": "podman-overlay",
                 "raw_link_semantics": "projected-link",
                 "uid_map": build_id_map(record, os.getuid(), os.getgid()).as_dict(),

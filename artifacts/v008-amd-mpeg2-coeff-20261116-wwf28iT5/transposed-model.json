@@ -1,0 +1,30 @@
+{
+  "mesa_mapped_matrix_is_transposed_at_all_64_indices": true,
+  "fixtures": {
+    "sparse-q2": {
+      "mae": 0.013997395833333334,
+      "max_error": 1,
+      "exact": 18174
+    },
+    "sparse-q4": {
+      "mae": 0.013997395833333334,
+      "max_error": 1,
+      "exact": 18174
+    },
+    "sparse-explicit": {
+      "mae": 0.013997395833333334,
+      "max_error": 1,
+      "exact": 18174
+    },
+    "dense-escape": {
+      "mae": 0.0126953125,
+      "max_error": 1,
+      "exact": 18198
+    },
+    "dense-vlc": {
+      "mae": 0.0126953125,
+      "max_error": 1,
+      "exact": 18198
+    }
+  }
+}

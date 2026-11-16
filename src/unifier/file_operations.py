@@ -60,6 +60,8 @@ from unifier.file_operation_journal import (
 from unifier.file_operation_publish import _TargetPublish
 from unifier.json_records import JsonRecordCollection
 from unifier.registry import DataRootRegistry
+from unifier.file_access import require_registered_permission
+from unifier.file_access_store import AccessStore
 
 
 class FileOperations(_TargetPublish, _SourceCleanup):
@@ -198,6 +200,9 @@ class FileOperations(_TargetPublish, _SourceCleanup):
         return record
 
     def _check_nested(self, record: dict, absolute: str, label: str) -> None:
+        purpose = 'copy-target' if label == 'target' else 'copy-source'
+        require_registered_permission(record, purpose)
+        AccessStore(self.root).policy().require(absolute, purpose)
         matched, _relative = self.registry.match(absolute)
         if matched is not None and matched["root_uuid"] != record["root_uuid"]:
             raise UnifierError(

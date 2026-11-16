@@ -31,6 +31,8 @@ from unifier.projects import (
 from unifier.on_demand import exit_status
 from unifier.registry import DataRootRegistry
 from unifier.runtime import ExecResult
+from unifier.file_access import resolve_static_mount, require_registered_permission
+from unifier.file_access_store import AccessStore
 from unifier.service import validate_env_id
 
 
@@ -51,24 +53,7 @@ def _options(share: dict) -> tuple:
 
 
 def _resolve_container_path(mounts: list[dict], target: str) -> tuple[dict, str]:
-    """Resolve one container path through the most specific static mount."""
-    target = os.path.normpath(target)
-    matches = [mount for mount in mounts
-               if mount["container"] == target or _within(target, mount["container"])]
-    if not matches:
-        raise UnifierError(
-            f"the environment has no static mount covering container path {target!r}")
-    longest = max(len(PurePosixPath(mount["container"]).parts) for mount in matches)
-    top = [mount for mount in matches
-           if len(PurePosixPath(mount["container"]).parts) == longest]
-    signatures = {(mount["host"], mount["options"]) for mount in top}
-    if len(signatures) > 1:
-        raise UnifierError(
-            f"ambiguous static mounts cover container path {target!r}; refusing")
-    selected = top[0]
-    suffix = os.path.relpath(target, selected["container"])
-    expected_host = os.path.normpath(os.path.join(selected["host"], suffix))
-    return selected, expected_host
+    return resolve_static_mount(mounts, target)
 
 
 def _access_scope_for(environment: dict, targets: dict[str, str]) -> dict:
@@ -307,6 +292,12 @@ class FileRoutes:
             raise UnifierError("resolved file path escaped the registered root")
         cwd = project["default_save_root"]
         self._validate_default_save_root(root_record, cwd)
+        purpose = 'edit' if intent == 'edit' else 'read'
+        policy = AccessStore(self.root).policy()
+        policy.require(absolute, purpose)
+        policy.require(cwd, purpose, directory=True)
+        require_registered_permission(project, purpose)
+        require_registered_permission(root_record, purpose)
         if intent == "edit":
             if project["access_policy"] != "read-write":
                 raise UnifierError("project policy does not allow edit")

@@ -1,10 +1,32 @@
-# Unifier v0.0.4 当前接手入口
+# Unifier 当前接手入口
+
+2026-11-14：本机日常版本 **v0.0.7**，主工作树保留 **0.0.7.dev0** 版本标记。正式包由已验收候选提升，仅更新产品版本号和版本说明。现行证据及未验收范围见 [当前状态](docs/当前状态.md) 和 [v0.0.7 版本说明](docs/v0.0.7.md)。部署、回退和旧备份清理见仓库 `artifacts/release-v0.0.7-20261114T155436+0800-EWALREto/report.md`。
+
+## 历史交接记录（保留原文）
+
+- 2026-11-12 v0.0.6补丁已部署：基于日常v0.0.5保留Portal等已有修复，仅合入WPS前台退出策略。全局/FreeCAD/会议入口均为0.0.6，安装目录 `/home/omg/.local/share/unifier-code/releases/0.0.6-32223567047a`；独立发布包943项（5跳过）及安装版6项通过。发布包SHA-256 `32223567047a1c0506b8b79fb732a135287605be384e9e9548aedb5a1ac803e9`。回滚、来源差异和边界见[部署回执](artifacts/release-v0.0.6-20261112/report.md)。本工作树未整体覆盖到安装版，候选源码在本轮artifacts/source；未提交或推送。以下“尚未部署”为旧阶段状态。
+- 部署保全例外：日常钉钉/meeting实例在11:18:09已停止并留下recovery-required租约，早于11:18:50准备命令和11:23入口切换。来源未确认，原状态保留，未自动恢复/重启。其余10个容器状态与65个业务元数据摘要保持；详见[独立状态变化](artifacts/release-v0.0.6-20261112/concurrent-state-change.json)。
+
+- 2026-11-12 WPS关闭问题已修复并真实验收：前台命令退出后CEF/cloud辅助树常驻导致租约无法结束；新增显式 `--exit-policy stop-children`，默认等待行为不变，仍须全部后代退出后才释放。88项定向、906项全仓（5跳过）通过；固定Debian整合模式完成两轮编辑保存/重开及三次关闭，均TERM收尾、无KILL，CLI保留，最后租约自动停容器。SH10为PASS，PRE03仅补齐该固定负载，整体一期仍PARTIAL。配额192/256已恢复、256个登记身份退出、11个CID/原文/索引/桌面身份保持。见[最终回执](artifacts/wps-close-regression-20261112/report.md)与[最新台账](artifacts/wps-close-regression-20261112/case-ledger.json)。
+- 收尾只读核验：当前日常入口实际为 `0.0.5-98f0a9546633`，早先交接中的v0.0.4为旧信息。安装版不含此次退出策略；本次未部署、提交或推送，不能把工作树及隔离验收等同于日常安装版已修复。字体/版式、云账号和其他目标仍未验收。以下旧轮次结果保留历史语义。
+
+- 2026-11-12 用户降低负载后的最新复试：原预算准入通过，50项保护合同通过；私有粘贴首次实测成功，保存标记准确且原文保留，CLI同CID心跳持续。但第一次关闭时窗口已消失、WPS后台执行树未在25秒内退出，SH10为关闭阶段FAIL，重开/第二轮NOT_RUN。本次峰值260任务/约800MiB、宿主可用最低3.95GiB，无资源保护中止。监督器收尾后正式恢复3条租约、恢复192/256配额，44个登记身份退出、11个CID与非目标状态/原文档/索引保持。见[最新回执](artifacts/expansion-input-r2-20261112/report.md)、[关闭问题](artifacts/expansion-input-r2-20261112/close-finding.md)及[最新台账](artifacts/expansion-input-r2-20261112/case-ledger.json)。未自动重试，完整扩测仍未完成。
+
+- 2026-11-12 私有粘贴续跑获批后的最新结果：50项保护合同通过，但GUI准入等待60秒未得到连续15秒合格窗口；可用内存最低2.08GiB，所需2.1875GiB，最长合格窗口3.26秒。BLOCKED_ADMISSION，容器/Writer/CLI/私有显示均未启动，粘贴修正未实测。配额已恢复客体192/汇总256；10个登记身份退出，11个容器状态/PID/启动时间均未变，租约/原输入/环境记录/桌面身份/索引保持。本轮未自动重试，见[准入回执](artifacts/expansion-input-20261112/report.md)与[最新台账](artifacts/expansion-input-20261112/case-ledger.json)。以下旧轮次描述保留历史语义。
+
+- 2026-11-12 配额方案获批后的最新复试：固定Debian客体256/汇总384任务真实生效，50项保护合同通过；Writer与CLI同时运行，峰值259任务/约800MiB，无保护中止。但第一次保存的输入标记重复/漏字，SH10为输入保真FAIL、归因未定，两轮正常关闭重开未执行。正式恢复3条租约、58个登记身份退出，原配额192/256已恢复，11个CID和非目标状态/桌面身份/索引不变。下一次私有剪贴板输入脚本已准备但未执行；单次授权已用完。见[本轮回执](artifacts/expansion-tasks-20261112/report.md)、[最新台账](artifacts/expansion-tasks-20261112/case-ledger.json)和[续跑方案](artifacts/expansion-tasks-20261112/next-execution-proposal.md)。下方旧轮次状态保留历史语义。
+
+- 2026-11-12 扩测续跑：仅修正请求桥恢复测试的dead-worker夹具并补存活会话拒绝对照，87项定向及892项全仓（5跳过）通过；产品源码未改。原固定Debian的SH10在许可确认后的启动阶段达到250/256任务，ABORTED_TASKS；尚未编辑保存重开，不能算产品FAIL或GUI通过。正式恢复3条租约，55个登记进程退出、CID停止、11个容器状态保全、索引未变。阶段结束，不自动加额重试；具体384汇总/256客体任务数方案待明确批准。见[续跑回执](artifacts/expansion-resume-20261112/report.md)、[台账](artifacts/expansion-resume-20261112/case-ledger.json)及[待批准方案](artifacts/expansion-resume-20261112/next-execution-proposal.md)。一期仍缺Arch/RPM停止态清单、同管理根/运行态快照、完整包事务等，不等于只剩扩大测试。
 
 现行包是 `src/unifier`，用户入口是 `unifier`，诊断入口是 `python3 tools/unifier.py`。`src/multilinux` 和 `tools/ml.py` 只做旧名字转发。证据在 `archive/evidence`，根目录 `evidence` 是符号链接。已完成的阶段稿和早期调研在 [archive/notes](archive/notes/README.md)。布局见 [docs/布局.md](docs/布局.md)。
 
 分支是 `codex/unifier-v2-control`。产品行为以仓库根 [README.md](README.md) 和 `设计/` 里留下的说明为准。先后顺序见 [远期规划](设计/远期规划-2026-11-08.md)：先做完 Debian 13、Fedora 44、Arch，再扩展其他发行版。下面带日期的条目保留各轮结束时的说法，不覆盖这个顺序。
 
 ## 接手时先记住
+
+- 2026-11-10 后续：本机日常入口切到 v0.0.4 的 r3 快照。钉钉、腾讯会议和 FreeCAD 的应用包装跟随同一个稳定入口。包清单已核验、无需恢复且隔离检查无异常时，补库未收敛的安装才允许继续登记并保留失败退出码。 `dirs` 对照实际 CID 的绑定显示宿主和客体路径，`path --files` 只返回可用共享目录。已给原版 Dolphin 安装 Debian 的「位置」与右键复制动作。Arch 的 `~/文档/Unifier-CAD` 当前缺失。60 项定向离线检查和复制夹具通过，真实 GUI 未验收。见 [本轮回执](artifacts/dolphin-file-entry-20261110T141014+0800/report.md)。
+
+- 2026-11-09 最新：共享专项在固定 Debian CID 上的 **SH01–SH08 全组通过**，包括三应用、启动计数、租约及手动所有权。867 项全仓检查（5 项条件跳过）及后续 49/35 项保护合同通过。SH10 首次内存中止，一次收紧客体回收线的重试到达私有 WPS 许可窗口后 PSI 中止，文档工作流仍 INVALID；两次正式 app recover 均通过。全部登记执行退出、租约/bridge 清空，11 个容器均未运行，无新增和非目标执行事件。完整 END01 缺启动前部分保全基线，仍 PARTIAL。见 [共享验收回执](artifacts/shared-acceptance-20261109T221135+0800/report.md)、[剩余工作](docs/测试剩余工作-20261109.md)及[统一运行器](docs/测试运行器.md)。工作树未提交、未部署。Arch generation 2 仅静态限额准入通过；旧 296 包摘要和升级估算不能作为新根基线。其余依赖、Arch、完整 PRE03 和扩大测试仍未收口。
 
 - 2026-11-08：v0.0.4 在安装成功后把所选启动入口写入宿主软件列表，不改文件默认打开方式；包内标为隐藏的入口不进菜单。日常入口是 `~/.local/share/unifier-code/releases/0.0.4-b04db4836d79`，`unifier --version` 为 0.0.4。源码包 `artifacts/unifier-0.0.4.tar.gz` 的 SHA-256 是 `b04db4836d799f76369912ab68e175d0c308a5ee5c78f69191f50374579f9462`。0.0.3 目录保留，回退链接是 `~/.local/bin/.unifier-e_irnbfl.rollback`，稳定名是 `~/.local/bin/.unifier-0.0.3.rollback`。FreeCAD 与腾讯会议只改了启动包装里的代码目录，数据根没动。12:26 的中止记录在 [第一次组装](artifacts/release-v0.0.4-20261108T122119+0800/report.md)，切换细节见 [复跑记录](artifacts/release-v0.0.4-20261108T123341+0800/report.md)。这次切换不是 PRE03 或新的应用验收。
 
@@ -35,7 +57,9 @@
 
 ## 仍开放
 
-- 近期按 [远期规划](设计/远期规划-2026-11-08.md) 收口三个现有目标。2026-11-07 固定 Debian CID 的停止态清单与 dpkg-query 对齐，670 个包，存储引用已释放，见 `artifacts/expansion-resume-20261107T215200+0800/`。同一次续测里 DEP01–DEP06、DEP08 和 SH09 通过，见 `artifacts/expansion-resume-20261107T222500+0800/rerun/report.md`。同管理根第二环境、运行态快照、Arch/pacman 和 RPM 清单、存储引用对账命令、完整共享负载和单实例协议仍未通过。PRE03 只有最小启动/执行/停止。DEP07、DEP13、SH10、AR01–AR03 仍阻断。固定池的 Debian 与 Arch 不在同一管理根；Arch 候选没有合规内存/CPU 配额。不新建容器，不 `podman update` 来补齐。性能、其他架构和游戏都还没有测量，排在三目标之后。
+- 2026-11-10 只读审计：宿主文件进客体今天只有一条 rw 通道（环境的文档 bind，例如 `~/.local/share/multilinux/documents/wemeet`，客体同路径），新设计的发行版专用 `files/` 对承接来的日常容器未绑定，`unifier dirs`/`path` 反而只报那个没挂的目录；宿主侧没有 Dolphin 动作也没有 `put` 命令。portal 一侧 `on_demand.py` 已把 `portal.Desktop`/`portal.Documents` 过滤转发进客体、宿主 KDE portal 后端齐全，缺的是路径可见性（portal 返回宿主真实路径，DocumentStore fuse 没挂进客体，Wayland 拖放同一个问题）。三条可选做法与未验证项见 [宿主文件进入客体与文件管理器集成](设计/宿主文件进入客体与文件管理器集成-2026-11-10.md)。本轮未改代码、未起容器、未做 GUI 实验。
+- 2026-11-10 工作树改动与日常入口切换：自动补库不再因为一个补不出的 SONAME 丢掉同一轮里已唯一命中的 provider，选不出的库按 `dependency_repair.unresolvable` 的 `absent`/`ambiguous` 分类记录；包已装好而只有补库没收敛时 `unifier install` 仍登记入口并写入软件列表，命令保持失败退出；带点的桌面 ID（`com.alibabainc.dingtalk`）在发现阶段折叠成记录库接受的别名，`install.entry_missing` 不再把任何登记失败都说成“不可执行”。触发场景是 Debian 13 钉钉 8.3.1：Trixie 没有 `liblber-2.4.so.2`、`libldap_r-2.4.so.2`、`libpangox-1.0.so.0` 提供者，现场记录在 `~/.local/share/multilinux/apps/wemeet/.lab/state/transactions/`。日常入口已从 `0.0.4-b04db4836d79` 切到脏工作树快照 `~/.local/share/unifier-code/releases/0.0.4-wt20261110-c947077f-dirty-r2`（只含 bin/src/config/fixtures/tools），回退链接 `.unifier-8vd0uxms.rollback`→r1、`.unifier-1yb4yve8.rollback`→0.0.4，`package-offer.json` 与 `unifier-package-offer.desktop` 已同步到新快照。钉钉已进软件列表（`com-alibabainc-dingtalk-49d9ef`），但还没启动过，不能算可用。T1 定向 42 项、CLI 合同 58 项与 887 项全仓离线检查有回执，仍剩 1 项与本改动无关的失败：未跟踪的 `tests/test_agent_bridge_recovery.py` 期待 `recovered`，当天早上未提交的 `agent_bridge.py` 改成 `kept-live-session`。部署与三轮安装的过程记录在 `artifacts/worktree-deploy-dingtalk-20261110T105229+0800/`。未提交、未重新打包发布包。
+- 近期按 [远期规划](设计/远期规划-2026-11-08.md) 收口三个现有目标。2026-11-07 固定 Debian CID 的停止态清单与 dpkg-query 对齐，670 个包，存储引用已释放，见 `artifacts/expansion-resume-20261107T215200+0800/`。同一次续测里 DEP01–DEP06、DEP08 和 SH09 通过，见 `artifacts/expansion-resume-20261107T222500+0800/rerun/report.md`。11 月 9 日补验 SH01–SH08 通过；GUI 资源无效样本、同管理根第二环境、运行态快照、Arch/pacman 和 RPM 清单、存储引用对账命令及单实例协议仍未收口。PRE03 已有固定 Debian 三 CLI 完整覆盖，不能外推 GUI/Arch。DEP07、DEP13、SH10、AR01–AR03 仍阻断，DEP11/12 为能力/实证部分覆盖。固定池的 Debian 与 Arch 不在同一管理根；Arch 已于 11 月 9 日按明确授权重建并通过静态限额准入，尚未启动，新根包清单和升级预算须重新核对。后续仍默认新增容器预算 0，不自动修改其他实例配额。性能、其他架构和游戏都还没有测量，排在三目标之后。
 - 投影：普通项目直接 bind；只读 FUSE 只浏览停止的环境，活动视图会挡住启动。外部通知 `watcher=false`。严格快照、ACL/xattr、长压、通用 IDE 未过。普通文件页面在每次属性重验证时失效，无重验证的 mmap 读取不保证发现外部修改。
 - 投影 rename 两个反例当前均通过，本机真实 FUSE 也覆盖相对链接、嵌套挂载和旧 FD。旧 Python 租约、受限链接目录列举与时间戳碰撞修复及本轮验证范围见 `artifacts/v0.0.1-20261030/report.md`。
 - 受管移动只有显式源清理才删源。`handlers.py` 的 provider 仍只有 `environment-app`。

@@ -17,7 +17,7 @@ from test_project_sessions import ready
 
 
 class RecoveryFailures(unittest.TestCase):
-    def test_package_preflight_failure_preserves_running_container(self):
+    def test_package_observation_failure_preserves_running_target_and_success(self):
         for phase in ('host', 'other'):
             with self.subTest(phase=phase), tempfile.TemporaryDirectory() as temporary:
                 service, runtime = package_service(Path(temporary))
@@ -28,10 +28,11 @@ class RecoveryFailures(unittest.TestCase):
                                 else (service, '_other_fingerprints'))
                 with patch.object(target, name, side_effect=OSError('preflight failed')):
                     txn = service.install_packages('deb', ['hello'])
-                self.assertEqual(txn['phase'], 'failed')
-                self.assertEqual(txn['native'], [])
+                self.assertEqual(txn['phase'], 'completed')
+                self.assertTrue(txn['native'])
+                self.assertEqual(txn['isolation_observation']['status'], 'unavailable')
                 self.assertTrue(runtime.inspect(record['runtime']['container_name']).running)
-                self.assertEqual(runtime.events, before)
+                self.assertFalse(any(event[0] in ('start', 'stop') for event in runtime.events[len(before):]))
 
     def test_lease_release_failure_keeps_token_for_retry(self):
         with tempfile.TemporaryDirectory() as temporary:

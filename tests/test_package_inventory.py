@@ -62,6 +62,12 @@ class DatabaseContracts(unittest.TestCase):
             with self.subTest(text=text), self.assertRaises(UnifierError):
                 parse_dpkg_status(text)
 
+    def test_failed_preinst_leaves_a_selection_outside_the_inventory(self):
+        selection = 'Package: fixture\nStatus: install ok not-installed\nArchitecture: all\n'
+        (self.db / 'status').write_text(stanza() + '\n' + selection)
+        inventory, _ = self.read()
+        self.assertEqual(inventory, 'base\t1:2.0-3~deb13\n')
+
     def test_pending_updates_and_missing_lock_refuse_without_creating_files(self):
         (self.db / 'updates/0001').write_text('unfinished')
         with self.assertRaisesRegex(UnifierError, 'pending updates'):
@@ -227,14 +233,14 @@ class AdapterContracts(unittest.TestCase):
             value = runtime.read_inventory_readonly(self.record)
         self.assertEqual(value.status, 'supported', value.reason)
         self.assertEqual(value.binding['container_id'], 'a' * 64)
-        # Arch/RPM must refuse explicitly; fake support cannot fill that gap.
-        for target in ('arch', 'fedora44'):
-            record = {**self.record, 'target': target}
-            # Legacy metadata must agree with target; use a fresh valid record.
-            record = make_env(self.service, self.fake, target, 'p-' + target)
+        # Missing native decoding remains a capability refusal before Podman.
+        record = make_env(self.service, self.fake, 'fedora44', 'p-fedora')
+        from unifier.package_inventory import InventoryUnsupported
+        with patch('unifier.inventory_backends.rpm_decoder',
+                   side_effect=InventoryUnsupported('native decoder missing')):
             self.assertEqual(runtime.read_inventory_readonly(record).status, 'unsupported')
 
-    def test_observation_generation_change_refuses_before_native_write(self):
+    def test_peer_observation_generation_change_does_not_authorize_or_block_target(self):
         make_env(self.service, self.fake, 'fedora44', 'target')
         original = self.fake.read_inventory_readonly
         def changed(record):
@@ -246,9 +252,11 @@ class AdapterContracts(unittest.TestCase):
         self.fake.read_inventory_readonly = changed
         self.fake.events.clear()
         txn = self.service.install_packages('target', ['hello'])
-        self.assertEqual(txn['failure_phase'], 'isolation-preflight')
-        self.assertEqual(txn['native'], [])
-        self.assertFalse(any(e[0] in {'start', 'exec'} for e in self.fake.events))
+        self.assertIsNone(txn['failure_phase'])
+        self.assertTrue(txn['native'])
+        self.assertEqual(txn['isolation_observation']['status'], 'unavailable')
+        self.assertFalse(any(e[0] in {'start', 'exec'} and e[1] == self.record['runtime']['container_name']
+                             for e in self.fake.events))
 
 
 if __name__ == '__main__':

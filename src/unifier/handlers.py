@@ -74,6 +74,10 @@ def execution_fingerprint(launch: dict) -> str:
         "mounts": launch.get("mounts") or [],
         "package_origin": launch.get("package_origin"),
     }
+    # Preserve existing wait-policy authorizations byte-for-byte, while an
+    # explicit lifetime change must invalidate previously exported handlers.
+    if launch.get('exit_policy', 'wait') != 'wait':
+        payload['exit_policy'] = launch['exit_policy']
     encoded = json.dumps(
         payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
     return hashlib.sha256(encoded).hexdigest()

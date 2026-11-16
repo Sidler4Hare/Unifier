@@ -187,6 +187,14 @@ class _SourceCleanup:
                 raise _CleanupRefused(
                     f"the source root {key} changed since cleanup was authorized")
         source = record["source"]
+        from unifier.file_access import require_registered_permission
+        from unifier.file_access_store import AccessStore
+        try:
+            require_registered_permission(source_record, 'delete')
+            AccessStore(self.root).policy().require(
+                os.path.join(source_record['locator'], source['relative_path']), 'delete')
+        except UnifierError as exc:
+            raise _CleanupRefused(str(exc)) from exc
         for key in ("root_dev", "root_ino", "locator"):
             if source.get(key) != source_record.get(key):
                 raise _CleanupRefused(

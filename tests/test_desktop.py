@@ -142,6 +142,9 @@ class LaunchRecords(unittest.TestCase):
             desktop = Path(exported["export"]["desktop_path"])
             text = desktop.read_text(encoding="utf-8")
             self.assertIn("app open notes --", text)
+            from unifier.install import code_root
+            self.assertIn(f"UNIFIER_HOME={root}", text)
+            self.assertIn(str(code_root() / 'tools/unifier.py'), text)
             self.assertNotIn("Exec=/usr/bin/gvim", text)
             self.assertIn("X-Multilinux-App=notes", text)
             mimeapps = service.host_desktop.mimeapps.read_text(encoding="utf-8")

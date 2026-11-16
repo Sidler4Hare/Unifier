@@ -308,15 +308,16 @@ class InstallStatusTransactions(unittest.TestCase):
             self.assertEqual(txn["verdict"], "failed")
             self.assertEqual(txn["maintenance"]["items"], [])
 
-    def test_isolation_failure_is_failed_even_with_quiet_hooks(self):
+    def test_non_target_change_does_not_override_verified_target(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             service, runtime = package_service(root, observer=FlipHost())
             make_env(service, runtime, "debian13", "deb")
             txn = service.install_packages("deb", ["hello"], use_argv=["hello"])
-            self.assertEqual(txn["phase"], "failed")
-            self.assertEqual(txn["failure_phase"], "verification")
-            self.assertEqual(txn["verdict"], "failed")
+            self.assertEqual(txn["phase"], "completed")
+            self.assertIsNone(txn["failure_phase"])
+            self.assertEqual(txn["verdict"], "verified")
+            self.assertEqual(txn["isolation_observation"]["status"], "changed")
             self.assertEqual(txn["maintenance"]["status"], "ok")
             self.assertTrue(service.query_package("deb", "hello")["present"])
 

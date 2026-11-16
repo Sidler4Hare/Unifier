@@ -15,11 +15,17 @@ import tempfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from tools.test_runtime import offline_environment, short_temporary_directory
 
 
 def verify_bundle(root: Path) -> None:
     """A standalone source bundle has no Git index; verify its file manifest."""
     manifest = json.loads((root / "BUNDLE-MANIFEST.json").read_text(encoding="utf-8"))
+    if 'source_tree_sha256' in manifest:
+        content = json.dumps(manifest['files'], sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()
+        if hashlib.sha256(content).hexdigest() != manifest['source_tree_sha256']:
+            raise ValueError('bundle source tree digest differs')
     for name, record in manifest["files"].items():
         relative = Path(name)
         if relative.is_absolute() or ".." in relative.parts:
@@ -33,6 +39,8 @@ def verify_bundle(root: Path) -> None:
                 raise ValueError(f"bundle checksum differs: {name}")
         else:
             raise ValueError(f"unknown bundle entry kind: {name}")
+        if 'mode' in record and path.lstat().st_mode & 0o777 != record['mode']:
+            raise ValueError(f"bundle mode differs: {name}")
     print(f"PASS bundle manifest: {len(manifest['files'])} entries", flush=True)
 
 
@@ -41,20 +49,9 @@ def run(root: Path, environment: dict[str, str], command: list[str]) -> None:
 
 
 def check(root: Path, *, quick: bool) -> None:
-    environment = dict(os.environ)
-    environment.update(PYTHONDONTWRITEBYTECODE="1", LC_ALL="C", LANG="C",
-                       MULTILINUX_INTEGRATION="0", MULTILINUX_EVIDENCE="0",
-                       PYTHONPATH=os.pathsep.join([str(root / "src"), str(root)]))
-    with tempfile.TemporaryDirectory(prefix="unifier-check-home-") as temporary:
+    with short_temporary_directory() as temporary:
         private = Path(temporary)
-        environment["UNIFIER_HOME"] = str(private / "installation")
-        # Menu export follows XDG_DATA_HOME. A private directory stops the
-        # offline suite from writing the user's real software list.
-        for name in ("xdg-data", "xdg-config", "xdg-cache"):
-            (private / name).mkdir()
-        environment["XDG_DATA_HOME"] = str(private / "xdg-data")
-        environment["XDG_CONFIG_HOME"] = str(private / "xdg-config")
-        environment["XDG_CACHE_HOME"] = str(private / "xdg-cache")
+        environment = offline_environment(root, private, private / 'tmp')
         sources = [p for name in ("src", "tests", "tools")
                    for p in (root / name).rglob("*.py") if "__pycache__" not in p.parts]
         for path in sources:

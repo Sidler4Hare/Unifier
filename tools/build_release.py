@@ -20,6 +20,30 @@ sys.path.insert(0, str(ROOT / "src"))
 from unifier import __version__
 
 
+def source_provenance(files: dict) -> dict:
+    encoded = json.dumps(files, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
+    baseline = ROOT / "config/release-baseline.json"
+    base = None
+    if baseline.exists():
+        value = json.loads(baseline.read_text())
+        base = {key: value[key] for key in ("version", "package_sha256", "manifest_sha256")}
+        if not isinstance(base['version'], str) or not base['version']:
+            raise ValueError('invalid release baseline version')
+        for key in ('package_sha256', 'manifest_sha256'):
+            digest = base[key]
+            if not isinstance(digest, str) or len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest):
+                raise ValueError('invalid release baseline digest')
+    revision = None
+    if (ROOT / '.git').exists():
+        try:
+            revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT,
+                                               text=True, stderr=subprocess.DEVNULL, timeout=5).strip()
+        except (OSError, subprocess.SubprocessError):
+            pass
+    return {'source_tree_sha256': hashlib.sha256(encoded).hexdigest(),
+            'source_revision': revision, 'base_release': base}
+
+
 def build(output: Path) -> dict:
     name = f"unifier-{__version__}"
     sidecars = [output, Path(str(output) + ".sha256"), Path(str(output) + ".manifest.json"),
@@ -37,13 +61,16 @@ def build(output: Path) -> dict:
     snapshots = {}
     for path in sorted(paths):
         relative = path.relative_to(ROOT).as_posix()
+        mode = path.lstat().st_mode & 0o777
         if path.is_symlink():
             if not path.resolve().is_relative_to(ROOT):
                 raise ValueError(f"external source link: {relative}")
-            manifest["files"][relative] = {"kind": "symlink", "target": os.readlink(path)}
+            manifest["files"][relative] = {"kind": "symlink", "target": os.readlink(path), "mode": mode}
         else:
             snapshots[relative] = path.read_bytes()
-            manifest["files"][relative] = {"kind": "file", "sha256": hashlib.sha256(snapshots[relative]).hexdigest()}
+            manifest["files"][relative] = {"kind": "file", "sha256": hashlib.sha256(snapshots[relative]).hexdigest(), "mode": mode}
+    provenance = source_provenance(manifest['files'])
+    manifest.update(provenance)
     payload = (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode()
     with tempfile.TemporaryDirectory(prefix="unifier-release-check-") as temporary:
         work = Path(temporary)
@@ -52,7 +79,7 @@ def build(output: Path) -> dict:
             with tarfile.open(fileobj=zipped, mode="w") as archive:
                 for relative, record in manifest["files"].items():
                     info = tarfile.TarInfo(f"{name}/{relative}")
-                    info.mode = (ROOT / relative).lstat().st_mode & 0o777
+                    info.mode = record['mode']
                     if record["kind"] == "symlink":
                         info.type = tarfile.SYMTYPE
                         info.linkname = record["target"]
@@ -78,7 +105,7 @@ def build(output: Path) -> dict:
     sidecars[1].write_text(f"{digest}  {output.name}\n")
     sidecars[2].write_bytes(payload)
     return {"version": __version__, "path": str(output), "sha256": digest,
-            "source_files": len(manifest["files"]), "independent_extracted_check": "passed"}
+            "source_files": len(manifest["files"]), "independent_extracted_check": "passed", **provenance}
 
 
 def main() -> int:

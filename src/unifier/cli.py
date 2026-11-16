@@ -2,6 +2,8 @@
 
 import argparse
 import json
+import os
+import stat
 import sys
 
 from unifier.errors import UnifierError
@@ -61,7 +63,11 @@ def build_parser() -> argparse.ArgumentParser:
                         help="mount the current Wayland, X11 and audio sockets")
     create.add_argument("--userns", choices=("rootless-default", "keep-id"), default="rootless-default",
                         help="keep-id allows applications to run with the host UID/GID")
-    create.add_argument('--device', action='append', default=[], help='explicit /dev/videoN camera; requires --desktop')
+    create.add_argument('--device', action='append', default=[],
+                        help='explicit /dev/dri/renderDN for headless graphics/compute; '
+                             '/dev/videoN and /dev/dri/cardN require --desktop')
+    create.add_argument('--cuda-device', metavar='GPU-UUID',
+                        help='attach one NVIDIA GPU by full UUID for headless CUDA')
     create.add_argument('--portals', action='store_true', help='filtered host desktop portal bridge; use an on-demand application')
     create.add_argument('--gpu', action='store_true', help='passthrough host /dev/dri devices for hardware graphics and video; requires --desktop')
     create.add_argument('--ipc', choices=('private', 'host'), default=None, help='IPC namespace mode; desktop defaults to host')
@@ -158,7 +164,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     recover = pkg_ops.add_parser("recover", help="audit and reconcile an interrupted package transaction")
     recover.add_argument("id")
+    recover.add_argument("--maintenance-receipt", metavar="PATH",
+                         help="Arch operator attestations from completed native maintenance")
     recover.set_defaults(func=cmd_pkg_recover)
+    storage_recover = pkg_ops.add_parser('recover-storage',
+        help='release one proven orphaned inventory storage reference without starting the environment')
+    storage_recover.add_argument('id')
+    storage_recover.set_defaults(func=cmd_pkg_recover_storage)
 
     update = pkg_ops.add_parser("update", help="upgrade packages already installed in the environment")
     update.add_argument("id")
@@ -193,6 +205,10 @@ def build_parser() -> argparse.ArgumentParser:
     add.add_argument("--as-host-user", action="store_true",
                      help="run this application with the host UID/GID; requires --userns keep-id")
     add.add_argument('--on-demand', action='store_true', help='start its environment on open and stop after the last managed application exits')
+    add.add_argument('--headless', action='store_true',
+                     help='register a CLI application in an environment without desktop bindings')
+    add.add_argument('--exit-policy', choices=('wait', 'stop-children'), default='wait',
+                     help='on-demand only: stop-children terminates owned helpers after the foreground command exits; use only when that command waits for the UI')
     add.add_argument('--package-file', help='record package format, SHA-256 and target; the installer is not needed on subsequent opens')
     add.add_argument("--set", action="append", default=None, metavar="KEY=VALUE",
                      help="extra environment value stored in the launch record; repeatable")
@@ -200,6 +216,17 @@ def build_parser() -> argparse.ArgumentParser:
     app_show = app_ops.add_parser("show", help="print one launch record")
     app_show.add_argument("id")
     app_show.set_defaults(func=cmd_app_show)
+    from unifier.file_chooser import MODES
+
+    chooser = app_ops.add_parser("file-chooser", help="show or select the application's file chooser mode")
+    chooser.add_argument("id")
+    chooser.add_argument("mode", nargs="?", choices=MODES)
+    chooser.set_defaults(func=cmd_app_file_chooser)
+    from unifier.input_method import MODES as INPUT_METHOD_MODES
+    input_method = app_ops.add_parser("input-method", help="show or choose the application's input method mode")
+    input_method.add_argument("id")
+    input_method.add_argument("mode", nargs="?", choices=INPUT_METHOD_MODES)
+    input_method.set_defaults(func=cmd_app_input_method)
     leases = app_ops.add_parser('leases', help='inspect shared application and project leases')
     leases.add_argument('environment')
     leases.set_defaults(func=cmd_app_leases)
@@ -314,6 +341,8 @@ def build_parser() -> argparse.ArgumentParser:
     file_list = file_ops.add_parser(
         "list", help="list file operation journals and their conservative states")
     file_list.set_defaults(func=cmd_file_list)
+    from unifier.file_access_cli import add_parser as add_access_parser
+    add_access_parser(file_ops, cmd_file_access)
 
     project = commands.add_parser("project", help="register a host project and its toolchain")
     project_ops = project.add_subparsers(dest="operation", required=True)
@@ -676,6 +705,8 @@ def cmd_create(args) -> int:
     options = {"user_namespace": args.userns} if args.userns != "rootless-default" else {}
     if args.device:
         options['devices'] = args.device
+    if getattr(args, 'cuda_device', None) is not None:
+        options['cuda_device'] = args.cuda_device
     if args.portals:
         options['portals'] = True
     if args.gpu:
@@ -762,6 +793,9 @@ def cmd_run_help(args) -> int:
 
 def _print_transaction(txn: dict) -> int:
     print(json.dumps(txn, ensure_ascii=False, indent=2))
+    from unifier.package_observation import warning
+    if message := warning(txn):
+        print(message, file=sys.stderr)
     if (txn.get('dependency_repair') or {}).get('status') == 'bundled-candidates-unverified':
         print('unifier: bundled library candidates found; runtime loading and application '
               'workflow remain unverified.', file=sys.stderr)
@@ -826,8 +860,47 @@ def cmd_pkg_repair(args) -> int:
     return _print_transaction(txn)
 
 
+def cmd_pkg_recover_storage(args) -> int:
+    result = service_factory().recover_inventory_storage(args.id)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 1 if result.get('status') == 'unresolved' else 0
+
+
+def _read_package_maintenance_receipt(path: str) -> dict:
+    limit = 64 * 1024
+
+    def unique_object(pairs):
+        obj = dict(pairs)
+        if len(obj) != len(pairs):
+            raise ValueError("duplicate JSON object key")
+        return obj
+
+    try:
+        descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK | os.O_CLOEXEC)
+        try:
+            info = os.fstat(descriptor)
+            if not stat.S_ISREG(info.st_mode) or info.st_size > limit:
+                raise UnifierError("package maintenance receipt must be a regular file up to 64 KiB")
+            with os.fdopen(descriptor, "rb", closefd=False) as stream:
+                data = stream.read(limit + 1)
+        finally:
+            os.close(descriptor)
+        if len(data) > limit:
+            raise UnifierError("package maintenance receipt exceeds 64 KiB")
+        receipt = json.loads(data.decode("utf-8"), object_pairs_hook=unique_object)
+    except (OSError, ValueError, RecursionError) as exc:
+        raise UnifierError("cannot read package maintenance receipt as UTF-8 JSON") from exc
+    if not isinstance(receipt, dict):
+        raise UnifierError("package maintenance receipt must be a JSON object")
+    return receipt
+
+
 def cmd_pkg_recover(args) -> int:
-    print(json.dumps(service_factory().recover_packages(args.id), ensure_ascii=False, indent=2))
+    path = getattr(args, "maintenance_receipt", None)
+    options = ({"maintenance_receipt": _read_package_maintenance_receipt(path)}
+               if path is not None else {})
+    result = service_factory().recover_packages(args.id, **options)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 
 
@@ -880,21 +953,53 @@ def _set_overlay(items) -> dict[str, str]:
 
 
 def cmd_app_add(args) -> int:
+    from unifier.file_chooser import MODE_KEY
+
     argv = [args.executable, *list(getattr(args, "argv", None) or [])]
     options = {"as_host_user": True} if args.as_host_user else {}
+    overlay = _set_overlay(args.set)
     if args.on_demand:
         options['on_demand'] = True
+    if getattr(args, "headless", False):
+        if overlay.get(MODE_KEY, "headless") != "headless":
+            raise UnifierError("--headless conflicts with a graphical file chooser mode")
+        overlay[MODE_KEY] = "headless"
+        options["desktop_required"] = False
+    if getattr(args, 'exit_policy', 'wait') != 'wait':
+        options['exit_policy'] = args.exit_policy
     if args.package_file:
         options["package_origin"] = _route_package(args.package_file)
     launch = service_factory().add_app(
         args.environment, args.id, args.executable, argv,
-        workdir=args.workdir, env_overlay=_set_overlay(args.set), **options)
+        workdir=args.workdir, env_overlay=overlay, **options)
     print(f"added {launch['id']} in {launch['environment_id']}")
     return 0
 
 
 def cmd_app_show(args) -> int:
     print(json.dumps(service_factory().show_app(args.id), ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_app_file_chooser(args) -> int:
+    from unifier.file_chooser import MODE_KEY
+
+    service = service_factory()
+    if args.mode is not None:
+        launch = service.set_app_file_chooser(args.id, args.mode)
+    else:
+        launch = service.show_app(args.id)
+    print(launch["env"].get(MODE_KEY, "native"))
+    return 0
+
+
+def cmd_app_input_method(args) -> int:
+    service = service_factory()
+    if args.mode is None:
+        launch = service.show_app(args.id)
+    else:
+        launch = service.set_app_input_method(args.id, args.mode)
+    print(launch.get("input_method", "auto"))
     return 0
 
 
@@ -1286,6 +1391,11 @@ def cmd_root_match(args) -> int:
     print(json.dumps({"root": record, "relative_path": relative},
                      ensure_ascii=False, indent=2))
     return 0
+
+
+def cmd_file_access(args) -> int:
+    from unifier.file_access_cli import run
+    return run(args, _state_root())
 
 
 def cmd_file_resolve(args) -> int:

@@ -49,3 +49,35 @@ class LongPortalDirectory(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+@unittest.skipUnless(__import__('shutil').which('xdg-dbus-proxy') and __import__('shutil').which('dbus-daemon'), 'private D-Bus tools required')
+class DeliveryBridgeLifecycle(unittest.TestCase):
+    def test_delivery_endpoint_reuse_and_lease_cleanup(self):
+        import time
+        from unifier.on_demand import process_stamp
+        with tempfile.TemporaryDirectory() as temp:
+            daemon = subprocess.Popen(['dbus-daemon', '--session', '--nofork', '--print-address=1'],
+                                      stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
+            bridge = None
+            try:
+                address = daemon.stdout.readline().strip()
+                directory = Path(temp) / ('多兼容实验' * 10) / '.lab/desktop/fixture'
+                record = {'id': 'fixture', 'environment_uuid': 'f74ef424-7093-458b-a7de-ff32fa82563c',
+                          'generation': 1, 'runtime': {'container_id': 'a' * 64}, 'desktop': {'portal_proxy': {
+                    'directory': str(directory), 'container': '/run/multilinux-portal'}}}
+                with patch.dict(os.environ, {'DBUS_SESSION_BUS_ADDRESS': address, 'XAUTHORITY': ''}):
+                    bridge = start_bridge(record, file_delivery=True)
+                    reused = start_bridge(record, bridge, file_delivery=True)
+                self.assertIs(reused, bridge)
+                item = bridge['file_delivery']
+                self.assertTrue(Path(item['socket']).is_socket())
+                self.assertTrue(Path(item['selection_directory']).is_dir())
+                stop_bridge(bridge)
+                self.assertIsNone(process_stamp(item['pid']))
+                self.assertFalse(Path(item['selection_directory']).exists())
+                self.assertFalse(Path(item['socket']).exists())
+            finally:
+                stop_bridge(bridge)
+                daemon.terminate()
+                daemon.wait(timeout=5)
+                daemon.stdout.close()

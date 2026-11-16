@@ -41,6 +41,7 @@ printf '%s\n' "$cache" | while IFS= read -r line; do
 done
 '''
 
+ELF_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.+-]{0,254}\Z")
 LIBRARY = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.+-]{0,160}\.so(?:\.[A-Za-z0-9_.+-]+)?\Z")
 
 
@@ -101,8 +102,10 @@ def parse_scan(output: str) -> list[dict]:
         runpath = re.findall(r'\(RUNPATH\).*?Library runpath: \[([^\]]*)\]', body)
         if len(rpath) > 1 or len(runpath) > 1:
             raise UnifierError('ambiguous ELF search path tags')
-        objects.append({"path": path, "needed": [validate_library(n) for n in needed],
-                        "sonames": [validate_library(n) for n in sonames],
+        for name in (*needed, *sonames):
+            if not ELF_NAME.fullmatch(name):
+                raise UnifierError(f"unsupported ELF dynamic name: {name!r}")
+        objects.append({"path": path, "needed": needed, "sonames": sonames,
                         "architecture": "x86_64", "origin": str(PurePosixPath(path).parent),
                         "rpath": rpath[0].split(':') if rpath else [],
                         "runpath": runpath[0].split(':') if runpath else []})
@@ -117,6 +120,7 @@ class DependencyRepair:
         self.readelf_ready = False
         self.report = {"status": "checking", "scope": "package-elf-needed",
                        "objects": 0, "rounds": [], "unresolved": [],
+                       "unresolvable": {"absent": [], "ambiguous": []},
                        "bundled_candidates": [], "installed": [],
                        "runtime_loading": "unverified", "workflow": "unverified",
                        "elf_objects": [], "dependency_edges": [],
@@ -218,6 +222,12 @@ class DependencyRepair:
             self.report["bundled_candidates"] = sorted((required - available) & bundled - repository_required)
             missing = sorted(required - available - (bundled - repository_required))
             self.report["unresolved"] = missing
+            repository_missing = [name for name in missing if LIBRARY.fullmatch(name)]
+            unsupported = sorted(set(missing) - set(repository_missing))
+            if unsupported:
+                self.report["unresolvable"]["unsupported"] = unsupported
+            else:
+                self.report["unresolvable"].pop("unsupported", None)
             if not missing:
                 if self.report['bundled_candidates']:
                     self.report['status'] = 'bundled-candidates-unverified'
@@ -228,7 +238,10 @@ class DependencyRepair:
                 return self.report
             if attempt == 2:
                 raise UnifierError("dependency repair did not converge: " + ", ".join(missing))
-            repository_required.update(missing)
+            if not repository_missing:
+                raise UnifierError("unresolved ELF dependencies outside repository lookup: "
+                                   + ", ".join(unsupported))
+            repository_required.update(repository_missing)
             if not provider_ready:
                 if self.target == "debian13":
                     probe = self.capture(["/bin/sh", "-c", "command -v apt-file"], accepted=(0, 1, 127))
@@ -238,9 +251,10 @@ class DependencyRepair:
                 elif self.target == "arch":
                     self.change([(["pacman", "-Fy"], 900)])
                 provider_ready = True
-            resolution = {"missing": missing, "providers": {}, "selected": [], "queries": {}}
+            resolution = {"missing": missing, "providers": {}, "selected": [], "queries": {},
+                          "unselectable": []}
             self.report["rounds"].append(resolution)
-            for library in missing:
+            for library in repository_missing:
                 result = self.capture(provider_command(self.target, library), accepted=(0, 1), timeout=180)
                 resolution["queries"][library] = {"exit_code": result.returncode,
                                                    "stderr_tail": result.stderr[-1500:]}
@@ -249,11 +263,24 @@ class DependencyRepair:
                                        + library + ": " + result.stderr[-1500:])
                 candidates = provider_names(self.target, result.stdout)
                 resolution["providers"][library] = candidates
-                if len(candidates) != 1:
-                    raise UnifierError(f"dependency {library} has {len(candidates)} repository providers; "
-                                       "automatic selection is unresolved")
-                resolution["selected"].extend(candidates)
+                if len(candidates) == 1:
+                    resolution["selected"].extend(candidates)
+                else:
+                    # Zero or several repository providers cannot be selected
+                    # automatically, but that must not discard the providers
+                    # resolved for the other missing libraries of this round.
+                    resolution["unselectable"].append(
+                        {"library": library, "providers": len(candidates)})
+            self.report["unresolvable"].update({
+                "absent": sorted(item["library"] for item in resolution["unselectable"]
+                                 if not item["providers"]),
+                "ambiguous": sorted(item["library"] for item in resolution["unselectable"]
+                                 if item["providers"] > 1)})
             selected = sorted(set(resolution["selected"]))
+            if not selected:
+                blocked = resolution["unselectable"][0]
+                raise UnifierError(f"dependency {blocked['library']} has {blocked['providers']} "
+                                   "repository providers; automatic selection is unresolved")
             if set(selected) <= set(self.report["installed"]):
                 raise UnifierError("installed provider did not satisfy the missing library")
             self.service.log("automatic dependency repair: " + ", ".join(selected))

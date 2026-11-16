@@ -1,0 +1,687 @@
+{
+  "schema": 1,
+  "status": "VERIFIED",
+  "cid": "2180a83540510175c2d177c0decf0cf852788fbe77d6c6263d98737fd644fa3f",
+  "environment_uuid": "a1e18eb1-72f6-4d99-8178-a4c88cb0e213",
+  "generation": 1,
+  "formal_stop": "NO_START",
+  "budget": {
+    "previous_download_bytes": 28348,
+    "max_new_metalink_bytes": 393216,
+    "rpm_download_bytes": 67971267,
+    "response_header_reserve_bytes": 16252928,
+    "reserved_download_bytes": 79081447,
+    "prior_write_bytes": 402653184,
+    "reserved_write_bytes": 505011436,
+    "future_native_payload_and_install_estimate": 847184779,
+    "new_metalink_bytes": 28348,
+    "new_metalink_header_bytes": 1110,
+    "previous_rpm_payload_bytes": 63894254,
+    "previous_rpm_response_header_bytes": 9986,
+    "total_metalink_bytes": 56696,
+    "previous_metalink_header_reserve_bytes": 1572864,
+    "continuation_rpm_download_bytes": 12497961,
+    "continuation_header_reserve_bytes": 1048576,
+    "rpm_response_header_bytes": 10677,
+    "measured_download_with_response_headers": 76460698
+  },
+  "official": {
+    "fedora": {
+      "url": "https://mirrors.fedoraproject.org/metalink?repo=fedora-44&arch=x86_64",
+      "url_effective": "https://mirrors.fedoraproject.org/metalink?repo=fedora-44&arch=x86_64",
+      "http_code": 200,
+      "ssl_verify_result": 0,
+      "num_redirects": 0,
+      "exitcode": 0,
+      "size_download": 20722,
+      "completed_unix": 1794749739,
+      "sha256": "4772d22f76e0fa3d290a09238b0112e3767df833d004c84f7700a94929d46df0",
+      "repomd_sha256": "da3845427d188097f6fd71b417a039bdfb8efefc4f38ca44b5cbb94f95a18991",
+      "repomd_size": 5966,
+      "source_kind": "primary",
+      "mirror_base": "https://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/"
+    },
+    "updates": {
+      "url": "https://mirrors.fedoraproject.org/metalink?repo=updates-released-f44&arch=x86_64",
+      "url_effective": "https://mirrors.fedoraproject.org/metalink?repo=updates-released-f44&arch=x86_64",
+      "http_code": 200,
+      "ssl_verify_result": 0,
+      "num_redirects": 0,
+      "exitcode": 0,
+      "size_download": 6640,
+      "completed_unix": 1794749741,
+      "sha256": "e22cb1bb77bfa0cc5b68269d90f980d738dded209a370d018567dd4c63166ba0",
+      "repomd_sha256": "c63eebe7cb5cae9d53c5dff3defc25831d3fef942079bd59e4a0f1a8c3528d77",
+      "repomd_size": 7055,
+      "source_kind": "alternate",
+      "mirror_base": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/",
+      "updates_alternate": {
+        "repo": "updates",
+        "source": "official-https-metalink-alternate",
+        "metalink_sha256": "e22cb1bb77bfa0cc5b68269d90f980d738dded209a370d018567dd4c63166ba0",
+        "snapshot": {
+          "timestamp": 1794533001,
+          "size": 7055,
+          "sha256": "c63eebe7cb5cae9d53c5dff3defc25831d3fef942079bd59e4a0f1a8c3528d77",
+          "sha512": "272b9029439203e0ff5b82cb0f13723bb53126ec614ea6d163749e4ffe7844adf9671b9f0e96835417848abfa211fd8b117ebc5ca5f90796e442e26db6404990"
+        },
+        "primary_timestamp": 1794704073,
+        "age_at_receipt_seconds": 216740,
+        "latest": false,
+        "usage": "dnf-cacheonly-query"
+      }
+    },
+    "fedora-cisco-openh264": {
+      "url": "https://mirrors.fedoraproject.org/metalink?repo=fedora-cisco-openh264-44&arch=x86_64",
+      "url_effective": "https://mirrors.fedoraproject.org/metalink?repo=fedora-cisco-openh264-44&arch=x86_64",
+      "http_code": 200,
+      "ssl_verify_result": 0,
+      "num_redirects": 0,
+      "exitcode": 0,
+      "size_download": 986,
+      "completed_unix": 1794749742,
+      "sha256": "aad86d161773e1d99c5b16867623016608b587aa2a160cda2adf79a19f2f3c46",
+      "repomd_sha256": "1073fd01ac50ff49a38da9352682282772d61935e1ce60c417bf5ced1e7f7a86",
+      "repomd_size": 3077,
+      "source_kind": "primary",
+      "mirror_base": null
+    }
+  },
+  "valid_until_unix": 1794751539,
+  "metalink_receipt_sha256": "398f8bba7744b7a4cbf56d0160508183b9c259fc306f662bcaf9c7dd7bea30ff",
+  "metalink_receipt": "/home/agent/v008-gpu-drm-20261115T183930/fedora-package-prefetch/metalink/metalink-receipt.json",
+  "transport": {
+    "curl": "curl 8.5.0 (x86_64-pc-linux-gnu) libcurl/8.5.0 OpenSSL/3.0.13 zlib/1.3 brotli/1.1.0 zstd/1.5.5 libidn2/2.3.7 libpsl/0.21.2 (+libidn2/2.3.7) libssh/0.10.6/openssl/zlib nghttp2/1.59.0 librtmp/2.3 OpenLDAP/2.6.10",
+    "max_package_seconds": 60,
+    "max_phase_work_seconds": 155,
+    "ca_bundle": "/etc/ssl/certs/ca-certificates.crt"
+  },
+  "continuation": {
+    "schema": 1,
+    "original_out": "/home/agent/v008-gpu-drm-20261115T183930/fedora-package-prefetch",
+    "original_sha256": {
+      "result.json": "81636e4c6943ae7a986986f49d81d74b4dfa75c2f783e7b000153de8a437f051",
+      "receipt.json": "f864045c4a2cc76474d1ce62d47b393a539f1ce855f746437dbdbb653de3c46d",
+      "cleanup.json": "64a0bbd622d9b703b563a0f5e5069bee2cd0763f6d0589397df3f996a1a38117",
+      "command-result.json": "c4a627eb84402602f7a3591c8f34d6dd942f2bdc7540d9c9ca61c6b8adf97b29",
+      "metalink/metalink-receipt.json": "398f8bba7744b7a4cbf56d0160508183b9c259fc306f662bcaf9c7dd7bea30ff"
+    },
+    "original_verified_packages": 26,
+    "original_verified_bytes": 55473306,
+    "original_timed_out_transport": {
+      "source": "original-prefetch",
+      "completed_unix": 1794749873,
+      "size_header": 428,
+      "size_download": 8420948,
+      "attempt_sha256": "3dd72d01a43e2b86cc1655d0c0e6ba747dbf9dce22ed919eb20ffd41d66b74f8",
+      "curl_sha256": "73167678fa1eaf6dbe498df026813be9a4b923016b9c89a5508a2b7ba1099c07"
+    },
+    "new_packages": 2,
+    "new_payload_bytes": 12497961,
+    "one_shot": true,
+    "preserved_partial": {
+      "source": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/python3-libs-3.14.10-1.fc44.x86_64.rpm.partial",
+      "destination": "/home/agent/v008-gpu-drm-20261115T183930/fedora-package-prefetch-continuation/residue/python3-libs-3.14.10-1.fc44.x86_64.rpm.partial",
+      "bytes": 8420948,
+      "device": 64512,
+      "inode": 13895499,
+      "sha256": "78a3c5a26238bec403d11b3a7070b9ba2708749be67c43acb71bc638325e081a",
+      "same_inode": true,
+      "source_unlinked_after_preservation": true
+    }
+  },
+  "packages": [
+    {
+      "name": "expat",
+      "nevra": "expat-0:2.9.0-1.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 139273,
+      "installed_bytes": 357966,
+      "location": "Packages/e/expat-2.9.0-1.fc44.x86_64.rpm",
+      "sha256": "ffec2aa09ae0a4d9a33ee0f4458b222745fa7717d8098bf1bdd3ec0255c9b5b3",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/expat-2.9.0-1.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/e/expat-2.9.0-1.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749746,
+        "size_header": 425,
+        "size_download": 139273,
+        "attempt_sha256": "8ca4566f1faa16b8fa5c00a7ce1a8132930cef98589d7cde17239abd39e27006",
+        "curl_sha256": "8e5c69b5de2e98663acb1e2d55fe7a0e89143b79c92ffb19f7a183f5c80ba723"
+      }
+    },
+    {
+      "name": "hwdata",
+      "nevra": "hwdata-0:0.413-1.fc44.noarch",
+      "repository": "updates",
+      "download_bytes": 1804743,
+      "installed_bytes": 10652413,
+      "location": "Packages/h/hwdata-0.413-1.fc44.noarch.rpm",
+      "sha256": "8b991a4613a643298f3671f5287f6542af1db62a1707ff1160938a9dfb5bf554",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/hwdata-0.413-1.fc44.noarch.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/h/hwdata-0.413-1.fc44.noarch.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749751,
+        "size_header": 427,
+        "size_download": 1804743,
+        "attempt_sha256": "adeeb248632224dba979a3761768be2defec6ded3238518176cfdaf58d7b45e6",
+        "curl_sha256": "6699b13272a0f7a4060e68cbe80cdbd14d612d5eb41f73cf3aa4b756bcc2d76a"
+      }
+    },
+    {
+      "name": "libX11",
+      "nevra": "libX11-0:1.8.13-3.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 696289,
+      "installed_bytes": 1408572,
+      "location": "Packages/l/libX11-1.8.13-3.fc44.x86_64.rpm",
+      "sha256": "a3aa5c9199b442e13e5cf4d0996294397057606bef0a349df3a20cc921663041",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/libX11-1.8.13-3.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libX11-1.8.13-3.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749756,
+        "size_header": 425,
+        "size_download": 696289,
+        "attempt_sha256": "f28183dbf59005d3af40176711d20bb9c201fc39d4072c43283fbf029fa12a4c",
+        "curl_sha256": "84e3e8a75d8c26353f572ca4930316fb7a47e9f72aed4d22f9842c35e8a18091"
+      }
+    },
+    {
+      "name": "libX11-common",
+      "nevra": "libX11-common-0:1.8.13-3.fc44.noarch",
+      "repository": "updates",
+      "download_bytes": 179489,
+      "installed_bytes": 1203284,
+      "location": "Packages/l/libX11-common-1.8.13-3.fc44.noarch.rpm",
+      "sha256": "2db18bf693dfb285a17e520a4007063edb4c88b4f2ac2ed6e66ffab1e318c37d",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/libX11-common-1.8.13-3.fc44.noarch.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libX11-common-1.8.13-3.fc44.noarch.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749759,
+        "size_header": 425,
+        "size_download": 179489,
+        "attempt_sha256": "22746cc0f7a4257be8797c9c0e810f7eca62224cb2d22a7892d2fd440d68dcfb",
+        "curl_sha256": "9571a58071cd5606441431e0034391eb5987f2cc24796d90e77964d5673e2a7b"
+      }
+    },
+    {
+      "name": "libX11-xcb",
+      "nevra": "libX11-xcb-0:1.8.13-3.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 11093,
+      "installed_bytes": 11076,
+      "location": "Packages/l/libX11-xcb-1.8.13-3.fc44.x86_64.rpm",
+      "sha256": "952df583a1a31dadbbbdd875d9efe5d091a8b6896e182cff44270345b9671884",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/libX11-xcb-1.8.13-3.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libX11-xcb-1.8.13-3.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749761,
+        "size_header": 423,
+        "size_download": 11093,
+        "attempt_sha256": "bc795a1804153698d73cd8e2eac9bd905edbd179a70fe9114646fd7155168403",
+        "curl_sha256": "220fd9a1f733cc6b3f8e3527dedf79632a997bdf19977fb9df08accb4bdbfa14"
+      }
+    },
+    {
+      "name": "libXau",
+      "nevra": "libXau-0:1.0.12-4.fc44.x86_64",
+      "repository": "fedora",
+      "download_bytes": 34530,
+      "installed_bytes": 74546,
+      "location": "Packages/l/libXau-1.0.12-4.fc44.x86_64.rpm",
+      "sha256": "2aef79919b82c4d76dd28ef4c81fc86d7d790b4abcbac4e418d541b29cf82fca",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/fedora/libXau-1.0.12-4.fc44.x86_64.rpm",
+      "url": "https://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libXau-1.0.12-4.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749763,
+        "size_header": 259,
+        "size_download": 34530,
+        "attempt_sha256": "7bfaf546820385a796a8289c946dc955a21042a3fb0d4fc36f316c38460d7b41",
+        "curl_sha256": "3454680452d415983b2bf18f0fc898f493ea5ac01034a8989ca8ef1b8dba3aee"
+      }
+    },
+    {
+      "name": "libdrm",
+      "nevra": "libdrm-0:2.4.134-1.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 170660,
+      "installed_bytes": 415529,
+      "location": "Packages/l/libdrm-2.4.134-1.fc44.x86_64.rpm",
+      "sha256": "edd4ba5100079961bb7f9ebcb3efda75dac38f7be79f73e55839c699e236e997",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/libdrm-2.4.134-1.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libdrm-2.4.134-1.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749766,
+        "size_header": 425,
+        "size_download": 170660,
+        "attempt_sha256": "1f45e7ce6dc8045e4e45e9494b7005f9167d2e7ccb15a1c15daec6a8658c150d",
+        "curl_sha256": "d2bae5e30c656e1b2a26bfb7b67f2befa33df844a3801236fca36ebfea6159ab"
+      }
+    },
+    {
+      "name": "libedit",
+      "nevra": "libedit-0:3.1-59.20260512cvs.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 113076,
+      "installed_bytes": 254252,
+      "location": "Packages/l/libedit-3.1-59.20260512cvs.fc44.x86_64.rpm",
+      "sha256": "cde77df3beeca1283c16632fe0c1994418102dc9d21706dd7cc755cc95e83b8e",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/libedit-3.1-59.20260512cvs.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libedit-3.1-59.20260512cvs.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749770,
+        "size_header": 425,
+        "size_download": 113076,
+        "attempt_sha256": "4f56f15409d9214d8a25b26a35a90f36b84944551437e21e2f9953e57832c0f1",
+        "curl_sha256": "e264455425265600df6f8a14dcb8c0b3b2a8a8d6e4d0638ad7b4eaef08cb98df"
+      }
+    },
+    {
+      "name": "libglvnd",
+      "nevra": "libglvnd-1:1.7.0-9.fc44.x86_64",
+      "repository": "fedora",
+      "download_bytes": 117450,
+      "installed_bytes": 539094,
+      "location": "Packages/l/libglvnd-1.7.0-9.fc44.x86_64.rpm",
+      "sha256": "212df4a80c24320c53477d6d4a1fae424c58bbe475761d04a74c648c350a5fdc",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/fedora/libglvnd-1.7.0-9.fc44.x86_64.rpm",
+      "url": "https://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libglvnd-1.7.0-9.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749772,
+        "size_header": 261,
+        "size_download": 117450,
+        "attempt_sha256": "c403efbf93795e8d8f84b3b4fe01058867e2ce728ab075ee450ce663a8896c12",
+        "curl_sha256": "66a72839dd505f651d2c7279ba484338386b55afab287d095dfe02cf7cfe4759"
+      }
+    },
+    {
+      "name": "libglvnd-egl",
+      "nevra": "libglvnd-egl-1:1.7.0-9.fc44.x86_64",
+      "repository": "fedora",
+      "download_bytes": 38094,
+      "installed_bytes": 70236,
+      "location": "Packages/l/libglvnd-egl-1.7.0-9.fc44.x86_64.rpm",
+      "sha256": "30286b1e16ab7830a0d9e34dc82fcc0234d3cfc7dbb937940bb3fc7b38b84272",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/fedora/libglvnd-egl-1.7.0-9.fc44.x86_64.rpm",
+      "url": "https://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libglvnd-egl-1.7.0-9.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749774,
+        "size_header": 259,
+        "size_download": 38094,
+        "attempt_sha256": "8347bc32ea6351e7418a947f57ca5c5c000a7263e5a0e2b94765686dc7e19f54",
+        "curl_sha256": "143ac4186087791442cd6182361c22605b6a5d834ec48ac2f40f5415f58fda83"
+      }
+    },
+    {
+      "name": "libglvnd-gles",
+      "nevra": "libglvnd-gles-1:1.7.0-9.fc44.x86_64",
+      "repository": "fedora",
+      "download_bytes": 29289,
+      "installed_bytes": 100066,
+      "location": "Packages/l/libglvnd-gles-1.7.0-9.fc44.x86_64.rpm",
+      "sha256": "c23493344e44f01306d96e9639eff3b168af74b75262b2ad16b11d666b7b6fbd",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/fedora/libglvnd-gles-1.7.0-9.fc44.x86_64.rpm",
+      "url": "https://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libglvnd-gles-1.7.0-9.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749776,
+        "size_header": 259,
+        "size_download": 29289,
+        "attempt_sha256": "062034298f78bdebbf3a293b55d81196258a1b74f1c7321aab65d6cf0122a3c0",
+        "curl_sha256": "f83ec2b8724b4f792ce2d3cb237376bbf8f4ef7707c9fa49b613c58e03e6b78b"
+      }
+    },
+    {
+      "name": "libpciaccess",
+      "nevra": "libpciaccess-0:0.16-17.fc44.x86_64",
+      "repository": "fedora",
+      "download_bytes": 27863,
+      "installed_bytes": 49531,
+      "location": "Packages/l/libpciaccess-0.16-17.fc44.x86_64.rpm",
+      "sha256": "6883cf376da3dd09ff28923c74f7647c02e14996dddd64e49ae39bcd8085e69d",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/fedora/libpciaccess-0.16-17.fc44.x86_64.rpm",
+      "url": "https://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libpciaccess-0.16-17.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749778,
+        "size_header": 259,
+        "size_download": 27863,
+        "attempt_sha256": "5f4f293ba7bd30cf9f5dbf995593f3dff3677d69e8c338b12499ef3d9a6d066d",
+        "curl_sha256": "686cfb56be1ac1f696e96ad5f027e550df522ecb7778a5459ddac9ccdd9236ad"
+      }
+    },
+    {
+      "name": "libwayland-client",
+      "nevra": "libwayland-client-0:1.26.0-1.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 36340,
+      "installed_bytes": 67584,
+      "location": "Packages/l/libwayland-client-1.26.0-1.fc44.x86_64.rpm",
+      "sha256": "0f2b24f04061c1c053a02085f4edb89243e2d4f0284775f164d2c7e77785e7e7",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/libwayland-client-1.26.0-1.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libwayland-client-1.26.0-1.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749782,
+        "size_header": 423,
+        "size_download": 36340,
+        "attempt_sha256": "d18dcbee7634fc69f3a72962079be82fbecaaa6c221ec3dae003e8c6220f2850",
+        "curl_sha256": "9189799f650f94561e1a39371c7f06cebb2d7b60a6fde50b2877c6d70a266fec"
+      }
+    },
+    {
+      "name": "libxcb",
+      "nevra": "libxcb-0:1.17.0-7.fc44.x86_64",
+      "repository": "fedora",
+      "download_bytes": 243678,
+      "installed_bytes": 1113747,
+      "location": "Packages/l/libxcb-1.17.0-7.fc44.x86_64.rpm",
+      "sha256": "f997c30c7203d9c150f7c4982dd4d4c4c94b3e2cdfd5aec7ed3afa55370f0162",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/fedora/libxcb-1.17.0-7.fc44.x86_64.rpm",
+      "url": "https://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libxcb-1.17.0-7.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749784,
+        "size_header": 261,
+        "size_download": 243678,
+        "attempt_sha256": "04ae6fd26c4d241d12ac70332a928f97bd97af5690d60cd018763dc0daee2116",
+        "curl_sha256": "29ec9ad206ba5c324bb76306bec2c073a01f51c031534bf89bb229c85aeb4be8"
+      }
+    },
+    {
+      "name": "libxshmfence",
+      "nevra": "libxshmfence-0:1.3.2-8.fc44.x86_64",
+      "repository": "fedora",
+      "download_bytes": 13533,
+      "installed_bytes": 12616,
+      "location": "Packages/l/libxshmfence-1.3.2-8.fc44.x86_64.rpm",
+      "sha256": "c25f27024419607d84725563bdde157887dd8c90b767beaf10745826715ccc5e",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/fedora/libxshmfence-1.3.2-8.fc44.x86_64.rpm",
+      "url": "https://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libxshmfence-1.3.2-8.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749786,
+        "size_header": 259,
+        "size_download": 13533,
+        "attempt_sha256": "052c86d95151d4fe20b931f8ecc2e0cf26e7bf6211530501a8c29740f392fb30",
+        "curl_sha256": "5fdfff7c2901abc5140a9b560b84b5301dadaa7cbe1e521f7738c053e8549de0"
+      }
+    },
+    {
+      "name": "llvm-filesystem",
+      "nevra": "llvm-filesystem-0:22.1.8-4.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 10255,
+      "installed_bytes": 0,
+      "location": "Packages/l/llvm-filesystem-22.1.8-4.fc44.x86_64.rpm",
+      "sha256": "c3a50a21b34d66693388fbb86371d0cc815c3218fbdc89bdecccdf4599a0d008",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/llvm-filesystem-22.1.8-4.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/llvm-filesystem-22.1.8-4.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749788,
+        "size_header": 423,
+        "size_download": 10255,
+        "attempt_sha256": "ac75f45ae5f10d09202932b4c3559401ba63de9faaa60b7c04d5e62d6efdf531",
+        "curl_sha256": "98757f2caa91b8585ce35b7b3f4699f840b7c7015f2fe6450c4f69d356dad042"
+      }
+    },
+    {
+      "name": "llvm-libs",
+      "nevra": "llvm-libs-0:22.1.8-4.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 35736228,
+      "installed_bytes": 147275895,
+      "location": "Packages/l/llvm-libs-22.1.8-4.fc44.x86_64.rpm",
+      "sha256": "c033e24457336cc887611599a180b623893cefaf2ad0a540741fdd812b20a81d",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/llvm-libs-22.1.8-4.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/llvm-libs-22.1.8-4.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749808,
+        "size_header": 429,
+        "size_download": 35736228,
+        "attempt_sha256": "f30b93bd5a16fc00764b7996b2c214ec19085d0582ba8dc7ebc3ad7b16794b60",
+        "curl_sha256": "c955df74b49e5760adffba41872a03d903037fca9469d35f3311a4d43fe56a81"
+      }
+    },
+    {
+      "name": "lm_sensors-libs",
+      "nevra": "lm_sensors-libs-0:3.6.0-24.fc44.x86_64",
+      "repository": "fedora",
+      "download_bytes": 42940,
+      "installed_bytes": 87734,
+      "location": "Packages/l/lm_sensors-libs-3.6.0-24.fc44.x86_64.rpm",
+      "sha256": "8baa6be6981022632fad26a741e598c7e89c864494c676a3b4a9433f7899e4bc",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/fedora/lm_sensors-libs-3.6.0-24.fc44.x86_64.rpm",
+      "url": "https://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/lm_sensors-libs-3.6.0-24.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749811,
+        "size_header": 259,
+        "size_download": 42940,
+        "attempt_sha256": "64be81ead87d04e74109a31b411e9d6efc2e188a3b2274c4a2e2dada3495ea8e",
+        "curl_sha256": "3b2e10b201bb1d41f7a4e691de9e39e33894e14d1263385acba29862a08549a8"
+      }
+    },
+    {
+      "name": "mesa-dri-drivers",
+      "nevra": "mesa-dri-drivers-0:26.2.6-1.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 14509767,
+      "installed_bytes": 55835303,
+      "location": "Packages/m/mesa-dri-drivers-26.2.6-1.fc44.x86_64.rpm",
+      "sha256": "0112fa51422add691d5e3e22720118b65ac25b15b1111d67a8e6a8500c3faeb9",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/mesa-dri-drivers-26.2.6-1.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/m/mesa-dri-drivers-26.2.6-1.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749821,
+        "size_header": 428,
+        "size_download": 14509767,
+        "attempt_sha256": "83758082f6dcfeed02ece84e2f8032f428b1508871771758d85cb4c6ab4c5354",
+        "curl_sha256": "31f855935a1cd4570295c084d9571609d960b022e1b80d4047b65c414a7c3459"
+      }
+    },
+    {
+      "name": "mesa-filesystem",
+      "nevra": "mesa-filesystem-0:26.2.6-1.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 9467,
+      "installed_bytes": 3682,
+      "location": "Packages/m/mesa-filesystem-26.2.6-1.fc44.x86_64.rpm",
+      "sha256": "44e31311c0c103f4c12ce86d04c0ca48998749ce88b585240ee8e61a6b91dc55",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/mesa-filesystem-26.2.6-1.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/m/mesa-filesystem-26.2.6-1.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749822,
+        "size_header": 422,
+        "size_download": 9467,
+        "attempt_sha256": "a8e87ec951ef1d6ce77de3231e8802dcce20058f8dd4f9d3ba0224fa3a2a1528",
+        "curl_sha256": "f22d744bd13b1245a2141020ac84893a0c9f037ee6cc77f9013fba4221ba2a20"
+      }
+    },
+    {
+      "name": "mesa-libEGL",
+      "nevra": "mesa-libEGL-0:26.2.6-1.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 144525,
+      "installed_bytes": 407983,
+      "location": "Packages/m/mesa-libEGL-26.2.6-1.fc44.x86_64.rpm",
+      "sha256": "122fcc2907ef9ee8e59f115d106da0a315e35cdea55dfb004141a02c69e64bfd",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/mesa-libEGL-26.2.6-1.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/m/mesa-libEGL-26.2.6-1.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749825,
+        "size_header": 425,
+        "size_download": 144525,
+        "attempt_sha256": "cbbf139cdf34c3ca3dedbd913aba1dc714e0efa4bf470abea6001defde14938f",
+        "curl_sha256": "8b7857e64330687e6bd1f8b8ad72122074f949b128a6d19c1ccc482d81fd3530"
+      }
+    },
+    {
+      "name": "mesa-libgbm",
+      "nevra": "mesa-libgbm-0:26.2.6-1.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 15617,
+      "installed_bytes": 19996,
+      "location": "Packages/m/mesa-libgbm-26.2.6-1.fc44.x86_64.rpm",
+      "sha256": "9cc614c533241a23e902783de13e4a598b03f9a7b7a01b10609d6ab348036e2d",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/mesa-libgbm-26.2.6-1.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/m/mesa-libgbm-26.2.6-1.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749828,
+        "size_header": 423,
+        "size_download": 15617,
+        "attempt_sha256": "320cf17baf8a8c2d7da0dda50663f12bdba143338d71d1f24957cf7e9730f42d",
+        "curl_sha256": "11b81a825c55d3bd77529b178e7ca32ae3a560f219ed2c3803576da51af274f0"
+      }
+    },
+    {
+      "name": "mpdecimal",
+      "nevra": "mpdecimal-0:4.0.1-3.fc44.x86_64",
+      "repository": "fedora",
+      "download_bytes": 101509,
+      "installed_bytes": 222311,
+      "location": "Packages/m/mpdecimal-4.0.1-3.fc44.x86_64.rpm",
+      "sha256": "f9495b4a3f05e370f6ad6fea7632c83473d94609fe9f8d508a8696bcecf5ab6f",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/fedora/mpdecimal-4.0.1-3.fc44.x86_64.rpm",
+      "url": "https://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/m/mpdecimal-4.0.1-3.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749831,
+        "size_header": 261,
+        "size_download": 101509,
+        "attempt_sha256": "7d338853e0afa8c13ec43d592c755c8634b484be0a83ef202532f7bbffa736a0",
+        "curl_sha256": "690b89e32e8a47abff5e1178f98fb561ff0e6ff49a6cd8d878b4e0bed0501273"
+      }
+    },
+    {
+      "name": "python-pip-wheel",
+      "nevra": "python-pip-wheel-0:26.0.1-3.fc44.noarch",
+      "repository": "updates",
+      "download_bytes": 1205378,
+      "installed_bytes": 1282230,
+      "location": "Packages/p/python-pip-wheel-26.0.1-3.fc44.noarch.rpm",
+      "sha256": "e9a4e974a23e196584716000c0d46a5462c14fd08c4038d2ee46c9b3bc5ac78f",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/python-pip-wheel-26.0.1-3.fc44.noarch.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/p/python-pip-wheel-26.0.1-3.fc44.noarch.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749837,
+        "size_header": 427,
+        "size_download": 1205378,
+        "attempt_sha256": "426310cbd8f41424878dcfa940ed27f928550a44f5fd2db829a325ec5f996a82",
+        "curl_sha256": "2111137068296122286cca882ca5589d146bef148f8ddab08f38c580676d4e45"
+      }
+    },
+    {
+      "name": "python-unversioned-command",
+      "nevra": "python-unversioned-command-0:3.14.10-1.fc44.noarch",
+      "repository": "updates",
+      "download_bytes": 11984,
+      "installed_bytes": 23,
+      "location": "Packages/p/python-unversioned-command-3.14.10-1.fc44.noarch.rpm",
+      "sha256": "e515686790a84721fb4200231792f620521b6b2461253b6bf5bfa2864980b1de",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/python-unversioned-command-3.14.10-1.fc44.noarch.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/p/python-unversioned-command-3.14.10-1.fc44.noarch.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749840,
+        "size_header": 423,
+        "size_download": 11984,
+        "attempt_sha256": "bae8c589ffdd23df6292eb04ab538ba2a8cbc2641c606cbeba522368075758ff",
+        "curl_sha256": "99431a99d38b603e80ca9197c83a8edf17710f4dabfb53495542c0071fed504d"
+      }
+    },
+    {
+      "name": "python3",
+      "nevra": "python3-0:3.14.10-1.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 30236,
+      "installed_bytes": 29354,
+      "location": "Packages/p/python3-3.14.10-1.fc44.x86_64.rpm",
+      "sha256": "6aa9235ef905dbaaaea3c8b0218498c62cff7b8a0f0d84fe4a0c2fc025c703a0",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/python3-3.14.10-1.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/p/python3-3.14.10-1.fc44.x86_64.rpm",
+      "transport": {
+        "source": "original-prefetch",
+        "completed_unix": 1794749843,
+        "size_header": 423,
+        "size_download": 30236,
+        "attempt_sha256": "0f9ca20004adcfb7e9702d431286ab7da81e6f8afad3bb253f9bfa55976b5f79",
+        "curl_sha256": "b12913597c3c14af2930dfcd96e5c9d7a6c863b325ab1bea9aa69d0caa12ef27"
+      }
+    },
+    {
+      "name": "python3-libs",
+      "nevra": "python3-libs-0:3.14.10-1.fc44.x86_64",
+      "repository": "updates",
+      "download_bytes": 10672326,
+      "installed_bytes": 46317997,
+      "location": "Packages/p/python3-libs-3.14.10-1.fc44.x86_64.rpm",
+      "sha256": "59fbfbddf16b51eb0fcf2799764d48ba36e034ae9ea6c06c485343062922eba0",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/updates/python3-libs-3.14.10-1.fc44.x86_64.rpm",
+      "url": "https://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/p/python3-libs-3.14.10-1.fc44.x86_64.rpm",
+      "transport": {
+        "completed_unix": 1794750855,
+        "size_header": 428,
+        "size_download": 10672326,
+        "attempt_sha256": "89c8e3756fe1c95531e1c4e7d51996ac7483a1e6390f597bf1155c5fd4c46d5e",
+        "curl_sha256": "6c9f6f24ae1179812fa3dbf847c289b1fa249a93f983883c0aa424cb4c941204",
+        "source": "continuation"
+      }
+    },
+    {
+      "name": "spirv-tools-libs",
+      "nevra": "spirv-tools-libs-0:2026.1-1.fc44.x86_64",
+      "repository": "fedora",
+      "download_bytes": 1825635,
+      "installed_bytes": 6389056,
+      "location": "Packages/s/spirv-tools-libs-2026.1-1.fc44.x86_64.rpm",
+      "sha256": "1a0aa8095ec306a62bd5a439c33faeaeb0c34749d0263024f756a5cc67f172ea",
+      "file": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a/fedora/spirv-tools-libs-2026.1-1.fc44.x86_64.rpm",
+      "url": "https://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/s/spirv-tools-libs-2026.1-1.fc44.x86_64.rpm",
+      "transport": {
+        "completed_unix": 1794750860,
+        "size_header": 263,
+        "size_download": 1825635,
+        "attempt_sha256": "8ac16ff0ec4424e3c1b605597a97ed4e9da91d8c7f8b2f0d0e294d1144d9ebcd",
+        "curl_sha256": "44a3f44ddc99f89ee103aaa93518661f214c1e5e5d6f2c7d50c29c8acc1be34b",
+        "source": "continuation"
+      }
+    }
+  ],
+  "latest": false,
+  "query_sha256": "038b6de3dec18502bf3c3fcb649fc54af5d395a94fa6dffd88102e8db6cc2128",
+  "stage_marker_sha256": "e60461a1eb726cd527e418d7cf5dd700d6440c87890ddde3b930a8d4c73ca7a6",
+  "primary_manifest_sha256": "5f7627e03a2ccf2d47c938ade42ada547e5101a4a3701449f384d8d29f4cfdbf",
+  "package_signatures": "pending-native-gpg-verification",
+  "scoped_for": "amd-fedora44-prefetch",
+  "payload_root": "/home/agent/unifier-hardware-v008-drm-20261115a/shared/fedora-rpms-20261115a",
+  "package_plan": {
+    "download_bytes": 67971267,
+    "installed_bytes": 274202076,
+    "requests": [
+      "python3-0:3.14.10-1.fc44.x86_64",
+      "mesa-libgbm-0:26.2.6-1.fc44.x86_64",
+      "libglvnd-egl-1:1.7.0-9.fc44.x86_64",
+      "mesa-libEGL-0:26.2.6-1.fc44.x86_64",
+      "libglvnd-gles-1:1.7.0-9.fc44.x86_64",
+      "mesa-dri-drivers-0:26.2.6-1.fc44.x86_64"
+    ],
+    "signed_repository": "fedora-44: fedora,fedora-cisco-openh264,updates RPM OpenPGP"
+  }
+}

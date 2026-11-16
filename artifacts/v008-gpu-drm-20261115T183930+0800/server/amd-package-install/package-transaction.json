@@ -1,0 +1,134 @@
+{
+  "database_audit": {
+    "argv": [
+      "rpm",
+      "--verifydb"
+    ],
+    "exit_code": 0,
+    "stderr_tail": "",
+    "stdout_tail": ""
+  },
+  "dependency_repair": {
+    "status": "not-requested"
+  },
+  "environment_binding": {
+    "container_id": "2180a83540510175c2d177c0decf0cf852788fbe77d6c6263d98737fd644fa3f",
+    "environment_id": "fedora44",
+    "environment_uuid": "a1e18eb1-72f6-4d99-8178-a4c88cb0e213",
+    "generation": 1
+  },
+  "environment_id": "fedora44",
+  "failure_phase": "native-command",
+  "finished_at": "2026-11-15T21:56:32+08:00",
+  "host_entries": {
+    "added": [],
+    "removed": []
+  },
+  "host_packages": {
+    "after": {
+      "available": true,
+      "count": 1339,
+      "error": null,
+      "sha256": "245d283ade8877199498aa6adb312fb4131abc94e20ee8a5e7d29f98c0bd93a1",
+      "tool": "dpkg-query"
+    },
+    "before": {
+      "available": true,
+      "count": 1339,
+      "error": null,
+      "sha256": "245d283ade8877199498aa6adb312fb4131abc94e20ee8a5e7d29f98c0bd93a1",
+      "tool": "dpkg-query"
+    }
+  },
+  "id": "txn124e64406e4c",
+  "interactive": false,
+  "inventory_status": "verified",
+  "isolation_observation": {
+    "attribution": "unattributed",
+    "problems": [],
+    "schema_version": 1,
+    "scope": "non-target-audit",
+    "status": "unchanged"
+  },
+  "local_file": null,
+  "maintenance": {
+    "full_init": false,
+    "items": [],
+    "status": "ok",
+    "system_integration": "unverified"
+  },
+  "native": [
+    {
+      "argv": [
+        "dnf",
+        "install",
+        "-y",
+        "python3",
+        "mesa-libgbm",
+        "libglvnd-egl",
+        "mesa-libEGL",
+        "libglvnd-gles",
+        "mesa-dri-drivers"
+      ],
+      "exit_code": 2,
+      "guest": {
+        "ownership": "process",
+        "pgrp": 839,
+        "pid": 839,
+        "sid": 839,
+        "start": 1485118,
+        "token": "8c0d5dbee31db2c49ca6d273f04ae597"
+      },
+      "state": "finished",
+      "stderr_tail": "Attached command \"builddep\" not found: Command id \"dnf5\" does not contain subcommand with id \"builddep\": Requested in file \"/usr/share/dnf5/aliases.d/compatibility-plugins.conf\" on line 5: attached_command = 'builddep'\nMissing attribute \"attached_command\" for command \"build-dep\" in file \"/usr/share/dnf5/aliases.d/compatibility-plugins.conf\"\nParent command \"reposync\" not found: Command id \"dnf5\" does not contain subcommand with id \"reposync\": Requested in file \"/usr/share/dnf5/aliases.d/compatibility-reposync.conf\" on line 3: ['reposync.downloadpath']\nParent command \"reposync\" not found: Command id \"dnf5\" does not contain subcommand with id \"reposync\": Requested in file \"/usr/share/dnf5/aliases.d/compatibility-reposync.conf\" on line 9: ['reposync.source']\nsetopt: \"package_gpgcheck=1\": Option \"package_gpgcheck\" not found. Add \"--help\" for more information about the arguments.\n",
+      "stdout_tail": "",
+      "timeout": 300
+    }
+  ],
+  "native_error": null,
+  "operation": "install",
+  "other_environments": {},
+  "packages": [
+    "python3",
+    "mesa-libgbm",
+    "libglvnd-egl",
+    "mesa-libEGL",
+    "libglvnd-gles",
+    "mesa-dri-drivers"
+  ],
+  "phase": "failed",
+  "recovery_required": false,
+  "revision_after": {
+    "content_revision": 1,
+    "package_inventory_sha256": "4fbc88c890ab44ee974f34584be338afd98956bdb78224fc6c8c05b0bb722801",
+    "writable_revision": "2180a83540510175c2d177c0decf0cf852788fbe77d6c6263d98737fd644fa3f"
+  },
+  "revision_before": {
+    "content_revision": 1,
+    "package_inventory_sha256": "4fbc88c890ab44ee974f34584be338afd98956bdb78224fc6c8c05b0bb722801",
+    "writable_revision": "2180a83540510175c2d177c0decf0cf852788fbe77d6c6263d98737fd644fa3f"
+  },
+  "schema_version": 1,
+  "started_at": "2026-11-15T21:56:30+08:00",
+  "stream": false,
+  "use_command": [],
+  "verdict": "failed",
+  "verification": {
+    "command": null,
+    "command_exit_code": null,
+    "ok": false,
+    "packages": {
+      "libglvnd-egl": false,
+      "libglvnd-gles": false,
+      "mesa-dri-drivers": false,
+      "mesa-libEGL": false,
+      "mesa-libgbm": false,
+      "python3": false
+    },
+    "problems": [
+      "native command failed"
+    ],
+    "stdout_preview": null,
+    "stdout_sha256": null
+  }
+}

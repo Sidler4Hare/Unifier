@@ -46,8 +46,9 @@ class ApplicationLifecycle(unittest.TestCase):
 
     def start(self, name, argv, *, token, **kwargs):
         read_fd, write_fd = os.pipe()
+        mode = 'run-stop-children' if kwargs.get('exit_policy') == 'stop-children' else 'run'
         try:
-            child = subprocess.Popen([sys.executable, str(SCRIPT), 'run', token,
+            child = subprocess.Popen([sys.executable, str(SCRIPT), mode, token,
                 str(self.receipts), str(write_fd), *argv], pass_fds=(write_fd,),
                 stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                 start_new_session=True)
@@ -125,6 +126,35 @@ class ApplicationLifecycle(unittest.TestCase):
         (self.root/'end-daemon').touch(); self.children[-1].wait(timeout=5)
         result = self.group.recover_applications(token)
         self.assertEqual(result[0]['action'], 'released')
+        self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'stopped')
+
+    def test_foreground_policy_reaps_helpers_then_releases_only_its_lease(self):
+        launch = self.service.show_app('notes')
+        launch['exit_policy'] = 'stop-children'
+        self.service.store.save_launch(launch)
+        # A separate project lease represents the concurrent CLI owner.
+        peer = self.group.acquire_project('peer-cli', expected_binding=launch['environment_binding'])
+        code = '''import os,sys,time
+from pathlib import Path
+marker=Path(sys.argv[1])
+if os.fork():
+ while not marker.exists(): time.sleep(.01)
+ os._exit(0)
+os.setsid()
+if os.fork(): os._exit(0)
+marker.touch()
+while True: time.sleep(.05)
+'''
+        result = managed_exec(self.service, 'notes', [sys.executable, '-c', code, str(self.root/'helper')])
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(set(self.group.read()['leases']), {peer})
+        proofs = [json.loads(p.read_text()) for p in self.receipts.glob('*.json')]
+        self.assertEqual(len(proofs), 1)
+        self.assertTrue(proofs[0]['all_children_reaped'])
+        self.assertEqual(proofs[0]['cleanup_reason'], 'main-exit')
+        self.assertFalse(proofs[0]['cleanup_escalated'])
+        self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'running')
+        self.group.release(peer)
         self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'stopped')
 
     def test_explicit_cancel_targets_the_daemon_and_releases_only_its_lease(self):
@@ -236,6 +266,21 @@ class ApplicationLifecycle(unittest.TestCase):
 
 
 class ApplicationControlChannel(unittest.TestCase):
+    def test_foreground_policy_reaches_the_guest_through_real_fd3(self):
+        fixture = handshake.RealHandshake()
+        fixture.setUpClass(); self.addCleanup(fixture.tearDownClass)
+        fixture.setUp(); self.addCleanup(fixture.tearDown)
+        fixture.runtime.application_state_root = str(fixture.root/'receipts')
+        execution = fixture.runtime.start_application_exec(handshake.CONTAINER_ID,
+            [sys.executable, '-c', 'raise SystemExit(0)'], exit_policy='stop-children',
+            token='e'*32, project=handshake.PROJECT, env_id=handshake.ENV_ID,
+            workdir=None, env={}, interactive=False, tty=False)
+        _out, err = execution.process.communicate(timeout=5)
+        self.assertEqual(execution.process.returncode, 0, err)
+        value = observe(fixture.runtime.application_state_root, 'e'*32)
+        self.assertEqual(value['exit_policy'], 'stop-children')
+        self.assertTrue(value['all_children_reaped'])
+
     def test_real_fd3_handshake_and_terminal_receipt_through_the_runtime(self):
         fixture = handshake.RealHandshake()
         fixture.setUpClass(); self.addCleanup(fixture.tearDownClass)

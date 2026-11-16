@@ -6,10 +6,12 @@ PodmanRuntime; the environment service itself remains the real implementation.
 """
 
 from contextlib import redirect_stderr, redirect_stdout
+from dataclasses import replace
 from io import StringIO
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import sys
 import tempfile
@@ -74,7 +76,11 @@ class ShortcutRuntime(FakeRuntime):
     def create(self, spec):
         if spec.env_id in self.fail_create:
             raise UnifierError("simulated create failure for " + spec.env_id)
-        return super().create(spec)
+        container_id = super().create(spec)
+        self.containers[spec.name] = replace(
+            self.containers[spec.name],
+            bind_mounts=tuple((host, guest, True) for host, guest in spec.mounts))
+        return container_id
 
     def exec(self, name, argv, *, project, env_id, workdir, env, capture, timeout):
         if self.exec_handler is not None:
@@ -105,6 +111,34 @@ class ShortcutRuntime(FakeRuntime):
         if argv[:2] in (["pacman", "-Syu"], ["pacman", "-S"]):
             return ExecResult(0, "", "")
         return super()._captured(info, argv)
+
+
+def _literal(template):
+    chunks = [c.strip() for c in re.split(r"\{[^}]*\}", template)]
+    return max(chunks, key=len)
+
+
+def localized(fragment, key=None):
+    """Return the part of a user-facing message to expect in this test run.
+
+    The CLI follows the host locale, so tests do the same instead of
+    hard-coding English.  With ``key`` the translation of that catalog entry
+    is used; otherwise ``fragment`` must identify exactly one English entry.
+    """
+    language = i18n.resolve(Path(os.devnull), os.environ, ())["language"]
+    if language == "en":
+        return fragment
+    english = i18n._CATALOGS["en"]
+    local = i18n._CATALOGS.get(language, english)
+    if key is None:
+        keys = [k for k, text in english.items() if fragment in text]
+        if len(keys) != 1:
+            raise AssertionError(
+                f"{fragment!r} matches {len(keys)} message templates; pass key=")
+        key = keys[0]
+    if fragment not in english[key]:
+        raise AssertionError(f"{key} does not contain {fragment!r}")
+    return _literal(local.get(key, english[key]))
 
 
 def context(root, runtime=None, *, isatty=False, input_fn=None,
@@ -383,7 +417,7 @@ class InitAndConfigure(unittest.TestCase):
             self.assertTrue((root / "containers/arch/files").is_dir())
             code, out, err = run_ctx(ctx, ["start", "arch"])
             self.assertEqual(code, 1)
-            self.assertIn("disabled", err)
+            self.assertIn(localized("disabled", key="start.disabled"), err)
             # Stop is still allowed for a retained, disabled environment.
             code, out, err = run_ctx(ctx, ["stop", "arch"])
             self.assertEqual(code, 0, (out, err))
@@ -428,7 +462,7 @@ class InitAndConfigure(unittest.TestCase):
             self.assertNotIn("start", [event[0] for event in runtime.events])
             code, out, err = run_ctx(ctx, ["dirs", "fedora44"])
             self.assertEqual(code, 1)
-            self.assertIn("not configured", err)
+            self.assertIn(localized("not configured", key="dirs.not_configured"), err)
 
 
 class SafeGuestListing(unittest.TestCase):
@@ -651,7 +685,7 @@ class InstallAndRun(unittest.TestCase):
             code, out, err = run_ctx(
                 ctx, ["install", "--target", "debian13", "hello"])
             self.assertEqual(code, 1)
-            self.assertIn("disabled", err)
+            self.assertIn(localized("disabled", key="install.target_disabled"), err)
             self.assertEqual(runtime.events, [])
             self.assertEqual(list((root / ".lab/state/transactions").glob("*.json"))
                              if (root / ".lab/state/transactions").exists() else [], [])
@@ -670,7 +704,7 @@ class InstallAndRun(unittest.TestCase):
             code, out, err = run_ctx(
                 ctx, ["install", "--target", "debian13", str(package)])
             self.assertEqual(code, 1)
-            self.assertIn("not accepted", err)
+            self.assertIn(localized("not accepted"), err)
             self.assertEqual(runtime.events, [])
 
     def test_hidden_package_stays_out_of_the_application_menu(self):
@@ -691,8 +725,198 @@ class InstallAndRun(unittest.TestCase):
             self.assertEqual(list((root / "host-applications").glob("*.desktop")), [])
             self.assertFalse((root / "host-applications" / "mimeapps.list").exists())
 
+    def test_dotted_desktop_id_is_registered_under_a_store_safe_alias(self):
+        # A vendor desktop id keeps dots; the record store does not. The alias
+        # has to be folded at discovery time, not rejected later as a broken
+        # entry (observed with com.alibabainc.dingtalk on Debian 13).
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            runtime.inventory = "base\t1\ncom.alibabainc.dingtalk\t2\n"
+            runtime.package_files = {
+                "com.alibabainc.dingtalk":
+                    "/opt/apps/com.alibabainc.dingtalk/files/Elevator.sh\n"
+                    "/usr/share/applications/com.alibabainc.dingtalk.desktop\n",
+            }
+            runtime.desktop_files = {
+                "/usr/share/applications/com.alibabainc.dingtalk.desktop":
+                    "[Desktop Entry]\nName=DingTalk\n"
+                    "Exec=/opt/apps/com.alibabainc.dingtalk/files/Elevator.sh %U\n",
+            }
+            ctx = context(root, runtime)
+            self.assertEqual(run_ctx(ctx, ["init", "--target", "debian13", "--yes"])[0], 0)
+            service = self._service(root, runtime)
+            ctx.services[str(root)] = service
+            code, out, err = run_ctx(ctx, ["install", "com.alibabainc.dingtalk", "--json"])
+            self.assertEqual(code, 0, (out, err))
+            payload = json.loads(out)
+            self.assertEqual(payload["app"], "com-alibabainc-dingtalk")
+            self.assertEqual(payload["executable"],
+                             "/opt/apps/com.alibabainc.dingtalk/files/Elevator.sh")
+            launch = service.app_by_alias("debian13", "com-alibabainc-dingtalk")
+            self.assertEqual(launch["id"], payload["app_id"])
+            self.assertEqual(launch["argv"],
+                             ["/opt/apps/com.alibabainc.dingtalk/files/Elevator.sh"])
+            self.assertIn("Name=DingTalk", Path(payload["menu"]).read_text(encoding="utf-8"))
+
+    def _repair_stuck_service(self, root, runtime, **updates):
+        """Service whose package transaction installs the package but cannot finish repair."""
+        service = self._service(root, runtime)
+        real = service.install_packages
+
+        def repair_stuck(env_id, items, **kwargs):
+            # Debian 13 ships no provider at all for one SONAME the vendor
+            # package needs, while the package transaction itself succeeded.
+            txn = real(env_id, items, **kwargs)
+            txn["phase"] = "failed"
+            txn["failure_phase"] = "dependency-repair"
+            txn["native_error"] = ("dependency liblber-2.4.so.2 has 0 repository "
+                                   "providers; automatic selection is unresolved")
+            txn["dependency_repair"].update(
+                {"status": "unresolved", "unresolved": ["liblber-2.4.so.2"],
+                 "unresolvable": {"absent": ["liblber-2.4.so.2"], "ambiguous": []}})
+            txn.update(updates)
+            return txn
+
+        service.install_packages = repair_stuck
+        return service
+
+    def test_unresolved_runtime_libraries_still_register_the_software_list_entry(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            ctx = context(root, runtime)
+            self.assertEqual(run_ctx(ctx, ["init", "--target", "debian13", "--yes"])[0], 0)
+            service = self._repair_stuck_service(root, runtime)
+            ctx.services[str(root)] = service
+            code, out, err = run_ctx(ctx, ["install", "hello", "--json"])
+            self.assertEqual(code, 1, (out, err))
+            payload = json.loads(out)
+            self.assertEqual(payload["transaction"]["phase"], "failed")
+            self.assertEqual(payload["transaction"]["failure_phase"], "dependency-repair")
+            self.assertEqual(payload["app"], "hello")
+            menu = Path(payload["menu"])
+            self.assertTrue(menu.is_file())
+            self.assertIn("Name=Hello", menu.read_text(encoding="utf-8"))
+            self.assertEqual(list((root / "host-applications").glob("*.desktop")), [menu])
+            self.assertEqual(service.app_by_alias("debian13", "hello")["id"],
+                             payload["app_id"])
+            self.assertIn("liblber-2.4.so.2", out)
+            # In machine mode the human summaries move to stderr.
+            self.assertIn("liblber-2.4.so.2", err)
+            self.assertIn(localized("did not converge", key="install.deps_unresolved"), err)
+            self.assertNotIn(localized("completed", key="install.transaction_ok"), err)
+
+    def test_unreconciled_dependency_failure_does_not_register(self):
+        for updates in (
+                {"phase": "needs-recovery", "recovery_required": True},
+                {"inventory_status": "unknown"},
+                {"verification": {"packages": {"hello": True},
+                                  "isolation": ["peer changed"]}}):
+            with self.subTest(updates=updates), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                runtime = self._runtime()
+                ctx = context(root, runtime)
+                self.assertEqual(run_ctx(ctx, ["init", "--target", "debian13", "--yes"])[0], 0)
+                service = self._repair_stuck_service(root, runtime, **updates)
+                ctx.services[str(root)] = service
+                code, out, err = run_ctx(ctx, ["install", "hello", "--json"])
+                self.assertEqual(code, 1, (out, err))
+                self.assertNotIn("app", json.loads(out))
+                self.assertEqual(list((root / "host-applications").glob("*.desktop")), [])
+                with self.assertRaises(UnifierError):
+                    service.app_by_alias("debian13", "hello")
+
+    def test_dependency_scan_error_with_verified_install_still_exports_menu(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            ctx = context(root, runtime)
+            self.assertEqual(run_ctx(ctx, ["init", "--target", "debian13", "--yes"])[0], 0)
+            error = "ELF inspection did not complete"
+            service = self._repair_stuck_service(
+                root, runtime, native_error=error,
+                dependency_repair={"scope": "package-elf-needed", "status": "unresolved",
+                                   "error": error, "unresolved": []})
+            ctx.services[str(root)] = service
+            code, out, err = run_ctx(ctx, ["install", "hello", "--json"])
+            self.assertEqual(code, 1, (out, err))
+            payload = json.loads(out)
+            self.assertEqual(payload["transaction"]["failure_phase"], "dependency-repair")
+            self.assertEqual(payload["app"], "hello")
+            self.assertIn("Name=Hello", Path(payload["menu"]).read_text(encoding="utf-8"))
+            self.assertIn(error, err)
+
+    def test_native_failure_without_an_installed_package_still_refuses_the_entry(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            ctx = context(root, runtime)
+            self.assertEqual(run_ctx(ctx, ["init", "--target", "debian13", "--yes"])[0], 0)
+            service = self._service(root, runtime)
+            ctx.services[str(root)] = service
+            real = service.install_packages
+
+            def declined(env_id, items, **kwargs):
+                txn = real(env_id, items, **kwargs)
+                txn["phase"] = "failed"
+                txn["failure_phase"] = "native-command"
+                txn["native_error"] = "apt-get install was declined"
+                txn["verification"] = {"ok": False, "packages": {}, "problems": ["declined"]}
+                return txn
+
+            service.install_packages = declined
+            code, out, err = run_ctx(ctx, ["install", "hello", "--json"])
+            self.assertEqual(code, 1, (out, err))
+            self.assertEqual(list((root / "host-applications").glob("*.desktop")), [])
+            with self.assertRaises(UnifierError):
+                service.app_by_alias("debian13", "hello")
+            self.assertNotIn(localized("did not converge", key="install.deps_unresolved"), err)
+
 
 class MissingEnvironmentStatus(unittest.TestCase):
+    def test_adopted_shared_path_requires_a_matching_bind_and_existing_directory(self):
+        from unifier.service import EnvironmentService
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            legacy = root / "legacy"
+            shared = root / "documents"
+            shared.mkdir()
+            runtime = ShortcutRuntime()
+            runtime.identities["legacy"] = dict(runtime.identities["debian13"])
+            ctx = context(root / "new", runtime)
+            service = EnvironmentService(legacy, runtime, CONFIG, LOCK, **SERVICE_KWARGS)
+            record = service.create("debian13", "legacy", [str(shared)], "pasta")
+            name = record["runtime"]["container_name"]
+            self.assertEqual(run_ctx(ctx, [
+                "adopt", "--target", "debian13", "--root", str(legacy),
+                "--environment", "legacy"])[0], 0)
+            runtime.events.clear()
+            path_args = ["path", "debian13", "--files"]
+            dirs_args = ["dirs", "debian13", "--json"]
+            self.assertEqual(run_ctx(ctx, path_args)[:2], (0, f"{shared}\n"))
+            row = json.loads(run_ctx(ctx, dirs_args)[1])["targets"][0]
+            self.assertFalse(row["files_mounted"])
+            self.assertEqual(row["shared_files_dir"], str(shared))
+
+            info = runtime.containers[name]
+            runtime.containers[name] = replace(
+                info, bind_mounts=((str(shared), str(shared), False),))
+            self.assertEqual(run_ctx(ctx, path_args + ["--writable"])[0], 1)
+            self.assertEqual(run_ctx(ctx, path_args)[0], 0)
+
+            runtime.containers[name] = replace(info, bind_mounts=())
+            self.assertEqual(run_ctx(ctx, path_args)[0], 1)
+            self.assertEqual(json.loads(run_ctx(ctx, dirs_args)[1])["targets"][0]
+                             ["shared_directories"][0]["status"], "not-bound")
+
+            runtime.containers[name] = info
+            shared.rmdir()
+            self.assertEqual(run_ctx(ctx, path_args)[0], 1)
+            self.assertEqual(json.loads(run_ctx(ctx, dirs_args)[1])["targets"][0]
+                             ["shared_directories"][0]["status"], "unavailable")
+            self.assertEqual(runtime.events, [])
+
     def test_removed_environment_is_missing_not_ready_or_mounted(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -733,12 +957,12 @@ class MissingEnvironmentStatus(unittest.TestCase):
 
             code, out, err = run_ctx(ctx, ["dirs", "debian13"])
             self.assertEqual(code, 0, err)
-            self.assertIn("environment record missing", out)
-            self.assertIn("NOT mounted", out)
+            self.assertIn(localized("environment record missing", key="status.environment_missing"), out)
+            self.assertIn(localized("NOT mounted", key="dirs.files_unmounted"), out)
 
             code, out, err = run_ctx(ctx, ["path", "debian13", "--files"])
             self.assertEqual(code, 1, (out, err))
-            self.assertIn("not configured", err)
+            self.assertIn(localized("not configured", key="path.not_configured"), err)
 
             for argv in (["start", "debian13"],
                          ["install", "--target", "debian13", "jq"],
@@ -755,8 +979,8 @@ class MissingEnvironmentStatus(unittest.TestCase):
 
             code, out, err = run_ctx(ctx, ["list"])
             self.assertEqual(code, 0, err)
-            self.assertIn("environment record missing", out)
-            self.assertNotIn("\tready\t", out)
+            self.assertIn(localized("environment record missing", key="status.environment_missing"), out)
+            self.assertNotIn("\t" + localized("ready", key="status.ready") + "\t", out)
 
     def test_changed_container_id_cannot_stay_ready_or_mounted(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -861,7 +1085,7 @@ class Adoption(unittest.TestCase):
                 ctx, ["adopt", "--target", "debian13", "--root", str(legacy),
                       "--environment", "freecad"])
             self.assertEqual(code, 1)
-            self.assertIn("conflict", err)
+            self.assertIn(localized("conflict", key="adopt.conflict"), err)
 
     def _runtime(self):
         runtime = ShortcutRuntime()
@@ -954,7 +1178,7 @@ class AdditionalContracts(unittest.TestCase):
             runtime.events.clear()
             code, out, err = run_ctx(ctx, ["install", str(root / "missing.deb")])
             self.assertEqual(code, 1)
-            self.assertIn("not a file", err)
+            self.assertIn(localized("not a file"), err)
             self.assertEqual(runtime.events, [])
 
     def test_existing_headless_environment_is_not_silently_reused_as_desktop(self):
@@ -1068,7 +1292,7 @@ class AdditionalContracts(unittest.TestCase):
             runtime.events.clear()
             code, out, err = run_ctx(ctx, ["install", "hello"])
             self.assertEqual(code, 1)
-            self.assertIn("multiple environment", err)
+            self.assertIn(localized("multiple environment"), err)
             self.assertEqual(runtime.events, [])
             self.assertFalse((root / ".lab/state/transactions").exists())
 
@@ -1152,7 +1376,7 @@ class RepairContracts(unittest.TestCase):
             runtime.events.clear()
             code, out, err = run_ctx(ctx, ["start", "debian13"])
             self.assertEqual(code, 1)
-            self.assertIn("stale", err)
+            self.assertIn(localized("stale"), err)
             self.assertEqual(runtime.events, [])
 
     def test_adopt_requires_versioned_identity_and_proves_runtime(self):
@@ -1182,7 +1406,7 @@ class RepairContracts(unittest.TestCase):
                 ctx2, ["adopt", "--target", "debian13", "--root",
                        str(root / "legacy2"), "--environment", "notes"])
             self.assertEqual(code, 1)
-            self.assertIn("stale", err)
+            self.assertIn(localized("stale"), err)
 
     def test_exec_arguments_distinguish_components_and_are_registered_literally(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -1270,7 +1494,7 @@ class RepairContracts(unittest.TestCase):
                 with redirect_stdout(out), redirect_stderr(err):
                     code = cli.main(["install", "--target", "arch", "--help"])
                 self.assertEqual(code, 0, (out.getvalue(), err.getvalue()))
-                self.assertIn("Usage", out.getvalue())
+                self.assertIn(localized("Usage", key="help.usage_prefix"), out.getvalue())
             self.assertFalse((home / "install-state.json").exists())
             self.assertFalse(shortcuts._wants_help(
                 ["run", "--target", "arch", "hello", "--", "--help"]))
@@ -1292,7 +1516,7 @@ class RepairContracts(unittest.TestCase):
             self.assertEqual(code, 0, (out, err))
             self.assertTrue(out.lstrip().startswith("{"))
             json.loads(out)
-            self.assertIn("installing", err)
+            self.assertIn(localized("installing", key="install.packages"), err)
 
     def test_reinit_and_install_refuse_a_record_with_the_wrong_target_or_identity(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -1314,7 +1538,7 @@ class RepairContracts(unittest.TestCase):
             code, out, err = run_ctx(
                 ctx, ["init", "--target", "debian13", "--yes"])
             self.assertEqual(code, 1)
-            self.assertIn("does not match", err)
+            self.assertIn(localized("does not match", key="target.record_mismatch"), err)
 
     def test_stop_refuses_corrupt_or_live_occupancy_without_stopping(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -1328,7 +1552,7 @@ class RepairContracts(unittest.TestCase):
             runtime.events.clear()
             code, out, err = run_ctx(ctx, ["stop", "debian13"])
             self.assertEqual(code, 1)
-            self.assertIn("cannot be confirmed", err)
+            self.assertIn(localized("cannot be confirmed"), err)
             self.assertNotIn("stop", [event[0] for event in runtime.events])
             from unifier.on_demand import process_stamp
             lease.write_text(json.dumps({"leases": {"tok": {
@@ -1363,7 +1587,7 @@ class RepairContracts(unittest.TestCase):
                 runtime.events.clear()
                 code, out, err = run_ctx(ctx, ["stop", "debian13"])
                 self.assertEqual(code, 1)
-                self.assertIn("package transaction", err)
+                self.assertIn(localized("package transaction", key="stop.package_busy"), err)
                 self.assertNotIn("stop", [event[0] for event in runtime.events])
             finally:
                 release.set()
@@ -1382,6 +1606,11 @@ class RepairContracts(unittest.TestCase):
             parse_desktop_exec('sh -c "wps %f"')
         with self.assertRaises(UnifierError):
             parse_desktop_exec('/usr/bin/app %z')
+
+    def test_pacman_bin_directory_is_not_an_application_entry(self):
+        from unifier.app_entries import package_entry_kind
+        self.assertIsNone(package_entry_kind('/usr/bin/'))
+        self.assertEqual(package_entry_kind('/usr/bin/example'), 'executable')
 
     def test_record_uuid_replacement_is_refused_before_start(self):
         with tempfile.TemporaryDirectory() as temporary:

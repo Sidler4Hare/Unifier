@@ -22,6 +22,10 @@ MAX_INVENTORY_BYTES = 4 * 1024**2
 MAX_PACKAGES = 50000
 
 
+class InventoryUnsupported(UnifierError):
+    """The host cannot safely decode this database backend/layout."""
+
+
 def normalize_inventory(text: str) -> str:
     lines = [line.strip() for line in text.splitlines() if line.strip()]
     if not lines:
@@ -89,18 +93,24 @@ def parse_dpkg_status(text: str) -> str:
                 or len(state) != 3
                 or state[0] not in {'unknown', 'install', 'hold', 'deinstall', 'purge'}
                 or state[1] not in {'ok', 'reinstreq'}
-                or state[2] not in {'installed', 'config-files', 'half-installed', 'unpacked',
-                                    'half-configured', 'triggers-awaited', 'triggers-pending'}
-                or not version or len(version) > 256
-                or not re.fullmatch(r'[0-9A-Za-z.+:~\-]+', version)):
+                or state[2] not in {'not-installed', 'installed', 'config-files',
+                                    'half-installed', 'unpacked', 'half-configured',
+                                    'triggers-awaited', 'triggers-pending'}
+                or (not version and state[2] != 'not-installed')
+                or (version and (len(version) > 256
+                                 or not re.fullmatch(r'[0-9A-Za-z.+:~\-]+', version)))):
             raise UnifierError('dpkg identity/status unsupported or corrupt')
         key = (name, architecture)
         if key in identities:
             raise UnifierError('duplicate dpkg package architecture')
         identities.add(key)
-        rows.append(f'{name}\t{version}')
-        if len(rows) > MAX_PACKAGES:
+        if len(identities) > MAX_PACKAGES:
             raise UnifierError('dpkg package count exceeds budget')
+        # dpkg keeps selection-only stanzas after failed pre-install scripts.
+        # An unqualified dpkg-query -W omits those uninstalled packages.
+        if state[2] == 'not-installed':
+            continue
+        rows.append(f'{name}\t{version}')
     return normalize_inventory('\n'.join(rows))
 
 

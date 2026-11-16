@@ -1,0 +1,40 @@
+{
+  "fixture_input_sha256": "d7a2a7aa40d6ec988c1081c2620f4cd9ad58aae2099edd821a81ff74b80aacdb",
+  "reference_sha256": "a9b1d7631e7ba0b43da8c9ccc6a5be72745acb74d3c18a5084f0da26bce25b71",
+  "consistent_nv12_readbacks": [
+    "v008-hardware-resume-20261116-jxwS5tC7/server-mpeg2/decoded.nv12",
+    "v008-amd-mpeg2-diagnosis-20261116-Y8U8tFyP/server-fixed/field.nv12",
+    "v008-amd-mpeg2-diagnosis-20261116-Y8U8tFyP/server-fixed/ffmpeg.nv12",
+    "v008-amd-mpeg2-diagnosis-20261116-Y8U8tFyP/server-prime-fdsize/default-standard.nv12",
+    "v008-amd-mpeg2-diagnosis-20261116-Y8U8tFyP/server-prime-fdsize/default-direct.nv12"
+  ],
+  "radeon_nv12_sha256": "f49b86f92034c5549b99d979af648d425a58c1b36cbcfa5196d0a762cb5c687b",
+  "nv12_vs_software": {
+    "sample_count": 18432,
+    "mae": 0.8732096354166666,
+    "max_error": 12,
+    "exact_samples": 10900,
+    "limit_mae": 0.35,
+    "limit_max": 8,
+    "result": "FAIL"
+  },
+  "i420_driver_readback": {
+    "samples_per_chroma_plane": 3072,
+    "equal_uv_pairs": 3072
+  },
+  "i420_cpu_unpack_nv12": {
+    "equal_uv_pairs": 10,
+    "repacked_nv12_exact": true,
+    "planar_sha256": "b999707588162a4ae4f8a20d1f9a54bf1e9afd44dd366d4b87310154ba5f21d6"
+  },
+  "ring_5_emitted_and_signaled": [
+    23,
+    26
+  ],
+  "container": {
+    "cid": "2180a83540510175c2d177c0decf0cf852788fbe77d6c6263d98737fd644fa3f",
+    "pid_after": 0,
+    "untouched_non_target_count": 7
+  },
+  "restored_acl_sha256": "0dd60db424616cea9e9317a9191fff86619ce12819e1a068e8e628fc51c05f6c"
+}

@@ -128,6 +128,11 @@ class PackageBoxes(FakeRuntime):
 
     def _answer(self, info, argv):
         env_id = info.env_id
+        if argv[0:2] == ["sh", "-c"] and argv[3:4] == ["unifier-package-journal"]:
+            return ExecResult(0, "clean\n", "")
+        if argv == ["sh", "-c", "test ! -e /var/lib/pacman/db.lck && "
+                    "test ! -L /var/lib/pacman/db.lck"]:
+            return ExecResult(int(getattr(self, "pacman_locked", False)), "", "")
         if argv in (["dpkg", "--audit"], ["rpm", "--verifydb"], ["pacman", "-Dk"]):
             return ExecResult(0, "", "")
         if argv[:2] in (["dpkg-query", "-L"], ["rpm", "-ql"], ["pacman", "-Ql"]):
@@ -547,28 +552,29 @@ class PackageTransactions(unittest.TestCase):
                 service.install_local("deb", str(foreign))
             self.assertEqual(len(service.transactions_for("deb")), 1)
 
-    def test_host_entry_change_fails_verification_without_removing_the_package(self):
+    def test_host_entry_change_is_audited_without_misreporting_the_package(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             service, runtime = package_service(root, observer=FlipHost())
             make_env(service, runtime, "debian13", "deb")
             txn = service.install_packages("deb", ["hello"], use_argv=["hello"])
-            self.assertEqual(txn["phase"], "failed")
-            self.assertEqual(txn["failure_phase"], "verification")
+            self.assertEqual(txn["phase"], "completed")
+            self.assertIsNone(txn["failure_phase"])
+            self.assertEqual(txn['isolation_observation']['status'], 'changed')
             self.assertEqual(txn["host_entries"]["added"], ["b.desktop"])
             self.assertEqual(service.inspect("deb")["content_revision"], 2)
             self.assertTrue(service.query_package("deb", "hello")["present"])
             inventory = (root / service.inspect("deb")["package_inventory_path"]).read_text()
             self.assertTrue(inventory_has(inventory, "hello"))
 
-    def test_unavailable_host_observer_fails_verification(self):
+    def test_unavailable_host_observer_remains_explicit_in_audit(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             service, runtime = package_service(root, observer=BlindHost())
             make_env(service, runtime, "debian13", "deb")
             txn = service.install_packages("deb", ["hello"], use_argv=["hello"])
-            self.assertEqual(txn["failure_phase"], "verification")
-            self.assertIn("host package observer unavailable", txn["verification"]["isolation"])
+            self.assertIsNone(txn["failure_phase"])
+            self.assertIn("host package observer unavailable", txn['isolation_observation']['problems'])
             self.assertTrue(service.query_package("deb", "hello")["present"])
 
 

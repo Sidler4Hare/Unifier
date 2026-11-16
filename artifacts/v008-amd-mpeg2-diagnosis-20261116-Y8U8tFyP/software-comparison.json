@@ -1,0 +1,86 @@
+{
+  "auto": {
+    "status": "PASS",
+    "sha256": "a9b1d7631e7ba0b43da8c9ccc6a5be72745acb74d3c18a5084f0da26bce25b71",
+    "vs_original_software": {
+      "mae": 0.0,
+      "max": 0,
+      "exact": 18432
+    },
+    "vs_original_radeon": {
+      "mae": 0.8732096354166666,
+      "max": 12,
+      "exact": 10900
+    }
+  },
+  "simple": {
+    "status": "PASS",
+    "sha256": "a9b1d7631e7ba0b43da8c9ccc6a5be72745acb74d3c18a5084f0da26bce25b71",
+    "vs_original_software": {
+      "mae": 0.0,
+      "max": 0,
+      "exact": 18432
+    },
+    "vs_original_radeon": {
+      "mae": 0.8732096354166666,
+      "max": 12,
+      "exact": 10900
+    }
+  },
+  "int": {
+    "status": "PASS",
+    "sha256": "7528ba4e573561641e60d1e841a479625eb8d30aee72fc8c72cb4c5da7720950",
+    "vs_original_software": {
+      "mae": 0.016330295138888888,
+      "max": 1,
+      "exact": 18131
+    },
+    "vs_original_radeon": {
+      "mae": 0.8757595486111112,
+      "max": 12,
+      "exact": 10890
+    }
+  },
+  "xvid": {
+    "status": "PASS",
+    "sha256": "ebe2415b0ce90f72d896aa1cf1476a14179a6a6b8c210fb32455698f573748f2",
+    "vs_original_software": {
+      "mae": 0.010687934027777778,
+      "max": 1,
+      "exact": 18235
+    },
+    "vs_original_radeon": {
+      "mae": 0.8747829861111112,
+      "max": 12,
+      "exact": 10882
+    }
+  },
+  "planar": {
+    "status": "PASS",
+    "sha256": "a9b1d7631e7ba0b43da8c9ccc6a5be72745acb74d3c18a5084f0da26bce25b71",
+    "vs_original_software": {
+      "mae": 0.0,
+      "max": 0,
+      "exact": 18432
+    },
+    "vs_original_radeon": {
+      "mae": 0.8732096354166666,
+      "max": 12,
+      "exact": 10900
+    }
+  },
+  "independent_software": {
+    "status": "PASS",
+    "sha256": "a9b1d7631e7ba0b43da8c9ccc6a5be72745acb74d3c18a5084f0da26bce25b71",
+    "vs_original_software": {
+      "mae": 0.0,
+      "max": 0,
+      "exact": 18432
+    },
+    "vs_original_radeon": {
+      "mae": 0.8732096354166666,
+      "max": 12,
+      "exact": 10900
+    }
+  }
+}

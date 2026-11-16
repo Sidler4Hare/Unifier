@@ -14,13 +14,17 @@ import re
 import secrets
 import select
 import signal
+import sqlite3
+import stat
 import subprocess
 import sys
 import time
 
+from unifier.cuda_device import CUDA_DIRECTORY, CUDA_LABEL, CUDA_LIBRARY, CudaDevice, require_cuda_identity
 from unifier.errors import UnifierError
 from unifier.exec_control import CONTROL_GUEST_FD, control_exec_argv
 from unifier.share_label import PRESERVE_HOST, volume_options
+from unifier.wayland import WaylandRefresh, is_managed_wayland_bind, start_with_refresh
 
 
 LABEL_PROJECT = "multilinux.project"
@@ -51,6 +55,7 @@ class CreateSpec:
     user_namespace: str = "rootless-default"
     devices: tuple[str, ...] = ()
     ipc: str = "private"
+    cuda: CudaDevice | None = None
 
 
 @dataclass(frozen=True)
@@ -69,6 +74,9 @@ class ContainerState:
     oom_killed: bool | None
     exit_code: int | None
     conmon_pid: int | None = None
+    bind_mounts: tuple[tuple[str, str, bool], ...] | None = None
+    mounts: tuple[tuple[str, str, bool, str], ...] = ()
+    cuda: str | None = None
 
 
 @dataclass(frozen=True)
@@ -107,7 +115,9 @@ shift
 for candidate in /usr/bin/python3 /bin/python3; do
     if [ -x "$candidate" ]; then exec "$candidate" -c "$source" "$@"; fi
 done
-if [ "$1" = run ]; then printf 'ERROR application-python3-unavailable\n' >&"$4"; fi
+case "$1" in
+    run|run-stop-children) printf 'ERROR application-python3-unavailable\n' >&"$4" ;;
+esac
 exit 125
 '''
 
@@ -415,6 +425,15 @@ def creation_argv(spec: CreateSpec) -> list[str]:
         if not re.fullmatch(r"(/dev/video[0-9]+|/dev/dri/(card|renderD)[0-9]+)", device):
             raise UnifierError("desktop device must be an explicit /dev/videoN camera or /dev/dri device")
         argv.extend(["--device", f"{device}:{device}:rw"])
+    if spec.cuda is not None:
+        if (spec.devices or spec.session_mounts or spec.selinux_label != 'default'
+                or spec.ipc != 'private' or spec.user_namespace != 'rootless-default'):
+            raise UnifierError('CUDA requires a headless private environment with its own device list')
+        for device in spec.cuda.nodes:
+            argv.extend(['--device', f'{device}:{device}:rw'])
+        argv.extend(['--label', CUDA_LABEL + '=' + json.dumps(spec.cuda.identity(), separators=(',', ':')),
+                     '--volume', spec.cuda.library + ':' + CUDA_LIBRARY + ':ro,nosuid,nodev',
+                     '--env', 'LD_LIBRARY_PATH=' + CUDA_DIRECTORY])
     for host, container in spec.mounts:
         volume = f"{host}:{container}"
         if share_options:
@@ -655,6 +674,15 @@ class SessionExecution:
 def container_state_from_inspect(name: str, data: dict) -> ContainerState:
     labels = (data.get("Config") or {}).get("Labels") or {}
     state = data.get("State") or {}
+    mounts = data.get("Mounts")
+    binds = None
+    if isinstance(mounts, list):
+        binds = tuple((mount["Source"], mount["Destination"], mount["RW"])
+                      for mount in mounts
+                      if isinstance(mount, dict) and mount.get("Type") == "bind"
+                      and isinstance(mount.get("Source"), str)
+                      and isinstance(mount.get("Destination"), str)
+                      and isinstance(mount.get("RW"), bool))
     return ContainerState(
         name=name,
         container_id=data.get("Id") or "",
@@ -670,7 +698,117 @@ def container_state_from_inspect(name: str, data: dict) -> ContainerState:
         oom_killed=state.get("OOMKilled"),
         exit_code=state.get("ExitCode"),
         conmon_pid=state.get("ConmonPid") or None,
+        bind_mounts=binds,
+        cuda=labels.get(CUDA_LABEL),
+        mounts=tuple(
+            (item.get("Source") or "", item["Destination"],
+             item.get("RW") is True, item.get("Type") or "")
+            for item in (mounts if isinstance(mounts, list) else [])
+            if isinstance(item, dict) and isinstance(item.get("Destination"), str)
+        ),
     )
+
+
+def validate_created_spec(spec: CreateSpec, expected_cid: str, data: dict,
+                          image: dict, saved: dict) -> None:
+    """Verify the supported unused rootless layout without starting it.
+
+    ImageDigest can name another manifest alias of the same cached image. The
+    locked reference must resolve to the exact image ID used by the container.
+    Resource quotas belong to the caller's execution policy, not CreateSpec.
+    """
+    if (not re.fullmatch(r'[0-9a-f]{64}', expected_cid) or spec.cuda is not None
+            or spec.session_mounts or spec.selinux_label != 'default'
+            or spec.user_namespace != 'rootless-default' or spec.ipc != 'private'
+            or spec.share_label_policy != PRESERVE_HOST):
+        raise UnifierError('resume-create supports only an explicit headless rootless layout')
+    cfg, hc, state = data.get('Config', {}), data.get('HostConfig', {}), data.get('State', {})
+    labels = cfg.get('Labels') or {}
+    expected_labels = {LABEL_PROJECT: spec.project, LABEL_ENV: spec.env_id, LABEL_ROLE: ROLE_ENVIRONMENT}
+    image_id = str(image.get('Id', '')).removeprefix('sha256:')
+    if (data.get('Id') != expected_cid or data.get('Name') != spec.name
+            or {key: value for key, value in labels.items() if key.startswith('multilinux.')} != expected_labels
+            or not re.fullmatch(r'[0-9a-f]{64}', image_id)
+            or str(data.get('Image', '')).removeprefix('sha256:') != image_id
+            or data.get('ImageName') != spec.image or cfg.get('Image') != spec.image
+            or spec.image not in (image.get('RepoDigests') or [])
+            or image.get('Os') != 'linux' or image.get('Architecture') != 'amd64'):
+        raise UnifierError('resume-create container ownership or locked image differs')
+    zero_time = '0001-01-01T00:00:00Z'
+    # conmon can report a pre-start failure while the container remains unused.
+    # Keep that bounded diagnostic intact; execution history below is decisive.
+    diagnostic = state.get('Error', '')
+    if (state.get('Status') != 'created' or state.get('Running') is not False
+            or state.get('Pid') != 0 or state.get('StartedAt') != zero_time
+            or state.get('FinishedAt') != zero_time or state.get('ExitCode') != 0
+            or not isinstance(diagnostic, str) or len(diagnostic) > 4096
+            or any(state.get(key) for key in ('Paused', 'Restarting', 'OOMKilled', 'Dead'))
+            or data.get('RestartCount') != 0 or data.get('ExecIDs')
+            or data.get('Pod') or data.get('Dependencies') or data.get('IsInfra') or data.get('IsService')):
+        raise UnifierError('resume-create requires a never-started created container')
+    if (cfg.get('Entrypoint') != [SLEEPER] or cfg.get('Cmd') != ['infinity']
+            or data.get('Path') != '/run/podman-init' or data.get('Args') != ['--', SLEEPER, 'infinity']
+            or cfg.get('User') not in ('', '0', '0:0') or cfg.get('WorkingDir') not in ('', '/')
+            or cfg.get('StopTimeout') != 8 or hc.get('Init') is not True
+            or hc.get('NetworkMode') != spec.network or hc.get('IpcMode') != spec.ipc
+            or hc.get('PidMode') not in ('', 'private') or hc.get('UTSMode') not in ('', 'private')
+            or hc.get('UsernsMode') not in ('', 'private', 'host')
+            or hc.get('RestartPolicy', {}).get('Name') != 'no'
+            or any(hc.get(key) for key in ('Privileged', 'AutoRemove', 'ReadonlyRootfs', 'SecurityOpt',
+                'CapAdd', 'CapDrop', 'GroupAdd', 'VolumesFrom', 'PublishAllPorts', 'PortBindings',
+                'Devices', 'DeviceRequests', 'DeviceCgroupRules', 'CDIDevices', 'Tmpfs'))):
+        raise UnifierError('resume-create command or namespace configuration differs')
+    expected_env = set((image.get('Config') or {}).get('Env') or []) | {'container=podman'}
+    # A failed pre-start attempt can persist Podman's defaults in inspect even
+    # while the saved OCI environment remains the original image environment.
+    defaults = {'HOME=/root', 'HOSTNAME=' + expected_cid[:12]}
+    if (cfg.get('Hostname') != expected_cid[:12]
+            or not expected_env <= set(cfg.get('Env') or []) <= expected_env | defaults):
+        raise UnifierError('resume-create environment differs from the cached image')
+    mounts = data.get('Mounts') or []
+    if (len(mounts) != len(spec.mounts)
+            or sorted((m.get('Source'), m.get('Destination')) for m in mounts) != sorted(spec.mounts)
+            or any(m.get('Type') != 'bind' or m.get('RW') is not True
+                   or m.get('Mode') not in ('', None) for m in mounts)):
+        raise UnifierError('resume-create shared mounts differ')
+    if (saved.get('id') != expected_cid or saved.get('name') != spec.name
+            or saved.get('staticDir') != data.get('StaticDir')
+            or saved.get('rootfsImageID') != image_id or saved.get('rootfsImageName') != spec.image):
+        raise UnifierError('resume-create saved native identity differs')
+    oci = saved['spec']
+    linux, process = oci.get('linux', {}), oci.get('process', {})
+    namespaces = linux.get('namespaces') or []
+    namespace_types = [item.get('type') for item in namespaces]
+    if (oci.get('hooks') or linux.get('devices')
+            or not {'pid', 'network', 'ipc', 'uts', 'mount'} <= set(namespace_types)
+            or len(namespace_types) != len(set(namespace_types))
+            or set(namespace_types) - {'pid', 'network', 'ipc', 'uts', 'mount', 'cgroup', 'user'}
+            or any(item.get('path') for item in namespaces)
+            or process.get('args') != ['/run/podman-init', '--', SLEEPER, 'infinity']
+            or process.get('user') != {'uid': 0, 'gid': 0}
+            or set(process.get('env') or []) != expected_env):
+        raise UnifierError('resume-create saved rootless execution layout differs')
+    shares, devices, init_count = [], [], 0
+    for mount in oci.get('mounts', []):
+        if mount.get('type') != 'bind':
+            continue
+        pair = (mount.get('source'), mount.get('destination'))
+        options = set(mount.get('options') or [])
+        if pair in spec.mounts:
+            if options != {'rprivate', 'rbind'}:
+                raise UnifierError('resume-create saved shared mount options differ')
+            shares.append(pair)
+        elif pair[0] in spec.devices and pair[1] == pair[0]:
+            if options != {'slave', 'nosuid', 'noexec', 'rw', 'rbind'}:
+                raise UnifierError('resume-create saved device permissions differ')
+            devices.append(pair[0])
+        elif (pair[0] in {'/usr/libexec/podman/catatonit', '/usr/libexec/catatonit/catatonit', '/usr/bin/catatonit'}
+              and pair[1] == '/run/podman-init' and options == {'bind', 'ro', 'private'}):
+            init_count += 1
+        else:
+            raise UnifierError('resume-create has an unexpected saved host bind')
+    if sorted(shares) != sorted(spec.mounts) or sorted(devices) != sorted(spec.devices) or init_count != 1:
+        raise UnifierError('resume-create saved mount/device set differs')
 
 
 class PodmanRuntime:
@@ -682,29 +820,31 @@ class PodmanRuntime:
         self.application_state_root = ''
 
     def read_inventory_readonly(self, record):
-        """Read a stopped Debian DB without starting or execing the peer.
+        """Read a supported stopped DB without starting or execing the peer.
 
         The helper acquires/releases one journaled storage mount reference.
-        Running peers, other backends and ambiguous storage journals refuse
+        Running peers, unsupported layouts and ambiguous storage journals refuse
         before any package write. Real use requires T2 storage admission.
         """
         from unifier.package_inventory import (
             InventoryObservation, MAX_INVENTORY_BYTES, observation,
         )
-        from unifier.packages import driver_for
+        from unifier.inventory_backends import backend_for
+        from unifier.package_inventory import InventoryUnsupported
         from unifier.view_journal import read_journal
-        if driver_for(record).name != 'apt':
-            return observation(record, status='unsupported', database=driver_for(record).name,
-                               reason='read-only database adapter is not implemented for this backend')
+        try:
+            database, _, _ = backend_for(record, require_available=True)
+        except InventoryUnsupported as exc:
+            return observation(record, status='unsupported', database='unknown', reason=str(exc))
         runtime = record['runtime']
         cid = runtime['container_id']
         before = self._require_owned(runtime['container_name'], runtime['project'], record['id'])
         if before.container_id != cid:
-            return observation(record, status='unavailable', reason='peer container identity changed')
+            return observation(record, status='unavailable', database=database, reason='peer container identity changed')
         if before.running or before.status not in {'exited', 'created', 'configured', 'stopped'}:
-            return observation(record, status='unsupported', reason='running peer needs a consistent snapshot adapter')
+            return observation(record, status='unsupported', database=database, reason='running peer needs a consistent snapshot adapter')
         if not re.fullmatch(r'[0-9a-f]{64}', cid):
-            return observation(record, status='unavailable', reason='peer requires a full container ID')
+            return observation(record, status='unavailable', database=database, reason='peer requires a full container ID')
         directory = Path(runtime['project']) / '.lab/state/inventory-observations'
         directory.mkdir(parents=True, exist_ok=True, mode=0o700)
         journal = directory / (cid + '.json')
@@ -714,10 +854,10 @@ class PodmanRuntime:
             try:
                 fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
             except BlockingIOError:
-                return observation(record, status='unavailable', reason='peer inventory observer is busy')
+                return observation(record, status='unavailable', database=database, reason='peer inventory observer is busy')
             previous = read_journal(str(journal))
             if journal.exists() and (previous is None or previous.get('state') != 'released'):
-                return observation(record, status='unavailable', reason='inventory storage journal needs reconciliation')
+                return observation(record, status='unavailable', database=database, reason='inventory storage journal needs reconciliation')
             token = secrets.token_hex(16)
             minimal = {key: record[key] for key in ('id', 'target', 'schema_version',
                                                    'environment_uuid', 'generation')}
@@ -739,7 +879,41 @@ class PodmanRuntime:
                 raise UnifierError('peer container state changed during observation')
             return value
         except (OSError, ValueError, TypeError, UnifierError) as exc:
-            return observation(record, status='unavailable', reason=str(exc)[-500:])
+            return observation(record, status='unavailable', database=database, reason=str(exc)[-500:])
+        finally:
+            os.close(descriptor)
+
+    def recover_inventory_storage(self, record):
+        """Explicit recovery under the service's management/lifecycle locks."""
+        runtime = record['runtime']
+        cid = runtime['container_id']
+        info = self._require_owned(runtime['container_name'], runtime['project'], record['id'])
+        if info.container_id != cid or info.running:
+            raise UnifierError('inventory recovery requires the exact stopped instance')
+        if not re.fullmatch(r'[0-9a-f]{64}', cid):
+            raise UnifierError('inventory recovery requires a full CID')
+        directory = Path(runtime['project']) / '.lab/state/inventory-observations'
+        if not directory.exists():
+            return {'status': 'not-needed'}
+        descriptor = os.open(directory / (cid + '.lock'),
+                             os.O_CREAT | os.O_RDWR | os.O_CLOEXEC | os.O_NOFOLLOW, 0o600)
+        try:
+            fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            minimal = {key: record[key] for key in ('id', 'target', 'schema_version',
+                                                   'environment_uuid', 'generation')}
+            minimal['runtime'] = {key: runtime[key] for key in ('container_id', 'project')}
+            result = self.runner(
+                ['podman', 'unshare', sys.executable, str(Path(__file__).with_name('inventory_probe.py')),
+                 '--record', json.dumps(minimal), '--journal', str(directory / (cid + '.json')),
+                 '--recover'], capture=True, timeout=40)
+            if len(result.stdout or '') > 65536:
+                raise UnifierError('inventory recovery output exceeds budget')
+            value = json.loads(result.stdout)
+            if not isinstance(value, dict) or 'status' not in value:
+                raise UnifierError('inventory recovery returned an invalid result')
+            if result.returncode and value['status'] != 'unresolved':
+                raise UnifierError('inventory recovery helper failed')
+            return value
         finally:
             os.close(descriptor)
 
@@ -754,6 +928,44 @@ class PodmanRuntime:
         if not container_id:
             raise UnifierError("podman create did not return a container id")
         return container_id
+
+    def verify_created(self, spec: CreateSpec, expected_container_id: str) -> ContainerState:
+        """Read one exact unused container and its cached image; never adopt by name."""
+        self._ensure_rootless()
+        if not re.fullmatch(r'[0-9a-f]{64}', expected_container_id):
+            raise UnifierError('resume-create requires one complete container ID')
+        def read(argv):
+            result = self.runner(argv, capture=True, timeout=20)
+            if result.returncode or len(result.stdout or '') > 2 * 1024**2:
+                raise UnifierError('resume-create native metadata is unavailable or too large')
+            return json.loads(result.stdout)
+        data, = read(['podman', 'inspect', '--format', 'json', expected_container_id])
+        image = read(['podman', 'image', 'inspect', '--format', '{{json .}}', spec.image])
+        saved = self._created_configuration(data, expected_container_id)
+        validate_created_spec(spec, expected_container_id, data, image, saved)
+        return container_state_from_inspect(spec.name, data)
+
+    def _created_configuration(self, data: dict, cid: str) -> dict:
+        # Before first start there is no live config.json. Read only this CID's
+        # saved OCI row, without mounting storage or asking Podman to init it.
+        directory = Path(data.get('StaticDir') or '')
+        if (not directory.is_absolute() or '..' in directory.parts or directory.name != 'userdata'
+                or directory.parent.name != cid or directory.parent.parent.name != 'overlay-containers'):
+            raise UnifierError('resume-create native configuration path is unbound')
+        database = directory.parents[2] / 'db.sql'
+        value = database.lstat()
+        if not stat.S_ISREG(value.st_mode) or value.st_uid != os.getuid() or value.st_size > 128 * 1024**2:
+            raise UnifierError('resume-create native configuration database is untrusted')
+        connection = sqlite3.connect(database.as_uri() + '?mode=ro', uri=True, timeout=2)
+        try:
+            connection.execute('PRAGMA query_only=ON')
+            row = connection.execute('SELECT JSON FROM ContainerConfig WHERE ID=? AND length(JSON)<=?',
+                                     (cid, 2 * 1024**2)).fetchone()
+        finally:
+            connection.close()
+        if row is None:
+            raise UnifierError('resume-create saved configuration is unavailable')
+        return json.loads(row[0])
 
     def inspect(self, name: str) -> ContainerState | None:
         self._ensure_rootless()
@@ -772,8 +984,27 @@ class PodmanRuntime:
             return None
         return container_state_from_inspect(name, payload[0])
 
-    def start(self, name: str, *, project: str, env_id: str) -> None:
-        self._require_owned(name, project, env_id)
+    def start(self, name: str, *, project: str, env_id: str,
+              wayland: WaylandRefresh | None = None) -> None:
+        info = self._require_owned(name, project, env_id)
+        if info.cuda is not None:
+            try:
+                identity = json.loads(info.cuda)
+            except (TypeError, ValueError) as exc:
+                raise UnifierError('CUDA container identity is invalid') from exc
+            cuda = require_cuda_identity(identity)
+            if (cuda.library, CUDA_LIBRARY, False) not in (info.bind_mounts or ()):
+                raise UnifierError('CUDA driver bind is missing or writable')
+            name = info.container_id
+        if wayland is not None:
+            if (name != info.container_id or not re.fullmatch(r"[0-9a-f]{64}", name)
+                    or not is_managed_wayland_bind(info.mounts, wayland.old)):
+                raise UnifierError("container identity or saved Wayland bind changed before start")
+            try:
+                start_with_refresh(self._check, name, wayland)
+            except (OSError, ValueError) as exc:
+                raise UnifierError(f"cannot refresh Wayland mount: {exc}") from exc
+            return
         self._check(["podman", "start", name], timeout=40, action="start")
 
     def stop(self, name: str, *, project: str, env_id: str) -> None:
@@ -912,7 +1143,8 @@ class PodmanRuntime:
                            user: str | None = None, interactive: bool = True,
                            tty: bool = False, on_spawn=None,
                            control_timeout: float = CONTROL_READY_SECONDS,
-                           ownership: str = 'process', execution_token: str | None = None
+                           ownership: str = 'process', execution_token: str | None = None,
+                           application_exit_policy: str = 'wait'
                            ) -> SessionExecution:
         """Start one exec and require a real guest identity before returning.
 
@@ -929,6 +1161,10 @@ class PodmanRuntime:
         crun host accept.  READY never travels on stdout, so the proxy's stdout
         and stderr stay whatever the command produced.
         """
+        if application_exit_policy not in ('wait', 'stop-children'):
+            raise UnifierError('unsupported application exit policy')
+        if application_exit_policy != 'wait' and ownership != 'subreaper-v1':
+            raise UnifierError('application exit policy requires process-tree ownership')
         self._require_owned(name, project, env_id)
         if ownership not in {'process', 'subreaper-v1'}:
             raise UnifierError('unsupported execution ownership protocol')
@@ -940,7 +1176,8 @@ class PodmanRuntime:
             # ``pass_fds`` makes the write end inheritable in the child only.
             # Flipping the flag on the parent's own descriptor would leak this
             # pipe into unrelated subprocesses started by other threads.
-            guest = (application_guest_argv('run', token, CONTROL_FD, *argv,
+            mode = 'run-stop-children' if application_exit_policy == 'stop-children' else 'run'
+            guest = (application_guest_argv(mode, token, CONTROL_FD, *argv,
                                            state_root=self.application_state_root)
                      if ownership == 'subreaper-v1' else
                      guest_session_argv(argv, token=token, control_fd=CONTROL_FD, tty=tty))
@@ -980,9 +1217,10 @@ class PodmanRuntime:
         return SessionExecution(self, name=name, project=project, env_id=env_id,
                                 process=process, guest=identity, user=user)
 
-    def start_application_exec(self, name, argv, *, token, **kwargs):
+    def start_application_exec(self, name, argv, *, token, exit_policy='wait', **kwargs):
         return self.start_session_exec(name, argv, ownership='subreaper-v1',
-                                       execution_token=token, **kwargs)
+                                       execution_token=token,
+                                       application_exit_policy=exit_policy, **kwargs)
 
     def observe_application(self, name, token, *, project, env_id, user=None):
         try:

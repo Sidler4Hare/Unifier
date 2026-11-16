@@ -231,6 +231,37 @@ def _files_mounted(record: dict, files: str) -> bool:
     return False
 
 
+def _shared_directories(record: dict, binds) -> list[dict]:
+    """List the declared user directories, checked against Podman inspect."""
+    shares = []
+    for mount in record.get("shared_mounts") or []:
+        host, guest = mount["host"], mount["container"]
+        path = Path(host)
+        matching = [rw for source, destination, rw in (binds or ())
+                    if source == host and destination == guest]
+        status = "unverified" if binds is None else "not-bound"
+        if len(matching) == 1:
+            status = ("available" if path.is_dir() and path.resolve() == path
+                      and os.access(path, os.R_OK | os.X_OK)
+                      else "unavailable")
+        shares.append({"host": host, "guest": guest, "status": status,
+                       "writable": (status == "available" and matching[0]
+                                    and "ro" not in (mount.get("options") or "").split(",")
+                                    and os.access(path, os.W_OK | os.X_OK))})
+    return shares
+
+
+def _select_shared_directory(shares: list[dict], private: Path, *,
+                             writable: bool = False) -> tuple[str | None, bool]:
+    paths = {share["host"] for share in shares if share["status"] == "available"
+             and (not writable or share["writable"])}
+    if str(private) in paths:
+        return str(private), False
+    if len(paths) == 1:
+        return next(iter(paths)), False
+    return None, len(paths) > 1
+
+
 def _load_state(ctx: Context) -> dict:
     try:
         return ctx.state.load()
@@ -355,8 +386,9 @@ def _target_runtime_facts(ctx: Context, target: str, state: dict) -> dict:
         derived_state = item.get("state")
 
     files = _files_dir(ctx, target)
-    mounted = bool(record_valid and runtime_state in {"running", "stopped"}
-                   and _files_mounted(record, str(files)))
+    shares = _shared_directories(record or {}, (view or {}).get("runtime_bind_mounts"))
+    mounted = any(share["host"] == str(files)
+                  and share["status"] in {"available", "unavailable"} for share in shares)
     failure = item.get("failure")
     if failure is None and configured and derived_state in {"missing", "failed"}:
         failure = {"phase": "record", "detail": service_error or "environment is missing"}
@@ -372,6 +404,7 @@ def _target_runtime_facts(ctx: Context, target: str, state: dict) -> dict:
         "state": derived_state,
         "container_label": container,
         "files_mounted": mounted,
+        "shared_directories": shares,
         "failure": failure,
         "error": service_error,
     }
@@ -987,6 +1020,7 @@ def _dirs_payload(ctx: Context, state: dict, targets: list[str]) -> list[dict]:
         item = state["targets"].get(target) or {}
         facts = _target_runtime_facts(ctx, target, state)
         files = _files_dir(ctx, target)
+        shared_files_dir, _ = _select_shared_directory(facts["shared_directories"], files)
         view_state = ctx.t("dirs.view_unmounted")
         view_path = None
         if (facts["record_valid"] and facts["service"] is not None
@@ -1009,6 +1043,8 @@ def _dirs_payload(ctx: Context, state: dict, targets: list[str]) -> list[dict]:
             "directory": str(_target_dir(ctx, target)),
             "files_dir": str(files),
             "files_mounted": facts["files_mounted"],
+            "shared_directories": facts["shared_directories"],
+            "shared_files_dir": shared_files_dir,
             "view_state": view_state,
             "view_path": view_path,
             "source": item.get("source"),
@@ -1047,9 +1083,18 @@ def cmd_dirs(ctx: Context, argv: list[str]) -> int:
             state_label = f"{ctx.t('status.failed')}: {row['error']}"
         ctx.print(ctx.t("dirs.target", target=row["target"],
                         path=row["directory"], state=state_label))
-        ctx.print(ctx.t("dirs.files", path=row["files_dir"]))
-        ctx.print(ctx.t("dirs.files_mounted") if row["files_mounted"]
-                  else ctx.t("dirs.files_unmounted"))
+        if not row["files_mounted"]:
+            ctx.print(ctx.t("dirs.files_unmounted"))
+        for share in row["shared_directories"]:
+            status = share["status"]
+            if status == "available":
+                status = "writable" if share["writable"] else "read-only"
+            ctx.print(ctx.t("dirs.share", host=share["host"], guest=share["guest"],
+                            status=ctx.t(f"dirs.share.{status}")))
+        if not row["shared_directories"]:
+            ctx.print(ctx.t("dirs.share.none"))
+        if row["shared_files_dir"]:
+            ctx.print(ctx.t("dirs.share.selected", path=row["shared_files_dir"]))
         ctx.print(ctx.t("dirs.rootfs", state=row["view_state"]))
     return 0
 
@@ -1058,6 +1103,7 @@ def cmd_path(ctx: Context, argv: list[str]) -> int:
     parser = _Parser(prog="unifier path")
     parser.add_argument("target")
     parser.add_argument("--files", action="store_true", required=True)
+    parser.add_argument("--writable", action="store_true")
     args = parser.parse_args(argv)
     if args.target not in target_names():
         raise UnifierError(ctx.t("dirs.unknown", target=args.target,
@@ -1066,14 +1112,15 @@ def cmd_path(ctx: Context, argv: list[str]) -> int:
     item = state["targets"].get(args.target) or {}
     if not _configured(item):
         raise UnifierError(ctx.t("path.not_configured", target=args.target))
-    service = ctx.service_for(args.target, state)
-    if not service.store.exists(_env_id(state, args.target)):
+    facts = _target_runtime_facts(ctx, args.target, state)
+    if facts["missing"]:
         raise UnifierError(ctx.t("path.not_configured", target=args.target))
-    files = _files_dir(ctx, args.target)
-    if not files.is_dir():
-        raise UnifierError(ctx.t("path.missing", target=args.target,
-                                     path=str(files)))
-    ctx.print(str(files))
+    path, ambiguous = _select_shared_directory(
+        facts["shared_directories"], _files_dir(ctx, args.target), writable=args.writable)
+    if path is None:
+        key = "path.ambiguous" if ambiguous else "path.no_share"
+        raise UnifierError(ctx.t(key, target=args.target))
+    ctx.print(path)
     return 0
 
 
@@ -1253,21 +1300,43 @@ def _app_id(executable: str, explicit: str | None,
     if explicit:
         return explicit
     name = (suggested or Path(executable).name).lower()
-    name = re.sub(r"[^a-z0-9.-]+", "-", name).strip("-.")
+    # The record store keeps application ids to lowercase letters, digits and
+    # hyphens.  A dotted desktop id such as com.alibabainc.dingtalk folds into
+    # hyphens here instead of producing an id the store would reject later.
+    name = re.sub(r"[^a-z0-9]+", "-", name).strip("-")
     if not name:
         name = "app"
+    elif not "a" <= name[0] <= "z":
+        name = f"app-{name}"
     return name[:32].rstrip("-") or "app"
 
 
 def _internal_app_id(target: str, alias: str) -> str:
     digest = hashlib.sha1((target + ":" + alias).encode("utf-8")).hexdigest()[:6]
-    prefix = alias[:25].rstrip("-") or "app"
-    return f"{prefix}-{digest}"
+    prefix = re.sub(r"[^a-z0-9]+", "-", alias.lower()).strip("-") or "app"
+    if not "a" <= prefix[0] <= "z":
+        prefix = f"app-{prefix}"
+    return f"{(prefix[:25].rstrip('-') or 'app')}-{digest}"
 
 
 def _launch_matches(launch: dict, executable: str, argv: list[str]) -> bool:
     return (launch.get("executable") == executable
             and list(launch.get("argv") or []) == list(argv))
+
+
+def _can_register_after_dependency_failure(txn: dict) -> bool:
+    verification = txn.get("verification") or {}
+    packages = verification.get("packages") or {}
+    repair = txn.get("dependency_repair") or {}
+    return (txn.get("phase") == "failed"
+            and txn.get("failure_phase") == "dependency-repair"
+            and txn.get("recovery_required") is False
+            and txn.get("inventory_status") == "verified"
+            and not verification.get("isolation")
+            and repair.get("status") == "unresolved"
+            and (bool(repair.get("unresolved"))
+                 or (repair.get("scope") == "package-elf-needed" and bool(repair.get("error"))))
+            and bool(packages) and all(value is True for value in packages.values()))
 
 
 def _publish_installed_menu(ctx: Context, service, launch: dict, alias: str,
@@ -1280,7 +1349,8 @@ def _publish_installed_menu(ctx: Context, service, launch: dict, alias: str,
     """
     from unifier.app_entries import host_menu_icon
     exported = launch.get("export") or {}
-    if exported.get("desktop_path"):
+    desktop_path = exported.get("desktop_path")
+    if desktop_path and os.path.isfile(desktop_path):
         ctx.print(ctx.t("install.menu_kept", app=alias))
         return launch
     if menu and (menu.get("no_display") or menu.get("hidden")):
@@ -1369,16 +1439,29 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
     except UnifierError as exc:
         raise UnifierError(ctx.t("install.failed", target=target,
                                      detail=str(exc))) from exc
+    deferred = 0
+    from unifier.package_observation import warning
+    if message := warning(txn):
+        ctx.error(message)
     if txn.get("phase") != "completed":
         detail = txn.get("native_error") or txn.get("failure_phase") or "failed"
         ctx.error(ctx.t("install.transaction_failed",
                         phase=txn.get("failure_phase") or "unknown",
                         detail=detail))
-        if args.json:
-            _emit(ctx, {"schema_version": 1, "target": target,
-                        "environment_id": env_id, "transaction": txn})
-        return int(txn.get("exit_code") or 1)
-    ctx.print(ctx.t("install.transaction_ok", transaction=txn.get("id")))
+        if not _can_register_after_dependency_failure(txn):
+            if args.json:
+                _emit(ctx, {"schema_version": 1, "target": target,
+                            "environment_id": env_id, "transaction": txn})
+            return int(txn.get("exit_code") or 1)
+        # The package transaction itself succeeded and only the automatic
+        # runtime-library repair failed to converge, so the entry is still
+        # registered and published below while the command keeps failing.
+        deferred = int(txn.get("exit_code") or 1)
+        unresolved = (txn.get("dependency_repair") or {}).get("unresolved") or []
+        ctx.print(ctx.t("install.deps_unresolved",
+                        libraries=", ".join(unresolved) or detail))
+    else:
+        ctx.print(ctx.t("install.transaction_ok", transaction=txn.get("id")))
     if (txn.get('dependency_repair') or {}).get('status') == 'bundled-candidates-unverified':
         ctx.print(ctx.t('install.bundled_unverified'))
 
@@ -1442,7 +1525,7 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
                 on_demand=True, desktop_required=False)
         except UnifierError as exc:
             ctx.error(ctx.t("install.entry_missing", target=target,
-                            executable=executable))
+                                executable=executable, detail=str(exc)))
             if args.json:
                 _emit(ctx, {"schema_version": 1, "target": target,
                             "environment_id": env_id, "transaction": txn,
@@ -1470,7 +1553,7 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
                     "menu": exported.get("desktop_path")})
     else:
         ctx.print(ctx.t("install.app_name", app=alias))
-    return 0
+    return deferred
 
 
 def _launch_targets(ctx: Context, state: dict, app_id: str) -> list[str]:
@@ -2146,11 +2229,13 @@ _HELP = {
                ["unifier dirs", "unifier dirs debian13 --json"]),
     },
     "path": {
-        "zh-CN": ("unifier path TARGET --files",
-                  [("--files", "只输出该发行版专用 files/ 的真实绝对路径。")],
+        "zh-CN": ("unifier path TARGET --files [--writable]",
+                  [("--files", "只输出已核验的宿主共享目录。优先专用目录，其次唯一可用共享目录。"),
+                   ("--writable", "仅选择可写目录。")],
                   ["unifier path debian13 --files"]),
-        "en": ("unifier path TARGET --files",
-               [("--files", "print only the real absolute per-distribution files/ path.")],
+        "en": ("unifier path TARGET --files [--writable]",
+               [("--files", "print the verified private share or the only available shared directory."),
+                ("--writable", "select a writable directory only.")],
                ["unifier path debian13 --files"]),
     },
     "ls": {
@@ -2171,7 +2256,7 @@ _HELP = {
                       ("--app ID", "应用登记标识；默认取入口 basename。"),
                       ("--package NAME", "本地包的已安装包名，用于从包文件发现入口。"),
                       ("--gui", "声明桌面应用；无桌面容器会拒绝而不是静默运行。"),
-                      ("软件列表", "安装成功后写入宿主应用菜单。不改文件的默认打开方式；安装包标明不显示的入口不会写入。"),
+                      ("软件列表", "安装成功后写入宿主应用菜单。不改文件的默认打开方式；安装包标明不显示的入口不会写入。只有自动补运行库没有收敛时，包仍会登记并写入软件列表，但命令仍以失败退出。"),
                   ],
                   ["unifier install ./软件.deb --exec /usr/bin/freecad",
                    "unifier install --target arch freecad --exec /usr/bin/freecad"]),
@@ -2182,7 +2267,7 @@ _HELP = {
                    ("--app ID", "registered application id; defaults to the entry basename."),
                    ("--package NAME", "installed package name for a local file, used for entry discovery."),
                    ("--gui", "declare a desktop application; a headless container is refused rather than run silently."),
-                   ("application menu", "a successful install adds a host menu entry. File associations stay unchanged, and an entry the package marks hidden is not added."),
+                   ("application menu", "a successful install adds a host menu entry. File associations stay unchanged, and an entry the package marks hidden is not added. When only the automatic runtime-library repair fails to converge, the package is still registered and added to the menu, while the command keeps its failing exit status."),
                ],
                ["unifier install ./software.deb --exec /usr/bin/freecad",
                 "unifier install --target arch freecad --exec /usr/bin/freecad"]),

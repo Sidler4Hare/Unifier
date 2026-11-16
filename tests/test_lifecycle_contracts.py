@@ -362,7 +362,7 @@ class LeaseRelease(unittest.TestCase):
 
             with patch.object(on_demand, 'start_bridge',
                               return_value={'pid': 7, 'stamp': 8, 'socket': None}), \
-                 patch.object(on_demand, 'stop_bridge', side_effect=stopped.append), \
+                 patch.object(on_demand, 'stop_bridge', side_effect=lambda bridge, **_: stopped.append(bridge)), \
                  patch.object(service, 'start', fail):
                 with self.assertRaisesRegex(UnifierError, 'start failed'):
                     group.acquire('notes')
@@ -489,8 +489,8 @@ def _real_stamp_factory(pool):
     real = process_stamp
 
     def stamp(pid):
-        if pid in pool.alive:
-            return 'stamp-' + str(pid)
+        if type(pid) is int and pool.FIRST_PID <= pid <= pool.next_pid:
+            return pid if pid in pool.alive else None
         return real(pid)
 
     return stamp
@@ -516,11 +516,13 @@ class FakeProcess:
 class ProxyPool:
     """A fake xdg-dbus-proxy that really binds the AF_UNIX socket."""
 
+    FIRST_PID = 8101
+
     def __init__(self):
         self.commands = []
         self.alive = {}
         self.servers = []
-        self.next_pid = 8100
+        self.next_pid = self.FIRST_PID - 1
 
     def __call__(self, command, **kwargs):
         self.commands.append((list(command), dict(kwargs)))
