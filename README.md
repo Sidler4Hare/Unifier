@@ -2,9 +2,9 @@
 
 Unifier 在共享宿主内核上运行 Debian 13、Fedora 44 和 Arch 的原生用户空间，各自保留 apt、dnf、pacman。
 
-本机日常版为 **v0.0.7**，包含三目标停止态包清单、原生事务与恢复，以及统一文件访问与授权。正式包来自已验收的 0.0.7.dev0 候选。[v0.0.7 版本说明](docs/v0.0.7.md)
+当前开发候选为 **v0.0.8 Beta 1**（CLI 版本 `0.0.8b1`）。上一正式版本 v0.0.7 包含三目标停止态包清单、原生事务与恢复，以及统一文件访问与授权。正式包来自已验收的 0.0.7.dev0 候选。[v0.0.7 版本说明](docs/v0.0.7.md) · [v0.0.8 真实功能验收计划](设计/v0.0.8-真实功能验收计划-2026-11-17.md)
 
-能力、验收与发布状态统一见 [当前状态](docs/当前状态.md)。正式 v0.0.6 的不可变来源清单在 [release-baseline.json](config/release-baseline.json)；后续源码包记录实际文件摘要和基线来源。真实验收仍按目标、功能与具体版本分别记录。
+能力、验收与发布状态统一见 [当前状态](docs/当前状态.md)。正式 v0.0.7 的不可变来源清单在 [release-baseline.json](config/release-baseline.json)；后续源码包记录实际文件摘要和基线来源。真实验收仍按目标、功能与具体版本分别记录。
 
 现行代码在 `src/unifier`。用户入口是 `unifier`（`bin/unifier`，本机已装到 `~/.local/bin/unifier`）。诊断入口是 `python3 tools/unifier.py`。`tools/ml.py` 和 `python -m multilinux` 进入同一实现。布局、证据位置和仍保留的旧标识见 [docs/布局.md](docs/布局.md)。
 
@@ -23,7 +23,7 @@ Unifier 在共享宿主内核上运行 Debian 13、Fedora 44 和 Arch 的原生�
 
 ## 本机日常环境
 
-日常容器是 Arch FreeCAD `ml-53c5c8a5-freecad-arch` 和 Debian 腾讯会议 `ml-6b061a2f-meeting`。临时测试环境在结束时按容器身份清理。
+上一套日常安装使用 Arch FreeCAD `ml-53c5c8a5-freecad-arch` 和 Debian 腾讯会议 `ml-6b061a2f-meeting`，现行安装状态见[当前状态](docs/当前状态.md)。临时测试环境在结束时按容器身份清理。
 
 Btrfs 上的数据根用文件系统 UUID、子卷身份和目录 inode 识别。见 [腾讯会议目录身份](设计/腾讯会议跨重启目录身份修复-2026-10-28.md)。
 
@@ -58,6 +58,13 @@ python3 tools/check_repo.py --staged
 0.0.7 开发版读取停止态 Fedora 包清单时，还需要运行 Unifier 的宿主 Python 能导入 `rpm` 模块（如 Ubuntu 的 `python3-rpm`）。缺少时明确返回 unsupported，不自动安装宿主软件。支持的数据库格式及限制见 [三目标包管理](docs/三目标包管理收口-20261112.md)。
 
 诊断命令还有 `env`、`pkg`、`app`、`project`、`file`、`view`、`res`。`env create` 的网络默认是 `none`，安装包时加 `--network pasta`。`--desktop` 挂接当前 Wayland、X11 和音频。新导出的桌面项调用 `tools/unifier.py`；已经导出的项里如果还写着 `tools/ml.py`，那条符号链接仍然可用。
+
+已经停止的 rootless Podman 桌面环境可以补配一个宿主有读写权限的 DRM render node。Unifier 在下次启动时挂载该字符设备，保留环境的容器 ID、代际和可写层。在对应安装根运行以下命令，撤销配置时用 `--clear`。
+
+```bash
+UNIFIER_HOME="$HOME/.local/share/unifier" unifier env render-node debian13 /dev/dri/renderD128
+UNIFIER_HOME="$HOME/.local/share/unifier" unifier env render-node debian13 --clear
+```
 
 准备镜像：
 
