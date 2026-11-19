@@ -275,6 +275,15 @@ class DependencyTransactions(unittest.TestCase):
 
 
 class DependencyParsing(unittest.TestCase):
+    def test_freecad_private_extension_is_a_valid_elf_name(self):
+        data = elf_record("/usr/lib/freecad/lib/_PartDesign.so",
+                          needed=["_PartDesign.so"], sonames=["_PartDesign.so"])
+        objects = parse_scan(data + "UNIFIER_SCAN_DONE\n")
+        self.assertEqual(objects[0]["needed"], ["_PartDesign.so"])
+        self.assertEqual(objects[0]["sonames"], ["_PartDesign.so"])
+        self.assertEqual(provider_command("arch", "_PartDesign.so")[-1],
+                         r"^usr/lib/_PartDesign\.so$")
+
     def test_all_native_provider_commands_are_literal_and_architecture_scoped(self):
         for target in ("debian13", "fedora44", "arch"):
             argv = provider_command(target, "libasound.so.2")

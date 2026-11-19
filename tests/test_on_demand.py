@@ -127,6 +127,12 @@ class DesktopAndRouting(unittest.TestCase):
             record = service.create('debian13', None, [], desktop=True, session=SESSION, gpu=True)
             self.assertEqual(record['runtime']['ipc'], 'host')
 
+    def test_desktop_honors_explicit_private_ipc(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            service, _runtime = desktop_service(Path(temporary))
+            record = service.create('debian13', None, [], desktop=True, session=SESSION, ipc='private')
+            self.assertEqual(record['runtime']['ipc'], 'private')
+
 
 if __name__ == '__main__':
     unittest.main()

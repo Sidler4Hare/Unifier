@@ -183,7 +183,7 @@ def desktop_entry(launcher: str, mimes: list[str]) -> str:
         "Name=Unifier Package",
         "Name[zh_CN]=Unifier 安装管理",
         "Comment=Open a foreign package in Unifier or hand it back to the host",
-        f"Exec={desktop_exec_quote(launcher)} offer %f",
+        f"Exec={desktop_exec_quote(launcher)} offer --keep-open %f",
         "Terminal=true",
         "NoDisplay=true",
         f"MimeType={mime_line}",

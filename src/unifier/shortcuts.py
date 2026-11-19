@@ -555,7 +555,7 @@ def _validate_adopted(ctx: Context, target: str, item: dict, service) -> dict:
 
 
 def _prepare_target(ctx: Context, state: dict, target: str, *,
-                    network: str, desktop: bool) -> bool:
+                    network: str, desktop: bool, no_portals: bool = False) -> bool:
     """Prepare one selected target under the caller's installation lock."""
     require_relationship(_target_relationship(ctx, target))
     from unifier.identity import identity
@@ -687,9 +687,10 @@ def _prepare_target(ctx: Context, state: dict, target: str, *,
         private_policy = _private_share_policy(ctx, target, files)
         if private_policy == "shared-relabel":
             ctx.error(ctx.t("init.private_label", path=str(files)))
+        portal_options = {"portals": None} if desktop and not no_portals else {}
         record = service.create(
             target, env_id, [str(files)], network=network, desktop=desktop,
-            user_namespace="keep-id", share_label_policy=private_policy)
+            user_namespace="keep-id", share_label_policy=private_policy, **portal_options)
         live = service.inspect(env_id)
         if live.get("runtime_state") != "stopped":
             raise UnifierError(
@@ -824,6 +825,8 @@ def cmd_init(ctx: Context, argv: list[str]) -> int:
     parser.add_argument("--yes", "-y", action="store_true")
     parser.add_argument("--desktop", dest="desktop", action="store_true", default=None)
     parser.add_argument("--no-desktop", dest="desktop", action="store_false")
+    parser.add_argument("--no-portals", action="store_true",
+                        help="skip the managed Portal bridge for newly created desktops")
     parser.add_argument("--network", choices=("pasta", "none"), default="pasta")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
@@ -843,7 +846,7 @@ def cmd_init(ctx: Context, argv: list[str]) -> int:
         failures = 0
         for target in selected:
             ok = _prepare_target(ctx, state, target, network=args.network,
-                                 desktop=desktop)
+                                 desktop=desktop, no_portals=args.no_portals)
             _save_state(ctx, state)
             state = _load_state(ctx)
             state["targets"][target]["selected"] = True
@@ -868,6 +871,8 @@ def cmd_configure(ctx: Context, argv: list[str]) -> int:
     parser.add_argument("--yes", "-y", action="store_true")
     parser.add_argument("--desktop", dest="desktop", action="store_true", default=None)
     parser.add_argument("--no-desktop", dest="desktop", action="store_false")
+    parser.add_argument("--no-portals", action="store_true",
+                        help="skip the managed Portal bridge for newly created desktops")
     parser.add_argument("--network", choices=("pasta", "none"), default="pasta")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
@@ -883,7 +888,7 @@ def cmd_configure(ctx: Context, argv: list[str]) -> int:
         failures = 0
         for target in selected:
             if not _prepare_target(ctx, state, target, network=args.network,
-                                   desktop=desktop):
+                                   desktop=desktop, no_portals=args.no_portals):
                 failures += 1
             state["targets"][target]["selected"] = True
             _save_state(ctx, state)
@@ -1388,6 +1393,7 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
     head, extra = _split_double_dash(argv)
     args = parser.parse_args(head)
     options = package_options(args, repair=True)
+    options["application_runtime"] = True
     state = _load_state(ctx)
     enabled = _enabled_targets(state)
     first = Path(args.items[0]).expanduser()
@@ -1448,6 +1454,10 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
         ctx.error(ctx.t("install.transaction_failed",
                         phase=txn.get("failure_phase") or "unknown",
                         detail=detail))
+        if guidance := txn.get("dependency_guidance"):
+            from unifier.package_install_diagnostics import guidance_messages
+            for message in guidance_messages(ctx.t, guidance, service.root):
+                ctx.error(message)
         if not _can_register_after_dependency_failure(txn):
             if args.json:
                 _emit(ctx, {"schema_version": 1, "target": target,
@@ -1481,6 +1491,7 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
     base_argv = None
     suggested = None
     menu = None
+    package_desktop_id = None
     if executable:
         executable = service.resolve_executable(env_id, executable)
         base_argv = [executable]
@@ -1494,6 +1505,7 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
         base_argv = list(choice.get("argv") or [executable])
         suggested = choice.get("desktop_id")
         menu = choice.get("menu")
+        package_desktop_id = choice.get("menu_desktop_id", suggested)
         source = choice.get("source") or "discovered"
         if not executable:
             raise UnifierError(ctx.t("install.entry_required",
@@ -1517,12 +1529,23 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
         launch = existing
         ctx.print(ctx.t("install.app_reused", app=alias))
     else:
+        from unifier.file_chooser import default_portal_profile
+
         as_host_user = record.get("runtime", {}).get("user_namespace") == "keep-id"
+        graphical = args.gui or (menu is not None and not menu.get("terminal"))
+        profile = default_portal_profile(
+            record, executable, desktop_id=package_desktop_id) if graphical else {}
+        execution = {}
+        if (graphical and target == "debian13" and args.package == "wps-office"
+                and full_argv == ["/usr/bin/wps"]):
+            # The foreground Writer launcher waits for the window. Its owned
+            # CEF and cloud helpers can keep the lease alive after it exits.
+            execution["exit_policy"] = "stop-children"
         try:
             launch = service.add_app(
                 env_id, internal_id, executable, full_argv,
                 alias=alias, as_host_user=as_host_user,
-                on_demand=True, desktop_required=False)
+                on_demand=True, desktop_required=False, env_overlay=profile, **execution)
         except UnifierError as exc:
             ctx.error(ctx.t("install.entry_missing", target=target,
                                 executable=executable, detail=str(exc)))
@@ -2011,6 +2034,7 @@ def cmd_offer(ctx: Context, argv: list[str], *, facts=None, handoff=None) -> int
     parser.add_argument("--setup", action="store_true")
     parser.add_argument("--remove", action="store_true")
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--keep-open", action="store_true")
     args = parser.parse_args(argv)
     modes = [args.yes, args.host, args.setup, args.remove]
     if sum(bool(item) for item in modes) > 1:
@@ -2054,7 +2078,7 @@ def cmd_offer(ctx: Context, argv: list[str], *, facts=None, handoff=None) -> int
     if args.host:
         return handoff(ctx, route["path"], mime)
     if args.yes:
-        return cmd_install(ctx, [route["path"]])
+        return _install_from_offer(ctx, route["path"], keep_open=args.keep_open and not args.json)
     if not ctx.is_tty():
         raise UnifierError(ctx.t("offer.noninteractive"))
     ctx.print(ctx.t("offer.title"))
@@ -2074,7 +2098,19 @@ def cmd_offer(ctx: Context, argv: list[str], *, facts=None, handoff=None) -> int
         raise UnifierError(ctx.t("offer.bad_choice")) from exc
     if choice == "host":
         return handoff(ctx, route["path"], mime)
-    return cmd_install(ctx, [route["path"]])
+    return _install_from_offer(ctx, route["path"], keep_open=args.keep_open and not args.json)
+
+
+def _install_from_offer(ctx: Context, path: str, *, keep_open: bool) -> int:
+    if not keep_open or not ctx.is_tty():
+        return cmd_install(ctx, [path])
+    code = _invoke_shortcut(ctx, cmd_install, [path])
+    ctx.print(ctx.t("offer.install_failed" if code else "offer.install_completed", code=code))
+    try:
+        ctx.ask(ctx.t("offer.install_close"))
+    except (EOFError, KeyboardInterrupt):
+        pass
+    return code
 
 
 def launcher_path():
@@ -2091,6 +2127,20 @@ def _split_double_dash(argv: list[str]) -> tuple[list[str], list[str]]:
         return list(argv), []
     index = argv.index("--")
     return list(argv[:index]), list(argv[index + 1:])
+
+
+def _invoke_shortcut(context, handler, argv):
+    try:
+        return handler(context, argv)
+    except UnifierError as exc:
+        text = str(exc)
+        if text.startswith("\x00argument\x00"):
+            text = context.t("error.arguments", detail=text[len("\x00argument\x00"):])
+        print(f"unifier: {text}", file=context.err)
+        return 1
+    except Exception as exc:  # runtime adapters may raise LabError or other RuntimeError
+        print(f"unifier: {exc}", file=context.err)
+        return 1
 
 
 def build_context(root: Path | None = None, *, out=None, err=None,
@@ -2151,17 +2201,7 @@ def main(argv: list[str], *, context: Context | None = None,
         context.out = out
     if context.err is sys.stderr and err is not None:
         context.err = err
-    try:
-        return handlers[command](context, argv[1:])
-    except UnifierError as exc:
-        text = str(exc)
-        if text.startswith("\x00argument\x00"):
-            text = context.t("error.arguments", detail=text[len("\x00argument\x00"):])
-        print(f"unifier: {text}", file=context.err)
-        return 1
-    except Exception as exc:  # runtime adapters also raise LabError/other RuntimeError
-        print(f"unifier: {exc}", file=context.err)
-        return 1
+    return _invoke_shortcut(context, handlers[command], argv[1:])
 
 
 # --------------------------------------------------------------------------
@@ -2276,12 +2316,14 @@ _HELP = {
         "zh-CN": ("unifier offer FILE | --setup | --remove",
                   [("--yes", "不询问，直接用 Unifier 安装。仅白名单跨派系包有效。"),
                    ("--host", "不询问，交给宿主原来的打开方式。"),
+                   ("--keep-open", "在专用安装终端中保留安装结果，等回车关闭。"),
                    ("--setup", "登记外来包的双击入口。宿主自己的包格式不登记。"),
                    ("--remove", "恢复登记前的宿主打开方式。")],
                   ["unifier offer ./软件.deb", "unifier offer --setup"]),
         "en": ("unifier offer FILE | --setup | --remove",
                [("--yes", "skip the question and install with Unifier. Only a cross-family whitelist package is accepted."),
                 ("--host", "skip the question and hand the file to the host opener."),
+                ("--keep-open", "keep the result in the installer terminal until Enter is pressed."),
                 ("--setup", "register the double-click entry for foreign packages. The host's own format is not registered."),
                 ("--remove", "restore the host openers saved before registration.")],
                ["unifier offer ./software.deb", "unifier offer --setup"]),

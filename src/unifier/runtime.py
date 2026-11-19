@@ -20,9 +20,15 @@ import subprocess
 import sys
 import time
 
+from unifier.camera_device import CameraDevice, require_no_native_camera, validate_saved_camera_mounts
 from unifier.cuda_device import CUDA_DIRECTORY, CUDA_LABEL, CUDA_LIBRARY, CudaDevice, require_cuda_identity
 from unifier.errors import UnifierError
 from unifier.exec_control import CONTROL_GUEST_FD, control_exec_argv
+from unifier.portal_mount import PortalMount, start_with_portal_mount, validate_saved_portal_mounts
+from unifier.render_node import (
+    STOPPED, RenderNode, require_no_native_drm, require_stopped, start_with_render_node,
+    validate_saved_mounts,
+)
 from unifier.share_label import PRESERVE_HOST, volume_options
 from unifier.wayland import WaylandRefresh, is_managed_wayland_bind, start_with_refresh
 
@@ -77,6 +83,7 @@ class ContainerState:
     bind_mounts: tuple[tuple[str, str, bool], ...] | None = None
     mounts: tuple[tuple[str, str, bool, str], ...] = ()
     cuda: str | None = None
+    device_destinations: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -109,10 +116,11 @@ class GuestProcess:
 # FD 3 is the only slot that is both fixed and reachable on runc and crun hosts.
 CONTROL_FD = CONTROL_GUEST_FD
 CONTROL_READY_SECONDS = 15.0
+APPLICATION_PYTHON_SEARCH = 'for candidate in /usr/bin/python3 /bin/python3; do'
 APPLICATION_BOOTSTRAP = r'''
 source=$1
 shift
-for candidate in /usr/bin/python3 /bin/python3; do
+''' + APPLICATION_PYTHON_SEARCH + r'''
     if [ -x "$candidate" ]; then exec "$candidate" -c "$source" "$@"; fi
 done
 case "$1" in
@@ -120,6 +128,13 @@ case "$1" in
 esac
 exit 125
 '''
+APPLICATION_PYTHON_MISSING = "unifier-application-python-missing"
+APPLICATION_PYTHON_CHECK = APPLICATION_PYTHON_SEARCH + r'''
+    if [ -x "$candidate" ]; then
+        exec "$candidate" -I -c 'import ctypes, json, pathlib'
+    fi
+done
+printf '%s\n' "''' + APPLICATION_PYTHON_MISSING + '"\n'
 
 
 def application_guest_argv(mode, token, *args, state_root=''):
@@ -675,6 +690,7 @@ def container_state_from_inspect(name: str, data: dict) -> ContainerState:
     labels = (data.get("Config") or {}).get("Labels") or {}
     state = data.get("State") or {}
     mounts = data.get("Mounts")
+    devices = (data.get("HostConfig") or {}).get("Devices") or ()
     binds = None
     if isinstance(mounts, list):
         binds = tuple((mount["Source"], mount["Destination"], mount["RW"])
@@ -700,6 +716,10 @@ def container_state_from_inspect(name: str, data: dict) -> ContainerState:
         conmon_pid=state.get("ConmonPid") or None,
         bind_mounts=binds,
         cuda=labels.get(CUDA_LABEL),
+        device_destinations=tuple(
+            item["PathInContainer"] for item in devices
+            if isinstance(item, dict) and isinstance(item.get("PathInContainer"), str)
+        ),
         mounts=tuple(
             (item.get("Source") or "", item["Destination"],
              item.get("RW") is True, item.get("Type") or "")
@@ -985,9 +1005,20 @@ class PodmanRuntime:
         return container_state_from_inspect(name, payload[0])
 
     def start(self, name: str, *, project: str, env_id: str,
-              wayland: WaylandRefresh | None = None) -> None:
+              wayland: WaylandRefresh | None = None,
+              render_node: RenderNode | None = None,
+              portal_mount: PortalMount | None = None,
+              camera: CameraDevice | None = None) -> None:
         info = self._require_owned(name, project, env_id)
+        if portal_mount is not None:
+            if (name != info.container_id or not re.fullmatch(r"[0-9a-f]{64}", name)
+                    or info.running or info.status not in STOPPED or info.bind_mounts is None):
+                raise UnifierError("Portal mount requires a stopped container with a full ID and known mounts")
         if info.cuda is not None:
+            if render_node is not None:
+                raise UnifierError("cannot add a DRM render node to a CUDA container")
+            if camera is not None:
+                raise UnifierError("cannot add a desktop camera to a CUDA container")
             try:
                 identity = json.loads(info.cuda)
             except (TypeError, ValueError) as exc:
@@ -1000,6 +1031,39 @@ class PodmanRuntime:
             if (name != info.container_id or not re.fullmatch(r"[0-9a-f]{64}", name)
                     or not is_managed_wayland_bind(info.mounts, wayland.old)):
                 raise UnifierError("container identity or saved Wayland bind changed before start")
+        if portal_mount is not None or camera is not None:
+            try:
+                if portal_mount is not None:
+                    validate_saved_portal_mounts(info.mounts, allowed_source=portal_mount.path)
+                if render_node is not None:
+                    require_no_native_drm(info)
+                    validate_saved_mounts(info.mounts, render_node.path)
+                options = {}
+                if camera is not None:
+                    if (name != info.container_id or not re.fullmatch(r"[0-9a-f]{64}", name)
+                            or info.running or info.pid not in (0, None) or info.status not in STOPPED
+                            or info.bind_mounts is None):
+                        raise ValueError("camera mount requires a stopped container with a full ID and known mounts")
+                    require_no_native_camera(info)
+                    validate_saved_camera_mounts(info.mounts, camera.path)
+                    options["camera"] = camera
+                start_with_portal_mount(self._check, name, portal_mount, wayland, render_node, **options)
+            except (OSError, ValueError) as exc:
+                what = "desktop camera" if camera is not None else "private Portal directory"
+                raise UnifierError(f"cannot attach the {what}: {exc}") from exc
+            return
+        if render_node is not None:
+            try:
+                require_stopped(info)
+                if name != info.container_id:
+                    raise ValueError("container identity changed before render-node start")
+                require_no_native_drm(info)
+                validate_saved_mounts(info.mounts, render_node.path)
+                start_with_render_node(self._check, name, render_node, wayland)
+            except (OSError, ValueError) as exc:
+                raise UnifierError(f"cannot mount configured DRM render node: {exc}") from exc
+            return
+        if wayland is not None:
             try:
                 start_with_refresh(self._check, name, wayland)
             except (OSError, ValueError) as exc:

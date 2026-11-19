@@ -138,6 +138,8 @@ class PackageDriver:
     suffixes: tuple[str, ...] = ()
     needs_keyring = False
     tracks_package_set = False
+    application_python_package = "python3"
+    application_font_package: str
 
     def native_env(self) -> dict[str, str]:
         return {"LC_ALL": "C.UTF-8"}
@@ -151,7 +153,7 @@ class PackageDriver:
     def remove(self, packages: list[str]) -> list[tuple[list[str], int]]:
         raise NotImplementedError
 
-    def local(self, container_path: str) -> list[tuple[list[str], int]]:
+    def local(self, container_path: str, *, dependencies=()) -> list[tuple[list[str], int]]:
         raise NotImplementedError
 
     def query(self, name: str) -> list[str]:
@@ -170,6 +172,7 @@ class PackageDriver:
 class AptDriver(PackageDriver):
     name = "apt"
     suffixes = (".deb",)
+    application_font_package = "fonts-dejavu-core"
 
     def native_env(self) -> dict[str, str]:
         return {
@@ -178,11 +181,18 @@ class AptDriver(PackageDriver):
             "APT_LISTCHANGES_FRONTEND": "none",
         }
 
-    def install(self, packages: list[str]) -> list[tuple[list[str], int]]:
-        return [
-            (["apt-get", "update"], TIMEOUT_APT_UPDATE),
-            (["apt-get", "install", "-y", *packages], TIMEOUT_APT_CHANGE),
-        ]
+    def _prepare_install(self, minimal_dependencies):
+        steps = [(["apt-get", "update"], TIMEOUT_APT_UPDATE)]
+        if minimal_dependencies:
+            steps.append((["apt-get", "install", "-y", "--no-install-recommends",
+                           *minimal_dependencies], TIMEOUT_APT_CHANGE))
+        return steps
+
+    def install(self, packages: list[str], *, minimal_dependencies=()) -> list[tuple[list[str], int]]:
+        steps = self._prepare_install(minimal_dependencies)
+        if packages:
+            steps.append((["apt-get", "install", "-y", *packages], TIMEOUT_APT_CHANGE))
+        return steps
 
     def update(self) -> list[tuple[list[str], int]]:
         return [
@@ -193,11 +203,13 @@ class AptDriver(PackageDriver):
     def remove(self, packages: list[str]) -> list[tuple[list[str], int]]:
         return [(["apt-get", "remove", "-y", *packages], TIMEOUT_APT_CHANGE)]
 
-    def local(self, container_path: str) -> list[tuple[list[str], int]]:
-        return [
-            (["apt-get", "update"], TIMEOUT_APT_UPDATE),
-            (["apt-get", "install", "-y", container_path], TIMEOUT_APT_CHANGE),
-        ]
+    def local(self, container_path: str, *, dependencies=(), prerequisites=(),
+              minimal_dependencies=()) -> list[tuple[list[str], int]]:
+        steps = self._prepare_install(minimal_dependencies)
+        if prerequisites:
+            steps.append((["apt-get", "install", "-y", *prerequisites], TIMEOUT_APT_CHANGE))
+        steps.append((["apt-get", "install", "-y", *dependencies, container_path], TIMEOUT_APT_CHANGE))
+        return steps
 
     def query(self, name: str) -> list[str]:
         return ["dpkg-query", "-W", "-f=${Package}\t${Version}\n", name]
@@ -209,6 +221,7 @@ class AptDriver(PackageDriver):
 class DnfDriver(PackageDriver):
     name = "dnf"
     suffixes = (".rpm",)
+    application_font_package = "dejavu-sans-fonts"
 
     def install(self, packages: list[str]) -> list[tuple[list[str], int]]:
         return [(["dnf", "install", "-y", *packages], TIMEOUT_DNF)]
@@ -219,8 +232,8 @@ class DnfDriver(PackageDriver):
     def remove(self, packages: list[str]) -> list[tuple[list[str], int]]:
         return [(["dnf", "remove", "-y", *packages], TIMEOUT_DNF)]
 
-    def local(self, container_path: str) -> list[tuple[list[str], int]]:
-        return [(["dnf", "install", "-y", container_path], TIMEOUT_DNF)]
+    def local(self, container_path: str, *, dependencies=()) -> list[tuple[list[str], int]]:
+        return [(["dnf", "install", "-y", *dependencies, container_path], TIMEOUT_DNF)]
 
     def query(self, name: str) -> list[str]:
         return ["rpm", "-q", "--qf", "%{NAME}\t%{VERSION}-%{RELEASE}.%{ARCH}\n", name]
@@ -237,6 +250,8 @@ class PacmanDriver(PackageDriver):
     suffixes = (".pkg.tar.zst", ".pkg.tar.xz", ".pkg.tar.gz")
     needs_keyring = True
     tracks_package_set = True
+    application_python_package = "python"
+    application_font_package = "ttf-dejavu"
 
     def install(self, packages: list[str]) -> list[tuple[list[str], int]]:
         # `pacman -Sy <package>` is a partial upgrade and is not produced here.
@@ -248,12 +263,10 @@ class PacmanDriver(PackageDriver):
     def remove(self, packages: list[str]) -> list[tuple[list[str], int]]:
         return [(["pacman", "-R", "--noconfirm", *packages], TIMEOUT_PACMAN_REMOVE)]
 
-    def local(self, container_path: str) -> list[tuple[list[str], int]]:
+    def local(self, container_path: str, *, dependencies=()) -> list[tuple[list[str], int]]:
         # A full sync runs before -U, so the local file is not applied on a stale database.
-        return [
-            (["pacman", "-Syu", "--noconfirm"], TIMEOUT_PACMAN_SYNC),
-            (["pacman", "-U", "--noconfirm", container_path], TIMEOUT_PACMAN_SYNC),
-        ]
+        sync = self.install(list(dependencies)) if dependencies else self.update()
+        return [*sync, (["pacman", "-U", "--noconfirm", container_path], TIMEOUT_PACMAN_SYNC)]
 
     def query(self, name: str) -> list[str]:
         return ["pacman", "-Q", name]

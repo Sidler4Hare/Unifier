@@ -1,4 +1,4 @@
-"""Opt-in file chooser modes for a registered desktop application."""
+"""File chooser modes for a registered desktop application."""
 
 import hashlib
 import json
@@ -9,13 +9,32 @@ import uuid
 from unifier.desktop import discover_session
 from unifier.errors import UnifierError
 from unifier.kdialog_portal import SHARES_ENV, absolute_path
+from unifier.portal_mount import PORTAL_GUEST
+from unifier import wps_portal
 
 
 MODE_KEY = "UNIFIER_FILE_CHOOSER"
-PORTAL_MODES = ("gtk-portal", "gtk-native-portal", "qt-portal", "kdialog-portal", "zenity-portal")
+PORTAL_MODES = ("gtk-portal", "gtk-native-portal", "qt-portal", "kdialog-portal", "zenity-portal",
+                wps_portal.MODE)
 MODES = ("native", *PORTAL_MODES, "headless")
 DEFAULT_PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 DISPLAY_KEYS = ("DISPLAY", "WAYLAND_DISPLAY", "XAUTHORITY", "DBUS_SESSION_BUS_ADDRESS")
+
+
+def default_portal_profile(record, executable, *, desktop_id=None):
+    desktop = record.get("desktop") or {}
+    bridge = desktop.get("portal_proxy") or {}
+    if bridge.get("managed_mount") is not True:
+        return {}
+    if desktop_id == "org.freecad.FreeCAD" or executable == "/usr/bin/freecad":
+        return {MODE_KEY: "qt-portal"}
+    if wps_portal.is_writer(record, executable) and wps_portal.payload_available():
+        return {MODE_KEY: wps_portal.MODE}
+    dingtalk = (
+        desktop_id in ("com.alibabainc.dingtalk", "dingtalk")
+        or executable == "/opt/apps/com.alibabainc.dingtalk/files/Elevator.sh"
+    )
+    return {MODE_KEY: "gtk-native-portal" if dingtalk else "gtk-portal"}
 
 
 def configured_environment(record, environment, *, on_demand):
@@ -29,8 +48,12 @@ def configured_environment(record, environment, *, on_demand):
         desktop = record.get("desktop") or {}
         bridge = desktop.get("portal_proxy") or {}
         inside = bridge.get("container")
-        if (not on_demand or not bridge.get("directory") or not inside
-                or environment.get("DBUS_SESSION_BUS_ADDRESS") != f"unix:path={inside}/bus"):
+        address = environment.get("DBUS_SESSION_BUS_ADDRESS")
+        valid_address = address == f"unix:path={inside}/bus"
+        if bridge.get("managed_mount") is True and "DBUS_SESSION_BUS_ADDRESS" not in environment:
+            valid_address = True
+        if (not on_demand or not bridge.get("directory") or inside != PORTAL_GUEST
+                or not valid_address):
             raise UnifierError("file chooser forwarding requires an on-demand application with the Unifier desktop portal bridge")
     return mode
 
@@ -39,6 +62,8 @@ def preflight_picker(record, launch, *, environ=None, is_socket=None):
     mode = configured_environment(record, launch["env"], on_demand=launch.get("on_demand"))
     if mode not in PORTAL_MODES:
         return
+    if mode == wps_portal.MODE and not wps_portal.is_writer(record, launch.get("executable")):
+        raise UnifierError("wps-portal requires /usr/bin/wps on Debian 13")
     host = os.environ if environ is None else environ
     message = "file chooser forwarding requires a graphical host session. On a headless host, pass the file path explicitly."
     if not host.get("DBUS_SESSION_BUS_ADDRESS"):
@@ -93,9 +118,17 @@ def _native_launcher():
     return "native-libraries-" + hashlib.sha256(payload).hexdigest()[:16], payload
 
 
-def launch_argv(record, launch, argv):
+def launch_argv(record, launch, argv, *, environment=None):
     """Wrap only the opted-in app; argv is never interpreted by a shell."""
-    if launch["env"].get(MODE_KEY) != "gtk-native-portal":
+    mode = launch["env"].get(MODE_KEY)
+    if mode == wps_portal.MODE:
+        launcher = (environment or {}).pop("UNIFIER_WPS_PORTAL_ENTRY", None)
+        if argv[0] != wps_portal.ENTRY:
+            return list(argv)
+        if launcher is None:
+            raise UnifierError("the WPS picker adapter was not prepared")
+        return ["/usr/bin/python3", "-I", launcher, "--", *argv]
+    if mode != "gtk-native-portal":
         return list(argv)
     name, _ = _native_launcher()
     inside = record["desktop"]["portal_proxy"]["container"]
@@ -134,7 +167,7 @@ def _publish_payloads(directory, name, payloads):
     return name
 
 
-def launch_environment(record, launch, mounts, root):
+def launch_environment(record, launch, mounts, root, *, verified_portal_mount=None):
     env = dict(launch["env"])
     mode = configured_environment(record, env, on_demand=launch.get("on_demand"))
     if mode == "native":
@@ -146,16 +179,30 @@ def launch_environment(record, launch, mounts, root):
     directory = Path(bridge["directory"])
     inside = bridge["container"]
     expected = Path(root).resolve() / ".lab" / "desktop" / record["id"]
-    if (directory != expected or directory.resolve() != expected or inside != "/run/multilinux-portal"
-            or [(source, kind) for source, target, _, kind in mounts if target == inside]
-            != [(str(directory), "bind")]):
+    if bridge.get("managed_mount") is True:
+        verified = verified_portal_mount == str(directory)
+    else:
+        actual = [(source, kind) for source, target, _, kind in mounts if target == inside]
+        verified = actual == [(str(directory), "bind")]
+    if directory != expected or directory.resolve() != expected or inside != PORTAL_GUEST or not verified:
         raise UnifierError("the file chooser portal bridge mount does not match the registered environment")
     shares = verified_shares(record, mounts)
     env["DBUS_SESSION_BUS_ADDRESS"] = f"unix:path={inside}/files-bus"
     env["UNIFIER_FILE_ACCESS_PROTOCOL"] = "2"
+    if mode == wps_portal.MODE:
+        try:
+            name, launcher, manifest, assets = wps_portal.payload()
+            _publish_payloads(directory, name, (
+                (launcher, "launch.py", 0o644), (manifest, "manifest.json", 0o644),
+                (assets[wps_portal.AUDIT], wps_portal.AUDIT, 0o644)))
+            _publish_payloads(directory / name, "platformthemes", (
+                (assets[wps_portal.THEME], "libqxdgdesktopportal.so", 0o644),))
+        except (OSError, ValueError) as exc:
+            raise UnifierError(f"could not prepare the WPS picker adapter: {exc}") from exc
+        env["UNIFIER_WPS_PORTAL_ENTRY"] = f"{inside}/{name}/launch.py"
+        return env
     if mode in ("gtk-portal", "gtk-native-portal", "qt-portal"):
         # Native toolkit results pass through the selection delivery relay.
-        env["DBUS_SESSION_BUS_ADDRESS"] = f"unix:path={inside}/files-bus"
         env.update({"GTK_USE_PORTAL": "1"} if mode != "qt-portal"
                    else {"QT_QPA_PLATFORMTHEME": "xdgdesktopportal"})
         if mode == "gtk-native-portal":

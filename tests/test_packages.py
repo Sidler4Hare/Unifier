@@ -29,6 +29,8 @@ from unifier.packages import (
     update_commands,
 )
 from unifier.runtime import (
+    APPLICATION_PYTHON_CHECK,
+    APPLICATION_PYTHON_MISSING,
     ROLE_ENVIRONMENT,
     LABEL_ENV,
     LABEL_PROJECT,
@@ -128,6 +130,10 @@ class PackageBoxes(FakeRuntime):
 
     def _answer(self, info, argv):
         env_id = info.env_id
+        if argv == ["/bin/sh", "-c", APPLICATION_PYTHON_CHECK]:
+            package = "python" if self.identities[env_id]["ID"] == "arch" else "python3"
+            available = package in self.installed.get(env_id, set())
+            return ExecResult(0, "" if available else APPLICATION_PYTHON_MISSING + "\n", "")
         if argv[0:2] == ["sh", "-c"] and argv[3:4] == ["unifier-package-journal"]:
             return ExecResult(0, "clean\n", "")
         if argv == ["sh", "-c", "test ! -e /var/lib/pacman/db.lck && "

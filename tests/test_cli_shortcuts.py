@@ -28,7 +28,7 @@ from unifier.errors import UnifierError
 from unifier.guest_paths import list_guest_directories, open_guest_directory
 from unifier.install import load_catalog, worker_environment
 from unifier.desktop import HostDesktop
-from unifier.runtime import ExecResult
+from unifier.runtime import APPLICATION_PYTHON_CHECK, APPLICATION_PYTHON_MISSING, ExecResult
 from test_env import FakeRuntime
 
 CONFIG, LOCK = load_catalog()
@@ -61,6 +61,7 @@ class ShortcutRuntime(FakeRuntime):
         self.extra_inventory = ""
         self.package_files = {}
         self.desktop_files = {}
+        self.python_ready = True
 
     def image_info(self, reference):
         if reference in self.images:
@@ -92,6 +93,9 @@ class ShortcutRuntime(FakeRuntime):
                             timeout=timeout)
 
     def _captured(self, info, argv):
+        if argv == ["/bin/sh", "-c", APPLICATION_PYTHON_CHECK]:
+            marker = "" if self.python_ready else APPLICATION_PYTHON_MISSING + "\n"
+            return ExecResult(0, marker, "")
         if argv[:2] == ["/bin/sh", "-c"] and len(argv) > 3 and argv[3] == "unifier-elf":
             # These discovery fixtures are shell entry points, not ELF objects.
             return ExecResult(0, "UNIFIER_SCAN_DONE\n", "")
@@ -671,6 +675,208 @@ class InstallAndRun(unittest.TestCase):
             self.assertEqual(calls[0][1], ["--version"])
             self.assertEqual(service.store.load("debian13")["runtime"]["container_id"],
                              first_cid)
+
+    def test_local_app_install_adds_and_checks_missing_guest_python(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            ctx = context(root, runtime)
+            self.assertEqual(run_ctx(ctx, ["init", "--target", "debian13", "--yes"])[0], 0)
+            service = self._service(root, runtime)
+            ctx.services[str(root)] = service
+            runtime.python_ready = False
+            runtime.copy_in = mock.Mock()
+            package = root / "hello.deb"
+            package.write_bytes(b"!<arch>\n")
+
+            def simulate_install(_name, argv, _env_id):
+                if argv[0] == "apt-get" and "install" in argv and "python3" in argv:
+                    runtime.python_ready = True
+                return None
+
+            runtime.exec_handler = simulate_install
+            argv = ["install", "--package", "hello", str(package), "--json"]
+            code, out, err = run_ctx(ctx, argv)
+            self.assertEqual(code, 0, (out, err))
+            payload = json.loads(out)
+            install = payload["transaction"]["native"][-1]["argv"]
+            self.assertIn("python3", install)
+            self.assertTrue(install[-1].endswith("/hello.deb"))
+            self.assertTrue(Path(payload["menu"]).is_file())
+            self.assertTrue(runtime.python_ready)
+
+            code, out, err = run_ctx(ctx, argv)
+            self.assertEqual(code, 0, (out, err))
+            second = json.loads(out)
+            self.assertEqual(second["app_id"], payload["app_id"])
+            self.assertNotIn("python3", second["transaction"]["native"][-1]["argv"])
+
+    def test_local_wps_install_provisions_hexdump_before_its_postinst(self):
+        from test_desktop import SESSION
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            ctx = context(root, runtime)
+            with mock.patch("unifier.service.discover_session", return_value=SESSION):
+                self.assertEqual(run_ctx(ctx, [
+                    "init", "--target", "debian13", "--desktop", "--no-portals", "--yes",
+                ])[0], 0)
+            ctx.services[str(root)] = self._service(root, runtime)
+            runtime.copy_in = mock.Mock()
+            package = root / "wps-office.deb"
+            package.write_bytes(b"!<arch>\n")
+
+            def simulate_install(_name, argv, _env_id):
+                if argv[-1] == "/tmp/ml-incoming/wps-office.deb":
+                    runtime.inventory += "wps-office\t12.1.2.29183\n"
+                return None
+
+            runtime.exec_handler = simulate_install
+            code, out, err = run_ctx(ctx, [
+                "install", "--package", "wps-office", "--exec", "/usr/bin/wps",
+                "--gui", "--no-repair-deps", "--json", str(package),
+            ])
+            self.assertEqual(code, 0, (out, err))
+            payload = json.loads(out)
+            launch = ctx.services[str(root)].show_app(payload["app_id"])
+            self.assertEqual(launch["exit_policy"], "stop-children")
+            steps = [step["argv"] for step in payload["transaction"]["native"]]
+            self.assertEqual(steps, [
+                ["apt-get", "update"],
+                ["apt-get", "install", "-y", "bsdextrautils", "libasound2t64",
+                 "libcurl4t64", "libgbm1", "libgl1", "libgtk-3-0t64", "libnss3",
+                 "libx11-xcb1", "libxtst6"],
+                ["apt-get", "install", "-y", "/tmp/ml-incoming/wps-office.deb"],
+            ])
+
+    def test_tencent_meeting_installs_and_repairs_the_pipewire_client_runtime(self):
+        from test_desktop import SESSION
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            ctx = context(root, runtime)
+            with mock.patch("unifier.service.discover_session", return_value=SESSION):
+                self.assertEqual(run_ctx(ctx, [
+                    "init", "--target", "debian13", "--desktop", "--no-portals", "--yes",
+                ])[0], 0)
+            service = self._service(root, runtime)
+            ctx.services[str(root)] = service
+            runtime.copy_in = mock.Mock()
+            package = root / "wemeet.deb"
+            package.write_bytes(b"!<arch>\n")
+            client_step = ["apt-get", "install", "-y", "--no-install-recommends", "pipewire-bin"]
+            update = ["apt-get", "update"]
+
+            def simulate_install(_name, argv, _env_id):
+                if argv == client_step:
+                    runtime.inventory += "pipewire-bin\t1.4.2-1\n"
+                if argv[-1] == "/tmp/ml-incoming/wemeet.deb":
+                    runtime.inventory += "wemeet\t3.26.10.401\n"
+                return None
+
+            runtime.exec_handler = simulate_install
+            missing = service.repair_dependencies("debian13", ["wemeet"])
+            self.assertEqual(missing["phase"], "failed", missing)
+            self.assertEqual(missing["native"], [])
+            code, out, err = run_ctx(ctx, [
+                "install", "--package", "wemeet", "--exec", "/opt/wemeet/wemeetapp.sh",
+                "--gui", "--no-repair-deps", "--json", str(package),
+            ])
+            self.assertEqual(code, 0, (out, err))
+            txn = json.loads(out)["transaction"]
+            self.assertEqual([step["argv"] for step in txn["native"]], [
+                update, client_step, ["apt-get", "install", "-y", "/tmp/ml-incoming/wemeet.deb"],
+            ])
+
+            runtime.inventory = runtime.inventory.replace("pipewire-bin\t1.4.2-1\n", "")
+            repaired = service.repair_dependencies("debian13", ["wemeet"])
+            self.assertEqual(repaired["phase"], "completed", repaired)
+            self.assertEqual([step["argv"] for step in repaired["native"]], [update, client_step])
+            repeated = service.repair_dependencies("debian13", ["wemeet"])
+            self.assertEqual(repeated["phase"], "completed", repeated)
+            self.assertEqual(repeated["native"], [])
+
+    def test_missing_guest_python_after_install_prevents_menu_registration(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            ctx = context(root, runtime)
+            self.assertEqual(run_ctx(ctx, ["init", "--target", "debian13", "--yes"])[0], 0)
+            service = self._service(root, runtime)
+            ctx.services[str(root)] = service
+            runtime.python_ready = False  # native exit 0 alone does not install the interpreter
+            code, out, err = run_ctx(ctx, ["install", "hello", "--json"])
+            self.assertEqual(code, 1, (out, err))
+            verification = json.loads(out)["transaction"]
+            self.assertEqual(verification["failure_phase"], "application-runtime")
+            self.assertIn("python3", verification["native"][-1]["argv"])
+            self.assertEqual(list((root / "host-applications").glob("*.desktop")), [])
+            with self.assertRaises(UnifierError):
+                service.app_by_alias("debian13", "hello")
+
+    def test_desktop_application_install_provisions_fonts_when_missing(self):
+        from test_desktop import SESSION
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            ctx = context(root, runtime)
+            with mock.patch("unifier.service.discover_session", return_value=SESSION):
+                code, _, _ = run_ctx(ctx, [
+                    "init", "--target", "debian13", "--desktop", "--no-portals", "--yes",
+                ])
+            self.assertEqual(code, 0)
+            ctx.services[str(root)] = self._service(root, runtime)
+            ready = False
+
+            def simulate_fonts(_name, argv, _env_id):
+                nonlocal ready
+                if argv[:2] == ["/bin/sh", "-c"] and "fc-match" in argv[2]:
+                    return ExecResult(0 if ready else 1, "", "")
+                if argv[:2] == ["apt-get", "install"] and "fonts-dejavu-core" in argv:
+                    ready = True
+                return None
+
+            runtime.exec_handler = simulate_fonts
+            cmd = ["install", "--gui", "--exec", "/usr/bin/hello", "--json", "hello"]
+            code, out, err = run_ctx(ctx, cmd)
+            self.assertEqual(code, 0, (out, err))
+            steps = json.loads(out)["transaction"]["native"]
+            self.assertIn("fontconfig", steps[-1]["argv"])
+            self.assertIn("fonts-dejavu-core", steps[-1]["argv"])
+            code, out, err = run_ctx(ctx, cmd)
+            self.assertEqual(code, 0, (out, err))
+            self.assertNotIn("fonts-dejavu-core", json.loads(out)["transaction"]["native"][-1]["argv"])
+
+    def test_repair_installed_package_restores_application_runtime(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            ctx = context(root, runtime)
+            self.assertEqual(run_ctx(ctx, ["init", "--target", "debian13", "--yes"])[0], 0)
+            service = self._service(root, runtime)
+            runtime.python_ready = False
+
+            def simulate_install(_name, argv, _env_id):
+                if argv[0] == "apt-get" and "install" in argv and "python3" in argv:
+                    runtime.python_ready = True
+                return None
+
+            runtime.exec_handler = simulate_install
+            missing = service.repair_dependencies("debian13", ["missing-app"])
+            self.assertEqual(missing["phase"], "failed")
+            self.assertEqual(missing["native"], [])
+            self.assertFalse(runtime.python_ready)
+
+            repaired = service.repair_dependencies("debian13", ["hello"])
+            self.assertEqual(repaired["phase"], "completed", repaired)
+            self.assertIn("python3", repaired["native"][-1]["argv"])
+            self.assertTrue(runtime.python_ready)
+            repeated = service.repair_dependencies("debian13", ["hello"])
+            self.assertEqual(repeated["phase"], "completed", repeated)
+            self.assertEqual(repeated["native"], [])
 
     def test_disabled_target_install_has_no_transaction_or_container_side_effect(self):
         with tempfile.TemporaryDirectory() as temporary:

@@ -74,28 +74,35 @@ def plan_refresh(desktop, *, mounts, uid, environ=None, runtime_directory=None):
 
 
 def start_with_refresh(start, container_id: str, refresh: WaylandRefresh) -> None:
+    start_with_hook(start, container_id, script=Path(__file__), name="wayland-refresh",
+                    arguments=[str(refresh.old), str(refresh.source),
+                               str(refresh.device), str(refresh.inode)],
+                    action="start with refreshed Wayland mount",
+                    prefix="unifier-wayland-")
+
+
+def start_with_hook(start, container_id, *, script, name, arguments, action, prefix):
     # A per-command module appends the hook to existing Podman configuration.
     # CONTAINERS_CONF_OVERRIDE can replace that list after modules are loaded.
     if os.environ.get("CONTAINERS_CONF_OVERRIDE"):
-        raise ValueError("cannot refresh Wayland with CONTAINERS_CONF_OVERRIDE set")
-    with TemporaryDirectory(prefix="unifier-wayland-") as temporary:
+        raise ValueError(f"cannot {action} with CONTAINERS_CONF_OVERRIDE set")
+    with TemporaryDirectory(prefix=prefix) as temporary:
         directory = Path(temporary).resolve()
         module = directory / "session.conf"
         module.write_text(f"[engine]\nhooks_dir = [{json.dumps(str(directory))}, {{append=true}}]\n")
         python = str(Path(sys.executable).resolve())
-        (directory / "99-unifier-wayland-refresh.json").write_text(json.dumps({
+        (directory / f"99-unifier-{name}.json").write_text(json.dumps({
             "version": "1.0.0",
             "hook": {
                 "path": python,
-                "args": [python, "-I", str(Path(__file__).resolve()), str(refresh.old),
-                         str(refresh.source), str(refresh.device), str(refresh.inode)],
+                "args": [python, "-I", str(script.resolve()), *arguments],
                 "timeout": 5,
             },
             "when": {"always": True},
             "stages": ["precreate"],
         }))
         start(["podman", "--module", str(module), "start", container_id],
-              timeout=40, action="start with refreshed Wayland mount")
+              timeout=40, action=action)
 
 
 def _rewrite_mount(spec, refresh: WaylandRefresh) -> None:

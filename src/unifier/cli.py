@@ -68,7 +68,11 @@ def build_parser() -> argparse.ArgumentParser:
                              '/dev/videoN and /dev/dri/cardN require --desktop')
     create.add_argument('--cuda-device', metavar='GPU-UUID',
                         help='attach one NVIDIA GPU by full UUID for headless CUDA')
-    create.add_argument('--portals', action='store_true', help='filtered host desktop portal bridge; use an on-demand application')
+    portals = create.add_mutually_exclusive_group()
+    portals.add_argument('--portals', action='store_true', default=None,
+                         help='use the legacy desktop Portal mount created with the container')
+    portals.add_argument('--no-portals', dest='portals', action='store_false',
+                         help='skip the managed Portal bridge that desktop environments get by default')
     create.add_argument('--gpu', action='store_true', help='passthrough host /dev/dri devices for hardware graphics and video; requires --desktop')
     create.add_argument('--ipc', choices=('private', 'host'), default=None, help='IPC namespace mode; desktop defaults to host')
     create.set_defaults(func=cmd_create)
@@ -88,6 +92,28 @@ def build_parser() -> argparse.ArgumentParser:
     start = operations.add_parser("start", help="start an environment's sleeper process")
     start.add_argument("id")
     start.set_defaults(func=cmd_start)
+
+    portal_bridge = operations.add_parser(
+        "portal-bridge", help="show or configure the Portal bridge for an existing desktop")
+    portal_bridge.add_argument("id")
+    portal_bridge.add_argument("mode", nargs="?", choices=("enable", "disable"))
+    portal_bridge.set_defaults(func=cmd_portal_bridge)
+
+    render_node = operations.add_parser(
+        "render-node", help="configure one DRM render node for the next start of a stopped desktop")
+    render_node.add_argument("id")
+    node_choice = render_node.add_mutually_exclusive_group(required=True)
+    node_choice.add_argument("path", nargs="?", metavar="/dev/dri/renderDN")
+    node_choice.add_argument("--clear", action="store_true", help="remove the render-node setting")
+    render_node.set_defaults(func=cmd_render_node)
+
+    camera = operations.add_parser(
+        "camera", help="select one V4L2 capture node for the next start of a stopped desktop")
+    camera.add_argument("id")
+    camera_choice = camera.add_mutually_exclusive_group(required=True)
+    camera_choice.add_argument("path", nargs="?", metavar="/dev/videoN")
+    camera_choice.add_argument("--clear", action="store_true", help="remove the camera setting")
+    camera.set_defaults(func=cmd_camera)
 
     stop = operations.add_parser("stop", help="stop an environment without deleting it")
     stop.add_argument("id")
@@ -151,7 +177,8 @@ def build_parser() -> argparse.ArgumentParser:
     install.set_defaults(func=cmd_pkg_install)
     add_package_arguments(install, repair=True)
 
-    repair = pkg_ops.add_parser("repair-deps", help="find and install missing runtime library providers")
+    repair = pkg_ops.add_parser(
+        "repair-deps", help="repair missing library providers and the named packages' application runtime")
     repair.add_argument("id")
     repair.add_argument("packages", nargs="*", help="installed packages whose ELF files are checked")
     repair.add_argument("--library", action="append", default=[], help="exact missing SONAME from a runtime error")
@@ -707,8 +734,8 @@ def cmd_create(args) -> int:
         options['devices'] = args.device
     if getattr(args, 'cuda_device', None) is not None:
         options['cuda_device'] = args.cuda_device
-    if args.portals:
-        options['portals'] = True
+    if args.desktop or args.portals:
+        options['portals'] = args.portals
     if args.gpu:
         options['gpu'] = True
     if args.ipc:
@@ -772,6 +799,30 @@ def cmd_start(args) -> int:
     return 0
 
 
+def cmd_render_node(args) -> int:
+    node = service_factory().configure_render_node(args.id, args.path)
+    if node is None:
+        print(f"cleared render-node setting for {args.id}")
+    else:
+        print(f"configured {node} for the next start of {args.id}")
+    return 0
+
+
+def cmd_camera(args) -> int:
+    path = service_factory().configure_camera(args.id, args.path)
+    if path is None:
+        print(f"cleared camera setting for {args.id}")
+    else:
+        print(f"configured {path} for apps in {args.id} on its next start")
+    return 0
+
+
+def cmd_portal_bridge(args) -> int:
+    enabled = service_factory().configure_portal_bridge(args.id, args.mode)
+    print("enabled" if enabled else "disabled")
+    return 0
+
+
 def cmd_stop(args) -> int:
     view = service_factory().stop(args.id)
     print(f"stopped {args.id} ({view['runtime_state']})")
@@ -791,11 +842,19 @@ def cmd_run_help(args) -> int:
     return 0
 
 
-def _print_transaction(txn: dict) -> int:
+def _print_transaction(txn: dict, *, root=None) -> int:
     print(json.dumps(txn, ensure_ascii=False, indent=2))
     from unifier.package_observation import warning
     if message := warning(txn):
         print(message, file=sys.stderr)
+    if sys.stderr.isatty() and (guidance := txn.get("dependency_guidance")):
+        from unifier import i18n
+        from unifier.package_install_diagnostics import guidance_messages
+        root = root or _state_root()
+        language = i18n.resolve(root)["language"]
+        for message in guidance_messages(
+                lambda key, **values: i18n.translate(language, key, **values), guidance, root):
+            print(message, file=sys.stderr)
     if (txn.get('dependency_repair') or {}).get('status') == 'bundled-candidates-unverified':
         print('unifier: bundled library candidates found; runtime loading and application '
               'workflow remain unverified.', file=sys.stderr)
@@ -835,7 +894,7 @@ def cmd_pkg_install(args) -> int:
         if not args.packages:
             raise UnifierError("install requires package names or --file")
         txn = service.install_packages(args.id, args.packages, use_argv=use, **options)
-    return _print_transaction(txn)
+    return _print_transaction(txn, root=getattr(service, "root", None))
 
 
 def cmd_pkg_repair(args) -> int:
@@ -855,9 +914,9 @@ def cmd_pkg_repair(args) -> int:
     options = package_options(args)
     if diagnostic_path:
         options["diagnostics_path"] = diagnostic_path
-    txn = service_factory().repair_dependencies(args.id, args.packages, libraries=args.library,
-                                                **options)
-    return _print_transaction(txn)
+    service = service_factory()
+    txn = service.repair_dependencies(args.id, args.packages, libraries=args.library, **options)
+    return _print_transaction(txn, root=getattr(service, "root", None))
 
 
 def cmd_pkg_recover_storage(args) -> int:

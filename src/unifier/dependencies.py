@@ -41,8 +41,8 @@ printf '%s\n' "$cache" | while IFS= read -r line; do
 done
 '''
 
-ELF_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.+-]{0,254}\Z")
-LIBRARY = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.+-]{0,160}\.so(?:\.[A-Za-z0-9_.+-]+)?\Z")
+ELF_NAME = re.compile(r"[A-Za-z0-9_][A-Za-z0-9_.+-]{0,254}\Z")
+LIBRARY = re.compile(r"[A-Za-z0-9_][A-Za-z0-9_.+-]{0,160}\.so(?:\.[A-Za-z0-9_.+-]+)?\Z")
 
 
 def validate_library(name: str) -> str:

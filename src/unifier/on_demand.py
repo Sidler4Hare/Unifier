@@ -26,7 +26,7 @@ import time
 import uuid
 
 from unifier.errors import UnifierError
-from unifier.file_chooser import preflight_picker, verified_shares
+from unifier.file_chooser import MODE_KEY, PORTAL_MODES, preflight_picker, verified_shares
 from unifier.identity import binding_for, identity, validate_binding
 from unifier.runtime import ExecResult
 from unifier.file_access import PROTOCOL_VERSION
@@ -232,15 +232,16 @@ def _start_bus_bridge(record, bridge=None):
     owner = identity(record)
     if not directory.is_absolute() or directory.resolve() != directory:
         raise UnifierError('Portal bridge directory is not a canonical host path')
-    directory.mkdir(parents=True, exist_ok=True, mode=0o700)
-    directory.chmod(0o700)
-    auth = os.environ.get('XAUTHORITY')
-    if auth:
-        source = Path(auth)
-        if not source.is_file():
-            raise UnifierError(f'current XAUTHORITY is unavailable: {auth}')
-        shutil.copyfile(source, directory / 'Xauthority')
-        (directory / 'Xauthority').chmod(0o600)
+    if settings.get('managed_mount') is not True:
+        directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+        directory.chmod(0o700)
+        auth = os.environ.get('XAUTHORITY')
+        if auth:
+            source = Path(auth)
+            if not source.is_file():
+                raise UnifierError(f'current XAUTHORITY is unavailable: {auth}')
+            shutil.copyfile(source, directory / 'Xauthority')
+            (directory / 'Xauthority').chmod(0o600)
     if _bridge_alive(bridge):
         return bridge
     if bridge:
@@ -502,11 +503,19 @@ class LaunchGroup:
             if not state['leases']:
                 state['auto_stop'] = self._inherits_auto_stop(state, info) or not info.running
                 state['container_id'] = info.container_id
-            if app_id is not None and launch['env'].get('UNIFIER_FILE_CHOOSER') in (
-                    'gtk-portal', 'gtk-native-portal', 'qt-portal', 'kdialog-portal', 'zenity-portal'):
-                bridge = start_bridge(record, state.get('bridge'), file_delivery=True, mounts=info.mounts)
-            else:
-                bridge = start_bridge(record, state.get('bridge'))
+            settings = (record.get('desktop') or {}).get('portal_proxy') or {}
+            managed = settings.get('managed_mount') is True
+            portal_picker = app_id is not None and launch['env'].get(MODE_KEY) in PORTAL_MODES
+            bridge = state.get('bridge')
+            if portal_picker:
+                if managed:
+                    try:
+                        self.service._resolve_managed_portal_mount(record)
+                    except (OSError, ValueError) as exc:
+                        raise UnifierError(f'cannot prepare the Portal bridge for {self.env_id}: {exc}') from exc
+                bridge = start_bridge(record, bridge, file_delivery=True, mounts=info.mounts)
+            elif not managed:
+                bridge = start_bridge(record, bridge)
             entry = {'pid': os.getpid(), 'stamp': process_stamp(os.getpid())}
             if app_id is not None:
                 entry.update(app_id=app_id, kind='application',
