@@ -10,6 +10,7 @@ import json
 import math
 import os
 from pathlib import Path
+import re
 import select
 import signal
 import sqlite3
@@ -32,15 +33,16 @@ SLICE = 'unifier-tests.slice'
 DEFAULT_CONTROLLER = {'memory_max': 192 * MIB, 'memory_high': 144 * MIB, 'tasks_max': 64}
 AUTHORIZED_CONTROLLER = {'memory_max': 384 * MIB, 'memory_high': 288 * MIB, 'tasks_max': 128}
 ADMITTED_CONTROLLERS = (DEFAULT_CONTROLLER, AUTHORIZED_CONTROLLER)
-SH10_TASK_BINDING = {
-    'task_profile': 'sh10-20261112-close-fixed',
-    'unit': 'unifier-wps-close-1112-fixed',
+DEBIAN_GUI_FIXTURE = {
     'cid': 'e58754f0645ae1ff2924cb09a7264cc821e44893e7589a7fd0ebca09ce5f5e45',
     'project': str(ROOT / '.lab/guarded-expansion-20261103/environment'),
     'env_id': 'debian13',
     'environment_uuid': 'ae147c3e-3e65-41ac-ac8d-9257c9202696',
     'generation': 1,
 }
+SH10_TASK_BINDING = {**DEBIAN_GUI_FIXTURE, 'task_profile': 'sh10-20261112-close-fixed',
+                     'unit': 'unifier-wps-close-1112-fixed'}
+REMOTE_PACKAGE_SECONDS = {'remote-package-20261112': 300, 'remote-package-prepare': 900}
 
 REMOTE_PACKAGE_BINDINGS = {
     'fedora44': ('31324dbcefe5262532f4e8ce8d4bf7220a2a31ed8d5cc00f9e747b413d194156',
@@ -55,24 +57,39 @@ def fixture_resources(config):
     if 'fixture_profile' not in config:
         return {'slice': SLICE, 'memory': 768*MIB, 'memory_swap': 896*MIB}
     expected = REMOTE_PACKAGE_BINDINGS.get(config.get('env_id'))
-    if (config.get('fixture_profile') != 'remote-package-20261112' or expected is None
+    profile = config['fixture_profile']
+    if (not isinstance(profile, str) or profile not in REMOTE_PACKAGE_SECONDS or expected is None
             or (config.get('cid'), config.get('environment_uuid')) != expected
             or type(config.get('generation')) is not int or config['generation'] != 1
             or config.get('project') != '/home/agent/expansion-continuation-20261103/bridge-environments'
             or config.get('container_name') != 'ml-2b804374-'+config['env_id']
             or 'task_profile' in config
-            or type(config.get('seconds')) is not int or not 1 <= config['seconds'] <= 300):
+            or type(config.get('seconds')) is not int
+            or not 1 <= config['seconds'] <= REMOTE_PACKAGE_SECONDS[profile]):
         raise RuntimeError('remote fixture profile is not bound to an admitted instance')
     return {'slice': 'unifier-bridge-tests.slice', 'memory': 384*MIB, 'memory_swap': 512*MIB}
 
 
 def task_budget(config):
-    """The 2026-11-12 approval applies to one named attempt, not defaults."""
+    """Select task limits for an exact fixture before native execution."""
+    if 'guest_tasks' in config and config.get('task_profile') != 'debian-private-gui':
+        raise RuntimeError('guest_tasks requires the private GUI task profile')
     if 'fixture_profile' in config:
         fixture_resources(config)
         return {'aggregate': 256, 'guest': 128}
     if 'task_profile' not in config:
         return {'aggregate': 256, 'guest': 192}
+    if config['task_profile'] == 'debian-private-gui':
+        guest_tasks = config.get('guest_tasks', 192)
+        if (any(type(config.get(k)) is not type(v) or config[k] != v for k, v in DEBIAN_GUI_FIXTURE.items())
+                or not isinstance(config.get('unit'), str)
+                or not re.fullmatch(r'unifier-private-gui-[a-z0-9][a-z0-9-]{0,47}', config['unit'])
+                or type(guest_tasks) is not int or guest_tasks not in (192, 256)
+                or type(config.get('seconds')) is not int or not 1 <= config['seconds'] <= 600):
+            raise RuntimeError('private GUI task profile does not match the fixed Debian fixture')
+        # info() verifies the saved limit before startup and capture_binding()
+        # checks the running cgroup. This profile only sets the aggregate.
+        return {'aggregate': 384, 'guest': guest_tasks}
     if (any(type(config.get(key)) is not type(value) or config[key] != value
             for key, value in SH10_TASK_BINDING.items())
             or type(config.get('seconds')) is not int or not 1 <= config['seconds'] <= 600):
@@ -133,7 +150,7 @@ def cgroup_dir(group):
     return path
 
 
-def controller_budget(config):
+def controller_budget(config, *, additional=()):
     """Opt in with an exact admitted profile. Omission cannot raise the budget."""
     if 'controller' not in config:
         return dict(DEFAULT_CONTROLLER)
@@ -142,7 +159,7 @@ def controller_budget(config):
         raise RuntimeError('controller budget is not an admitted profile')
     if any(type(requested[key]) is not int or requested[key] <= 0 for key in requested):
         raise RuntimeError('controller budget is not an admitted profile')
-    for profile in ADMITTED_CONTROLLERS:
+    for profile in (*ADMITTED_CONTROLLERS, *additional):
         if requested == profile:
             return dict(profile)
     raise RuntimeError('controller budget is not an admitted profile')
@@ -392,7 +409,8 @@ def info(config, *, hardware=None, timeout=None):
         saved_resources = configured_resources(value, config, profile=profile,
                                                validate_oci=hardware.validate_oci)
     if value.get('State', {}).get('Running') is False:
-        cached_limits = (128,) if hardware or 'fixture_profile' in config else (192, 256)
+        cached_limits = ((tasks['guest'],) if hardware or 'fixture_profile' in config
+                         else (192, 256))
         if value['State'].get('Pid') != 0 or guest_tasks not in cached_limits:
             raise RuntimeError('stopped container state or cached task limit differs')
         if saved_resources is None:
@@ -406,7 +424,8 @@ def info(config, *, hardware=None, timeout=None):
             or hc.get('RestartPolicy', {}).get('Name') != 'no'):
         raise RuntimeError('fixed container limits/isolation are not admitted')
     try:
-        expected = approved_mounts(config)
+        mount_policy = getattr(hardware, 'approved_private_mounts', approved_mounts)
+        expected = mount_policy(config)
     except ValueError as exc:
         raise RuntimeError(str(exc)) from exc
     actual = [(mount.get('Source'), mount.get('Destination')) for mount in value['Mounts']]
@@ -453,9 +472,14 @@ def capture_binding(config, out, *, new_start=False, hardware=None):
     profile = hardware.resources if hardware else fixture_resources(config)
     tasks = hardware.tasks if hardware else task_budget(config)
     expected_memory = profile['memory']
-    if hardware and config.get('guest_profile'):
+    expected_tasks = tasks['guest']
+    if hardware and config.get('qq_gui') and not new_start:
+        expected_memory, expected_tasks = hardware.qq_active_limits(binding)
+    elif hardware and config.get('guest_profile'):
         expected_memory = hardware.expected_live_memory(binding, new_start=new_start)
-    if (actual['memory.max'] != expected_memory or actual['pids.max'] != tasks['guest']
+    if hardware and not new_start and getattr(hardware, 'runtime_task_limit', None):
+        expected_tasks = hardware.runtime_task_limit
+    if (actual['memory.max'] != expected_memory or actual['pids.max'] != expected_tasks
             or actual['memory.swap.max'] != 128*MIB or cpu is None
             or cpu['quota'] > cpu['period']):
         raise RuntimeError('effective guest cgroup limits differ: '+json.dumps(actual))
@@ -485,13 +509,13 @@ def capture_binding(config, out, *, new_start=False, hardware=None):
     if value['HostConfig'].get('NetworkMode') == 'pasta' and not (
             network_helpers or any(p['comm'].startswith('pasta') for p in binding['aggregate_processes'])):
         raise RuntimeError('pasta process coverage could not be established')
-    if not hardware:
-        apply_guest_memory_high(config, binding, out, new_start=new_start)
+    if not hardware or getattr(hardware, 'allow_reclaim_watermark', False):
+        apply_guest_memory_high(config, binding, out, new_start=new_start, hardware=hardware)
     put(out/'live-binding.json', binding)
     return binding
 
 
-def apply_guest_memory_high(config, binding, out, *, new_start=False):
+def apply_guest_memory_high(config, binding, out, *, new_start=False, hardware=None):
     """Optional tighter reclaim line inside an already verified test cgroup.
 
     No HostConfig, hard limit, ancestor or host setting changes. The guest
@@ -510,7 +534,7 @@ def apply_guest_memory_high(config, binding, out, *, new_start=False):
         value = os.read(descriptor, 64).decode().strip()
         if value != 'max' and (not value.isdecimal() or int(value) < requested):
             raise RuntimeError('existing guest watermark is tighter or unreadable; refusing to raise it')
-        current = info(config)
+        current = info(config, hardware=hardware) if hardware else info(config)
         if (not current['State']['Running'] or current['State']['StartedAt'] != binding['started_at']
                 or not same_execution(binding['init'], process(current['State']['Pid']))):
             raise RuntimeError('guest execution changed before reclaim setup')
@@ -771,9 +795,10 @@ def guard(config, out, *, job_lock=None, hardware=None):
     reason = None; events = None; event_output = None; log = None
     minimum = None; maximum = tasks_peak = 0; cleanup_result = None
     owns_job_lock = job_lock is None
-    budget = controller_budget(config)
+    budget = hardware.controller_budget if hardware else controller_budget(config)
     tasks = hardware.tasks if hardware else task_budget(config)
     profile = hardware.resources if hardware else fixture_resources(config)
+    aggregate_memory = getattr(hardware, 'aggregate_memory', 1024*MIB)
     start = time.monotonic(); deadline = start+config['seconds']+65
     monitor = process(os.getpid()); worker_unit = config['unit']+'-work.service'
     if not hardware:
@@ -784,7 +809,7 @@ def guard(config, out, *, job_lock=None, hardware=None):
         if leases.get('leases') or leases.get('bridge'):
             raise RuntimeError('existing leases/bridge require prior recovery')
     aggregate = unit(profile['slice'])['ControlGroup']; actual = limits(aggregate)
-    if (actual['memory.max'] != str(1024*MIB) or actual['memory.swap.max'] != str(128*MIB)
+    if (actual['memory.max'] != str(aggregate_memory) or actual['memory.swap.max'] != str(128*MIB)
             or actual['pids.max'] != str(tasks['aggregate']) or actual['cpu.max'].split()[0] == 'max'
             or load_metrics(aggregate)['tasks'] != 0):
         raise RuntimeError('aggregate absent, busy or outside its budget')
@@ -808,7 +833,8 @@ def guard(config, out, *, job_lock=None, hardware=None):
         since = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
         put(out/'event-since.json', {'since': since})
         monitor_bytes = hardware.admission_monitor_bytes if hardware else 64*MIB
-        threshold = config['reserve_bytes']+1024*MIB+monitor_bytes+128*MIB
+        worst_case = aggregate_memory + monitor_bytes
+        threshold = config['reserve_bytes'] + worst_case + max(128*MIB, (worst_case+9)//10)
         stable = None
         with (out/'admission.jsonl').open('w') as admission:
             while True:
@@ -859,7 +885,7 @@ def guard(config, out, *, job_lock=None, hardware=None):
                                'controller_budget':budget, 'controller_limits':observed,
                                **({'phase_deadline':deadline} if hardware else {})})
         (out/'go').touch()
-        policy = GuardPolicy(reserve=config['reserve_bytes'],
+        policy = GuardPolicy(reserve=config['reserve_bytes'], memory_limit=aggregate_memory,
                              task_limit=tasks['aggregate'], deadline=deadline)
         controller_policy = GuardPolicy(reserve=config['reserve_bytes'],
             memory_limit=budget['memory_max'], task_limit=budget['tasks_max'], deadline=deadline)
@@ -968,12 +994,16 @@ def launch(config, out, *, hardware=None):
     """Prepare the idle dedicated aggregate under the same job lock as guard."""
     tasks = hardware.tasks if hardware else task_budget(config)
     aggregate_slice = (hardware.resources if hardware else fixture_resources(config))['slice']
-    controller_budget(config)
+    aggregate_memory = getattr(hardware, 'aggregate_memory', 1024*MIB)
+    if not hardware:
+        controller_budget(config)
     if any((out/name).exists() for name in ('abort.json', 'receipt.json', 'go')):
         raise RuntimeError('attempt already exists; never retry or overwrite it')
     lockpath = ROOT/'.lab/agents/test-job.lock'
     descriptor = os.open(lockpath, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW | os.O_CLOEXEC, 0o600)
     prepared = False
+    original_tasks = None
+    original_memory = None
     try:
         fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
         if not hardware:
@@ -985,8 +1015,18 @@ def launch(config, out, *, hardware=None):
         if before.get('ControlGroup') and load_metrics(before['ControlGroup'])['tasks']:
             raise RuntimeError('dedicated test aggregate is busy')
         put(out/'test-slice-before.json', before)
+        if ((not hardware and config.get('task_profile') == 'debian-private-gui')
+                or config.get('qq_gui') or getattr(hardware, 'runtime_task_limit', None)):
+            value = before.get('TasksMax', '')
+            if value != 'infinity' and not re.fullmatch(r'[1-9][0-9]*', value):
+                raise RuntimeError('cannot record original GUI slice task limit')
+            original_tasks = value
+        if config.get('qq_gui'):
+            original_memory = before.get('MemoryMax', '')
+            if original_memory != 'infinity' and not re.fullmatch(r'[1-9][0-9]*', original_memory):
+                raise RuntimeError('cannot record original QQ GUI memory limit')
         call(['systemctl', '--user', 'set-property', '--runtime', aggregate_slice,
-              'MemoryMax=1073741824', 'MemorySwapMax=134217728',
+              'MemoryMax='+str(aggregate_memory), 'MemorySwapMax=134217728',
               'TasksMax='+str(tasks['aggregate']), 'CPUQuota=100%'])
         prepared = True
         call(['systemctl', '--user', 'start', aggregate_slice])
@@ -996,10 +1036,42 @@ def launch(config, out, *, hardware=None):
         return guard(config, out, job_lock=descriptor)
     finally:
         try:
-            if prepared:
+            if prepared or original_tasks is not None:
                 observed = unit(aggregate_slice)
-                if observed.get('ControlGroup') and not load_metrics(observed['ControlGroup'])['tasks']:
+                group = observed.get('ControlGroup')
+                busy = group and load_metrics(group)['tasks']
+                if original_tasks is not None and busy:
+                    raise RuntimeError('GUI slice still has tasks')
+                if original_tasks is not None and observed.get('TasksMax') != original_tasks:
+                    if observed.get('TasksMax') != str(tasks['aggregate']):
+                        raise RuntimeError('GUI slice task limit changed externally')
+                    call(['systemctl', '--user', 'set-property', '--runtime', aggregate_slice,
+                          'TasksMax='+original_tasks])
+                    observed = unit(aggregate_slice)
+                if original_memory is not None and observed.get('MemoryMax') != original_memory:
+                    if observed.get('MemoryMax') != str(aggregate_memory):
+                        raise RuntimeError('QQ GUI aggregate memory limit changed externally')
+                    call(['systemctl', '--user', 'set-property', '--runtime', aggregate_slice,
+                          'MemoryMax='+original_memory])
+                    observed = unit(aggregate_slice)
+                    if observed.get('MemoryMax') != original_memory:
+                        raise RuntimeError('QQ GUI aggregate memory limit was not restored')
+                if original_tasks is not None:
+                    put(out/'gui-slice-tasks-after.json', {'slice': aggregate_slice, 'TasksMax': observed.get('TasksMax')})
+                    if observed.get('TasksMax') != original_tasks:
+                        raise RuntimeError('GUI slice task limit was not restored')
+                if prepared and group and not busy:
                     call(['systemctl', '--user', 'stop', aggregate_slice])
+        except Exception as exc:
+            if original_tasks is not None:
+                # guard() may already have written a successful command receipt.
+                receipt = get(out/'receipt.json') if (out/'receipt.json').exists() else {}
+                reason = 'CLEANUP_UNKNOWN: '+str(exc)
+                receipt['reason'] = ' '.join(filter(None, (receipt.get('reason'), reason)))
+                put(out/'receipt.json', receipt)
+                if not (out/'abort.json').exists():
+                    put(out/'abort.json', {'reason': reason, 'at': time.time()})
+            raise
         finally:
             os.close(descriptor)
 

@@ -49,3 +49,15 @@ class RemoteFixtureProfile(unittest.TestCase):
                         with self.assertRaises(RuntimeError):
                             guard.info(c)
             self.assertEqual(guard.task_budget(c),{'aggregate':256,'guest':128})
+
+    def test_longer_package_preparation_keeps_both_fixed_bindings(self):
+        for target in guard.REMOTE_PACKAGE_BINDINGS:
+            spec = {**self.config(target), 'fixture_profile': 'remote-package-prepare', 'seconds': 900}
+            self.assertEqual(guard.fixture_resources(spec), guard.fixture_resources(self.config(target)))
+            self.assertEqual(guard.task_budget(spec), {'aggregate': 256, 'guest': 128})
+            for changed in ({'seconds': 901}, {'seconds': 0}, {'seconds': True},
+                            {'cid': '0'*64}, {'generation': 2}, {'task_profile': 'debian-private-gui'}):
+                with self.subTest(target=target, changed=changed), patch.object(guard, 'call') as podman:
+                    with self.assertRaises(RuntimeError):
+                        guard.info({**spec, **changed})
+                    podman.assert_not_called()

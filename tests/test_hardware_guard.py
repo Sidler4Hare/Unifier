@@ -12,7 +12,7 @@ from unittest.mock import Mock, call, patch
 import tempfile
 
 from tools import hardware_test_guard as guard
-from tools import intel_media_guard, reuse_test_guard as reuse
+from tools import arch_gpu_packages, intel_media_guard, reuse_test_guard as reuse
 from tools.vulkan_probe import check_readback
 from tools.hardware_guard_policy import (
     FIXTURES, NODE_MAPPING, V100_INPUTS, amd_dnf_effective_limits, amd_event_time_ns, validate_amd_bootstrap_history, validate_container,
@@ -47,6 +47,101 @@ def inspect_fixture():
 
 
 class FixturePolicyTests(TestCase):
+    def test_larger_controller_is_limited_to_the_standard_qq_launch(self):
+        spec = create_spec(phase='gpu', unit='unifier-drm-qq-gui-standard-visible',
+                           seconds=180, qq_gui=True, controller=guard.QQ_STANDARD_CONTROLLER,
+                           gpu_payload_bytes=64*reuse.MIB, command=[guard.PYTHON, '/tmp/qq.py'])
+        self.assertIs(guard.validate_spec(spec), INTEL)
+        self.assertEqual(guard.selected_controller_budget(spec), guard.QQ_STANDARD_CONTROLLER)
+        self.assertEqual(guard.selected_controller_budget({}), reuse.DEFAULT_CONTROLLER)
+        with self.assertRaises(RuntimeError):
+            reuse.controller_budget(spec)
+        for edit in ({'qq_gui': False}, {'unit': 'unifier-drm-qq-gui-other'},
+                     {'controller': {**guard.QQ_STANDARD_CONTROLLER, 'memory_high': 512*reuse.MIB}}):
+            with self.subTest(edit=edit), self.assertRaises(RuntimeError):
+                guard.validate_spec({**spec, **edit})
+
+    def test_arch_recovery_only_admits_fixed_controller_and_fixture(self):
+        spec = {'fixture': 'arch-intel', 'phase': 'replay', 'seconds': 120,
+                'unit': 'unifier-drm-arch-replay-offline', 'controller_sha256': 'a'*64,
+                'command': [guard.PYTHON, str(guard.ARCH_EVIDENCE/'arch-replay.py')]}
+        self.assertIs(guard.validate_spec(spec), FIXTURES['arch-intel'])
+        corrected = {**spec, 'phase': 'replay-llvm', 'unit': 'unifier-drm-arch-replay-llvm-offline',
+                     'command': [guard.PYTHON, str(guard.ARCH_EVIDENCE/'arch-replay-llvm.py')]}
+        self.assertIs(guard.validate_spec(corrected), FIXTURES['arch-intel'])
+        for edit in ({'fixture': 'intel'}, {'controller_sha256': 'wrong'}, {'seconds': 121},
+                     {'command': [guard.PYTHON, '/tmp/replay.py']}, {'phase': 'reconcile'}):
+            with self.subTest(edit=edit), self.assertRaises(ValueError):
+                guard.validate_spec({**spec, **edit})
+
+    def test_arch_offline_plan_rejects_wrong_snapshot_paths_and_sizes(self):
+        policy = arch_gpu_packages
+        plan = {'cid': CID, 'archive': policy.ARCHIVE, 'mode': 'egl',
+                'requests': policy.VARIANTS['egl'], 'transfer_bytes': 50, 'installed_bytes': 40,
+                'repositories': {
+                    repo: {'url': f'{policy.ARCHIVE}/{repo}/os/x86_64/{repo}.db',
+                           'download_bytes': 10, 'sha256': 'b'*64}
+                    for repo in ('core', 'extra')},
+                'packages': {'mesa': {'name': 'mesa', 'repo': 'extra',
+                                      'filename': 'mesa-1-1-x86_64.pkg.tar.zst', 'sha256': 'c'*64,
+                                      'pgp_signature': 'signed', 'download_bytes': 30, 'installed_bytes': 40}}}
+        self.assertIs(policy.validate_plan(plan, CID), plan)
+        for edit in ({'cid': OTHER}, {'transfer_bytes': 51}, {'archive': 'https://elsewhere.invalid'},
+                     {'requests': ['mesa']}, {'packages': {'mesa': {
+                         **plan['packages']['mesa'], 'filename': 'mesa-../library.pkg.tar.zst'}}}):
+            with self.subTest(edit=edit), self.assertRaises(RuntimeError):
+                policy.validate_plan({**plan, **edit}, CID)
+
+    def test_arch_intel_phases_use_only_the_approved_headless_fixture(self):
+        fixture = FIXTURES['arch-intel']
+        create = {'fixture': 'arch-intel', 'phase': 'create', 'seconds': 120,
+                  'unit': 'unifier-drm-arch-create-local'}
+        self.assertIs(guard.validate_spec(create), fixture)
+        self.assertEqual(fixture.env_id, 'arch')
+        self.assertEqual(fixture.devices, INTEL.devices)
+        self.assertEqual(fixture.pci, INTEL.pci)
+        self.assertEqual(fixture.slice, INTEL.slice)
+        self.assertEqual(fixture.name, 'ml-dce69f86-arch')
+        self.assertEqual(guard.fixture_create_spec(fixture).mounts,
+                         ((str(fixture.shared), str(fixture.shared)),))
+        vulkan = {**create, 'phase': 'vulkan', 'unit': 'unifier-drm-arch-vulkan-local',
+                  'probe_sha256': 'a'*64}
+        self.assertIs(guard.validate_spec(vulkan), fixture)
+        for edit in ({'seconds': 121}, {'fixture': 'intel'}, {'probe_sha256': 'x'},
+                     {'command': ['/usr/bin/python3']}, {'phase': 'resume'},
+                     {'unit': 'unifier-drm-vulkan-local'}, {'project': '/tmp/arbitrary'}):
+            with self.subTest(edit=edit), self.assertRaises(ValueError):
+                guard.validate_spec({**vulkan, **edit})
+        with self.assertRaises(ValueError):
+            guard.validate_spec({**create, 'command': ['/usr/bin/python3']})
+        prepare = {**create, 'phase': 'prepare', 'unit': 'unifier-drm-arch-prepare-local',
+                   'command': ['/usr/bin/python3', '/tmp/controller.py'], 'arch_plan_sha256': 'a'*64}
+        self.assertIs(guard.validate_spec(prepare), fixture)
+        for edit in ({'arch_plan_sha256': None}, {'fixture': 'intel'}, {'phase': 'gpu'}):
+            with self.subTest(edit=edit), self.assertRaises(ValueError):
+                guard.validate_spec({**prepare, **edit})
+
+    def test_server_arch_create_requires_the_two_pinned_device_profiles(self):
+        amd = {'fixture': 'arch-amd', 'phase': 'create', 'unit': 'unifier-drm-arch-amd-create-reviewed',
+               'seconds': 120, 'supervisor_memory_mb': 96, 'supervisor_tasks': 20,
+               'acl_guard_unit': 'unifier-v008-amd-acl-arch-create.service'}
+        cuda = {'fixture': 'arch-v100', 'phase': 'create', 'unit': 'unifier-arch-v100-create-reviewed',
+                'seconds': 120}
+        drm, gpu = guard.validate_spec(amd), guard.validate_spec(cuda)
+        self.assertEqual((drm.env_id, gpu.env_id), ('arch', 'arch'))
+        self.assertEqual(drm.devices, FIXTURES['amd'].devices)
+        self.assertEqual(gpu.devices, ())
+        self.assertEqual(gpu.cuda, FIXTURES['v100-a'].cuda)
+        self.assertEqual(drm.reference, gpu.reference)
+        self.assertNotEqual(drm.root, gpu.root)
+        for edit in ({'supervisor_memory_mb': 48}, {'seconds': 121}, {'acl_guard_unit': ''},
+                     {'phase': 'create', 'project': '/tmp/replacement'}):
+            with self.subTest(edit=edit), self.assertRaises(ValueError):
+                guard.validate_spec({**amd, **edit})
+        with self.assertRaises(ValueError):
+            guard.validate_spec({**cuda, 'phase': 'gpu', 'unit': 'unifier-arch-v100-gpu-reviewed',
+                                 'tensor_sha256': {name: 'a'*64 for name in guard.V100_TENSOR_FILES}})
+
     def test_media_solver_must_keep_the_exact_signed_install_only_closure(self):
         row = 'Inst ffmpeg (7:7.1.5-0+deb13u1 Debian:13/stable [amd64])'
         summary = '0 upgraded, 1 newly installed, 0 to remove and 5 not upgraded.'
@@ -98,6 +193,22 @@ class FixturePolicyTests(TestCase):
                      {'command': ['/bin/true']}, {'phase': 'prepare'}):
             with self.subTest(edit=edit), self.assertRaises(ValueError):
                 guard.validate_spec({**spec, **edit})
+
+        digests = {name: 'b'*64 for name in guard.V100_TENSOR_FILES}
+        gpu = {**spec, 'phase': 'gpu', 'unit': 'unifier-v100-a-gpu-tensor',
+               'tensor_sha256': digests}
+        self.assertEqual(guard.validate_spec(gpu), fixture)
+        for malformed in (None, {}, {**digests, 'extra': 'b'*64},
+                          {name: 'sha256:'+'b'*64 for name in digests}):
+            with self.subTest(malformed=malformed), self.assertRaises(ValueError):
+                guard.validate_spec({**gpu, 'tensor_sha256': malformed})
+        with self.assertRaises(ValueError):
+            guard.validate_spec({**spec, 'tensor_sha256': digests})
+        video = {name: 'c'*64 for name in guard.v100_media_probe.FILES}
+        video_spec = {**spec, 'phase': 'gpu', 'unit': 'unifier-v100-a-gpu-video', 'video_sha256': video}
+        self.assertEqual(guard.validate_spec(video_spec), fixture)
+        with self.assertRaises(ValueError):
+            guard.validate_spec({**video_spec, 'tensor_sha256': digests})
 
     def test_v100_saved_oci_rejects_other_card_and_writable_inputs(self):
         fixture = FIXTURES['v100-b']
@@ -924,6 +1035,10 @@ class AmdOfflineInstallTests(TestCase):
     evidence = (Path(__file__).resolve().parents[1]
                 /'artifacts/v008-gpu-drm-20261115T183930+0800')
 
+    def require_archived_evidence(self):
+        if not self.evidence.is_dir():
+            self.skipTest('repository-local AMD hardware receipts are outside the source bundle')
+
     def test_offline_install_submission_requires_150_seconds_to_finish(self):
         with tempfile.TemporaryDirectory() as directory:
             attempt = SimpleNamespace(out=Path(directory), check_acl_watch=Mock())
@@ -958,6 +1073,7 @@ class AmdOfflineInstallTests(TestCase):
             guard.validate_spec({key: value for key, value in spec.items() if key != 'guest_profile'})
 
     def test_real_primary_and_query_bind_fresh_prefetch_and_all_28_rpms(self):
+        self.require_archived_evidence()
         now = 1794749000
         query_raw = (self.evidence/'server/amd-query-memory/result.json').read_bytes()
         query = guard.json.loads(query_raw)
@@ -1011,6 +1127,7 @@ class AmdOfflineInstallTests(TestCase):
             validate({**prefetch, 'metalink_receipt_sha256': '0'*64}, now)
 
     def test_refresh_requires_new_live_authority_without_changing_historical_payload(self):
+        self.require_archived_evidence()
         root = self.evidence/'server'
         past = guard.json.loads((root/'amd-package-install-retry/amd-offline-install-before.json').read_bytes())
         old = guard.json.loads((root/'fedora-package-prefetch-continuation/result.json').read_bytes())
@@ -1059,6 +1176,7 @@ class AmdOfflineInstallTests(TestCase):
                      old['packages'], cutoff, now)
 
     def test_payload_signature_requires_the_full_trusted_fingerprint_and_digest(self):
+        self.require_archived_evidence()
         import runpy
 
         controller = runpy.run_path(str(self.evidence/'fedora-install-controller.py'))
@@ -1075,6 +1193,7 @@ class AmdOfflineInstallTests(TestCase):
                 verify(invalid, [path])
 
     def test_cache_hardlink_accounting_adjusts_only_unreserved_existing_bytes(self):
+        self.require_archived_evidence()
         import runpy
 
         controller = runpy.run_path(str(self.evidence/'fedora-install-controller.py'))
@@ -1092,6 +1211,7 @@ class AmdOfflineInstallTests(TestCase):
                      {'/old': 90*guard.MIB, '/new': 70*guard.MIB})
 
     def test_retry_native_provenance_is_only_the_exact_recorded_option_exit(self):
+        self.require_archived_evidence()
         txn = guard.json.loads((self.evidence/'server/amd-package-install/package-transaction.json').read_bytes())
         guard.validate_amd_dnf_option_failure(txn)
         for changes in ({'exit_code': 1}, {'stdout_tail': 'Installing packages'},

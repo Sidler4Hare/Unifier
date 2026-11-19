@@ -310,6 +310,20 @@ class ApprovedTaskBudgetContracts(unittest.TestCase):
     def config(self):
         return {**guard.SH10_TASK_BINDING, 'seconds': 600, 'shared': '/fixture/shared'}
 
+    def test_fresh_private_gui_attempt_is_bound_and_only_selects_existing_guest_limits(self):
+        config = {**self.config(), 'unit': 'unifier-private-gui-writer-01',
+                  'task_profile': 'debian-private-gui'}
+        self.assertEqual(guard.task_budget(config), {'aggregate': 384, 'guest': 192})
+        self.assertEqual(guard.task_budget({**config, 'guest_tasks': 256}), {'aggregate': 384, 'guest': 256})
+        for change in ({'unit': 'other'}, {'unit': 'unifier-private-gui-a.service'},
+                       {'seconds': 601}, {'guest_tasks': True}, {'guest_tasks': 384},
+                       {'generation': True}, {'cid': '0'*64}, {'environment_uuid': 'other'},
+                       {'env_id': 'arch'}, {'project': '/foreign'}):
+            with self.subTest(change=change), patch.object(guard, 'call') as podman:
+                with self.assertRaises(RuntimeError):
+                    guard.info({**config, **change})
+                podman.assert_not_called()
+
     def test_default_is_unchanged_and_profile_is_bound_to_one_attempt(self):
         self.assertEqual(guard.task_budget({}), {'aggregate':256, 'guest':192})
         self.assertEqual(guard.task_budget(self.config()), {'aggregate':384, 'guest':256})
@@ -339,6 +353,11 @@ class ApprovedTaskBudgetContracts(unittest.TestCase):
         with patch.object(guard, 'get', return_value=record):
             with patch.object(guard, 'call', return_value=json.dumps([value])):
                 self.assertEqual(guard.info(config), value)
+                fresh = {**config, 'unit': 'unifier-private-gui-writer-02',
+                         'task_profile': 'debian-private-gui'}
+                with self.assertRaisesRegex(RuntimeError, 'limits/isolation'):
+                    guard.info(fresh)  # The mock guest has 256 tasks, default requests 192.
+                self.assertEqual(guard.info({**fresh, 'guest_tasks': 256}), value)
                 default = {k:v for k,v in config.items() if k!='task_profile'}
                 with self.assertRaisesRegex(RuntimeError, 'limits/isolation'):
                     guard.info(default)
@@ -450,3 +469,37 @@ class ApprovedTaskBudgetContracts(unittest.TestCase):
                     guard.launch(self.config(),out)
                 native.assert_not_called()
                 self.assertEqual((out/'abort.json').read_text(),'{"reason":"original"}')
+
+    def test_private_gui_restores_slice_tasks_and_reports_an_unsafe_cleanup(self):
+        config = {**self.config(), 'task_profile': 'debian-private-gui',
+                  'unit': 'unifier-private-gui-save-01'}
+        for busy in (False, True):
+            with self.subTest(busy=busy), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                (root/'.lab/agents').mkdir(parents=True)
+                limits = {'ControlGroup': '/test', 'TasksMax': '256'}
+                def systemctl(argv):
+                    for arg in argv:
+                        if arg.startswith('TasksMax='):
+                            limits['TasksMax'] = arg.split('=')[1]
+                def run(*args, **kwargs):
+                    self.assertEqual(limits['TasksMax'], '384')
+                    guard.put(root/'receipt.json', {'reason': None, 'command_result': {'exit_code': 0}})
+                    return 0
+                def read(p):
+                    return {} if p.name == 'debian13.json' else json.loads(p.read_text())
+                with patch.object(guard, 'ROOT', root), \
+                     patch.object(guard, 'info', return_value={'State': {'Running': False}}), \
+                     patch.object(guard, 'get', side_effect=read), \
+                     patch.object(guard, 'unit', side_effect=lambda _: dict(limits)), \
+                     patch.object(guard, 'load_metrics', side_effect=[{'tasks': 0}, {'tasks': int(busy)}]), \
+                     patch.object(guard, 'call', side_effect=systemctl), patch.object(guard, 'guard', side_effect=run):
+                    if busy:
+                        with self.assertRaisesRegex(RuntimeError, 'still has tasks'):
+                            guard.launch(config, root)
+                        self.assertEqual(limits['TasksMax'], '384')
+                        self.assertIn('CLEANUP_UNKNOWN', guard.get(root/'receipt.json')['reason'])
+                        self.assertTrue((root/'abort.json').exists())
+                    else:
+                        self.assertEqual(guard.launch(config, root), 0)
+                        self.assertEqual(limits['TasksMax'], '256')

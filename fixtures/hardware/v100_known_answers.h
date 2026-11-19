@@ -3,7 +3,11 @@
 
 #include <stdint.h>
 
+#ifdef V100_TENSOR
+enum { SIDE = 16, COUNT = SIDE * SIDE };
+#else
 enum { SIDE = 4, COUNT = SIDE * SIDE };
+#endif
 
 struct v100_input {
     double fp64[COUNT];

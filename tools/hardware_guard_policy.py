@@ -1,5 +1,5 @@
 """Host and container contracts for the two approved v008 DRM fixtures."""
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -161,6 +161,17 @@ FIXTURES = {
         382082984, '0000:01:00.0', '1002', '6778', 'radeon', 0o660, 993),
 }
 
+FIXTURES['arch-intel'] = replace(
+    FIXTURES['intel'],
+    env_id='arch',
+    root=Path('/home/omg/文档/多兼容linux机/.lab/hardware-v008-arch-20261117a/environment'),
+    name='ml-dce69f86-arch',
+    registry='docker.io/library/archlinux',
+    manifest='363129b67b2bc6c5a634f8fb4961a7e2eba213a2ec075d159127b1260290a722',
+    image_id='5a30b4acc83ff841682eb21795e00f7ff030796f5e6fd2a127decd7a45ba7cef',
+    image_size=410429135,
+)
+
 V100_INPUT_ROOT = Path('/home/agent/v008-v100-20261116-214dwxyS')
 V100_PROBE = '/run/unifier-cuda/v100_known_answers'
 V100_CUBIN = '/run/unifier-cuda/v100_known_answers.sm70.cubin'
@@ -181,6 +192,13 @@ for slot, token, pci, gpu_uuid, minor in (
         f'ml-{token}-fedora44', amd.slice, amd.registry, amd.manifest, amd.image_id,
         amd.image_size, pci, '10de', '1db1', 'nvidia', 0o666, 0,
         CudaDevice(gpu_uuid, pci, minor, V100_LIBRARY))
+
+for key, base, token in (('amd', 'amd', '6fda1757'), ('v100', 'v100-a', '994fcbc4')):
+    arch = FIXTURES['arch-intel']
+    FIXTURES['arch-'+key] = replace(
+        FIXTURES[base], env_id='arch', root=Path(f'/home/agent/unifier-hardware-v008-server-arch-{key}/environment'),
+        name=f'ml-{token}-arch', registry=arch.registry, manifest=arch.manifest,
+        image_id=arch.image_id, image_size=410427904)
 
 
 def image_id(value):

@@ -23,8 +23,10 @@ from tools.test_runtime import cgroup_diagnostics, offline_environment, result_e
 SPEC = C = OUT = None
 CG = Path('/sys/fs/cgroup')
 MIB = 1024**2
+MIN_OFFLINE_MEMORY_MIB = 256
 DEFAULT_MEMORY_MIB = 512
 MAX_OFFLINE_MEMORY_MIB = 1024
+SERVER_BUILD_MEMORY_MIB = 2048
 HOST_FUSE_COMMAND = [
     '/usr/bin/unshare', '--user', '--map-root-user', '--mount',
     '--propagation', 'private', '--', '/usr/bin/python3',
@@ -97,6 +99,22 @@ def host():
             'swap_free': memory['SwapFree'], 'psi': pressure}
 
 
+def on_build_server():
+    """The expanded build budget has been sized for one measured host."""
+    if os.uname().nodename.split('.')[0] != 'b0512' or len(os.sched_getaffinity(0)) < 2:
+        return False
+    cpuinfo = Path('/proc/cpuinfo').read_text()
+    meminfo = Path('/proc/meminfo').read_text().splitlines()
+    return ('E5-2686 v4' in cpuinfo and
+            any(line.startswith('MemTotal:') and int(line.split()[1]) >= 120 * 1024**2
+                for line in meminfo))
+
+
+def admission_bytes(memory_mib, reserve):
+    worst_mib = memory_mib + 64  # The independent supervisor has its own cgroup.
+    return reserve + (worst_mib + max(128, (worst_mib + 9) // 10)) * MIB
+
+
 def worker():
     # A signal must unwind our private temporary directory too.
     def interrupted(signum, _frame):
@@ -155,6 +173,7 @@ def guardian():
     ownunit = C['unit'] + '-guard.service'
     memory_mib = C['memory_mib']
     memory_high_mib = memory_mib * 7 // 8
+    cpu_count = 2 if C.get('server_build') else 1
     scope = ('T2 host FUSE only; private namespace, no containers or GUI'
              if C.get('scope') == 'host-fuse'
              else 'T1 offline only; containers and GUI not admitted')
@@ -179,7 +198,8 @@ def guardian():
                 or quota == 'max' or not 0 < int(quota) <= int(period)):
             raise RuntimeError('supervisor hard budget mismatch')
         # Fresh admission, including the independent monitor and margin.
-        threshold = C['reserve_bytes'] + (memory_mib + 64 + 128) * MIB
+        threshold = admission_bytes(memory_mib, C['reserve_bytes'])
+        receipt['admission_bytes'] = threshold
         with (OUT / 'admission.jsonl').open('w') as log:
             stable_since = None
             admission_deadline = time.monotonic() + 60
@@ -200,7 +220,7 @@ def guardian():
         write('heartbeat.json', {'monotonic': time.monotonic()})
         properties = ['MemoryMax=' + str(memory_mib) + 'M',
                       'MemoryHigh=' + str(memory_high_mib) + 'M',
-                      'MemorySwapMax=0', 'TasksMax=96', 'CPUQuota=100%',
+                      'MemorySwapMax=0', 'TasksMax=96', f'CPUQuota={cpu_count * 100}%',
                       'RuntimeMaxSec=' + str(C['seconds']), 'TimeoutStopSec=10s',
                       'KillMode=control-group', 'Restart=no', 'LimitCORE=0',
                       'UMask=0077', 'BindsTo=' + ownunit, 'After=' + ownunit]
@@ -224,7 +244,8 @@ def guardian():
         if (owned['ControlGroup'] != group or int(actual['memory.max']) != memory_mib * MIB
                 or actual['memory.high'] != str(memory_high_mib * MIB)
                 or actual['memory.swap.max'] != '0' or actual['pids.max'] != '96'
-                or quota == 'max' or not 0 < int(quota) <= int(period)):
+                or quota == 'max' or not 0 < int(quota) <= cpu_count * int(period)
+                or (cpu_count == 2 and int(quota) != 2 * int(period))):
             raise RuntimeError('actual worker cgroup budget mismatch')
         receipt['worker'] = ready
         (OUT / 'go').touch()
@@ -352,9 +373,19 @@ def validate_spec(config):
     is_host_fuse = scope == 'host-fuse'
     prefix = 'unifier-t2-fuse-' if is_host_fuse else 'unifier-t1-'
     max_seconds = 120 if is_host_fuse else 300
-    max_memory_mib = DEFAULT_MEMORY_MIB if is_host_fuse else MAX_OFFLINE_MEMORY_MIB
+    min_memory_mib = MIN_OFFLINE_MEMORY_MIB
+    max_memory_mib = MAX_OFFLINE_MEMORY_MIB
+    server_build = config.get('server_build', False)
+    if type(server_build) is not bool:
+        raise ValueError('invalid server build setting')
+    if server_build:
+        if is_host_fuse or not on_build_server():
+            raise ValueError('server build requires the measured Xeon host and offline scope')
+        min_memory_mib = max_memory_mib = SERVER_BUILD_MEMORY_MIB
+    elif is_host_fuse:
+        min_memory_mib = max_memory_mib = DEFAULT_MEMORY_MIB
     memory_mib = config.get('memory_mib')
-    if (type(memory_mib) is not int or not DEFAULT_MEMORY_MIB <= memory_mib <= max_memory_mib
+    if (type(memory_mib) is not int or not min_memory_mib <= memory_mib <= max_memory_mib
             or config.get('reserve_bytes') != 1024**3
             or type(config.get('seconds')) is not int or not 1 <= config['seconds'] <= max_seconds
             or config.get('root') != str(ROOT)
@@ -381,8 +412,11 @@ def main(argv=None):
     launch = sub.add_parser('run', help='run one authorized offline command; no automatic retries')
     launch.add_argument('--out', required=True, type=Path, help='new evidence directory')
     launch.add_argument('--seconds', type=int, default=300)
-    launch.add_argument('--memory-mib', type=int, default=DEFAULT_MEMORY_MIB,
-                        help='T1 memory budget in MiB (512–1024, default: 512)')
+    budgets = launch.add_mutually_exclusive_group()
+    budgets.add_argument('--memory-mib', type=int, default=DEFAULT_MEMORY_MIB,
+                         help='T1 memory budget in MiB (256–1024, default: 512)')
+    budgets.add_argument('--server-build', action='store_true',
+                         help='offline Xeon server build: 2048 MiB and two CPUs')
     launch.add_argument('--locale', default='C')
     launch.add_argument('command', nargs=argparse.REMAINDER)
     host_fuse = sub.add_parser('run-host-fuse', help='run one isolated T2 host FUSE probe')
@@ -404,6 +438,8 @@ def main(argv=None):
         config = {'unit': prefix+uuid.uuid4().hex[:12], 'seconds': args.seconds,
                   'memory_mib': memory_mib, 'reserve_bytes': 1024**3, 'root': str(ROOT),
                   'command': command, 'environment': {'LC_ALL': locale, 'LANG': locale}}
+        if not is_host_fuse and args.server_build:
+            config.update(server_build=True, memory_mib=SERVER_BUILD_MEMORY_MIB)
         if is_host_fuse:
             config['scope'] = 'host-fuse'
         validate_spec(config)

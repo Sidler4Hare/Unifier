@@ -82,17 +82,33 @@ class SupervisorTests(unittest.TestCase):
     def test_config_accepts_only_the_bounded_offline_budget(self):
         config={'unit':'unifier-t1-fixture','memory_mib':512,'reserve_bytes':1024**3,
                 'seconds':300,'root':str(guard.ROOT),'command':['/usr/bin/true']}
-        for memory in (512, 768, 1024):
+        for memory in (256, 384, 512, 768, 1024):
             with self.subTest(memory=memory):
                 guard.validate_spec({**config,'memory_mib':memory})
-        for key,value in (('memory_mib',511),('memory_mib',1025),('memory_mib',True),
+        for key,value in (('memory_mib',255),('memory_mib',1025),('memory_mib',True),
                           ('reserve_bytes',0),('seconds',301),
                           ('command',[]),('unit','foreign.service'),('root','/foreign')):
             with self.subTest(key=key),self.assertRaises(ValueError):
                 guard.validate_spec({**config,key:value})
-        with self.assertRaisesRegex(ValueError,'changed safety budget'):
-            guard.validate_spec({**config,'scope':'host-fuse','memory_mib':1024,
-                                 'seconds':90,'unit':'unifier-t2-fuse-fixture'})
+        for memory in (256, 1024):
+            with self.assertRaisesRegex(ValueError,'changed safety budget'):
+                guard.validate_spec({**config,'scope':'host-fuse','memory_mib':memory,
+                                     'seconds':90,'unit':'unifier-t2-fuse-fixture'})
+
+    def test_server_build_is_scoped_and_charges_the_full_admission_margin(self):
+        config = {'unit': 'unifier-t1-build', 'memory_mib': 2048, 'server_build': True,
+                  'reserve_bytes': 1024**3, 'seconds': 300, 'root': str(guard.ROOT),
+                  'command': ['/usr/bin/true']}
+        with patch.object(guard, 'on_build_server', return_value=True):
+            guard.validate_spec(config)
+            for changed in ({'memory_mib': 2049}, {'scope': 'host-fuse'},
+                            {'server_build': 1}, {'server_build': False}):
+                with self.subTest(changed=changed), self.assertRaises(ValueError):
+                    guard.validate_spec({**config, **changed})
+        with patch.object(guard, 'on_build_server', return_value=False), self.assertRaises(ValueError):
+            guard.validate_spec(config)
+        for budget, required in ((256, 1472), (512, 1728), (1024, 2240), (2048, 3348)):
+            self.assertEqual(guard.admission_bytes(budget, 1024**3), required * guard.MIB)
 
     def test_replaced_unit_is_not_stopped(self):
         original={'InvocationID':'old','ControlGroup':'/gone'}

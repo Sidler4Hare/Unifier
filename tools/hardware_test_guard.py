@@ -1,4 +1,4 @@
-"""Run the two approved v008 DRM fixtures under the independent test supervisor."""
+"""Run the approved v008 hardware fixtures under the independent test supervisor."""
 from __future__ import annotations
 
 import hashlib
@@ -19,7 +19,9 @@ sys.path[:0] = [str(ROOT / 'src'), str(ROOT)]
 
 from tools import reuse_test_guard as reuse
 from tools import vulkan_probe
+from tools import v100_media_probe
 from tools import intel_media_guard
+from tools import arch_gpu_packages
 from tools.hardware_guard_policy import (
     AMD_DNF_ACTIVE_HIGH, AMD_DNF_ACTIVE_MEMORY, AMD_DNF_SAVED_MEMORY, CID, CONTAINER_ACTIONS,
     FIXTURES, MIB, NODE, amd_dnf_effective_limits, amd_event_time_ns, matches_labels, observe_device,
@@ -41,6 +43,12 @@ BUILTIN_PHASES = BOOTSTRAP_PHASES | {'recover', 'vulkan', 'media-recover'}
 PACKAGE_MAINTENANCE_PHASES = {'native-repair', 'recover'}
 PHASES = BUILTIN_PHASES | {'prepare', 'gpu', 'native-repair', 'media'}
 LOCK = ROOT / 'config/images.lock.json'
+QQ_STANDARD_CONTROLLER = {'memory_max': 512*MIB, 'memory_high': 448*MIB, 'tasks_max': 128}
+ARCH_EVIDENCE = ROOT/'artifacts/v008-arch-gpu-20261117-HIiJexUu'
+ARCH_RECOVERY_TXN = 'txna50c6285ae92'
+ARCH_RECOVERY_CID = 'd62e7139aaaae731299992fd19f722dd21c4bec5b1e39245f73542fd84a3088f'
+ARCH_TRANSACTION_SHA = '536d9403ddc5e8e94f2b8a0183aae90c618e825e183a80c89523e3a7b2736b6d'
+ARCH_MAINTENANCE_PHASES = {'replay', 'replay-llvm', 'reconcile'}
 INTEL_RESUME_CID = '9a6c635b14d4e3ea63b6af2f767420ef55a5191011c29c203525f3cd32088b88'
 INTEL_RESUME_FROM = (FIXTURES['intel'].root.parents[2]
                      /'artifacts/v008-gpu-drm-20261115T183930+0800/intel-create')
@@ -51,6 +59,7 @@ AMD_BOOTSTRAP_FROM = Path('/home/agent/v008-gpu-drm-20261115T183930/amd-create-m
 AMD_BOOTSTRAP_CID = '2180a83540510175c2d177c0decf0cf852788fbe77d6c6263d98737fd644fa3f'
 AMD_BOOTSTRAP_MARKER = 'amd-bootstrap-recovery-attempt.json'
 V100_A_SETUP_ATTEMPT = V100_INPUT_ROOT/'live-wNFwRB1g/a-create'
+V100_TENSOR_FILES = ('v100_known_answers', 'v100_known_answers.sm70.cubin')
 AMD_DNF_PROFILE = 'amd-dnf-retry-768'
 AMD_DNF_INSTALL_PROFILE = 'amd-dnf-offline-install-768'
 AMD_DNF_INSTALL_RETRY_PROFILE = 'amd-dnf-offline-install-retry-768'
@@ -276,7 +285,45 @@ def package_names(fixture, requests):
     return result
 
 
+def selected_controller_budget(spec):
+    extra = ()
+    if (spec.get('qq_gui') is True and spec.get('fixture') == 'intel' and spec.get('phase') == 'gpu'
+            and spec['unit'].startswith('unifier-drm-qq-gui-standard-')):
+        extra = (QQ_STANDARD_CONTROLLER,)
+    return reuse.controller_budget(spec, additional=extra)
+
+
 def validate_spec(spec):
+    if isinstance(spec, dict) and spec.get('fixture') == 'arch-intel':
+        phase = spec.get('phase')
+        fields = {'fixture', 'phase', 'unit', 'seconds'}
+        if isinstance(phase, str) and phase in ARCH_MAINTENANCE_PHASES:
+            controller = ARCH_EVIDENCE/('arch-'+phase+'.py')
+            if (set(spec) != fields | {'command', 'controller_sha256'}
+                    or spec['command'] != [PYTHON, str(controller)]
+                    or not isinstance(spec['controller_sha256'], str)
+                    or not CID.fullmatch(spec['controller_sha256'])
+                    or type(spec['seconds']) is not int or not 1 <= spec['seconds'] <= 120
+                    or not isinstance(spec['unit'], str)
+                    or re.fullmatch(r'unifier-drm-arch-'+phase+r'-[a-z0-9-]{1,24}', spec['unit']) is None):
+                raise ValueError('Arch maintenance requires the fixed bounded controller')
+            return FIXTURES['arch-intel']
+        extras = {'create': set(), 'prepare': {'command'}, 'gpu': {'command', 'gpu_payload_bytes'},
+                  'vulkan': {'probe_sha256'}, 'media': {'command'}}
+        if phase == 'prepare' and 'arch_plan_sha256' in spec:
+            if not isinstance(spec['arch_plan_sha256'], str) or not CID.fullmatch(spec['arch_plan_sha256']):
+                raise ValueError('invalid Arch offline package plan digest')
+            fields.add('arch_plan_sha256')
+        if (not isinstance(phase, str) or phase not in extras
+                or set(spec) != fields | extras[phase]
+                or type(spec.get('seconds')) is not int or not 1 <= spec['seconds'] <= 120
+                or not isinstance(spec.get('unit'), str)
+                or re.fullmatch(r'unifier-drm-arch-' + phase + r'-[a-z0-9-]{1,24}', spec['unit']) is None):
+            raise ValueError('invalid bounded Arch Intel fixture phase')
+        if phase == 'vulkan':
+            if not isinstance(spec['probe_sha256'], str) or not CID.fullmatch(spec['probe_sha256']):
+                raise ValueError('invalid Arch Intel Vulkan probe digest')
+            return FIXTURES['arch-intel']
     if isinstance(spec, dict) and spec.get('phase') == 'media-recover':
         if (set(spec) - {'fixture', 'phase', 'unit', 'seconds', 'previous_stage'}
                 or spec.get('previous_stage', 'install') not in ('install', 'install-confirmed-files')
@@ -295,16 +342,28 @@ def validate_spec(spec):
                 or not isinstance(spec.get('probe_sha256'), str) or not CID.fullmatch(spec['probe_sha256'])):
             raise ValueError('invalid Intel Vulkan probe specification')
         return FIXTURES['intel']
-    if isinstance(spec, dict) and spec.get('fixture') in ('v100-a', 'v100-b'):
+    if isinstance(spec, dict) and spec.get('fixture') in ('v100-a', 'v100-b', 'arch-v100'):
         allowed = {'fixture', 'phase', 'unit', 'seconds'}
         if ('retry_setup_from' in spec and spec['fixture'] == 'v100-a' and spec.get('phase') == 'create'
                 and spec['retry_setup_from'] == str(V100_A_SETUP_ATTEMPT)):
             allowed.add('retry_setup_from')
+        payloads = {'tensor_sha256': V100_TENSOR_FILES, 'video_sha256': v100_media_probe.FILES}
+        selected = payloads.keys() & spec.keys()
+        if selected:
+            if len(selected) != 1 or spec.get('phase') != 'gpu' or spec['fixture'] == 'arch-v100':
+                raise ValueError('V100 supplement requires a dedicated GPU phase')
+            key, = selected
+            digests = spec[key]
+            if (not isinstance(digests, dict) or set(digests) != set(payloads[key])
+                    or any(not isinstance(digest, str) or not CID.fullmatch(digest)
+                           for digest in digests.values())):
+                raise ValueError('invalid V100 supplement probe digests')
+            allowed.add(key)
         if (set(spec) != allowed
                 or spec.get('phase') not in ('create', 'gpu')
                 or type(spec.get('seconds')) is not int or not 1 <= spec['seconds'] <= 120
                 or not isinstance(spec.get('unit'), str)
-                or re.fullmatch(r'unifier-v100-[ab]-(?:create|gpu)-[a-z0-9-]{1,30}', spec['unit']) is None
+                or re.fullmatch(r'unifier-(?:v100-[ab]|arch-v100)-(?:create|gpu)-[a-z0-9-]{1,30}', spec['unit']) is None
                 or not spec['unit'].startswith('unifier-'+spec['fixture']+'-'+spec['phase']+'-')):
             raise ValueError('invalid bounded V100 fixture phase')
         return FIXTURES[spec['fixture']]
@@ -314,8 +373,11 @@ def validate_spec(spec):
                                                  'validator_retry_from', 'supervisor_tasks',
                                                  'supervisor_memory_mb',
                                                  'recover_from', 'transaction', 'repair_from',
-                                                 'bootstrap_from', 'guest_profile', 'intel_media_cache'}:
+                                                 'bootstrap_from', 'guest_profile', 'intel_media_cache',
+                                                 'arch_plan_sha256', 'controller', 'qq_gui', 'qq_recovery'}:
         raise ValueError('unknown hardware guard settings')
+    if 'arch_plan_sha256' in spec and spec.get('fixture') not in ('arch-intel', 'arch-amd'):
+        raise ValueError('Arch offline package plan requires the fixed Arch fixture')
     if not isinstance(spec.get('fixture'), str) or spec['fixture'] not in FIXTURES:
         raise ValueError('hardware fixture is outside the approved pair')
     phase = spec.get('phase')
@@ -325,26 +387,58 @@ def validate_spec(spec):
             or not 1 <= seconds <= 300 or not isinstance(unit, str)
             or not re.fullmatch('unifier-drm-[a-z0-9-]{1,48}', unit)):
         raise ValueError('invalid hardware phase, unit or deadline')
-    if phase == 'media' and (spec['fixture'] != 'intel' or seconds > 120):
+    if phase == 'media' and (spec['fixture'] not in ('intel', 'arch-intel') or seconds > 120):
         raise ValueError('media phase requires the Intel fixture and 120 second deadline')
+    qq_write_recovery = spec.get('qq_recovery') == 'txnb2fb18764986'
+    if 'controller' in spec:
+        if spec['fixture'] != 'intel' or not (phase == 'gpu' or qq_write_recovery):
+            raise ValueError('an explicit controller budget requires the Intel graphics fixture')
+        selected_controller_budget(spec)
+    if 'qq_gui' in spec and (spec['qq_gui'] is not True or spec['fixture'] != 'intel'
+            or spec.get('controller') not in (reuse.AUTHORIZED_CONTROLLER, QQ_STANDARD_CONTROLLER)
+            or seconds > 180
+            or not ((phase == 'gpu' and unit.startswith('unifier-drm-qq-gui-'))
+                    or (phase == 'prepare' and qq_write_recovery and unit.startswith('unifier-drm-qq-recover-')))):
+        raise ValueError('QQ GUI requires the Intel graphics fixture and a bounded private phase')
+    if 'qq_recovery' in spec and (spec['qq_recovery'] not in ('txnb9f44de145d1', 'txnb2fb18764986')
+            or spec['fixture'] != 'intel' or phase != 'prepare'
+            or (qq_write_recovery and spec.get('qq_gui') is not True)
+            or seconds > (180 if qq_write_recovery else 120)
+            or not unit.startswith('unifier-drm-qq-recover-')):
+        raise ValueError('QQ recovery requires the recorded Intel package transaction')
     if 'intel_media_cache' in spec and (
             spec.get('intel_media_cache') is not True or spec['fixture'] != 'intel' or phase != 'prepare'
             or 'package_plan' not in spec):
         raise ValueError('Intel media cache requires an explicit preparation package plan')
     acl = spec.get('acl_guard_unit')
-    if spec['fixture'] == 'amd':
+    radeon = spec['fixture'] in ('amd', 'arch-amd')
+    if spec['fixture'] == 'arch-amd':
+        fields = {'fixture', 'phase', 'unit', 'seconds', 'supervisor_memory_mb', 'supervisor_tasks', 'acl_guard_unit'}
+        extras = {'create': set(), 'prepare': {'command'}, 'gpu': {'command', 'gpu_payload_bytes'}}
+        if phase == 'prepare' and 'arch_plan_sha256' in spec:
+            fields.add('arch_plan_sha256')
+            if not isinstance(spec['arch_plan_sha256'], str) or not CID.fullmatch(spec['arch_plan_sha256']):
+                raise ValueError('invalid server Arch offline package plan digest')
+        if (phase not in extras or set(spec) != fields | extras[phase] or seconds > 120
+                or not spec['unit'].startswith('unifier-drm-arch-amd-'+phase+'-')
+                or spec['supervisor_memory_mb'] != 96 or spec['supervisor_tasks'] != 20):
+            raise ValueError('invalid server Arch AMD fixture phase')
+    if radeon:
         if (seconds > 180 or not isinstance(acl, str)
                 or not re.fullmatch(r'unifier-v008-amd-acl-[a-z0-9-]{1,40}\.service', acl)):
             raise ValueError('AMD phase requires the authorized finite root ACL watchdog')
     elif 'acl_guard_unit' in spec:
         raise ValueError('Intel does not use a root ACL watchdog')
-    if 'supervisor_tasks' in spec and (spec['fixture'] != 'amd'
+    qq_monitor = spec['fixture'] == 'intel' and unit.startswith('unifier-drm-qq-')
+    if 'supervisor_tasks' in spec and (not (radeon or qq_monitor)
             or type(spec['supervisor_tasks']) is not int or spec['supervisor_tasks'] != 20):
         raise ValueError('only the explicit 20-task AMD supervisor profile is supported')
-    if 'supervisor_memory_mb' in spec and (spec['fixture'] != 'amd'
+    if 'supervisor_memory_mb' in spec and (not (radeon or qq_monitor)
             or spec.get('supervisor_tasks') != 20
             or type(spec['supervisor_memory_mb']) is not int or spec['supervisor_memory_mb'] != 96):
         raise ValueError('96 MiB AMD supervisor requires the explicit 20-task profile')
+    if qq_monitor and ('supervisor_tasks' in spec) != ('supervisor_memory_mb' in spec):
+        raise ValueError('the Intel QQ monitor requires both explicit budgets')
     if 'guest_profile' in spec:
         profile = spec['guest_profile']
         if (not isinstance(profile, str) or profile not in AMD_DNF_MEMORY_PROFILES
@@ -398,7 +492,7 @@ def validate_spec(spec):
             raise ValueError('reuse requires an explicit Python controller argv')
     if phase == 'gpu':
         payload = spec.get('gpu_payload_bytes')
-        if type(payload) is not int or not 1 <= payload <= 16*MIB:
+        if type(payload) is not int or not 1 <= payload <= (64 if spec.get('qq_gui') else 16)*MIB:
             raise ValueError('invalid GPU payload budget')
     elif 'gpu_payload_bytes' in spec:
         raise ValueError('GPU payload is only admitted during the dedicated GPU phase')
@@ -500,6 +594,7 @@ class HardwareAttempt:
                 or pwd.getpwuid(fixture.uid).pw_name != fixture.owner):
             raise RuntimeError('fixture needs its approved rootless owner')
         self.spec = spec
+        self.controller_budget = selected_controller_budget(spec)
         self.out = path.parent
         self.base = fixture.root.parent
         self.phase = spec['phase']
@@ -511,12 +606,17 @@ class HardwareAttempt:
         self.hooks = self.base / 'empty-hooks'
         self.record_path = fixture.root / '.lab/state/environments' / (fixture.env_id+'.json')
         self.resources = {'slice': fixture.slice, 'memory': 384*MIB, 'memory_swap': 512*MIB}
+        if spec.get('qq_gui'):
+            self.aggregate_memory = 1536*MIB
+            self.tasks = {'aggregate': 384, 'guest': 128}
         amd_memory = spec.get('supervisor_memory_mb', 48)
         self.monitor_budget = ({'memory_max': amd_memory*MIB,
                                 'memory_high': (80 if amd_memory == 96 else 36)*MIB,
                                 'tasks_max': spec.get('supervisor_tasks', 12)}
                                if fixture.driver == 'radeon' else
                                {'memory_max': 64*MIB, 'memory_high': 48*MIB, 'tasks_max': 16})
+        if spec.get('supervisor_memory_mb') == 96 and fixture.driver == 'i915':
+            self.monitor_budget = {'memory_max': 96*MIB, 'memory_high': 80*MIB, 'tasks_max': 20}
         self.admission_monitor_bytes = self.monitor_budget['memory_max']
         if fixture.cuda:
             self.monitor_budget = {'memory_max': 96*MIB, 'memory_high': 80*MIB, 'tasks_max': 20}
@@ -560,6 +660,10 @@ class HardwareAttempt:
         reuse.put(self.out/'non-target-before.json', self.check_preconditions())
         if self.fixture.cuda:
             verify_cuda_inputs(self.fixture)
+            if 'tensor_sha256' in self.spec:
+                self.cuda_payload('tensor')
+            if 'video_sha256' in self.spec:
+                self.cuda_payload('video')
             reuse.put(self.out/'gpu-admission.json', self.cuda_telemetry())
         elif self.phase == 'vulkan':
             self.vulkan_binary()
@@ -644,6 +748,18 @@ class HardwareAttempt:
                 raise RuntimeError('cached image fingerprint changed after admission')
         else:
             reuse.put(evidence, proof)
+
+    def arch_package_plan(self):
+        expected = self.spec.get('arch_plan_sha256')
+        if self.spec['fixture'] not in ('arch-intel', 'arch-amd') or self.phase != 'prepare' or not expected:
+            raise RuntimeError('only the exact Arch preparation phase admits this package plan')
+        data = bound_bytes(self.out.parent/'package-plan.json')
+        if hashlib.sha256(data).hexdigest() != expected:
+            raise RuntimeError('Arch package plan hash changed')
+        plan = arch_gpu_packages.validate_plan(json.loads(data), self.active_config()['cid'])
+        if (plan['mode'] == 'amd') != (self.spec['fixture'] == 'arch-amd'):
+            raise RuntimeError('Arch package plan belongs to another GPU fixture')
+        return plan
 
     def verify_resume_provenance(self, current):
         old = INTEL_RESUME_FROM
@@ -854,11 +970,47 @@ class HardwareAttempt:
                 'stopped': stopped, 'abort': abort, 'old_init': live['init']}
 
     def pending_transactions(self):
-        store = EnvironmentStore(self.fixture.root)
+        service = self.service()
         record = bound_read(self.record_path)
-        pending = [txn for txn in store.transactions_for(self.fixture.env_id)
-                   if txn.get('phase') in {'running', 'needs-recovery'} or txn.get('recovery_required')]
-        return record, pending
+        return record, service._pending_package_transactions(self.fixture.env_id)
+
+    def verify_arch_maintenance(self, observed):
+        phase = self.phase
+        controller = Path(self.spec['command'][1])
+        previous = ARCH_EVIDENCE/'install-graphics'
+        abort = bound_read(previous/'receipt.json')
+        txn = self.fixture.root/'.lab/state/transactions'/(ARCH_RECOVERY_TXN+'.json')
+        transaction = bound_bytes(txn)
+        if (self.out != ARCH_EVIDENCE/('recovery-'+phase)
+                or hashlib.sha256(bound_bytes(controller)).hexdigest() != self.spec['controller_sha256']
+                or hashlib.sha256(transaction).hexdigest() != ARCH_TRANSACTION_SHA
+                or self.active_config()['cid'] != ARCH_RECOVERY_CID
+                or binding_for(bound_read(self.record_path)) != json.loads(transaction)['environment_binding']
+                or abort.get('reason') != 'GUEST_INVALID_HARD_LIMIT'
+                or abort.get('cleanup', {}).get('cid') != ARCH_RECOVERY_CID
+                or abort['cleanup'].get('status') != 'STOPPED'):
+            raise RuntimeError('Arch maintenance provenance differs from the approved interruption')
+        prior = abort
+        if phase == 'replay-llvm':
+            earlier = ARCH_EVIDENCE/'recovery-replay'
+            prior = bound_read(earlier/'receipt.json')
+            result = bound_read(earlier/'result.json')
+            if (prior.get('reason') is not None or (prior.get('command_result') or {}).get('exit_code') != 1
+                    or result.get('cid') != ARCH_RECOVERY_CID
+                    or 'llvm-libs-23.1.1-1/desc: No such file' not in result.get('error', '')
+                    or os.path.lexists(earlier/'lock-move-intent.json')):
+                raise RuntimeError('LLVM isolation requires the exact stopped pre-lock failure')
+        if phase == 'reconcile':
+            earlier = ARCH_EVIDENCE/'recovery-replay-llvm'
+            prior = bound_read(earlier/'receipt.json')
+            result = bound_read(earlier/'result.json')
+            if (prior.get('reason') is not None or (prior.get('command_result') or {}).get('exit_code') != 0
+                    or result.get('status') != 'PASS' or result.get('cid') != ARCH_RECOVERY_CID):
+                raise RuntimeError('Arch reconciliation requires a verified native replay')
+        proof = prior['cleanup']['state']
+        if (prior['cleanup']['cid'] != ARCH_RECOVERY_CID or observed.get('Running') or observed.get('Pid') != 0
+                or any(observed.get(key) != proof.get(key) for key in ('Status', 'StartedAt', 'FinishedAt'))):
+            raise RuntimeError('Arch stopped execution changed since the recovery evidence')
 
     def require_clean_packages(self):
         record, pending = self.pending_transactions()
@@ -1431,7 +1583,18 @@ class HardwareAttempt:
             elif self.phase == 'media-recover':
                 self.media_recovery_proof()
             elif self.phase in {'prepare', 'gpu', 'vulkan', 'media'}:
-                self.require_clean_packages()
+                if self.spec.get('qq_recovery'):
+                    service = self.service()
+                    pending = service._pending_package_transactions(fixture.env_id)
+                    if ([txn['id'] for txn in pending] != [self.spec['qq_recovery']]
+                            or pending[0]['environment_binding'] != INTEL_RECOVER_BINDING
+                            or pending[0].get('phase') not in ('needs-recovery', 'running')
+                            or pending[0].get('packages') != ['linuxqq']):
+                        raise RuntimeError('QQ recovery transaction changed or other recovery is pending')
+                else:
+                    self.require_clean_packages()
+                if 'arch_plan_sha256' in self.spec:
+                    self.arch_package_plan()
             if self.spec.get('guest_profile') == AMD_DNF_PROFILE:
                 proof = self.verify_amd_dnf_retry(state)
                 path = self.out/'amd-dnf-retry-before.json'
@@ -1458,6 +1621,8 @@ class HardwareAttempt:
             observed = reuse.info(config, hardware=self)
             if observed['State']['Running'] or observed['State']['Pid']:
                 raise RuntimeError('fixture must start each phase stopped')
+            if self.phase in ARCH_MAINTENANCE_PHASES:
+                self.verify_arch_maintenance(observed['State'])
             if (self.phase == 'resume' and 'retry_from' in self.spec
                     and observed['State'].get('Error') != INTEL_RETRY_START_ERROR):
                 raise RuntimeError('Intel created state no longer has the recorded conmon failure')
@@ -1610,7 +1775,8 @@ class HardwareAttempt:
                          'binding': INTEL_RECOVER_BINDING, 'transaction_sha256': proof['transaction_sha256'],
                          'owner': reuse.process(os.getpid())})
     def storage_observation_path(self):
-        return self.fixture.root/'.lab/state/inventory-observations'/(INTEL_RESUME_CID+'.json')
+        cid = self.active_config()['cid'] if self.fixture.env_id == 'arch' else INTEL_RESUME_CID
+        return self.fixture.root/'.lab/state/inventory-observations'/(cid+'.json')
 
     def repair_cache(self):
         proof = bound_read(self.out/'recovery-before.json')
@@ -1620,29 +1786,33 @@ class HardwareAttempt:
         return repair_cache_entries(json.loads(raw)['plan']['closure'])
 
     def set_package_memory_high(self, binding):
-        if self.fixture.driver != 'i915' or not (
-                self.phase in PACKAGE_MAINTENANCE_PHASES or 'package_plan' in self.spec):
+        arch = self.fixture.env_id == 'arch' and (
+            self.phase in ('replay', 'replay-llvm')
+            or (self.phase == 'prepare' and 'arch_plan_sha256' in self.spec))
+        if not arch and (self.fixture.driver != 'i915' or not (
+                self.phase in PACKAGE_MAINTENANCE_PHASES or 'package_plan' in self.spec)):
             return
         verify_hardware_permission(self)
         init = binding['init']
-        if (binding['cid'] != INTEL_RESUME_CID or not binding.get('coverage_verified')
+        if (binding['cid'] != (self.active_config()['cid'] if arch else INTEL_RESUME_CID)
+                or not binding.get('coverage_verified')
                 or binding['guest_limits'].get('memory.max') != 384*MIB
                 or not reuse.same_execution(init, reuse.process(init['pid']))):
-            raise RuntimeError('Intel package reclaim requires the registered execution and hard limit')
+            raise RuntimeError('package reclaim requires the registered execution and hard limit')
         high = reuse.cgroup_dir(init['cgroup'])/'memory.high'
-        requested = 256*MIB
+        requested = (288 if arch else 256)*MIB
         fd = os.open(high, os.O_RDWR | os.O_NOFOLLOW | os.O_CLOEXEC)
         try:
             previous = os.read(fd, 64).decode().strip()
             if previous != 'max' and (not previous.isdecimal() or int(previous) < requested):
-                raise RuntimeError('Intel package reclaim cannot raise an existing lower watermark')
+                raise RuntimeError('package reclaim cannot raise an existing lower watermark')
             os.lseek(fd, 0, os.SEEK_SET)
             os.write(fd, str(requested).encode())
         finally:
             os.close(fd)
         if high.read_text().strip() != str(requested):
             raise RuntimeError('Intel package reclaim watermark did not take effect')
-        reuse.put(self.out/'guest-watermark.json', {'cid': INTEL_RESUME_CID, 'init': init,
+        reuse.put(self.out/'guest-watermark.json', {'cid': binding['cid'], 'init': init,
             'old_memory_high': previous, 'memory_high': requested, 'memory_max': 384*MIB})
 
     def apply_amd_dnf_budget(self, binding):
@@ -1697,6 +1867,47 @@ class HardwareAttempt:
         self.verify_amd_dnf_transition(binding, applied)
         return AMD_DNF_ACTIVE_MEMORY
 
+    def qq_active_limits(self, binding):
+        applied = bound_read(self.out/'qq-gui-quota-applied.json')
+        self.verify_qq_quota(binding, applied)
+        return 1024*MIB, 256
+
+    def verify_qq_quota(self, binding, receipt):
+        scope = binding['scope']
+        if (binding['cid'] != INTEL_RESUME_CID or receipt.get('cid') != INTEL_RESUME_CID
+                or not scope.get('InvocationID')
+                or any(scope.get(key) != receipt['scope'].get(key)
+                       for key in ('Id', 'ControlGroup', 'InvocationID'))
+                or not reuse.same_execution(binding['init'], receipt['init'])):
+            raise RuntimeError('QQ GUI quota is outside the exact Intel execution')
+
+    def apply_qq_gui_budget(self, binding):
+        verify_hardware_permission(self)
+        init = binding['init']
+        scope = binding['scope']
+        transition = {'cid': binding['cid'], 'init': init, 'scope': scope,
+                      'before': binding['guest_limits'], 'at': time.monotonic()}
+        self.verify_qq_quota(binding, transition)
+        aggregate = bound_read(self.out/'ready.json')['aggregate']
+        if (not binding.get('coverage_verified') or scope.get('Id') != 'libpod-'+INTEL_RESUME_CID+'.scope'
+                or init['cgroup'] != scope['ControlGroup']+'/container'
+                or not reuse.under(scope['ControlGroup'], aggregate)
+                or not reuse.same_execution(init, reuse.process(init['pid']))):
+            raise RuntimeError('QQ GUI cgroup layout changed')
+        register_intent(self.out/'qq-gui-quota-intent.json', transition)
+        for group in (scope['ControlGroup'], init['cgroup']):
+            path = reuse.cgroup_dir(group)
+            write_scope_limit(path/'memory.max', str(384*MIB), 1024*MIB)
+            write_scope_limit(path/'pids.max', '128', 256)
+        path = reuse.cgroup_dir(init['cgroup'])/'memory.high'
+        write_scope_limit(path, 'max', 960*MIB)
+        actual = reuse.effective_limits(init['cgroup'], aggregate)
+        if (not reuse.same_execution(init, reuse.process(init['pid']))
+                or actual['memory.max'] != 1024*MIB or actual['pids.max'] != 256
+                or actual['memory.swap.max'] != 128*MIB or actual['cpu.max'] != transition['before']['cpu.max']):
+            raise RuntimeError('QQ GUI limits or bound execution differ after adjustment')
+        reuse.put(self.out/'qq-gui-quota-applied.json', {**transition, 'after': actual})
+
     def verify_amd_dnf_transition(self, binding, transition):
         scope = binding['scope']
         if (binding.get('cid') != AMD_BOOTSTRAP_CID or transition.get('cid') != AMD_BOOTSTRAP_CID
@@ -1708,6 +1919,28 @@ class HardwareAttempt:
             raise RuntimeError('AMD DNF quota evidence is not tied to this exact scope execution')
 
     def verify_live_guest_limits(self, live, current, aggregate, now):
+        if self.spec.get('qq_gui'):
+            applied = self.out/'qq-gui-quota-applied.json'
+            intent = self.out/'qq-gui-quota-intent.json'
+            if applied.exists():
+                receipt = bound_read(applied)
+                self.verify_qq_quota(live, receipt)
+                if current != receipt['after']:
+                    current = reuse.effective_limits(live['init']['cgroup'], aggregate)
+                high = reuse.cgroup_dir(live['init']['cgroup'])/'memory.high'
+                if current != receipt['after'] or high.read_text().strip() != str(960*MIB):
+                    raise RuntimeError('QQ GUI limits changed after admission')
+                return current
+            if intent.exists():
+                receipt = bound_read(intent)
+                self.verify_qq_quota(live, receipt)
+                before = receipt['before']
+                if (now - receipt['at'] > 2 or current['memory.max'] not in (384*MIB, 1024*MIB)
+                        or current['pids.max'] not in (128, 256)
+                        or current['memory.swap.max'] != before['memory.swap.max']
+                        or current['cpu.max'] != before['cpu.max']):
+                    raise RuntimeError('QQ GUI quota update did not converge')
+                return current
         if self.spec.get('guest_profile') not in AMD_DNF_MEMORY_PROFILES:
             if current != live['guest_limits']:
                 raise RuntimeError('fixture cgroup limits changed')
@@ -1921,11 +2154,12 @@ class HardwareAttempt:
         load = reuse.load_metrics(init['cgroup'])
         if self.guest_policy is None:
             from tools.reuse_guard_policy import GuardPolicy
-            self.guest_policy = GuardPolicy(memory_limit=current['memory.max'], task_limit=128,
+            self.guest_policy = GuardPolicy(memory_limit=current['memory.max'], task_limit=current['pids.max'],
                                             deadline=now+self.spec['seconds'])
         elif self.guest_policy.memory_limit != current['memory.max']:
             self.guest_policy.memory_limit = current['memory.max']
             self.guest_policy.memory_since = None
+        self.guest_policy.task_limit = current['pids.max']
         row = {'available': self.config['reserve_bytes'], 'full': 0, 'some': 0,
                'memory': load['memory'], 'tasks': load['tasks'],
                'oom_events': load['events'].get('oom', 0)+load['events'].get('oom_kill', 0),
@@ -1972,6 +2206,23 @@ class HardwareAttempt:
                     raise RuntimeError('V100 has a compute context outside the admitted guest')
         return {'uuid': uuid, 'pci': pci, 'memory_total_mib': total, 'memory_free_mib': free,
                 'temperature_c': temp, 'compute_pids': pids, 'cpu_temp_millicelsius': cpu}
+
+    def cuda_payload(self, name):
+        source = self.out.parent/(name+'-probe')
+        owned_directory(source, private=True)
+        digests = self.spec[name+'_sha256']
+        if {path.name for path in source.iterdir()} != set(digests):
+            raise RuntimeError('unexpected files in the CUDA probe directory')
+        for filename, digest in digests.items():
+            path = source/filename
+            if name == 'video':
+                v100_media_probe.verify_file(path, digest)
+            elif hashlib.sha256(bound_bytes(path)).hexdigest() != digest:
+                raise RuntimeError('Tensor Core probe digest mismatch: '+filename)
+        return source
+
+    def tensor_guest_path(self):
+        return '/var/tmp/'+self.spec['unit']+'-tensor'
 
     def vulkan_binary(self):
         source = self.out.parent/'build/vulkan_known_answers'
@@ -2276,6 +2527,8 @@ class HardwareRuntime(PodmanRuntime):
             reuse.put(attempt.out/'guest-device.json', {'mapping': mappings[0], 'rdev': node.st_rdev})
         if attempt.spec.get('guest_profile') in AMD_DNF_MEMORY_PROFILES:
             attempt.apply_amd_dnf_budget(binding)
+        if attempt.spec.get('qq_gui'):
+            attempt.apply_qq_gui_budget(binding)
         attempt.set_package_memory_high(binding)
 
     def stop(self, name, *, project, env_id):
@@ -2298,9 +2551,8 @@ class HardwareRuntime(PodmanRuntime):
                 raise RuntimeError('guest operation is outside the bounded Intel Vulkan probe')
             if argv == [path]:
                 register_intent(attempt.out/'vulkan-probe-intent.json', {'cid': config['cid'], 'argv': argv})
-        if self.fixture.cuda and argv and argv[0] == V100_PROBE:
-            attempt = self.attempt
-            if (attempt.phase != 'gpu' or argv != cuda_probe_argv(self.fixture)
+        if self.fixture.cuda and argv and argv[0] in (V100_PROBE, attempt.tensor_guest_path()+'/'+V100_TENSOR_FILES[0]):
+            if (attempt.phase != 'gpu' or argv != cuda_probe_argv(attempt)
                     or kwargs.get('env') or kwargs.get('user')
                     or kwargs.get('capture') is not True or kwargs.get('timeout') != 10):
                 raise RuntimeError('only the fixed CUDA probe and payload are admitted')
@@ -2348,6 +2600,11 @@ class HardwareRuntime(PodmanRuntime):
     def package_exec(self, name, argv, *, project, env_id, timeout, **kwargs):
         config = self.identity(name, project, env_id)
         attempt = self.attempt
+        if attempt.spec['fixture'] in ('arch-intel', 'arch-amd'):
+            verify_hardware_permission(attempt)
+            pinned = self.admit_arch_package_step(config, argv, kwargs)
+            return super().package_exec(config['cid'], pinned, project=project, env_id=env_id,
+                                        timeout=command_timeout(attempt, timeout), **kwargs)
         if attempt.phase == 'recover':
             checkpoint = ['sh', '-c', package_journal.SCRIPT, 'unifier-package-journal',
                           'debian13', 'checkpoint']
@@ -2467,6 +2724,44 @@ class HardwareRuntime(PodmanRuntime):
                 raise RuntimeError('Intel media owned guest archive removal failed')
         return result
 
+    def admit_arch_package_step(self, config, argv, options):
+        attempt = self.attempt
+        plan = attempt.arch_package_plan()
+        (command, _), = install_commands('arch', plan['requests'])
+        bootstrap = (['pacman-key', '--init'], ['pacman-key', '--populate', 'archlinux'])
+        if (options.get('interactive') or options.get('stream') or options.get('env') != native_env('arch')
+                or (argv != command and argv not in bootstrap)):
+            raise RuntimeError('Arch package mutation differs from the fixed offline plan')
+        root = arch_gpu_packages.guest_repository(attempt.spec['unit'])
+        guest_config = str(root/'pacman.conf')
+        proof = bound_read(attempt.out/'arch-package-ready.json')
+        expected_files = len(plan['repositories']) + 2*len(plan['packages'])
+        if (proof.get('cid') != config['cid'] or proof.get('planned_sha256') != attempt.spec['arch_plan_sha256']
+                or proof.get('guest_config') != guest_config or proof.get('verified_files') != expected_files):
+            raise RuntimeError('Arch guest package inputs do not match their verified closure')
+
+        def guest(args):
+            found = self.exec(config['cid'], args, project=str(self.fixture.root), env_id='arch',
+                              workdir=None, env={'LC_ALL': 'C'}, capture=True, timeout=10)
+            if found.returncode:
+                raise RuntimeError('Arch offline configuration verification failed')
+            return found.stdout.splitlines()
+
+        conf = ['pacman-conf', '--config', guest_config]
+        if (guest(['sha256sum', guest_config]) != [f"{proof['guest_config_sha256']}  {guest_config}"]
+                or guest([*conf, '--repo-list']) != ['core', 'extra']):
+            raise RuntimeError('Arch native package configuration changed')
+        for repo in ('core', 'extra'):
+            policy = guest([*conf, '--repo', repo, 'SigLevel']) or guest([*conf, 'SigLevel'])
+            if (guest([*conf, '--repo', repo, 'Server']) != [f'file://{root}/{repo}']
+                    or not {'PackageRequired', 'PackageTrustedOnly'} <= set(policy)):
+                raise RuntimeError('Arch repository is not offline with mandatory trusted package signatures')
+        pinned = [*argv, '--config', guest_config] if argv == command else argv
+        step = 'install' if argv == command else argv[1].removeprefix('--')
+        register_intent(attempt.out/f'arch-package-{step}-intent.json',
+                        {'logical_argv': argv, 'native_argv': pinned, 'proof': proof})
+        return pinned
+
     def admit_native_repair_step(self, config, argv, options):
         out = self.attempt.out
         report = bound_read(out/'native-maintenance.json')
@@ -2490,8 +2785,12 @@ class HardwareRuntime(PodmanRuntime):
     def read_inventory_readonly(self, record):
         attempt = self.attempt
         verify_hardware_permission(attempt)
-        if attempt.phase not in ('recover', 'media-recover') or binding_for(record) != INTEL_RECOVER_BINDING:
-            raise RuntimeError('stopped inventory is only admitted for the Intel recovery')
+        binding = binding_for(record)
+        arch = ((binding['container_id'] == ARCH_RECOVERY_CID and attempt.phase == 'reconcile')
+                or (attempt.fixture.env_id == 'arch' and attempt.phase == 'prepare'
+                    and 'arch_plan_sha256' in attempt.spec and binding['container_id'] == attempt.active_config()['cid']))
+        if not arch and (attempt.phase not in ('recover', 'media-recover') or binding != INTEL_RECOVER_BINDING):
+            raise RuntimeError('stopped inventory requires the admitted recovery binding')
         if not (attempt.out/'stop-intent.json').exists():
             raise RuntimeError('recovery inventory requires the registered stop')
         state = reuse.info(attempt.active_config(), hardware=attempt)['State']
@@ -2995,9 +3294,12 @@ def make_service(spec):
     return attempt.service()
 
 
-def cuda_probe_argv(fixture):
-    cuda = fixture.cuda
-    return [V100_PROBE, cuda.uuid, cuda.pci, f'nvidia{cuda.minor}', V100_CUBIN]
+def cuda_probe_argv(attempt):
+    cuda = attempt.fixture.cuda
+    probe, cubin = V100_PROBE, V100_CUBIN
+    if 'tensor_sha256' in attempt.spec:
+        probe, cubin = (attempt.tensor_guest_path()+'/'+name for name in V100_TENSOR_FILES)
+    return [probe, cuda.uuid, cuda.pci, f'nvidia{cuda.minor}', cubin]
 
 
 def run_cuda_probe(attempt):
@@ -3009,21 +3311,42 @@ def run_cuda_probe(attempt):
     binding = {'environment_id': fixture.env_id, 'environment_uuid': config['environment_uuid'],
                'generation': config['generation'], 'container_id': config['cid']}
     report = {'cid': config['cid'], 'expected': fixture.cuda.identity(), 'status': 'INVALID'}
-    started = False
+    tensor = 'tensor_sha256' in attempt.spec
+    started = copied = False
+
+    def guest(argv):
+        return service.runtime.exec(config['cid'], argv, project=str(fixture.root), env_id=fixture.env_id,
+                                    workdir=None, env={}, capture=True, timeout=10)
+
     try:
         service.start(fixture.env_id, expected_binding=binding)
         started = True
-        result = service.runtime.exec(config['cid'], cuda_probe_argv(fixture),
-                                      project=str(fixture.root), env_id=fixture.env_id,
-                                      workdir=None, env={}, capture=True, timeout=10)
+        argv = cuda_probe_argv(attempt)
+        if tensor:
+            scratch = attempt.tensor_guest_path()
+            absent = guest(['/bin/sh', '-c', 'test ! -e "$1" && test ! -L "$1"', 'probe', scratch])
+            if absent.returncode:
+                raise RuntimeError('Tensor Core guest probe path is occupied')
+            source = attempt.cuda_payload('tensor')
+            verify_hardware_permission(attempt)
+            copied = True
+            service.runtime._check_copy(source, config['cid'], scratch)
+            digests = attempt.spec['tensor_sha256']
+            check = guest(['/usr/bin/sha256sum', '--', argv[0], argv[-1]])
+            if (check.returncode or check.stdout.splitlines() != [
+                    digests[name]+'  '+scratch+'/'+name for name in V100_TENSOR_FILES]):
+                raise RuntimeError('Tensor Core guest probe digest mismatch')
+            report['tensor_probe_sha256'] = digests
+        result = guest(argv)
         report.update({'exit_code': result.returncode, 'stdout': result.stdout, 'stderr': result.stderr})
         if result.returncode:
             report['status'] = 'FAIL'
             return 1
         value = json.loads(result.stdout)
+        count = 256 if tensor else 16
         expected = {'uuid': fixture.cuda.uuid, 'sm': 70, 'devices': 1,
-                    'libcuda': '/run/unifier-cuda/libcuda.so.1', 'device_bytes': 640,
-                    'integer': 16, 'fp32': 16, 'fp64': 16, 'fp16_input_fp32_matrix': 16,
+                    'libcuda': '/run/unifier-cuda/libcuda.so.1', 'device_bytes': 40*count,
+                    'integer': count, 'fp32': count, 'fp64': count, 'fp16_input_fp32_matrix': count,
                     'context_destroyed': True}
         if (any(value.get(key) != item for key, item in expected.items())
                 or value.get('pci', '').lower() != fixture.cuda.pci
@@ -3037,9 +3360,13 @@ def run_cuda_probe(attempt):
         raise
     finally:
         try:
-            if started:
-                service.stop(fixture.env_id)
-                report['formal_stop'] = 'STOPPED'
+            try:
+                if copied and guest(['/usr/bin/rm', '-rf', '--', scratch]).returncode:
+                    raise RuntimeError('Tensor Core guest probe cleanup failed')
+            finally:
+                if started:
+                    service.stop(fixture.env_id)
+                    report['formal_stop'] = 'STOPPED'
         except Exception as exc:
             report.update(status='INVALID', cleanup_error=str(exc))
             raise
@@ -3147,6 +3474,10 @@ def main():
         if mode == 'worker':
             return reuse.worker(config, out, hardware=attempt)
         if mode == 'cuda-worker' and attempt.fixture.cuda and attempt.phase == 'gpu':
+            if 'video_sha256' in attempt.spec:
+                verify_hardware_permission(attempt)
+                attempt.require_clean_packages()
+                return v100_media_probe.run(attempt)
             return run_cuda_probe(attempt)
         if mode == 'vulkan-worker' and attempt.phase == 'vulkan':
             return run_vulkan_probe(attempt)
