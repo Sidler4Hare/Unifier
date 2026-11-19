@@ -8,6 +8,7 @@ import sys
 
 from unifier.errors import UnifierError
 from unifier import __version__
+from unifier.desktop_clients import CLIENTS
 from unifier.packages import transaction_verdict
 from unifier.native_io import add_package_arguments, package_options
 
@@ -98,6 +99,14 @@ def build_parser() -> argparse.ArgumentParser:
     portal_bridge.add_argument("id")
     portal_bridge.add_argument("mode", nargs="?", choices=("enable", "disable"))
     portal_bridge.set_defaults(func=cmd_portal_bridge)
+
+    desktop_integration = operations.add_parser(
+        "desktop-integration", help="show host Portal routing and install native desktop clients")
+    desktop_integration.add_argument("id")
+    desktop_integration.add_argument(
+        "--install", action="append", choices=CLIENTS, metavar="CLIENT",
+        help="install a guest client through its native package manager (gtk3, qt6, pipewire); repeatable")
+    desktop_integration.set_defaults(func=cmd_desktop_integration)
 
     render_node = operations.add_parser(
         "render-node", help="configure one DRM render node for the next start of a stopped desktop")
@@ -820,6 +829,15 @@ def cmd_camera(args) -> int:
 def cmd_portal_bridge(args) -> int:
     enabled = service_factory().configure_portal_bridge(args.id, args.mode)
     print("enabled" if enabled else "disabled")
+    return 0
+
+
+def cmd_desktop_integration(args) -> int:
+    service = service_factory()
+    if args.install:
+        txn = service.install_desktop_clients(args.id, args.install)
+        return _print_transaction(txn, root=getattr(service, "root", None))
+    print(json.dumps(service.desktop_integration(args.id), ensure_ascii=False, indent=2))
     return 0
 
 

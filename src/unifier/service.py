@@ -35,6 +35,7 @@ from unifier.catalog import (
     resolve_target_contract,
     system_contract,
 )
+from unifier.desktop_clients import CLIENTS, application_clients, client_packages
 from unifier.errors import UnifierError
 from unifier.file_chooser import (
     MODE_KEY, PORTAL_MODES, configured_environment, default_portal_profile,
@@ -633,6 +634,30 @@ class EnvironmentService:
 
     def inspect(self, env_id: str) -> dict:
         return self._live(self.store.load(validate_env_id(env_id)))
+
+    def desktop_integration(self, env_id: str) -> dict:
+        from unifier.host_portal import describe_host_portal
+
+        record = self.store.load(validate_env_id(env_id))
+        desktop = record.get("desktop")
+        bridge = (desktop or {}).get("portal_proxy")
+        bridge_mode = "headless"
+        if desktop:
+            bridge_mode = "disabled"
+            if bridge:
+                bridge_mode = "managed" if bridge.get("managed_mount") is True else "legacy"
+        return {
+            "environment_id": record["id"],
+            "target": record["target"],
+            "portal_bridge": bridge_mode,
+            "host_portal": describe_host_portal() if desktop else None,
+            "client_packages": client_packages(record["target"], CLIENTS),
+        }
+
+    def install_desktop_clients(self, env_id: str, clients) -> dict:
+        if not clients:
+            raise UnifierError("select at least one desktop client")
+        return self._package_transaction(env_id, "install", [], desktop_clients=tuple(clients))
 
     def change_plan(self, env_id: str, desired: dict | None = None) -> dict:
         """Say whether a requested change upgrades this environment or replaces it.
@@ -2184,7 +2209,8 @@ class EnvironmentService:
     def _package_transaction(self, env_id: str, operation: str, packages: list[str], *,
                              use_argv=None, local_file: str | None = None,
                              interactive=False, stream=False, repair_dependencies=False,
-                             libraries=(), dependency_input=None, application_runtime=False) -> dict:
+                             libraries=(), dependency_input=None, application_runtime=False,
+                             desktop_clients=()) -> dict:
         """Serialize the complete isolation window, then the native DB writer.
 
         Order: management -> environment package -> lifecycle. Neither the
@@ -2201,14 +2227,16 @@ class EnvironmentService:
                     env_id, operation, packages, use_argv=use_argv,
                     local_file=local_file, interactive=interactive, stream=stream,
                     repair_dependencies=repair_dependencies, libraries=libraries,
-                    dependency_input=dependency_input, application_runtime=application_runtime)
+                    dependency_input=dependency_input, application_runtime=application_runtime,
+                    desktop_clients=desktop_clients)
 
     def _package_transaction_locked(self, env_id: str, operation: str,
                                     packages: list[str], *,
                                     use_argv=None,
                                     local_file: str | None = None, interactive=False,
                                     stream=False, repair_dependencies=False, libraries=(),
-                                    dependency_input=None, application_runtime=False) -> dict:
+                                    dependency_input=None, application_runtime=False,
+                                    desktop_clients=()) -> dict:
         record = self.store.load(validate_env_id(env_id))
         self._require_host_compatibility(record)
         self._package_container_ref(record)
@@ -2216,6 +2244,12 @@ class EnvironmentService:
         if decision["action"] != "upgrade":
             raise UnifierError(decision.get("reason") or "this environment cannot be upgraded in place")
         names = [validate_package_name(name) for name in packages]
+        if desktop_clients and not record.get("desktop"):
+            raise UnifierError("desktop clients require an environment created with --desktop")
+        clients = desktop_clients or (application_clients(record, names) if application_runtime else ())
+        providers = client_packages(record["target"], clients)
+        if desktop_clients:
+            names = list(providers.values())
         use_argv = validate_use_argv(use_argv)
         if operation in {"install", "remove"} and not names:
             raise UnifierError(f"{operation} requires at least one package name")
@@ -2276,6 +2310,9 @@ class EnvironmentService:
         inventory_text = None
         if dependency_input is not None:
             txn["dependency_input"] = dependency_input
+        if providers:
+            txn["desktop_clients"] = {"source": "explicit" if desktop_clients else "application",
+                                      "packages": providers}
         was_running = None
         other_before = None
         host_before = None
@@ -2298,31 +2335,30 @@ class EnvironmentService:
             desktop_install = (application_runtime and bool(record.get("desktop"))
                                and operation in {"install", "install-local"})
             needs_python = application_runtime and not self._application_python_ready(record)
-            # Tencent Meeting loads PipeWire at runtime to use the host
-            # Portal's remote. pipewire-bin supplies client.conf as well as
-            # the library and protocol modules it depends on.
-            needs_pipewire = (application_runtime and bool(record.get("desktop"))
-                              and record["target"] == "debian13" and "wemeet" in names
-                              and operation in {"install", "install-local", "repair-dependencies"})
             minimal_dependencies = ()
-            if needs_pipewire or (needs_python and operation == "repair-dependencies"):
+            missing_clients = []
+            if providers or (needs_python and operation == "repair-dependencies"):
                 installed = self._read_inventory_record(record)
                 if operation == "repair-dependencies":
                     missing = [name for name in names if not inventory_has(installed, name)]
                     if missing:
                         raise UnifierError(
                             "dependency repair requires installed packages: " + ", ".join(missing))
-                if needs_pipewire and not inventory_has(installed, "pipewire-bin"):
-                    minimal_dependencies = ("pipewire-bin",)
+                missing_clients = [name for name in providers.values() if not inventory_has(installed, name)]
+                if record["target"] == "debian13":
+                    minimal_dependencies = tuple(missing_clients)
+                else:
+                    runtime_packages.extend(missing_clients)
             if needs_python:
                 runtime_packages.append(driver_for(record).application_python_package)
             if desktop_install and not self._desktop_fonts_ready(record):
                 runtime_packages.extend(("fontconfig", driver_for(record).application_font_package))
-            steps = self._native_steps(record, operation, names, local_path,
-                                       runtime_packages=runtime_packages,
-                                       minimal_dependencies=minimal_dependencies,
-                                       application_runtime=application_runtime)
-            self._run_native(record, txn, steps)
+            if not desktop_clients or missing_clients:
+                steps = self._native_steps(
+                    record, operation, [] if desktop_clients else names, local_path,
+                    runtime_packages=runtime_packages, minimal_dependencies=minimal_dependencies,
+                    application_runtime=application_runtime)
+                self._run_native(record, txn, steps)
             if (application_runtime and txn["failure_phase"] is None
                     and not self._application_python_ready(record)):
                 txn["failure_phase"] = "application-runtime"
@@ -2341,10 +2377,15 @@ class EnvironmentService:
                 self._mark_keyring(record["id"])
                 record = self.store.load(record["id"])
             inventory_text = self._read_inventory_record(record)
-            if (needs_pipewire and txn["failure_phase"] is None
-                    and not inventory_has(inventory_text, "pipewire-bin")):
-                txn["failure_phase"] = "application-runtime"
-                txn["native_error"] = "guest PipeWire client runtime is still missing after installation"
+            if providers:
+                present = {client: inventory_has(inventory_text, name) for client, name in providers.items()}
+                txn["desktop_clients"]["inventory"] = present
+                absent = [providers[client] for client, found in present.items() if not found]
+                if absent and txn["failure_phase"] is None:
+                    txn["failure_phase"] = "application-runtime"
+                    txn["native_error"] = "guest desktop client packages are missing: " + ", ".join(absent)
+                if desktop_clients and not missing_clients and not absent:
+                    txn["desktop_clients"]["status"] = "already-installed"
             txn["verification"] = self._verify(record, operation, names, use_argv, inventory_text, txn)
             if txn["failure_phase"] is None and not txn["verification"]["ok"]:
                 txn["failure_phase"] = "verification"
@@ -2434,7 +2475,9 @@ class EnvironmentService:
                 txn["failure_phase"] = "verification"
             if txn.get("verification") is None and txn["failure_phase"] is None:
                 txn["failure_phase"] = "runtime"
-            if not txn["native"] and txn["failure_phase"] is None and txn["operation"] != "repair-dependencies":
+            clients_present = txn.get("desktop_clients", {}).get("status") == "already-installed"
+            if (not txn["native"] and txn["failure_phase"] is None
+                    and txn["operation"] != "repair-dependencies" and not clients_present):
                 txn["failure_phase"] = "runtime"
                 txn["native_error"] = "no native package command was run"
             txn["revision_after"] = {

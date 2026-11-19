@@ -276,6 +276,18 @@ class PortalBridgeProtocol(unittest.TestCase):
         self.closed_request = threading.Event()
         self.client = None
 
+    @unittest.skipUnless(shutil.which('busctl'), 'requires busctl')
+    def test_host_versions_come_from_the_current_frontend(self):
+        from unifier.host_portal import _frontend_versions
+
+        self.assertEqual(_frontend_versions(self.address),
+                         {"FileChooser": 3, "ScreenCast": None, "Camera": None})
+        self.portal.call_sync('org.freedesktop.DBus', '/org/freedesktop/DBus',
+            'org.freedesktop.DBus', 'ReleaseName', GLib.Variant('(s)', (PORTAL,)),
+            None, Gio.DBusCallFlags.NONE, 2000, None)
+        self.assertIsNone(_frontend_versions(self.address))
+        self.assertEqual(self.calls, [])
+
     def start_relay(self, *, request_timeout=None):
         self.audit = (self.root / 'audit').open('wb')
         self.addCleanup(self.audit.close)

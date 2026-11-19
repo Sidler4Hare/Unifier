@@ -14,6 +14,28 @@ unifier app file-chooser <应用ID> gtk-native-portal
 
 回退时先将使用 Portal 的应用调回 `native`，再在停止态执行 `unifier env portal-bridge <环境ID> disable`。创建时由 `--portals` 固定的挂载沿用原配置。
 
+## 宿主后端和客体客户端
+
+```sh
+unifier env desktop-integration debian13
+unifier env desktop-integration debian13 --install qt6
+unifier app file-chooser <应用ID> qt-portal
+```
+
+第一条命令只读查询。`portal_bridge` 表示客体选择了哪种桥接，`configured_candidate` 来自宿主当前调用环境的 XDG 配置和后端声明。`frontend_version` 来自宿主会话中已经运行的 Portal。没有前端或无法取得版本时该项为空。实际请求仍由宿主 Portal 路由。KDE 或 GNOME 可以分别为选框和屏幕共享配置不同的后端。[Portal 配置规则](https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html)
+
+`--install` 可重复。它把每项能力解析为目标发行版的原生包，在同一次事务中安装缺少的包并回读清单。已有客户端时记录 `already-installed`，跳过包管理器。标准应用安装也会为 Debian 的 `com.alibabainc.dingtalk`、`wemeet` 和 Arch 的 `freecad` 补齐相应客户端。已有应用的选框模式可分别用 `app file-chooser` 查询和设置。
+
+| 客户端 | Debian 13 | Arch | Fedora 44 |
+|---|---|---|---|
+| `gtk3` | `libgtk-3-0t64` | `gtk3` | `gtk3` |
+| `qt6` | `qt6-xdgdesktopportal-platformtheme` | `qt6-base` | `qt6-qtbase-gui` |
+| `pipewire` | `pipewire-bin` | `pipewire` | `pipewire-libs` |
+
+Qt 6 选框插件从客体的 Qt 6 加载。Debian 13 仓库的 FreeCAD 使用 Qt 5，WPS Writer 使用专有 Qt 5.12，各自有独立的适配边界。PipeWire 同时需要客体的库、协议模块和默认客户端配置，媒体授权由宿主处理。[Debian Qt 6 插件](https://packages.debian.org/trixie/amd64/qt6-xdgdesktopportal-platformtheme/filelist) · [Arch Qt 6 文件清单](https://archlinux.org/packages/extra/x86_64/qt6-base/files/) · [Fedora Qt 6 文件清单](https://packages.fedoraproject.org/pkgs/qt6-qtbase/qt6-qtbase-gui/fedora-44-updates.html) · [Debian FreeCAD 依赖](https://packages.debian.org/trixie/libfreecad-python3)
+
+### GTK Native 兼容时的加载过程
+
 启动时，Unifier 校验已有桌面 Portal 桥，启用原生 Portal 文件交付通道，再发布独立的 Python 启动辅助程序。辅助程序在客体内：
 
 1. 通过客体动态加载器定位 `libgtk-3.so.0`，校验 ELF64/amd64、SONAME，以及六个 Native API 确实来自同一个库。

@@ -59,6 +59,8 @@ python3 tools/check_repo.py --staged
 
 诊断命令还有 `env`、`pkg`、`app`、`project`、`file`、`view`、`res`。`env create` 的网络默认是 `none`，安装包时加 `--network pasta`。`--desktop` 挂接当前 Wayland、X11 和音频。新导出的桌面项调用 `tools/unifier.py`；已经导出的项里如果还写着 `tools/ml.py`，那条符号链接仍然可用。
 
+`unifier env desktop-integration debian13` 查看宿主的 Portal 后端配置、当前接口和客体依赖。带 `--install CLIENT` 时，通过该客体的原生包管理器补客户端。GTK、Qt 和媒体客户端共用宿主当前的 KDE、GNOME 或其他 Portal 服务。[桌面客户端用法](docs/GTK原生选择器兼容.md)
+
 已经停止的 rootless Podman 桌面环境可以补配一个宿主有读写权限的 DRM render node。Unifier 在下次启动时挂载该字符设备，保留环境的容器 ID、代际和可写层。在对应安装根运行以下命令，撤销配置时用 `--clear`。
 
 ```bash

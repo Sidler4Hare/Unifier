@@ -174,7 +174,7 @@ class PackageBoxes(FakeRuntime):
         if argv[:2] == ["pacman", "-Sy"]:
             return ExecResult(1, "", "partial upgrade is not a valid transaction")
         if argv[:3] == ["apt-get", "install", "-y"]:
-            return self._add(env_id, argv[3:])
+            return self._add(env_id, [item for item in argv[3:] if item != "--no-install-recommends"])
         if argv[:3] == ["apt-get", "remove", "-y"]:
             return self._remove(env_id, argv[3:])
         if argv in (["apt-get", "update"], ["apt-get", "upgrade", "-y"], ["dnf", "upgrade", "-y"]):
