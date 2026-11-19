@@ -11,6 +11,7 @@ import sys
 import tempfile
 import threading
 import time
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -21,7 +22,7 @@ from unifier.application_supervisor import observe, signal_exact
 from unifier.application_leases import cancel_application
 from unifier.errors import UnifierError
 from unifier.on_demand import LaunchGroup, live_leases, managed_open, managed_exec
-from unifier.runtime import parse_guest_ready
+from unifier.runtime import GuestProcess, parse_guest_ready
 
 
 class ApplicationLifecycle(unittest.TestCase):
@@ -233,6 +234,19 @@ while True: time.sleep(.05)
             self.assertIn(token, self.group.read()['leases'])
             self.assertEqual(self.group.read()['bridge'], {'fixture': 'bridge'})
             stop.assert_not_called()
+
+    def test_stopped_container_releases_lease_without_fabricating_exit_status(self):
+        def stopped_during_execution(name, argv, *, token, project, env_id, **kwargs):
+            container_name = self.service.store.load(env_id)['runtime']['container_name']
+            self.runtime.stop(container_name, project=project, env_id=env_id)
+            guest = GuestProcess(20, 30, 20, 20, token, 'subreaper-v1')
+            return SimpleNamespace(guest=guest, poll=lambda: 137)
+
+        self.runtime.start_application_exec = stopped_during_execution
+        with self.assertRaisesRegex(UnifierError, 'without a native exit status'):
+            managed_open(self.service, 'notes', [])
+        self.assertEqual(self.group.read()['leases'], {})
+        self.assertEqual(self.service.inspect('debian13')['runtime_state'], 'stopped')
 
     def test_dead_legacy_app_lease_is_retained_and_corrupt_state_refuses(self):
         legacy = {'app_id': 'notes', 'pid': 999999999, 'stamp': 1}

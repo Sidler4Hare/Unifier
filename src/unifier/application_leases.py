@@ -85,10 +85,7 @@ def execute_application(group, app_id, argv, *, pins, workdir=None):
                 if value.get('state') == 'exited':
                     group.update_execution(token, state='exited', proof=value)
                     confirmed = True
-                    code = value.get('exit_code')
-                    if not isinstance(code, int) or isinstance(code, bool):
-                        raise UnifierError('application ended without a native exit status')
-                    return ExecResult(code, '', '')
+                    break
                 if value.get('state') != 'running':
                     raise UnifierError(value.get('reason') or 'application termination is unknown')
                 # The host proxy ended while the guest supervisor still owns
@@ -111,6 +108,13 @@ def execute_application(group, app_id, argv, *, pins, workdir=None):
             signal.signal(number, handler)
         if confirmed:
             group.release(token)
+
+    # A stopped container proves termination even when the guest could not
+    # record its exit status. Report that separately from lease recovery.
+    code = value.get('exit_code')
+    if type(code) is not int:
+        raise UnifierError('application ended without a native exit status')
+    return ExecResult(code, '', '')
 
 
 def recover_applications(group, token=None):
