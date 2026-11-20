@@ -18,6 +18,7 @@ import time
 
 from gi.repository import Gio, GLib
 
+from unifier import __version__
 from unifier.portal_delivery import SelectionStore
 from unifier.file_access import PROTOCOL_VERSION
 
@@ -569,6 +570,7 @@ class Relay:
         try:
             self.server.start()
             ready = dict(event='ready', protocol_version=PROTOCOL_VERSION, pid=os.getpid(),
+                         worker_version=__version__,
                          stamp=stamp(os.getpid()), lease_id=self.store.ledger.header['lease_id'],
                          selection_directory=str(self.store.directory),
                          selection_identity=[self.store.root_identity.st_dev, self.store.root_identity.st_ino])

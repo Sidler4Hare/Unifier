@@ -22,19 +22,13 @@ DISPLAY_KEYS = ("DISPLAY", "WAYLAND_DISPLAY", "XAUTHORITY", "DBUS_SESSION_BUS_AD
 
 
 def default_portal_profile(record, executable, *, desktop_id=None):
+    from unifier.desktop_vendor import portal_picker_mode
+
     desktop = record.get("desktop") or {}
     bridge = desktop.get("portal_proxy") or {}
     if bridge.get("managed_mount") is not True:
         return {}
-    if desktop_id == "org.freecad.FreeCAD" or executable == "/usr/bin/freecad":
-        return {MODE_KEY: "qt-portal"}
-    if wps_portal.is_writer(record, executable) and wps_portal.payload_available():
-        return {MODE_KEY: wps_portal.MODE}
-    dingtalk = (
-        desktop_id in ("com.alibabainc.dingtalk", "dingtalk")
-        or executable == "/opt/apps/com.alibabainc.dingtalk/files/Elevator.sh"
-    )
-    return {MODE_KEY: "gtk-native-portal" if dingtalk else "gtk-portal"}
+    return {MODE_KEY: portal_picker_mode(record, executable, desktop_id) or "gtk-portal"}
 
 
 def configured_environment(record, environment, *, on_demand):

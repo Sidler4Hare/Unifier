@@ -18,7 +18,7 @@ if __package__ in {None, ''}:
 
 from unifier.errors import UnifierError
 from unifier.identity import binding_for
-from unifier.on_demand import process_stamp
+from unifier.process_identity import process_stamp
 from unifier.package_inventory import InventoryUnsupported, observation
 from unifier.inventory_backends import backend_for
 from unifier.view_journal import read_journal, write_journal

@@ -4,6 +4,7 @@ import signal
 import time
 
 from unifier.errors import UnifierError
+from unifier.process_identity import process_stamp
 from unifier.runtime import ExecResult, GuestProcess
 
 
@@ -118,7 +119,6 @@ def execute_application(group, app_id, argv, *, pins, workdir=None):
 
 
 def recover_applications(group, token=None):
-    from unifier.on_demand import process_stamp
     entries = group.read()['leases']
     if token is not None:
         if token not in entries:
@@ -148,7 +148,6 @@ def recover_applications(group, token=None):
 
 
 def cancel_application(group, token, *, seconds=15.0):
-    from unifier.on_demand import process_stamp
     entry = group.read()['leases'].get(token)
     if not entry or not entry.get('app_id'):
         raise UnifierError('application lease token does not exist')

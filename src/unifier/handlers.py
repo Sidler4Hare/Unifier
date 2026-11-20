@@ -13,6 +13,7 @@ import re
 import uuid
 
 from unifier.errors import UnifierError
+from unifier.record_ids import validate_uuid
 from unifier.identity import validate_binding
 from unifier.json_records import JsonRecordCollection
 from unifier.projects import INTENTS
@@ -28,15 +29,7 @@ FILE_TOKEN = "{file}"
 
 
 def _canonical_uuid(value, label: str) -> str:
-    if not isinstance(value, str):
-        raise UnifierError(f"handler {label} must be a string")
-    try:
-        parsed = uuid.UUID(value)
-    except (ValueError, AttributeError) as exc:
-        raise UnifierError(f"handler {label} is not a UUID: {value!r}") from exc
-    if str(parsed) != value:
-        raise UnifierError(f"handler {label} must be the canonical lowercase UUID form")
-    return value
+    return validate_uuid(value, f"handler {label}")
 
 
 def _validate_alias(alias) -> str | None:

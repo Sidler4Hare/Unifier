@@ -16,6 +16,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from tools.repo_contract import load_contract, verify_entrypoints, verify_import_directions
 from tools.test_runtime import offline_environment, short_temporary_directory
 
 
@@ -54,9 +55,17 @@ def check(root: Path, *, quick: bool) -> None:
         environment = offline_environment(root, private, private / 'tmp')
         sources = [p for name in ("src", "tests", "tools")
                    for p in (root / name).rglob("*.py") if "__pycache__" not in p.parts]
+        product = root / "src/unifier"
+        trees = {}
         for path in sources:
-            ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+            tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+            if path.is_relative_to(product):
+                name = ".".join(path.relative_to(product.parent).with_suffix("").parts)
+                trees[name] = tree
         print(f"PASS Python syntax: {len(sources)} files", flush=True)
+        contract = load_contract(root)
+        verify_entrypoints(root, contract)
+        verify_import_directions(trees, contract)
         run(root, environment, [sys.executable, "-c", """
 import importlib
 from pathlib import Path
@@ -109,7 +118,7 @@ def main(argv: list[str] | None = None) -> int:
         else:
             print("Checking working tree", flush=True)
             check(ROOT, quick=args.quick)
-    except (OSError, ValueError, KeyError, SyntaxError, subprocess.CalledProcessError) as exc:
+    except (OSError, ValueError, KeyError, ImportError, SyntaxError, subprocess.CalledProcessError) as exc:
         print(f"repository check failed: {exc}", file=sys.stderr)
         return 1
     except KeyboardInterrupt:

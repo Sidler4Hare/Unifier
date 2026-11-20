@@ -1,0 +1,177 @@
+{
+  "legacy_aliases": {
+    "entry": "import multilinux.<module>",
+    "callers": ["existing consumers of the multilinux package"],
+    "behavior": "The old and new import paths resolve to the same module. The listed names are checked by tools/check_repo.py.",
+    "status": "compatibility",
+    "modules": [
+      "app_entries", "atomic_io", "catalog", "cli", "compatibility", "control",
+      "desktop", "desktop_integrations", "errors", "file_operations", "file_routes",
+      "fuse_view", "fuse_view_legacy", "guest_paths", "handlers", "i18n", "identity",
+      "install", "install_state", "json_records", "lease", "on_demand", "packages",
+      "project", "project_sessions", "projection", "projects", "registry", "resources",
+      "root_identity", "routing", "runtime", "screencast", "service", "share_label",
+      "shortcuts", "store", "view_backend", "view_backend_legacy", "view_broker",
+      "view_journal", "views"
+    ]
+  },
+  "entrypoints": [
+    {
+      "name": "five CLI launchers",
+      "entry": "bin/unifier, tools/unifier.py, tools/ml.py, python -m unifier, python -m multilinux",
+      "callers": ["README.md", "src/unifier/shortcuts.py", "tools/install_unifier.py"],
+      "files": ["bin/unifier", "tools/unifier.py", "tools/ml.py", "src/unifier/__main__.py", "src/multilinux/__main__.py", "src/unifier/application_install.py"],
+      "tests": ["tests/test_cli_shortcuts.py", "tests/test_release_install.py"],
+      "status": "compatibility"
+    },
+    {
+      "name": "legacy FUSE entry",
+      "entry": "python -m unifier.fuse_view_legacy and old multilinux module imports use the current worker and backend",
+      "callers": ["src/unifier/fuse_view_legacy.py", "src/multilinux/fuse_view_legacy.py", "src/multilinux/view_backend_legacy.py"],
+      "files": ["src/unifier/view_backend_legacy.py", "src/unifier/view_backend.py", "src/unifier/fuse_view.py"],
+      "tests": ["tests/test_projection_objects.py"],
+      "status": "compatibility"
+    },
+    {
+      "name": "view worker and broker",
+      "entry": "tools/unifier.py view _fuse / view _broker and python -m unifier.fuse_view",
+      "callers": ["src/unifier/views.py", "src/unifier/cli.py"],
+      "files": ["tools/unifier.py", "src/unifier/fuse_view.py", "src/unifier/view_backend.py", "src/unifier/view_broker.py"],
+      "tests": ["tests/test_views.py", "tests/test_projection_fd.py", "tests/test_projection_objects.py"],
+      "status": "internal"
+    },
+    {
+      "name": "detached application worker",
+      "entry": "tools/unifier.py app _worker",
+      "callers": ["src/unifier/on_demand.py", "src/unifier/cli.py"],
+      "files": ["tools/unifier.py"],
+      "tests": ["tests/test_lifecycle_contracts.py", "tests/test_cli_shortcuts.py"],
+      "status": "internal"
+    },
+    {
+      "name": "guest application supervisor",
+      "entry": "runtime reads application_supervisor.py by path and sends it to guest Python",
+      "callers": ["src/unifier/runtime.py", "src/unifier/service.py"],
+      "files": ["src/unifier/application_supervisor.py"],
+      "tests": ["tests/test_application_supervisor.py", "tests/test_application_lifecycle.py"],
+      "status": "internal"
+    },
+    {
+      "name": "detached file worker",
+      "entry": "tools/unifier.py file _worker",
+      "callers": ["src/unifier/file_routes.py", "src/unifier/cli.py"],
+      "files": ["tools/unifier.py"],
+      "tests": ["tests/test_file_routes.py"],
+      "status": "internal"
+    },
+    {
+      "name": "detached project worker",
+      "entry": "tools/unifier.py project _worker",
+      "callers": ["src/unifier/project_sessions.py", "src/unifier/cli.py"],
+      "files": ["tools/unifier.py"],
+      "tests": ["tests/test_project_sessions.py"],
+      "status": "internal"
+    },
+    {
+      "name": "read-only package inventory probe",
+      "entry": "getattr(runtime, 'read_inventory_readonly') and getattr(runtime, 'recover_inventory_storage')",
+      "callers": ["src/unifier/service.py"],
+      "files": ["src/unifier/runtime.py", "src/unifier/inventory_probe.py"],
+      "tests": ["tests/test_package_observation.py", "tests/test_inventory_backends.py", "tests/test_inventory_recovery.py"],
+      "status": "retained"
+    },
+    {
+      "name": "runtime OCI hooks",
+      "entry": "source files executed as precreate hooks for Wayland, render nodes and private Portal mounts",
+      "callers": ["src/unifier/runtime.py", "src/unifier/service.py"],
+      "files": ["src/unifier/wayland.py", "src/unifier/render_node.py", "src/unifier/portal_mount.py", "src/unifier/camera_device.py"],
+      "tests": ["tests/test_wayland_refresh.py", "tests/test_render_node.py", "tests/test_portal_mount.py", "tests/test_camera_device.py"],
+      "status": "internal"
+    },
+    {
+      "name": "read-only hardware report",
+      "entry": "env hardware shows binding, configured hardware and checked metadata",
+      "callers": ["src/unifier/cli.py", "src/unifier/service.py"],
+      "files": ["src/unifier/hardware_report.py", "src/unifier/render_node.py"],
+      "tests": ["tests/test_hardware_report.py", "tests/test_render_node.py"],
+      "status": "retained"
+    },
+    {
+      "name": "file delivery Portal worker",
+      "entry": "isolated Python imports unifier.portal_file_bridge.main",
+      "callers": ["src/unifier/on_demand.py"],
+      "files": ["src/unifier/portal_file_bridge.py"],
+      "tests": ["tests/test_portal_file_bridge.py", "tests/test_portal_delivery.py"],
+      "status": "internal"
+    },
+    {
+      "name": "guest file chooser and library helpers",
+      "entry": "guest Python payloads copied during file chooser or native library setup",
+      "callers": ["src/unifier/file_chooser.py", "src/unifier/on_demand.py"],
+      "files": ["src/unifier/kdialog_args.py", "src/unifier/zenity_args.py", "src/unifier/kdialog_portal.py", "src/unifier/native_library_launcher.py"],
+      "tests": ["tests/test_file_chooser.py", "tests/test_native_library_launcher.py"],
+      "status": "internal"
+    },
+    {
+      "name": "WPS file chooser",
+      "entry": "wps-portal launch mode and guest adapter payload",
+      "callers": ["src/unifier/file_chooser.py"],
+      "files": ["src/unifier/wps_portal.py"],
+      "candidate_inputs": [
+        "src/unifier/wps_portal_assets/manifest.json",
+        "src/unifier/wps_portal_assets/LICENSE.LGPL3",
+        "src/unifier/wps_portal_assets/platformthemes/libqxdgdesktopportal.so",
+        "src/unifier/wps_portal_assets/wps-format-audit.so"
+      ],
+      "tests": ["tests/test_file_chooser.py"],
+      "status": "retained"
+    },
+    {
+      "name": "desktop menu entries",
+      "entry": "tools/unifier.py app open / project shell via exported desktop entries",
+      "callers": ["src/unifier/desktop_integrations.py", "src/unifier/service.py"],
+      "files": ["tools/unifier.py", "src/unifier/desktop.py"],
+      "tests": ["tests/test_desktop.py", "tests/test_cli_shortcuts.py"],
+      "status": "compatibility"
+    },
+    {
+      "name": "desktop package opener",
+      "entry": "bin/unifier offer --keep-open via the package file association",
+      "callers": ["tools/install_unifier.py", "src/unifier/package_offer.py"],
+      "files": ["bin/unifier", "src/unifier/shortcuts.py", "src/unifier/application_install.py"],
+      "tests": ["tests/test_package_offer.py"],
+      "status": "retained"
+    },
+    {
+      "name": "agent request bridge",
+      "entry": "agent serve and agent request, including the persisted request ledger",
+      "callers": ["src/unifier/cli.py"],
+      "files": [
+        "src/unifier/agent_bridge.py", "src/unifier/bridge_client.py", "src/unifier/bootstrap.py",
+        "src/unifier/bridge_policy.py", "src/unifier/bridge_ledger.py", "src/unifier/bridge_protocol.py"
+      ],
+      "tests": ["tests/test_agent_cli.py", "tests/test_agent_bridge_recovery.py"],
+      "status": "retained"
+    },
+    {
+      "name": "ScreenCast probe",
+      "entry": "tools/probe_screencast.py imports unifier.screencast, with multilinux.screencast retained for older callers",
+      "callers": ["tools/probe_desktop_protocols.py", "tools/probe_screencast.py"],
+      "files": ["src/multilinux/screencast.py", "src/unifier/screencast.py"],
+      "tests": ["tests/test_screencast.py", "tests/test_screencast_contract.py"],
+      "status": "retained"
+    },
+    {
+      "name": "loader diagnostics API",
+      "entry": "unifier.loader_verification.verify_fixture_loading",
+      "callers": ["docs/自动依赖与原生安装交互.md"],
+      "files": ["src/unifier/loader_verification.py"],
+      "tests": ["tests/test_dependency_evidence.py"],
+      "status": "retained"
+    }
+  ],
+  "import_baseline": {
+    "outward": [],
+    "cyclic": []
+  }
+}

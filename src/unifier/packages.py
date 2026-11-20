@@ -12,12 +12,19 @@ from pathlib import Path
 import re
 import subprocess
 
+from unifier.catalog import PREPARED
 from unifier.errors import UnifierError
 
 
 PACKAGE_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9._+-]{0,127}\Z")
-TARGETS = ("debian13", "fedora44", "arch")
+TARGETS = tuple(PREPARED)
 INCOMING_DIR = "/tmp/ml-incoming"
+DPKG_PACKAGE_STATUS_FORMAT = "-f=${Package}\t${Version}\t${db:Status-Status}\n"
+_DPKG_ABSENT = {"not-installed", "config-files"}
+_DPKG_STATES = _DPKG_ABSENT | {
+    "installed", "half-installed", "unpacked", "half-configured",
+    "triggers-awaited", "triggers-pending",
+}
 
 # Official Arch images strip the local signing key. The first writable
 # transaction initializes the keyring and keeps signature checks on.
@@ -159,6 +166,10 @@ class PackageDriver:
     def query(self, name: str) -> list[str]:
         raise NotImplementedError
 
+    def query_result(self, exit_code: int, stdout: str, stderr: str, *,
+                     require_installed: bool = False) -> tuple[bool, str]:
+        return exit_code == 0, (stdout or stderr).strip()
+
     def inventory(self) -> list[str]:
         raise NotImplementedError
 
@@ -212,7 +223,26 @@ class AptDriver(PackageDriver):
         return steps
 
     def query(self, name: str) -> list[str]:
-        return ["dpkg-query", "-W", "-f=${Package}\t${Version}\n", name]
+        return ["dpkg-query", "-W", DPKG_PACKAGE_STATUS_FORMAT, name]
+
+    def query_result(self, exit_code: int, stdout: str, stderr: str, *,
+                     require_installed: bool = False) -> tuple[bool, str]:
+        if exit_code != 0:
+            return super().query_result(exit_code, stdout, stderr)
+        present = False
+        details = []
+        for line in stdout.splitlines():
+            fields = line.split("\t")
+            if len(fields) != 3 or not fields[0] or fields[2] not in _DPKG_STATES:
+                raise UnifierError("dpkg-query returned an invalid package status")
+            name, version, state = fields
+            eligible = state == "installed" if require_installed else state not in _DPKG_ABSENT
+            present |= eligible
+            detail = f"{name}\t{version}"
+            details.append(detail if state == "installed" else f"{detail} ({state})")
+        if not details:
+            raise UnifierError("dpkg-query did not return a package status")
+        return present, "\n".join(details)
 
     def inventory(self) -> list[str]:
         return ["dpkg-query", "-W", "-f=${Package}\t${Version}\n"]
@@ -346,15 +376,6 @@ def update_commands(target: str) -> list[tuple[list[str], int]]:
 
 def remove_commands(target: str, packages: list[str]) -> list[tuple[list[str], int]]:
     return driver_for(target).remove(packages)
-
-
-def local_commands(target: str, container_path: str) -> list[tuple[list[str], int]]:
-    """Install one file already copied into the environment."""
-    return driver_for(target).local(container_path)
-
-
-def arch_keyring_commands(*, populate: bool) -> list[tuple[list[str], int]]:
-    return DRIVERS["pacman"].bootstrap(populate=populate)
 
 
 def query_argv(target: str, name: str) -> list[str]:
@@ -574,11 +595,6 @@ class HostObserver:
         if directory.is_dir():
             names = sorted(path.name for path in directory.glob("*.desktop") if path.is_file())
         return {"directory": str(directory), "names": names}
-
-
-def _require_target(target: str) -> None:
-    if target not in TARGETS:
-        raise UnifierError(f"no package adapter for {target}")
 
 
 def _run_host(argv: list[str]):

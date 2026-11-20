@@ -29,9 +29,12 @@ from tools.hardware_guard_policy import (
     V100_CUBIN, V100_INPUTS, V100_INPUT_ROOT, V100_PROBE, verify_cuda_inputs,
 )
 from unifier import package_journal
+from unifier.hardware_report import SCHEMA_VERSION as HARDWARE_REPORT_SCHEMA_VERSION
 from unifier.identity import binding_for
+from unifier.record_ids import validate_uuid
 from unifier.project import load_project
 from unifier.exec_control import SCRIPT_PATH
+from unifier.render_node import render_node_identity, resolve_render_node
 from unifier.runtime import CreateSpec, PodmanRuntime, SLEEPER, _run_podman, container_state_from_inspect, creation_argv
 from unifier.packages import install_commands, inventory_argv, native_env, validate_package_name
 from unifier.store import EnvironmentStore
@@ -39,9 +42,13 @@ from unifier.store import EnvironmentStore
 ENTRY = Path(__file__).resolve()
 PYTHON = '/usr/bin/python3'
 BOOTSTRAP_PHASES = {'create', 'resume', 'amd-bootstrap-recover'}
-BUILTIN_PHASES = BOOTSTRAP_PHASES | {'recover', 'vulkan', 'media-recover'}
+BUILTIN_PHASES = BOOTSTRAP_PHASES | {'recover', 'egl', 'vulkan', 'media-recover'}
 PACKAGE_MAINTENANCE_PHASES = {'native-repair', 'recover'}
 PHASES = BUILTIN_PHASES | {'prepare', 'gpu', 'native-repair', 'media'}
+EGL_PROBE = ROOT/'fixtures/hardware/drm_egl_probe.py'
+EGL_PROBE_SHA256 = 'd4c3feed8c050eebd250dd666113cf7ee158712681c0e445cf474f9a042d6b07'
+EGL_FRAME_SHA256 = '0874bcce322a1fd4c5adc518624caee24dcef001ea415d0f1e926a3310a9b57c'
+EGL_PAYLOAD_BYTES = 16*MIB
 LOCK = ROOT / 'config/images.lock.json'
 QQ_STANDARD_CONTROLLER = {'memory_max': 512*MIB, 'memory_high': 448*MIB, 'tasks_max': 128}
 ARCH_EVIDENCE = ROOT/'artifacts/v008-arch-gpu-20261117-HIiJexUu'
@@ -294,6 +301,16 @@ def selected_controller_budget(spec):
 
 
 def validate_spec(spec):
+    if isinstance(spec, dict) and spec.get('phase') == 'egl':
+        fixture = spec.get('fixture')
+        unit = spec.get('unit')
+        prefix = 'unifier-drm-arch-egl-' if fixture == 'arch-intel' else 'unifier-drm-egl-'
+        if (set(spec) != {'fixture', 'phase', 'unit', 'seconds'}
+                or fixture not in ('intel', 'arch-intel')
+                or type(spec.get('seconds')) is not int or not 1 <= spec['seconds'] <= 100
+                or not isinstance(unit, str) or not re.fullmatch(prefix+r'[a-z0-9-]{1,24}', unit)):
+            raise ValueError('invalid bounded Intel EGL probe specification')
+        return FIXTURES[fixture]
     if isinstance(spec, dict) and spec.get('fixture') == 'arch-intel':
         phase = spec.get('phase')
         fields = {'fixture', 'phase', 'unit', 'seconds'}
@@ -668,6 +685,9 @@ class HardwareAttempt:
         elif self.phase == 'vulkan':
             self.vulkan_binary()
             reuse.put(self.out/'gpu-admission.json', observe_gpu(self.fixture, vulkan_probe.PAYLOAD_BYTES))
+        elif self.phase == 'egl':
+            self.egl_argv()
+            reuse.put(self.out/'gpu-admission.json', observe_gpu(self.fixture, EGL_PAYLOAD_BYTES))
         elif self.phase == 'media':
             reuse.put(self.out/'gpu-admission.json', observe_gpu(self.fixture, intel_media_guard.PAYLOAD_BYTES))
         elif self.phase == 'gpu':
@@ -1582,7 +1602,7 @@ class HardwareAttempt:
                     reuse.put(path, proof)
             elif self.phase == 'media-recover':
                 self.media_recovery_proof()
-            elif self.phase in {'prepare', 'gpu', 'vulkan', 'media'}:
+            elif self.phase in {'prepare', 'gpu', 'egl', 'vulkan', 'media'}:
                 if self.spec.get('qq_recovery'):
                     service = self.service()
                     pending = service._pending_package_transactions(fixture.env_id)
@@ -2126,6 +2146,8 @@ class HardwareAttempt:
             reuse.put(self.out/'gpu-last.json', {'at': now, **self.cuda_telemetry(active=True)})
         elif self.phase == 'vulkan':
             reuse.put(self.out/'gpu-last.json', {'at': now, **observe_gpu(self.fixture, vulkan_probe.PAYLOAD_BYTES)})
+        elif self.phase == 'egl':
+            reuse.put(self.out/'gpu-last.json', {'at': now, **observe_gpu(self.fixture, EGL_PAYLOAD_BYTES)})
         elif self.phase == 'media':
             reuse.put(self.out/'gpu-last.json', {'at': now, **observe_gpu(self.fixture, intel_media_guard.PAYLOAD_BYTES)})
         elif self.phase == 'gpu':
@@ -2184,9 +2206,9 @@ class HardwareAttempt:
         cuda = self.fixture.cuda
         prefix = ['/usr/bin/nvidia-smi', '--id='+cuda.uuid]
         output = ['--format=csv,noheader,nounits']
-        row = reuse.call([*prefix, '--query-gpu=uuid,pci.bus_id,memory.total,memory.free,temperature.gpu',
+        row = reuse.call([*prefix, '--query-gpu=uuid,pci.bus_id,memory.total,memory.free,temperature.gpu,driver_version',
                           *output], timeout=.75).strip().split(',')
-        uuid, pci, total, free, temp = (item.strip() for item in row)
+        uuid, pci, total, free, temp, driver_version = (item.strip() for item in row)
         total, free, temp = map(int, (total, free, temp))
         if (uuid != cuda.uuid or pci.lower() not in (cuda.pci, '0000'+cuda.pci)
                 or total != 16384 or free < 4096 or temp >= 70 or temp < 0):
@@ -2204,7 +2226,8 @@ class HardwareAttempt:
                     continue  # The short probe may already have destroyed this context.
                 if not reuse.under(cgroup, bound['init']['cgroup']):
                     raise RuntimeError('V100 has a compute context outside the admitted guest')
-        return {'uuid': uuid, 'pci': pci, 'memory_total_mib': total, 'memory_free_mib': free,
+        return {'uuid': uuid, 'pci': pci, 'driver_version': driver_version,
+                'memory_total_mib': total, 'memory_free_mib': free,
                 'temperature_c': temp, 'compute_pids': pids, 'cpu_temp_millicelsius': cpu}
 
     def cuda_payload(self, name):
@@ -2250,6 +2273,21 @@ class HardwareAttempt:
             'XDG_DATA_HOME': private+'/data', 'XDG_CONFIG_HOME': private+'/config',
             'XDG_RUNTIME_DIR': private+'/runtime', 'VK_DRIVER_FILES': vulkan_probe.ICD,
             'VK_LOADER_LAYERS_DISABLE': '~implicit~', 'MESA_SHADER_CACHE_DISABLE': 'true',
+        }
+
+    def egl_argv(self):
+        data = bound_bytes(EGL_PROBE)
+        if hashlib.sha256(data).hexdigest() != EGL_PROBE_SHA256:
+            raise RuntimeError('EGL fixture source differs from the admitted digest')
+        return [PYTHON, '-I', '-B', '-c', data.decode('utf-8'), 'render', '--pci', self.fixture.pci]
+
+    def egl_environment(self):
+        private = '/tmp/'+self.spec['unit']+'-private'
+        return {
+            'LC_ALL': 'C', 'HOME': private, 'XDG_CACHE_HOME': private+'/cache',
+            'XDG_DATA_HOME': private+'/data', 'XDG_CONFIG_HOME': private+'/config',
+            'XDG_RUNTIME_DIR': private+'/runtime', 'MESA_SHADER_CACHE_DISABLE': 'true',
+            'mesa_glthread': 'false', 'OMP_NUM_THREADS': '1', 'LP_NUM_THREADS': '1',
         }
 
     def intel_media_packages(self, plan, cid):
@@ -2540,6 +2578,13 @@ class HardwareRuntime(PodmanRuntime):
     def exec(self, name, argv, *, project, env_id, **kwargs):
         config = self.identity(name, project, env_id)
         attempt = self.attempt
+        if attempt.phase == 'egl' and argv != ['uname', '-r']:
+            if (argv != attempt.egl_argv() or kwargs.get('env') != attempt.egl_environment()
+                    or kwargs.get('capture') is not True or kwargs.get('timeout') != 8
+                    or kwargs.get('user') is not None or kwargs.get('workdir') is not None):
+                raise RuntimeError('guest operation is outside the bounded Intel EGL probe')
+            register_intent(attempt.out/'egl-probe-intent.json',
+                            {'cid': config['cid'], 'probe_sha256': EGL_PROBE_SHA256})
         if attempt.phase == 'vulkan' and argv != ['uname', '-r']:
             path = attempt.vulkan_guest_path()
             commands = {tuple(attempt.vulkan_empty_path_command()), (path,),
@@ -3374,12 +3419,53 @@ def run_cuda_probe(attempt):
             reuse.put(attempt.out/'result.json', report)
 
 
+def run_egl_probe(attempt):
+    verify_hardware_permission(attempt)
+    attempt.require_clean_packages()
+    fixture, config = attempt.fixture, attempt.active_config()
+    service = attempt.service()
+    binding = {'environment_id': fixture.env_id, 'environment_uuid': config['environment_uuid'],
+               'generation': config['generation'], 'container_id': config['cid']}
+    report = {'cid': config['cid'], 'probe_sha256': EGL_PROBE_SHA256, 'status': 'INVALID'}
+    started = False
+    _remember_drm_probe_device(attempt, 'egl')
+    try:
+        service.start(fixture.env_id, expected_binding=binding)
+        started = True
+        native = service.runtime.exec(
+            config['cid'], attempt.egl_argv(), project=str(fixture.root), env_id=fixture.env_id,
+            workdir=None, env=attempt.egl_environment(), capture=True, timeout=8)
+        (attempt.out/'egl.stdout').write_text(native.stdout)
+        (attempt.out/'egl.stderr').write_text(native.stderr)
+        report['exit_code'] = native.returncode
+        probe = json.loads(native.stdout)
+        codes = {'PASS': 0, 'FAIL': 1, 'BLOCKED': 2, 'INVALID': 3, 'UNKNOWN': 4}
+        if codes.get(probe['status']) != native.returncode:
+            raise RuntimeError('EGL verdict and process exit disagree')
+        report.update(status=probe['status'], probe=probe)
+        return native.returncode
+    except Exception as exc:
+        report.update(status='INVALID', error=str(exc))
+        raise
+    finally:
+        try:
+            if started:
+                service.stop(fixture.env_id)
+                report['formal_stop'] = 'STOPPED'
+        except Exception as exc:
+            report.update(status='INVALID', cleanup_error=str(exc))
+            raise
+        finally:
+            reuse.put(attempt.out/'result.json', report)
+
+
 def run_vulkan_probe(attempt):
     verify_hardware_permission(attempt)
     attempt.require_clean_packages()
     fixture = attempt.fixture
     config = attempt.active_config()
     source = attempt.vulkan_binary()
+    _remember_drm_probe_device(attempt, 'vulkan')
     service = attempt.service()
     binding = {'environment_id': fixture.env_id, 'environment_uuid': config['environment_uuid'],
                'generation': config['generation'], 'container_id': config['cid']}
@@ -3438,6 +3524,248 @@ def escaped_argument(value):
     return '"'+value+'"'
 
 
+def _stopped_probe_cleanup(row, cid):
+    state = row['state']
+    worker = row['worker_final']
+    return (row['cid'] == cid and row['status'] == 'STOPPED'
+            and state['Running'] is False and type(state['Pid']) is int and state['Pid'] == 0
+            and worker['MainPID'] == '0' and not worker['ControlGroup'])
+
+
+def _completed_probe(attempt):
+    """Return the registered binding and native result after guard cleanup."""
+    out = attempt.out
+    if os.path.lexists(out/'abort.json'):
+        return None
+    config = attempt.active_config()
+    cid = config['cid']
+    record = bound_read(attempt.record_path)
+    if validate_record(attempt.fixture, cid, record) != {
+            key: config[key] for key in ('cid', 'environment_uuid', 'generation')}:
+        return None
+    binding = binding_for(record)
+    live = bound_read(out/'live-binding.json')
+    ready = bound_read(out/'ready.json')
+    start = bound_read(out/'start-intent.json')
+    receipt = bound_read(out/'receipt.json')
+    rescue = bound_read(out/'rescue.json')
+    report = bound_read(out/'result.json')
+    boot_id = validate_uuid(live['init']['boot_id'], 'probe boot ID')
+    if (live['cid'] != cid or live['coverage_verified'] is not True
+            or start['cid'] != cid or start['before']['Running'] is not False
+            or ready['cid'] not in (None, cid) or ready['monitor'] != receipt['monitor']
+            or ready['monitor']['boot_id'] != boot_id
+            or receipt['reason'] is not None or type(receipt['command_result']['exit_code']) is not int
+            or receipt['command_result']['exit_code'] != 0
+            or not _stopped_probe_cleanup(receipt['cleanup'], cid)
+            or not _stopped_probe_cleanup(rescue, cid)
+            or report['cid'] != cid or report['status'] != 'PASS'
+            or report['formal_stop'] != 'STOPPED' or type(report['exit_code']) is not int
+            or report['exit_code'] != 0):
+        return None
+    proof = {
+        'schema_version': HARDWARE_REPORT_SCHEMA_VERSION,
+        'environment_binding': binding, 'target': record['target'], 'boot_id': boot_id,
+        'source': 'result.json', 'capability_state': 'available', 'result': 'PASS',
+        'cleanup_state': 'verified', 'software_fallback': False,
+    }
+    return proof, report
+
+
+def _completed_cuda_device(attempt):
+    gpu_after = bound_read(attempt.out/'gpu-after.json')
+    device = attempt.fixture.cuda.identity()
+    if (gpu_after['uuid'] != device['uuid']
+            or not isinstance(gpu_after['pci'], str)
+            or gpu_after['pci'].lower() not in (device['pci'], '0000'+device['pci'])
+            or gpu_after['compute_pids'] != []):
+        return None
+    return device, gpu_after
+
+
+def cuda_observation(attempt):
+    """Normalize a completed CUDA calculation using existing guarded receipts."""
+    completed = _completed_probe(attempt)
+    if completed is None or (gpu := _completed_cuda_device(attempt)) is None:
+        return None
+    proof, report = completed
+    device, _telemetry = gpu
+    if report['expected'] != device:
+        return None
+    probe = report['probe']
+    tensor = 'tensor_sha256' in attempt.spec
+    if tensor and report.get('tensor_probe_sha256') != attempt.spec['tensor_sha256']:
+        return None
+    if (probe['uuid'] != device['uuid'] or not isinstance(probe['pci'], str)
+            or probe['pci'].lower() != device['pci']
+            or type(probe['devices']) is not int or probe['devices'] != 1 or probe['sm'] != 70
+            or probe['libcuda'] != '/run/unifier-cuda/libcuda.so.1'
+            or type(probe['driver_api']) is not int or probe['driver_api'] < 12090
+            or probe['context_destroyed'] is not True):
+        return None
+    return {
+        **proof,
+        'kind': 'cuda', 'selector': device['uuid'], 'device_identity': device,
+        'backend': 'cuda-driver-api', 'backend_version': str(probe['driver_api']),
+        'capability': 'cuda-sm70-tensor-known-answer' if tensor else 'cuda-sm70-known-answer',
+    }
+
+
+def cuda_media_observation(attempt):
+    completed = _completed_probe(attempt)
+    if completed is None or (gpu := _completed_cuda_device(attempt)) is None:
+        return None
+    proof, report = completed
+    device, telemetry = gpu
+    manifest = attempt.spec['video_sha256']
+    if (report['gpu'] != device or report['probe_removed'] is not True
+            or report['probe_sha256'] != manifest):
+        return None
+    version = telemetry['driver_version']
+    during = bound_read(attempt.out/'gpu-admission.json')
+    if (not isinstance(version, str) or not re.fullmatch(r'[0-9]+(?:\.[0-9]+)+', version)
+            or any(during[key] != telemetry[key] for key in ('uuid', 'pci', 'driver_version'))):
+        return None
+    runtime = report['media_runtime']
+    scratch = '/var/tmp/'+attempt.spec['unit']+'-video'
+    if (runtime['schema_version'] != 1 or runtime['ffmpeg']['path'] != scratch+'/ffmpeg'
+            or runtime['ffmpeg']['sha256'] != manifest['ffmpeg']
+            or runtime['cuda_driver'] != {'host_library': device['library'],
+                                           'guest_library': v100_media_probe.CUDA_LIBRARY,
+                                           'origin': 'pinned-host-mount', 'load_evidence': 'ld-debug-init'}):
+        return None
+    for codec, library in (('NVDEC', 'libnvcuvid.so.1'), ('NVENC', 'libnvidia-encode.so.1')):
+        backend = runtime['backends'][codec]
+        if (backend['guest_library'] != scratch+'/'+library or backend['sha256'] != manifest[library]
+                or backend['load_evidence'] != 'ld-debug-init' or backend['origin'] != 'verified-guest-copy'):
+            return None
+    cases = report['cases']
+    count = v100_media_probe.FRAMES
+    scores = cases['NVENC']['psnr_db']
+    if (any(type(cases[name]['exit']) is not int or cases[name]['exit'] != 0
+            for name in ('NVDEC', 'NVENC', 'software-readback'))
+            or cases['NVDEC']['frames'] != count or cases['NVDEC']['exact'] is not True
+            or cases['NVENC']['frames'] != count or len(scores) != count
+            or any(score is not None and (type(score) not in (int, float) or not math.isfinite(score) or score < 30)
+                   for score in scores)):
+        return None
+    return {
+        **proof, 'kind': 'cuda', 'selector': device['uuid'], 'device_identity': device,
+        'backend': 'nvidia-video-codecs', 'backend_version': version,
+        'capability': 'h264-nvdec-nvenc-known-answers', 'media_runtime': runtime,
+        'oracle': {'decode_exact_frames': count, 'encode_readback_psnr_db': scores},
+    }
+
+
+def _drm_probe_device(attempt):
+    """Corroborate the guarded node with its actual physical sysfs path."""
+    native = observe_device(attempt.fixture)
+    node = resolve_render_node(NODE)
+    if (node.device, node.inode, node.rdev) != (native['dev'], native['inode'], native['rdev']):
+        raise RuntimeError('DRM node changed while recording hardware evidence')
+    physical = render_node_identity(node)
+    if (Path(physical['sysfs_device']).name != native['pci']
+            or physical.get('vendor') != '0x'+native['vendor']
+            or physical.get('device') != '0x'+native['device']):
+        raise RuntimeError('DRM physical identity differs from the guard observation')
+    return {'native': native, 'physical': physical}
+
+
+def _remember_drm_probe_device(attempt, backend):
+    try:
+        reuse.put(attempt.out/f'{backend}-device-before.json', _drm_probe_device(attempt))
+    except (OSError, KeyError, TypeError, ValueError, RuntimeError):
+        # Missing optional identity corroboration only suppresses the sidecar.
+        pass
+
+
+def _completed_drm_device(attempt, backend):
+    out = attempt.out
+    before = bound_read(out/f'{backend}-device-before.json')
+    after = _drm_probe_device(attempt)
+    native = after['native']
+    guest = bound_read(out/'guest-device.json')
+    if (before != after or native != bound_read(out/'device-before.json')
+            or guest != {'mapping': ['0', str(attempt.fixture.uid), '1'], 'rdev': native['rdev']}):
+        return None
+    return after
+
+
+def egl_observation(attempt):
+    """Normalize the fixed GBM/EGL render and its full-frame readback."""
+    completed = _completed_probe(attempt)
+    if completed is None:
+        return None
+    proof, report = completed
+    out = attempt.out
+    if (report['probe_sha256'] != EGL_PROBE_SHA256
+            or bound_read(out/'egl-probe-intent.json') !=
+            {'cid': proof['environment_binding']['container_id'], 'probe_sha256': EGL_PROBE_SHA256}):
+        return None
+    after = _completed_drm_device(attempt, 'egl')
+    if after is None:
+        return None
+    native, physical = after['native'], after['physical']
+    probe = json.loads(bound_bytes(out/'egl.stdout'))
+    if (probe != report['probe'] or probe.get('cleanup_errors')
+            or (probe['mode'], probe['status'], probe['reason'], probe['requested_pci']) !=
+            ('render', 'PASS', 'verified', native['pci'])):
+        return None
+    device, backend = probe['device'], probe['backend']
+    renderer = backend['gl_renderer'].lower()
+    software = ('llvmpipe', 'softpipe', 'swrast', 'software', 'swiftshader', 'lavapipe')
+    if (device != {'node': native['path'], 'pci': native['pci'], 'vendor': native['vendor'],
+                   'device': native['device'], 'major': physical['major'], 'minor': physical['minor'],
+                   'kernel_driver': native['driver'], 'open_mode': 'rw', 'euid': 0}
+            or backend['platform'] != 'gbm' or backend['gbm_fd_matches'] is not True
+            or backend['surfaceless'] is not True or backend['egl_render_node'] != native['path']
+            or backend['mesa_driver'] != 'iris' or 'Mesa' not in backend['egl_vendor']
+            or 'intel' not in renderer or any(marker in renderer for marker in software)
+            or not backend['gl_version'].startswith('OpenGL ES ') or backend['egl_version'] != '1.5'
+            or probe['frame'] != {'width': 256, 'height': 256, 'rgba8_bytes': 262144,
+                                 'clear_count': 2, 'sha256': EGL_FRAME_SHA256}):
+        return None
+    reuse.put(out/'egl-device-after.json', after)
+    return {
+        **proof,
+        'kind': 'render-node', 'selector': native['path'], 'device_identity': physical,
+        'backend': 'egl-iris', 'backend_version': backend['gl_version'],
+        'api_version': backend['egl_version'], 'renderer': backend['gl_renderer'],
+        'capability': 'egl-offscreen-rgba8-known-answer', 'probe_sha256': EGL_PROBE_SHA256,
+        'oracle': {'image_sha256': probe['frame']['sha256']},
+    }
+
+
+def vulkan_observation(attempt):
+    """Validate native graphics and compute results on the admitted Intel device."""
+    completed = _completed_probe(attempt)
+    if completed is None:
+        return None
+    proof, report = completed
+    out = attempt.out
+    if (report['probe_removed'] is not True or report['probe_sha256'] != attempt.spec['probe_sha256']
+            or report['icd_manifest'] != vulkan_probe.ICD):
+        return None
+    after = _completed_drm_device(attempt, 'vulkan')
+    if after is None:
+        return None
+    native, physical = after['native'], after['physical']
+    probe = vulkan_probe.check_readback(bound_bytes(out/'vulkan.stdout').decode('utf-8'))
+    if (probe != report['probe'] or probe['pci'] != native['pci']
+            or probe['vendor'] != native['vendor'] or probe['device'] != native['device']
+            or probe['render'] != f"{physical['major']}:{physical['minor']}"):
+        return None
+    reuse.put(out/'vulkan-device-after.json', after)
+    return {
+        **proof,
+        'kind': 'render-node', 'selector': native['path'], 'device_identity': physical,
+        'backend': 'vulkan-anv', 'backend_version': probe['driver_info'],
+        'capability': 'vulkan-graphics-compute-known-answers',
+        'api_version': probe['api'], 'probe_sha256': report['probe_sha256'],
+        'oracle': {'image_sha256': probe['image']['sha256'], 'compute_sha256': probe['compute']['sha256']},
+    }
+
+
 def run(attempt):
     out, spec = attempt.out, attempt.spec
     if set(path.name for path in out.iterdir()) != {'spec.json'}:
@@ -3448,11 +3776,29 @@ def run(attempt):
         *reuse.controller_properties(budget), 'CPUQuota=100%', 'KillMode=control-group',
         'RuntimeMaxSec='+str(spec['seconds']+80), 'TimeoutStopSec=60s', 'Restart=no',
         'LimitCORE=0', 'UMask=0077', 'ExecStopPost='+cleanup]
-    return subprocess.call(['systemd-run', '--user', '--wait', '--collect',
+    status = subprocess.call(['systemd-run', '--user', '--wait', '--collect',
         '--unit='+spec['unit']+'-guard.service', '--setenv=GOMAXPROCS=1',
         '--setenv=LC_ALL=C.UTF-8', '--setenv=LANG=C.UTF-8',
         '--setenv=PYTHONDONTWRITEBYTECODE=1', *('--property='+item for item in properties),
         PYTHON, str(ENTRY), 'launch', str(out/'spec.json')])
+    normalize = None
+    if spec['phase'] == 'vulkan':
+        normalize = vulkan_observation
+    elif spec['phase'] == 'egl':
+        normalize = egl_observation
+    elif spec['phase'] == 'gpu' and attempt.fixture.cuda:
+        normalize = cuda_media_observation if 'video_sha256' in spec else cuda_observation
+    if status == 0 and normalize is not None:
+        try:
+            observation = normalize(attempt)
+            if observation is not None:
+                destination = out/'hardware-observation.json'
+                absent(destination)
+                reuse.put(destination, observation)
+        except (OSError, AttributeError, KeyError, TypeError, ValueError, RuntimeError) as exc:
+            # A missing diagnostic does not change the guard's native exit code.
+            print(f'hardware observation unavailable: {exc}', file=sys.stderr)
+    return status
 
 
 def main():
@@ -3481,6 +3827,8 @@ def main():
             return run_cuda_probe(attempt)
         if mode == 'vulkan-worker' and attempt.phase == 'vulkan':
             return run_vulkan_probe(attempt)
+        if mode == 'egl-worker' and attempt.phase == 'egl':
+            return run_egl_probe(attempt)
         if mode == 'media-recover-worker' and attempt.phase == 'media-recover':
             attempt.recover_intel_media()
             return 0

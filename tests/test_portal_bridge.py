@@ -8,6 +8,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
+from unifier import __version__
 from unifier.on_demand import start_bridge, stop_bridge
 
 
@@ -70,6 +71,7 @@ class DeliveryBridgeLifecycle(unittest.TestCase):
                     reused = start_bridge(record, bridge, file_delivery=True)
                 self.assertIs(reused, bridge)
                 item = bridge['file_delivery']
+                self.assertEqual(item['worker_version'], __version__)
                 self.assertTrue(Path(item['socket']).is_socket())
                 self.assertTrue(Path(item['selection_directory']).is_dir())
                 stop_bridge(bridge)

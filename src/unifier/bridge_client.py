@@ -36,7 +36,7 @@ import sys
 import time
 import uuid
 
-from unifier.agent_bridge import (
+from unifier.bridge_protocol import (
     ACTION_ID_RE,
     DEFAULT_FRAME_LIMIT,
     ERROR_MESSAGE_CHARS,
@@ -53,6 +53,7 @@ from unifier.agent_bridge import (
     socket_address_via_fd,
     strict_dumps,
     strict_loads,
+    validate_response,
     write_frame,
 )
 from unifier.errors import UnifierError
@@ -150,44 +151,6 @@ def anchored_socket_address(path: Path, code: str = "bad-socket"):
             pass
 
 
-def validate_response(document, *, frame_bytes: int, frame_limit: int,
-                      secret: str | None = None) -> dict:
-    if not isinstance(document, dict):
-        raise BridgeError("bad-response", "the response must be a JSON object")
-    if frame_bytes > frame_limit:
-        raise BridgeError("bad-response",
-                          f"the response frame is {frame_bytes} bytes, above the "
-                          f"{frame_limit}-byte limit")
-    if secret:
-        # A response we cannot read is still not allowed to carry our credential
-        # back into logs: scrub it before any message quotes a field name.
-        document = redact_token(document, secret)
-    unknown = sorted(set(document) - {"protocol_version", "request_uuid", "action_id",
-                                      "status", "receipt", "error"})
-    if unknown:
-        raise BridgeError("bad-response",
-                          "the response carries unexpected fields: " + ", ".join(unknown))
-    version = document.get("protocol_version")
-    if isinstance(version, bool) or version != PROTOCOL_VERSION:
-        raise BridgeError("bad-response",
-                          f"the response protocol_version is not {PROTOCOL_VERSION}")
-    status = document.get("status")
-    if status not in RESPONSE_STATUSES:
-        raise BridgeError("bad-response", f"the response status {status!r} is unknown")
-    error = document.get("error")
-    if error is not None:
-        if not isinstance(error, dict) or set(error) != {"code", "message"}:
-            raise BridgeError("bad-response", "the response error must name a code and a message")
-        for key in ("code", "message"):
-            value = error[key]
-            if not isinstance(value, str) or not value or len(value) > ERROR_MESSAGE_CHARS + 3:
-                raise BridgeError("bad-response", f"the response error {key} is not a bounded string")
-    receipt = document.get("receipt")
-    if receipt is not None and not isinstance(receipt, dict):
-        raise BridgeError("bad-response", "the response receipt must be an object or null")
-    return document
-
-
 def request(socket_path, action_id, *, token: str, request_uuid: str | None = None,
             timeout: float = DEFAULT_TIMEOUT, frame_limit: int = DEFAULT_FRAME_LIMIT,
             connect_timeout: float = 5.0) -> dict:
@@ -253,13 +216,6 @@ def request(socket_path, action_id, *, token: str, request_uuid: str | None = No
     if answer.get("request_uuid") != request_uuid or answer.get("action_id") != action_id:
         raise BridgeError("bad-response", "the response does not match this request and action")
     return answer
-
-
-def request_from_environment(socket_path, action_id, *,
-                             token_env: str = "UNIFIER_AGENT_TOKEN", **kwargs) -> dict:
-    """Same call, with the token taken from the guest environment."""
-    return request(socket_path, action_id, token=_token_from_environment(token_env),
-                   **kwargs)
 
 
 def parser() -> argparse.ArgumentParser:

@@ -12,9 +12,8 @@ with TTL 0, cached page I/O remains enabled for mmap, and FUSE_AUTO_INVAL_DATA
 is negotiated when the kernel offers it. Regular file pages are invalidated
 on every attribute revalidation after the initial lookup, even when timestamps
 collide. This trades cache reuse for correctness on coarse timestamp backends.
-There is no watcher or cross-volume
-consistency guarantee. The frozen path-based implementation remains available
-as ``unifier.fuse_view_legacy``.
+There is no watcher or cross-volume consistency guarantee.
+The historical ``unifier.fuse_view_legacy`` entry runs this worker.
 """
 
 import argparse
@@ -33,7 +32,7 @@ import sys
 import threading
 import time
 
-from unifier.on_demand import process_stamp
+from unifier.process_identity import process_stamp
 from unifier.view_backend import IdMap, ViewBackend, ViewError
 from unifier.view_journal import write_journal
 

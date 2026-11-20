@@ -203,6 +203,86 @@ static void append_hex(struct json_buffer *output, unsigned long value)
     append_text(output, quoted);
 }
 
+/* UTS fields are 65 bytes on Linux, including the terminating null. */
+struct linux_utsname {
+    char sysname[65];
+    char nodename[65];
+    char release[65];
+    char version[65];
+    char machine[65];
+    char domainname[65];
+};
+
+static int read_uname(struct linux_utsname *value)
+{
+    long status;
+    __asm__ volatile("syscall"
+                     : "=a"(status)
+                     : "0"(63L), "D"(value)
+                     : "rcx", "r11", "memory", "cc");
+    return status == 0;
+}
+
+static int usable_label(const char *value, unsigned int limit)
+{
+    for (unsigned int index = 0; index < limit; ++index) {
+        const unsigned char byte = (unsigned char)value[index];
+        if (byte == 0) {
+            return index != 0;
+        }
+        if (byte < 32 || byte > 126 || byte == '"' || byte == '\\') {
+            return 0;
+        }
+    }
+    return 0;
+}
+
+static void append_label(struct json_buffer *output, const char *value, int valid)
+{
+    if (!valid) {
+        append_text(output, "null");
+        return;
+    }
+    append_text(output, "\"");
+    append_text(output, value);
+    append_text(output, "\"");
+}
+
+static void append_provenance(struct json_buffer *output, struct cpuid_registers leaf0,
+                              struct cpuid_registers leaf1)
+{
+    const unsigned int registers[] = {leaf0.ebx, leaf0.edx, leaf0.ecx};
+    char vendor[13];
+    int vendor_complete = 1;
+    for (unsigned int index = 0; index < 12; ++index) {
+        vendor[index] = (char)(registers[index / 4] >> ((index % 4) * 8));
+        vendor_complete &= vendor[index] != '\0';
+    }
+    vendor[12] = '\0';
+    const int vendor_valid = vendor_complete && usable_label(vendor, sizeof(vendor));
+    const int signature_valid = leaf0.eax >= 1;
+    struct linux_utsname uts;
+    const int have_uts = read_uname(&uts);
+    const int machine_valid = have_uts && usable_label(uts.machine, sizeof(uts.machine));
+    const int release_valid = have_uts && usable_label(uts.release, sizeof(uts.release));
+    append_text(output, ",\"cpu_provenance\":{\"status\":");
+    append_text(output, vendor_valid && signature_valid && machine_valid && release_valid
+                ? "\"PASS\"" : "\"PARTIAL\"");
+    append_text(output, ",\"scope\":\"current-process\",\"system\":{\"source\":\"linux-uname-syscall\",\"machine\":");
+    append_label(output, uts.machine, machine_valid);
+    append_text(output, ",\"kernel_release\":");
+    append_label(output, uts.release, release_valid);
+    append_text(output, "},\"cpuid\":{\"source\":\"x86-cpuid\",\"vendor\":");
+    append_label(output, vendor, vendor_valid);
+    append_text(output, ",\"leaf1_eax\":");
+    if (signature_valid) {
+        append_hex(output, leaf1.eax);
+    } else {
+        append_text(output, "null");
+    }
+    append_text(output, "}}");
+}
+
 static int write_json(const struct json_buffer *output)
 {
     unsigned long offset = 0;
@@ -241,7 +321,8 @@ struct instruction_check {
 
 __attribute__((used, noinline)) static int cpu_probe_main(void)
 {
-    const unsigned int max_leaf = read_cpuid(0).eax;
+    const struct cpuid_registers leaf0 = read_cpuid(0);
+    const unsigned int max_leaf = leaf0.eax;
     struct cpuid_registers leaf1 = {0};
     struct cpuid_registers leaf7 = {0};
     if (max_leaf >= 1) {
@@ -290,6 +371,7 @@ __attribute__((used, noinline)) static int cpu_probe_main(void)
     } else {
         append_text(&output, "null");
     }
+    append_provenance(&output, leaf0, leaf1);
     append_text(&output, ",\"checks\":{");
 
     int mismatch = 0;

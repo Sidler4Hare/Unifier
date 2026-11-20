@@ -28,6 +28,7 @@ from unifier.errors import UnifierError
 from unifier.guest_paths import list_guest_directories, open_guest_directory
 from unifier.install import load_catalog, worker_environment
 from unifier.desktop import HostDesktop
+from unifier.packages import DPKG_PACKAGE_STATUS_FORMAT
 from unifier.runtime import APPLICATION_PYTHON_CHECK, APPLICATION_PYTHON_MISSING, ExecResult
 from test_env import FakeRuntime
 
@@ -675,6 +676,90 @@ class InstallAndRun(unittest.TestCase):
             self.assertEqual(calls[0][1], ["--version"])
             self.assertEqual(service.store.load("debian13")["runtime"]["container_id"],
                              first_cid)
+
+    def test_register_only_retries_failed_menu_publication_without_installing_again(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            ctx = context(root, runtime)
+            code, out, err = run_ctx(ctx, ["init", "--target", "debian13", "--yes"])
+            self.assertEqual(code, 0, (out, err))
+            service = self._service(root, runtime)
+            ctx.services[str(root)] = service
+
+            runtime.desktop_files["/usr/share/applications/hello.desktop"] = (
+                "[Desktop Entry]\nName=Hello\nExec=/usr/bin/hello %F --from-desktop\n")
+            runtime.package_files["hello"] = "/usr/share/applications/hello.desktop\n"
+            flags = ["--target", "debian13", "--json", "hello", "--", "--literal", "two words"]
+            with mock.patch.object(service, "cache_runner", return_value=ExecResult(1, "", "")):
+                code, out, err = run_ctx(ctx, ["install", *flags])
+            self.assertEqual(code, 1, (out, err))
+            initial = json.loads(out)
+            self.assertEqual(initial["transaction"]["phase"], "completed")
+            self.assertIsNone(initial["menu"])
+            self.assertEqual(list(service.host_desktop.applications.glob("*.desktop")), [])
+            expected_argv = ["/usr/bin/hello", "--from-desktop", "--literal", "two words"]
+            self.assertEqual(initial["argv"], expected_argv)
+            initial_launch = service.show_app(initial["app_id"])
+            name = service.store.load("debian13")["runtime"]["container_name"]
+            self.assertFalse(runtime.containers[name].running)
+
+            def installed(_container, argv, _env_id):
+                if argv == ["dpkg-query", "-W", DPKG_PACKAGE_STATUS_FORMAT, "hello"]:
+                    return ExecResult(0, "hello\t2\tinstalled\n", "")
+                if argv[0] in {"apt-get", "dpkg"}:
+                    self.fail(f"register-only unexpectedly ran {argv}")
+                return None
+
+            runtime.exec_handler = installed
+            repair = ["install", "--register-only", *flags]
+            code, out, err = run_ctx(ctx, repair)
+            self.assertEqual(code, 0, (out, err))
+            restored = json.loads(out)
+            self.assertEqual(restored["app_id"], initial["app_id"])
+            self.assertIsNone(restored["transaction"])
+            self.assertEqual(restored["argv"], expected_argv)
+            entry = Path(restored["menu"]).read_text(encoding="utf-8")
+            self.assertIn("Name=Hello", entry)
+            self.assertIn("app open " + initial["app_id"], entry)
+            self.assertEqual(service.show_app(initial["app_id"])["argv"], initial_launch["argv"])
+            self.assertEqual([txn["id"] for txn in service.transactions_for("debian13")],
+                             [initial["transaction"]["id"]])
+            self.assertFalse(runtime.containers[name].running)
+
+            service.start("debian13")
+            code, out, err = run_ctx(ctx, repair)
+            self.assertEqual(code, 0, (out, err))
+            self.assertEqual(json.loads(out), restored)
+            self.assertTrue(runtime.containers[name].running)
+
+    def test_register_only_rejects_unconfigured_package_and_pending_transaction(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            runtime = self._runtime()
+            ctx = context(root, runtime)
+            code, out, err = run_ctx(ctx, ["init", "--target", "debian13", "--yes"])
+            self.assertEqual(code, 0, (out, err))
+            service = self._service(root, runtime)
+            ctx.services[str(root)] = service
+            query = ["dpkg-query", "-W", DPKG_PACKAGE_STATUS_FORMAT, "hello"]
+            runtime.exec_handler = lambda _, argv, _env_id: (
+                ExecResult(0, "hello\t2\tunpacked\n", "") if argv == query else None)
+            command = ["install", "--register-only", "hello", "--json"]
+            code, out, err = run_ctx(ctx, command)
+            self.assertEqual(code, 1, (out, err))
+            self.assertIsNone(json.loads(out)["transaction"])
+            self.assertIn("hello", err)
+            self.assertEqual(service.store.launches_for("debian13"), [])
+
+            record = service.store.load("debian13")
+            record["package_recovery_required"] = True
+            service.store.save(record, None)
+            runtime.events.clear()
+            code, out, err = run_ctx(ctx, command)
+            self.assertEqual(code, 1, (out, err))
+            self.assertIn("pkg recover debian13", err)
+            self.assertEqual(runtime.events, [])
 
     def test_local_app_install_adds_and_checks_missing_guest_python(self):
         with tempfile.TemporaryDirectory() as temporary:

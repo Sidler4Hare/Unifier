@@ -31,12 +31,10 @@ import struct
 import threading
 
 RENAME_NOREPLACE = 1
-_AT_EMPTY_PATH = 0x1000
 _F_OWNER_TID = 0
 # Linux UAPI asm-generic/fcntl.h. CPython exposed this existing Linux
 # operation only in 3.13; supported 3.11/3.12 interpreters still need it.
 _F_SETOWN_EX = getattr(fcntl, "F_SETOWN_EX", 15)
-_F_RDLCK = getattr(fcntl, "F_RDLCK", 0)
 _F_WRLCK = getattr(fcntl, "F_WRLCK", 1)
 _F_UNLCK = getattr(fcntl, "F_UNLCK", 2)
 # A dedicated RT signal keeps unrelated SIGIO users out of this path.
@@ -84,22 +82,6 @@ def rename_noreplace(old_dir_fd: int, old_name: str, new_dir_fd: int,
     result = _renameat2(
         old_dir_fd, os.fsencode(old_name), new_dir_fd, os.fsencode(new_name),
         RENAME_NOREPLACE)
-    if result != 0:
-        code = ctypes.get_errno()
-        raise OSError(code, os.strerror(code))
-
-
-def link_fd_noreplace(descriptor: int, directory_fd: int, name: str) -> None:
-    """Best-effort preserve an already-open inode under a new name.
-
-    ``linkat(AT_EMPTY_PATH)`` needs CAP_DAC_READ_SEARCH on many hosts, so this
-    helper is only used for a readable extra copy of bytes into the private
-    quarantine; callers must tolerate ENOSYS/EPERM/ENOENT.
-    """
-    result = _libc.linkat(
-        ctypes.c_int(descriptor), ctypes.c_char_p(b""),
-        ctypes.c_int(directory_fd), ctypes.c_char_p(os.fsencode(name)),
-        ctypes.c_int(_AT_EMPTY_PATH))
     if result != 0:
         code = ctypes.get_errno()
         raise OSError(code, os.strerror(code))

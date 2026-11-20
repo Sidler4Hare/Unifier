@@ -11,6 +11,7 @@ from unittest.mock import patch
 from test_cli_shortcuts import context, run_ctx
 from test_desktop import SESSION
 from test_env import service_in
+from test_host_desktop_clients import DesktopPackageRuntime
 from unifier import cli
 from unifier.file_chooser import MODE_KEY
 from unifier.portal_mount import PORTAL_GUEST
@@ -65,7 +66,7 @@ class DesktopPortalDefaultTests(unittest.TestCase):
 
     def test_shortcut_creation_applies_portal_only_to_new_desktop_targets(self):
         with tempfile.TemporaryDirectory() as temporary:
-            ctx = context(Path(temporary))
+            ctx = context(Path(temporary), runtime=DesktopPackageRuntime())
             ctx.service_kwargs["uid"] = os.getuid()
             ctx.service_kwargs["gid"] = os.getgid()
             with patch("unifier.service.discover_session", return_value=SESSION):
@@ -105,7 +106,7 @@ class DesktopPortalDefaultTests(unittest.TestCase):
 
     def test_install_uses_package_desktop_identity_and_leaves_cli_apps_native(self):
         with tempfile.TemporaryDirectory() as temporary:
-            ctx = context(Path(temporary))
+            ctx = context(Path(temporary), runtime=DesktopPackageRuntime())
             ctx.service_kwargs["uid"] = os.getuid()
             ctx.service_kwargs["gid"] = os.getgid()
             with patch("unifier.service.discover_session", return_value=SESSION):

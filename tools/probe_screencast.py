@@ -26,7 +26,7 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT)]
 
-from multilinux.screencast import (  # noqa: E402
+from unifier.screencast import (  # noqa: E402
     SOURCE_MONITOR,
     SOURCE_WINDOW,
     ScreenCastClient,

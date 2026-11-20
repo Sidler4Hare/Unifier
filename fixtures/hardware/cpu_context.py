@@ -335,8 +335,27 @@ def record_error(report, key, exc):
     report[key] = {'status': 'PARTIAL', 'error': str(exc) or type(exc).__name__}
 
 
+def cpu_provenance():
+    try:
+        system = os.uname()
+        machine, release = system.machine, system.release
+    except OSError:
+        machine = release = None
+    return {
+        'status': 'PARTIAL',
+        'scope': 'current-process',
+        'system': {'source': 'os.uname', 'machine': machine, 'kernel_release': release},
+        'cpuid': {'source': None, 'vendor': None, 'leaf1_eax': None},
+    }
+
+
 def emit(report):
     encoded = json.dumps(report, ensure_ascii=True, separators=(',', ':'), sort_keys=True).encode('ascii') + b'\n'
+    if len(encoded) > MAX_EVIDENCE_BYTES and 'cpu_provenance' in report:
+        # Keep the pre-existing evidence budget and exit decision if optional
+        # provenance would put a valid receipt over the size limit.
+        pre_provenance = {key: value for key, value in report.items() if key != 'cpu_provenance'}
+        return emit(pre_provenance)
     if len(encoded) > MAX_EVIDENCE_BYTES:
         encoded = b'{"schema":1,"status":"INVALID","error":"evidence exceeds 16 KiB"}\n'
         code = 2
@@ -352,7 +371,8 @@ def main():
         print(f'usage: {sys.argv[0]} /absolute/path/to/libcpu_atomic.so sha256', file=sys.stderr)
         return 2
     report = {'schema': 1, 'c03': {'status': 'NOT_RUN'}, 'c04': {'status': 'NOT_RUN'},
-              'c05': {'status': 'NOT_RUN'}, 'c07': {'status': 'NOT_RUN'}}
+              'c05': {'status': 'NOT_RUN'}, 'c07': {'status': 'NOT_RUN'},
+              'cpu_provenance': cpu_provenance()}
     fields = {}
     try:
         fields = read_proc_status()

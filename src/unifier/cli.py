@@ -8,7 +8,8 @@ import sys
 
 from unifier.errors import UnifierError
 from unifier import __version__
-from unifier.desktop_clients import CLIENTS
+from unifier.catalog import PREPARED
+from unifier.desktop_clients import CLIENTS, desktop_provisioning_failure, desktop_repair_command
 from unifier.packages import transaction_verdict
 from unifier.native_io import add_package_arguments, package_options
 
@@ -25,7 +26,10 @@ def build_parser() -> argparse.ArgumentParser:
     agent_ops = agent.add_subparsers(dest="operation", required=True)
     serve = agent_ops.add_parser("serve", help="serve a private host-issued policy")
     serve.add_argument("--policy", required=True)
-    serve.add_argument("--once", action="store_true")
+    serve_mode = serve.add_mutually_exclusive_group()
+    serve_mode.add_argument("--once", action="store_true")
+    serve_mode.add_argument("--recover", action="store_true",
+                            help="reconcile dead requests without starting a listener")
     serve.add_argument("--max-requests", type=int)
     serve.set_defaults(func=cmd_agent_serve)
     request = agent_ops.add_parser("request", help="request one host-authorized action")
@@ -50,7 +54,7 @@ def build_parser() -> argparse.ArgumentParser:
     operations = env.add_subparsers(dest="operation", required=True)
 
     create = operations.add_parser("create", help="create a stopped environment from the locked image")
-    create.add_argument("--target", required=True, help="debian13, fedora44 or arch")
+    create.add_argument("--target", required=True, help=", ".join(PREPARED))
     create.add_argument("--id", help="defaults to the target name")
     create.add_argument("--network", choices=("none", "pasta"), default="none",
                         help="none has no repository access; pasta is required for install and update")
@@ -85,6 +89,12 @@ def build_parser() -> argparse.ArgumentParser:
     inspect.add_argument("id")
     inspect.set_defaults(func=cmd_inspect)
 
+    hardware = operations.add_parser("hardware", help="describe registered hardware without starting the environment")
+    hardware.add_argument("id")
+    hardware.add_argument("--evidence", action="append", default=[], metavar="RECEIPT",
+                          help="classify a saved JSON probe receipt against observable hardware")
+    hardware.set_defaults(func=cmd_hardware)
+
     export = operations.add_parser("export", help="write the inspect record to a JSON file")
     export.add_argument("id")
     export.add_argument("--output", required=True)
@@ -103,9 +113,13 @@ def build_parser() -> argparse.ArgumentParser:
     desktop_integration = operations.add_parser(
         "desktop-integration", help="show host Portal routing and install native desktop clients")
     desktop_integration.add_argument("id")
-    desktop_integration.add_argument(
+    desktop_actions = desktop_integration.add_mutually_exclusive_group()
+    desktop_actions.add_argument(
         "--install", action="append", choices=CLIENTS, metavar="CLIENT",
         help="install a guest client through its native package manager (gtk3, qt6, pipewire); repeatable")
+    desktop_actions.add_argument(
+        "--repair", action="store_true",
+        help="check and install missing GTK 3, Qt 6 and PipeWire clients in the recorded desktop")
     desktop_integration.set_defaults(func=cmd_desktop_integration)
 
     render_node = operations.add_parser(
@@ -640,12 +654,9 @@ def shortcut_context_factory(**kwargs):
 
 
 def default_service():
-    from unifier.service import EnvironmentService
-    from unifier.runtime import PodmanRuntime
-    from unifier.install import load_catalog, state_root
+    from unifier.bootstrap import service_for_root
 
-    config, lock = load_catalog()
-    return EnvironmentService(state_root(), PodmanRuntime(), config, lock)
+    return service_for_root()
 
 
 def service_factory():
@@ -691,7 +702,11 @@ def cmd_agent_serve(args) -> int:
     from unifier.agent_bridge import main as bridge_main
 
     argv = ["--policy", args.policy, "--root", str(_state_root())]
-    if args.once:
+    if args.recover:
+        if args.max_requests is not None:
+            raise UnifierError("agent serve --recover does not accept --max-requests")
+        argv.append("--recover")
+    elif args.once:
         argv.append("--once")
     if args.max_requests is not None:
         argv.extend(["--max-requests", str(args.max_requests)])
@@ -716,10 +731,10 @@ def cmd_compat_list(args) -> int:
 
 def _compat_plans(args) -> list[dict]:
     from pathlib import Path
-    from unifier.compatibility import compatibility_mode, observe_host, relationship_plan
-    from tools import lab
-    config = lab.targets()
-    compatibility_mode(config)
+    from unifier.compatibility import observe_host, relationship_plan
+    from unifier.install import load_target_config
+
+    config = load_target_config()
     facts = observe_host(Path(args.os_release) if args.os_release else None)
     targets = [args.target] if hasattr(args, "target") else list(config["targets"])
     return [relationship_plan(facts, name, config["targets"].get(name)) for name in targets]
@@ -745,6 +760,8 @@ def cmd_create(args) -> int:
         options['cuda_device'] = args.cuda_device
     if args.desktop or args.portals:
         options['portals'] = args.portals
+    if args.desktop and args.portals is None and args.network == "pasta":
+        options["provision_desktop_clients"] = True
     if args.gpu:
         options['gpu'] = True
     if args.ipc:
@@ -755,6 +772,15 @@ def cmd_create(args) -> int:
         options = {**options, "share_label_policy": args.share_label}
     record = service_factory().create(
         args.target, args.id, args.share or [], args.network, desktop=args.desktop, **options)
+    if failure := desktop_provisioning_failure(record):
+        env_id = record["id"]
+        detail = failure.get("detail") or failure["phase"]
+        print(f"Environment {env_id} was created and retained. Desktop client "
+              f"provisioning is incomplete ({detail}).", file=sys.stderr)
+        if failure.get("recovery_required"):
+            print(f"Run unifier pkg recover {env_id} first.", file=sys.stderr)
+        print(f"Resume with {desktop_repair_command(env_id)}.", file=sys.stderr)
+        return int(failure.get("exit_code") or 1)
     print(f"created {record['id']} ({record['target']}) {record['runtime_state']}")
     return 0
 
@@ -766,6 +792,14 @@ def cmd_list(args) -> int:
 
 def cmd_inspect(args) -> int:
     print(json.dumps(service_factory().inspect(args.id), ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_hardware(args) -> int:
+    from unifier.hardware_report import read_receipt
+
+    evidence = [read_receipt(path) for path in args.evidence]
+    print(json.dumps(service_factory().hardware(args.id, evidence=evidence), ensure_ascii=False, indent=2))
     return 0
 
 
@@ -834,6 +868,9 @@ def cmd_portal_bridge(args) -> int:
 
 def cmd_desktop_integration(args) -> int:
     service = service_factory()
+    if args.repair:
+        txn = service.repair_desktop_clients(args.id)
+        return _print_transaction(txn, root=getattr(service, "root", None))
     if args.install:
         txn = service.install_desktop_clients(args.id, args.install)
         return _print_transaction(txn, root=getattr(service, "root", None))
@@ -1082,7 +1119,7 @@ def cmd_app_input_method(args) -> int:
 
 def _app_group(args):
     from unifier.on_demand import LaunchGroup
-    from unifier.service import validate_env_id
+    from unifier.environment_contract import validate_env_id
     service = service_factory()
     env_id = validate_env_id(args.environment)
     service.store.load(env_id)
@@ -1090,7 +1127,14 @@ def _app_group(args):
 
 
 def cmd_app_leases(args):
-    print(json.dumps(_app_group(args).read(), ensure_ascii=False, indent=2))
+    state = _app_group(args).read()
+    for lease in state['leases'].values():
+        lease.setdefault('worker_version', None)
+    bridge = state.get('bridge')
+    delivery = bridge.get('file_delivery') if isinstance(bridge, dict) else None
+    if isinstance(delivery, dict):
+        delivery.setdefault('worker_version', None)
+    print(json.dumps(state, ensure_ascii=False, indent=2))
     return 0
 
 
@@ -1569,7 +1613,7 @@ def main(argv: list[str] | None = None) -> int:
     if not argv or argv[0] in {"-h", "--help"}:
         return shortcuts.help_command([])
     if argv[0] == "help":
-        return shortcuts.help_command(argv[1:])
+        return shortcuts.help_command(argv[1:], parser_factory=build_parser)
     if argv[0] in shortcuts.SHORTCUTS:
         return shortcuts.main(
             argv, context_factory=shortcut_context_factory)

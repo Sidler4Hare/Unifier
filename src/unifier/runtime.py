@@ -585,10 +585,6 @@ def guest_session_argv(argv: list[str], *, token: str, control_fd: int,
             GUEST_WRAPPER, token, str(control_fd), *argv]
 
 
-def _host_exit_status(code: int) -> int:
-    return code if code >= 0 else 128 - code
-
-
 def parse_guest_ready(line: str, token: str) -> GuestProcess:
     if not isinstance(line, str) or not line.endswith("\n"):
         raise UnifierError("guest execution did not report a complete identity line")
@@ -1378,23 +1374,6 @@ class PodmanRuntime:
         except (subprocess.TimeoutExpired, OSError, ValueError):
             pass
 
-    def session_exec(self, name: str, argv: list[str], *, project: str, env_id: str,
-                     workdir: str | None, env: dict[str, str],
-                     user: str | None = None, interactive: bool = True,
-                     tty: bool = False, on_spawn=None, on_guest=None) -> int:
-        """Compatibility wrapper for a foreground execution with guest control."""
-        execution = self.start_session_exec(
-            name, argv, project=project, env_id=env_id, workdir=workdir,
-            env=env, user=user, interactive=interactive, tty=tty,
-            on_spawn=on_spawn)
-        if on_guest is not None:
-            on_guest(execution.guest)
-        try:
-            code = execution.wait()
-        except (OSError, ValueError) as exc:
-            raise UnifierError(f"cannot wait for podman exec: {exc}") from exc
-        return _host_exit_status(code)
-
     def probe_guest(self, name: str, guest: GuestProcess, *, project: str,
                     env_id: str, user: str | None = None, timeout: int = 10) -> str:
         """Return alive/gone/unknown using the guest's own /proc identity."""
@@ -1487,13 +1466,31 @@ class PodmanRuntime:
     def _ensure_rootless(self) -> None:
         if not self.check_rootless or self._rootless_ok:
             return
-        import sys
-        root = Path(__file__).resolve().parents[2]
-        if str(root) not in sys.path:
-            sys.path.insert(0, str(root))
-        from tools import lab
-        lab.require_rootless()
+
+        def read_info():
+            result = self.runner(["podman", "info", "--format", "json"],
+                                 capture=True, timeout=30)
+            if result.returncode:
+                raise UnifierError(
+                    f"podman exited {result.returncode}: {(result.stderr or '')[-2500:]}")
+            return result.stdout
+
+        require_rootless_host(read_info)
         self._rootless_ok = True
+
+
+def require_rootless_host(read_info):
+    """Validate the effective user and a rootless Podman info response."""
+    if os.geteuid() == 0:
+        raise UnifierError("Run the laboratory as your ordinary user, without sudo")
+    try:
+        data = json.loads(read_info())
+        rootless = data.get("host", {}).get("security", {}).get("rootless")
+    except (ValueError, TypeError, AttributeError) as exc:
+        raise UnifierError("invalid rootless Podman info response") from exc
+    if rootless is not True:
+        raise UnifierError("This laboratory requires rootless Podman")
+    return data
 
 
 def decode_output(blob: bytes | str | None) -> str:

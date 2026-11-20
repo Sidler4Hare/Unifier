@@ -33,7 +33,7 @@ from unifier.registry import DataRootRegistry
 from unifier.runtime import ExecResult
 from unifier.file_access import resolve_static_mount, require_registered_permission
 from unifier.file_access_store import AccessStore
-from unifier.service import validate_env_id
+from unifier.environment_contract import validate_env_id
 
 
 FILE_WORKER_MARKER = "MULTILINUX_FILE_WORKER"

@@ -11,7 +11,6 @@ from __future__ import annotations
 import argparse
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -20,8 +19,11 @@ import shlex
 import sys
 
 from unifier import i18n
+from unifier.application_install import InstallRequest, _internal_app_id, install_application
+from unifier.catalog import PREPARED
 from unifier.errors import UnifierError
 from unifier.compatibility import observe_host, relationship_plan, require_relationship
+from unifier.desktop_clients import desktop_provisioning_failure, desktop_repair_command
 from unifier.guest_paths import list_guest_directories, open_guest_directory
 from unifier.install import (
     installation_root,
@@ -180,7 +182,7 @@ class Context:
 
 
 def target_names() -> list[str]:
-    return ["debian13", "fedora44", "arch"]
+    return list(PREPARED)
 
 
 def _display(config: dict, target: str) -> str:
@@ -554,6 +556,26 @@ def _validate_adopted(ctx: Context, target: str, item: dict, service) -> dict:
     return record
 
 
+def _retain_incomplete_desktop(ctx: Context, state: dict, target: str, record: dict,
+                               failure: dict) -> bool:
+    from unifier.identity import identity
+
+    uuid, generation = identity(record, required=True)
+    env_id = record["id"]
+    detail = failure.get("detail") or failure["phase"]
+    ctx.state.mark(
+        state, target, state="failed", container_retained=True, pending_phase=None,
+        identity={"environment_uuid": uuid, "generation": generation,
+                  "container_id": record["runtime"]["container_id"]},
+        failure={"phase": "desktop-clients", "detail": detail,
+                 "transaction_id": failure.get("transaction_id")})
+    ctx.error(ctx.t("init.desktop_clients_incomplete", target=target, detail=detail,
+                    command=desktop_repair_command(env_id)))
+    if failure.get("recovery_required") or record.get("package_recovery_required"):
+        ctx.error(ctx.t("init.desktop_clients_recover", environment=env_id))
+    return False
+
+
 def _prepare_target(ctx: Context, state: dict, target: str, *,
                     network: str, desktop: bool, no_portals: bool = False) -> bool:
     """Prepare one selected target under the caller's installation lock."""
@@ -644,6 +666,8 @@ def _prepare_target(ctx: Context, state: dict, target: str, *,
                             detail="existing environment is headless; recreate "
                                    "explicitly to add a desktop"))
             return False
+        if failure := desktop_provisioning_failure(record):
+            return _retain_incomplete_desktop(ctx, state, target, record, failure)
         mounted = _files_mounted(record, str(files))
         ident = identity(record, required=True)
         ctx.state.mark(
@@ -688,9 +712,13 @@ def _prepare_target(ctx: Context, state: dict, target: str, *,
         if private_policy == "shared-relabel":
             ctx.error(ctx.t("init.private_label", path=str(files)))
         portal_options = {"portals": None} if desktop and not no_portals else {}
+        if portal_options and network == "pasta":
+            portal_options["provision_desktop_clients"] = True
         record = service.create(
             target, env_id, [str(files)], network=network, desktop=desktop,
             user_namespace="keep-id", share_label_policy=private_policy, **portal_options)
+        if failure := desktop_provisioning_failure(record):
+            return _retain_incomplete_desktop(ctx, state, target, record, failure)
         live = service.inspect(env_id)
         if live.get("runtime_state") != "stopped":
             raise UnifierError(
@@ -1300,124 +1328,11 @@ def _entry_choice(ctx: Context, candidates: list[dict]) -> dict:
     return candidates[int(raw) - 1]
 
 
-def _app_id(executable: str, explicit: str | None,
-            suggested: str | None = None) -> str:
-    if explicit:
-        return explicit
-    name = (suggested or Path(executable).name).lower()
-    # The record store keeps application ids to lowercase letters, digits and
-    # hyphens.  A dotted desktop id such as com.alibabainc.dingtalk folds into
-    # hyphens here instead of producing an id the store would reject later.
-    name = re.sub(r"[^a-z0-9]+", "-", name).strip("-")
-    if not name:
-        name = "app"
-    elif not "a" <= name[0] <= "z":
-        name = f"app-{name}"
-    return name[:32].rstrip("-") or "app"
-
-
-def _internal_app_id(target: str, alias: str) -> str:
-    digest = hashlib.sha1((target + ":" + alias).encode("utf-8")).hexdigest()[:6]
-    prefix = re.sub(r"[^a-z0-9]+", "-", alias.lower()).strip("-") or "app"
-    if not "a" <= prefix[0] <= "z":
-        prefix = f"app-{prefix}"
-    return f"{(prefix[:25].rstrip('-') or 'app')}-{digest}"
-
-
-def _launch_matches(launch: dict, executable: str, argv: list[str]) -> bool:
-    return (launch.get("executable") == executable
-            and list(launch.get("argv") or []) == list(argv))
-
-
-def _can_register_after_dependency_failure(txn: dict) -> bool:
-    verification = txn.get("verification") or {}
-    packages = verification.get("packages") or {}
-    repair = txn.get("dependency_repair") or {}
-    return (txn.get("phase") == "failed"
-            and txn.get("failure_phase") == "dependency-repair"
-            and txn.get("recovery_required") is False
-            and txn.get("inventory_status") == "verified"
-            and not verification.get("isolation")
-            and repair.get("status") == "unresolved"
-            and (bool(repair.get("unresolved"))
-                 or (repair.get("scope") == "package-elf-needed" and bool(repair.get("error"))))
-            and bool(packages) and all(value is True for value in packages.values()))
-
-
-def _publish_installed_menu(ctx: Context, service, launch: dict, alias: str,
-                            menu: dict | None) -> dict | None:
-    """Put the installed application in the host menu without a file association.
-
-    A package that marks its own desktop entry hidden stays out of the menu.
-    An existing menu entry is left in place. Failure here does not undo the
-    package transaction or the launch record.
-    """
-    from unifier.app_entries import host_menu_icon
-    exported = launch.get("export") or {}
-    desktop_path = exported.get("desktop_path")
-    if desktop_path and os.path.isfile(desktop_path):
-        ctx.print(ctx.t("install.menu_kept", app=alias))
-        return launch
-    if menu and (menu.get("no_display") or menu.get("hidden")):
-        ctx.print(ctx.t("install.menu_hidden", app=alias))
-        return launch
-    display_name = (menu or {}).get("name") or alias
-    try:
-        updated = service.export_app(
-            launch["id"], menu_only=True, display_name=display_name,
-            icon=host_menu_icon((menu or {}).get("icon")),
-            wm_class=(menu or {}).get("wm_class"),
-            terminal=bool((menu or {}).get("terminal")),
-            extra_fields=(menu or {}).get("localized_names") or None)
-    except UnifierError as exc:
-        ctx.error(ctx.t("install.menu_failed", app=alias, detail=str(exc)))
-        return None
-    ctx.print(ctx.t("install.menu_added", app=display_name))
-    return updated
-
-
 def _emit(ctx: Context, payload: dict | list) -> None:
     print(json.dumps(payload, ensure_ascii=False, indent=2), file=ctx.out)
 
 
-def cmd_install(ctx: Context, argv: list[str]) -> int:
-    parser = _Parser(prog="unifier install")
-    parser.add_argument("--target")
-    parser.add_argument("--exec", dest="executable")
-    parser.add_argument("--app", dest="app_id")
-    parser.add_argument("--package")
-    parser.add_argument("--gui", "--desktop-app", dest="gui", action="store_true")
-    parser.add_argument("--json", action="store_true")
-    add_package_arguments(parser, repair=True, json_option=False)
-    parser.add_argument("items", nargs="+")
-    head, extra = _split_double_dash(argv)
-    args = parser.parse_args(head)
-    options = package_options(args, repair=True)
-    options["application_runtime"] = True
-    state = _load_state(ctx)
-    enabled = _enabled_targets(state)
-    first = Path(args.items[0]).expanduser()
-    local_file = None
-    route = None
-    looks_local = ("/" in args.items[0]
-                   or args.items[0].endswith((".deb", ".rpm", ".pkg.tar.zst",
-                                              ".pkg.tar.xz", ".pkg.tar.gz")))
-    if len(args.items) == 1 and looks_local and not first.is_file():
-        raise UnifierError(ctx.t("install.local_missing", file=str(first)))
-    if len(args.items) == 1 and first.is_file():
-        try:
-            route = route_package(str(first), ctx.catalog()[0]["targets"])
-        except UnifierError as exc:
-            raise UnifierError(ctx.t("install.package_error", detail=str(exc))) from exc
-        local_file = route["path"]
-        candidates = [name for name in route["candidates"] if name in enabled]
-        if args.target and args.target not in route["candidates"]:
-            raise UnifierError(ctx.t("install.target_mismatch",
-                                         format=route["format"], target=args.target,
-                                         candidates=", ".join(route["candidates"])))
-    else:
-        candidates = list(enabled)
-    target = _choose_target(ctx, candidates, args.target)
+def _ready_install_target(ctx: Context, state: dict, target: str):
     require_relationship(_target_relationship(ctx, target))
     item = state["targets"].get(target) or {}
     if not item.get("selected"):
@@ -1431,152 +1346,48 @@ def cmd_install(ctx: Context, argv: list[str]) -> int:
     _assert_target_unique(ctx, service, target, env_id, state)
     if item.get("source") != "adopted":
         _validate_new_record(ctx, service, target, env_id, item)
+    return service, env_id
 
-    try:
-        if local_file:
-            if args.package is None:
-                args.package = service.local_package_name(env_id, local_file)
-            ctx.print(ctx.t("install.local", target=target, file=local_file))
-            txn = service.install_local(env_id, local_file, package_name=args.package, **options)
-        else:
-            ctx.print(ctx.t("install.packages", target=target,
-                            packages=", ".join(args.items)))
-            txn = service.install_packages(env_id, list(args.items), **options)
-    except UnifierError as exc:
-        raise UnifierError(ctx.t("install.failed", target=target,
-                                     detail=str(exc))) from exc
-    deferred = 0
-    from unifier.package_observation import warning
-    if message := warning(txn):
-        ctx.error(message)
-    if txn.get("phase") != "completed":
-        detail = txn.get("native_error") or txn.get("failure_phase") or "failed"
-        ctx.error(ctx.t("install.transaction_failed",
-                        phase=txn.get("failure_phase") or "unknown",
-                        detail=detail))
-        if guidance := txn.get("dependency_guidance"):
-            from unifier.package_install_diagnostics import guidance_messages
-            for message in guidance_messages(ctx.t, guidance, service.root):
-                ctx.error(message)
-        if not _can_register_after_dependency_failure(txn):
-            if args.json:
-                _emit(ctx, {"schema_version": 1, "target": target,
-                            "environment_id": env_id, "transaction": txn})
-            return int(txn.get("exit_code") or 1)
-        # The package transaction itself succeeded and only the automatic
-        # runtime-library repair failed to converge, so the entry is still
-        # registered and published below while the command keeps failing.
-        deferred = int(txn.get("exit_code") or 1)
-        unresolved = (txn.get("dependency_repair") or {}).get("unresolved") or []
-        ctx.print(ctx.t("install.deps_unresolved",
-                        libraries=", ".join(unresolved) or detail))
-    else:
-        ctx.print(ctx.t("install.transaction_ok", transaction=txn.get("id")))
-    if (txn.get('dependency_repair') or {}).get('status') == 'bundled-candidates-unverified':
-        ctx.print(ctx.t('install.bundled_unverified'))
 
-    record = service.store.load(env_id)
-    desktop = bool(record.get("desktop"))
-    if args.gui and not desktop:
-        message = ctx.t("install.gui_no_desktop", target=target)
-        ctx.error(message)
-        if args.json:
-            _emit(ctx, {"schema_version": 1, "target": target,
-                        "environment_id": env_id, "transaction": txn,
-                        "error": message})
-        return 1
-
-    executable = args.executable
-    source = "explicit"
-    base_argv = None
-    suggested = None
-    menu = None
-    package_desktop_id = None
-    if executable:
-        executable = service.resolve_executable(env_id, executable)
-        base_argv = [executable]
+def cmd_install(ctx: Context, argv: list[str]) -> int:
+    parser = _Parser(prog="unifier install")
+    parser.add_argument("--target")
+    parser.add_argument("--exec", dest="executable")
+    parser.add_argument("--app", dest="app_id")
+    parser.add_argument("--package")
+    parser.add_argument("--register-only", action="store_true")
+    parser.add_argument("--gui", "--desktop-app", dest="gui", action="store_true")
+    parser.add_argument("--json", action="store_true")
+    add_package_arguments(parser, repair=True, json_option=False)
+    parser.add_argument("items", nargs="+")
+    head, extra = _split_double_dash(argv)
+    args = parser.parse_args(head)
+    if args.register_only:
+        if (len(args.items) != 1 or args.package is not None
+                or args.interactive or args.yes or args.no_repair_deps):
+            raise UnifierError(ctx.t("install.register_usage"))
+        options = {}
     else:
-        package_names = [args.package] if args.package else (
-            [] if local_file else list(args.items))
-        package_names = [name for name in package_names if name]
-        discovered = service.discover_app_entries(env_id, package_names)
-        choice = _entry_choice(ctx, discovered)
-        executable = choice.get("executable")
-        base_argv = list(choice.get("argv") or [executable])
-        suggested = choice.get("desktop_id")
-        menu = choice.get("menu")
-        package_desktop_id = choice.get("menu_desktop_id", suggested)
-        source = choice.get("source") or "discovered"
-        if not executable:
-            raise UnifierError(ctx.t("install.entry_required",
-                                         candidates=str(discovered)))
-    if source == "explicit":
-        ctx.print(ctx.t("install.entry_explicit", target=target,
-                        executable=executable))
-    else:
-        ctx.print(ctx.t("install.entry_discovered", target=target,
-                        executable=executable))
-    alias = _app_id(executable, args.app_id, suggested)
-    internal_id = _internal_app_id(target, alias)
-    full_argv = [*base_argv, *extra]
-    try:
-        existing = service.app_by_alias(env_id, alias)
-    except UnifierError:
-        existing = None
-    if existing is not None:
-        if not _launch_matches(existing, executable, full_argv):
-            raise UnifierError(ctx.t("install.app_conflict", app=alias))
-        launch = existing
-        ctx.print(ctx.t("install.app_reused", app=alias))
-    else:
-        from unifier.file_chooser import default_portal_profile
-
-        as_host_user = record.get("runtime", {}).get("user_namespace") == "keep-id"
-        graphical = args.gui or (menu is not None and not menu.get("terminal"))
-        profile = default_portal_profile(
-            record, executable, desktop_id=package_desktop_id) if graphical else {}
-        execution = {}
-        if (graphical and target == "debian13" and args.package == "wps-office"
-                and full_argv == ["/usr/bin/wps"]):
-            # The foreground Writer launcher waits for the window. Its owned
-            # CEF and cloud helpers can keep the lease alive after it exits.
-            execution["exit_policy"] = "stop-children"
-        try:
-            launch = service.add_app(
-                env_id, internal_id, executable, full_argv,
-                alias=alias, as_host_user=as_host_user,
-                on_demand=True, desktop_required=False, env_overlay=profile, **execution)
-        except UnifierError as exc:
-            ctx.error(ctx.t("install.entry_missing", target=target,
-                                executable=executable, detail=str(exc)))
-            if args.json:
-                _emit(ctx, {"schema_version": 1, "target": target,
-                            "environment_id": env_id, "transaction": txn,
-                            "error": str(exc)})
-            return 1
-        ctx.print(ctx.t("install.app_added", app=alias, target=target,
-                        environment=env_id))
-    published = _publish_installed_menu(ctx, service, launch, alias, menu)
-    if published is None:
-        if args.json:
-            _emit(ctx, {"schema_version": 1, "target": target,
-                        "environment_id": env_id, "transaction": txn,
-                        "app": alias, "app_id": launch.get("id"),
-                        "executable": executable, "argv": full_argv,
-                        "entry_source": source, "menu": None})
-        return 1
-    launch = published
-    exported = launch.get("export") or {}
+        options = package_options(args, repair=True)
+        options["application_runtime"] = True
+    state = _load_state(ctx)
+    request = InstallRequest(
+        items=args.items, argv=extra, target=args.target, executable=args.executable,
+        app_id=args.app_id, package=args.package, gui=args.gui,
+        register_only=args.register_only, package_options=options)
+    result = install_application(
+        ctx, request, enabled=_enabled_targets(state),
+        choose_target=lambda candidates, flag: _choose_target(ctx, candidates, flag),
+        ready_target=lambda target: _ready_install_target(ctx, state, target),
+        choose_entry=lambda candidates: _entry_choice(ctx, candidates),
+        internal_app_id=_internal_app_id)
     if args.json:
-        _emit(ctx, {"schema_version": 1, "target": target,
-                    "environment_id": env_id, "transaction": txn,
-                    "app": alias, "app_id": launch.get("id"),
-                    "executable": executable, "argv": full_argv,
-                    "entry_source": source,
-                    "menu": exported.get("desktop_path")})
-    else:
-        ctx.print(ctx.t("install.app_name", app=alias))
-    return deferred
+        _emit(ctx, {"schema_version": 1, "target": result.target,
+                    "environment_id": result.environment_id,
+                    "transaction": result.transaction, **result.details})
+    elif result.announce_app:
+        ctx.print(ctx.t("install.app_name", app=result.details["app"]))
+    return result.exit_code
 
 
 def _launch_targets(ctx: Context, state: dict, app_id: str) -> list[str]:
@@ -2289,28 +2100,32 @@ _HELP = {
                ["unifier ls debian13", "unifier ls debian13 /usr"]),
     },
     "install": {
-        "zh-CN": ("unifier install [--target TARGET] [--exec PATH] [--app ID] [--package NAME] [--gui] FILE|PACKAGE ... [-- ARGS]",
+        "zh-CN": ("unifier install [--target TARGET] [--exec PATH] [--app ID] [--package NAME] [--gui] [--register-only] FILE|PACKAGE ... [-- ARGS]",
                   [
                       ("--target", "只在已启用发行版中选择；未启用时提示 configure，不自动建实例。"),
                       ("--exec PATH", "显式应用入口；可用路径或客体命令名。"),
                       ("--app ID", "应用登记标识；默认取入口 basename。"),
                       ("--package NAME", "本地包的已安装包名，用于从包文件发现入口。"),
+                      ("--register-only PACKAGE", "从一个已安装的软件包登记入口并发布菜单，适用于补发菜单。"),
                       ("--gui", "声明桌面应用；无桌面容器会拒绝而不是静默运行。"),
                       ("软件列表", "安装成功后写入宿主应用菜单。不改文件的默认打开方式；安装包标明不显示的入口不会写入。只有自动补运行库没有收敛时，包仍会登记并写入软件列表，但命令仍以失败退出。"),
                   ],
                   ["unifier install ./软件.deb --exec /usr/bin/freecad",
-                   "unifier install --target arch freecad --exec /usr/bin/freecad"]),
-        "en": ("unifier install [--target TARGET] [--exec PATH] [--app ID] [--package NAME] [--gui] FILE|PACKAGE ... [-- ARGS]",
+                   "unifier install --target arch freecad --exec /usr/bin/freecad",
+                   "unifier install --register-only --target arch freecad"]),
+        "en": ("unifier install [--target TARGET] [--exec PATH] [--app ID] [--package NAME] [--gui] [--register-only] FILE|PACKAGE ... [-- ARGS]",
                [
                    ("--target", "only an enabled distribution is used; otherwise configure is required and no instance is created."),
                    ("--exec PATH", "explicit application entry; a path or guest command name."),
                    ("--app ID", "registered application id; defaults to the entry basename."),
                    ("--package NAME", "installed package name for a local file, used for entry discovery."),
+                   ("--register-only PACKAGE", "register the entry and publish the menu for one installed package."),
                    ("--gui", "declare a desktop application; a headless container is refused rather than run silently."),
                    ("application menu", "a successful install adds a host menu entry. File associations stay unchanged, and an entry the package marks hidden is not added. When only the automatic runtime-library repair fails to converge, the package is still registered and added to the menu, while the command keeps its failing exit status."),
                ],
                ["unifier install ./software.deb --exec /usr/bin/freecad",
-                "unifier install --target arch freecad --exec /usr/bin/freecad"]),
+                "unifier install --target arch freecad --exec /usr/bin/freecad",
+                "unifier install --register-only --target arch freecad"]),
     },
     "offer": {
         "zh-CN": ("unifier offer FILE | --setup | --remove",
@@ -2370,7 +2185,7 @@ _HELP = {
 
 
 def help_command(argv: list[str], *, out=None, err=None, root: Path | None = None,
-                 language: str | None = None) -> int:
+                 language: str | None = None, parser_factory=None) -> int:
     out = out or sys.stdout
     err = err or sys.stderr
     if language is None:
@@ -2387,10 +2202,12 @@ def help_command(argv: list[str], *, out=None, err=None, root: Path | None = Non
         usage = _HELP["language"][language]
         return _print_help(language, command, usage, out)
     if command not in _HELP:
+        if parser_factory is None:
+            print(i18n.translate(language, "help.unknown", command=command), file=err)
+            return 2
         try:
             import contextlib
-            from unifier.cli import build_parser
-            parser = build_parser()
+            parser = parser_factory()
             with contextlib.redirect_stdout(out):
                 parser.parse_args([*argv, "--help"])
             return 0

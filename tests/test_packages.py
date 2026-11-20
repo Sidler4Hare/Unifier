@@ -192,8 +192,11 @@ class PackageBoxes(FakeRuntime):
             return self._add(env_id, argv[3:])
         if _is_inventory(argv):
             return ExecResult(0, self._inventory(env_id, argv), "")
-        if argv[:3] == ["dpkg-query", "-W", "-f=${Package}\t${Version}\n"] and len(argv) == 4:
-            return self._query(env_id, argv[3], "tab")
+        if argv[:3] == ["dpkg-query", "-W", "-f=${Package}\t${Version}\t${db:Status-Status}\n"] and len(argv) == 4:
+            result = self._query(env_id, argv[3], "tab")
+            if result.returncode == 0:
+                return ExecResult(0, result.stdout.rstrip("\n") + "\tinstalled\n", "")
+            return result
         if argv[:2] == ["rpm", "-q"]:
             return self._query(env_id, argv[-1], "tab")
         if argv[:2] == ["pacman", "-Q"] and len(argv) == 3:
@@ -469,6 +472,45 @@ class PackageTransactions(unittest.TestCase):
             service.remove("deb")
             self.assertFalse(service.store.exists("deb"))
             self.assertEqual(service.show_transaction(installed["id"])["phase"], "completed")
+
+    def test_debian_removal_accepts_config_files_without_purging(self):
+        class ResidualDpkg(PackageBoxes):
+            residual = False
+
+            def _remove(self, env_id, names):
+                result = super()._remove(env_id, names)
+                self.residual = result.returncode == 0 and names == ["wps-office"]
+                return result
+
+            def _inventory(self, env_id, argv):
+                inventory = super()._inventory(env_id, argv)
+                if self.residual and env_id == "deb" and argv[0] == "dpkg-query":
+                    return inventory + "wps-office\t1\n"
+                return inventory
+
+            def _answer(self, info, argv):
+                if (self.residual and info.env_id == "deb" and len(argv) == 4
+                        and argv[:2] == ["dpkg-query", "-W"] and argv[-1] == "wps-office"):
+                    return ExecResult(0, "wps-office\t1\tconfig-files\n", "")
+                return super()._answer(info, argv)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            service, runtime = package_service(Path(temporary), runtime=ResidualDpkg())
+            make_env(service, runtime, "debian13", "deb")
+            installed = service.install_packages("deb", ["wps-office"])
+            self.assertEqual(installed["phase"], "completed")
+            self.assertTrue(service.query_package("deb", "wps-office")["present"])
+
+            txn = service.remove_packages("deb", ["wps-office"])
+            self.assertEqual(txn["phase"], "completed")
+            self.assertFalse(txn["verification"]["packages"]["wps-office"])
+            self.assertEqual([step["argv"] for step in txn["native"]],
+                             [["apt-get", "remove", "-y", "wps-office"]])
+            answer = service.query_package("deb", "wps-office")
+            self.assertFalse(answer["present"])
+            self.assertEqual(answer["exit_code"], 0)
+            self.assertIn("config-files", answer["detail"])
+            self.assertEqual(service.inspect("deb")["runtime_state"], "stopped")
 
     def test_fedora_install_uses_dnf(self):
         with tempfile.TemporaryDirectory() as temporary:

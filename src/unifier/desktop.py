@@ -377,9 +377,5 @@ def render_exec(launcher: list[str], field_code: str | None = None) -> str:
     return line
 
 
-def _quote_desktop(part: str) -> str:
-    return desktop_exec_quote(part)
-
-
 def _run_cache_tool(argv: list[str]):
     return subprocess.run(argv, capture_output=True, text=True, check=False)

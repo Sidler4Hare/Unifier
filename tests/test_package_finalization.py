@@ -10,11 +10,11 @@ from test_packages import package_service, make_env
 
 
 class PackageFinalization(unittest.TestCase):
-    def fixture(self):
+    def fixture(self, target="debian13"):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
         service, runtime = package_service(Path(temporary.name))
-        make_env(service, runtime, "debian13", "probe")
+        make_env(service, runtime, target, "probe")
         service.stop("probe")
         return service, runtime
 
@@ -34,6 +34,32 @@ class PackageFinalization(unittest.TestCase):
         self.assert_blocked(service, txn, "stop")
         isolation.assert_called_once()
         self.assertTrue(service.store.load("probe")["package_recovery_required"])
+
+    def test_failed_arch_local_staging_prevents_native_writes(self):
+        service, runtime = self.fixture("arch")
+        package = service.root / "hello.pkg.tar.zst"
+        package.write_bytes(b"fake package")
+
+        def fail_copy(*args, **kwargs):
+            txn, = service.transactions_for("probe")
+            self.assertEqual(txn["phase"], "running")
+            self.assertEqual(txn["native"], [])
+            commands = [event[2] for event in runtime.events if event[0] == "exec"]
+            self.assertEqual(commands[-2:], [
+                ("pacman-key", "--list-keys"), ("mkdir", "-p", "/tmp/ml-incoming"),
+            ])
+            raise OSError("local copy failed")
+
+        with patch.object(runtime, "copy_in", side_effect=fail_copy) as copy:
+            txn = service.install_local("probe", str(package))
+
+        copy.assert_called_once()
+        self.assertEqual(txn["phase"], "failed")
+        self.assertEqual(txn["failure_phase"], "runtime")
+        self.assertEqual(txn["native_error"], "local copy failed")
+        self.assertEqual(txn["native"], [])
+        self.assertFalse(txn["recovery_required"])
+        self.assertEqual(service.show_transaction(txn["id"]), txn)
 
     def test_inventory_commit_failure_does_not_skip_journal_or_isolation(self):
         service, runtime = self.fixture()

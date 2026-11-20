@@ -394,9 +394,6 @@ class MountGraph:
                     names.add(first)
         return names
 
-    def required_type(self, path: str) -> str:
-        return "dir" if path in self.required else ""
-
 
 @dataclass
 class Node:

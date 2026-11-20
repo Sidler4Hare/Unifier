@@ -278,7 +278,7 @@ class FileOperations(_TargetPublish, _SourceCleanup):
         source_view = record.get("source_view")
         if source_view is None:
             return
-        from unifier.views import ViewRegistry, is_mounted
+        from unifier.view_state import ViewRegistry, is_mounted
 
         if not isinstance(source_view, dict):
             raise UnifierError("source view registration must be an object")

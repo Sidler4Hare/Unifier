@@ -1,9 +1,13 @@
 """Offline crash-window and cancellation regressions for request recovery."""
+import contextlib
+import io
 import json
+import os
 import threading
 import time
 from unittest.mock import patch
 from test_agent_bridge import BridgeHarness
+from unifier import cli
 from unifier.errors import UnifierError
 
 
@@ -26,6 +30,31 @@ class BridgeRecovery(BridgeHarness):
             result = bridge.respond(self.request())
         self.assertEqual(result['status'], 'failed')
         execute.assert_not_called()
+
+    def test_cli_recovers_dead_request_without_opening_listener(self):
+        bridge = self.build()
+        request = self.request()
+        self.assertEqual(bridge.respond(request)['status'], 'ok')
+        pending = self.make_dead_pending(bridge, request['request_uuid'])
+        session_uuid = pending['execution']['session_uuid']
+        completed = self.sessions.store.read(session_uuid)
+        self.sessions.store.update(session_uuid, worker_stamp=completed['worker_stamp'] + 1)
+        policy = self.policy_file()
+        output = io.StringIO()
+        with (patch.dict(os.environ, {'UNIFIER_HOME': str(self.root)}),
+              patch('unifier.agent_bridge.service_for_root', return_value=self.sessions.service) as factory,
+              patch('unifier.agent_bridge.AgentBridge.bind') as bind,
+              patch('unifier.project_sessions.ProjectSessions.execute') as execute,
+              contextlib.redirect_stdout(output)):
+            code = cli.main(['agent', 'serve', '--policy', str(policy), '--recover'])
+        self.assertEqual(code, 0)
+        factory.assert_called_once_with(str(self.root))
+        bind.assert_not_called()
+        execute.assert_not_called()
+        rows = json.loads(output.getvalue())
+        self.assertEqual([row['action'] for row in rows], ['recovered'])
+        self.assertFalse(rows[0]['replayed'])
+        self.assertEqual(bridge.respond(request)['status'], 'rejected')
 
     def test_dead_completed_session_reconciles_without_replay_and_remains_deduplicated(self):
         bridge = self.build()

@@ -22,6 +22,10 @@ STOPPED = {"configured", "created", "exited", "stopped"}
 MOUNT_OPTIONS = ("slave", "nosuid", "noexec", "rw", "rbind")
 
 
+class RenderNodeAccessError(ValueError):
+    """The render node exists but the host user lacks read/write access."""
+
+
 @dataclass(frozen=True)
 class RenderNode:
     path: str
@@ -56,8 +60,32 @@ def _identity(path: str) -> RenderNode:
 def resolve_render_node(path: str) -> RenderNode:
     node = _identity(path)
     if not os.access(path, os.R_OK | os.W_OK, effective_ids=True, follow_symlinks=False):
-        raise ValueError(f"host read/write access is required for {path}")
+        raise RenderNodeAccessError(f"host read/write access is required for {path}")
     return node
+
+
+def render_node_identity(node: RenderNode, *, sysfs_root: Path = Path("/sys")) -> dict:
+    """Read the physical sysfs binding without opening the DRM device."""
+    root = sysfs_root.resolve(strict=True)
+    major, minor = os.major(node.rdev), os.minor(node.rdev)
+    link = root / "dev/char" / f"{major}:{minor}" / "device"
+    physical = link.resolve(strict=True)
+    if not physical.is_relative_to(root / "devices"):
+        raise ValueError(f"cannot verify the physical DRM identity of {node.path}")
+    identity = {"sysfs_device": "/" + physical.relative_to(root).as_posix(),
+                "major": major, "minor": minor}
+    for key in ("vendor", "device", "subsystem_vendor", "subsystem_device"):
+        try:
+            with (physical / key).open(encoding="ascii") as stream:
+                value = stream.read(32).strip()
+        except FileNotFoundError:
+            continue
+        if not re.fullmatch(r"0x[0-9a-fA-F]{4,8}", value):
+            raise ValueError(f"invalid DRM identity field {key} for {node.path}")
+        identity[key] = value.lower()
+    if link.resolve(strict=True) != physical or _identity(node.path) != node:
+        raise ValueError(f"DRM render node {node.path} changed while selecting it")
+    return identity
 
 
 def _overlaps_dri(target):

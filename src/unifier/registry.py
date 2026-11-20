@@ -24,6 +24,7 @@ from zoneinfo import ZoneInfo
 
 from unifier.atomic_io import atomic_replace
 from unifier.errors import UnifierError
+from unifier.record_ids import validate_uuid
 from unifier.root_identity import observe_root, resolve_identity, validate_identity
 
 
@@ -61,15 +62,7 @@ def _choice(value, allowed: set[str], label: str) -> str:
 
 
 def _canonical_root_uuid(value) -> str:
-    if not isinstance(value, str):
-        raise UnifierError("data root root_uuid must be a string")
-    try:
-        parsed = uuid.UUID(value)
-    except (ValueError, AttributeError) as exc:
-        raise UnifierError(f"data root root_uuid is not a UUID: {value!r}") from exc
-    if str(parsed) != value:
-        raise UnifierError("data root root_uuid must be the canonical lowercase UUID form")
-    return value
+    return validate_uuid(value, "data root root_uuid")
 
 
 def _validate_record(record) -> dict:

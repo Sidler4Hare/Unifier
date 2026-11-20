@@ -1,5 +1,6 @@
 """Native guest packages for clients of the host desktop services."""
 
+from unifier.desktop_vendor import APPLICATION_CLIENTS
 from unifier.errors import UnifierError
 
 
@@ -14,12 +15,21 @@ PACKAGES = {
     "fedora44": {"gtk3": "gtk3", "qt6": "qt6-qtbase-gui", "pipewire": "pipewire-libs"},
 }
 
-# Match known package builds. A Qt 5 application, including Debian's
-# FreeCAD, cannot use the native Qt 6 platform-theme plugin.
-APPLICATION_CLIENTS = {
-    "debian13": {"com.alibabainc.dingtalk": "gtk3", "wemeet": "pipewire"},
-    "arch": {"freecad": "qt6"},
-}
+def desktop_provisioning_failure(record):
+    """Return unfinished initial client provisioning, if the record scheduled it."""
+    state = record.get("desktop_client_provisioning")
+    if state is None:
+        return None
+    if not isinstance(state, dict) or state.get("phase") not in (
+            "pending", "failed", "needs-recovery", "completed"):
+        raise UnifierError("invalid desktop client provisioning record")
+    if state["phase"] != "completed":
+        return state
+    return None
+
+
+def desktop_repair_command(env_id):
+    return f"unifier env desktop-integration {env_id} --repair"
 
 
 def application_clients(record, packages):

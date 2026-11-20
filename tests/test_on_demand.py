@@ -1,14 +1,18 @@
 """On-demand ownership, package routing and menu-only registration contracts."""
+from contextlib import redirect_stdout
 from dataclasses import replace
+import io
 import json
 import os
 from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'tests')]
+from unifier import cli
 from unifier.errors import UnifierError
 from unifier.on_demand import LaunchGroup, live_leases, managed_open, process_stamp
 from unifier.routing import route_package
@@ -59,6 +63,30 @@ class ManagedLifetime(unittest.TestCase):
         items = {'old': {'pid': os.getpid(), 'stamp': stamp + 1},
                  'current': {'pid': os.getpid(), 'stamp': stamp}}
         self.assertEqual(set(live_leases(items)), {'current'})
+
+    def test_leases_report_the_recorded_worker_versions_without_rewriting_legacy(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            service, _runtime = ready(Path(temporary))
+            group = LaunchGroup(service, 'debian13')
+            with patch('unifier.on_demand.__version__', '0.0.7'):
+                recorded = group.acquire('notes')
+            legacy = group.acquire('notes')
+            state = group.read()
+            state['leases'][legacy].pop('worker_version')
+            group.save(state)
+            before = group.path.read_bytes()
+            output = io.StringIO()
+            try:
+                with (patch.object(cli, 'service_factory', return_value=service),
+                      redirect_stdout(output)):
+                    self.assertEqual(cli.main(['app', 'leases', 'debian13']), 0)
+                leases = json.loads(output.getvalue())['leases']
+                self.assertEqual(leases[recorded]['worker_version'], '0.0.7')
+                self.assertIsNone(leases[legacy]['worker_version'])
+                self.assertEqual(group.path.read_bytes(), before)
+            finally:
+                group.release(legacy)
+                group.release(recorded)
 
 
 class DesktopAndRouting(unittest.TestCase):

@@ -19,7 +19,6 @@ import subprocess
 import sys
 import tempfile
 import time
-import tomllib
 import uuid
 from zoneinfo import ZoneInfo
 
@@ -27,6 +26,10 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[1]
 # Keep tools/unifier.py from shadowing the package in direct script entrypoints.
 sys.path.insert(0, str(ROOT / "src"))
+from unifier.errors import UnifierError
+from unifier.install import load_image_lock, load_target_config, repository
+from unifier.runtime import require_rootless_host
+
 DIGEST = re.compile(r"sha256:[0-9a-f]{64}\Z")
 PROJECT_LABEL = "multilinux.lab"
 
@@ -73,40 +76,10 @@ def save_json(path, value):
 
 
 def targets():
-    data = tomllib.loads((ROOT / "config/targets.toml").read_text())
-    if (data.get("schema_version") != 1 or data.get("platform") != "linux/amd64"
-            or data.get("runtime") != "podman"):
-        raise LabError("Unsupported target configuration")
-    if set(data.get("targets", {})) != {"debian13", "fedora44", "arch"}:
-        raise LabError("The v1 experiment requires exactly debian13, fedora44 and arch")
-    prepared = _prepared_catalog()
-    from multilinux.compatibility import compatibility_mode
-    from multilinux.errors import MultilinuxError
     try:
-        compatibility_mode(data)
-    except MultilinuxError as exc:
+        return load_target_config(ROOT)
+    except UnifierError as exc:
         raise LabError(str(exc)) from exc
-    if set(prepared) != set(data["targets"]):
-        raise LabError("Prepared catalog does not match the v1 target set")
-    for name, expected in prepared.items():
-        target = data["targets"][name]
-        for key, value in expected.items():
-            if target.get(key) != value:
-                raise LabError(
-                    f"{name} catalog field {key} must be {value} for the prepared experiment")
-    return data
-
-
-def _prepared_catalog():
-    src = ROOT / "src"
-    if str(src) not in sys.path:
-        sys.path.insert(0, str(src))
-    from multilinux.catalog import PREPARED
-    return PREPARED
-
-
-def repository(reference):
-    return reference.rsplit(":", 1)[0]
 
 
 def select_manifest(raw, wanted_platform):
@@ -128,35 +101,23 @@ def read_lock(config):
     path = ROOT / "config/images.lock.json"
     if not path.exists():
         raise LabError("Image lock is missing; run: python3 tools/lab.py lock")
-    lock = json.loads(path.read_text())
-    if lock.get("schema_version") != 1 or lock.get("platform") != config["platform"]:
-        raise LabError("Image lock schema/platform does not match targets.toml")
-    if set(lock.get("targets", {})) != set(config["targets"]):
-        raise LabError("Image lock target set does not match targets.toml")
-    for name, target in config["targets"].items():
-        item = lock["targets"][name]
-        digest = item.get("manifest_digest", "")
-        expected_ref = repository(target["source"]) + "@" + digest
-        if (not DIGEST.fullmatch(digest) or item.get("source") != target["source"]
-                or item.get("locked_reference") != expected_ref
-                or item.get("os") != "linux" or item.get("architecture") != "amd64"):
-            raise LabError(f"Invalid or stale image lock for {name}")
-    return lock
+    try:
+        return load_image_lock(path, config)
+    except UnifierError as exc:
+        raise LabError(str(exc)) from exc
 
 
 def require_rootless():
-    if os.geteuid() == 0:
-        raise LabError("Run the laboratory as your ordinary user, without sudo")
-    data = json.loads(command(["podman", "info", "--format", "json"], timeout=30))
-    host = data.get("host", {})
-    if host.get("security", {}).get("rootless") is not True:
-        raise LabError("This laboratory requires rootless Podman")
-    return data
+    try:
+        return require_rootless_host(
+            lambda: command(["podman", "info", "--format", "json"], timeout=30))
+    except UnifierError as exc:
+        raise LabError(str(exc)) from exc
 
 
 def doctor(args):
     config = targets()
-    from multilinux.compatibility import classify_host, observe_host, relationship_plan
+    from unifier.compatibility import classify_host, observe_host, relationship_plan
     facts = observe_host()
     host_profile = classify_host(facts)
     checks = []

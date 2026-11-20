@@ -1,7 +1,9 @@
 """Offline contracts for an explicit render bind on an existing container."""
 
+import contextlib
 from copy import deepcopy
 from dataclasses import replace
+import io
 import json
 import os
 from pathlib import Path
@@ -14,11 +16,13 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from test_env import service_in
+from unifier import cli
 from unifier.cli import build_parser
 from unifier.errors import UnifierError
+from unifier.identity import binding_for
 from unifier.on_demand import LaunchGroup
 from unifier.render_node import (
-    RenderNode, resolve_render_node, rewrite_spec, start_with_render_node,
+    RenderNode, RenderNodeAccessError, render_node_identity, resolve_render_node, rewrite_spec, start_with_render_node,
     validate_saved_mounts,
 )
 from unifier.wayland import WaylandRefresh
@@ -28,6 +32,7 @@ DEVICE_PATH = "/dev/dri/renderD128"
 CID = "a" * 64
 RDEV = os.makedev(226, 128)
 NODE = RenderNode(DEVICE_PATH, 1, 3, RDEV, (1, 1), (1, 2))
+PHYSICAL = {"sysfs_device": "/devices/pci0000:00/0000:00:02.0", "major": 226, "minor": 128}
 
 
 def oci_spec():
@@ -39,6 +44,23 @@ def oci_spec():
 
 
 class RenderNodeTests(unittest.TestCase):
+    def test_physical_identity_is_bound_to_real_sysfs_device(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            sysfs = Path(temporary)
+            physical = sysfs / PHYSICAL["sysfs_device"].lstrip("/")
+            physical.mkdir(parents=True)
+            (physical / "vendor").write_text("0x8086\n")
+            link = sysfs / "dev/char/226:128/device"
+            link.parent.mkdir(parents=True)
+            link.symlink_to(physical, target_is_directory=True)
+            with patch("unifier.render_node._identity", return_value=NODE):
+                self.assertEqual(render_node_identity(NODE, sysfs_root=sysfs),
+                                 {**PHYSICAL, "vendor": "0x8086"})
+                link.unlink()
+                link.symlink_to(sysfs, target_is_directory=True)
+                with self.assertRaisesRegex(ValueError, "physical DRM identity"):
+                    render_node_identity(NODE, sysfs_root=sysfs)
+
     def test_canonical_character_device_and_host_access(self):
         def lstat(path):
             inode = {"/dev": 1, "/dev/dri": 2, DEVICE_PATH: 3}[path]
@@ -128,10 +150,12 @@ class RenderNodeTests(unittest.TestCase):
             name = record["runtime"]["container_name"]
             record["desktop"] = {"env": {"DISPLAY": ":99"}}
             record["runtime"]["container_id"] = CID
+            record["writable_revision"] = CID
             service.store.save(record, None)
             fake.containers[name] = replace(fake.containers[name], container_id=CID)
             before = len(fake.events)
-            with patch("unifier.service.resolve_render_node", return_value=NODE):
+            with (patch("unifier.service.resolve_render_node", return_value=NODE),
+                  patch("unifier.service.render_node_identity", return_value=PHYSICAL)):
                 stopped = fake.containers[name]
                 fake.containers[name] = replace(stopped, device_destinations=(DEVICE_PATH,))
                 with self.assertRaisesRegex(UnifierError, "native DRM device"):
@@ -140,7 +164,12 @@ class RenderNodeTests(unittest.TestCase):
                 fake.containers[name] = stopped
                 service.configure_render_node(env_id, DEVICE_PATH)
                 saved = service.store.load(env_id)
-                self.assertEqual(saved["runtime"], dict(record["runtime"], render_node=DEVICE_PATH))
+                self.assertEqual(saved["runtime"], dict(
+                    record["runtime"], render_node=DEVICE_PATH, render_node_identity=PHYSICAL))
+                report = service.hardware(env_id)
+                self.assertEqual(report["binding_state"], "matched")
+                self.assertEqual(report["selections"][0]["observation"], "matched")
+                self.assertEqual(report["evidence"], [])
                 for field in ("environment_uuid", "generation", "writable_revision"):
                     self.assertEqual(saved[field], record[field])
                 fake.containers[name] = replace(
@@ -157,6 +186,48 @@ class RenderNodeTests(unittest.TestCase):
                 service.configure_render_node(env_id, None)
             self.assertEqual(service.store.load(env_id)["runtime"], record["runtime"])
             self.assertEqual(len(fake.events), before)
+
+    def test_hardware_cli_reports_saved_creation_node_and_distinguishes_receipt_provenance(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            service, fake = service_in(root)
+            record = service.create("debian13", None, [])
+            env_id = record["id"]
+            name = record["runtime"]["container_name"]
+            record["runtime"].update(container_id=CID, devices=[DEVICE_PATH])
+            record["writable_revision"] = CID
+            service.store.save(record, None)
+            fake.containers[name] = replace(fake.containers[name], container_id=CID)
+            before = list(fake.events)
+            receipt = root / "probe.json"
+            receipt.write_text(json.dumps({
+                "schema_version": 1, "environment_binding": binding_for(record),
+                "kind": "render-node", "selector": DEVICE_PATH,
+                "boot_id": Path("/proc/sys/kernel/random/boot_id").read_text().strip(),
+                "backend": "mesa-iris", "backend_version": "25.0.7", "device_identity": PHYSICAL,
+                "result": "PASS", "capability": "egl-offscreen", "capability_state": "available",
+                "cleanup_state": "verified", "software_fallback": False, "source": "guarded probe",
+            }))
+            output = io.StringIO()
+            with (patch.object(cli, "service_factory", return_value=service),
+                  patch("unifier.service.resolve_render_node", return_value=NODE),
+                  patch("unifier.service.render_node_identity", return_value=PHYSICAL),
+                  contextlib.redirect_stdout(output)):
+                self.assertEqual(cli.main(["env", "hardware", env_id, "--evidence", str(receipt)]), 0)
+            data = json.loads(output.getvalue())
+            selection, = data["selections"]
+            self.assertEqual((selection["origin"], selection["observation"]), ("creation", "matched"))
+            evidence, = data["evidence"]
+            self.assertEqual((evidence["result"], evidence["capability_state"], evidence["reason_code"]),
+                             ("PASS", "unknown", "evidence-provenance"))
+            self.assertTrue(evidence["recovery_hint"])
+            for error, expected in ((FileNotFoundError(), "device-missing"),
+                                    (RenderNodeAccessError(), "device-unreadable")):
+                with patch("unifier.service.resolve_render_node", side_effect=error):
+                    row, = service.hardware(env_id)["selections"]
+                    self.assertEqual((row["observation"], row["reason_code"]), ("unverified", expected))
+                    self.assertTrue(row["recovery_hint"])
+            self.assertEqual(fake.events, before)
 
     def test_start_passes_render_node_only_while_configured(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -175,12 +246,18 @@ class RenderNodeTests(unittest.TestCase):
                 native_start(name, **options)
 
             with (patch("unifier.service.resolve_render_node", return_value=NODE),
+                  patch("unifier.service.render_node_identity", return_value=PHYSICAL) as identity,
                   patch.object(fake, "start", side_effect=start) as runtime_start):
                 service.configure_render_node(env_id, DEVICE_PATH)
                 service.start(env_id)
                 runtime_start.assert_called_once_with(CID, project=runtime["project"],
                                                       env_id=env_id, render_node=NODE)
                 service.stop(env_id)
+                runtime_start.reset_mock()
+                identity.return_value = dict(PHYSICAL, sysfs_device="/devices/changed")
+                with self.assertRaisesRegex(UnifierError, "physical DRM identity changed"):
+                    service.start(env_id)
+                runtime_start.assert_not_called()
                 service.configure_render_node(env_id, None)
                 runtime_start.reset_mock()
                 service.start(env_id)

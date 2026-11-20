@@ -78,16 +78,6 @@ def state_root(environ: dict | None = None) -> Path:
     return code_root()
 
 
-def ensure_root(root: Path, *, mode: int = 0o700) -> Path:
-    root = Path(root)
-    root.mkdir(parents=True, exist_ok=True)
-    try:
-        root.chmod(mode)
-    except OSError:
-        pass
-    return root
-
-
 def worker_environment(root: Path, environ: dict | None = None) -> dict[str, str]:
     """Environment for a detached worker owned by one installation root."""
     values = dict(os.environ if environ is None else environ)
@@ -102,8 +92,17 @@ def project_token(root: Path) -> str:
 def load_catalog(root: Path | None = None) -> tuple[dict, dict]:
     """Load ``targets.toml`` and the immutable image lock from a code root."""
     root = Path(root or code_root())
+    data = load_target_config(root)
+    return data, load_image_lock(root / "config/images.lock.json", data)
+
+
+def load_target_config(root: Path | None = None) -> dict:
+    """Load the implemented targets without requiring a resolved image lock."""
+    from unifier.catalog import PREPARED
+    from unifier.compatibility import compatibility_mode
+
+    root = Path(root or code_root())
     target_path = root / "config/targets.toml"
-    lock_path = root / "config/images.lock.json"
     try:
         data = tomllib.loads(target_path.read_text(encoding="utf-8"))
     except (OSError, tomllib.TOMLDecodeError) as exc:
@@ -112,13 +111,10 @@ def load_catalog(root: Path | None = None) -> tuple[dict, dict]:
             or data.get("runtime") != "podman"):
         raise UnifierError("unsupported target configuration")
     targets = data.get("targets")
-    if not isinstance(targets, dict) or set(targets) != {"debian13", "fedora44", "arch"}:
+    if not isinstance(targets, dict) or targets.keys() != PREPARED.keys():
         raise UnifierError(
-            "the prepared catalog must contain exactly debian13, fedora44 and arch")
-    try:
-        from unifier.catalog import PREPARED
-    except ImportError as exc:  # pragma: no cover - import failure is fatal
-        raise UnifierError(f"cannot load the prepared catalog: {exc}") from exc
+            "the prepared catalog must contain exactly " + ", ".join(PREPARED))
+    compatibility_mode(data)
     for name, expected in PREPARED.items():
         target = targets.get(name)
         if not isinstance(target, dict):
@@ -127,11 +123,10 @@ def load_catalog(root: Path | None = None) -> tuple[dict, dict]:
             if target.get(key) != value:
                 raise UnifierError(
                     f"{name} catalog field {key} must be {value} for the prepared experiment")
-    lock = _load_lock(lock_path, data)
-    return data, lock
+    return data
 
 
-def _load_lock(path: Path, config: dict) -> dict:
+def load_image_lock(path: Path, config: dict) -> dict:
     try:
         lock = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:

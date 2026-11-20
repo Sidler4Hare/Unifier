@@ -25,9 +25,12 @@ import sys
 import time
 import uuid
 
+from unifier import __version__
+from unifier.desktop_vendor import SHARED_BRIDGE_OWN_NAMES
 from unifier.errors import UnifierError
 from unifier.file_chooser import MODE_KEY, PORTAL_MODES, preflight_picker, verified_shares
 from unifier.identity import binding_for, identity, validate_binding
+from unifier.process_identity import process_stamp
 from unifier.runtime import ExecResult
 from unifier.file_access import PROTOCOL_VERSION
 from unifier.file_access_store import AccessStore
@@ -37,15 +40,6 @@ WORKER_MARKER = 'MULTILINUX_APP_WORKER'
 # Bounded waits keep a broken proxy or a stuck podman stop from hanging a launch.
 BRIDGE_READY_SECONDS = 5.0
 BRIDGE_STOP_SECONDS = 2.0
-
-
-def process_stamp(pid):
-    """Identity of one live process, or None when it is gone or a zombie."""
-    try:
-        fields = Path(f'/proc/{pid}/stat').read_text().rsplit(')', 1)[1].split()
-        return None if fields[0] == 'Z' else int(fields[19])
-    except (FileNotFoundError, ProcessLookupError, PermissionError, TypeError, ValueError):
-        return None
 
 
 def live_leases(items):
@@ -263,7 +257,7 @@ def _start_bus_bridge(record, bridge=None):
                '--talk=org.freedesktop.portal.Documents',
                '--talk=org.kde.StatusNotifierWatcher',
                '--talk=org.freedesktop.Notifications',
-               '--own=com.tencent.wemeet.*']
+               *(f'--own={name}' for name in SHARED_BRIDGE_OWN_NAMES)]
     process = subprocess.Popen(command, cwd=directory,
                                stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, start_new_session=True)
@@ -386,8 +380,11 @@ def _start_file_delivery(record, current, mounts):
     if ready_record is None:
         _terminate(entry['pid'], entry['stamp'], entry['socket'])
         raise UnifierError(f'Portal selected-file delivery did not become ready; see {audit}')
+    worker_version = ready_record.get('worker_version')
     entry.update(selection_directory=ready_record['selection_directory'],
-                 selection_identity=ready_record['selection_identity'])
+                 selection_identity=ready_record['selection_identity'],
+                 worker_version=(worker_version if isinstance(worker_version, str)
+                                 and 0 < len(worker_version) <= 128 else None))
     owner = identity(record)
     return {**current, 'file_delivery': entry,
             'environment_identity': list(owner) if owner is not None else None}
@@ -516,7 +513,8 @@ class LaunchGroup:
                 bridge = start_bridge(record, bridge, file_delivery=True, mounts=info.mounts)
             elif not managed:
                 bridge = start_bridge(record, bridge)
-            entry = {'pid': os.getpid(), 'stamp': process_stamp(os.getpid())}
+            entry = {'pid': os.getpid(), 'stamp': process_stamp(os.getpid()),
+                     'worker_version': __version__}
             if app_id is not None:
                 entry.update(app_id=app_id, kind='application',
                              environment_binding=binding_for(record), user=launch.get('user'))

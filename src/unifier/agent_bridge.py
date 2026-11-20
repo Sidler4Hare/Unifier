@@ -62,7 +62,6 @@ ledger records recursively.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import hashlib
 import hmac
 import json
@@ -72,80 +71,49 @@ import re
 import signal
 import socket
 import stat
-import struct
 import sys
 import threading
 import time
 import uuid
 
+from unifier.bootstrap import service_for_root
+# Preserve the established bridge imports for callers embedding the broker.
+from unifier.bridge_ledger import (
+    LEDGER_NAME, MAX_RECEIPT_BYTES, REQUEST_STATES, SCHEMA_VERSION,
+    RequestLedger, validate_request_record,
+)
+from unifier.bridge_policy import (
+    ACTION_FIELDS, ACTION_TYPES, DEFAULT_REQUEST_TTL_SECONDS, DEFAULT_TOKEN_ENV,
+    ENV_NAME_RE, MAX_EPOCH_SECONDS, MAX_PATH_CHARS, MAX_POLICY_BYTES,
+    MAX_REQUEST_TTL_SECONDS,
+    MAX_RUN_TIMEOUT_SECONDS, MIN_RUN_TIMEOUT_SECONDS, ORIGIN_FIELDS,
+    OUTPUT_REFERENCE_DEFAULT, POLICY_FIELDS, RUN_OVERHEAD_SECONDS, SHA256_RE,
+    Action, BridgePolicy, checked_path, load_policy, parse_policy, policy_clock_now,
+    require_private_directory, token_environment,
+)
+from unifier.bridge_protocol import (
+    ACTION_ID_RE, DEFAULT_FRAME_LIMIT, ERROR_MESSAGE_CHARS,
+    MAX_TOKEN_CHARS, MAX_VALUE_CHARS, MIN_BODY_BYTES, MIN_FRAME_LIMIT, PEERCRED_SIZE,
+    PROC_SELF_FD_ROOT, PROTOCOL_VERSION, REDACTED_MARKER, REQUEST_FIELDS,
+    RESPONSE_FIELDS, RESPONSE_STATUSES, TOKEN_RE, UNIX_PATH_LIMIT,
+    BridgeError, canonical_uuid, copy_json, is_canonical_uuid,
+    open_directory_fd, peer_uid, read_frame, redact_token, request_frame, response,
+    socket_address_via_fd, strict_dumps, strict_loads, validate_request, write_frame,
+)
 from unifier.errors import UnifierError
 from unifier.identity import binding_for, validate_binding
-from unifier.json_records import JsonRecordCollection
-from unifier.on_demand import process_stamp
-from unifier.project_sessions import ProjectSessions, validate_env_keys
+from unifier.process_identity import process_stamp
+from unifier.project_sessions import ProjectSessions
 
 
-PROTOCOL_VERSION = 1
-SCHEMA_VERSION = 1
-LEDGER_NAME = "agent-requests"
-DEFAULT_TOKEN_ENV = "UNIFIER_AGENT_TOKEN"
-DEFAULT_REQUEST_TTL_SECONDS = 300
-MAX_REQUEST_TTL_SECONDS = 86400
-DEFAULT_FRAME_LIMIT = 65536
-MIN_FRAME_LIMIT = 512
-MIN_BODY_BYTES = 1
-MAX_POLICY_BYTES = 1 << 20
-MAX_PATH_CHARS = 4096
 DEFAULT_HANDSHAKE_TIMEOUT = 5.0
 DEFAULT_WRITE_TIMEOUT = 10.0
 DEFAULT_ACCEPT_POLL = 0.2
 DEFAULT_RUN_GRACE_SECONDS = 5.0
-MIN_RUN_TIMEOUT_SECONDS = 1
-MAX_RUN_TIMEOUT_SECONDS = 3600
-# A claim must outlive a legitimate run: the timeout, the TERM/KILL escalation
-# inside ProjectSessions.cancel and the settle grace.  Anything shorter would
-# let an in-flight claim expire and freeze the ledger for no reason.
-RUN_OVERHEAD_SECONDS = 20.0
 MAX_HOST_FILE_BYTES = 8192
 MAX_LIST_ITEMS = 32
-MAX_VALUE_CHARS = 256
-ERROR_MESSAGE_CHARS = 400
 REVOKE_FILE_BYTES = 64 * 1024
-PEERCRED_SIZE = struct.calcsize("iii")
-MAX_TOKEN_CHARS = 256
-OUTPUT_REFERENCE_DEFAULT = "host-broker-stream"
-# An AF_UNIX sockaddr only carries SUN_PATH bytes; on Linux a full path longer
-# than this cannot be passed to bind()/connect() at all.  Long repository paths
-# blow straight through it, so the socket is addressed through a pinned
-# directory FD instead (see ``socket_address_via_fd``).
-UNIX_PATH_LIMIT = 107
-PROC_SELF_FD_ROOT = "/proc/self/fd"
-# The grant itself has an absolute deadline, separate from any claim TTL.
-MAX_EPOCH_SECONDS = 4102444800          # 2100-01-01T00:00:00Z
-REDACTED_MARKER = "[redacted]"
-ACTION_TYPES = ("host-info", "project-run")
-REQUEST_FIELDS = ("protocol_version", "action_id", "request_uuid", "token")
-POLICY_FIELDS = (
-    "schema_version", "token", "token_env", "socket", "origin", "actions",
-    "revoke_file", "request_ttl_seconds", "frame_limit", "state_root",
-    "output_reference", "expires_at",
-)
-ORIGIN_FIELDS = ("session_uuid", "environment_binding")
-ACTION_FIELDS = (
-    "action_id", "type", "project_uuid", "environment_binding", "argv", "cwd",
-    "timeout_seconds", "request_ttl_seconds", "scope_sha256",
-)
-REQUEST_STATES = ("claimed", "completed", "failed", "unresolved")
-RESPONSE_STATUSES = ("ok", "rejected", "failed", "timeout", "unresolved")
-RESPONSE_FIELDS = (
-    "protocol_version", "request_uuid", "action_id", "status", "receipt",
-    "error",
-)
 
-ACTION_ID_RE = re.compile(r"[a-z0-9][a-z0-9._-]{0,63}\Z")
-TOKEN_RE = re.compile(r"[0-9a-f]{64,256}\Z")
-SHA256_RE = re.compile(r"[0-9a-f]{64}\Z")
-ENV_NAME_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_]{0,63}\Z")
 OS_RELEASE_KEY_RE = re.compile(r"[A-Z][A-Z0-9_]{0,63}\Z")
 PRINTABLE_RE = re.compile(r"[\x20-\x7e]*\Z")
 
@@ -161,172 +129,6 @@ STATUS_KEYS = frozenset({
 })
 
 
-class BridgeError(UnifierError):
-    """A refusal or transport fault the bridge can report as a code + message."""
-
-    def __init__(self, code: str, message: str):
-        super().__init__(f"[{code}] {message}")
-        self.code = code
-        self.message = message
-
-
-# ---------------------------------------------------------------------------
-# strict JSON and scalar helpers
-# ---------------------------------------------------------------------------
-def _reject_constant(name: str):
-    raise BridgeError("bad-json", f"JSON constant {name} is not a finite number")
-
-
-def _reject_duplicates(pairs):
-    seen = set()
-    for key, _value in pairs:
-        if key in seen:
-            raise BridgeError("bad-json", f"duplicate JSON key {key!r}")
-        seen.add(key)
-    return dict(pairs)
-
-
-def strict_loads(text: str):
-    """Parse JSON refusing NaN/Infinity and duplicate keys."""
-    return json.loads(text, parse_constant=_reject_constant,
-                      object_pairs_hook=_reject_duplicates)
-
-
-def strict_dumps(payload) -> str:
-    return json.dumps(payload, ensure_ascii=False, sort_keys=True,
-                      allow_nan=False, separators=(",", ":"))
-
-
-def _copy_json(payload):
-    return json.loads(strict_dumps(payload))
-
-
-def _text(value, label: str, code: str, *, pattern=None,
-          max_chars: int = MAX_VALUE_CHARS) -> str:
-    # A bool is not a str, so ``true`` can never masquerade as text here;
-    # numeric validators reject bool separately for the same reason.
-    if not isinstance(value, str):
-        raise BridgeError(code, f"{label} must be a string")
-    if not value or len(value) > max_chars:
-        raise BridgeError(code, f"{label} must be 1..{max_chars} characters")
-    if "\x00" in value or "\n" in value or "\r" in value:
-        raise BridgeError(code, f"{label} must not contain a NUL or newline")
-    if pattern is not None and pattern.fullmatch(value) is None:
-        raise BridgeError(code, f"{label} has an invalid form")
-    return value
-
-
-def _int(value, label: str, code: str, *, low: int, high: int) -> int:
-    if isinstance(value, bool) or not isinstance(value, int):
-        raise BridgeError(code, f"{label} must be an integer (not a boolean)")
-    if value < low or value > high:
-        raise BridgeError(code, f"{label} must be {low}..{high}")
-    return int(value)
-
-
-def canonical_uuid(value, label: str, code: str) -> str:
-    """Accept only the canonical lowercase hyphenated UUID spelling."""
-    if not isinstance(value, str) or len(value) != 36:
-        raise BridgeError(code, f"{label} must be a canonical lowercase UUID")
-    try:
-        parsed = uuid.UUID(value)
-    except (ValueError, AttributeError) as exc:
-        raise BridgeError(code, f"{label} is not a UUID") from exc
-    if str(parsed) != value:
-        raise BridgeError(
-            code, f"{label} must be the canonical lowercase UUID spelling")
-    return value
-
-
-def checked_path(value, label: str, code: str) -> Path:
-    """A normalized absolute path whose every component is symlink-free."""
-    text = _text(value, label, code, max_chars=MAX_PATH_CHARS)
-    if not text.startswith("/"):
-        raise BridgeError(code, f"{label} must be an absolute path")
-    path = Path(text)
-    if str(path) != text or ".." in path.parts:
-        raise BridgeError(code, f"{label} must be a normalized absolute path")
-    if path.is_symlink():
-        raise BridgeError(code, f"{label} must not be a symbolic link")
-    parent = str(path.parent)
-    if os.path.realpath(parent) != parent:
-        raise BridgeError(code, f"{label} resolves through a symbolic link")
-    return path
-
-
-def open_directory_fd(path, label: str, code: str) -> int:
-    """Open one directory and prove the FD really points at that directory.
-
-    The FD is what lets a socket be addressed as ``/proc/self/fd/<fd>/<name>``
-    instead of its full path: a repository checked out under a deep, non-ASCII
-    path blows through the 107-byte ``sockaddr_un`` limit, while this address
-    stays short whatever the real path is.  ``O_NOFOLLOW`` refuses an alias, and
-    the ``fstat``/``lstat`` comparison refuses a directory that moved underneath
-    the open.  Nothing here changes the process cwd, which would not be
-    thread-safe in a broker that also runs executions in worker threads.
-    """
-    target = Path(path)
-    if not target.is_absolute() or ".." in target.parts:
-        raise BridgeError(code, f"{label} must be an absolute normalized directory")
-    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_CLOEXEC | os.O_NOFOLLOW
-    fd = os.open("/", flags)
-    try:
-        # Anchor each component: a symlink swapped into an ancestor cannot
-        # redirect a host-side bind/chmod outside the explicitly shared tree.
-        for part in target.parts[1:]:
-            next_fd = os.open(part, flags, dir_fd=fd)
-            os.close(fd)
-            fd = next_fd
-        return fd
-    except OSError as exc:
-        os.close(fd)
-        detail = ("is not a directory" if isinstance(exc, NotADirectoryError)
-                  else "is unavailable" if isinstance(exc, FileNotFoundError)
-                  else "cannot be opened without following aliases")
-        raise BridgeError(code, f"{label} {target} {detail}") from exc
-
-
-def socket_address_via_fd(fd: int, name: str, code: str = "bad-socket") -> str:
-    """Address one entry inside a pinned directory FD within the sockaddr limit."""
-    if (not isinstance(name, str) or not name or "/" in name
-            or "\x00" in name or "\n" in name or len(name) > 255):
-        raise BridgeError(code, f"{name!r} is not a plain entry name")
-    if isinstance(fd, bool) or not isinstance(fd, int) or fd < 0:
-        raise BridgeError(code, f"directory fd {fd!r} is not usable")
-    address = f"{PROC_SELF_FD_ROOT}/{fd}/{name}"
-    if len(address.encode("utf-8")) > UNIX_PATH_LIMIT:
-        raise BridgeError(code,
-                          f"the anchored address {address!r} is above the "
-                          f"{UNIX_PATH_LIMIT}-byte socket limit")
-    return address
-
-
-def redact_token(value, token: str):
-    """Scrub one credential from anything the bridge is about to hand out.
-
-    A guest may smuggle the token into a field *name* (an unknown-field refusal
-    lists the names it got) or into a message it provoked, so the scrub is
-    recursive over keys and strings.  Only this policy's own token value is
-    rewritten: ordinary identity fields keep their content.
-    """
-    if not isinstance(token, str) or not token:
-        return value
-    if isinstance(value, str):
-        return REDACTED_MARKER if value == token else value.replace(token, REDACTED_MARKER)
-    if isinstance(value, bool):
-        return value
-    if isinstance(value, dict):
-        redacted = {}
-        for key, item in value.items():
-            safe_key = (REDACTED_MARKER if isinstance(key, str) and token in key
-                        else key)
-            redacted[safe_key] = redact_token(item, token)
-        return redacted
-    if isinstance(value, (list, tuple)):
-        return [redact_token(item, token) for item in value]
-    return value
-
-
 def _safe_error(exc) -> dict:
     if isinstance(exc, BridgeError):
         message = exc.message
@@ -337,539 +139,6 @@ def _safe_error(exc) -> dict:
     if len(message) > ERROR_MESSAGE_CHARS:
         message = message[:ERROR_MESSAGE_CHARS] + "..."
     return {"code": code, "message": message}
-
-
-def token_environment(policy) -> dict[str, str]:
-    """The single environment entry the host passes into the guest."""
-    return {policy.token_env: policy.token}
-
-
-# ---------------------------------------------------------------------------
-# host-issued policy
-# ---------------------------------------------------------------------------
-@dataclass(frozen=True)
-class Action:
-    action_id: str
-    type: str
-    request_ttl_seconds: int
-    project_uuid: str | None = None
-    environment_binding: dict | None = None
-    argv: tuple = ()
-    cwd: str | None = None
-    timeout_seconds: int | None = None
-    scope_sha256: str | None = None
-
-
-@dataclass(frozen=True)
-class BridgePolicy:
-    token: str
-    token_env: str
-    socket_path: Path
-    origin_session_uuid: str
-    actions: tuple
-    expires_at: float
-    origin_binding: dict | None = None
-    revoke_file: Path | None = None
-    state_root: Path | None = None
-    output_reference: str = OUTPUT_REFERENCE_DEFAULT
-    request_ttl_seconds: int = DEFAULT_REQUEST_TTL_SECONDS
-    frame_limit: int = DEFAULT_FRAME_LIMIT
-
-    def action(self, action_id: str):
-        for item in self.actions:
-            if item.action_id == action_id:
-                return item
-        return None
-
-
-def _binding_object(value, label: str) -> dict:
-    try:
-        binding = validate_binding(dict(value) if isinstance(value, dict) else value)
-    except (UnifierError, TypeError) as exc:
-        raise BridgeError("bad-policy", f"{label} is not a launch binding: {exc}") from exc
-    return {
-        "environment_id": binding["environment_id"],
-        "environment_uuid": binding["environment_uuid"],
-        "generation": binding["generation"],
-        "container_id": binding["container_id"],
-    }
-
-
-def _validate_token(value) -> str:
-    if not isinstance(value, str):
-        raise BridgeError("bad-policy", "token must be a string")
-    if len(value) > MAX_TOKEN_CHARS:
-        raise BridgeError("bad-policy", f"token must be at most {MAX_TOKEN_CHARS} characters")
-    if TOKEN_RE.fullmatch(value) is None or len(value) % 2:
-        raise BridgeError(
-            "bad-policy", "token must be 64..256 lowercase hex characters "
-            "(>= 32 random bytes, e.g. secrets.token_hex(32))")
-    return value
-
-
-def _validate_token_env(value):
-    try:
-        keys = validate_env_keys([value])
-    except UnifierError as exc:
-        raise BridgeError("bad-policy", f"token_env is not usable: {exc}") from exc
-    if not keys or ENV_NAME_RE.fullmatch(keys[0]) is None:
-        raise BridgeError("bad-policy", "token_env must be a plain variable name")
-    return keys[0]
-
-
-def _expiry_at(value, label: str, code: str) -> float:
-    """An absolute authorisation deadline: finite positive Unix seconds.
-
-    This is the deadline of the *grant*, not of a request: the request-level
-    ``request_ttl_seconds`` bounds how long one open ledger claim may stay open,
-    and the two are deliberately separate.  ``true`` and ``NaN``/``inf`` are not
-    dates, so they are refused rather than coerced.
-    """
-    if value is None:
-        raise BridgeError(code, f"{label} is required: a grant must expire")
-    if isinstance(value, bool) or not isinstance(value, (int, float)):
-        raise BridgeError(code,
-                          f"{label} must be a Unix timestamp in seconds, not "
-                          f"{type(value).__name__}")
-    seconds = float(value)
-    if seconds != seconds or seconds in (float("inf"), float("-inf")):
-        raise BridgeError(code, f"{label} must be a finite Unix timestamp")
-    if seconds <= 0 or seconds > MAX_EPOCH_SECONDS:
-        raise BridgeError(code,
-                          f"{label} must be a positive Unix timestamp at or below "
-                          f"{MAX_EPOCH_SECONDS}")
-    return seconds
-
-
-def _policy_clock_now(clock=time.time) -> float:
-    now = float(clock())
-    if now != now or now in (float("inf"), float("-inf")):
-        raise BridgeError("host-state", "the host clock is not usable")
-    return now
-
-
-def _parse_action(raw) -> Action:
-    if not isinstance(raw, dict):
-        raise BridgeError("bad-policy", "each action must be a JSON object")
-    unknown = sorted(set(raw) - set(ACTION_FIELDS))
-    if unknown:
-        raise BridgeError("bad-policy",
-                          f"action has fields the guest cannot use: {', '.join(unknown)}")
-    action_id = _text(raw.get("action_id"), "action_id", "bad-policy",
-                      pattern=ACTION_ID_RE)
-    kind = raw.get("type")
-    if kind not in ACTION_TYPES:
-        raise BridgeError("bad-policy",
-                          f"action {action_id} type must be one of: {', '.join(ACTION_TYPES)}")
-    ttl = raw.get("request_ttl_seconds", DEFAULT_REQUEST_TTL_SECONDS)
-    ttl = _int(ttl, f"action {action_id} request_ttl_seconds", "bad-policy",
-               low=1, high=MAX_REQUEST_TTL_SECONDS)
-    extra = sorted(set(raw) - {"action_id", "type", "request_ttl_seconds"})
-    if kind == "host-info":
-        if extra:
-            raise BridgeError(
-                "bad-policy",
-                f"host-info action {action_id} takes no {', '.join(extra)}")
-        return Action(action_id=action_id, type=kind, request_ttl_seconds=ttl)
-    for key in ("project_uuid", "environment_binding", "argv", "cwd", "timeout_seconds"):
-        if key not in raw:
-            raise BridgeError("bad-policy",
-                              f"project-run action {action_id} needs {key}")
-    project_uuid = canonical_uuid(raw["project_uuid"],
-                                  f"action {action_id} project_uuid", "bad-policy")
-    binding = _binding_object(raw["environment_binding"],
-                              f"action {action_id} environment_binding")
-    argv = raw["argv"]
-    if not isinstance(argv, list) or not argv:
-        raise BridgeError("bad-policy",
-                          f"project-run action {action_id} argv must be a non-empty array")
-    frozen_argv = tuple(_text(item, f"action {action_id} argv entry", "bad-policy",
-                              max_chars=4096) for item in argv)
-    if any(item == "-" or item.startswith("--") for item in frozen_argv[:1]):
-        raise BridgeError("bad-policy",
-                          f"project-run action {action_id} argv must start with a program, not a flag")
-    cwd = checked_path(raw["cwd"], f"action {action_id} cwd", "bad-policy")
-    timeout = _int(raw["timeout_seconds"], f"action {action_id} timeout_seconds",
-                   "bad-policy", low=MIN_RUN_TIMEOUT_SECONDS,
-                   high=MAX_RUN_TIMEOUT_SECONDS)
-    scope = raw.get("scope_sha256")
-    if scope is not None:
-        scope = _text(scope, f"action {action_id} scope_sha256", "bad-policy",
-                      pattern=SHA256_RE)
-    if ttl < timeout + RUN_OVERHEAD_SECONDS:
-        raise BridgeError(
-            "bad-policy",
-            f"project-run action {action_id} request_ttl_seconds must exceed "
-            f"timeout_seconds by at least {int(RUN_OVERHEAD_SECONDS)}s to cover "
-            "TERM/KILL escalation and settlement")
-    return Action(action_id=action_id, type=kind, request_ttl_seconds=ttl,
-                  project_uuid=project_uuid, environment_binding=binding,
-                  argv=frozen_argv, cwd=str(cwd), timeout_seconds=timeout,
-                  scope_sha256=scope)
-
-
-def parse_policy(raw) -> BridgePolicy:
-    """Validate one parsed policy document into frozen host rules."""
-    if not isinstance(raw, dict):
-        raise BridgeError("bad-policy", "policy must be a JSON object")
-    unknown = sorted(set(raw) - set(POLICY_FIELDS))
-    if unknown:
-        raise BridgeError("bad-policy", f"policy has unknown fields: {', '.join(unknown)}")
-    version = raw.get("schema_version")
-    if isinstance(version, bool) or not isinstance(version, int) or version != SCHEMA_VERSION:
-        raise BridgeError("bad-policy",
-                          f"policy schema_version {version!r} is not supported")
-    token = _validate_token(raw.get("token"))
-    token_env = _validate_token_env(raw.get("token_env", DEFAULT_TOKEN_ENV))
-    socket_path = checked_path(raw.get("socket"), "socket", "bad-policy")
-    origin = raw.get("origin")
-    if not isinstance(origin, dict):
-        raise BridgeError("bad-policy", "origin must be a JSON object")
-    unknown_origin = sorted(set(origin) - set(ORIGIN_FIELDS))
-    if unknown_origin:
-        raise BridgeError("bad-policy", f"origin has unknown fields: {', '.join(unknown_origin)}")
-    origin_session_uuid = canonical_uuid(origin.get("session_uuid"),
-                                         "origin session_uuid", "bad-policy")
-    # The origin is who may ask; without a pinned environment instance the
-    # record alone would not say which container instance was accepted.
-    if origin.get("environment_binding") is None:
-        raise BridgeError(
-            "bad-policy",
-            "origin environment_binding is required: the host pins the exact "
-            "environment instance the grant was issued for")
-    origin_binding = _binding_object(origin["environment_binding"],
-                                     "origin environment_binding")
-    expires_at = _expiry_at(raw.get("expires_at"), "policy expires_at", "bad-policy")
-    actions = raw.get("actions")
-    if not isinstance(actions, list) or not actions:
-        raise BridgeError("bad-policy", "policy actions must be a non-empty array")
-    parsed_actions = tuple(_parse_action(item) for item in actions)
-    seen = set()
-    for item in parsed_actions:
-        if item.action_id in seen:
-            raise BridgeError("bad-policy", f"duplicate action_id: {item.action_id}")
-        seen.add(item.action_id)
-    revoke_file = None
-    if raw.get("revoke_file") is not None:
-        revoke_file = checked_path(raw["revoke_file"], "revoke_file", "bad-policy")
-    state_root = None
-    if raw.get("state_root") is not None:
-        state_root = checked_path(raw["state_root"], "state_root", "bad-policy")
-    ttl = _int(raw.get("request_ttl_seconds", DEFAULT_REQUEST_TTL_SECONDS),
-               "request_ttl_seconds", "bad-policy", low=1, high=MAX_REQUEST_TTL_SECONDS)
-    frame_limit = _int(raw.get("frame_limit", DEFAULT_FRAME_LIMIT), "frame_limit",
-                       "bad-policy", low=MIN_FRAME_LIMIT, high=DEFAULT_FRAME_LIMIT)
-    output_reference = _text(raw.get("output_reference", OUTPUT_REFERENCE_DEFAULT),
-                             "output_reference", "bad-policy", max_chars=MAX_PATH_CHARS)
-    if output_reference != OUTPUT_REFERENCE_DEFAULT:
-        checked_path(output_reference, "output_reference", "bad-policy")
-    return BridgePolicy(
-        token=token, token_env=token_env, socket_path=socket_path,
-        origin_session_uuid=origin_session_uuid, origin_binding=origin_binding,
-        actions=parsed_actions, expires_at=expires_at, revoke_file=revoke_file,
-        state_root=state_root, output_reference=output_reference,
-        request_ttl_seconds=ttl, frame_limit=frame_limit)
-
-
-def _require_private_directory(path: Path, label: str) -> None:
-    observed = os.stat(str(path))
-    if not stat.S_ISDIR(observed.st_mode):
-        raise BridgeError("bad-policy", f"{label} is not a directory")
-    if stat.S_IMODE(observed.st_mode) & 0o077:
-        raise BridgeError("bad-policy",
-                          f"{label} must not be accessible to group or other")
-    if observed.st_uid != os.getuid():
-        raise BridgeError("bad-policy", f"{label} is not owned by the bridge user")
-
-
-def load_policy(path) -> BridgePolicy:
-    """Read the private host policy exactly once and freeze it.
-
-    The file must be a regular, owner-only (0600) file inside a directory that
-    is not reachable by group or other, and it must be symlink-free: a policy
-    is the capability grant, so an alias or a world-readable copy is refused
-    rather than trusted.
-    """
-    target = checked_path(str(path), "policy path", "bad-policy")
-    try:
-        observed = os.lstat(str(target))
-    except OSError as exc:
-        raise BridgeError("bad-policy", f"policy file is unavailable: {exc}") from exc
-    if not stat.S_ISREG(observed.st_mode):
-        raise BridgeError("bad-policy", "policy file must be a regular file")
-    if stat.S_IMODE(observed.st_mode) != 0o600:
-        raise BridgeError("bad-policy",
-                          f"policy file must be mode 0600, found "
-                          f"{stat.S_IMODE(observed.st_mode):04o}")
-    if observed.st_uid != os.getuid():
-        raise BridgeError("bad-policy", "policy file is not owned by the bridge user")
-    _require_private_directory(target.parent, "policy directory")
-    try:
-        with open(str(target), "rb") as handle:
-            raw = handle.read(MAX_POLICY_BYTES + 1)
-    except OSError as exc:
-        raise BridgeError("bad-policy", f"policy file is unreadable: {exc}") from exc
-    if len(raw) > MAX_POLICY_BYTES:
-        raise BridgeError("bad-policy", "policy file is larger than the read cap")
-    try:
-        document = strict_loads(raw.decode("utf-8"))
-    except UnicodeDecodeError as exc:
-        raise BridgeError("bad-policy", f"policy file is not UTF-8: {exc}") from exc
-    except (BridgeError, ValueError) as exc:
-        raise BridgeError("bad-policy", f"policy file is not valid JSON: {exc}") from exc
-    return parse_policy(document)
-
-
-# ---------------------------------------------------------------------------
-# request validation
-# ---------------------------------------------------------------------------
-def validate_request(payload) -> dict:
-    """Validate one guest request.  Nothing here is trusted identity."""
-    if not isinstance(payload, dict):
-        raise BridgeError("bad-json", "a request must be a single JSON object")
-    unknown = sorted(set(payload) - set(REQUEST_FIELDS))
-    if unknown:
-        raise BridgeError(
-            "unknown-field",
-            "a request may only carry protocol_version, action_id, request_uuid "
-            "and token; got " + ", ".join(unknown))
-    missing = [key for key in REQUEST_FIELDS if key not in payload]
-    if missing:
-        raise BridgeError("missing-field", "missing request field(s): " + ", ".join(missing))
-    version = payload["protocol_version"]
-    if (isinstance(version, bool) or not isinstance(version, int)
-            or version != PROTOCOL_VERSION):
-        raise BridgeError(
-            "bad-protocol",
-            f"protocol_version must be the integer {PROTOCOL_VERSION}, not "
-            f"{type(version).__name__}")
-    action_id = _text(payload["action_id"], "action_id", "bad-action-id",
-                      pattern=ACTION_ID_RE)
-    request_uuid = canonical_uuid(payload["request_uuid"], "request_uuid", "bad-uuid")
-    token = payload["token"]
-    if not isinstance(token, str):
-        raise BridgeError("bad-token", "token must be a string")
-    if len(token) > MAX_TOKEN_CHARS:
-        raise BridgeError("bad-token", f"token must be at most {MAX_TOKEN_CHARS} characters")
-    if TOKEN_RE.fullmatch(token) is None or len(token) % 2:
-        raise BridgeError("bad-token",
-                          "token must be 64..256 lowercase hex characters")
-    return {"protocol_version": PROTOCOL_VERSION, "action_id": action_id,
-            "request_uuid": request_uuid, "token": token}
-
-
-MAX_RECEIPT_BYTES = 32768
-
-
-def _json_safe(value, depth: int = 0) -> bool:
-    if depth > 7:
-        return False
-    if value is None or isinstance(value, str):
-        return True
-    if isinstance(value, bool):
-        return True
-    if isinstance(value, int):
-        return True
-    if isinstance(value, float):
-        return value == value and value not in (float("inf"), float("-inf"))
-    if isinstance(value, list):
-        return all(_json_safe(item, depth + 1) for item in value)
-    if isinstance(value, dict):
-        if any(not isinstance(key, str) for key in value):
-            return False
-        return all(_json_safe(item, depth + 1) for item in value.values())
-    return False
-
-
-def validate_request_record(record) -> dict:
-    """Validate one persisted request/receipt record."""
-    if not isinstance(record, dict):
-        raise UnifierError("request record must be a JSON object")
-    version = record.get("schema_version")
-    if isinstance(version, bool) or not isinstance(version, int) or version != SCHEMA_VERSION:
-        raise UnifierError(f"request schema_version {version!r} is not supported")
-    for key, label in (("request_uuid", "request"), ("origin_session_uuid", "origin")):
-        if not is_canonical_uuid(record.get(key)):
-            raise UnifierError(f"request {label} must be a canonical lowercase UUID")
-    action_id = record.get("action_id")
-    if not isinstance(action_id, str) or ACTION_ID_RE.fullmatch(action_id) is None:
-        raise UnifierError("request action_id is invalid")
-    state = record.get("state")
-    if state not in REQUEST_STATES:
-        raise UnifierError(f"unknown request state: {state!r}")
-    for key in ("claimed_at", "expires_at"):
-        value = record.get(key)
-        if isinstance(value, bool) or not isinstance(value, (int, float)):
-            raise UnifierError(f"request {key} must be a number")
-    if record["expires_at"] <= record["claimed_at"]:
-        raise UnifierError("request expires_at must be after claimed_at")
-    finished = record.get("finished_at")
-    if finished is not None and (isinstance(finished, bool)
-                                 or not isinstance(finished, (int, float))):
-        raise UnifierError("request finished_at must be a number or null")
-    receipt = record.get("receipt")
-    if receipt is not None and (not isinstance(receipt, dict) or not _json_safe(receipt)):
-        raise UnifierError("request receipt must be a bounded JSON object")
-    error = record.get("error")
-    if error is not None and (not isinstance(error, str) or not error
-                              or len(error) > ERROR_MESSAGE_CHARS + 3):
-        raise UnifierError("request error must be a bounded string or null")
-    return record
-
-
-def _try_uuid(value):
-    if not isinstance(value, str):
-        return None
-    try:
-        return uuid.UUID(value)
-    except (ValueError, AttributeError, TypeError):
-        return None
-
-
-def is_canonical_uuid(value) -> bool:
-    """True only for the canonical lowercase hyphenated UUID spelling."""
-    parsed = _try_uuid(value)
-    return parsed is not None and str(parsed) == value
-
-
-# ---------------------------------------------------------------------------
-# durable request ledger
-# ---------------------------------------------------------------------------
-class RequestLedger:
-    """Durable claim + receipt store; the deduplication is the point.
-
-    ``reserve`` writes the claim atomically before an action starts, so the
-    same ``request_uuid`` is still refused after a crash or a restart.  A claim
-    that is still open past its TTL means an execution whose end nobody can
-    prove, so every later request fails closed until the host resolves the
-    ledger; the same holds for an unreadable ledger.
-    """
-
-    def __init__(self, root: Path, *, name: str = LEDGER_NAME, clock=time.time):
-        self.root = Path(root)
-        self.collection = JsonRecordCollection(
-            self.root, name, schema_version=SCHEMA_VERSION,
-            validator=validate_request_record, unique_keys=("request_uuid",))
-        self.clock = clock
-
-    @property
-    def path(self) -> Path:
-        return self.collection.path
-
-    def _read(self) -> list:
-        try:
-            return self.collection.read_unlocked()
-        except UnifierError as exc:
-            raise BridgeError("ledger-corrupt",
-                              f"request ledger is unreadable: {exc}") from exc
-
-    def records(self) -> list:
-        with self.collection.locked(False):
-            return self._read()
-
-    def reserve(self, request_uuid: str, action_id: str, origin_session_uuid: str,
-                *, ttl_seconds: int) -> dict:
-        with self.collection.locked(True):
-            records = self._read()
-            now = float(self.clock())
-            stale = sorted(item["request_uuid"] for item in records
-                           if item["state"] == "claimed" and item["expires_at"] < now)
-            if stale:
-                raise BridgeError(
-                    "expired-claim",
-                    "request ledger holds an unresolved expired claim "
-                    f"({', '.join(stale[:3])}); refusing to start anything else "
-                    "until the host resolves it")
-            if any(item["request_uuid"] == request_uuid for item in records):
-                raise BridgeError("duplicate-request",
-                                  f"request {request_uuid} was already received")
-            claim = {
-                "schema_version": SCHEMA_VERSION,
-                "request_uuid": request_uuid,
-                "action_id": action_id,
-                "origin_session_uuid": origin_session_uuid,
-                "state": "claimed",
-                "claimed_at": now,
-                "expires_at": now + float(ttl_seconds),
-                "owner": {"pid": os.getpid(), "stamp": process_stamp(os.getpid()),
-                          "boot_id": Path('/proc/sys/kernel/random/boot_id').read_text().strip()},
-            }
-            records.append(claim)
-            try:
-                validate_request_record(dict(claim))
-                self.collection.write_unlocked(records)
-            except (UnifierError, OSError) as exc:
-                raise BridgeError("ledger-write",
-                                  f"cannot reserve the request: {exc}") from exc
-            return dict(claim)
-
-    def bind_execution(self, request_uuid: str, pinned: dict) -> None:
-        """Persist the exact session before execute can submit any guest work."""
-        with self.collection.locked(True):
-            records = self._read()
-            for item in records:
-                if item['request_uuid'] == request_uuid:
-                    if item['state'] != 'claimed' or item.get('execution'):
-                        raise BridgeError('ledger-state', 'request is not an unbound claim')
-                    item['execution'] = _copy_json(pinned)
-                    self.collection.write_unlocked(records)
-                    return
-            raise BridgeError('ledger-lost', 'request disappeared before execution')
-
-    def recover_record(self, expected: dict, proof: dict) -> dict:
-        """Compare-and-set a terminal failure, preserving the original receipt."""
-        with self.collection.locked(True):
-            records = self._read()
-            for index, item in enumerate(records):
-                if item['request_uuid'] != expected['request_uuid']:
-                    continue
-                if item != expected:
-                    raise BridgeError('ledger-changed', 'request changed during recovery')
-                updated = dict(item, state='failed', finished_at=float(self.clock()),
-                               recovery={'previous_state': item['state'], **proof})
-                validate_request_record(updated)
-                records[index] = updated
-                self.collection.write_unlocked(records)
-                return updated
-            raise BridgeError('ledger-lost', 'request disappeared during recovery')
-
-    def settle(self, request_uuid: str, state: str, *, receipt=None,
-               error: str | None = None) -> dict:
-        if state not in REQUEST_STATES or state == "claimed":
-            raise BridgeError("ledger-state", f"cannot settle a request as {state!r}")
-        if receipt is not None and (not isinstance(receipt, dict)
-                                    or not _json_safe(receipt)):
-            raise BridgeError("ledger-state", "a receipt must be a bounded JSON object")
-        if receipt is not None and len(strict_dumps(receipt).encode("utf-8")) > MAX_RECEIPT_BYTES:
-            raise BridgeError("oversized-receipt",
-                              f"the receipt is above {MAX_RECEIPT_BYTES} bytes")
-        with self.collection.locked(True):
-            records = self._read()
-            for index, existing in enumerate(records):
-                if existing["request_uuid"] != request_uuid:
-                    continue
-                if existing["state"] != "claimed":
-                    raise BridgeError(
-                        "duplicate-request",
-                        f"request {request_uuid} already settled as {existing['state']}")
-                updated = dict(existing)
-                updated["state"] = state
-                updated["finished_at"] = float(self.clock())
-                if receipt is not None:
-                    updated["receipt"] = _copy_json(receipt)
-                if error is not None:
-                    trimmed = error[:ERROR_MESSAGE_CHARS]
-                    updated["error"] = trimmed
-                try:
-                    validate_request_record(updated)
-                    records[index] = updated
-                    self.collection.write_unlocked(records)
-                except (UnifierError, OSError) as exc:
-                    raise BridgeError("ledger-write",
-                                      f"cannot record the receipt: {exc}") from exc
-                return updated
-            raise BridgeError("ledger-lost",
-                              f"request {request_uuid} is no longer in the ledger")
 
 
 # ---------------------------------------------------------------------------
@@ -1011,24 +280,6 @@ def host_info(clock=time.time) -> dict:
 # ---------------------------------------------------------------------------
 # the bridge
 # ---------------------------------------------------------------------------
-def response(request_uuid, action_id, status: str, *, receipt=None,
-             error=None) -> dict:
-    if status not in RESPONSE_STATUSES:
-        raise BridgeError("bad-status", f"unknown response status {status!r}")
-    document = {
-        "protocol_version": PROTOCOL_VERSION,
-        "request_uuid": request_uuid,
-        "action_id": action_id,
-        "status": status,
-        "receipt": receipt,
-        "error": error,
-    }
-    for key in RESPONSE_FIELDS:
-        if key not in document:
-            raise BridgeError("bad-status", f"response is missing {key}")
-    return document
-
-
 class AgentBridge:
     """One broker per origin project session, per host-issued policy."""
 
@@ -1076,7 +327,7 @@ class AgentBridge:
         except OSError as exc:
             raise BridgeError("socket-dir", f"cannot create {parent}: {exc}") from exc
         try:
-            _require_private_directory(parent, "socket directory")
+            require_private_directory(parent, "socket directory")
         except BridgeError as exc:
             raise BridgeError("socket-dir-insecure", exc.message) from exc
         if path.is_symlink():
@@ -1576,7 +827,7 @@ class AgentBridge:
     # ----- one request ----------------------------------------------------
     def _check_grant(self) -> None:
         """The grant itself has a deadline; a claim TTL says nothing about it."""
-        now = _policy_clock_now(self.clock)
+        now = policy_clock_now(self.clock)
         if now >= float(self.policy.expires_at):
             raise BridgeError(
                 "policy-expired",
@@ -1701,7 +952,7 @@ class AgentBridge:
                                        "message": f"the receipt could not be recorded: "
                                                   f"{exc.message}"[:ERROR_MESSAGE_CHARS]})
         return self._answer(request_uuid, action_id, status,
-                            receipt=_copy_json(receipt))
+                            receipt=copy_json(receipt))
 
     def _answer(self, request_uuid, action_id, status: str, *, receipt=None,
                 error=None) -> dict:
@@ -1789,109 +1040,9 @@ class AgentBridge:
 
 
 # ---------------------------------------------------------------------------
-# framing
-# ---------------------------------------------------------------------------
-def peer_uid(connection):
-    """The connecting process' real uid where the platform can prove it.
-
-    Linux proves it on a connected AF_UNIX stream socket via ``SO_PEERCRED``;
-    that is a bound the guest cannot forge.  A platform without the option is
-    not treated as a pass: the caller still has the 0700 parent directory, the
-    0600 socket and the host-issued token, but the receipt honestly records
-    ``peer_uid: null`` instead of inventing one.
-    """
-    option = getattr(socket, "SO_PEERCRED", None)
-    if option is None:
-        return None
-    try:
-        raw = connection.getsockopt(socket.SOL_SOCKET, option, PEERCRED_SIZE)
-    except OSError:
-        raise BridgeError("peer-uid",
-                          "cannot verify the peer identity on this socket") from None
-    if len(raw) != PEERCRED_SIZE:
-        raise BridgeError("peer-uid", "the peer credential is malformed")
-    _pid, uid, _gid = struct.unpack("iii", raw)
-    return int(uid)
-
-
-def _recv_exact(stream, count: int, deadline: float, label: str) -> bytes:
-    chunks = []
-    got = 0
-    while got < count:
-        remaining = deadline - time.monotonic()
-        if remaining <= 0:
-            raise BridgeError("frame-timeout",
-                              f"timed out waiting for the {label} frame")
-        stream.settimeout(min(remaining, 1.0))
-        try:
-            chunk = stream.recv(count - got)
-        except socket.timeout:
-            # One recv slice expiring is not a deadline: only the overall
-            # deadline may fail the frame, so a slow peer still completes.
-            continue
-        except OSError as exc:
-            raise BridgeError("frame-error",
-                              f"cannot read the {label} frame: {type(exc).__name__}") from exc
-        if not chunk:
-            raise BridgeError("frame-truncated",
-                              f"the peer closed the {label} frame early")
-        chunks.append(chunk)
-        got += len(chunk)
-    return b"".join(chunks)
-
-
-def read_frame(stream, *, limit: int, deadline: float, label: str = "request") -> bytes:
-    """Read one length-prefixed frame, bounded by ``limit`` and the deadline."""
-    header = _recv_exact(stream, 4, deadline, label)
-    size = struct.unpack(">I", header)[0]
-    if size < MIN_BODY_BYTES or size > limit:
-        raise BridgeError("frame-too-large",
-                          f"{label} frame of {size} bytes is outside "
-                          f"{MIN_BODY_BYTES}..{limit}")
-    return _recv_exact(stream, size, deadline, label)
-
-
-def write_frame(stream, payload: bytes, *, deadline: float | None = None) -> None:
-    if deadline is not None:
-        remaining = max(0.1, deadline - time.monotonic())
-        stream.settimeout(remaining)
-    try:
-        stream.sendall(struct.pack(">I", len(payload)) + payload)
-    except socket.timeout:
-        raise BridgeError("frame-timeout", "timed out writing the response frame") from None
-    except OSError as exc:
-        raise BridgeError("frame-error",
-                          f"cannot write the response frame: {type(exc).__name__}") from exc
-
-
-def request_frame(payload) -> bytes:
-    """Encode one request as the bytes a client sends."""
-    body = strict_dumps(payload).encode("utf-8")
-    return struct.pack(">I", len(body)) + body
-
-
-# ---------------------------------------------------------------------------
 # entry point
 # ---------------------------------------------------------------------------
-def service_for_root(root: str | None):
-    if root is None:
-        from unifier import cli
-
-        return cli.service_factory()
-    from unifier.install import load_catalog
-    from unifier.runtime import PodmanRuntime
-    from unifier.service import EnvironmentService
-
-    config, lock = load_catalog()
-    return EnvironmentService(Path(root), PodmanRuntime(), config, lock)
-
-
-def build_bridge(policy_path, sessions: ProjectSessions) -> AgentBridge:
-    """Integration helper for a host CLI: policy file + live sessions."""
-    return AgentBridge(load_policy(policy_path), sessions)
-
-
-def main(argv=None) -> int:
+def main(argv=None, *, service_factory=None) -> int:
     import argparse
 
     parser = argparse.ArgumentParser(
@@ -1911,7 +1062,8 @@ def main(argv=None) -> int:
     handlers = {}
     try:
         policy = load_policy(args.policy)
-        service = service_for_root(args.root)
+        factory = service_for_root if service_factory is None else service_factory
+        service = factory(args.root)
         sessions = ProjectSessions(service.root, service)
         bridge = AgentBridge(policy, sessions)
         if args.recover:

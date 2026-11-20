@@ -234,7 +234,7 @@ class Control:
     def add_root(self, path: str, *, source_view_uuid: str | None = None,
                  **options) -> dict:
         if source_view_uuid is not None:
-            from unifier.views import ViewRegistry, is_mounted
+            from unifier.view_state import ViewRegistry, is_mounted
             view = ViewRegistry(self.root).one(source_view_uuid)
             if view.get("readonly") is not True:
                 raise UnifierError(

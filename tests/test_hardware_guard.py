@@ -2,6 +2,7 @@
 from contextlib import nullcontext
 from dataclasses import replace
 import hashlib
+import json
 from pathlib import Path
 import struct
 import subprocess
@@ -26,6 +27,21 @@ OTHER = 'b' * 64
 DEBIAN_CANONICAL_DIGEST = 'sha256:a29215f6a35e51e22adffa17f89e9d2ef06214e64a2bad10d765c46aea49f11f'
 
 
+def vulkan_probe_fields():
+    rgba = bytearray(bytes((0, 255, 0, 255)) * 512)
+    for y in range(4, 12):
+        offset = 4*(y*32+8)
+        rgba[offset:offset+64] = bytes((255, 0, 0, 255)) * 16
+    results = struct.pack('<16I16f', *[(13*i-179) % 2**32 for i in range(16)],
+                          *[-3.125 + i*0.375 for i in range(16)])
+    output = {'vendor': '8086', 'device': '9a49', 'device_type': 'integrated',
+              'pci': '0000:00:02.0', 'render': '226:128', 'driver': 'ANV',
+              'device_destroyed': 'true', 'icd': '/usr/lib/libvulkan_intel.so',
+              'api': '1.4.305', 'driver_info': 'Mesa', 'device_name': 'Intel Iris Xe',
+              'allocated_bytes': '4096', 'rgba': rgba.hex(), 'compute': results.hex()}
+    return output
+
+
 def create_spec(**overrides):
     return {'fixture': 'intel', 'phase': 'create', 'seconds': 120, 'unit': 'unifier-drm-offline',
             **overrides}
@@ -47,6 +63,22 @@ def inspect_fixture():
 
 
 class FixturePolicyTests(TestCase):
+    def test_egl_uses_only_the_two_existing_intel_fixtures_and_pinned_source(self):
+        spec = {'fixture': 'intel', 'phase': 'egl', 'seconds': 100,
+                'unit': 'unifier-drm-egl-offline'}
+        arch = {**spec, 'fixture': 'arch-intel', 'unit': 'unifier-drm-arch-egl-offline'}
+        self.assertIs(guard.validate_spec(spec), INTEL)
+        self.assertIs(guard.validate_spec(arch), FIXTURES['arch-intel'])
+        for change in ({'fixture': 'amd'}, {'fixture': 'arch-intel'}, {'seconds': 101},
+                       {'command': ['/usr/bin/true']}, {'gpu_payload_bytes': 1}):
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                guard.validate_spec({**spec, **change})
+        attempt = SimpleNamespace(fixture=INTEL)
+        argv = guard.HardwareAttempt.egl_argv(attempt)
+        self.assertEqual(argv[:4], [guard.PYTHON, '-I', '-B', '-c'])
+        self.assertEqual(argv[5:], ['render', '--pci', INTEL.pci])
+        self.assertEqual(hashlib.sha256(argv[4].encode()).hexdigest(), guard.EGL_PROBE_SHA256)
+
     def test_larger_controller_is_limited_to_the_standard_qq_launch(self):
         spec = create_spec(phase='gpu', unit='unifier-drm-qq-gui-standard-visible',
                            seconds=180, qq_gui=True, controller=guard.QQ_STANDARD_CONTROLLER,
@@ -163,17 +195,7 @@ class FixturePolicyTests(TestCase):
                 guard.validate_spec({**spec, **edit})
 
     def test_vulkan_oracle_rejects_wrong_driver_and_independent_output_errors(self):
-        rgba = bytearray(bytes((0, 255, 0, 255)) * 512)
-        for y in range(4, 12):
-            offset = 4*(y*32+8)
-            rgba[offset:offset+64] = bytes((255, 0, 0, 255)) * 16
-        results = struct.pack('<16I16f', *[(13*i-179) % 2**32 for i in range(16)],
-                              *[-3.125 + i*0.375 for i in range(16)])
-        output = {'vendor': '8086', 'device': '9a49', 'device_type': 'integrated',
-                  'pci': '0000:00:02.0', 'render': '226:128', 'driver': 'ANV',
-                  'device_destroyed': 'true', 'icd': '/usr/lib/libvulkan_intel.so',
-                  'api': '1.4.305', 'driver_info': 'Mesa', 'device_name': 'Intel Iris Xe',
-                  'allocated_bytes': '4096', 'rgba': rgba.hex(), 'compute': results.hex()}
+        output = vulkan_probe_fields()
 
         def lines(fields):
             return '\n'.join(f'{key}={value}' for key, value in fields.items())
@@ -468,6 +490,200 @@ class EventWindowTests(TestCase):
         with patch.object(guard.time, 'monotonic', return_value=130):
             with self.assertRaisesRegex(RuntimeError, 'cleanup deadline'):
                 guard.command_timeout(attempt, 120, cleanup=True)
+
+
+class CudaObservationTests(TestCase):
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        out = Path(temporary.name)
+        fixture = FIXTURES['v100-a']
+        self.device = fixture.cuda.identity()
+        uuid = '8b2d9622-ea94-482c-9767-e7c1e5ccddec'
+        self.boot = '57b3e0ed-555f-476a-b360-ea1ca80462cd'
+        config = {'cid': CID, 'environment_uuid': uuid, 'generation': 1}
+        runtime = {
+            'backend': 'podman', 'container_name': fixture.name, 'container_id': CID,
+            'project': str(fixture.root), 'network': fixture.network, 'share_label_policy': 'preserve-host',
+            'selinux_label': 'default', 'full_init': False, 'user_namespace': 'rootless-default',
+            'devices': [], 'ipc': 'private', 'rootless': True, 'cuda': self.device,
+        }
+        self.record = {
+            'id': fixture.env_id, 'target': fixture.env_id, 'environment_uuid': uuid, 'generation': 1,
+            'created_by_uid': fixture.uid, 'desktop': None, 'shared_mounts': [], 'runtime': runtime,
+            'base_image': {'locked_reference': fixture.reference, 'manifest_digest': fixture.digest},
+        }
+        self.attempt = SimpleNamespace(
+            out=out, record_path=out/'record.json', fixture=fixture, spec={},
+            active_config=lambda: config)
+        monitor = {'boot_id': self.boot}
+        stopped = {'cid': CID, 'status': 'STOPPED', 'state': {'Running': False, 'Pid': 0},
+                   'worker_final': {'MainPID': '0', 'ControlGroup': ''}}
+        self.rows = {
+            'record.json': self.record,
+            'live-binding.json': {'cid': CID, 'init': monitor, 'coverage_verified': True},
+            'ready.json': {'cid': None, 'monitor': monitor},
+            'start-intent.json': {'cid': CID, 'before': {'Running': False}},
+            'receipt.json': {'monitor': monitor, 'reason': None, 'command_result': {'exit_code': 0},
+                             'cleanup': stopped},
+            'rescue.json': stopped,
+            'gpu-after.json': {'uuid': self.device['uuid'], 'pci': self.device['pci'], 'compute_pids': []},
+            'result.json': {'cid': CID, 'expected': self.device, 'status': 'PASS',
+                            'formal_stop': 'STOPPED', 'exit_code': 0,
+                            'probe': {'uuid': self.device['uuid'], 'pci': self.device['pci'],
+                                      'devices': 1, 'sm': 70, 'libcuda': '/run/unifier-cuda/libcuda.so.1',
+                                      'driver_api': 12090, 'context_destroyed': True}},
+        }
+
+    def observation(self):
+        with patch.object(guard, 'bound_read', side_effect=lambda path: self.rows[path.name]):
+            return guard.cuda_observation(self.attempt)
+
+    def test_normalized_receipt_matches_hardware_report_schema(self):
+        from unifier.hardware_report import hardware_report
+
+        observation = self.observation()
+        self.assertEqual(observation['boot_id'], self.boot)
+        self.assertEqual(observation['backend_version'], '12090')
+        self.assertEqual(observation['selector'], self.device['uuid'])
+        report = hardware_report(self.record, observed_binding=observation['environment_binding'],
+                                 observations=[observation], evidence=[observation])
+        self.assertEqual(report['evidence'][0]['capability_state'], 'available')
+
+    def test_refuses_changed_boot_cleanup_or_device(self):
+        for name, key, value in (
+            ('ready.json', 'monitor', {'boot_id': 'changed'}),
+            ('start-intent.json', 'cid', 'f'*64),
+            ('rescue.json', 'worker_final', {'MainPID': '123', 'ControlGroup': '/busy'}),
+            ('gpu-after.json', 'pci', '0000:00:01.0'),
+            ('gpu-after.json', 'compute_pids', ['123']),
+            ('result.json', 'formal_stop', 'UNKNOWN'),
+        ):
+            with self.subTest(receipt=name, field=key):
+                original = self.rows[name]
+                self.rows[name] = {**original, key: value}
+                self.assertIsNone(self.observation())
+                self.rows[name] = original
+        (self.attempt.out/'abort.json').touch()
+        self.assertIsNone(self.observation())
+
+
+    def test_video_uses_matched_driver_and_both_native_readbacks(self):
+        media = guard.v100_media_probe
+        unit = 'media-known-answer'
+        digest = 'd'*64
+        manifest = {key: digest for key in media.FILES}
+        self.attempt.spec.update(unit=unit, video_sha256=manifest)
+        scratch = f'/var/tmp/{unit}-video'
+        self.rows['gpu-after.json']['driver_version'] = '580.178.04'
+        self.rows['gpu-admission.json'] = self.rows['gpu-after.json'].copy()
+        report = self.rows['result.json']
+        report.update(gpu=self.device, probe_removed=True, probe_sha256=manifest, media_runtime={
+            'schema_version': 1,
+            'ffmpeg': {'path': scratch+'/ffmpeg', 'sha256': digest, 'version': None},
+            'cuda_driver': {'host_library': self.device['library'], 'guest_library': media.CUDA_LIBRARY,
+                            'origin': 'pinned-host-mount', 'load_evidence': 'ld-debug-init'},
+            'backends': {codec: {'guest_library': f'{scratch}/{name}', 'sha256': digest,
+                                 'origin': 'verified-guest-copy', 'load_evidence': 'ld-debug-init'}
+                         for codec, name in (('NVDEC', 'libnvcuvid.so.1'), ('NVENC', 'libnvidia-encode.so.1'))},
+        }, cases={'NVDEC': {'exit': 0, 'exact': True, 'frames': media.FRAMES},
+                  'NVENC': {'exit': 0, 'frames': media.FRAMES, 'psnr_db': [48.2]*media.FRAMES},
+                  'software-readback': {'exit': 0}})
+        with patch.object(guard, 'bound_read', side_effect=lambda path: self.rows[path.name]):
+            observation = guard.cuda_media_observation(self.attempt)
+            self.assertEqual(observation['backend_version'], '580.178.04')
+            self.assertEqual(observation['oracle']['decode_exact_frames'], media.FRAMES)
+            scores = report['cases']['NVENC']['psnr_db']
+            scores[0] = 29.9
+            self.assertIsNone(guard.cuda_media_observation(self.attempt))
+            scores[0] = 48.2
+            self.rows['gpu-admission.json']['driver_version'] = '580.168.01'
+            self.assertIsNone(guard.cuda_media_observation(self.attempt))
+
+
+class EglObservationTests(TestCase):
+    def test_sidecar_matches_native_renderer_and_frame_and_refuses_fallback(self):
+        path = '/dev/dri/renderD128'
+        physical = {'sysfs_device': '/devices/pci0000:00/0000:00:02.0',
+                    'major': 226, 'minor': 128, 'vendor': '0x8086', 'device': '0x9a49'}
+        native = {'path': path, 'rdev': 57984, 'pci': INTEL.pci, 'driver': 'i915',
+                  'vendor': '8086', 'device': '9a49'}
+        proof = {'environment_binding': {'container_id': CID}}
+        probe = {
+            'mode': 'render', 'status': 'PASS', 'reason': 'verified', 'requested_pci': INTEL.pci,
+            'device': {'node': path, 'pci': INTEL.pci, 'vendor': '8086', 'device': '9a49',
+                       'major': 226, 'minor': 128, 'kernel_driver': 'i915', 'open_mode': 'rw', 'euid': 0},
+            'backend': {'platform': 'gbm', 'gbm_fd_matches': True, 'surfaceless': True,
+                        'egl_render_node': path, 'mesa_driver': 'iris', 'egl_vendor': 'Mesa Project',
+                        'egl_version': '1.5', 'gl_vendor': 'Intel',
+                        'gl_renderer': 'Mesa Intel(R) Iris(R) Xe Graphics (TGL GT2)',
+                        'gl_version': 'OpenGL ES 3.2 Mesa 26.2.4-arch1.1'},
+            'frame': {'width': 256, 'height': 256, 'rgba8_bytes': 262144, 'clear_count': 2,
+                      'sha256': guard.EGL_FRAME_SHA256},
+        }
+        digest = guard.EGL_PROBE_SHA256
+        report = {'probe': probe, 'probe_sha256': digest}
+        device = {'physical': physical, 'native': native}
+        attempt = SimpleNamespace(out=Path('/offline'), fixture=INTEL)
+        with (patch.object(guard, '_completed_probe', return_value=(proof, report)),
+              patch.object(guard, '_completed_drm_device', return_value=device),
+              patch.object(guard, 'bound_read', return_value={'cid': CID, 'probe_sha256': digest}),
+              patch.object(guard, 'bound_bytes', side_effect=lambda _: json.dumps(probe).encode()),
+              patch.object(guard.reuse, 'put') as save):
+            observation = guard.egl_observation(attempt)
+            self.assertEqual(observation['backend_version'], 'OpenGL ES 3.2 Mesa 26.2.4-arch1.1')
+            self.assertEqual(observation['oracle'], {'image_sha256': guard.EGL_FRAME_SHA256})
+            self.assertEqual(observation['device_identity'], physical)
+            save.assert_called_once_with(attempt.out/'egl-device-after.json', device)
+            probe['backend']['gl_renderer'] = 'Mesa llvmpipe (software)'
+            self.assertIsNone(guard.egl_observation(attempt))
+
+
+class VulkanObservationTests(TestCase):
+    def test_sidecar_requires_native_oracles_and_unchanged_physical_node(self):
+        from unifier.hardware_report import hardware_report
+        from unifier.identity import binding_for
+
+        path = '/dev/dri/renderD128'
+        physical = {'sysfs_device': '/devices/pci0000:00/0000:00:02.0',
+                    'major': 226, 'minor': 128, 'vendor': '0x8086', 'device': '0x9a49'}
+        native = {'path': path, 'rdev': 57984, 'pci': '0000:00:02.0',
+                  'vendor': '8086', 'device': '9a49'}
+        device = {'physical': physical, 'native': native}
+        record = {'schema_version': 2, 'id': INTEL.env_id,
+                  'environment_uuid': '8b2d9622-ea94-482c-9767-e7c1e5ccddec', 'generation': 1,
+                  'runtime': {'container_id': CID, 'devices': [path]}}
+        proof = {'environment_binding': binding_for(record), 'schema_version': 1,
+                 'boot_id': '57b3e0ed-555f-476a-b360-ea1ca80462cd',
+                 'source': 'result.json', 'result': 'PASS', 'capability_state': 'available',
+                 'cleanup_state': 'verified', 'software_fallback': False}
+        stdout = '\n'.join(f'{key}={value}' for key, value in vulkan_probe_fields().items())
+        expected = check_readback(stdout)
+        digest = 'd'*64
+        attempt = SimpleNamespace(out=Path('/offline'), fixture=INTEL, spec={'probe_sha256': digest})
+        report = {'probe': expected, 'probe_removed': True, 'probe_sha256': digest,
+                  'icd_manifest': guard.vulkan_probe.ICD}
+        rows = {'vulkan-device-before.json': device, 'device-before.json': native,
+                'guest-device.json': {'mapping': ['0', str(INTEL.uid), '1'], 'rdev': native['rdev']}}
+        with (patch.object(guard, '_completed_probe', return_value=(proof, report)),
+              patch.object(guard, 'bound_read', side_effect=lambda p: rows[p.name]),
+              patch.object(guard, '_drm_probe_device', return_value=device) as post_device,
+              patch.object(guard, 'bound_bytes', return_value=stdout.encode()) as raw,
+              patch.object(guard.reuse, 'put') as save):
+            observation = guard.vulkan_observation(attempt)
+            self.assertEqual(observation['device_identity'], physical)
+            self.assertEqual(observation['backend_version'], expected['driver_info'])
+            self.assertEqual(observation['oracle']['compute_sha256'], expected['compute']['sha256'])
+            classified = hardware_report(record, observed_binding=binding_for(record),
+                                         observations=[observation], evidence=[observation])
+            self.assertEqual(classified['evidence'][0]['capability_state'], 'available')
+            save.assert_called_once_with(attempt.out/'vulkan-device-after.json', device)
+            post_device.return_value = {**device, 'physical': {**physical, 'vendor': '0xffff'}}
+            self.assertIsNone(guard.vulkan_observation(attempt))
+            post_device.return_value = device
+            raw.return_value = stdout.replace('render=226:128', 'render=226:129').encode()
+            with self.assertRaises(ValueError):
+                guard.vulkan_observation(attempt)
 
 
 class HardwareCleanupTests(TestCase):
