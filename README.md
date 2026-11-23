@@ -25,7 +25,7 @@ Unifier 在共享宿主内核上运行 Debian 13、Fedora 44 和 Arch 的原生�
 
 - 当前能力、候选、本机部署与适用范围见 [当前状态](docs/当前状态.md)。具体验收按 [v0.0.8 真实功能验收计划](设计/v0.0.8-真实功能验收计划-2026-11-17.md)执行。
 - 包清单与事务恢复见 [三目标包管理](docs/三目标包管理收口-20261112.md)。受管文件、授权及只读投影见 [统一文件访问与权限](docs/统一文件访问与权限系统-20261113.md)。
-- 历史阶段材料见 [归档索引](archive/notes/README.md)和[恢复说明](archive/README.md)。旧发布包及验收记录见 [v0.0.4 版本说明](docs/v0.0.4.md)和[验收材料](artifacts/README.md)。
+- 历史阶段材料见 [归档索引](https://github.com/Sidler4Hare/Unifier/blob/v0.0.8/archive/notes/README.md)和[恢复说明](https://github.com/Sidler4Hare/Unifier/blob/v0.0.8/archive/README.md)。旧发布包及验收记录见 [v0.0.4 版本说明](docs/v0.0.4.md)和[验收材料](https://github.com/Sidler4Hare/Unifier/blob/v0.0.8/artifacts/README.md)。
 
 ## 常用命令
 
