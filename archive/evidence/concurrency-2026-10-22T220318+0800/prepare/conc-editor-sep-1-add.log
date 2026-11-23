@@ -1,7 +1,0 @@
-$ app add conc-sep-1 conc-editor-sep-1 --exec /usr/bin/dbus-run-session --workdir /home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-1 --as-host-user --on-demand --set GDK_BACKEND=wayland --set GSETTINGS_BACKEND=memory --set WAYLAND_DEBUG=client --set LC_ALL=C.UTF-8 --set XDG_CURRENT_DESKTOP=KDE -- -- /usr/bin/mousepad --disable-server
-returncode=0
---- stdout ---
-added conc-editor-sep-1 in conc-sep-1
-
---- stderr ---
-

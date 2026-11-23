@@ -1,2 +1,0 @@
-fedora44: container is stopped; listing /usr through a read-only view
-fedora44: opening a short-lived read-only view 5301dce9-3146-4955-aed6-c66ab20eaf8e; only this view is released afterwards.

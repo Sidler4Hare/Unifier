@@ -1,4 +1,4 @@
-"""Run one T1 command with fixed budgets, private paths and durable receipts.
+"""Run one T1 command with bounded budgets, private paths and durable receipts.
 
 This is a test supervisor, not a sandbox or permission to run T2/T3 workloads.
 """
@@ -17,12 +17,20 @@ import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from tools.reuse_guard_policy import GuardPolicy
+from tools.reuse_guard_policy import GuardPolicy, ADMISSION_FULL, ADMISSION_SOME, ADMISSION_SECONDS
 from tools.test_runtime import cgroup_diagnostics, offline_environment, result_exit_code, short_temporary_directory
 
 SPEC = C = OUT = None
 CG = Path('/sys/fs/cgroup')
 MIB = 1024**2
+MIN_OFFLINE_MEMORY_MIB = 256
+DEFAULT_MEMORY_MIB = 512
+MAX_OFFLINE_MEMORY_MIB = 1024
+SERVER_BUILD_MEMORY_MIB = 2048
+HOST_FUSE_COMMAND = [
+    '/usr/bin/unshare', '--user', '--map-root-user', '--mount',
+    '--propagation', 'private', '--', '/usr/bin/python3',
+]
 
 
 def write(name, value):
@@ -91,6 +99,22 @@ def host():
             'swap_free': memory['SwapFree'], 'psi': pressure}
 
 
+def on_build_server():
+    """The expanded build budget has been sized for one measured host."""
+    if os.uname().nodename.split('.')[0] != 'b0512' or len(os.sched_getaffinity(0)) < 2:
+        return False
+    cpuinfo = Path('/proc/cpuinfo').read_text()
+    meminfo = Path('/proc/meminfo').read_text().splitlines()
+    return ('E5-2686 v4' in cpuinfo and
+            any(line.startswith('MemTotal:') and int(line.split()[1]) >= 120 * 1024**2
+                for line in meminfo))
+
+
+def admission_bytes(memory_mib, reserve):
+    worst_mib = memory_mib + 64  # The independent supervisor has its own cgroup.
+    return reserve + (worst_mib + max(128, (worst_mib + 9) // 10)) * MIB
+
+
 def worker():
     # A signal must unwind our private temporary directory too.
     def interrupted(signum, _frame):
@@ -147,8 +171,14 @@ def guardian():
     start = time.monotonic()
     unit = C['unit'] + '-work.service'
     ownunit = C['unit'] + '-guard.service'
+    memory_mib = C['memory_mib']
+    memory_high_mib = memory_mib * 7 // 8
+    cpu_count = 2 if C.get('server_build') else 1
+    scope = ('T2 host FUSE only; private namespace, no containers or GUI'
+             if C.get('scope') == 'host-fuse'
+             else 'T1 offline only; containers and GUI not admitted')
     receipt = {'reserve_bytes': C['reserve_bytes'], 'command': C['command'],
-               'scope': 'T1 offline only; containers and GUI not admitted',
+               'scope': scope,
                'supervisor': proc(os.getpid())}
     receipt['supervisor_limits'] = limits(receipt['supervisor']['cgroup'])
     try:
@@ -167,8 +197,9 @@ def guardian():
                 or supervisor_limits['memory.swap.max'] != '0' or supervisor_limits['pids.max'] != '16'
                 or quota == 'max' or not 0 < int(quota) <= int(period)):
             raise RuntimeError('supervisor hard budget mismatch')
-        # Fresh 30s admission, including the independent monitor and margin.
-        threshold = C['reserve_bytes'] + C['memory_mib'] * MIB + 64 * MIB + 128 * MIB
+        # Fresh admission, including the independent monitor and margin.
+        threshold = admission_bytes(memory_mib, C['reserve_bytes'])
+        receipt['admission_bytes'] = threshold
         with (OUT / 'admission.jsonl').open('w') as log:
             stable_since = None
             admission_deadline = time.monotonic() + 60
@@ -176,20 +207,20 @@ def guardian():
                 sample = host()
                 log.write(json.dumps(sample) + '\n')
                 log.flush()
-                if (sample['available'] < threshold or sample['psi']['full']['avg10'] >= .5
-                        or sample['psi']['some']['avg10'] >= 2):
+                if (sample['available'] < threshold or sample['psi']['full']['avg10'] >= ADMISSION_FULL
+                        or sample['psi']['some']['avg10'] >= ADMISSION_SOME):
                     stable_since = None
                 elif stable_since is None:
                     stable_since = time.monotonic()
-                elif time.monotonic() - stable_since >= 30:
+                elif time.monotonic() - stable_since >= ADMISSION_SECONDS:
                     break
                 if time.monotonic() >= admission_deadline:
-                    raise RuntimeError('no continuous 30s admission window within 60s')
+                    raise RuntimeError(f'no continuous {ADMISSION_SECONDS}s admission window within 60s')
                 time.sleep(.25)
         write('heartbeat.json', {'monotonic': time.monotonic()})
-        properties = ['MemoryMax=' + str(C['memory_mib']) + 'M',
-                      'MemoryHigh=448M',
-                      'MemorySwapMax=0', 'TasksMax=96', 'CPUQuota=100%',
+        properties = ['MemoryMax=' + str(memory_mib) + 'M',
+                      'MemoryHigh=' + str(memory_high_mib) + 'M',
+                      'MemorySwapMax=0', 'TasksMax=96', f'CPUQuota={cpu_count * 100}%',
                       'RuntimeMaxSec=' + str(C['seconds']), 'TimeoutStopSec=10s',
                       'KillMode=control-group', 'Restart=no', 'LimitCORE=0',
                       'UMask=0077', 'BindsTo=' + ownunit, 'After=' + ownunit]
@@ -210,14 +241,15 @@ def guardian():
         group = ready['identity']['cgroup']
         actual = ready['limits']
         quota, period = actual['cpu.max'].split()
-        if (owned['ControlGroup'] != group or int(actual['memory.max']) != C['memory_mib'] * MIB
-                or actual['memory.high'] != str(448*MIB)
+        if (owned['ControlGroup'] != group or int(actual['memory.max']) != memory_mib * MIB
+                or actual['memory.high'] != str(memory_high_mib * MIB)
                 or actual['memory.swap.max'] != '0' or actual['pids.max'] != '96'
-                or quota == 'max' or not 0 < int(quota) <= int(period)):
+                or quota == 'max' or not 0 < int(quota) <= cpu_count * int(period)
+                or (cpu_count == 2 and int(quota) != 2 * int(period))):
             raise RuntimeError('actual worker cgroup budget mismatch')
         receipt['worker'] = ready
         (OUT / 'go').touch()
-        policy = GuardPolicy(reserve=C['reserve_bytes'], memory_limit=512*MIB,
+        policy = GuardPolicy(reserve=C['reserve_bytes'], memory_limit=memory_mib * MIB,
                              task_limit=96, deadline=start+C['seconds']+65)
         with (OUT / 'samples.jsonl').open('w') as log:
             while True:
@@ -296,8 +328,23 @@ def finish_owned_unit(owned, receipt, unit):
         elif current.get('InvocationID') != owned['InvocationID'] or (current.get('ControlGroup') and current['ControlGroup'] != owned['ControlGroup']):
             raise RuntimeError('unit identity changed')
         else:
-            call(['systemctl', '--user', 'stop', unit])
-            receipt['final_unit'] = fields(unit)
+            try:
+                call(['systemctl', '--user', 'stop', unit])
+            except subprocess.CalledProcessError as exc:
+                if exc.returncode != 5:
+                    raise
+                # A finished transient service can unload between show and
+                # stop. Only treat that race as clean if the exact scope is
+                # gone and the name was not reused.
+                final = fields(unit)
+                if (group.exists() or final.get('LoadState') != 'not-found'
+                        or final.get('InvocationID') or final.get('ControlGroup')
+                        or final.get('MainPID') != '0' or final.get('ActiveState') != 'inactive'):
+                    raise
+                receipt['already_exited'] = True
+            else:
+                final = fields(unit)
+            receipt['final_unit'] = final
             receipt['cgroup_removed'] = not group.exists()
             if group.exists() and int((group/'pids.current').read_text()) != 0:
                 raise RuntimeError('owned workload still has tasks after stop')
@@ -320,16 +367,42 @@ def clean_temporary(receipt):
 
 
 def validate_spec(config):
-    if (config.get('memory_mib') != 512 or config.get('reserve_bytes') != 1024**3
-            or type(config.get('seconds')) is not int or not 1 <= config['seconds'] <= 300
+    scope = config.get('scope', 'offline')
+    if scope not in {'offline', 'host-fuse'}:
+        raise ValueError('invalid guarded job scope')
+    is_host_fuse = scope == 'host-fuse'
+    prefix = 'unifier-t2-fuse-' if is_host_fuse else 'unifier-t1-'
+    max_seconds = 120 if is_host_fuse else 300
+    min_memory_mib = MIN_OFFLINE_MEMORY_MIB
+    max_memory_mib = MAX_OFFLINE_MEMORY_MIB
+    server_build = config.get('server_build', False)
+    if type(server_build) is not bool:
+        raise ValueError('invalid server build setting')
+    if server_build:
+        if is_host_fuse or not on_build_server():
+            raise ValueError('server build requires the measured Xeon host and offline scope')
+        min_memory_mib = max_memory_mib = SERVER_BUILD_MEMORY_MIB
+    elif is_host_fuse:
+        min_memory_mib = max_memory_mib = DEFAULT_MEMORY_MIB
+    memory_mib = config.get('memory_mib')
+    if (type(memory_mib) is not int or not min_memory_mib <= memory_mib <= max_memory_mib
+            or config.get('reserve_bytes') != 1024**3
+            or type(config.get('seconds')) is not int or not 1 <= config['seconds'] <= max_seconds
             or config.get('root') != str(ROOT)
             or not isinstance(config.get('command'), list) or not config['command']
             or any(not isinstance(x, str) or '\0' in x for x in config['command'])
             or not config['command'][0]
             or not isinstance(config.get('unit'), str)
-            or not config['unit'].startswith('unifier-t1-')
+            or not config['unit'].startswith(prefix)
             or any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789-' for c in config['unit'])):
         raise ValueError('invalid T1 spec or changed safety budget')
+    if is_host_fuse:
+        command = config['command']
+        probe = Path(command[-1])
+        if (command[:-1] != HOST_FUSE_COMMAND or not probe.is_absolute()
+                or probe != probe.resolve() or not probe.is_relative_to(ROOT / 'artifacts')
+                or probe.suffix != '.py' or not probe.is_file()):
+            raise ValueError('host FUSE probe requires a Python file under artifacts and a private mount namespace')
 
 
 def main(argv=None):
@@ -339,16 +412,36 @@ def main(argv=None):
     launch = sub.add_parser('run', help='run one authorized offline command; no automatic retries')
     launch.add_argument('--out', required=True, type=Path, help='new evidence directory')
     launch.add_argument('--seconds', type=int, default=300)
+    budgets = launch.add_mutually_exclusive_group()
+    budgets.add_argument('--memory-mib', type=int, default=DEFAULT_MEMORY_MIB,
+                         help='T1 memory budget in MiB (256–1024, default: 512)')
+    budgets.add_argument('--server-build', action='store_true',
+                         help='offline Xeon server build: 2048 MiB and two CPUs')
     launch.add_argument('--locale', default='C')
     launch.add_argument('command', nargs=argparse.REMAINDER)
+    host_fuse = sub.add_parser('run-host-fuse', help='run one isolated T2 host FUSE probe')
+    host_fuse.add_argument('--out', required=True, type=Path)
+    host_fuse.add_argument('--seconds', type=int, default=90)
+    host_fuse.add_argument('--probe', required=True, type=Path)
     for mode in ('guard', 'worker'):
         sub.add_parser(mode).add_argument('spec', type=Path)
     args = parser.parse_args(argv)
-    if args.mode == 'run':
-        command = args.command[1:] if args.command[:1] == ['--'] else args.command
-        config = {'unit': 'unifier-t1-'+uuid.uuid4().hex[:12], 'seconds': args.seconds,
-                  'memory_mib': 512, 'reserve_bytes': 1024**3, 'root': str(ROOT),
-                  'command': command, 'environment': {'LC_ALL': args.locale, 'LANG': args.locale}}
+    if args.mode in {'run', 'run-host-fuse'}:
+        is_host_fuse = args.mode == 'run-host-fuse'
+        if is_host_fuse:
+            command = [*HOST_FUSE_COMMAND, str(args.probe.resolve())]
+        else:
+            command = args.command[1:] if args.command[:1] == ['--'] else args.command
+        prefix = 'unifier-t2-fuse-' if is_host_fuse else 'unifier-t1-'
+        locale = 'C' if is_host_fuse else args.locale
+        memory_mib = DEFAULT_MEMORY_MIB if is_host_fuse else args.memory_mib
+        config = {'unit': prefix+uuid.uuid4().hex[:12], 'seconds': args.seconds,
+                  'memory_mib': memory_mib, 'reserve_bytes': 1024**3, 'root': str(ROOT),
+                  'command': command, 'environment': {'LC_ALL': locale, 'LANG': locale}}
+        if not is_host_fuse and args.server_build:
+            config.update(server_build=True, memory_mib=SERVER_BUILD_MEMORY_MIB)
+        if is_host_fuse:
+            config['scope'] = 'host-fuse'
         validate_spec(config)
         out = args.out.resolve()
         out.mkdir(mode=0o700)  # Existing attempts, especially aborts, are immutable.

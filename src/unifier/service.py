@@ -8,7 +8,7 @@ created and leaves no record.
 
 import contextlib
 import datetime as dt
-from dataclasses import asdict
+from dataclasses import replace
 import fcntl
 import hashlib
 import json
@@ -23,20 +23,31 @@ import time
 import uuid
 from zoneinfo import ZoneInfo
 
+from unifier import package_recovery, package_transaction
 # Keep the historical service.parse_desktop_exec import available to callers.
 from unifier.app_entries import (
     desktop_exec_argv, desktop_menu_fields, package_entry_kind, parse_desktop_exec,
 )
+from unifier.camera_device import require_no_native_camera, resolve_camera, validate_saved_camera_mounts
 from unifier.catalog import (
     plan_change,
     resolve_record_contract,
     resolve_target_contract,
     system_contract,
 )
+from unifier.desktop_clients import CLIENTS, client_packages, desktop_provisioning_failure
 from unifier.errors import UnifierError
-from unifier.file_chooser import MODE_KEY, configured_environment, launch_argv, launch_environment, preflight_picker
+from unifier.file_chooser import (
+    MODE_KEY, PORTAL_MODES, configured_environment, default_portal_profile,
+    launch_argv, launch_environment, preflight_picker,
+)
+from unifier.portal_mount import (
+    PORTAL_GUEST, resolve_portal_mount, validate_saved_portal_mounts,
+    verify_active_portal_mount,
+)
 from unifier.operation_lock import management_lock
 from unifier.package_inventory import InventoryObservation, normalize_inventory
+from unifier.package_observation import summarize as summarize_observation, unavailable_host
 from unifier.compatibility import (
     compatibility_mode, observe_host, relationship_plan, require_relationship,
 )
@@ -50,26 +61,20 @@ from unifier.identity import (
     validate_binding,
     validate_migratable_record,
 )
+from unifier.install import ROOT_ENVIRONMENT, code_root
+from unifier.input_method import apply_input_method, validate_input_method
 from unifier.packages import (
     INCOMING_DIR,
-    TIMEOUT_PACMAN_KEY,
     HostObserver,
     driver_for,
     entry_changes,
-    explain_native_error,
     inventory_argv,
     inventory_has,
     local_package_path,
-    maintenance_findings,
-    merge_maintenance_findings,
     native_env,
-    package_command,
-    package_environment,
     parse_package_files,
     query_argv,
-    transaction_verdict,
     validate_package_name,
-    validate_use_argv,
 )
 from unifier.desktop import (
     MIME_TYPE,
@@ -89,21 +94,27 @@ from unifier.share_label import (
     validate_policy as validate_share_label_policy,
     volume_options as share_volume_options,
 )
+from unifier.render_node import (
+    FULL_CID, STOPPED, RenderNodeAccessError, render_node_identity, require_no_native_drm,
+    require_stopped, resolve_render_node, validate_saved_mounts,
+)
 from unifier.runtime import (
+    APPLICATION_PYTHON_CHECK,
+    APPLICATION_PYTHON_MISSING,
     ROLE_ENVIRONMENT,
     ContainerState,
     CreateSpec,
     ExecResult,
     PodmanRuntime,
     container_name,
-    decode_output,
     project_label,
 )
 from unifier.store import EnvironmentStore
-from unifier.views import assert_no_active_views
+from unifier.environment_contract import ENV_ID, validate_env_id
+from unifier.view_state import assert_no_active_views
+from unifier.wayland import plan_refresh
 
 
-ENV_ID = re.compile(r"[a-z][a-z0-9-]{0,31}\Z")
 ENV_KEY = re.compile(r"[A-Za-z_][A-Za-z0-9_]*\Z")
 DIGEST = re.compile(r"sha256:[0-9a-f]{64}\Z")
 # Mounting these, or anything inside them, would hide the environment's own
@@ -125,28 +136,6 @@ def now() -> str:
 
 def _log_progress(message: str) -> None:
     print(message, file=sys.stderr, flush=True)
-
-
-def _tail(text: str, limit: int = 4000) -> str:
-    if len(text) <= limit:
-        return text
-    return text[-limit:]
-
-
-def _syu_succeeded(native: list) -> bool:
-    return any(
-        (step.get("argv") or [])[:2] == ["pacman", "-Syu"] and step.get("exit_code") == 0
-        for step in native)
-
-
-def _keyring_ready(native: list) -> bool:
-    """True only after the keyring commands queued for this transaction succeeded."""
-    init = [step for step in native if (step.get("argv") or [])[:2] == ["pacman-key", "--init"]]
-    if not init or init[-1].get("exit_code") != 0:
-        return False
-    populate = [step for step in native
-                if (step.get("argv") or [])[:2] == ["pacman-key", "--populate"]]
-    return not populate or populate[-1].get("exit_code") == 0
 
 
 def _package_view(snapshot: dict) -> dict:
@@ -188,42 +177,10 @@ def _compare_others(before: dict, after: dict) -> dict:
     return compared
 
 
-def _isolation_problems(txn: dict) -> list[str]:
-    problems = []
-    others = txn.get("other_environments") or {}
-    if "_error" in others and len(others) == 1:
-        problems.append(str(others["_error"]))
-    else:
-        for env_id, item in others.items():
-            if item.get("error"):
-                problems.append(f"{env_id}: {item['error']}")
-            elif not item.get("unchanged", False):
-                problems.append(f"{env_id} inventory changed")
-    host = txn.get("host_packages") or {}
-    before = host.get("before") or {}
-    after = host.get("after") or {}
-    if not before.get("available") or not after.get("available"):
-        problems.append("host package observer unavailable")
-    elif before.get("sha256") != after.get("sha256"):
-        problems.append("host package set changed")
-    entries = txn.get("host_entries") or {}
-    if entries.get("added") or entries.get("removed"):
-        problems.append("host desktop entries changed")
-    return problems
-
-
 def _hides_system_tree(path: str) -> bool:
     if path in {"/", "/home"}:
         return True
     return any(path == prefix or path.startswith(prefix + "/") for prefix in SYSTEM_PREFIXES)
-
-
-def validate_env_id(env_id: str) -> str:
-    if not isinstance(env_id, str) or not ENV_ID.fullmatch(env_id) or env_id.endswith("-"):
-        raise UnifierError(
-            "environment id must be 1-32 characters, start with a lowercase letter, "
-            "and contain only lowercase letters, digits and hyphens")
-    return env_id
 
 
 def parse_os_release(text: str) -> dict[str, str]:
@@ -236,12 +193,6 @@ def parse_os_release(text: str) -> dict[str, str]:
     return values
 
 
-
-def _record_finalize_error(txn: dict, step: str, exc: BaseException) -> None:
-    """Record a finalization step failure without aborting the remaining steps."""
-    txn.setdefault("finalize_errors", []).append(
-        {"step": step, "error": f"{type(exc).__name__}: {exc}"[-1500:]})
-    txn["recovery_required"] = True
 
 class EnvironmentService:
     def __init__(self, root: Path, runtime, config: dict, lock: dict, *,
@@ -276,22 +227,89 @@ class EnvironmentService:
     def create(self, target_name: str, env_id: str | None, shares: list[str],
                network: str = "none", desktop: bool = False, session: dict | None = None,
                user_namespace: str = "rootless-default", devices: list[str] | None = None,
-               portals: bool = False, gpu: bool = False, ipc: str | None = None,
-               share_label_policy: str = "preserve-host") -> dict:
+               portals: bool | None = False, gpu: bool = False, ipc: str | None = None,
+               share_label_policy: str = "preserve-host", *, cuda_device: str | None = None,
+               provision_desktop_clients: bool = False) -> dict:
         # Refuse policy violations before creating even a lock or state directory.
         resolve_target_contract(target_name, self._target(target_name))
         require_relationship(self.compatibility_plan(target_name))
         env_id = validate_env_id(env_id or target_name)
         with self._creation_lock():
-            return self._create_locked(
+            record = self._create_locked(
                 target_name, env_id, shares, network, desktop, session,
-                user_namespace, devices, portals, gpu, ipc, share_label_policy)
+                user_namespace, devices, portals, gpu, ipc, share_label_policy,
+                cuda_device=cuda_device, provision_desktop_clients=provision_desktop_clients)
+        if desktop_provisioning_failure(record):
+            # Package writes take the same management lock as creation. The
+            # new record must be committed and the creation lock released first.
+            try:
+                self.repair_desktop_clients(env_id, expected_binding=binding_for(record))
+                updated = self.store.load(env_id)
+                self._require_record_binding(updated, binding_for(record))
+                return updated
+            except Exception as exc:
+                # Keep the durable pending marker if provisioning could not
+                # reach its outcome write, including when lock admission fails.
+                return {**record, "desktop_client_provisioning": {
+                    **record["desktop_client_provisioning"], "detail": str(exc)[-2000:]}}
+        return record
 
     def _create_locked(self, target_name: str, env_id: str, shares: list[str],
                        network: str, desktop: bool, session: dict | None,
                        user_namespace: str, devices: list[str] | None,
-                       portals: bool, gpu: bool, ipc: str | None,
-                       share_label_policy: str) -> dict:
+                       portals: bool | None, gpu: bool, ipc: str | None,
+                       share_label_policy: str, *, cuda_device: str | None = None,
+                       provision_desktop_clients: bool = False) -> dict:
+        spec, target, host_relationship, desktop_session = self._prepare_create_locked(
+            target_name, env_id, shares, network, desktop, session, user_namespace,
+            devices, portals, gpu, ipc, share_label_policy, cuda_device=cuda_device)
+        existing = self.runtime.inspect(spec.name)
+        if existing is not None:
+            raise UnifierError(
+                f"container {spec.name} already exists; this project will not replace it")
+        self.runtime.create(spec)
+        return self._finish_create(
+            spec, target_name, target, host_relationship, desktop_session,
+            provision_desktop_clients=provision_desktop_clients)
+
+    def resume_create(self, target_name: str, env_id: str | None, shares: list[str], *,
+                      expected_container_id: str, network: str = "none",
+                      user_namespace: str = "rootless-default", devices: list[str] | None = None,
+                      ipc: str | None = None, share_label_policy: str = "preserve-host") -> dict:
+        """Finish an explicitly identified, never-started headless creation.
+
+        This does not adopt a running/previously used container, recreate it,
+        or manufacture identity/inventory from caller-supplied metadata.
+        """
+        if not isinstance(expected_container_id, str) or not re.fullmatch(r"[0-9a-f]{64}", expected_container_id):
+            raise UnifierError("resume-create requires one complete container ID")
+        resolve_target_contract(target_name, self._target(target_name))
+        require_relationship(self.compatibility_plan(target_name))
+        env_id = validate_env_id(env_id or target_name)
+        with self._creation_lock():
+            spec, target, relationship, _ = self._prepare_create_locked(
+                target_name, env_id, shares, network, False, None, user_namespace,
+                devices, False, False, ipc, share_label_policy)
+            # A partial previous registration needs separate reconciliation;
+            # this entry never overwrites an existing record or inventory.
+            if (os.path.lexists(self.store.path(env_id))
+                    or os.path.lexists(self.store.inventory_path(env_id))):
+                raise UnifierError("resume-create refuses existing registration files")
+            if (self.store.transactions_for(env_id) or self.store.launches_for(env_id)
+                    or os.path.lexists(self.root / '.lab/leases' / (env_id + '.json'))):
+                raise UnifierError("resume-create refuses existing leases or operation history")
+            observed = self.runtime.verify_created(spec, expected_container_id)
+            if (observed.container_id != expected_container_id or observed.running
+                    or observed.status != 'created' or observed.pid != 0):
+                raise UnifierError("resume-create runtime did not verify the unused container")
+            return self._finish_create(spec, target_name, target, relationship, None,
+                                       expected_container_id=expected_container_id)
+
+    def _prepare_create_locked(self, target_name: str, env_id: str, shares: list[str],
+                               network: str, desktop: bool, session: dict | None,
+                               user_namespace: str, devices: list[str] | None,
+                               portals: bool | None, gpu: bool, ipc: str | None,
+                               share_label_policy: str, *, cuda_device: str | None = None):
         target = self._target(target_name)
         resolve_target_contract(target_name, target)
         host_relationship = require_relationship(self.compatibility_plan(target_name))
@@ -305,13 +323,24 @@ class EnvironmentService:
         share_label_policy = validate_share_label_policy(share_label_policy)
         if session is not None and not desktop:
             raise UnifierError("a session snapshot requires --desktop")
-        if (devices or portals or gpu) and not desktop:
-            raise UnifierError("camera/gpu devices and desktop portals require --desktop")
+        if (portals or gpu) and not desktop:
+            raise UnifierError("automatic GPU selection and desktop portals require --desktop")
+        cuda = None
+        if cuda_device is not None:
+            if desktop or devices or ipc == "host" or user_namespace != "rootless-default":
+                raise UnifierError("CUDA requires a headless rootless-default environment with private IPC and no other device requests")
+            from unifier.cuda_device import resolve_cuda_device
+            cuda = resolve_cuda_device(cuda_device)
         for device in devices or []:
+            # Render nodes support offscreen graphics/compute without exposing
+            # the host's display, audio, IPC or portal session. Primary DRM
+            # nodes and cameras retain their existing desktop boundary.
+            if not desktop and re.fullmatch(r"/dev/(video[0-9]+|dri/card[0-9]+)", device):
+                raise UnifierError("camera and primary DRM devices require --desktop")
             if not re.fullmatch(r"(/dev/video[0-9]+|/dev/dri/(card|renderD)[0-9]+)", device) or not (
                 os.path.exists(device) and stat.S_ISCHR(os.stat(device).st_mode)
             ):
-                raise UnifierError("desktop device must be an existing /dev/videoN camera or /dev/dri device")
+                raise UnifierError("device must be an existing /dev/videoN camera or /dev/dri device")
         effective_devices = list(devices or [])
         if gpu:
             dri_path = Path("/dev/dri")
@@ -331,7 +360,7 @@ class EnvironmentService:
                 directory = self.root.resolve() / '.lab/desktop' / env_id
                 directory.mkdir(parents=True, exist_ok=True, mode=0o700)
                 directory.chmod(0o700)
-                inside = '/run/multilinux-portal'
+                inside = PORTAL_GUEST
                 # The private directory contains only this app bridge and a copy
                 # of X authentication, never the host's whole runtime directory.
                 desktop_session['mounts'] = [m for m in desktop_session['mounts']
@@ -344,6 +373,22 @@ class EnvironmentService:
             selinux_label = desktop_session["selinux_label"]
         image = self._locked_reference(target_name)
         mounts = tuple(self._shares(shares))
+        if desktop_session is not None and portals is None:
+            try:
+                desktop_session["portal_proxy"] = self._prepare_managed_portal_bridge(
+                    env_id, ((host, guest, True, "bind")
+                             for host, guest in (*mounts, *session_mounts)))
+            except (OSError, ValueError) as exc:
+                raise UnifierError(f"cannot configure Portal bridge for {env_id}: {exc}") from exc
+        if cuda is not None:
+            from unifier.cuda_device import CUDA_DIRECTORY
+            cuda_path = Path(CUDA_DIRECTORY)
+            if any(cuda_path.is_relative_to(destination) or Path(destination).is_relative_to(cuda_path)
+                   for _, destination in mounts):
+                raise UnifierError("a share overlaps the CUDA driver directory")
+        from unifier.file_access_store import AccessStore
+        AccessStore(self.root).check_mounts(
+            [{'host': host, 'container': guest} for host, guest in mounts])
         spec = CreateSpec(
             name=container_name(self.root, env_id),
             env_id=env_id,
@@ -356,28 +401,68 @@ class EnvironmentService:
             selinux_label=selinux_label,
             user_namespace=user_namespace,
             devices=tuple(effective_devices),
-            ipc="host" if desktop else (ipc or "private"),
+            ipc=ipc or ("host" if desktop else "private"),
+            cuda=cuda,
         )
-        existing = self.runtime.inspect(spec.name)
-        if existing is not None:
-            raise UnifierError(
-                f"container {spec.name} already exists; this project will not replace it")
-        self.runtime.create(spec)
+        return spec, target, host_relationship, desktop_session
+
+    def _finish_create(self, spec: CreateSpec, target_name: str, target: dict,
+                       host_relationship: dict, desktop_session: dict | None, *,
+                       expected_container_id: str | None = None,
+                       provision_desktop_clients: bool = False) -> dict:
+        # Recovery addresses every native action by full CID. Keep the declared
+        # name in the durable record, and never let a name replacement redirect
+        # start/exec/stop while completing an existing container.
+        execution = replace(spec, name=expected_container_id) if expected_container_id else spec
+        execution_identity = None
+        def owned():
+            value = self._require_owned_record(execution.name, spec.project, spec.env_id)
+            if expected_container_id and value.container_id != expected_container_id:
+                raise UnifierError("resume-create container identity changed")
+            if (expected_container_id and execution_identity is not None and value.running
+                    and (value.pid, value.started_at) != execution_identity):
+                raise UnifierError("resume-create execution identity changed")
+            return value
+
         try:
-            self.runtime.start(spec.name, project=spec.project, env_id=env_id)
-            identity = self._read_identity(spec)
+            if expected_container_id:
+                # Repeat the native unused-layout check immediately before
+                # start; a used/exited object cannot become resumable again.
+                self.runtime.verify_created(spec, expected_container_id)
+            self.runtime.start(execution.name, project=spec.project, env_id=spec.env_id)
+            if expected_container_id:
+                started = owned()
+                if not started.running or not started.pid or not started.started_at:
+                    raise UnifierError("resume-create could not bind the started execution")
+                execution_identity = (started.pid, started.started_at)
+            identity = self._read_identity(execution)
             self._validate_identity(target_name, target, identity)
-            inventory = self._read_inventory(spec, target_name)
-            self.runtime.stop(spec.name, project=spec.project, env_id=env_id)
-            info = self._require_owned_record(spec.name, spec.project, env_id)
-            record = self._record(spec, target_name, target, image, identity, inventory, info,
+            inventory = self._read_inventory(execution, target_name)
+            if expected_container_id and execution_identity is not None:
+                owned()
+            self.runtime.stop(execution.name, project=spec.project, env_id=spec.env_id)
+            info = owned()
+            if expected_container_id and (info.running or info.pid != 0):
+                raise UnifierError("resume-create could not verify the stopped container")
+            record = self._record(spec, target_name, target, spec.image, identity, inventory, info,
                                   desktop_session)
             record["compatibility_at_creation"] = host_relationship
+            bridge = (desktop_session or {}).get("portal_proxy") or {}
+            if (provision_desktop_clients and spec.network == "pasta"
+                    and bridge.get("managed_mount") is True):
+                record["desktop_client_provisioning"] = {"phase": "pending"}
             self.store.save(record, inventory)
             return record
         except Exception:
-            with contextlib.suppress(Exception):
-                self.runtime.remove(spec.name, project=spec.project, env_id=env_id)
+            if expected_container_id and execution_identity is not None:
+                # Retain the original object and evidence. Stop only the same
+                # verified CID; an ownership mismatch never widens cleanup.
+                with contextlib.suppress(Exception):
+                    if owned().running:
+                        self.runtime.stop(execution.name, project=spec.project, env_id=spec.env_id)
+            elif not expected_container_id:
+                with contextlib.suppress(Exception):
+                    self.runtime.remove(spec.name, project=spec.project, env_id=spec.env_id)
             raise
 
     def _require_unique_target(self, target_name: str) -> None:
@@ -453,6 +538,93 @@ class EnvironmentService:
 
     def inspect(self, env_id: str) -> dict:
         return self._live(self.store.load(validate_env_id(env_id)))
+
+    def hardware(self, env_id: str, *, evidence=()) -> dict:
+        """Describe registered hardware and check its binding without starting it."""
+        from unifier.hardware_report import hardware_report, registered_render_nodes
+
+        record = self.store.load(validate_env_id(env_id))
+        try:
+            expected = binding_for(record)
+            info = self._require_owned(record)
+        except (KeyError, TypeError, UnifierError):
+            return hardware_report(record, evidence=evidence)
+        observed = {**expected, "container_id": info.container_id}
+        observations = []
+        device_errors = {}
+        paths = registered_render_nodes(record["runtime"]) if expected == observed else ()
+        for path in paths:
+            key = "render-node", path
+            try:
+                node = resolve_render_node(path)
+            except FileNotFoundError:
+                device_errors[key] = "device-missing"
+            except (RenderNodeAccessError, PermissionError):
+                device_errors[key] = "device-unreadable"
+            except (OSError, ValueError):
+                device_errors[key] = "device-unobserved"
+            else:
+                try:
+                    identity = render_node_identity(node)
+                    boot_id = Path("/proc/sys/kernel/random/boot_id").read_text().strip()
+                except (OSError, ValueError):
+                    device_errors[key] = "device-unobserved"
+                    continue
+                observations.append({
+                    "kind": "render-node", "selector": path, "boot_id": boot_id,
+                    "device_identity": identity,
+                    "backend": "kernel-drm", "backend_version": os.uname().release,
+                })
+        return hardware_report(record, observed_binding=observed, observations=observations,
+                               evidence=evidence, device_errors=device_errors)
+
+    def desktop_integration(self, env_id: str) -> dict:
+        from unifier.host_portal import describe_host_portal
+
+        record = self.store.load(validate_env_id(env_id))
+        desktop = record.get("desktop")
+        bridge = (desktop or {}).get("portal_proxy")
+        bridge_mode = "headless"
+        if desktop:
+            bridge_mode = "disabled"
+            if bridge:
+                bridge_mode = "managed" if bridge.get("managed_mount") is True else "legacy"
+        return {
+            "environment_id": record["id"],
+            "target": record["target"],
+            "portal_bridge": bridge_mode,
+            "host_portal": describe_host_portal() if desktop else None,
+            "client_packages": client_packages(record["target"], CLIENTS),
+        }
+
+    def install_desktop_clients(self, env_id: str, clients) -> dict:
+        if not clients:
+            raise UnifierError("select at least one desktop client")
+        return self._package_transaction(env_id, "install", [], desktop_clients=tuple(clients))
+
+    def repair_desktop_clients(self, env_id: str, *, expected_binding: dict | None = None) -> dict:
+        """Provision the desktop baseline for the recorded instance in place."""
+        env_id = validate_env_id(env_id)
+        if expected_binding is None:
+            expected_binding = binding_for(self.store.load(env_id))
+        with self.package_coordination_lock(), self.package_operation_lock(env_id):
+            record = self.store.load(env_id)
+            self._require_record_binding(record, expected_binding)
+            self._require_recovered_packages(env_id)
+            txn = self._package_transaction_locked(env_id, "install", [], desktop_clients=CLIENTS)
+            if desktop_provisioning_failure(record):
+                with self._lifecycle_lock(env_id):
+                    current = self.store.load(env_id)
+                    self._require_record_binding(current, expected_binding)
+                    current["desktop_client_provisioning"] = {
+                        "phase": txn["phase"],
+                        "transaction_id": txn["id"],
+                        "detail": txn.get("native_error") or txn.get("failure_phase"),
+                        "exit_code": txn.get("exit_code"),
+                        "recovery_required": bool(txn.get("recovery_required")),
+                    }
+                    self.store.save(current, None)
+            return txn
 
     def change_plan(self, env_id: str, desired: dict | None = None) -> dict:
         """Say whether a requested change upgrades this environment or replaces it.
@@ -603,6 +775,201 @@ class EnvironmentService:
             self._require_record_binding(record, expected_binding)
         return expected_binding
 
+    def _portal_directory(self, env_id: str) -> Path:
+        return self.root.resolve() / ".lab" / "desktop" / env_id
+
+    def _create_portal_directory(self, directory: Path) -> None:
+        flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC
+        fd = os.open(self.root.resolve(), flags)
+        try:
+            for component in directory.relative_to(self.root.resolve()).parts:
+                try:
+                    os.mkdir(component, 0o700, dir_fd=fd)
+                except FileExistsError:
+                    pass
+                child = os.open(component, flags, dir_fd=fd)
+                os.close(fd)
+                fd = child
+                metadata = os.fstat(fd)
+                if metadata.st_uid != self.uid or metadata.st_mode & 0o022:
+                    raise ValueError("Portal bridge directory must be under host-owned directories")
+        finally:
+            os.close(fd)
+
+    def _resolve_managed_portal_mount(self, record):
+        directory = self._portal_directory(record["id"])
+        settings = record["desktop"]["portal_proxy"]
+        if settings.get("directory") != str(directory) or settings.get("container") != PORTAL_GUEST:
+            raise ValueError("Portal bridge path does not match the registered environment")
+        return resolve_portal_mount(directory, self.uid)
+
+    def _prepare_managed_portal_bridge(self, env_id: str, mounts) -> dict:
+        validate_saved_portal_mounts(mounts)
+        directory = self._portal_directory(env_id)
+        self._create_portal_directory(directory)
+        resolve_portal_mount(directory, self.uid)
+        return {"directory": str(directory), "container": PORTAL_GUEST, "managed_mount": True}
+
+    @staticmethod
+    def _require_portal_bridge_environment(record, info):
+        runtime = record["runtime"]
+        if (not record.get("desktop") or runtime.get("backend") != "podman"
+                or runtime.get("rootless") is not True):
+            raise ValueError("Portal bridge configuration requires a rootless Podman desktop environment")
+        if (not FULL_CID.fullmatch(info.container_id) or info.running or info.pid not in (0, None)
+                or info.status not in STOPPED):
+            raise ValueError("Portal bridge configuration requires a stopped container with a full ID")
+        if info.container_id != runtime.get("container_id"):
+            raise ValueError("container identity differs from the recorded container ID")
+
+    def configure_portal_bridge(self, env_id: str, mode: str | None = None) -> bool:
+        """Configure the next start of an existing desktop container."""
+        from unifier.on_demand import LaunchGroup
+
+        env_id = validate_env_id(env_id)
+        if mode is None:
+            desktop = self.store.load(env_id).get("desktop") or {}
+            return bool(desktop.get("portal_proxy"))
+        if mode not in ("enable", "disable"):
+            raise UnifierError(f"unknown Portal bridge mode: {mode}")
+        group = LaunchGroup(self, env_id)
+        with (management_lock(self.root), group.locked(),
+              self.package_operation_lock(env_id, blocking=False),
+              self._lifecycle_lock(env_id)):
+            state = group.read()
+            if state["leases"] or state["bridge"] is not None:
+                raise UnifierError(f"cannot configure Portal bridge for {env_id} while it has leases or bridge state")
+            assert_no_active_views(self.root, env_id)
+            record = self.store.load(env_id)
+            info = self._require_owned(record)
+            try:
+                self._require_portal_bridge_environment(record, info)
+                desktop = record["desktop"]
+                bridge = desktop.get("portal_proxy")
+                if bridge and bridge.get("managed_mount") is not True:
+                    if mode == "disable":
+                        raise ValueError("the Portal bridge was mounted at creation and cannot be removed in place")
+                    return True
+                if mode == "enable":
+                    if bridge:
+                        mount = self._resolve_managed_portal_mount(record)
+                        validate_saved_portal_mounts(info.mounts, mount.path)
+                        return True
+                    desktop["portal_proxy"] = self._prepare_managed_portal_bridge(env_id, info.mounts)
+                elif bridge:
+                    apps = [launch["id"] for launch in self.store.launches_for(env_id)
+                            if launch["env"].get(MODE_KEY) in PORTAL_MODES]
+                    if apps:
+                        raise ValueError(
+                            "reset the following applications with app file-chooser APP native first: "
+                            + ", ".join(apps))
+                    del desktop["portal_proxy"]
+                else:
+                    return False
+            except (OSError, ValueError) as exc:
+                raise UnifierError(f"cannot configure Portal bridge for {env_id}: {exc}") from exc
+            record["updated_at"] = self.clock()
+            self.store.save(record, None)
+        return mode == "enable"
+
+    def configure_render_node(self, env_id: str, path: str | None) -> str | None:
+        """Record one optional DRM render bind for a stopped desktop environment."""
+        from unifier.on_demand import LaunchGroup
+
+        env_id = validate_env_id(env_id)
+        group = LaunchGroup(self, env_id)
+        with (group.locked(),
+              self.package_operation_lock(env_id, blocking=False),
+              self._lifecycle_lock(env_id)):
+            if group.read()["leases"]:
+                raise UnifierError(f"cannot configure render node for {env_id} while it has active leases")
+            assert_no_active_views(self.root, env_id)
+            record = self.store.load(env_id)
+            runtime = record["runtime"]
+            info = self._require_owned(record)
+            try:
+                self._require_render_node_environment(record, info)
+                current = runtime.get("render_node")
+                selection = None
+                if path is not None:
+                    selection = render_node_identity(resolve_render_node(path))
+                    validate_saved_mounts(info.mounts, current if current == path else None)
+                elif current is not None:
+                    validate_saved_mounts(info.mounts, current)
+            except (OSError, ValueError) as exc:
+                raise UnifierError(f"cannot configure render node for {env_id}: {exc}") from exc
+            if current != path or selection != runtime.get("render_node_identity"):
+                if path is None:
+                    runtime.pop("render_node", None)
+                    runtime.pop("render_node_identity", None)
+                else:
+                    runtime["render_node"] = path
+                    runtime["render_node_identity"] = selection
+                record["updated_at"] = self.clock()
+                self.store.save(record, None)
+        return path
+
+    def configure_camera(self, env_id: str, path: str | None) -> str | None:
+        """Select or clear one camera for all apps in a stopped desktop guest."""
+        from unifier.on_demand import LaunchGroup
+
+        env_id = validate_env_id(env_id)
+        group = LaunchGroup(self, env_id)
+        with (management_lock(self.root), group.locked(),
+              self.package_operation_lock(env_id, blocking=False), self._lifecycle_lock(env_id)):
+            state = group.read()
+            if state["leases"] or state["bridge"] is not None:
+                raise UnifierError(f"cannot configure camera for {env_id} while it has leases or bridge state")
+            assert_no_active_views(self.root, env_id)
+            record = self.store.load(env_id)
+            runtime = record["runtime"]
+            info = self._require_owned(record)
+            current = runtime.get("camera")
+            try:
+                self._require_camera_environment(record, info)
+                validate_saved_camera_mounts(info.mounts, (current or {}).get("path"))
+                selection = resolve_camera(path).selection if path is not None else None
+            except (OSError, ValueError) as exc:
+                raise UnifierError(f"cannot configure camera for {env_id}: {exc}") from exc
+            if path is None:
+                if current is None:
+                    return None
+                del runtime["camera"]
+            else:
+                candidate = {"path": path, "selection": selection}
+                if candidate == current:
+                    return path
+                runtime["camera"] = candidate
+            record["updated_at"] = self.clock()
+            self.store.save(record, None)
+        return path
+
+    @staticmethod
+    def _require_camera_environment(record, info):
+        runtime = record["runtime"]
+        if (not record.get("desktop") or runtime.get("backend") != "podman"
+                or runtime.get("rootless") is not True or runtime.get("cuda")):
+            raise ValueError("camera configuration requires a rootless Podman desktop environment")
+        if (not FULL_CID.fullmatch(info.container_id) or info.running or info.pid not in (0, None)
+                or info.status not in STOPPED or info.bind_mounts is None):
+            raise ValueError("camera configuration requires a stopped container with a full ID and known mounts")
+        if info.container_id != runtime.get("container_id"):
+            raise ValueError("container identity differs from the recorded container ID")
+        require_no_native_camera(info)
+
+    @staticmethod
+    def _require_render_node_environment(record, info):
+        runtime = record["runtime"]
+        if (not record.get("desktop") or runtime.get("backend") != "podman"
+                or runtime.get("rootless") is not True):
+            raise ValueError("render-node configuration requires a rootless Podman desktop environment")
+        require_stopped(info)
+        if info.container_id != runtime.get("container_id"):
+            raise ValueError("container identity differs from the recorded container ID")
+        if runtime.get("devices") or runtime.get("cuda"):
+            raise ValueError("container already has devices configured at creation")
+        require_no_native_drm(info)
+
     def start(self, env_id: str, *, expected_binding: dict | None = None,
               expected_app: dict | None = None) -> dict:
         """Start one environment.
@@ -639,10 +1006,38 @@ class EnvironmentService:
                     f"refusing to start {env_id}: its container instance no longer "
                     "matches the application binding; re-register the application")
             if not info.running:
-                restore_xauthority_mount(record, uid=self.uid)
                 runtime = record["runtime"]
-                self.runtime.start(runtime["container_name"], project=runtime["project"],
-                                   env_id=record["id"])
+                try:
+                    wayland = plan_refresh(record.get("desktop"), mounts=info.mounts, uid=self.uid)
+                    options = {"wayland": wayland} if wayland is not None else {}
+                    if "render_node" in runtime:
+                        self._require_render_node_environment(record, info)
+                        render_node = resolve_render_node(runtime["render_node"])
+                        if ("render_node_identity" in runtime
+                                and render_node_identity(render_node) != runtime["render_node_identity"]):
+                            raise ValueError(
+                                "the physical DRM identity changed; select it again with env render-node")
+                        validate_saved_mounts(info.mounts, render_node.path)
+                        options["render_node"] = render_node
+                    bridge = (record.get("desktop") or {}).get("portal_proxy") or {}
+                    if bridge.get("managed_mount") is True:
+                        self._require_portal_bridge_environment(record, info)
+                        portal_mount = self._resolve_managed_portal_mount(record)
+                        validate_saved_portal_mounts(info.mounts, portal_mount.path)
+                        options["portal_mount"] = portal_mount
+                    if "camera" in runtime:
+                        self._require_camera_environment(record, info)
+                        selection = runtime["camera"]
+                        camera = resolve_camera(selection["path"])
+                        if camera.selection != selection["selection"]:
+                            raise ValueError("the configured camera changed; select it again with env camera")
+                        validate_saved_camera_mounts(info.mounts, camera.path)
+                        options["camera"] = camera
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    raise UnifierError(f"cannot start {env_id}: {exc}") from exc
+                restore_xauthority_mount(record, uid=self.uid)
+                target = info.container_id if options else runtime["container_name"]
+                self.runtime.start(target, project=runtime["project"], env_id=record["id"], **options)
                 kernel = self._optional_capture(record, ["uname", "-r"])
                 # Merge into the newest record rather than writing the record
                 # captured before the wait/start.
@@ -738,9 +1133,11 @@ class EnvironmentService:
     def add_app(self, env_id: str, app_id: str, executable: str, argv: list[str], *,
                 workdir: str | None = None, env_overlay: dict | None = None,
                 as_host_user: bool = False, on_demand: bool = False,
+                exit_policy: str = 'wait',
                 package_origin: dict | None = None,
                 desktop_required: bool = True,
                 alias: str | None = None) -> dict:
+        self._validate_app_exit_policy(exit_policy, on_demand)
         app_id = validate_app_id(app_id)
         if alias is not None:
             alias = validate_app_id(alias)
@@ -771,6 +1168,8 @@ class EnvironmentService:
             if not ENV_KEY.fullmatch(key) or not isinstance(value, str) or value == "" or "\n" in value:
                 raise UnifierError(f"invalid application environment value: {key}")
             env[key] = value
+        if on_demand and desktop_required and MODE_KEY not in env:
+            env.update(default_portal_profile(record, executable))
         configured_environment(record, env, on_demand=on_demand)
         user = None
         if as_host_user:
@@ -831,6 +1230,8 @@ class EnvironmentService:
             "created_at": self.clock(),
             "updated_at": self.clock(),
         }
+        if exit_policy != 'wait':
+            launch['exit_policy'] = exit_policy
         self.store.save_launch(launch)
         return launch
 
@@ -913,6 +1314,7 @@ class EnvironmentService:
     def validate_app_binding(self, app_id: str) -> dict:
         """Read-only preflight used before a supervisor is spawned."""
         launch = self.show_app(app_id)
+        self._require_app_execution(launch)
         self._validate_launch_binding(launch)
         return launch
 
@@ -931,6 +1333,23 @@ class EnvironmentService:
                 self.store.save_launch(launch)
             return launch
 
+    def set_app_input_method(self, app_id: str, mode: str) -> dict:
+        with management_lock(self.root):
+            launch = self.show_app(app_id)
+            record = self.store.load(launch["environment_id"])
+            self._validate_launch_binding(launch, record=record)
+            validate_input_method(record, launch["env"], mode)
+            # This preference selects a toolkit frontend on an existing X11
+            # connection. It grants no new mount or D-Bus access, and does
+            # not rewrite the launch environment pinned by desktop handlers.
+            if mode != launch.get("input_method", "auto"):
+                if mode == "auto":
+                    launch.pop("input_method", None)
+                else:
+                    launch["input_method"] = mode
+                self.store.save_launch(launch)
+            return launch
+
     def validate_integration_launch(self, integration_uuid: str, *, app_id=None,
                                     project_uuid=None, app_instance_uuid=None,
                                     execution_fingerprint=None) -> dict:
@@ -940,16 +1359,27 @@ class EnvironmentService:
         installed entry; it need not live under this process's default
         HostDesktop directories.
         """
-        from unifier.desktop_integrations import DesktopIntegrationManager
-        manager = DesktopIntegrationManager(self.root, self)
-        return manager.validate_launcher(
+        from unifier.desktop_launch import integration_collection, validate_launcher
+        from unifier.projects import ProjectRegistry
+
+        return validate_launcher(
+            integration_collection(self.root), ProjectRegistry(self.root).show, self,
             integration_uuid, project_uuid=project_uuid, app_id=app_id,
             app_instance_uuid=app_instance_uuid,
             execution_fingerprint=execution_fingerprint)
 
+    @staticmethod
+    def _validate_app_exit_policy(policy, on_demand):
+        if policy not in ('wait', 'stop-children'):
+            raise UnifierError('unknown application exit policy')
+        if policy != 'wait' and not on_demand:
+            raise UnifierError('stop-children exit policy requires an on-demand application')
+
     def _require_app_execution(self, launch: dict, *, app_instance_uuid=None,
                                execution_fingerprint=None) -> None:
         """Recheck the authorized app instance/config at a mutation boundary."""
+        self._validate_app_exit_policy(launch.get('exit_policy', 'wait'),
+                                       launch.get('on_demand'))
         if app_instance_uuid is not None:
             actual = launch.get("app_instance_uuid")
             if not isinstance(actual, str) or actual != app_instance_uuid:
@@ -1024,7 +1454,7 @@ class EnvironmentService:
             expected_execution_fingerprint=expected_execution_fingerprint)
         runtime = record['runtime']
         user_options = {'user': launch['user']} if launch.get('user') else {}
-        argv = launch_argv(record, launch, argv)
+        argv = launch_argv(record, launch, argv, environment=env)
         return self.runtime.exec(
             runtime['container_name'], argv, project=runtime['project'], env_id=record['id'],
             workdir=effective_workdir, env=env, capture=capture,
@@ -1040,16 +1470,18 @@ class EnvironmentService:
                 app_id, argv, workdir=workdir,
                 expected_app_instance_uuid=expected_app_instance_uuid,
                 expected_execution_fingerprint=expected_execution_fingerprint)
-            argv = launch_argv(record, launch, argv)
+            argv = launch_argv(record, launch, argv, environment=env)
         except (UnifierError, OSError, ValueError) as exc:
             # This path has not submitted a guest application to the runtime.
             exc.execution_started = False
             raise
         runtime = record['runtime']
+        policy = launch.get('exit_policy', 'wait')
+        options = {'exit_policy': policy} if policy != 'wait' else {}
         return self.runtime.start_application_exec(
             runtime['container_id'], argv, token=token, project=runtime['project'],
             env_id=record['id'], workdir=effective_workdir, env=env,
-            user=launch.get('user'), interactive=False, tty=False)
+            user=launch.get('user'), interactive=False, tty=False, **options)
 
     def _prepare_app_execution(self, app_id, argv, *, workdir=None,
                                expected_app_instance_uuid=None,
@@ -1089,7 +1521,17 @@ class EnvironmentService:
             execution_fingerprint=expected_execution_fingerprint)
         preflight_picker(record, launch)
         effective_workdir = workdir_override if workdir is not None else launch.get("workdir")
-        env = launch_environment(record, launch, getattr(info, "mounts", ()), self.root)
+        bridge = (record.get("desktop") or {}).get("portal_proxy") or {}
+        options = {}
+        if bridge.get("managed_mount") is True and launch["env"].get(MODE_KEY) in PORTAL_MODES:
+            try:
+                mount = self._resolve_managed_portal_mount(record)
+                verify_active_portal_mount(info.pid, mount)
+            except (OSError, ValueError) as exc:
+                raise UnifierError(f"cannot verify the active Portal bridge for {record['id']}: {exc}") from exc
+            options["verified_portal_mount"] = mount.path
+        env = launch_environment(record, launch, getattr(info, "mounts", ()), self.root, **options)
+        apply_input_method(record, env, info.mounts, argv, mode=launch.get("input_method", "auto"))
         return record, launch, effective_workdir, env
 
     def export_app(self, app_id: str, *, mime_type: str = "application/x-multilinux-note",
@@ -1113,8 +1555,7 @@ class EnvironmentService:
         project = record["runtime"]["project"]
         name = desktop_id(self.root, launch["id"])
         desktop_name = name + ".desktop"
-        launcher = [sys.executable, str((self.root / "tools/unifier.py").resolve()),
-                    "app", "open", launch["id"], "--"]
+        launcher = self._desktop_launcher(launch["id"])
         text = render_desktop_entry(
             launcher=launcher, app_id=launch["id"], environment_id=launch["environment_id"],
             project=project, mime_type=mime_type, name=f"Multilinux {launch['id']}")
@@ -1150,6 +1591,10 @@ class EnvironmentService:
         self.store.save_launch(launch)
         return launch
 
+    def _desktop_launcher(self, app_id):
+        return ['/usr/bin/env', f'{ROOT_ENVIRONMENT}={self.root}', sys.executable,
+                str(code_root() / 'tools/unifier.py'), 'app', 'open', app_id, '--']
+
     def _export_menu_app(self, app_id, display_name, icon, wm_class, desktop_alias,
                          terminal=False, extra_fields=None):
         launch = self.show_app(app_id)
@@ -1167,7 +1612,7 @@ class EnvironmentService:
             raise UnifierError(f'refusing to replace an existing desktop entry: {path}')
         record = self.store.load(launch['environment_id'])
         text = render_desktop_entry(
-            launcher=[sys.executable, str((self.root / 'tools/unifier.py').resolve()), 'app', 'open', app_id, '--'],
+            launcher=self._desktop_launcher(app_id),
             app_id=app_id, environment_id=record['id'], project=record['runtime']['project'],
             mime_type=None, name=display_name or app_id, icon=icon, wm_class=wm_class,
             terminal=bool(terminal), extra_fields=extra_fields)
@@ -1254,7 +1699,7 @@ class EnvironmentService:
         if result.returncode != 0:
             return {
                 "package": name, "present": False, "files": [],
-                "error": _tail((result.stderr or result.stdout or "").strip(), 1500),
+                "error": package_recovery.output_tail((result.stderr or result.stdout or "").strip(), 1500),
             }
         return {"package": name, "present": True,
                 "files": parse_package_files(name, result.stdout or ""), "error": None}
@@ -1362,9 +1807,33 @@ class EnvironmentService:
                     }
                 elif kind == "desktop" and not current.get("menu"):
                     current["menu"] = menu
+                    current["menu_desktop_id"] = desktop_id_value
         return list(candidates.values())
 
-    def query_package(self, env_id: str, name: str) -> dict:
+    @contextlib.contextmanager
+    def application_registration_session(self, env_id: str):
+        """Pin package state and lease ownership during registration of an installed app."""
+        from unifier.on_demand import LaunchGroup
+
+        env_id = validate_env_id(env_id)
+        group = LaunchGroup(self, env_id)
+        with (self.package_coordination_lock(), group.locked(),
+              self.package_operation_lock(env_id, blocking=False)):
+            self._require_recovered_packages(env_id)
+            record = self.store.load(env_id)
+            state = group.read()
+            was_running = self._require_owned(record).running
+            if not was_running:
+                if state["leases"] or state["bridge"] is not None:
+                    raise UnifierError(f"cannot start {env_id} for registration while it has leases or bridge state")
+                self.start(env_id, expected_binding=binding_for(record))
+            try:
+                yield
+            finally:
+                if not was_running:
+                    self.stop(env_id, package_lock_held=True)
+
+    def query_package(self, env_id: str, name: str, *, require_installed: bool = False) -> dict:
         name = validate_package_name(name)
         record = self.store.load(validate_env_id(env_id))
         driver = driver_for(record)
@@ -1373,11 +1842,13 @@ class EnvironmentService:
             result = self._exec_record(
                 self.store.load(record["id"]), driver.query(name),
                 timeout=30, native=True)
-            detail = (result.stdout or result.stderr).strip()
+            present, detail = driver.query_result(
+                result.returncode, result.stdout, result.stderr,
+                require_installed=require_installed)
             return {
                 "environment_id": record["id"],
                 "package": name,
-                "present": result.returncode == 0,
+                "present": present,
                 "exit_code": result.returncode,
                 "detail": detail[-1500:],
             }
@@ -1387,10 +1858,12 @@ class EnvironmentService:
                     self.stop(record["id"])
 
     def install_packages(self, env_id: str, packages: list[str], *, use_argv=None,
-                         interactive=False, stream=False, repair_dependencies=False) -> dict:
+                         interactive=False, stream=False, repair_dependencies=False,
+                         application_runtime=False) -> dict:
         return self._package_transaction(env_id, "install", packages, use_argv=use_argv,
                                          interactive=interactive, stream=stream,
-                                         repair_dependencies=repair_dependencies)
+                                         repair_dependencies=repair_dependencies,
+                                         application_runtime=application_runtime)
 
     def update_packages(self, env_id: str, *, use_argv=None, interactive=False, stream=False) -> dict:
         return self._package_transaction(env_id, "update", [], use_argv=use_argv,
@@ -1403,13 +1876,14 @@ class EnvironmentService:
 
     def install_local(self, env_id: str, host_file: str, *, package_name: str | None = None,
                       use_argv=None, interactive=False, stream=False,
-                      repair_dependencies=False) -> dict:
+                      repair_dependencies=False, application_runtime=False) -> dict:
         if repair_dependencies and package_name is None:
             package_name = self.local_package_name(env_id, host_file)
         names = [package_name] if package_name else []
         return self._package_transaction(
             env_id, "install-local", names, use_argv=use_argv, local_file=host_file,
-            interactive=interactive, stream=stream, repair_dependencies=repair_dependencies)
+            interactive=interactive, stream=stream, repair_dependencies=repair_dependencies,
+            application_runtime=application_runtime)
 
     def repair_dependencies(self, env_id: str, packages: list[str], *, libraries=(),
                             interactive=False, stream=False, diagnostics_path=None) -> dict:
@@ -1432,7 +1906,8 @@ class EnvironmentService:
         return self._package_transaction(env_id, "repair-dependencies", packages,
                                          interactive=interactive, stream=stream,
                                          repair_dependencies=True, libraries=libraries,
-                                         dependency_input=dependency_input)
+                                         dependency_input=dependency_input,
+                                         application_runtime=bool(packages))
 
     def transactions_for(self, env_id: str) -> list[dict]:
         return self.store.transactions_for(validate_env_id(env_id))
@@ -1443,9 +1918,11 @@ class EnvironmentService:
         return self.store.load_transaction(txn_id)
 
     def _pending_package_transactions(self, env_id: str) -> list[dict]:
+        record = self.store.load(env_id)
         return [txn for txn in self.store.transactions_for(env_id)
-                if txn.get("phase") in {"running", "needs-recovery"}
-                or txn.get("recovery_required")]
+                if (txn.get("phase") in {"running", "needs-recovery"}
+                    or txn.get("recovery_required"))
+                and not package_recovery.maintenance_reconciled(record, txn)]
 
     def _require_recovered_packages(self, env_id: str) -> None:
         if (self.store.load(env_id).get("package_recovery_required")
@@ -1454,23 +1931,25 @@ class EnvironmentService:
                 f"package state for {env_id} needs recovery; run 'unifier pkg recover {env_id}' "
                 "before another package change")
 
-    def _audit_package_database(self, record: dict, txn: dict) -> None:
-        argv = {"debian13": ["dpkg", "--audit"],
-                "fedora44": ["rpm", "--verifydb"],
-                "arch": ["pacman", "-Dk"]}[record["target"]]
-        result = self._exec_record(record, argv, timeout=60, native=True, pin_package=True)
-        txn["database_audit"] = {"argv": argv, "exit_code": result.returncode,
-                                 "stdout_tail": _tail(result.stdout or ""),
-                                 "stderr_tail": _tail(result.stderr or "")}
-        if result.returncode or (record["target"] == "debian13" and result.stdout.strip()):
-            raise UnifierError("native package database needs repair; inspect pkg show and "
-                               "repair it inside this environment before pkg recover")
+    def _save_package_recovery_state(self, binding: dict, *, status: str, required: bool) -> None:
+        env_id = binding["environment_id"]
+        with self._lifecycle_lock(env_id):
+            latest = self.store.load(env_id)
+            self._require_record_binding(latest, binding)
+            latest.update(package_inventory_status=status, package_recovery_required=required)
+            self.store.save(latest, None)
 
-    def recover_packages(self, env_id: str) -> dict:
+    def _audit_package_database(self, record: dict, txn: dict) -> None:
+        package_recovery.audit_package_database(self, record, txn)
+
+    def _native_package_journal(self, record, action, audit):
+        return package_recovery.native_package_journal(self, record, action, audit)
+
+    def recover_packages(self, env_id: str, *, maintenance_receipt: dict | None = None) -> dict:
         """Reconcile a stopped execution, without silently re-running scripts."""
         env_id = validate_env_id(env_id)
         with self.package_coordination_lock():
-            return self._recover_packages_locked(env_id)
+            return self._recover_packages_locked(env_id, maintenance_receipt)
 
     def recover_inventory_storage(self, env_id: str) -> dict:
         env_id = validate_env_id(env_id)
@@ -1486,57 +1965,14 @@ class EnvironmentService:
                     self._require_record_binding(self.store.load(env_id), binding)
                     return {'environment_id': env_id, **result}
 
-    def _recover_packages_locked(self, env_id: str) -> dict:
-        with self.package_operation_lock(env_id, blocking=False):
-            record = self.store.load(env_id)
-            self._require_host_compatibility(record)
-            pending = self._pending_package_transactions(env_id)
-            if not pending and not record.get("package_recovery_required"):
-                return {"environment_id": env_id, "status": "no-recovery-needed"}
-            info = self._require_owned(record)
-            for txn in pending:
-                self._require_record_binding(record, txn["environment_binding"])
-                if info.container_id != txn["environment_binding"]["container_id"]:
-                    raise UnifierError("package recovery container identity changed")
-                if info.running:
-                    for step in txn.get("native", []):
-                        if (step.get("state") not in {"starting", "running", "interrupted"}
-                                or step.get("cleanup") in {"gone", "container-stopped"}):
-                            continue
-                        raise UnifierError("package execution cleanup is unverified; explicitly stop "
-                                           "this environment before package recovery")
-            started = False
-            try:
-                if not info.running:
-                    self.start(env_id)
-                    started = True
-                audit = {}
-                self._audit_package_database(record, audit)
-                inventory = self._read_inventory_record(record)
-                record = self._commit_inventory(record, inventory, {"native": []})
-                for txn in pending:
-                    txn.update(phase="failed", failure_phase=txn.get("failure_phase") or "interrupted",
-                               recovery_required=False, inventory_status="verified",
-                               recovered_at=self.clock(), database_audit=audit["database_audit"],
-                               revision_after={key: record[key] for key in (
-                                   "writable_revision", "content_revision", "package_inventory_sha256")})
-                    txn["finished_at"] = txn.get("finished_at") or self.clock()
-                    txn["verdict"] = "failed"
-                    self.store.save_transaction(txn)
-                record.update(package_inventory_status="verified", package_recovery_required=False)
-                self.store.save(record, None)
-                return {"environment_id": env_id, "status": "recovered",
-                        "transactions": [txn["id"] for txn in pending],
-                        "database_audit": audit["database_audit"],
-                        "package_inventory_sha256": record["package_inventory_sha256"]}
-            finally:
-                if started:
-                    self.stop(env_id, package_lock_held=True)
+    def _recover_packages_locked(self, env_id: str, maintenance_receipt=None) -> dict:
+        return package_recovery.recover_locked(self, env_id, maintenance_receipt)
 
     def _package_transaction(self, env_id: str, operation: str, packages: list[str], *,
                              use_argv=None, local_file: str | None = None,
                              interactive=False, stream=False, repair_dependencies=False,
-                             libraries=(), dependency_input=None) -> dict:
+                             libraries=(), dependency_input=None, application_runtime=False,
+                             desktop_clients=()) -> dict:
         """Serialize the complete isolation window, then the native DB writer.
 
         Order: management -> environment package -> lifecycle. Neither the
@@ -1553,250 +1989,49 @@ class EnvironmentService:
                     env_id, operation, packages, use_argv=use_argv,
                     local_file=local_file, interactive=interactive, stream=stream,
                     repair_dependencies=repair_dependencies, libraries=libraries,
-                    dependency_input=dependency_input)
+                    dependency_input=dependency_input, application_runtime=application_runtime,
+                    desktop_clients=desktop_clients)
 
     def _package_transaction_locked(self, env_id: str, operation: str,
                                     packages: list[str], *,
                                     use_argv=None,
                                     local_file: str | None = None, interactive=False,
                                     stream=False, repair_dependencies=False, libraries=(),
-                                    dependency_input=None) -> dict:
-        record = self.store.load(validate_env_id(env_id))
-        self._require_host_compatibility(record)
-        self._package_container_ref(record)
-        decision = plan_change(record, operation="package-change")
-        if decision["action"] != "upgrade":
-            raise UnifierError(decision.get("reason") or "this environment cannot be upgraded in place")
-        names = [validate_package_name(name) for name in packages]
-        use_argv = validate_use_argv(use_argv)
-        if operation in {"install", "remove"} and not names:
-            raise UnifierError(f"{operation} requires at least one package name")
-        if operation == "update" and names:
-            raise UnifierError("update upgrades the whole environment and does not take package names")
-        network = record["runtime"].get("network", "none")
-        if operation in {"install", "update", "install-local", "repair-dependencies"} and network != "pasta":
-            raise UnifierError(
-                f"environment {record['id']} was created with network {network}; "
-                "install and update need --network pasta at create time")
-        local_path = None
-        if operation == "install-local":
-            if not local_file:
-                raise UnifierError("install-local requires a package file")
-            local_path = local_package_path(record["target"], local_file)
-
-        txn = {
-            "schema_version": 1,
-            "id": "txn" + uuid.uuid4().hex[:12],
-            "environment_id": record["id"],
-            "operation": operation,
-            "packages": names,
-            "interactive": bool(interactive),
-            "stream": bool(stream),
-            "dependency_repair": {"status": "not-requested"},
-            "use_command": use_argv,
-            "local_file": None if local_path is None else str(local_path),
-            "revision_before": {
-                "writable_revision": record["writable_revision"],
-                "content_revision": int(record.get("content_revision") or 1),
-                "package_inventory_sha256": record["package_inventory_sha256"],
-            },
-            "native": [],
-            "native_error": None,
-            # Hooks run after the package files are written. Their failures do
-            # not uninstall the package, so they are recorded beside the phase
-            # and summarized by the top-level verdict.
-            "maintenance": {
-                "status": "ok",
-                "items": [],
-                "system_integration": "unverified",
-                "full_init": False,
-            },
-            "verdict": None,
-            "verification": None,
-            "host_entries": None,
-            "host_packages": None,
-            "other_environments": None,
-            "revision_after": None,
-            "phase": "running",
-            "environment_binding": binding_for(record),
-            "recovery_required": False,
-            "inventory_status": "checking",
-            "failure_phase": None,
-            "started_at": self.clock(),
-            "finished_at": None,
-        }
-        inventory_text = None
-        if dependency_input is not None:
-            txn["dependency_input"] = dependency_input
-        was_running = None
-        other_before = None
-        host_before = None
-        self.store.save_transaction(txn)
-        try:
-            other_before = self._other_fingerprints(record["id"])
-            host_before = self.host_observer.snapshot()
-            peer_problems = [
-                f"{env_id}: {view['error']}" if view.get("error") else
-                f"{env_id}: read-only peer inventory differs from its registered inventory"
-                for env_id, view in other_before.items()
-                if view.get("error") or view.get("probed") != view.get("stored")
-            ]
-            if peer_problems:
-                txn["failure_phase"] = "isolation-preflight"
-                txn["native_error"] = "; ".join(peer_problems)[-1500:]
-                raise UnifierError(txn["native_error"])
-            was_running = self._ensure_running(record["id"])
-            record = self.store.load(record["id"])
-            steps = self._native_steps(record, operation, names, local_path)
-            self._run_native(record, txn, steps)
-            if repair_dependencies and txn["failure_phase"] is None:
-                from unifier.dependencies import DependencyRepair
-                try:
-                    DependencyRepair(self, record, txn).run(names, libraries)
-                except Exception as exc:
-                    txn["failure_phase"] = txn["failure_phase"] or "dependency-repair"
-                    txn["native_error"] = str(exc)[-1500:]
-            if _keyring_ready(txn["native"]):
-                self._mark_keyring(record["id"])
-                record = self.store.load(record["id"])
-            inventory_text = self._read_inventory_record(record)
-            txn["verification"] = self._verify(record, operation, names, use_argv, inventory_text, txn)
-            if txn["failure_phase"] is None and not txn["verification"]["ok"]:
-                txn["failure_phase"] = "verification"
-        except Exception as exc:
-            if txn["failure_phase"] is None:
-                txn["failure_phase"] = "runtime"
-                txn["native_error"] = str(exc)[-1500:]
-        finally:
-            self._finalize_package_transaction(
-                record, txn, inventory_text, was_running, other_before, host_before)
-        return txn
+                                    dependency_input=None, application_runtime=False,
+                                    desktop_clients=()) -> dict:
+        return package_transaction.run_locked(
+            self, env_id, operation, packages, use_argv=use_argv, local_file=local_file,
+            interactive=interactive, stream=stream, repair_dependencies=repair_dependencies,
+            libraries=libraries, dependency_input=dependency_input,
+            application_runtime=application_runtime, desktop_clients=desktop_clients)
 
     def _finalize_package_transaction(self, record, txn, inventory_text,
                                       was_running, other_before, host_before):
-        """Attempt independent cleanup stages, preserving a durable failure journal.
+        package_transaction.finalize(
+            self, record, txn, inventory_text, was_running, other_before, host_before)
 
-        A failed stage cannot prove reconciliation. Keep subsequent package
-        writes blocked until explicit recovery, without masking the primary
-        native error. Persistent journal write failure is raised to the caller;
-        the already-saved running journal remains the recovery barrier.
-        """
-        def attempt(stage, action, default=None):
-            try:
-                return action()
-            except Exception as exc:
-                _record_finalize_error(txn, stage, exc)
-                legacy_field = {"inventory-read": "inventory_error",
-                                "inventory-verify": "inventory_error",
-                                "database-audit": "recovery_error", "stop": "stop_error"}.get(stage)
-                if legacy_field:
-                    txn[legacy_field] = str(exc)[-1500:]
-                txn["inventory_status"] = "unknown"
-                if txn["failure_phase"] is None:
-                    txn["failure_phase"] = "finalization"
-                return default
-
-        try:
-            uncertain = any(
-                step.get("state") in {"starting", "running", "interrupted"}
-                and step.get("cleanup") not in {"gone", "container-stopped"}
-                for step in txn["native"])
-            if uncertain:
-                txn["recovery_required"] = True
-                txn["inventory_status"] = "unknown"
-            elif inventory_text is None and txn["native"]:
-                inventory_text = attempt(
-                    "inventory-read", lambda: self._read_inventory_record(
-                        self.store.load(record["id"])))
-                if inventory_text is not None:
-                    txn["verification"] = attempt(
-                        "inventory-verify", lambda: self._verify(
-                            record, txn["operation"], txn["packages"], [], inventory_text, txn))
-            if txn["failure_phase"] is not None and txn["native"] and not uncertain:
-                attempt("database-audit", lambda: self._audit_package_database(record, txn))
-            if inventory_text is not None and not uncertain and not txn.get("finalize_errors"):
-                txn["inventory_status"] = "verified"
-            elif txn["native"]:
-                txn["inventory_status"] = "unknown"
-            if was_running is False and not uncertain:
-                def stop_owned():
-                    self._package_container_ref(record)
-                    self.stop(record["id"], package_lock_held=True)
-                attempt("stop", stop_owned)
-            record = attempt("record-read", lambda: self.store.load(record["id"]), record)
-            if not uncertain and (inventory_text is not None or _syu_succeeded(txn["native"])):
-                record = attempt(
-                    "inventory-commit", lambda: self._commit_inventory(record, inventory_text, txn), record)
-            attempt("isolation", lambda: self._finish_isolation(
-                txn, other_before, host_before, record["id"]))
-            if txn.get("verification") and not txn["verification"].get("ok") and txn["failure_phase"] is None:
-                txn["failure_phase"] = "verification"
-            if txn.get("verification") is None and txn["failure_phase"] is None:
-                txn["failure_phase"] = "runtime"
-            if not txn["native"] and txn["failure_phase"] is None and txn["operation"] != "repair-dependencies":
-                txn["failure_phase"] = "runtime"
-                txn["native_error"] = "no native package command was run"
-            txn["revision_after"] = {
-                "writable_revision": record.get("writable_revision"),
-                "content_revision": int(record.get("content_revision") or 1),
-                "package_inventory_sha256": record.get("package_inventory_sha256"),
-            }
-        finally:
-            # Always attempt the journal, even if an unexpected error interrupts
-            # the coordinator itself. Never turn an incomplete cleanup into PASS.
-            import sys
-            if sys.exc_info()[0] is not None:
-                txn["recovery_required"] = True
-                txn["inventory_status"] = "unknown"
-                txn["failure_phase"] = txn["failure_phase"] or "finalization"
-            txn["finished_at"] = attempt("timestamp", self.clock, txn.get("started_at"))
-            if txn["native"]:
-                def save_recovery_state():
-                    latest = self.store.load(record["id"])
-                    latest["package_inventory_status"] = txn["inventory_status"]
-                    latest["package_recovery_required"] = txn["recovery_required"]
-                    self.store.save(latest, None)
-                attempt("record-save", save_recovery_state)
-            txn["phase"] = ("needs-recovery" if txn["recovery_required"] else
-                            "completed" if txn["failure_phase"] is None else "failed")
-            maintenance = txn.get("maintenance") or {}
-            maintenance.update(status="warnings" if maintenance.get("items") else "ok",
-                               system_integration="unverified", full_init=False)
-            txn["maintenance"] = maintenance
-            txn["verdict"] = transaction_verdict(txn["phase"], maintenance)
-            try:
-                self.store.save_transaction(txn)
-            except Exception as exc:
-                raise UnifierError(
-                    f"cannot persist final package transaction {txn['id']}; "
-                    "recovery is required; inspect the existing transaction journal") from exc
-        self.log(f"{txn['environment_id']}: {txn['operation']} {txn['phase']} {txn['id']}")
-
-    def _native_steps(self, record: dict, operation: str, names: list[str],
-                      local_path: Path | None) -> list[tuple[list[str], int]]:
-        driver = driver_for(record)
-        steps: list[tuple[list[str], int]] = []
-        if driver.needs_keyring and operation in {"install", "update", "install-local", "repair-dependencies"}:
-            initialized = (record.get("arch") or {}).get("keyring_initialized_at")
-            if not initialized:
-                steps.extend(driver.bootstrap(populate=self._arch_needs_populate(record)))
-        if operation == "install":
-            steps.extend(driver.install(names))
-        elif operation == "update":
-            steps.extend(driver.update())
-        elif operation == "remove":
-            steps.extend(driver.remove(names))
-        elif operation == "install-local":
-            container_path = self._stage_local(record, local_path)
-            steps.extend(driver.local(container_path))
-        return steps
-
-    def _arch_needs_populate(self, record: dict) -> bool:
+    def _application_python_ready(self, record: dict) -> bool:
         result = self._exec_record(
-            record, ["pacman-key", "--list-keys"], timeout=TIMEOUT_PACMAN_KEY, native=True)
+            record, ["/bin/sh", "-c", APPLICATION_PYTHON_CHECK], timeout=10,
+            native=False, pin_package=True)
         if result.returncode != 0:
-            return True
-        return not result.stdout.strip()
+            detail = (result.stderr or result.stdout or "").strip()[-1000:]
+            raise UnifierError(
+                f"guest Python 3 check failed (exit {result.returncode}): {detail}")
+        return (result.stdout or "").strip() != APPLICATION_PYTHON_MISSING
+
+    def _desktop_fonts_ready(self, record: dict) -> bool:
+        check = (
+            "command -v fc-match >/dev/null 2>&1 || exit 1\n"
+            "font=$(fc-match --format '%{file}' sans-serif:lang=en) || exit 2\n"
+            'test -n "$font" && test -r "$font"'
+        )
+        result = self._exec_record(
+            record, ["/bin/sh", "-c", check], timeout=10, native=False, pin_package=True)
+        if result.returncode not in (0, 1):
+            detail = (result.stderr or result.stdout or "").strip()[-1000:]
+            raise UnifierError(f"guest font check failed (exit {result.returncode}): {detail}")
+        return result.returncode == 0
 
     def _stage_local(self, record: dict, local_path: Path) -> str:
         container_path = f"{INCOMING_DIR}/{local_path.name}"
@@ -1809,60 +2044,7 @@ class EnvironmentService:
         return container_path
 
     def _run_native(self, record: dict, txn: dict, steps: list[tuple[list[str], int]]) -> None:
-        for argv, timeout in steps:
-            container = self._package_container_ref(record)
-            interactive = bool(txn.get("interactive"))
-            argv = package_command(argv, interactive=interactive)
-            self.log(f"{record['id']}: {' '.join(argv)}")
-            step = {"argv": list(argv), "timeout": timeout, "state": "starting",
-                    "exit_code": None, "stdout_tail": "", "stderr_tail": ""}
-            txn["native"].append(step)
-            self.store.save_transaction(txn)
-
-            def ready(guest):
-                step.update(state="running", guest=asdict(guest))
-                self.store.save_transaction(txn)
-
-            try:
-                if hasattr(self.runtime, "package_exec"):
-                    runtime = record["runtime"]
-                    tracking = {"on_guest": ready} if isinstance(self.runtime, PodmanRuntime) else {}
-                    result = self.runtime.package_exec(
-                        container, argv, project=runtime["project"],
-                        env_id=record["id"], env=package_environment(record, interactive=interactive),
-                        interactive=interactive, stream=bool(txn.get("stream")), timeout=timeout,
-                        **tracking)
-                elif interactive:
-                    raise UnifierError("runtime does not support native interactive package commands")
-                else:
-                    result = self._exec_record(record, argv, timeout=timeout,
-                                               native=True, pin_package=True)
-            except BaseException as exc:
-                step.update(state="interrupted", cleanup=getattr(exc, "cleanup", "unknown"),
-                            exit_code=getattr(exc, "returncode", None),
-                            stdout_tail=_tail(decode_output(getattr(exc, "stdout", ""))),
-                            stderr_tail=_tail(decode_output(getattr(exc, "stderr", ""))), error=str(exc))
-                if getattr(exc, "signum", None):
-                    txn["exit_code"] = 128 + exc.signum
-                self.store.save_transaction(txn)
-                raise
-            step.update(state="finished", exit_code=result.returncode,
-                        stdout_tail=_tail(result.stdout or ""), stderr_tail=_tail(result.stderr or ""))
-            self.store.save_transaction(txn)
-            # The saved tails are for reading; the hook scan uses the complete
-            # output because a failure line can sit in the leading part.
-            findings = maintenance_findings(
-                record["target"], result.stdout or "", result.stderr or "")
-            if findings:
-                maintenance = txn["maintenance"]
-                maintenance["items"] = merge_maintenance_findings(
-                    maintenance.get("items"), findings)
-                maintenance["status"] = "warnings"
-            if result.returncode != 0:
-                txn["native_error"] = explain_native_error(
-                    (result.stderr or "") + "\n" + (result.stdout or ""))
-                txn["failure_phase"] = "native-command"
-                return
+        package_transaction.run_native(self, record, txn, steps)
 
     def _verify(self, record: dict, operation: str, names: list[str], use_argv: list[str],
                 inventory_text: str, txn: dict) -> dict:
@@ -1879,6 +2061,19 @@ class EnvironmentService:
                 "problems": ["native command failed" if txn["failure_phase"] == "native-command"
                              else f"{txn['failure_phase']} failed"],
             }
+        if operation == "remove":
+            driver = driver_for(record)
+            if driver.name == "apt":
+                # Both running and stopped inventory preserve dpkg records for
+                # deinstalled packages whose configuration files still exist.
+                for name, found in present.items():
+                    if not found:
+                        continue
+                    result = self._exec_record(record, driver.query(name), timeout=30,
+                                               native=True, pin_package=True)
+                    if result.returncode == 0:
+                        present[name], _ = driver.query_result(
+                            result.returncode, result.stdout, result.stderr)
         for name, found in present.items():
             if operation in {"install", "install-local"} and not found:
                 problems.append(f"{name} is not in the inventory")
@@ -1923,7 +2118,8 @@ class EnvironmentService:
                 record["updated_at"] = stamp
                 inventory_to_save = inventory_text
                 changed = True
-        if (_syu_succeeded(txn["native"]) and driver_for(record["target"]).tracks_package_set
+        if (package_transaction.syu_succeeded(txn["native"])
+                and driver_for(record["target"]).tracks_package_set
                 and record.get("arch")):
             record["arch"]["repository_updated_at"] = stamp
             record["arch"]["package_set_sha256"] = record["package_inventory_sha256"]
@@ -1944,13 +2140,7 @@ class EnvironmentService:
         try:
             host_after = self.host_observer.snapshot()
         except Exception as exc:
-            host_after = {
-                "packages": {
-                    "available": False, "tool": None, "sha256": None, "count": None,
-                    "error": str(exc)[-500:],
-                },
-                "entries": {"directory": "", "names": []},
-            }
+            host_after = unavailable_host(exc)
         if other_before is None or other_error:
             txn["other_environments"] = {
                 "_error": other_error or "peer snapshot failed before the native command",
@@ -1968,19 +2158,12 @@ class EnvironmentService:
         }
         before_names = ((host_before or {}).get("entries") or {}).get("names") or []
         after_names = (host_after.get("entries") or {}).get("names") or []
-        txn["host_entries"] = entry_changes(list(before_names), list(after_names))
-        problems = _isolation_problems(txn)
-        if not problems:
-            return
-        verification = txn.get("verification") or {
-            "ok": False, "packages": {}, "problems": [], "command": None,
-            "command_exit_code": None, "stdout_preview": None, "stdout_sha256": None,
-        }
-        verification["ok"] = False
-        verification["isolation"] = problems
-        txn["verification"] = verification
-        if txn["failure_phase"] is None:
-            txn["failure_phase"] = "verification"
+        if (not host_before or (host_before.get('entries') or {}).get('available') is False
+                or (host_after.get('entries') or {}).get('available') is False):
+            txn['host_entries'] = {'available': False, 'added': [], 'removed': []}
+        else:
+            txn["host_entries"] = entry_changes(list(before_names), list(after_names))
+        txn['isolation_observation'] = summarize_observation(txn)
 
     def _other_fingerprints(self, env_id: str) -> dict:
         found = {}
@@ -2134,6 +2317,7 @@ class EnvironmentService:
 
     def _package_container_ref(self, record: dict) -> str:
         """Validate the journal's instance and pin real Podman calls to its CID."""
+        self._require_record_binding(self.store.load(record['id']), binding_for(record))
         info = self._require_owned(record)
         if info.container_id != record["runtime"]["container_id"]:
             raise UnifierError("package container identity changed; refusing to use a replacement")
@@ -2227,6 +2411,7 @@ class EnvironmentService:
                 "full_init": False,
                 "user_namespace": spec.user_namespace,
                 "devices": list(spec.devices),
+                **({"cuda": spec.cuda.identity()} if spec.cuda is not None else {}),
                 "ipc": spec.ipc,
                 "rootless": True,
             },

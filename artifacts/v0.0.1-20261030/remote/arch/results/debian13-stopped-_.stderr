@@ -1,2 +1,0 @@
-debian13: container is stopped; listing / through a read-only view
-debian13: opening a short-lived read-only view 8e99f9ec-56ee-47c3-9f3e-a1daef71b96c; only this view is released afterwards.

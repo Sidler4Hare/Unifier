@@ -1,7 +1,0 @@
-debian13: apt-get update
-debian13: apt-get install -y gcc binutils dpkg-dev apt-file
-debian13: install failed txndc409242e448
-Traceback (most recent call last):
-  File "/home/omg/文档/多兼容linux机/artifacts/expansion-resume-20261107T220800+0800/driver.py", line 123, in <module>
-    raise RuntimeError("toolchain install did not complete")
-RuntimeError: toolchain install did not complete

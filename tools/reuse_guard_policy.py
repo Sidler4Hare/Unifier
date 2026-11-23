@@ -4,6 +4,9 @@ import math
 
 
 GIB = 1024**3
+ADMISSION_FULL = 2
+ADMISSION_SOME = 5
+ADMISSION_SECONDS = 15
 
 
 @dataclass
@@ -13,7 +16,7 @@ class GuardPolicy:
     task_limit: int = 256
     deadline: float = 0
     low_samples: int = 0
-    memory_samples: int = 0
+    memory_since: float | None = None
     task_samples: int = 0
     pressure_since: float | None = None
 
@@ -45,25 +48,27 @@ class GuardPolicy:
         # raised for the rest of the cgroup's life. Stopping on that count,
         # or on anonymous memory at 75% while the hard line is 90%, aborted
         # runs that were still inside their budget. A bad reading still fails.
-        # The hard line below remains 90% for two samples.
+        # Sustained use at 95% stops after two seconds; hard-limit events
+        # remain immediately invalid regardless of this grace period.
         for key in ('high_events', 'anon', 'file'):
             if key not in sample:
                 continue
             if type(sample[key]) is not int or sample[key] < 0:
                 return 'ABORTED_METRICS'
         self.low_samples = self.low_samples + 1 if sample['available'] < self.reserve else 0
-        self.memory_samples = self.memory_samples + 1 if sample['memory'] >= self.memory_limit * .9 else 0
+        self.memory_since = ((now if self.memory_since is None else self.memory_since)
+                             if sample['memory'] >= self.memory_limit * .95 else None)
         self.task_samples = self.task_samples + 1 if sample['tasks'] >= self.task_limit * .9 else 0
-        high_pressure = sample['full'] > 3 or sample['some'] > 10
+        high_pressure = sample['full'] > 5 or sample['some'] > 20
         self.pressure_since = ((now if self.pressure_since is None else self.pressure_since)
                                if high_pressure else None)
         if self.low_samples >= 2:
             return 'ABORTED_HOST_RESERVE'
-        if self.memory_samples >= 2:
+        if self.memory_since is not None and now - self.memory_since >= 2:
             return 'ABORTED_MEMORY'
         if self.task_samples >= 2:
             return 'ABORTED_TASKS'
-        if self.pressure_since is not None and now - self.pressure_since >= 2:
+        if self.pressure_since is not None and now - self.pressure_since >= 10:
             return 'ABORTED_PSI'
         return None
 

@@ -1,7 +1,0 @@
-{
-  "freecad_main_window_observed": true,
-  "image": "freecad-final/menu-launch-2.png",
-  "observation": "FreeCAD 1.1.4 main Welcome UI visible after actual native menu launch",
-  "qa": "direct image inspection by primary agent during native acceptance",
-  "scope": "native launch and lifecycle; does not claim a KOS launcher-panel screenshot"
-}

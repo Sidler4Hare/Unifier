@@ -1,4 +1,0 @@
-arch	/home/omg/.local/share/unifier-extension-20261031/containers/arch	stopped
-  private files: /home/omg/.local/share/unifier-extension-20261031/containers/arch/files
-  private files mount: mounted in the current container
-  system view: not mounted (rootfs is not a copied tree; ls uses a read-only view)

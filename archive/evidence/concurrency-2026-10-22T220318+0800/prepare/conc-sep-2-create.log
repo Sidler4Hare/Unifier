@@ -1,7 +1,0 @@
-$ env create --target debian13 --id conc-sep-2 --share /home/omg/文档/多兼容linux机/evidence/concurrency-2026-10-22T220318+0800/work/conc-sep-2 --network none --desktop --portals --userns keep-id
-returncode=0
---- stdout ---
-created conc-sep-2 (debian13) stopped
-
---- stderr ---
-

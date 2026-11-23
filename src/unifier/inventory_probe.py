@@ -1,4 +1,4 @@
-"""One stopped Debian inventory read in Podman's storage user namespace.
+"""One stopped database inventory read in Podman's storage user namespace.
 
 This acquires a storage mount reference, not a running container or guest exec.
 It is a T2 operation, with a durable journal for ambiguous acquisition/release;
@@ -18,12 +18,13 @@ if __package__ in {None, ''}:
 
 from unifier.errors import UnifierError
 from unifier.identity import binding_for
-from unifier.on_demand import process_stamp
-from unifier.package_inventory import observation, read_dpkg_database
+from unifier.process_identity import process_stamp
+from unifier.package_inventory import InventoryUnsupported, observation
+from unifier.inventory_backends import backend_for
 from unifier.view_journal import read_journal, write_journal
 
 
-def inspect_stopped(cid, project, env_id, *, run=subprocess.run):
+def inspect_stopped(cid, project, env_id, *, run=subprocess.run, database_paths=('/var/lib/dpkg',)):
     result = run(['podman', 'inspect', '--format', 'json', cid],
                  capture_output=True, text=True, timeout=10, check=False)
     if result.returncode:
@@ -42,21 +43,26 @@ def inspect_stopped(cid, project, env_id, *, run=subprocess.run):
         raise UnifierError('running/transitioning peer has no consistent read-only snapshot')
     for mount in data.get('Mounts') or []:
         destination = mount.get('Destination', '').rstrip('/') or '/'
-        if (destination == '/' or destination == '/var/lib/dpkg'
-                or '/var/lib/dpkg'.startswith(destination + '/')
-                or destination.startswith('/var/lib/dpkg/')):
+        if any(destination == '/' or destination == path
+               or path.startswith(destination + '/') or destination.startswith(path + '/')
+               for path in database_paths):
             raise UnifierError('mounted package database is unsupported')
     return {'started_at': state.get('StartedAt'), 'finished_at': state.get('FinishedAt'),
             'status': state.get('Status'), 'mounts': data.get('Mounts') or []}
 
 
 def probe(record, journal, token, *, run=subprocess.run):
+    try:
+        database, paths, reader = backend_for(record, require_available=True)
+    except InventoryUnsupported as exc:
+        return observation(record, status='unsupported', database='unknown', reason=str(exc))
     cid = record['runtime']['container_id']
     project = record['runtime']['project']
     env_id = record['id']
     owned = False
     result = None
     error = None
+    failure_status = 'unavailable'
     owner = {'pid': os.getpid(), 'stamp': process_stamp(os.getpid()),
              'boot_id': Path('/proc/sys/kernel/random/boot_id').read_text().strip()}
     def stamp(state, **extra):
@@ -66,9 +72,10 @@ def probe(record, journal, token, *, run=subprocess.run):
                       'updated_at': time.time(), **extra})
     previous = read_journal(str(journal))
     if journal.exists() and (previous is None or previous.get('state') != 'released'):
-        return observation(record, status='unavailable', reason='inventory storage journal needs reconciliation')
+        return observation(record, status='unavailable', database=database,
+                           reason='inventory storage journal needs reconciliation')
     try:
-        before = inspect_stopped(cid, project, env_id, run=run)
+        before = inspect_stopped(cid, project, env_id, run=run, database_paths=paths)
         stamp('mounting')
         mounted = run(['podman', 'mount', cid], capture_output=True, text=True,
                       timeout=10, check=False)
@@ -82,15 +89,19 @@ def probe(record, journal, token, *, run=subprocess.run):
             raise UnifierError('inventory storage returned an invalid root path')
         descriptor = os.open(lines[0], os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC)
         try:
-            if inspect_stopped(cid, project, env_id, run=run) != before:
+            if inspect_stopped(cid, project, env_id, run=run, database_paths=paths) != before:
                 raise UnifierError('peer state changed before database read')
-            text, consistency = read_dpkg_database(descriptor)
-            if inspect_stopped(cid, project, env_id, run=run) != before:
+            text, consistency = reader(descriptor)
+            if inspect_stopped(cid, project, env_id, run=run, database_paths=paths) != before:
                 raise UnifierError('peer state changed during database read')
-            result = observation(record, inventory=text, consistency={**consistency,
+            result = observation(record, inventory=text, database=database,
+                                 method=consistency.get('method', 'locked-stopped-database'), consistency={**consistency,
                                  'storage_reference_token': token, 'container_state': before})
         finally:
             os.close(descriptor)
+    except InventoryUnsupported as exc:
+        failure_status = 'unsupported'
+        error = str(exc)[-500:]
     except Exception as exc:
         error = str(exc)[-500:]
     finally:
@@ -105,10 +116,11 @@ def probe(record, journal, token, *, run=subprocess.run):
                     raise UnifierError('inventory storage release failed; reconciliation required')
                 stamp('released')
             except Exception as exc:
+                failure_status = 'unavailable'
                 error = str(exc)[-500:]
         # A pre-mount error has no reference to release. An ambiguous mounting
         # or releasing journal intentionally remains as a persistent blocker.
-    return (observation(record, status='unavailable', reason=error) if error
+    return (observation(record, status=failure_status, database=database, reason=error) if error
             else result)
 
 
@@ -137,7 +149,8 @@ def recover(record, journal, *, run=subprocess.run):
     stamp = process_stamp(owner['pid'])
     if stamp == owner['stamp'] or (stamp is None and Path(f"/proc/{owner['pid']}").exists()):
         return {'status': 'unresolved', 'reason': 'helper is live or its liveness is unknown'}
-    inspect_stopped(cid, record['runtime']['project'], record['id'], run=run)
+    _, paths, _ = backend_for(record)
+    inspect_stopped(cid, record['runtime']['project'], record['id'], run=run, database_paths=paths)
     # The caller holds the observation lock across read, identity checks and release.
     value.update(state='releasing', recovery_started_at=time.time())
     write_journal(str(journal), value)

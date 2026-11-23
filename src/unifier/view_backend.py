@@ -5,9 +5,8 @@ MountGraph, and resolves every new name relative to the pinned parent object
 with O_NOFOLLOW. Open files and directory streams use independent real
 descriptors; a path is never re-walked for READ, GETATTR(fh) or READLINK.
 
-Old ``fuse_view_legacy.py``/``view_backend_legacy.py`` remain the frozen
-fallback implementation. This module is the object-anchored implementation
-used by the current ``unifier view _fuse`` entry point.
+This object-anchored implementation serves ``unifier view _fuse``
+and the historical view backend import.
 """
 
 from contextlib import contextmanager
@@ -21,7 +20,7 @@ import stat as stat_module
 from unifier.projection import (
     DEFAULT_MAX_DIR_BYTES, DEFAULT_MAX_DIR_ENTRIES, DEFAULT_MAX_HANDLES,
     DEFAULT_MAX_NODES, FdBudget, MountGraph, ProjectionObjects, Provider, Selection,
-    ViewError, kind_for_mode, normalize_container_path, path_depth,
+    ViewError, _mnt_id, kind_for_mode, normalize_container_path, path_depth,
     reopen_readonly, unavailable,
 )
 
@@ -178,22 +177,6 @@ def build_id_map(record: dict, uid: int, gid: int, *, storage_uid_map=None,
     return IdMap(uid, gid, container_uid, container_gid,
                  ustart, ucount, gstart, gcount, namespace,
                  uid_ranges=uid_ranges, gid_ranges=gid_ranges)
-
-
-def _mnt_id(descriptor: int) -> int | None:
-    try:
-        text = Path(f"/proc/self/fdinfo/{descriptor}").read_text(encoding="utf-8")
-    except OSError as exc:
-        if exc.errno in {errno.EMFILE, errno.ENFILE, errno.ENOMEM}:
-            raise ViewError(
-                exc.errno, f"cannot read mnt_id for fd {descriptor}: {exc}") from exc
-        return None
-    for line in text.splitlines():
-        if line.startswith("mnt_id:"):
-            value = line.split(":", 1)[1].strip()
-            if value.isdigit():
-                return int(value)
-    return None
 
 
 def _relative(path: str, root: str) -> str:

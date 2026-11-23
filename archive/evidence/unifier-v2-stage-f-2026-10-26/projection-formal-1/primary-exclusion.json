@@ -1,5 +1,0 @@
-{
-  "accepted": false,
-  "reason": "Controller directory-size inspection traversed an active FUSE view concurrently with cycle 1; performance samples are observer-contaminated. SIGINT requested for the exact probe process; retain all evidence and run a fresh formal directory.",
-  "pid": 651123
-}

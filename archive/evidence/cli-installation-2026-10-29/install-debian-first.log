@@ -1,8 +1,0 @@
-debian13: apt-get update
-debian13: apt-get install -y /tmp/ml-incoming/unifier-cli-probe_1.0-1_all.deb
-debian13: install-local completed txn6b035ddf6a4c
-debian13: installing local package /home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/packages/unifier-cli-probe_1.0-1_all.deb through the native transaction.
-Native package transaction completed: txn6b035ddf6a4c. A successful package transaction does not prove the application entry works.
-debian13: using explicit entry /usr/bin/unifier-cli-probe.
-Registered application probe (target debian13, environment debian13).
-Application id: probe

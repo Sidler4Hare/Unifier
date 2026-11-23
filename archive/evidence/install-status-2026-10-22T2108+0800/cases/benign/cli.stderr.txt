@@ -1,4 +1,0 @@
-install-arch: pacman-key --init
-install-arch: pacman -Syu --noconfirm
-install-arch: pacman -U --noconfirm /tmp/ml-incoming/ml-benign-1.0.1-1-x86_64.pkg.tar.zst
-install-arch: install-local completed txn0d27f5f30226

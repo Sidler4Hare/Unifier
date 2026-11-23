@@ -122,8 +122,10 @@ def descendants(root_pid):
     return [entries[pid] for pid in owned - {root_pid} if not entries[pid]['zombie']]
 
 
-def run(root, token, control_fd, argv):
+def run(root, token, control_fd, argv, *, exit_policy='wait'):
     global READY_SENT
+    if exit_policy not in ('wait', 'stop-children'):
+        raise ValueError('invalid application exit policy')
     if not argv:
         raise ValueError('application argv is empty')
     if not hasattr(os, 'pidfd_open') or not hasattr(signal, 'pidfd_send_signal'):
@@ -159,7 +161,7 @@ def run(root, token, control_fd, argv):
         signal.signal(number, requested)
     payload = {**{k: identity[k] for k in ('pid', 'start', 'pgrp', 'sid')},
                'token': token, 'ownership': 'subreaper-v1', 'state': 'starting',
-               'all_children_reaped': False}
+               'all_children_reaped': False, 'exit_policy': exit_policy}
     try:
         # Never reuse a token or overwrite another execution's terminal proof.
         try:
@@ -187,14 +189,19 @@ def run(root, token, control_fd, argv):
         payload['state'] = 'running'
         write_receipt(fd, name, payload)
         main_code = None
+        cleanup_at = None
+        terminated = set()
         while True:
             try:
                 pid, status = os.waitpid(-1, os.WNOHANG)
             except ChildProcessError:
                 # The only normal terminal proof: no children remain after
                 # every adopted descendant has also been reaped.
+                code = main_code if main_code is not None else 125
+                if code == 0 and payload.get('cleanup_escalated'):
+                    code = 125
                 payload.update(state='exited', all_children_reaped=True,
-                               exit_code=main_code if main_code is not None else 125,
+                               exit_code=code,
                                delivered_signal=pending['signal'])
                 write_receipt(fd, name, payload)
                 return payload['exit_code']
@@ -203,6 +210,8 @@ def run(root, token, control_fd, argv):
                     main_code = os.waitstatus_to_exitcode(status)
                     if main_code < 0:
                         main_code = 128 - main_code
+                    payload.update(main_exited=True, main_exit_code=main_code)
+                    write_receipt(fd, name, payload)
                 continue
             if pending['signal'] is not None:
                 number = (signal.SIGKILL if time.monotonic() - pending['at'] >= 10
@@ -210,6 +219,29 @@ def run(root, token, control_fd, argv):
                 for item in descendants(os.getpid()):
                     try:
                         signal_exact(item['pid'], item['start'], number)
+                    except ProcessLookupError:
+                        pass
+            elif exit_policy == 'stop-children' and main_code is not None:
+                # Explicit foreground contract only. Default launchers may
+                # intentionally exit before their UI and must keep waiting.
+                owned = descendants(os.getpid())
+                if owned and cleanup_at is None:
+                    cleanup_at = time.monotonic()
+                    payload.update(cleanup_reason='main-exit', cleanup_signal=signal.SIGTERM,
+                                   cleanup_escalated=False)
+                    write_receipt(fd, name, payload)
+                for item in owned:
+                    number = (signal.SIGKILL if time.monotonic() - cleanup_at >= 10
+                              else signal.SIGTERM)
+                    key = (item['pid'], item['start'])
+                    if number == signal.SIGTERM and key in terminated:
+                        continue
+                    try:
+                        if signal_exact(item['pid'], item['start'], number):
+                            terminated.add(key)
+                            if number == signal.SIGKILL and not payload['cleanup_escalated']:
+                                payload['cleanup_escalated'] = True
+                                write_receipt(fd, name, payload)
                     except ProcessLookupError:
                         pass
             time.sleep(.05)
@@ -236,11 +268,12 @@ def main(argv=None):
                 value = {'state': 'unknown', 'reason': 'supervisor signal unverified'}
         print(json.dumps(value))
         return 0
-    if mode != 'run':
+    if mode not in ('run', 'run-stop-children'):
         raise ValueError('unknown application supervisor mode')
     control_fd = int(args[3])
     try:
-        return run(root, token, control_fd, args[4:])
+        return run(root, token, control_fd, args[4:],
+                   exit_policy='stop-children' if mode == 'run-stop-children' else 'wait')
     except BaseException as exc:
         # ERROR is a pre-execution proof only while the control FD remains open.
         # After READY the parent treats failures as unknown without terminal proof.

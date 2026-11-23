@@ -1,6 +1,0 @@
-{
-  "protocol": "truncate-same-fd",
-  "error": "PermissionError",
-  "errno": 13,
-  "message": "Permission denied"
-}

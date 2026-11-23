@@ -1,6 +1,0 @@
-{
-  "proxy_exit": 1,
-  "guest_marker_after_proxy_term": "DONE",
-  "scope": "one new fixture, direct podman exec process-group termination mechanism only",
-  "passed_as_mechanism_observation": true
-}

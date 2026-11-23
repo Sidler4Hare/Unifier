@@ -1,3 +1,0 @@
-complex-arch: pacman-key --init
-complex-arch: pacman -Syu --noconfirm --needed freecad qt6-wayland mesa-utils noto-fonts
-complex-arch: install completed txnb71a86f062d9

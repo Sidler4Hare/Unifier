@@ -1,7 +1,0 @@
-{
-  "environment_id": "gui-debian13",
-  "package": "vim-gtk3",
-  "present": true,
-  "exit_code": 0,
-  "detail": "vim-gtk3\t2:9.1.1230-2"
-}

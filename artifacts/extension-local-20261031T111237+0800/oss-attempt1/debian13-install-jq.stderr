@@ -1,7 +1,0 @@
-debian13: installing package(s) through the native transaction: jq.
-debian13: apt-get update
-debian13: apt-get install -y jq
-debian13: install completed txn517bc929f45b
-Native package transaction completed: txn517bc929f45b. A successful package transaction does not prove the application entry works.
-debian13: using explicit entry /usr/bin/jq.
-Registered application jq (target debian13, environment debian13).

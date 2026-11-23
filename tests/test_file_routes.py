@@ -156,13 +156,13 @@ class FailurePaths(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             routes, _service, _runtime, _project, _root, _handler, document = ready(
                 Path(temporary), project_policy="read-only")
-            with self.assertRaisesRegex(UnifierError, "project policy"):
+            with self.assertRaisesRegex(UnifierError, "ACCESS_READ_ONLY"):
                 routes.plan(str(document), "edit")
 
         with tempfile.TemporaryDirectory() as temporary:
             routes, _service, _runtime, _project, _root, _handler, document = ready(
                 Path(temporary), root_policy="read-only")
-            with self.assertRaisesRegex(UnifierError, "data root policy"):
+            with self.assertRaisesRegex(UnifierError, "ACCESS_READ_ONLY"):
                 routes.plan(str(document), "edit")
 
     def test_readonly_policy_view_rejects_writable_runtime_mounts(self):

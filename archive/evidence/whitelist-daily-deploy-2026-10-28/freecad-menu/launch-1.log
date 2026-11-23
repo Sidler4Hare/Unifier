@@ -1,2 +1,0 @@
-ml: podman start failed: Error: unable to start container "37daa7f7ff06042b482e941b34fd1a8f2a6a811a8e3bba65bac2a9de75346cd5": crun: cannot stat `/run/user/1000/xauth_NCgtEd`: No such file or directory: OCI runtime attempted to invoke a command that was not found
-

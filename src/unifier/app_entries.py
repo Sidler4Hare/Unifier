@@ -67,7 +67,8 @@ def parse_desktop_exec(value: str) -> dict:
 
 
 def package_entry_kind(path: str) -> str | None:
-    if any(path.startswith(prefix) and path.count("/") == prefix.count("/")
+    if any(path.startswith(prefix) and len(path) > len(prefix)
+           and path.count("/") == prefix.count("/")
            for prefix in _EXECUTABLE_DIRS):
         return "executable"
     if path.endswith(".desktop") and path.startswith(_APPLICATION_DIRS):

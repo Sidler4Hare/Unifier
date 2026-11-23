@@ -8,6 +8,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
+from unifier import __version__
 from unifier.on_demand import start_bridge, stop_bridge
 
 
@@ -61,14 +62,16 @@ class DeliveryBridgeLifecycle(unittest.TestCase):
             bridge = None
             try:
                 address = daemon.stdout.readline().strip()
-                directory = Path(temp) / '.lab/desktop' / ('多兼容实验' * 10)
-                record = {'id': 'fixture', 'desktop': {'portal_proxy': {
+                directory = Path(temp) / ('多兼容实验' * 10) / '.lab/desktop/fixture'
+                record = {'id': 'fixture', 'environment_uuid': 'f74ef424-7093-458b-a7de-ff32fa82563c',
+                          'generation': 1, 'runtime': {'container_id': 'a' * 64}, 'desktop': {'portal_proxy': {
                     'directory': str(directory), 'container': '/run/multilinux-portal'}}}
                 with patch.dict(os.environ, {'DBUS_SESSION_BUS_ADDRESS': address, 'XAUTHORITY': ''}):
                     bridge = start_bridge(record, file_delivery=True)
                     reused = start_bridge(record, bridge, file_delivery=True)
                 self.assertIs(reused, bridge)
                 item = bridge['file_delivery']
+                self.assertEqual(item['worker_version'], __version__)
                 self.assertTrue(Path(item['socket']).is_socket())
                 self.assertTrue(Path(item['selection_directory']).is_dir())
                 stop_bridge(bridge)

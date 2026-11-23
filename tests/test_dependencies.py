@@ -103,6 +103,25 @@ class RecursivePluginBoxes(PluginBoxes):
         return super()._answer(info, argv)
 
 
+SPLIT = PLUGIN.replace(
+    " 0x0000000000000001 (NEEDED) Shared library: [libasound.so.2]",
+    " 0x0000000000000001 (NEEDED) Shared library: [libasound.so.2]\n"
+    " 0x0000000000000001 (NEEDED) Shared library: [libghost.so.9]")
+
+
+class SplitProviderBoxes(PluginBoxes):
+    """One missing library has exactly one provider, another has none."""
+
+    def _answer(self, info, argv):
+        if argv[:2] == ["/bin/sh", "-c"] and argv[2] == SCAN:
+            return ExecResult(0, SPLIT, "")
+        if argv[:1] == ["apt-file"] and argv[1:2] != ["update"]:
+            if "libghost" in argv[-1]:
+                return ExecResult(1, "", "")
+            return ExecResult(0, "libasound2t64\n", "")
+        return super()._answer(info, argv)
+
+
 class DependencyTransactions(unittest.TestCase):
     def transaction(self, runtime, **kwargs):
         tmp = tempfile.TemporaryDirectory()
@@ -123,6 +142,39 @@ class DependencyTransactions(unittest.TestCase):
         self.assertNotEqual(txn["revision_before"], txn["revision_after"])
         self.assertEqual(service.show_transaction(txn["id"])["dependency_repair"], report)
 
+    def test_node_soname_is_scanned_and_only_so_names_are_queried(self):
+        class NodeBoxes(PluginBoxes):
+            def __init__(self, bundled):
+                super().__init__()
+                self.bundled = bundled
+
+            def _answer(self, info, argv):
+                addon, entry = "/opt/vendor/ipc.node", "/opt/vendor/libframe.so"
+                if argv[:2] == ["dpkg-query", "-L"] and argv[2] == "vendor":
+                    return ExecResult(0, "\n".join([entry, addon] if self.bundled else [entry]), "")
+                if argv[:3] == ["/bin/sh", "-c", SCAN]:
+                    objects = {
+                        addon: elf_record(addon, sonames=["ipc.node"]),
+                        entry: elf_record(entry, needed=["ipc.node", "libasound.so.2"]),
+                    }
+                    return ExecResult(0, "".join(objects[path] for path in argv[4:])
+                                      + "UNIFIER_SCAN_DONE\n", "")
+                return super()._answer(info, argv)
+
+        for bundled in (True, False):
+            with self.subTest(bundled=bundled):
+                _, txn = self.transaction(NodeBoxes(bundled))
+                report = txn["dependency_repair"]
+                self.assertEqual(report["installed"], ["libasound2t64"])
+                self.assertEqual(set(report["rounds"][0]["queries"]), {"libasound.so.2"})
+                if bundled:
+                    self.assertEqual(txn["phase"], "completed", txn)
+                    self.assertEqual(report["bundled_candidates"], ["ipc.node"])
+                else:
+                    self.assertEqual(txn["failure_phase"], "dependency-repair")
+                    self.assertEqual(report["unresolvable"]["unsupported"], ["ipc.node"])
+                    self.assertEqual(report["unresolved"], ["ipc.node"])
+
     def test_ambiguous_provider_is_reported_without_guessing(self):
         runtime = PluginBoxes()
         runtime.providers = "libasound2t64\nalternative-alsa\n"
@@ -130,6 +182,23 @@ class DependencyTransactions(unittest.TestCase):
         self.assertEqual(txn["failure_phase"], "dependency-repair")
         self.assertIn("2 repository providers", txn["native_error"])
         self.assertNotIn("libasound2t64", runtime.installed["deps"])
+
+    def test_unobtainable_library_does_not_cancel_the_other_repairs(self):
+        # A vendor package can miss one library no repository ships, next to
+        # others that do have a provider. The installable providers must still
+        # land, and the remainder must stay visible as unobtainable.
+        runtime = SplitProviderBoxes()
+        _, txn = self.transaction(runtime)
+        self.assertEqual(txn["failure_phase"], "dependency-repair", txn)
+        self.assertIn("libghost.so.9", txn["native_error"])
+        self.assertIn("libasound2t64", runtime.installed["deps"])
+        report = txn["dependency_repair"]
+        self.assertEqual(report["status"], "unresolved")
+        self.assertEqual(report["installed"], ["libasound2t64"])
+        self.assertEqual(report["unresolvable"],
+                         {"absent": ["libghost.so.9"], "ambiguous": []})
+        self.assertEqual(report["unresolved"], ["libghost.so.9"])
+        self.assertLessEqual(len(report["rounds"]), 2)
 
     def test_absent_provider_and_ineffective_install_are_bounded_failures(self):
         for absent in (True, False):
@@ -206,12 +275,23 @@ class DependencyTransactions(unittest.TestCase):
 
 
 class DependencyParsing(unittest.TestCase):
+    def test_freecad_private_extension_is_a_valid_elf_name(self):
+        data = elf_record("/usr/lib/freecad/lib/_PartDesign.so",
+                          needed=["_PartDesign.so"], sonames=["_PartDesign.so"])
+        objects = parse_scan(data + "UNIFIER_SCAN_DONE\n")
+        self.assertEqual(objects[0]["needed"], ["_PartDesign.so"])
+        self.assertEqual(objects[0]["sonames"], ["_PartDesign.so"])
+        self.assertEqual(provider_command("arch", "_PartDesign.so")[-1],
+                         r"^usr/lib/_PartDesign\.so$")
+
     def test_all_native_provider_commands_are_literal_and_architecture_scoped(self):
         for target in ("debian13", "fedora44", "arch"):
             argv = provider_command(target, "libasound.so.2")
             self.assertNotIn("sh", argv)
             with self.assertRaises(UnifierError):
                 provider_command(target, "libasound.so.2;touch /tmp/pwn")
+            with self.assertRaises(UnifierError):
+                provider_command(target, "ipc.node")
         self.assertEqual(provider_names("arch", "\0".join(["extra", "alsa-lib", "1.2.14", "usr/lib/libasound.so.2"]) + "\n"), ["alsa-lib"])
         self.assertEqual(provider_names("fedora44", "alsa-lib\nalsa-lib\n"), ["alsa-lib"])
 

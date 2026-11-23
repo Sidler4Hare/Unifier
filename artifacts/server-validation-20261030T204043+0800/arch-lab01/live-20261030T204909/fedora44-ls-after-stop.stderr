@@ -1,3 +1,0 @@
-fedora44: container is stopped; listing /etc through a read-only view
-fedora44: opening a short-lived read-only view 58ff6a5b-fb74-4ad8-8de3-fca71552a9cc; only this view is released afterwards.
-unifier: fedora44: cannot read the read-only view: view=58ff6a5b-fb74-4ad8-8de3-fca71552a9cc state=ready mountpoint=/home/dev/server-validation-20261030T204043+0800/live-20261030T204909/cli-installation/.lab/state/views/58ff6a5b-fb74-4ad8-8de3-fca71552a9cc/mount. The view record and recovery information were kept; run unifier view status, and unifier view recover if needed.

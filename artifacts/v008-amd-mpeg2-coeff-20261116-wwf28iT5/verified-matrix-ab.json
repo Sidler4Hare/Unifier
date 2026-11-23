@@ -1,0 +1,92 @@
+{
+  "cases": {
+    "original": {
+      "standard": {
+        "mae": 0.8732096354166666,
+        "max_error": 12,
+        "exact_samples": 10900,
+        "within_original_limit": false,
+        "sha256": "f49b86f92034c5549b99d979af648d425a58c1b36cbcfa5196d0a762cb5c687b"
+      },
+      "transpose": {
+        "mae": 0.013671875,
+        "max_error": 1,
+        "exact_samples": 18180,
+        "within_original_limit": true,
+        "sha256": "41c86d3ec86d7a179bbb8d3a452f2a2e93b2276e56f20ed01f6638dad01c3be1"
+      }
+    },
+    "sparse-q2": {
+      "standard": {
+        "mae": 0.8717447916666666,
+        "max_error": 14,
+        "exact_samples": 11346,
+        "within_original_limit": false,
+        "sha256": "94406507b9b2a25dcb59be4bbac649e88cf724c2c1fbcf95b0719b9eedad9d7b"
+      },
+      "transpose": {
+        "mae": 0.013671875,
+        "max_error": 1,
+        "exact_samples": 18180,
+        "within_original_limit": true,
+        "sha256": "da5beb23bd3ee61d4b8fa9648c77440817efd86292d21db506b8ef1f81b15d38"
+      }
+    },
+    "sparse-explicit": {
+      "standard": {
+        "mae": 0.8717447916666666,
+        "max_error": 14,
+        "exact_samples": 11346,
+        "within_original_limit": false,
+        "sha256": "94406507b9b2a25dcb59be4bbac649e88cf724c2c1fbcf95b0719b9eedad9d7b"
+      },
+      "transpose": {
+        "mae": 0.013671875,
+        "max_error": 1,
+        "exact_samples": 18180,
+        "within_original_limit": true,
+        "sha256": "da5beb23bd3ee61d4b8fa9648c77440817efd86292d21db506b8ef1f81b15d38"
+      }
+    },
+    "sparse-uniform": {
+      "standard": {
+        "mae": 0.013671875,
+        "max_error": 1,
+        "exact_samples": 18180,
+        "within_original_limit": true,
+        "sha256": "da5beb23bd3ee61d4b8fa9648c77440817efd86292d21db506b8ef1f81b15d38"
+      },
+      "transpose": {
+        "mae": 0.013671875,
+        "max_error": 1,
+        "exact_samples": 18180,
+        "within_original_limit": true,
+        "sha256": "da5beb23bd3ee61d4b8fa9648c77440817efd86292d21db506b8ef1f81b15d38"
+      }
+    },
+    "dense-vlc": {
+      "standard": {
+        "mae": 0.4990234375,
+        "max_error": 3,
+        "exact_samples": 9978,
+        "within_original_limit": false,
+        "sha256": "0868eb21d2cdd679809decc477bc1db00db7140e7949ab8f02b01c8f6366dcf3"
+      },
+      "transpose": {
+        "mae": 0.0146484375,
+        "max_error": 1,
+        "exact_samples": 18162,
+        "within_original_limit": true,
+        "sha256": "39f7469e7fb4a74c4682c30ccfee0464f4dcca64af0929cf94d81a899f481bf1"
+      }
+    }
+  },
+  "ring_5_fences": [
+    47,
+    77
+  ],
+  "fixture_cid": "2180a83540510175c2d177c0decf0cf852788fbe77d6c6263d98737fd644fa3f",
+  "pid_after": 0,
+  "non_target_instances_unchanged": 7,
+  "acl_sha256": "0dd60db424616cea9e9317a9191fff86619ce12819e1a068e8e628fc51c05f6c"
+}

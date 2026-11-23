@@ -103,6 +103,8 @@ def read_pacman_database(root_fd: int, *, seconds: float = 5.0) -> tuple[str, di
             opened.append(fd)
         mode = os.fstat(fd).st_mode
         if not (stat.S_ISDIR(mode) if directory else stat.S_ISREG(mode)):
+            if not tracked:
+                os.close(fd)
             raise UnifierError(f'pacman database path {name} is not a regular file/directory')
         return fd
 
@@ -133,20 +135,31 @@ def read_pacman_database(root_fd: int, *, seconds: float = 5.0) -> tuple[str, di
             parent = child
             check()
         db = parent
-        if lock_present('lck/db.lck') or lock_present('local/db.lck'):
+        if lock_present('db.lck'):
             raise UnifierError('pacman database lock db.lck is present; refuse to read')
         check()
         local = open_at(db, 'local', directory=True)
         first = listing(local)
-        if len(first) > MAX_PACKAGES:
+        if len(first) > MAX_PACKAGES + 1:
             raise UnifierError('pacman package count exceeds budget')
         total = 0
         digest = hashlib.sha256()
         rows = []
         names = set()
         pinned_directories = []
+        metadata = None
         for entry_name, is_directory in first:
             check()
+            if entry_name == 'ALPM_DB_VERSION':
+                version_fd = open_at(local, entry_name)
+                before = fingerprint(os.fstat(version_fd))
+                version = os.read(version_fd, 33)
+                if version.strip() != b'9' or len(version) > 32:
+                    raise UnifierError('pacman database version is unsupported')
+                metadata = (version_fd, before)
+                digest.update(version)
+                total += len(version)
+                continue
             if not is_directory:
                 raise UnifierError(f'pacman local contains a non-directory entry: {entry_name}')
             handle = []
@@ -183,7 +196,7 @@ def read_pacman_database(root_fd: int, *, seconds: float = 5.0) -> tuple[str, di
                     raise UnifierError(f'duplicate pacman package: {name}')
                 names.add(name)
                 rows.append(f'{name} {version}')
-                pinned_directories.append((entry_name, dir_fingerprint))
+                pinned_directories.append((entry_name, dir_fingerprint, fingerprint(after)))
             finally:
                 for fd in reversed(handle):
                     os.close(fd)
@@ -194,15 +207,27 @@ def read_pacman_database(root_fd: int, *, seconds: float = 5.0) -> tuple[str, di
         if len(inventory.encode()) > MAX_INVENTORY_BYTES:
             raise UnifierError('read-only inventory exceeds output budget')
         check()
-        if lock_present('lck/db.lck') or lock_present('local/db.lck'):
+        if lock_present('db.lck'):
             raise UnifierError('pacman database lock db.lck appeared during observation')
         if listing(local) != first:
             raise UnifierError('pacman local listing changed during observation')
-        for entry_name, dir_fingerprint in pinned_directories:
+        for entry_name, dir_fingerprint, desc_fingerprint in pinned_directories:
             check()
             current = os.stat(entry_name, dir_fd=local, follow_symlinks=False)
             if fingerprint(current) != dir_fingerprint:
                 raise UnifierError('pacman package directory changed during observation')
+            entry_fd = open_at(local, entry_name, directory=True, tracked=False)
+            try:
+                current = os.stat('desc', dir_fd=entry_fd, follow_symlinks=False)
+                if fingerprint(current) != desc_fingerprint:
+                    raise UnifierError('pacman desc changed during observation')
+            finally:
+                os.close(entry_fd)
+        if metadata is not None:
+            version_fd, before = metadata
+            if (fingerprint(os.fstat(version_fd)) != before or
+                    fingerprint(os.stat('ALPM_DB_VERSION', dir_fd=local, follow_symlinks=False)) != before):
+                raise UnifierError('pacman database version changed during observation')
         for parent_fd, name, child in directories + [(db, 'local', local)]:
             current = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
             pinned = os.fstat(child)

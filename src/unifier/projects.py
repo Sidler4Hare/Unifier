@@ -13,6 +13,7 @@ import re
 import uuid
 
 from unifier.errors import UnifierError
+from unifier.record_ids import validate_uuid
 from unifier.identity import binding_for, validate_binding
 from unifier.json_records import JsonRecordCollection
 
@@ -24,15 +25,7 @@ ALIAS = re.compile(r"[a-z][a-z0-9-]{0,31}\Z")
 
 
 def _canonical_uuid(value, label: str) -> str:
-    if not isinstance(value, str):
-        raise UnifierError(f"project {label} must be a string")
-    try:
-        parsed = uuid.UUID(value)
-    except (ValueError, AttributeError) as exc:
-        raise UnifierError(f"project {label} is not a UUID: {value!r}") from exc
-    if str(parsed) != value:
-        raise UnifierError(f"project {label} must be the canonical lowercase UUID form")
-    return value
+    return validate_uuid(value, f"project {label}")
 
 
 def _validate_alias(alias) -> str | None:

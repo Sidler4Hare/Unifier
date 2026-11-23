@@ -62,7 +62,7 @@ class AppUser(unittest.TestCase):
             try:
                 with patch("unifier.service.discover_session", return_value=SESSION):
                     code, _out, err = _run(["env", "create", "--target", "debian13", "--desktop",
-                                            "--userns", "keep-id"])
+                                            "--userns", "keep-id", "--no-portals"])
                 self.assertEqual(code, 0, err)
                 code, _out, err = _run(["app", "add", "debian13", "notes", "--exec",
                                         "/usr/bin/true", "--as-host-user"])

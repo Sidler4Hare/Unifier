@@ -1,3 +1,0 @@
-arch: pacman-key --init
-arch: pacman -Syu --noconfirm --needed jq
-arch: install completed txnece5715349e3

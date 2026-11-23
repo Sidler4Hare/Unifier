@@ -8,6 +8,34 @@ unifier app file-chooser <应用ID> gtk-native-portal
 
 设置只更新该应用启动记录，不立即启动容器。模式变化会改变应用执行指纹；已绑定旧指纹的桌面集成须沿用现有流程重新登记。应用应完整退出后重新启动，否则已有进程缓存的失败结果不会消失。
 
+通过 `unifier init --desktop`、`unifier configure --desktop` 和 `unifier env create --desktop` 新建的桌面环境默认启用管理式 Portal 桥接。这条规则适用于 Debian、Fedora、Arch 和后来加入的发行版，共用同一套桌面创建流程。新登记的按需图形应用默认使用 `gtk-portal`，识别到钉钉桌面条目或已知程序入口时使用 `gtk-native-portal`。识别到 FreeCAD 的 `org.freecad.FreeCAD` 桌面条目或 `/usr/bin/freecad` 入口时，默认使用 `qt-portal`。其他使用系统 Qt 平台主题的应用可以显式选择 `qt-portal`。新建时可选用 `--no-portals`。
+
+已有桌面实例可用 `unifier env portal-bridge <环境ID>` 查询桥接设置。对缺少桥接的 rootless Podman 桌面实例，在应用退出并确认容器停止、租约已释放后，执行 `unifier env portal-bridge <环境ID> enable`。下次由 Unifier 启动时，为该实例挂载该管理根的私有桥接目录。随后按应用启用选择器模式。
+
+回退时先将使用 Portal 的应用调回 `native`，再在停止态执行 `unifier env portal-bridge <环境ID> disable`。创建时由 `--portals` 固定的挂载沿用原配置。
+
+## 宿主后端和客体客户端
+
+```sh
+unifier env desktop-integration debian13
+unifier env desktop-integration debian13 --install qt6
+unifier app file-chooser <应用ID> qt-portal
+```
+
+第一条命令只读查询。`portal_bridge` 表示客体选择了哪种桥接，`configured_candidate` 来自宿主当前调用环境的 XDG 配置和后端声明。`frontend_version` 来自宿主会话中已经运行的 Portal。没有前端或无法取得版本时该项为空。实际请求仍由宿主 Portal 路由。KDE 或 GNOME 可以分别为选框和屏幕共享配置不同的后端。[Portal 配置规则](https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html)
+
+`--install` 可重复。它把每项能力解析为目标发行版的原生包，在同一次事务中安装缺少的包并回读清单。已有客户端时记录 `already-installed`，跳过包管理器。标准应用安装也会为 Debian 的 `com.alibabainc.dingtalk`、`wemeet` 和 Arch 的 `freecad` 补齐相应客户端。已有应用的选框模式可分别用 `app file-chooser` 查询和设置。
+
+| 客户端 | Debian 13 | Arch | Fedora 44 |
+|---|---|---|---|
+| `gtk3` | `libgtk-3-0t64` | `gtk3` | `gtk3` |
+| `qt6` | `qt6-xdgdesktopportal-platformtheme` | `qt6-base` | `qt6-qtbase-gui` |
+| `pipewire` | `pipewire-bin` | `pipewire` | `pipewire-libs` |
+
+Qt 6 选框插件从客体的 Qt 6 加载。Debian 13 仓库的 FreeCAD 使用 Qt 5，WPS Writer 使用专有 Qt 5.12，各自有独立的适配边界。PipeWire 同时需要客体的库、协议模块和默认客户端配置，媒体授权由宿主处理。[Debian Qt 6 插件](https://packages.debian.org/trixie/amd64/qt6-xdgdesktopportal-platformtheme/filelist) · [Arch Qt 6 文件清单](https://archlinux.org/packages/extra/x86_64/qt6-base/files/) · [Fedora Qt 6 文件清单](https://packages.fedoraproject.org/pkgs/qt6-qtbase/qt6-qtbase-gui/fedora-44-updates.html) · [Debian FreeCAD 依赖](https://packages.debian.org/trixie/libfreecad-python3)
+
+### GTK Native 兼容时的加载过程
+
 启动时，Unifier 校验已有桌面 Portal 桥，启用原生 Portal 文件交付通道，再发布独立的 Python 启动辅助程序。辅助程序在客体内：
 
 1. 通过客体动态加载器定位 `libgtk-3.so.0`，校验 ELF64/amd64、SONAME，以及六个 Native API 确实来自同一个库。
@@ -19,6 +47,14 @@ unifier app file-chooser <应用ID> gtk-native-portal
 ## 文件与后端边界
 
 要求应用实际使用 GtkFileChooserNative；对完全写死 GtkFileChooserDialog 的程序没有强制接管作用。GTK Native 自身仍可能因特殊选项或 Portal 故障回退，是否真正到达宿主必须以 OpenFile/SaveFile 调用和用户工作流验证。
+
+WPS Office 12.1.2.29183 默认由应用自己的窗口处理打开和另存为。整合模式和多组件模式都走这条路径。随包的 Qt 5.12 使用 `kso_qt` 命名空间，其平台主题和文件对话框 ABI 也有扩展。私有 Debian 上的专用适配已验证通过 KDE 打开、另存 DOCX 和 DOC、重开并正常退出。除了转发 Qt 对话框，适配还修正了该版 Writer 保存时的格式列表分隔符，否则选中 DOCX 后仍会写出旧版 Word 二进制。源码、重建参数和验收方法见 [WPS Writer 适配](../tools/wps_portal/README.md)。
+
+Debian 13 的 `unifier install` 本地 WPS 安装路径提供厂商配置脚本所需的 `hexdump` 和实测缺少的系统库。新登记的图形入口在命令恰为 `/usr/bin/wps` 时使用 `stop-children`。主程序退出后，按需启动器回收这次启动拥有的云助手和 CEF 子进程，随后释放应用租约。
+
+桌面应用安装会检查客体内是否已有可用的 sans-serif 字体。精简系统缺失时，会通过客体原生包管理器补齐 fontconfig 和该发行版的 DejaVu 基础字体。FreeCAD 在精简 Arch 上的菜单和属性标签已通过这条路径恢复可读。
+
+FreeCAD 1.1.4-3 已在私有 Arch 桌面上从应用菜单启动，经 KDE 保存并重开 FCStd，再导出和导入 STEP。两个工作流都校验了实际几何尺寸和正常退出。保存目标位于已配对的可写共享。
 
 `gtk-portal`、`gtk-native-portal`、`qt-portal` 共用原生 Portal 文件交付通道。它校验宿主 Portal 的成功返回，再把路径转换到已核验的实际共享；未共享的只读普通文件则生成保持原文件名的临时快照，放入既有桥接挂载。无需同路径共享或重建容器。快照只代表选择时的内容，不是可编辑的原件。
 

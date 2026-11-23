@@ -22,10 +22,10 @@ class PackageObservation(unittest.TestCase):
                          and event[1] == peer['runtime']['container_name']]
             self.assertEqual(forbidden, [], 'package observation woke a stopped peer')
             self.assertEqual(service.inspect('peer')['runtime_state'], 'stopped')
-            # Without an independent fresh read, refusal must precede native writes.
-            self.assertEqual(txn['phase'], 'failed')
-            self.assertEqual(txn['native'], [])
-            self.assertFalse(txn['verification']['ok'])
+            self.assertEqual(txn['phase'], 'completed')
+            self.assertTrue(txn['native'])
+            self.assertTrue(txn['verification']['ok'])
+            self.assertEqual(txn['isolation_observation']['status'], 'unavailable')
             self.assertIn('peer', str(txn['other_environments']))
 
     def fixture(self, running=False):
@@ -44,13 +44,13 @@ class PackageObservation(unittest.TestCase):
                           if event[0] in ('start', 'stop', 'exec')
                           and event[1] == peer['runtime']['container_name']], [])
 
-    def assert_refused_before_start(self, service, runtime, txn):
-        self.assertEqual(txn['phase'], 'failed')
-        self.assertEqual(txn['failure_phase'], 'isolation-preflight')
-        self.assertEqual(txn['native'], [])
-        self.assertFalse(txn['verification']['ok'])
-        self.assertEqual([event for event in runtime.events
-                          if event[0] in ('start', 'stop', 'exec')], [])
+    def assert_audit_does_not_block_target(self, service, runtime, txn):
+        self.assertEqual(txn['phase'], 'completed')
+        self.assertIsNone(txn['failure_phase'])
+        self.assertTrue(txn['native'])
+        self.assertTrue(txn['verification']['ok'])
+        self.assertIn(txn['isolation_observation']['status'], ('changed', 'unavailable'))
+        self.assertFalse(txn['recovery_required'])
         self.assertEqual(service.inspect('target')['runtime_state'], 'stopped')
         self.assertTrue(service.store.transaction_path(txn['id']).is_file())
 
@@ -66,8 +66,8 @@ class PackageObservation(unittest.TestCase):
         service, runtime, peer = self.fixture()
         runtime.read_inventory_readonly = Mock(side_effect=OSError('database unavailable'))
         txn = service.install_packages('target', ['hello'])
-        self.assert_refused_before_start(service, runtime, txn)
-        self.assertIn('database unavailable', txn['native_error'])
+        self.assert_audit_does_not_block_target(service, runtime, txn)
+        self.assertIn('database unavailable', str(txn['isolation_observation']))
         self.assertIsNone(txn['other_environments']['peer']['probed_before'])
         self.assert_no_peer_execution(runtime, peer)
 
@@ -75,21 +75,21 @@ class PackageObservation(unittest.TestCase):
         service, runtime, _peer = self.fixture()
         runtime.read_inventory_readonly = Mock(return_value=b'base-peer\t1\n')
         txn = service.install_packages('target', ['hello'])
-        self.assert_refused_before_start(service, runtime, txn)
-        self.assertIn('observation contract', txn['native_error'])
+        self.assert_audit_does_not_block_target(service, runtime, txn)
+        self.assertIn('observation contract', str(txn['isolation_observation']))
 
-    def test_mismatching_fresh_snapshot_refuses_before_native_writes(self):
+    def test_mismatching_fresh_snapshot_is_an_unattributed_change(self):
         service, runtime, _peer = self.fixture()
         runtime.installed['peer'] = {'externally-added'}
         txn = service.install_packages('target', ['hello'])
-        self.assert_refused_before_start(service, runtime, txn)
-        self.assertIn('differs', txn['native_error'])
+        self.assert_audit_does_not_block_target(service, runtime, txn)
+        self.assertEqual(txn['isolation_observation']['status'], 'changed')
 
     def test_running_peer_without_reader_is_preserved_without_exec(self):
         service, runtime, peer = self.fixture(running=True)
         runtime.read_inventory_readonly = None
         txn = service.install_packages('target', ['hello'])
-        self.assert_refused_before_start(service, runtime, txn)
+        self.assert_audit_does_not_block_target(service, runtime, txn)
         self.assert_no_peer_execution(runtime, peer)
         self.assertEqual(service.inspect('peer')['runtime_state'], 'running')
 
@@ -99,7 +99,7 @@ class PackageObservation(unittest.TestCase):
         runtime.containers[name] = replace(runtime.containers[name], project='/foreign')
         reader = runtime.read_inventory_readonly = Mock()
         txn = service.install_packages('target', ['hello'])
-        self.assert_refused_before_start(service, runtime, txn)
+        self.assert_audit_does_not_block_target(service, runtime, txn)
         reader.assert_not_called()
 
     def test_peer_change_after_native_write_is_reported_by_final_verification(self):
@@ -113,8 +113,9 @@ class PackageObservation(unittest.TestCase):
             return reader(record)
         runtime.read_inventory_readonly = snapshot
         txn = service.install_packages('target', ['hello'])
-        self.assertEqual(txn['phase'], 'failed')
-        self.assertEqual(txn['failure_phase'], 'verification')
+        self.assertEqual(txn['phase'], 'completed')
+        self.assertIsNone(txn['failure_phase'])
+        self.assertEqual(txn['isolation_observation']['status'], 'changed')
         self.assertFalse(txn['other_environments']['peer']['unchanged'])
         self.assertTrue(txn['native'])
         self.assert_no_peer_execution(runtime, peer)

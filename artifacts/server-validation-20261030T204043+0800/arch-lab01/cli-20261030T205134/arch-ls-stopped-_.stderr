@@ -1,2 +1,0 @@
-arch: container is stopped; listing / through a read-only view
-arch: opening a short-lived read-only view 29f25b46-8d39-42ec-8d32-1aa4153429b2; only this view is released afterwards.

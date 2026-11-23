@@ -1,7 +1,0 @@
-{
-  "environment_id": "gui-fedora44",
-  "package": "vim-X11",
-  "present": true,
-  "exit_code": 0,
-  "detail": "vim-X11\t9.2.1202-1.fc44.x86_64"
-}

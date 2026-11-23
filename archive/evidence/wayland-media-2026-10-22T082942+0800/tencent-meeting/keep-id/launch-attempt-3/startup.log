@@ -1,4 +1,0 @@
-wemeet:WemeetSatrt
-MESA: error: Failed to query drm device.
-glx: failed to create dri3 screen
-failed to load driver: iris

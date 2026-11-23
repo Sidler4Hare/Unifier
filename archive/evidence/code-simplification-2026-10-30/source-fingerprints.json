@@ -1,8 +1,0 @@
-{
-  "src/multilinux/app_entries.py": "d91ece6c1aeb093c568d3caa7e99afad615ed38412c462b6b658a76bcbf6d0ab",
-  "src/multilinux/file_operations.py": "4d00152a5b86031f05fee893d53a4ed581765185a45d281daacefc2b62bacaa9",
-  "src/multilinux/packages.py": "b129306e3568f292305836d1401f473b3ee23e705e237a63e64e52f72d6ddef1",
-  "src/multilinux/service.py": "b648e0acdc84fc8e6d12129c9510204ce2612fbb6e5179b5ee41714e57749995",
-  "tests/test_app_entries.py": "4eb678a676184a80b8f0f311064a08379b4327c120ce7422c4421e23e75fdbff",
-  "tests/test_controlled_move.py": "9c38972945d3fdd0f220dfa39437df47c0b1db52c0e08ec8e7cfb2b7c2c9655a"
-}

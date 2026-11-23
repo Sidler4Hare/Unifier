@@ -307,7 +307,9 @@ class Execution(unittest.TestCase):
             record = sessions.create_session(
                 project["project_uuid"], argv=["/bin/echo", str(special)],
                 cwd=str(document.parent), env_keys=["LANG"])
-            with patch.dict(os.environ, {"LANG": "C.UTF-8"}):
+            self.assertIsNone(sessions.show(record["session_uuid"])["worker_version"])
+            with (patch.dict(os.environ, {"LANG": "C.UTF-8"}),
+                  patch.object(sessions_module, "__version__", "0.0.7")):
                 code = sessions.execute(record["session_uuid"])
             self.assertEqual(code, 0)
             event = runtime.session_events[-1]
@@ -320,6 +322,7 @@ class Execution(unittest.TestCase):
             self.assertEqual(runtime.cleanup_calls[-1][1], "1000:1000")
             view = sessions.show(record["session_uuid"])
             self.assertEqual(view["state"], "exited")
+            self.assertEqual(view["worker_version"], "0.0.7")
             self.assertEqual(view["exit_code"], 0)
             self.assertIsNone(view["lease_token"])
             self.assertEqual(view["execution_pinned"]["session_user"], "1000:1000")
@@ -335,6 +338,21 @@ class Execution(unittest.TestCase):
             service.remove("arch")
             with self.assertRaisesRegex(UnifierError, "does not exist"):
                 service.inspect("arch")
+
+    def test_direct_environment_remove_refuses_live_project_session(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            service, runtime, _routes, project, _root, document = ready(Path(temporary))
+            sessions = ProjectSessions(Path(temporary), service)
+            record = sessions.create_session(
+                project["project_uuid"], argv=["/bin/true"], cwd=str(document.parent))
+            record.update(state="running", worker_pid=os.getpid(),
+                          worker_stamp=process_stamp(os.getpid()))
+            sessions.store.write(record)
+            events = list(runtime.events)
+            with self.assertRaisesRegex(UnifierError, "project session .* is still live"):
+                service.remove("arch")
+            self.assertEqual(runtime.events, events)
+            self.assertTrue(service.store.exists("arch"))
 
     def test_nonzero_and_127_exits_are_exact(self):
         for code in (3, 127):

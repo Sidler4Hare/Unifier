@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -6,14 +7,38 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from unifier.cli import main
+from unifier import wps_portal
 from unifier.errors import UnifierError
-from unifier.file_chooser import MODE_KEY, launch_argv, launch_environment, preflight_picker, verified_shares
+from unifier.file_chooser import (
+    MODE_KEY, default_portal_profile, launch_argv, launch_environment, preflight_picker,
+    verified_shares,
+)
 from unifier.kdialog_args import parse_args
 from unifier.kdialog_portal import SHARES_ENV, guest_paths, picker_options
 from unifier.on_demand import LaunchGroup, managed_open
 from unifier.service import EnvironmentService
 from unifier.zenity_args import parse_args as parse_zenity_args
 from test_desktop import SESSION, desktop_service
+
+
+class DefaultPortalProfileTests(unittest.TestCase):
+    def test_freecad_uses_qt_portal_when_the_managed_bridge_is_present(self):
+        desktop = {"desktop": {"portal_proxy": {"managed_mount": True}}}
+        self.assertEqual(default_portal_profile(desktop, "/usr/bin/freecad"), {MODE_KEY: "qt-portal"})
+        self.assertEqual(default_portal_profile(
+            desktop, "/usr/local/bin/freecad", desktop_id="org.freecad.FreeCAD"), {MODE_KEY: "qt-portal"})
+        self.assertEqual(default_portal_profile({"desktop": None}, "/usr/bin/freecad"), {})
+
+    def test_wps_uses_its_own_portal_mode_when_the_release_has_the_adapter(self):
+        record = {"target": "debian13", "desktop": {"portal_proxy": {"managed_mount": True}}}
+        with patch.object(wps_portal, "payload_available", return_value=True):
+            self.assertEqual(default_portal_profile(record, "/usr/bin/wps"),
+                             {MODE_KEY: "wps-portal"})
+            self.assertEqual(default_portal_profile({**record, "target": "arch"}, "/usr/bin/wps"),
+                             {MODE_KEY: "gtk-portal"})
+        with patch.object(wps_portal, "payload_available", return_value=False):
+            self.assertEqual(default_portal_profile(record, "/usr/bin/wps"),
+                             {MODE_KEY: "gtk-portal"})
 
 
 class KdialogTests(unittest.TestCase):
@@ -57,33 +82,32 @@ class KdialogTests(unittest.TestCase):
             other.write_text("second")
             shares = [("/host", str(guest), True)]
             request = parse_args(["--multiple", "--separate-output", "--getopenfilename", "."])
-            uris = ["file:///host/%E9%99%84%E4%BB%B6.pdf",
-                    "file://localhost/host/%E7%A9%BA%E6%A0%BC%20%E6%96%87%E4%BB%B6.txt"]
+            uris = [sample.as_uri(), other.as_uri().replace('file:///', 'file://localhost/')]
             self.assertEqual(guest_paths(uris, shares, request), [str(sample), str(other)])
             for bad in ("file:///outside/secret", "file://remote/host/secret",
                         "file:///host/%2e%2e/secret", "file:///host/a%0ab"):
-                with self.subTest(bad=bad), self.assertRaises(ValueError):
+                with self.subTest(bad=bad), self.assertRaises((ValueError, OSError)):
                     guest_paths([uris[0], bad], shares, request)
             (guest / "alias").symlink_to(sample)
             with self.assertRaises(ValueError):
-                guest_paths(["file:///host/alias"], shares, request)
+                guest_paths([(guest / "alias").as_uri()], shares, request)
             self.assertEqual(sample.read_text(), "original")
 
     def test_folder_and_save_result_require_correct_type_and_permissions(self):
         with tempfile.TemporaryDirectory() as tmp:
             guest = Path(tmp)
             save = parse_args(["--getsavefilename", "."])
-            self.assertEqual(guest_paths(["file:///host/new.txt"], [("/host", tmp, True)], save),
+            self.assertEqual(guest_paths([(guest / "new.txt").as_uri()], [("/host", tmp, True)], save),
                              [str(guest / "new.txt")])
             self.assertFalse((guest / "new.txt").exists())
             with self.assertRaises(ValueError):
-                guest_paths(["file:///host/new.txt"], [("/host", tmp, False)], save)
+                guest_paths([(guest / "new.txt").as_uri()], [("/host", tmp, False)], save)
             (guest / "folder").mkdir()
             folder = parse_args(["--getexistingdirectory", "."])
-            self.assertEqual(guest_paths(["file:///host/folder"], [("/host", tmp, False)], folder),
+            self.assertEqual(guest_paths([(guest / "folder").as_uri()], [("/host", tmp, False)], folder),
                              [str(guest / "folder")])
             with self.assertRaises(ValueError):
-                guest_paths(["file:///host/folder"], [("/host", tmp, True)], save)
+                guest_paths([(guest / "folder").as_uri()], [("/host", tmp, True)], save)
 
 
 class ZenityTests(unittest.TestCase):
@@ -186,6 +210,43 @@ class LaunchModesTests(unittest.TestCase):
         self.assertEqual(qt["QT_QPA_PLATFORMTHEME"], "xdgdesktopportal")
         self.assertNotIn("GTK_USE_PORTAL", qt)
 
+    def test_wps_launch_is_scoped_and_checks_vendor_and_adapter_hashes(self):
+        bundle = self.root / "assets"
+        files = {wps_portal.AUDIT: b"\x7fELF\x02\x01 audit",
+                 wps_portal.THEME: b"\x7fELF\x02\x01 theme"}
+        for name, data in files.items():
+            path = bundle / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(data)
+        vendor = self.root / "office6"
+        vendor.mkdir()
+        data = b"expected vendor bytes"
+        (vendor / "pinned.so").write_bytes(data)
+        hashes = {"pinned.so": hashlib.sha256(data).hexdigest()}
+        (bundle / "manifest.json").write_text(json.dumps({
+            "wps": "12.1.2.29183", "arch": "x86_64", "qt": "5.12.12",
+            "vendor_sha256": hashes,
+            "payload_sha256": {name: hashlib.sha256(data).hexdigest() for name, data in files.items()},
+        }))
+        self.record["target"] = "debian13"
+        launch = {"env": {**self.env, MODE_KEY: "wps-portal"}, "on_demand": True,
+                  "executable": "/usr/bin/wps"}
+        with patch.object(wps_portal, "ASSETS", bundle), patch.object(wps_portal, "VENDOR_SHA256", hashes):
+            env = launch_environment(self.record, launch, self.mounts, self.root)
+            wrapped = launch_argv(self.record, launch, ["/usr/bin/wps", "文件.docx"], environment=env)
+            host_bundle = self.bridge / Path(wrapped[2]).parent.name
+            self.assertEqual(wrapped[3:], ["--", "/usr/bin/wps", "文件.docx"])
+            self.assertEqual(env["DBUS_SESSION_BUS_ADDRESS"], f"unix:path={self.inside}/files-bus")
+            self.assertNotIn("LD_AUDIT", env)
+            self.assertNotIn("UNIFIER_WPS_PORTAL_ENTRY", env)
+            guest = wps_portal.guest_environment(host_bundle, vendor, {"HOME": "/original"})
+            self.assertEqual(guest["HOME"], "/original")
+            self.assertEqual(guest["QT_QPA_PLATFORMTHEME"], "xdgdesktopportal")
+            self.assertEqual(guest["LD_AUDIT"], str(host_bundle / wps_portal.AUDIT))
+            (vendor / "pinned.so").write_bytes(b"new version")
+            with self.assertRaisesRegex(ValueError, "do not match"):
+                wps_portal.guest_environment(host_bundle, vendor, {})
+
     def test_kdialog_uses_actual_mount_and_does_not_change_global_path(self):
         env = self.mode("kdialog-portal")
         prefix, original = env["PATH"].split(":", 1)
@@ -231,8 +292,7 @@ class LaunchModesTests(unittest.TestCase):
     def test_refuses_stale_or_shadowed_mounts(self):
         self.mounts.append(("/other", "/guest/docs/shadow", True, "bind"))
         self.assertEqual(verified_shares(self.record, self.mounts), [])
-        with self.assertRaisesRegex(UnifierError, "verified data share"):
-            self.mode("kdialog-portal")
+        self.assertTrue(self.mode("kdialog-portal")["DBUS_SESSION_BUS_ADDRESS"].endswith("/files-bus"))
         self.mounts[0] = ("/other", self.inside, True, "bind")
         with self.assertRaisesRegex(UnifierError, "bridge mount"):
             self.mode("kdialog-portal")

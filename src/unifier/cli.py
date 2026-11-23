@@ -2,10 +2,14 @@
 
 import argparse
 import json
+import os
+import stat
 import sys
 
 from unifier.errors import UnifierError
 from unifier import __version__
+from unifier.catalog import PREPARED
+from unifier.desktop_clients import CLIENTS, desktop_provisioning_failure, desktop_repair_command
 from unifier.packages import transaction_verdict
 from unifier.native_io import add_package_arguments, package_options
 
@@ -22,7 +26,10 @@ def build_parser() -> argparse.ArgumentParser:
     agent_ops = agent.add_subparsers(dest="operation", required=True)
     serve = agent_ops.add_parser("serve", help="serve a private host-issued policy")
     serve.add_argument("--policy", required=True)
-    serve.add_argument("--once", action="store_true")
+    serve_mode = serve.add_mutually_exclusive_group()
+    serve_mode.add_argument("--once", action="store_true")
+    serve_mode.add_argument("--recover", action="store_true",
+                            help="reconcile dead requests without starting a listener")
     serve.add_argument("--max-requests", type=int)
     serve.set_defaults(func=cmd_agent_serve)
     request = agent_ops.add_parser("request", help="request one host-authorized action")
@@ -47,7 +54,7 @@ def build_parser() -> argparse.ArgumentParser:
     operations = env.add_subparsers(dest="operation", required=True)
 
     create = operations.add_parser("create", help="create a stopped environment from the locked image")
-    create.add_argument("--target", required=True, help="debian13, fedora44 or arch")
+    create.add_argument("--target", required=True, help=", ".join(PREPARED))
     create.add_argument("--id", help="defaults to the target name")
     create.add_argument("--network", choices=("none", "pasta"), default="none",
                         help="none has no repository access; pasta is required for install and update")
@@ -61,8 +68,16 @@ def build_parser() -> argparse.ArgumentParser:
                         help="mount the current Wayland, X11 and audio sockets")
     create.add_argument("--userns", choices=("rootless-default", "keep-id"), default="rootless-default",
                         help="keep-id allows applications to run with the host UID/GID")
-    create.add_argument('--device', action='append', default=[], help='explicit /dev/videoN camera; requires --desktop')
-    create.add_argument('--portals', action='store_true', help='filtered host desktop portal bridge; use an on-demand application')
+    create.add_argument('--device', action='append', default=[],
+                        help='explicit /dev/dri/renderDN for headless graphics/compute; '
+                             '/dev/videoN and /dev/dri/cardN require --desktop')
+    create.add_argument('--cuda-device', metavar='GPU-UUID',
+                        help='attach one NVIDIA GPU by full UUID for headless CUDA')
+    portals = create.add_mutually_exclusive_group()
+    portals.add_argument('--portals', action='store_true', default=None,
+                         help='use the legacy desktop Portal mount created with the container')
+    portals.add_argument('--no-portals', dest='portals', action='store_false',
+                         help='skip the managed Portal bridge that desktop environments get by default')
     create.add_argument('--gpu', action='store_true', help='passthrough host /dev/dri devices for hardware graphics and video; requires --desktop')
     create.add_argument('--ipc', choices=('private', 'host'), default=None, help='IPC namespace mode; desktop defaults to host')
     create.set_defaults(func=cmd_create)
@@ -74,6 +89,12 @@ def build_parser() -> argparse.ArgumentParser:
     inspect.add_argument("id")
     inspect.set_defaults(func=cmd_inspect)
 
+    hardware = operations.add_parser("hardware", help="describe registered hardware without starting the environment")
+    hardware.add_argument("id")
+    hardware.add_argument("--evidence", action="append", default=[], metavar="RECEIPT",
+                          help="classify a saved JSON probe receipt against observable hardware")
+    hardware.set_defaults(func=cmd_hardware)
+
     export = operations.add_parser("export", help="write the inspect record to a JSON file")
     export.add_argument("id")
     export.add_argument("--output", required=True)
@@ -82,6 +103,40 @@ def build_parser() -> argparse.ArgumentParser:
     start = operations.add_parser("start", help="start an environment's sleeper process")
     start.add_argument("id")
     start.set_defaults(func=cmd_start)
+
+    portal_bridge = operations.add_parser(
+        "portal-bridge", help="show or configure the Portal bridge for an existing desktop")
+    portal_bridge.add_argument("id")
+    portal_bridge.add_argument("mode", nargs="?", choices=("enable", "disable"))
+    portal_bridge.set_defaults(func=cmd_portal_bridge)
+
+    desktop_integration = operations.add_parser(
+        "desktop-integration", help="show host Portal routing and install native desktop clients")
+    desktop_integration.add_argument("id")
+    desktop_actions = desktop_integration.add_mutually_exclusive_group()
+    desktop_actions.add_argument(
+        "--install", action="append", choices=CLIENTS, metavar="CLIENT",
+        help="install a guest client through its native package manager (gtk3, qt6, pipewire); repeatable")
+    desktop_actions.add_argument(
+        "--repair", action="store_true",
+        help="check and install missing GTK 3, Qt 6 and PipeWire clients in the recorded desktop")
+    desktop_integration.set_defaults(func=cmd_desktop_integration)
+
+    render_node = operations.add_parser(
+        "render-node", help="configure one DRM render node for the next start of a stopped desktop")
+    render_node.add_argument("id")
+    node_choice = render_node.add_mutually_exclusive_group(required=True)
+    node_choice.add_argument("path", nargs="?", metavar="/dev/dri/renderDN")
+    node_choice.add_argument("--clear", action="store_true", help="remove the render-node setting")
+    render_node.set_defaults(func=cmd_render_node)
+
+    camera = operations.add_parser(
+        "camera", help="select one V4L2 capture node for the next start of a stopped desktop")
+    camera.add_argument("id")
+    camera_choice = camera.add_mutually_exclusive_group(required=True)
+    camera_choice.add_argument("path", nargs="?", metavar="/dev/videoN")
+    camera_choice.add_argument("--clear", action="store_true", help="remove the camera setting")
+    camera.set_defaults(func=cmd_camera)
 
     stop = operations.add_parser("stop", help="stop an environment without deleting it")
     stop.add_argument("id")
@@ -145,7 +200,8 @@ def build_parser() -> argparse.ArgumentParser:
     install.set_defaults(func=cmd_pkg_install)
     add_package_arguments(install, repair=True)
 
-    repair = pkg_ops.add_parser("repair-deps", help="find and install missing runtime library providers")
+    repair = pkg_ops.add_parser(
+        "repair-deps", help="repair missing library providers and the named packages' application runtime")
     repair.add_argument("id")
     repair.add_argument("packages", nargs="*", help="installed packages whose ELF files are checked")
     repair.add_argument("--library", action="append", default=[], help="exact missing SONAME from a runtime error")
@@ -158,6 +214,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     recover = pkg_ops.add_parser("recover", help="audit and reconcile an interrupted package transaction")
     recover.add_argument("id")
+    recover.add_argument("--maintenance-receipt", metavar="PATH",
+                         help="Arch operator attestations from completed native maintenance")
     recover.set_defaults(func=cmd_pkg_recover)
     storage_recover = pkg_ops.add_parser('recover-storage',
         help='release one proven orphaned inventory storage reference without starting the environment')
@@ -199,6 +257,8 @@ def build_parser() -> argparse.ArgumentParser:
     add.add_argument('--on-demand', action='store_true', help='start its environment on open and stop after the last managed application exits')
     add.add_argument('--headless', action='store_true',
                      help='register a CLI application in an environment without desktop bindings')
+    add.add_argument('--exit-policy', choices=('wait', 'stop-children'), default='wait',
+                     help='on-demand only: stop-children terminates owned helpers after the foreground command exits; use only when that command waits for the UI')
     add.add_argument('--package-file', help='record package format, SHA-256 and target; the installer is not needed on subsequent opens')
     add.add_argument("--set", action="append", default=None, metavar="KEY=VALUE",
                      help="extra environment value stored in the launch record; repeatable")
@@ -212,6 +272,11 @@ def build_parser() -> argparse.ArgumentParser:
     chooser.add_argument("id")
     chooser.add_argument("mode", nargs="?", choices=MODES)
     chooser.set_defaults(func=cmd_app_file_chooser)
+    from unifier.input_method import MODES as INPUT_METHOD_MODES
+    input_method = app_ops.add_parser("input-method", help="show or choose the application's input method mode")
+    input_method.add_argument("id")
+    input_method.add_argument("mode", nargs="?", choices=INPUT_METHOD_MODES)
+    input_method.set_defaults(func=cmd_app_input_method)
     leases = app_ops.add_parser('leases', help='inspect shared application and project leases')
     leases.add_argument('environment')
     leases.set_defaults(func=cmd_app_leases)
@@ -326,6 +391,8 @@ def build_parser() -> argparse.ArgumentParser:
     file_list = file_ops.add_parser(
         "list", help="list file operation journals and their conservative states")
     file_list.set_defaults(func=cmd_file_list)
+    from unifier.file_access_cli import add_parser as add_access_parser
+    add_access_parser(file_ops, cmd_file_access)
 
     project = commands.add_parser("project", help="register a host project and its toolchain")
     project_ops = project.add_subparsers(dest="operation", required=True)
@@ -587,12 +654,9 @@ def shortcut_context_factory(**kwargs):
 
 
 def default_service():
-    from unifier.service import EnvironmentService
-    from unifier.runtime import PodmanRuntime
-    from unifier.install import load_catalog, state_root
+    from unifier.bootstrap import service_for_root
 
-    config, lock = load_catalog()
-    return EnvironmentService(state_root(), PodmanRuntime(), config, lock)
+    return service_for_root()
 
 
 def service_factory():
@@ -638,7 +702,11 @@ def cmd_agent_serve(args) -> int:
     from unifier.agent_bridge import main as bridge_main
 
     argv = ["--policy", args.policy, "--root", str(_state_root())]
-    if args.once:
+    if args.recover:
+        if args.max_requests is not None:
+            raise UnifierError("agent serve --recover does not accept --max-requests")
+        argv.append("--recover")
+    elif args.once:
         argv.append("--once")
     if args.max_requests is not None:
         argv.extend(["--max-requests", str(args.max_requests)])
@@ -663,10 +731,10 @@ def cmd_compat_list(args) -> int:
 
 def _compat_plans(args) -> list[dict]:
     from pathlib import Path
-    from unifier.compatibility import compatibility_mode, observe_host, relationship_plan
-    from tools import lab
-    config = lab.targets()
-    compatibility_mode(config)
+    from unifier.compatibility import observe_host, relationship_plan
+    from unifier.install import load_target_config
+
+    config = load_target_config()
     facts = observe_host(Path(args.os_release) if args.os_release else None)
     targets = [args.target] if hasattr(args, "target") else list(config["targets"])
     return [relationship_plan(facts, name, config["targets"].get(name)) for name in targets]
@@ -688,8 +756,12 @@ def cmd_create(args) -> int:
     options = {"user_namespace": args.userns} if args.userns != "rootless-default" else {}
     if args.device:
         options['devices'] = args.device
-    if args.portals:
-        options['portals'] = True
+    if getattr(args, 'cuda_device', None) is not None:
+        options['cuda_device'] = args.cuda_device
+    if args.desktop or args.portals:
+        options['portals'] = args.portals
+    if args.desktop and args.portals is None and args.network == "pasta":
+        options["provision_desktop_clients"] = True
     if args.gpu:
         options['gpu'] = True
     if args.ipc:
@@ -700,6 +772,15 @@ def cmd_create(args) -> int:
         options = {**options, "share_label_policy": args.share_label}
     record = service_factory().create(
         args.target, args.id, args.share or [], args.network, desktop=args.desktop, **options)
+    if failure := desktop_provisioning_failure(record):
+        env_id = record["id"]
+        detail = failure.get("detail") or failure["phase"]
+        print(f"Environment {env_id} was created and retained. Desktop client "
+              f"provisioning is incomplete ({detail}).", file=sys.stderr)
+        if failure.get("recovery_required"):
+            print(f"Run unifier pkg recover {env_id} first.", file=sys.stderr)
+        print(f"Resume with {desktop_repair_command(env_id)}.", file=sys.stderr)
+        return int(failure.get("exit_code") or 1)
     print(f"created {record['id']} ({record['target']}) {record['runtime_state']}")
     return 0
 
@@ -711,6 +792,14 @@ def cmd_list(args) -> int:
 
 def cmd_inspect(args) -> int:
     print(json.dumps(service_factory().inspect(args.id), ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_hardware(args) -> int:
+    from unifier.hardware_report import read_receipt
+
+    evidence = [read_receipt(path) for path in args.evidence]
+    print(json.dumps(service_factory().hardware(args.id, evidence=evidence), ensure_ascii=False, indent=2))
     return 0
 
 
@@ -753,6 +842,42 @@ def cmd_start(args) -> int:
     return 0
 
 
+def cmd_render_node(args) -> int:
+    node = service_factory().configure_render_node(args.id, args.path)
+    if node is None:
+        print(f"cleared render-node setting for {args.id}")
+    else:
+        print(f"configured {node} for the next start of {args.id}")
+    return 0
+
+
+def cmd_camera(args) -> int:
+    path = service_factory().configure_camera(args.id, args.path)
+    if path is None:
+        print(f"cleared camera setting for {args.id}")
+    else:
+        print(f"configured {path} for apps in {args.id} on its next start")
+    return 0
+
+
+def cmd_portal_bridge(args) -> int:
+    enabled = service_factory().configure_portal_bridge(args.id, args.mode)
+    print("enabled" if enabled else "disabled")
+    return 0
+
+
+def cmd_desktop_integration(args) -> int:
+    service = service_factory()
+    if args.repair:
+        txn = service.repair_desktop_clients(args.id)
+        return _print_transaction(txn, root=getattr(service, "root", None))
+    if args.install:
+        txn = service.install_desktop_clients(args.id, args.install)
+        return _print_transaction(txn, root=getattr(service, "root", None))
+    print(json.dumps(service.desktop_integration(args.id), ensure_ascii=False, indent=2))
+    return 0
+
+
 def cmd_stop(args) -> int:
     view = service_factory().stop(args.id)
     print(f"stopped {args.id} ({view['runtime_state']})")
@@ -772,8 +897,19 @@ def cmd_run_help(args) -> int:
     return 0
 
 
-def _print_transaction(txn: dict) -> int:
+def _print_transaction(txn: dict, *, root=None) -> int:
     print(json.dumps(txn, ensure_ascii=False, indent=2))
+    from unifier.package_observation import warning
+    if message := warning(txn):
+        print(message, file=sys.stderr)
+    if sys.stderr.isatty() and (guidance := txn.get("dependency_guidance")):
+        from unifier import i18n
+        from unifier.package_install_diagnostics import guidance_messages
+        root = root or _state_root()
+        language = i18n.resolve(root)["language"]
+        for message in guidance_messages(
+                lambda key, **values: i18n.translate(language, key, **values), guidance, root):
+            print(message, file=sys.stderr)
     if (txn.get('dependency_repair') or {}).get('status') == 'bundled-candidates-unverified':
         print('unifier: bundled library candidates found; runtime loading and application '
               'workflow remain unverified.', file=sys.stderr)
@@ -813,7 +949,7 @@ def cmd_pkg_install(args) -> int:
         if not args.packages:
             raise UnifierError("install requires package names or --file")
         txn = service.install_packages(args.id, args.packages, use_argv=use, **options)
-    return _print_transaction(txn)
+    return _print_transaction(txn, root=getattr(service, "root", None))
 
 
 def cmd_pkg_repair(args) -> int:
@@ -833,9 +969,9 @@ def cmd_pkg_repair(args) -> int:
     options = package_options(args)
     if diagnostic_path:
         options["diagnostics_path"] = diagnostic_path
-    txn = service_factory().repair_dependencies(args.id, args.packages, libraries=args.library,
-                                                **options)
-    return _print_transaction(txn)
+    service = service_factory()
+    txn = service.repair_dependencies(args.id, args.packages, libraries=args.library, **options)
+    return _print_transaction(txn, root=getattr(service, "root", None))
 
 
 def cmd_pkg_recover_storage(args) -> int:
@@ -844,8 +980,41 @@ def cmd_pkg_recover_storage(args) -> int:
     return 1 if result.get('status') == 'unresolved' else 0
 
 
+def _read_package_maintenance_receipt(path: str) -> dict:
+    limit = 64 * 1024
+
+    def unique_object(pairs):
+        obj = dict(pairs)
+        if len(obj) != len(pairs):
+            raise ValueError("duplicate JSON object key")
+        return obj
+
+    try:
+        descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK | os.O_CLOEXEC)
+        try:
+            info = os.fstat(descriptor)
+            if not stat.S_ISREG(info.st_mode) or info.st_size > limit:
+                raise UnifierError("package maintenance receipt must be a regular file up to 64 KiB")
+            with os.fdopen(descriptor, "rb", closefd=False) as stream:
+                data = stream.read(limit + 1)
+        finally:
+            os.close(descriptor)
+        if len(data) > limit:
+            raise UnifierError("package maintenance receipt exceeds 64 KiB")
+        receipt = json.loads(data.decode("utf-8"), object_pairs_hook=unique_object)
+    except (OSError, ValueError, RecursionError) as exc:
+        raise UnifierError("cannot read package maintenance receipt as UTF-8 JSON") from exc
+    if not isinstance(receipt, dict):
+        raise UnifierError("package maintenance receipt must be a JSON object")
+    return receipt
+
+
 def cmd_pkg_recover(args) -> int:
-    print(json.dumps(service_factory().recover_packages(args.id), ensure_ascii=False, indent=2))
+    path = getattr(args, "maintenance_receipt", None)
+    options = ({"maintenance_receipt": _read_package_maintenance_receipt(path)}
+               if path is not None else {})
+    result = service_factory().recover_packages(args.id, **options)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 
 
@@ -910,6 +1079,8 @@ def cmd_app_add(args) -> int:
             raise UnifierError("--headless conflicts with a graphical file chooser mode")
         overlay[MODE_KEY] = "headless"
         options["desktop_required"] = False
+    if getattr(args, 'exit_policy', 'wait') != 'wait':
+        options['exit_policy'] = args.exit_policy
     if args.package_file:
         options["package_origin"] = _route_package(args.package_file)
     launch = service_factory().add_app(
@@ -936,9 +1107,19 @@ def cmd_app_file_chooser(args) -> int:
     return 0
 
 
+def cmd_app_input_method(args) -> int:
+    service = service_factory()
+    if args.mode is None:
+        launch = service.show_app(args.id)
+    else:
+        launch = service.set_app_input_method(args.id, args.mode)
+    print(launch.get("input_method", "auto"))
+    return 0
+
+
 def _app_group(args):
     from unifier.on_demand import LaunchGroup
-    from unifier.service import validate_env_id
+    from unifier.environment_contract import validate_env_id
     service = service_factory()
     env_id = validate_env_id(args.environment)
     service.store.load(env_id)
@@ -946,7 +1127,14 @@ def _app_group(args):
 
 
 def cmd_app_leases(args):
-    print(json.dumps(_app_group(args).read(), ensure_ascii=False, indent=2))
+    state = _app_group(args).read()
+    for lease in state['leases'].values():
+        lease.setdefault('worker_version', None)
+    bridge = state.get('bridge')
+    delivery = bridge.get('file_delivery') if isinstance(bridge, dict) else None
+    if isinstance(delivery, dict):
+        delivery.setdefault('worker_version', None)
+    print(json.dumps(state, ensure_ascii=False, indent=2))
     return 0
 
 
@@ -1326,6 +1514,11 @@ def cmd_root_match(args) -> int:
     return 0
 
 
+def cmd_file_access(args) -> int:
+    from unifier.file_access_cli import run
+    return run(args, _state_root())
+
+
 def cmd_file_resolve(args) -> int:
     control = control_factory()
     if args.absolute_path:
@@ -1420,7 +1613,7 @@ def main(argv: list[str] | None = None) -> int:
     if not argv or argv[0] in {"-h", "--help"}:
         return shortcuts.help_command([])
     if argv[0] == "help":
-        return shortcuts.help_command(argv[1:])
+        return shortcuts.help_command(argv[1:], parser_factory=build_parser)
     if argv[0] in shortcuts.SHORTCUTS:
         return shortcuts.main(
             argv, context_factory=shortcut_context_factory)

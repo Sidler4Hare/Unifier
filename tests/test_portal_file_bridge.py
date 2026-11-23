@@ -276,6 +276,18 @@ class PortalBridgeProtocol(unittest.TestCase):
         self.closed_request = threading.Event()
         self.client = None
 
+    @unittest.skipUnless(shutil.which('busctl'), 'requires busctl')
+    def test_host_versions_come_from_the_current_frontend(self):
+        from unifier.host_portal import _frontend_versions
+
+        self.assertEqual(_frontend_versions(self.address),
+                         {"FileChooser": 3, "ScreenCast": None, "Camera": None})
+        self.portal.call_sync('org.freedesktop.DBus', '/org/freedesktop/DBus',
+            'org.freedesktop.DBus', 'ReleaseName', GLib.Variant('(s)', (PORTAL,)),
+            None, Gio.DBusCallFlags.NONE, 2000, None)
+        self.assertIsNone(_frontend_versions(self.address))
+        self.assertEqual(self.calls, [])
+
     def start_relay(self, *, request_timeout=None):
         self.audit = (self.root / 'audit').open('wb')
         self.addCleanup(self.audit.close)
@@ -402,6 +414,34 @@ class PortalBridgeProtocol(unittest.TestCase):
         self.assertFalse(host.exists())
         self.assertFalse(list(self.root.glob('selected-*')))
         self.assertEqual(self.relay.returncode, 0, (self.root / 'audit').read_text())
+
+    def test_screencast_pipewire_fd_crosses_file_delivery_relay(self):
+        interface = 'org.freedesktop.portal.ScreenCast'
+        path = '/org/freedesktop/portal/desktop'
+        node = Gio.DBusNodeInfo.new_for_xml(f'''<node><interface name="{interface}">
+          <method name="OpenPipeWireRemote"><arg type="o" direction="in"/>
+          <arg type="a{{sv}}" direction="in"/><arg type="h" direction="out"/></method>
+        </interface></node>''')
+        payload = b'synthetic PipeWire descriptor'
+
+        def open_remote(_connection, _sender, _path, _interface, _method, _params, call):
+            with tempfile.TemporaryFile() as source:
+                source.write(payload)
+                source.seek(0)
+                fds = Gio.UnixFDList.new()
+                handle = fds.append(source.fileno())
+                call.return_value_with_unix_fd_list(GLib.Variant('(h)', (handle,)), fds)
+
+        registration = self.portal.register_object(path, node.interfaces[0], open_remote, None, None)
+        self.addCleanup(self.portal.unregister_object, registration)
+        self.start_relay()
+        result, fds = self.client.call_with_unix_fd_list_sync(
+            PORTAL, path, interface, 'OpenPipeWireRemote',
+            GLib.Variant('(oa{sv})', (path + '/session/fixture', {})),
+            GLib.VariantType.new('(h)'), Gio.DBusCallFlags.NONE, 2000, None, None)
+        self.assertEqual(fds.get_length(), 1)
+        with os.fdopen(fds.get(result.unpack()[0]), 'rb') as source:
+            self.assertEqual(source.read(), payload)
 
     def test_early_response_and_multiple_files(self):
         self.early = True

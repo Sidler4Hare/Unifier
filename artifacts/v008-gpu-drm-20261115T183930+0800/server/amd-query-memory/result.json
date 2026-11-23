@@ -1,0 +1,629 @@
+{
+  "cid": "2180a83540510175c2d177c0decf0cf852788fbe77d6c6263d98737fd644fa3f",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/env",
+        "DNF5_PLUGINS_DIR=",
+        "/usr/bin/dnf",
+        "--no-plugins",
+        "--cacheonly",
+        "--color=never",
+        "--dump-main-config"
+      ],
+      "elapsed_seconds": 0.3970278779997898,
+      "exit_code": 0,
+      "label": "dnf-main",
+      "stderr": "00-dnf-main.stderr",
+      "stderr_bytes": 765,
+      "stdout": "00-dnf-main.stdout",
+      "stdout_bytes": 3281,
+      "timeout_seconds": 8
+    },
+    {
+      "argv": [
+        "/usr/bin/env",
+        "DNF5_PLUGINS_DIR=",
+        "/usr/bin/dnf",
+        "--no-plugins",
+        "--cacheonly",
+        "--color=never",
+        "--dump-repo-config=*"
+      ],
+      "elapsed_seconds": 0.40511801799948444,
+      "exit_code": 0,
+      "label": "dnf-repos",
+      "stderr": "01-dnf-repos.stderr",
+      "stderr_bytes": 765,
+      "stdout": "01-dnf-repos.stdout",
+      "stdout_bytes": 14276,
+      "timeout_seconds": 8
+    },
+    {
+      "argv": [
+        "/bin/sh",
+        "-ec",
+        "for name do command -v \"$name\" || exit 1; done",
+        "unifier-cache-tools",
+        "id",
+        "head",
+        "sha256sum",
+        "stat",
+        "mkdir",
+        "mktemp",
+        "ln",
+        "rm"
+      ],
+      "elapsed_seconds": 0.37653434200001357,
+      "exit_code": 0,
+      "label": "import-tools",
+      "stderr": "02-import-tools.stderr",
+      "stderr_bytes": 0,
+      "stdout": "02-import-tools.stdout",
+      "stdout_bytes": 114,
+      "timeout_seconds": 5
+    },
+    {
+      "argv": [
+        "/bin/sh",
+        "-ec",
+        "\nroot=$1\ncount=0\n[ -d \"$root\" ] && [ ! -L \"$root\" ] && [ \"$(stat -c %u -- \"$root\")\" = 0 ] || exit 1\nvisit() {\n    local item=$1 depth=$2\n    local kind\n    [ -e \"$item\" ] || [ -L \"$item\" ] || return 0\n    count=$((count + 1))\n    [ \"$count\" -le 40 ] || return 1\n    if [ -L \"$item\" ]; then return 1; fi\n    if [ -d \"$item\" ]; then kind=d\n    elif [ -f \"$item\" ]; then kind=f\n    else return 1; fi\n    printf '%s %s %s\\n' \"$kind\" \"${item#\"$root\"/}\" \"$(stat -c '%u %h %s' -- \"$item\")\"\n    if [ \"$kind\" = d ] && [ \"$depth\" -lt 3 ]; then\n        local child\n        for child in \"$item\"/* \"$item\"/.[!.]* \"$item\"/..?*; do\n            visit \"$child\" \"$((depth + 1))\"\n        done\n    fi\n}\nfor path in \"$root\"/* \"$root\"/.[!.]* \"$root\"/..?*; do visit \"$path\" 1; done\n",
+        "unifier-cache-inventory",
+        "/var/cache/libdnf5"
+      ],
+      "elapsed_seconds": 0.46582237199982046,
+      "exit_code": 0,
+      "label": "original-cache-inventory",
+      "stderr": "03-original-cache-inventory.stderr",
+      "stderr_bytes": 0,
+      "stdout": "03-original-cache-inventory.stdout",
+      "stdout_bytes": 2017,
+      "timeout_seconds": 8
+    },
+    {
+      "argv": [
+        "/bin/sh",
+        "-ec",
+        "\nroot=$1\nisolated=$2\nshift 2\n[ \"$#\" -eq 36 ]\n[ \"$(id -u)\" -eq 0 ]\numask 077\n[ -d \"$root\" ] && [ ! -L \"$root\" ] && [ \"$(stat -c %u -- \"$root\")\" = 0 ] || exit 1\n[ ! -e \"$isolated\" ] && [ ! -L \"$isolated\" ] || exit 1\nverify() {\n    while [ \"$#\" -gt 0 ]; do\n        rel=$1\n        src=$root/$rel\n        [ -f \"$src\" ] && [ ! -L \"$src\" ] || return 1\n        before=$(stat -c '%d:%i:%f:%u:%h:%s:%y:%z' -- \"$src\")\n        [ \"$(stat -c '%u:%h:%s' -- \"$src\")\" = \"0:1:$2\" ]\n        got=$(head -c \"$(($2 + 1))\" -- \"$src\" | sha256sum)\n        [ \"${got%% *}\" = \"$3\" ]\n        [ ! -L \"$src\" ] && [ \"$(stat -c '%d:%i:%f:%u:%h:%s:%y:%z' -- \"$src\")\" = \"$before\" ] || return 1\n        shift 3\n    done\n}\nverify \"$@\"\nmkdir -- \"$isolated\"\nwhile [ \"$#\" -gt 0 ]; do\n    rel=$1\n    src=$root/$rel\n    dst=$isolated/$rel\n    mkdir -p -- \"${dst%/*}\"\n    before=$(stat -c '%d:%i:%f:%u:%s:%y' -- \"$src\")\n    ln -T -- \"$src\" \"$dst\"\n    [ ! -L \"$src\" ] && [ ! -L \"$dst\" ] || exit 1\n    [ \"$(stat -c '%d:%i:%f:%u:%s:%y' -- \"$src\")\" = \"$before\" ]\n    [ \"$(stat -c '%d:%i:%f:%u:%s:%y' -- \"$dst\")\" = \"$before\" ]\n    [ \"$(stat -c '%u:%h:%s' -- \"$dst\")\" = \"0:2:$2\" ]\n    got=$(head -c \"$(($2 + 1))\" -- \"$dst\" | sha256sum)\n    [ \"${got%% *}\" = \"$3\" ]\n    printf '%s %s %s\\n' \"$rel\" \"$2\" \"$3\"\n    shift 3\ndone\n",
+        "unifier-cache-isolate",
+        "/var/cache/libdnf5",
+        "/var/cache/unifier-fedora-query-continuation-20261115a",
+        "fedora-cff72538bc9825a4/metalink.xml",
+        "21274",
+        "5f9a7e9b5d706a0a47e770bc5bafca542b3babcf2885467e0db2a6fa221131a4",
+        "fedora-cff72538bc9825a4/repodata/repomd.xml",
+        "5966",
+        "da3845427d188097f6fd71b417a039bdfb8efefc4f38ca44b5cbb94f95a18991",
+        "fedora-cff72538bc9825a4/repodata/e32a0c328ac8716e71e3f66e87366a172fea8ecb2f452909a42db9c080cd3704-primary.xml.zck",
+        "36915318",
+        "e32a0c328ac8716e71e3f66e87366a172fea8ecb2f452909a42db9c080cd3704",
+        "fedora-cff72538bc9825a4/repodata/6a37d36914955dc65cf6dc037c37dcf00c64ded464dc34164a674bf65fa16927-comps-Everything.x86_64.xml.zst",
+        "291172",
+        "6a37d36914955dc65cf6dc037c37dcf00c64ded464dc34164a674bf65fa16927",
+        "updates-3cc07c89a20302f2/metalink.xml",
+        "15659",
+        "5ba25ab7947188a8c91ba48ae48fd40251d346f5deecb1ea24f72c03fd2b620f",
+        "updates-3cc07c89a20302f2/repodata/repomd.xml",
+        "7055",
+        "c63eebe7cb5cae9d53c5dff3defc25831d3fef942079bd59e4a0f1a8c3528d77",
+        "updates-3cc07c89a20302f2/repodata/8f64356257b052f4db5c815a935b4e7377c2088c2e90801edd70f1affc90237b-primary.xml.zck",
+        "9251141",
+        "8f64356257b052f4db5c815a935b4e7377c2088c2e90801edd70f1affc90237b",
+        "updates-3cc07c89a20302f2/repodata/e43af6c409ab4a1552a595ffae9bd8cd72cf4b059180da53b2e1a440d694db53-comps-Everything.x86_64.xml.zst",
+        "295349",
+        "e43af6c409ab4a1552a595ffae9bd8cd72cf4b059180da53b2e1a440d694db53",
+        "updates-3cc07c89a20302f2/repodata/b5baede7a090ad551f326d9ac58c3f21551dc6378ad848195561d0c179b06c81-updateinfo.xml.zck",
+        "2986086",
+        "b5baede7a090ad551f326d9ac58c3f21551dc6378ad848195561d0c179b06c81",
+        "fedora-cisco-openh264-d770e872c130a03f/metalink.xml",
+        "986",
+        "b09b85b15a960d7148d859430d1e527fa2784f577107d0cb71d3577d274ef0f5",
+        "fedora-cisco-openh264-d770e872c130a03f/repodata/repomd.xml",
+        "3077",
+        "1073fd01ac50ff49a38da9352682282772d61935e1ce60c417bf5ced1e7f7a86",
+        "fedora-cisco-openh264-d770e872c130a03f/repodata/ef464269998980f44c8b2c94cf023d2343751c9c2325e8197a457b378f451226-primary.xml.zst",
+        "1342",
+        "ef464269998980f44c8b2c94cf023d2343751c9c2325e8197a457b378f451226"
+      ],
+      "elapsed_seconds": 1.2801667749990884,
+      "exit_code": 0,
+      "label": "isolate-verified-cache",
+      "stderr": "04-isolate-verified-cache.stderr",
+      "stderr_bytes": 0,
+      "stdout": "04-isolate-verified-cache.stdout",
+      "stdout_bytes": 1867,
+      "timeout_seconds": 30
+    },
+    {
+      "argv": [
+        "/usr/bin/env",
+        "DNF5_PLUGINS_DIR=",
+        "/usr/bin/dnf",
+        "--no-plugins",
+        "--setopt=cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--setopt=system_cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--cacheonly",
+        "--color=never",
+        "--dump-main-config"
+      ],
+      "elapsed_seconds": 0.39038268699914624,
+      "exit_code": 0,
+      "label": "dnf-main",
+      "stderr": "05-dnf-main.stderr",
+      "stderr_bytes": 765,
+      "stdout": "05-dnf-main.stdout",
+      "stdout_bytes": 3353,
+      "timeout_seconds": 8
+    },
+    {
+      "argv": [
+        "/usr/bin/env",
+        "DNF5_PLUGINS_DIR=",
+        "/usr/bin/dnf",
+        "--no-plugins",
+        "--setopt=cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--setopt=system_cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--cacheonly",
+        "--color=never",
+        "--dump-repo-config=*"
+      ],
+      "elapsed_seconds": 0.4211093190006068,
+      "exit_code": 0,
+      "label": "dnf-repos",
+      "stderr": "06-dnf-repos.stderr",
+      "stderr_bytes": 765,
+      "stdout": "06-dnf-repos.stdout",
+      "stdout_bytes": 14708,
+      "timeout_seconds": 8
+    },
+    {
+      "argv": [
+        "/bin/sh",
+        "-ec",
+        "for name do command -v \"$name\" || exit 1; done",
+        "unifier-cache-tools",
+        "id",
+        "head",
+        "sha256sum",
+        "stat",
+        "mkdir",
+        "mktemp",
+        "ln",
+        "rm"
+      ],
+      "elapsed_seconds": 0.3775241299990739,
+      "exit_code": 0,
+      "label": "import-tools",
+      "stderr": "07-import-tools.stderr",
+      "stderr_bytes": 0,
+      "stdout": "07-import-tools.stdout",
+      "stdout_bytes": 114,
+      "timeout_seconds": 5
+    },
+    {
+      "argv": [
+        "/usr/bin/env",
+        "DNF5_PLUGINS_DIR=",
+        "/usr/bin/dnf",
+        "--no-plugins",
+        "--setopt=cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--setopt=system_cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--cacheonly",
+        "--color=never",
+        "repoquery",
+        "--querytags"
+      ],
+      "elapsed_seconds": 0.4084719820002647,
+      "exit_code": 0,
+      "label": "dnf-querytags",
+      "stderr": "08-dnf-querytags.stderr",
+      "stderr_bytes": 765,
+      "stdout": "08-dnf-querytags.stdout",
+      "stdout_bytes": 382,
+      "timeout_seconds": 10
+    },
+    {
+      "argv": [
+        "/usr/bin/env",
+        "DNF5_PLUGINS_DIR=",
+        "/usr/bin/dnf",
+        "--no-plugins",
+        "--setopt=cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--setopt=system_cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--cacheonly",
+        "--color=never",
+        "--dump-repo-config=*"
+      ],
+      "elapsed_seconds": 0.40809288200034644,
+      "exit_code": 0,
+      "label": "dnf-repos",
+      "stderr": "09-dnf-repos.stderr",
+      "stderr_bytes": 765,
+      "stdout": "09-dnf-repos.stdout",
+      "stdout_bytes": 14708,
+      "timeout_seconds": 20
+    },
+    {
+      "argv": [
+        "/usr/bin/env",
+        "DNF5_PLUGINS_DIR=",
+        "/usr/bin/dnf",
+        "--no-plugins",
+        "--setopt=cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--setopt=system_cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--cacheonly",
+        "--color=never",
+        "--assumeno",
+        "install",
+        "python3",
+        "mesa-libgbm",
+        "libglvnd-egl",
+        "mesa-libEGL",
+        "libglvnd-gles",
+        "mesa-dri-drivers"
+      ],
+      "elapsed_seconds": 11.25265840999964,
+      "exit_code": 1,
+      "label": "dnf-solver",
+      "stderr": "10-dnf-solver.stderr",
+      "stderr_bytes": 999,
+      "stdout": "10-dnf-solver.stdout",
+      "stdout_bytes": 2500,
+      "timeout_seconds": 45
+    },
+    {
+      "argv": [
+        "/usr/bin/rpm",
+        "-qa",
+        "--queryformat",
+        "%{NAME}|%{EPOCHNUM}:%{VERSION}-%{RELEASE}|%{ARCH}\n"
+      ],
+      "elapsed_seconds": 0.4767698619998555,
+      "exit_code": 0,
+      "label": "rpm-inventory",
+      "stderr": "11-rpm-inventory.stderr",
+      "stderr_bytes": 0,
+      "stdout": "11-rpm-inventory.stdout",
+      "stdout_bytes": 4889,
+      "timeout_seconds": 20
+    },
+    {
+      "argv": [
+        "/usr/bin/env",
+        "DNF5_PLUGINS_DIR=",
+        "/usr/bin/dnf",
+        "--no-plugins",
+        "--setopt=cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--setopt=system_cachedir=/var/cache/unifier-fedora-query-continuation-20261115a",
+        "--cacheonly",
+        "--color=never",
+        "--quiet",
+        "repoquery",
+        "--available",
+        "--queryformat=%{full_nevra}|%{repoid}|%{downloadsize}|%{installsize}|%{location}\\n",
+        "libglvnd-egl-1:1.7.0-9.fc44.x86_64",
+        "libglvnd-gles-1:1.7.0-9.fc44.x86_64",
+        "mesa-libgbm-0:26.2.6-1.fc44.x86_64",
+        "python3-0:3.14.10-1.fc44.x86_64",
+        "expat-0:2.9.0-1.fc44.x86_64",
+        "hwdata-0:0.413-1.fc44.noarch",
+        "libX11-0:1.8.13-3.fc44.x86_64",
+        "libX11-common-0:1.8.13-3.fc44.noarch",
+        "libX11-xcb-0:1.8.13-3.fc44.x86_64",
+        "libXau-0:1.0.12-4.fc44.x86_64",
+        "libdrm-0:2.4.134-1.fc44.x86_64",
+        "libedit-0:3.1-59.20260512cvs.fc44.x86_64",
+        "libglvnd-1:1.7.0-9.fc44.x86_64",
+        "libpciaccess-0:0.16-17.fc44.x86_64",
+        "libwayland-client-0:1.26.0-1.fc44.x86_64",
+        "libxcb-0:1.17.0-7.fc44.x86_64",
+        "libxshmfence-0:1.3.2-8.fc44.x86_64",
+        "llvm-filesystem-0:22.1.8-4.fc44.x86_64",
+        "llvm-libs-0:22.1.8-4.fc44.x86_64",
+        "lm_sensors-libs-0:3.6.0-24.fc44.x86_64",
+        "mesa-dri-drivers-0:26.2.6-1.fc44.x86_64",
+        "mesa-filesystem-0:26.2.6-1.fc44.x86_64",
+        "mesa-libEGL-0:26.2.6-1.fc44.x86_64",
+        "mpdecimal-0:4.0.1-3.fc44.x86_64",
+        "python-pip-wheel-0:26.0.1-3.fc44.noarch",
+        "python3-libs-0:3.14.10-1.fc44.x86_64",
+        "spirv-tools-libs-0:2026.1-1.fc44.x86_64",
+        "python-unversioned-command-0:3.14.10-1.fc44.noarch"
+      ],
+      "elapsed_seconds": 1.4785826169991196,
+      "exit_code": 0,
+      "label": "dnf-package-sizes",
+      "stderr": "12-dnf-package-sizes.stderr",
+      "stderr_bytes": 765,
+      "stdout": "12-dnf-package-sizes.stdout",
+      "stdout_bytes": 4741,
+      "timeout_seconds": 45
+    }
+  ],
+  "fixture": "amd",
+  "formal_stop": "STOPPED",
+  "install_eligible": false,
+  "mode": "query-continuation",
+  "plan": {
+    "closure": [
+      {
+        "download_bytes": 139273,
+        "installed_bytes": 357966,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/e/expat-2.9.0-1.fc44.x86_64.rpm",
+        "name": "expat",
+        "nevra": "expat-0:2.9.0-1.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 1804743,
+        "installed_bytes": 10652413,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/h/hwdata-0.413-1.fc44.noarch.rpm",
+        "name": "hwdata",
+        "nevra": "hwdata-0:0.413-1.fc44.noarch",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 696289,
+        "installed_bytes": 1408572,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libX11-1.8.13-3.fc44.x86_64.rpm",
+        "name": "libX11",
+        "nevra": "libX11-0:1.8.13-3.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 179489,
+        "installed_bytes": 1203284,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libX11-common-1.8.13-3.fc44.noarch.rpm",
+        "name": "libX11-common",
+        "nevra": "libX11-common-0:1.8.13-3.fc44.noarch",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 11093,
+        "installed_bytes": 11076,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libX11-xcb-1.8.13-3.fc44.x86_64.rpm",
+        "name": "libX11-xcb",
+        "nevra": "libX11-xcb-0:1.8.13-3.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 34530,
+        "installed_bytes": 74546,
+        "location": "http://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libXau-1.0.12-4.fc44.x86_64.rpm",
+        "name": "libXau",
+        "nevra": "libXau-0:1.0.12-4.fc44.x86_64",
+        "repository": "fedora"
+      },
+      {
+        "download_bytes": 170660,
+        "installed_bytes": 415529,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libdrm-2.4.134-1.fc44.x86_64.rpm",
+        "name": "libdrm",
+        "nevra": "libdrm-0:2.4.134-1.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 113076,
+        "installed_bytes": 254252,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libedit-3.1-59.20260512cvs.fc44.x86_64.rpm",
+        "name": "libedit",
+        "nevra": "libedit-0:3.1-59.20260512cvs.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 117450,
+        "installed_bytes": 539094,
+        "location": "http://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libglvnd-1.7.0-9.fc44.x86_64.rpm",
+        "name": "libglvnd",
+        "nevra": "libglvnd-1:1.7.0-9.fc44.x86_64",
+        "repository": "fedora"
+      },
+      {
+        "download_bytes": 38094,
+        "installed_bytes": 70236,
+        "location": "http://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libglvnd-egl-1.7.0-9.fc44.x86_64.rpm",
+        "name": "libglvnd-egl",
+        "nevra": "libglvnd-egl-1:1.7.0-9.fc44.x86_64",
+        "repository": "fedora"
+      },
+      {
+        "download_bytes": 29289,
+        "installed_bytes": 100066,
+        "location": "http://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libglvnd-gles-1.7.0-9.fc44.x86_64.rpm",
+        "name": "libglvnd-gles",
+        "nevra": "libglvnd-gles-1:1.7.0-9.fc44.x86_64",
+        "repository": "fedora"
+      },
+      {
+        "download_bytes": 27863,
+        "installed_bytes": 49531,
+        "location": "http://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libpciaccess-0.16-17.fc44.x86_64.rpm",
+        "name": "libpciaccess",
+        "nevra": "libpciaccess-0:0.16-17.fc44.x86_64",
+        "repository": "fedora"
+      },
+      {
+        "download_bytes": 36340,
+        "installed_bytes": 67584,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/libwayland-client-1.26.0-1.fc44.x86_64.rpm",
+        "name": "libwayland-client",
+        "nevra": "libwayland-client-0:1.26.0-1.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 243678,
+        "installed_bytes": 1113747,
+        "location": "http://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libxcb-1.17.0-7.fc44.x86_64.rpm",
+        "name": "libxcb",
+        "nevra": "libxcb-0:1.17.0-7.fc44.x86_64",
+        "repository": "fedora"
+      },
+      {
+        "download_bytes": 13533,
+        "installed_bytes": 12616,
+        "location": "http://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/libxshmfence-1.3.2-8.fc44.x86_64.rpm",
+        "name": "libxshmfence",
+        "nevra": "libxshmfence-0:1.3.2-8.fc44.x86_64",
+        "repository": "fedora"
+      },
+      {
+        "download_bytes": 10255,
+        "installed_bytes": 0,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/llvm-filesystem-22.1.8-4.fc44.x86_64.rpm",
+        "name": "llvm-filesystem",
+        "nevra": "llvm-filesystem-0:22.1.8-4.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 35736228,
+        "installed_bytes": 147275895,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/l/llvm-libs-22.1.8-4.fc44.x86_64.rpm",
+        "name": "llvm-libs",
+        "nevra": "llvm-libs-0:22.1.8-4.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 42940,
+        "installed_bytes": 87734,
+        "location": "http://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/l/lm_sensors-libs-3.6.0-24.fc44.x86_64.rpm",
+        "name": "lm_sensors-libs",
+        "nevra": "lm_sensors-libs-0:3.6.0-24.fc44.x86_64",
+        "repository": "fedora"
+      },
+      {
+        "download_bytes": 14509767,
+        "installed_bytes": 55835303,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/m/mesa-dri-drivers-26.2.6-1.fc44.x86_64.rpm",
+        "name": "mesa-dri-drivers",
+        "nevra": "mesa-dri-drivers-0:26.2.6-1.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 9467,
+        "installed_bytes": 3682,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/m/mesa-filesystem-26.2.6-1.fc44.x86_64.rpm",
+        "name": "mesa-filesystem",
+        "nevra": "mesa-filesystem-0:26.2.6-1.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 144525,
+        "installed_bytes": 407983,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/m/mesa-libEGL-26.2.6-1.fc44.x86_64.rpm",
+        "name": "mesa-libEGL",
+        "nevra": "mesa-libEGL-0:26.2.6-1.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 15617,
+        "installed_bytes": 19996,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/m/mesa-libgbm-26.2.6-1.fc44.x86_64.rpm",
+        "name": "mesa-libgbm",
+        "nevra": "mesa-libgbm-0:26.2.6-1.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 101509,
+        "installed_bytes": 222311,
+        "location": "http://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/m/mpdecimal-4.0.1-3.fc44.x86_64.rpm",
+        "name": "mpdecimal",
+        "nevra": "mpdecimal-0:4.0.1-3.fc44.x86_64",
+        "repository": "fedora"
+      },
+      {
+        "download_bytes": 1205378,
+        "installed_bytes": 1282230,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/p/python-pip-wheel-26.0.1-3.fc44.noarch.rpm",
+        "name": "python-pip-wheel",
+        "nevra": "python-pip-wheel-0:26.0.1-3.fc44.noarch",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 11984,
+        "installed_bytes": 23,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/p/python-unversioned-command-3.14.10-1.fc44.noarch.rpm",
+        "name": "python-unversioned-command",
+        "nevra": "python-unversioned-command-0:3.14.10-1.fc44.noarch",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 30236,
+        "installed_bytes": 29354,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/p/python3-3.14.10-1.fc44.x86_64.rpm",
+        "name": "python3",
+        "nevra": "python3-0:3.14.10-1.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 10672326,
+        "installed_bytes": 46317997,
+        "location": "http://mirror.23m.com/fedora/linux/updates/44/Everything/x86_64/Packages/p/python3-libs-3.14.10-1.fc44.x86_64.rpm",
+        "name": "python3-libs",
+        "nevra": "python3-libs-0:3.14.10-1.fc44.x86_64",
+        "repository": "updates"
+      },
+      {
+        "download_bytes": 1825635,
+        "installed_bytes": 6389056,
+        "location": "http://ftp.fau.de/fedora/linux/releases/44/Everything/x86_64/os/Packages/s/spirv-tools-libs-2026.1-1.fc44.x86_64.rpm",
+        "name": "spirv-tools-libs",
+        "nevra": "spirv-tools-libs-0:2026.1-1.fc44.x86_64",
+        "repository": "fedora"
+      }
+    ],
+    "package_plan": {
+      "download_bytes": 67971267,
+      "installed_bytes": 274202076,
+      "requests": [
+        "python3-0:3.14.10-1.fc44.x86_64",
+        "mesa-libgbm-0:26.2.6-1.fc44.x86_64",
+        "libglvnd-egl-1:1.7.0-9.fc44.x86_64",
+        "mesa-libEGL-0:26.2.6-1.fc44.x86_64",
+        "libglvnd-gles-1:1.7.0-9.fc44.x86_64",
+        "mesa-dri-drivers-0:26.2.6-1.fc44.x86_64"
+      ],
+      "signed_repository": "fedora-44: fedora,fedora-cisco-openh264,updates RPM OpenPGP"
+    },
+    "sources": {
+      "fedora": {
+        "gpgkey": [
+          "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-44-x86_64"
+        ],
+        "metalink": "https://mirrors.fedoraproject.org/metalink?repo=fedora-44&arch=x86_64",
+        "repo_gpgcheck": "0"
+      },
+      "fedora-cisco-openh264": {
+        "gpgkey": [
+          "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-44-x86_64"
+        ],
+        "metalink": "https://mirrors.fedoraproject.org/metalink?repo=fedora-cisco-openh264-44&arch=x86_64",
+        "repo_gpgcheck": "0"
+      },
+      "updates": {
+        "gpgkey": [
+          "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-44-x86_64"
+        ],
+        "metalink": "https://mirrors.fedoraproject.org/metalink?repo=updates-released-f44&arch=x86_64",
+        "repo_gpgcheck": "0"
+      }
+    }
+  },
+  "snapshot_policy": "archived-offline-query-only",
+  "stage_marker_sha256": "e60461a1eb726cd527e418d7cf5dd700d6440c87890ddde3b930a8d4c73ca7a6",
+  "status": "PASS",
+  "updates_alternate": {
+    "age_at_receipt_seconds": 214172,
+    "latest": false,
+    "metalink_sha256": "397ef9bd7ff7d6f9b74117d9063aa85e4333f4e021dfb93b8ccefe7cb7eb4769",
+    "primary_timestamp": 1794704073,
+    "repo": "updates",
+    "snapshot": {
+      "sha256": "c63eebe7cb5cae9d53c5dff3defc25831d3fef942079bd59e4a0f1a8c3528d77",
+      "sha512": "272b9029439203e0ff5b82cb0f13723bb53126ec614ea6d163749e4ffe7844adf9671b9f0e96835417848abfa211fd8b117ebc5ca5f90796e442e26db6404990",
+      "size": 7055,
+      "timestamp": 1794533001
+    },
+    "source": "official-https-metalink-alternate",
+    "usage": "dnf-cacheonly-query"
+  }
+}

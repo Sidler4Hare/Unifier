@@ -1,3 +1,0 @@
-debian13: container is stopped; listing /etc through a read-only view
-debian13: opening a short-lived read-only view c8fa0abd-3f8e-43fa-b8b2-dc0166a97e3c; only this view is released afterwards.
-unifier: debian13: cannot read the read-only view: view=c8fa0abd-3f8e-43fa-b8b2-dc0166a97e3c state=ready mountpoint=/home/dev/server-validation-20261030T204043+0800/live-20261030T204909/cli-installation/.lab/state/views/c8fa0abd-3f8e-43fa-b8b2-dc0166a97e3c/mount. The view record and recovery information were kept; run unifier view status, and unifier view recover if needed.

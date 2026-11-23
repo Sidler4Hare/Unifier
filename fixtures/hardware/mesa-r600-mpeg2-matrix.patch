@@ -1,0 +1,27 @@
+--- a/src/gallium/drivers/r600/radeon_uvd.c
++++ b/src/gallium/drivers/r600/radeon_uvd.c
+@@ -501,7 +501,6 @@
+ static struct ruvd_mpeg2 get_mpeg2_msg(struct ruvd_decoder *dec,
+ 				       struct pipe_mpeg12_picture_desc *pic)
+ {
+-	const int *zscan = pic->alternate_scan ? vl_zscan_alternate : vl_zscan_normal;
+ 	struct ruvd_mpeg2 result;
+ 	unsigned i;
+ 
+@@ -513,9 +512,14 @@
+ 	result.load_intra_quantiser_matrix = 1;
+ 	result.load_nonintra_quantiser_matrix = 1;
+ 
++	/* Matrices use normal zigzag even with alternate coefficient scan.
++	 * Gallium stores the matrices transposed.
++	 */
+ 	for (i = 0; i < 64; ++i) {
+-		result.intra_quantiser_matrix[i] = pic->intra_matrix[zscan[i]];
+-		result.nonintra_quantiser_matrix[i] = pic->non_intra_matrix[zscan[i]];
++		unsigned zigzag = vl_zscan_normal[i];
++		unsigned index = (zigzag % 8) * 8 + zigzag / 8;
++		result.intra_quantiser_matrix[i] = pic->intra_matrix[index];
++		result.nonintra_quantiser_matrix[i] = pic->non_intra_matrix[index];
+ 	}
+ 
+ 	result.profile_and_level_indication = 0;

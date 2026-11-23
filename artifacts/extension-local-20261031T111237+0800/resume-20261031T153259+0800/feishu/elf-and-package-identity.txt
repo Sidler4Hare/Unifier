@@ -1,7 +1,0 @@
-wrapper=/opt/bytedance/feishu/bytedance-feishu
-/usr/bin/bytedance-feishu-stable: symbolic link to /opt/bytedance/feishu/bytedance-feishu
-/opt/bytedance/feishu/feishu:     ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=d5553ff1c79025bac58333a05fdf66a51c06ce74, stripped
-df8c5e93c90fa0e38b78ce688fc54ecd9a3de4da65f3e9c65323af9fab7c148d  /opt/bytedance/feishu/feishu
-bytedance-feishu-stable	7.72.23-0
-libasound2t64	1.2.14-1+deb13u1
-lrwxrwxrwx. 1 root root 18 Jun 19 18:17 /usr/lib/x86_64-linux-gnu/libasound.so.2 -> libasound.so.2.0.0

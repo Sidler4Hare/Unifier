@@ -1,0 +1,103 @@
+{
+  "cases": {
+    "original": {
+      "fedora": {
+        "frames": 1,
+        "passed_frames": 0,
+        "mae": 0.8732096354166666,
+        "max_abs": 12,
+        "worst_frame_mae": 0.8732096354166666,
+        "sha256": "f49b86f92034c5549b99d979af648d425a58c1b36cbcfa5196d0a762cb5c687b",
+        "pass": false
+      },
+      "baseline": {
+        "frames": 1,
+        "passed_frames": 1,
+        "mae": 0.013671875,
+        "max_abs": 1,
+        "worst_frame_mae": 0.013671875,
+        "sha256": "41c86d3ec86d7a179bbb8d3a452f2a2e93b2276e56f20ed01f6638dad01c3be1",
+        "pass": true
+      },
+      "fixed": {
+        "frames": 1,
+        "passed_frames": 1,
+        "mae": 0.013671875,
+        "max_abs": 1,
+        "worst_frame_mae": 0.013671875,
+        "sha256": "41c86d3ec86d7a179bbb8d3a452f2a2e93b2276e56f20ed01f6638dad01c3be1",
+        "pass": true
+      }
+    },
+    "motion-default": {
+      "baseline": {
+        "frames": 16,
+        "passed_frames": 16,
+        "mae": 0.024976942274305556,
+        "max_abs": 2,
+        "worst_frame_mae": 0.03640407986111111,
+        "sha256": "8eb05175a6c6e0ba6e0a8e359d39bd301c6e1bc3c1329558a3629b26d0c4268f",
+        "pass": true
+      },
+      "fixed": {
+        "frames": 16,
+        "passed_frames": 16,
+        "mae": 0.024976942274305556,
+        "max_abs": 2,
+        "worst_frame_mae": 0.03640407986111111,
+        "sha256": "8eb05175a6c6e0ba6e0a8e359d39bd301c6e1bc3c1329558a3629b26d0c4268f",
+        "pass": true
+      }
+    },
+    "motion-custom-inter": {
+      "baseline": {
+        "frames": 16,
+        "passed_frames": 16,
+        "mae": 0.023108588324652776,
+        "max_abs": 3,
+        "worst_frame_mae": 0.032877604166666664,
+        "sha256": "e05c633c6e00a488d28aea5f0c840cc7b78ee462ca3d5870760d66eb539967d5",
+        "pass": true
+      },
+      "fixed": {
+        "frames": 16,
+        "passed_frames": 16,
+        "mae": 0.023108588324652776,
+        "max_abs": 3,
+        "worst_frame_mae": 0.032877604166666664,
+        "sha256": "e05c633c6e00a488d28aea5f0c840cc7b78ee462ca3d5870760d66eb539967d5",
+        "pass": true
+      }
+    },
+    "motion-custom-inter-alt": {
+      "baseline": {
+        "frames": 16,
+        "passed_frames": 0,
+        "mae": 2.0792304144965277,
+        "max_abs": 37,
+        "worst_frame_mae": 2.2606879340277777,
+        "sha256": "afea0b099888a374643cea9366360a2bb1be0d09552d9747ce0f606273b0cfed",
+        "pass": false
+      },
+      "fixed": {
+        "frames": 16,
+        "passed_frames": 16,
+        "mae": 0.023108588324652776,
+        "max_abs": 3,
+        "worst_frame_mae": 0.032877604166666664,
+        "sha256": "e05c633c6e00a488d28aea5f0c840cc7b78ee462ca3d5870760d66eb539967d5",
+        "pass": true
+      }
+    }
+  },
+  "unchanged_non_target_instances": 7,
+  "fixture_cid": "2180a83540510175c2d177c0decf0cf852788fbe77d6c6263d98737fd644fa3f",
+  "container_pid_after": 0,
+  "acl_sha256": "0dd60db424616cea9e9317a9191fff86619ce12819e1a068e8e628fc51c05f6c",
+  "ring_5_fences": [
+    194,
+    311
+  ],
+  "peak_memory_bytes": 153075712,
+  "min_available_bytes": 123979468800
+}

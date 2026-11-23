@@ -546,22 +546,20 @@ class ResourceBudgets(unittest.TestCase):
 
 
 class LegacyEntryPoint(unittest.TestCase):
-    def test_frozen_legacy_imports_its_own_backend_and_keeps_cli_arguments(self):
+    def test_historical_imports_and_worker_arguments_use_current_backend(self):
+        from multilinux import fuse_view_legacy as multilinux_worker
+        from multilinux import view_backend_legacy as multilinux_backend
         from unifier import fuse_view_legacy
         from unifier import view_backend_legacy
-        self.assertEqual(
-            fuse_view_legacy.ViewBackend.__module__,
-            "unifier.view_backend_legacy")
-        self.assertIs(
-            fuse_view_legacy.ViewBackend, view_backend_legacy.ViewBackend)
-        self.assertNotEqual(
-            fuse_view_legacy.ViewBackend.__module__,
-            fuse_view.ViewBackend.__module__)
+        self.assertIs(multilinux_worker, fuse_view_legacy)
+        self.assertIs(fuse_view_legacy, fuse_view)
+        self.assertIs(multilinux_backend, view_backend_legacy)
+        self.assertIs(view_backend_legacy.ViewBackend, fuse_view.ViewBackend)
 
         environment = dict(os.environ)
         environment["PYTHONPATH"] = str(ROOT / "src")
         for module in (
-                "unifier.fuse_view_legacy", "unifier.fuse_view"):
+                "multilinux.fuse_view_legacy", "unifier.fuse_view_legacy", "unifier.fuse_view"):
             result = subprocess.run(
                 [sys.executable, "-m", module, "--help"],
                 cwd=str(ROOT), env=environment, capture_output=True,

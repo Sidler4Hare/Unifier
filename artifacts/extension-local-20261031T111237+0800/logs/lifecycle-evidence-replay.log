@@ -1,4 +1,0 @@
-PASS created: Mode='z' RW=True runtime_options=['rbind', 'z'] create_proof_calls=0
-PASS running: Mode='' RW=True runtime_options=['rbind'] create_proof_calls=1
-PASS stopped: Mode='' RW=True runtime_options=['rbind'] create_proof_calls=1
-PASS lifecycle replay: pre-start Mode=z; post-start empty Mode accepted only via same-CID CreateCommand

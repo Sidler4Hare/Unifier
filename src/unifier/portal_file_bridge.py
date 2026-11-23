@@ -18,7 +18,9 @@ import time
 
 from gi.repository import Gio, GLib
 
+from unifier import __version__
 from unifier.portal_delivery import SelectionStore
+from unifier.file_access import PROTOCOL_VERSION
 
 PORTAL = 'org.freedesktop.portal.Desktop'
 CHOOSER = 'org.freedesktop.portal.FileChooser'
@@ -367,7 +369,7 @@ class Client:
             result = future.result()
             error = None
         except Exception as exc:
-            result, error = None, type(exc).__name__
+            result, error = None, getattr(exc, 'code', type(exc).__name__)
         self.finish(request, message, result, error)
         return False
 
@@ -379,6 +381,8 @@ class Client:
             return
         self.forget(request)
         forwarded = message.copy()
+        if result and not self.relay.store.ready(result):
+            error = 'ACCESS_GRANT_REVOKED'
         if request['cancelled'].is_set():
             if result:
                 self.relay.store.revoke(result)
@@ -450,10 +454,12 @@ class Client:
 
 class Relay:
     def __init__(self, directory, guest, shares, *, upstream='unix:path=bus', parent=None,
-                 queue_limit=MAX_QUEUED_BYTES, clock=time.monotonic):
+                 queue_limit=MAX_QUEUED_BYTES, clock=time.monotonic, access_root=None,
+                 environment_binding=None, lease_id=None, ready_fd=None):
         self.directory = Path(directory)
         self.upstream = upstream
         self.parent = parent
+        self.ready_fd = ready_fd
         self.clients = set()
         self.clock = clock
         # Budget for frames awaiting main-context dispatch or a handle reply.
@@ -477,7 +483,8 @@ class Relay:
         self.server = Gio.DBusServer.new_sync('unix:path=files-bus', Gio.DBusServerFlags.NONE,
                                              Gio.dbus_generate_guid(), observer, None)
         self.server.connect('new-connection', self.accept)
-        self.store = SelectionStore(directory, guest, shares, emit=self.emit)
+        self.store = SelectionStore(directory, guest, shares, emit=self.emit, access_root=access_root,
+                                    environment_binding=environment_binding, lease_id=lease_id)
 
     @staticmethod
     def authorize(observer, stream, credentials):
@@ -548,14 +555,35 @@ class Relay:
             return False
         for client in list(self.clients):
             client.expire()
+        try:
+            modified = self.store.ledger.path.stat().st_mtime_ns
+            if modified != getattr(self, '_ledger_mtime', None):
+                if self.store.reconcile_revocations():
+                    self._ledger_mtime = modified
+        except Exception as exc:
+            self.emit(event='access-ledger-unavailable', code=type(exc).__name__)
+            self.loop.quit()
+            return False
         return True
 
     def run(self):
-        self.server.start()
-        self.emit(event='ready', pid=os.getpid(), selection_directory=str(self.store.directory),
-                  selection_identity=[self.store.root_identity.st_dev, self.store.root_identity.st_ino])
-        GLib.timeout_add(500, self.tick)
         try:
+            self.server.start()
+            ready = dict(event='ready', protocol_version=PROTOCOL_VERSION, pid=os.getpid(),
+                         worker_version=__version__,
+                         stamp=stamp(os.getpid()), lease_id=self.store.ledger.header['lease_id'],
+                         selection_directory=str(self.store.directory),
+                         selection_identity=[self.store.root_identity.st_dev, self.store.root_identity.st_ino])
+            if self.ready_fd is not None:
+                try:
+                    payload = (json.dumps(ready) + '\n').encode()
+                    if len(payload) > 4096 or os.write(self.ready_fd, payload) != len(payload):
+                        raise RuntimeError('file access readiness message could not be delivered')
+                finally:
+                    os.close(self.ready_fd)
+                    self.ready_fd = None
+            self.emit(**ready)
+            GLib.timeout_add(500, self.tick)
             self.loop.run()
         finally:
             self.server.stop()
@@ -576,8 +604,14 @@ def main():
     parser.add_argument('--shares', required=True)
     parser.add_argument('--parent', type=int, required=True)
     parser.add_argument('--stamp', type=int, required=True)
+    parser.add_argument('--access-root')
+    parser.add_argument('--environment-binding')
+    parser.add_argument('--lease-id')
+    parser.add_argument('--ready-fd', type=int)
     args = parser.parse_args()
-    relay = Relay(Path.cwd(), args.guest, json.loads(args.shares), parent=(args.parent, args.stamp))
+    relay = Relay(Path.cwd(), args.guest, json.loads(args.shares), parent=(args.parent, args.stamp),
+                  access_root=args.access_root, environment_binding=(json.loads(args.environment_binding)
+                    if args.environment_binding else None), lease_id=args.lease_id, ready_fd=args.ready_fd)
     for sig in (signal.SIGTERM, signal.SIGINT):
         GLib.unix_signal_add(GLib.PRIORITY_DEFAULT, sig, lambda: (relay.loop.quit(), False)[1])
     relay.run()

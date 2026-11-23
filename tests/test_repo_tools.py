@@ -1,5 +1,6 @@
-"""Archive relocation must preserve driver bytes, paths and failure status."""
+"""Contracts for the repository checks and archived probe replay."""
 
+import ast
 import contextlib
 import io
 from pathlib import Path
@@ -8,7 +9,57 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.repo_contract import load_contract, verify_entrypoints, verify_import_directions
 from tools.run_archived_probe import archived_script, replay
+
+
+class RepositoryContractTests(unittest.TestCase):
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.root = Path(temporary.name)
+        self.contract = load_contract(Path(__file__).resolve().parents[1])
+        paths = set()
+        for name in self.contract["legacy_aliases"]["modules"]:
+            paths.update({f"src/unifier/{name}.py", f"src/multilinux/{name}.py"})
+        for entry in self.contract["entrypoints"]:
+            paths.update(entry["files"] + entry["callers"] + entry["tests"])
+        for relative in paths:
+            path = self.root / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.touch()
+
+    def test_missing_legacy_alias_is_detected_even_when_replacement_remains(self):
+        (self.root / "src/multilinux/runtime.py").unlink()
+        with self.assertRaisesRegex(ValueError, r"legacy alias multilinux\.runtime requires src/multilinux/runtime\.py"):
+            verify_entrypoints(self.root, self.contract)
+
+    def test_missing_guest_supervisor_names_affected_entry_point(self):
+        (self.root / "src/unifier/application_supervisor.py").unlink()
+        with self.assertRaisesRegex(ValueError, r"guest application supervisor .*requires .*application_supervisor\.py"):
+            verify_entrypoints(self.root, self.contract)
+
+    def test_wps_assets_may_be_omitted_from_source_but_partial_payload_is_rejected(self):
+        verify_entrypoints(self.root, self.contract)
+        path = self.root / "src/unifier/wps_portal_assets/manifest.json"
+        path.parent.mkdir()
+        path.touch()
+        with self.assertRaisesRegex(ValueError, r"WPS file chooser .*incomplete candidate inputs: .*libqxdgdesktopportal\.so"):
+            verify_entrypoints(self.root, self.contract)
+
+    def test_import_baseline_permits_removing_debt_and_rejects_new_imports_and_cycles(self):
+        trees = {
+            "unifier.worker": ast.parse("from .internal import helper"),
+            "unifier.internal.helper": ast.parse("pass"),
+        }
+        verify_import_directions(trees, self.contract)
+        trees["unifier.internal.helper"] = ast.parse(
+            "from .. import worker\nfrom tools import lab\nimport multilinux.runtime")
+        with self.assertRaises(ValueError) as error:
+            verify_import_directions(trees, self.contract)
+        self.assertIn("new product import: unifier.internal.helper -> tools.lab", str(error.exception))
+        self.assertIn("new product import: unifier.internal.helper -> multilinux.runtime", str(error.exception))
+        self.assertIn("new cycle edge: unifier.worker -> unifier.internal.helper", str(error.exception))
 
 
 class ArchivedReplayTests(unittest.TestCase):

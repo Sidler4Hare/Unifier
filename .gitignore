@@ -15,3 +15,8 @@ archive/evidence/screencast-*/work/artifacts/
 # Restorable workload bytes are stored as verified .xz copies.
 /evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/*/dataset/sequential.bin
 /archive/evidence/unifier-v2-stage-f-2026-10-26/implementation/workspaces/*/dataset/sequential.bin
+
+# Retired probe trees and local test outputs.
+/archive/evidence/
+/artifacts/*
+!/artifacts/README.md

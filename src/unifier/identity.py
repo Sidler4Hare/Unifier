@@ -10,6 +10,7 @@ import re
 import uuid
 
 from unifier.errors import UnifierError
+from unifier.record_ids import validate_uuid
 from unifier.share_label import effective_policy as effective_share_label_policy
 
 
@@ -40,16 +41,7 @@ def schema_version(record: dict) -> int:
 
 
 def canonical_uuid(value) -> str:
-    if not isinstance(value, str):
-        raise UnifierError("environment_uuid must be a string")
-    try:
-        parsed = uuid.UUID(value)
-    except (ValueError, AttributeError) as exc:
-        raise UnifierError(f"environment_uuid is not a UUID: {value!r}") from exc
-    if str(parsed) != value:
-        raise UnifierError(
-            "environment_uuid must be the canonical lowercase UUID form")
-    return value
+    return validate_uuid(value, "environment_uuid")
 
 
 def identity(record: dict, *, required: bool = False):
@@ -85,10 +77,6 @@ def identity(record: dict, *, required: bool = False):
             or raw_generation < 1):
         raise UnifierError("environment generation must be a positive integer")
     return environment_uuid, raw_generation
-
-
-def has_identity(record: dict) -> bool:
-    return identity(record) is not None
 
 
 def stamp_new_identity(record: dict) -> dict:

@@ -1,0 +1,14 @@
+--- a/qplatformtheme.h
++++ b/qplatformtheme.h
+@@ -56,0 +57,2 @@
++
++namespace Qt { enum class ColorScheme; }
+@@ -319,0 +322,4 @@
++    virtual int applicationUIStyle() const;
++    virtual Qt::ColorScheme colorScheme() const;
++    virtual void requestColorScheme(Qt::ColorScheme scheme);
++
+--- a/qplatformdialoghelper.h
++++ b/qplatformdialoghelper.h
+@@ -408,0 +409 @@
++    virtual QString userFileName() const { return QString(); }

@@ -1,9 +1,0 @@
-{
-  "bundle": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/artifacts/unifier-ubuntu-server-20261028.tar.gz",
-  "sha256": "33eb5f1b6011763fb4408bd48a98237aa715ebc96910494aa328a543292724af",
-  "files": 123,
-  "size_bytes": 479297,
-  "extracted": "/home/omg/\u6587\u6863/\u591a\u517c\u5bb9linux\u673a/.lab/ubuntu-bundle-rzrriipn/unifier-ubuntu-server-20261028",
-  "all_members_verified": true,
-  "runtime_state_excluded": true
-}

@@ -4,6 +4,7 @@ import signal
 import time
 
 from unifier.errors import UnifierError
+from unifier.process_identity import process_stamp
 from unifier.runtime import ExecResult, GuestProcess
 
 
@@ -85,10 +86,7 @@ def execute_application(group, app_id, argv, *, pins, workdir=None):
                 if value.get('state') == 'exited':
                     group.update_execution(token, state='exited', proof=value)
                     confirmed = True
-                    code = value.get('exit_code')
-                    if not isinstance(code, int) or isinstance(code, bool):
-                        raise UnifierError('application ended without a native exit status')
-                    return ExecResult(code, '', '')
+                    break
                 if value.get('state') != 'running':
                     raise UnifierError(value.get('reason') or 'application termination is unknown')
                 # The host proxy ended while the guest supervisor still owns
@@ -112,9 +110,15 @@ def execute_application(group, app_id, argv, *, pins, workdir=None):
         if confirmed:
             group.release(token)
 
+    # A stopped container proves termination even when the guest could not
+    # record its exit status. Report that separately from lease recovery.
+    code = value.get('exit_code')
+    if type(code) is not int:
+        raise UnifierError('application ended without a native exit status')
+    return ExecResult(code, '', '')
+
 
 def recover_applications(group, token=None):
-    from unifier.on_demand import process_stamp
     entries = group.read()['leases']
     if token is not None:
         if token not in entries:
@@ -144,7 +148,6 @@ def recover_applications(group, token=None):
 
 
 def cancel_application(group, token, *, seconds=15.0):
-    from unifier.on_demand import process_stamp
     entry = group.read()['leases'].get(token)
     if not entry or not entry.get('app_id'):
         raise UnifierError('application lease token does not exist')

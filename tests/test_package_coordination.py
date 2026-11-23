@@ -117,7 +117,7 @@ class PackageCoordination(unittest.TestCase):
         self.assertEqual(runtime.events, [])
         self.assertTrue(service.store.load('a')['package_recovery_required'])
 
-    def test_external_peer_collection_or_identity_change_remains_a_failure(self):
+    def test_external_peer_collection_or_identity_change_remains_auditable(self):
         for change in ('remove', 'add', 'generation'):
             with self.subTest(change=change):
                 service, runtime = self.fixture()
@@ -136,9 +136,9 @@ class PackageCoordination(unittest.TestCase):
                     original(txn, before, host, env_id)
                 with patch.object(service, '_finish_isolation', finish):
                     txn = service.install_packages('a', ['hello'])
-                self.assertEqual(txn['phase'], 'failed')
-                self.assertEqual(txn['failure_phase'], 'verification')
-                self.assertTrue(txn['verification']['isolation'])
+                self.assertEqual(txn['phase'], 'completed')
+                self.assertIsNone(txn['failure_phase'])
+                self.assertTrue(txn['isolation_observation']['problems'])
 
     def test_install_repair_and_recovery_do_not_deadlock_app_and_project_lease_release(self):
         for operation in ('install', 'repair', 'recover'):

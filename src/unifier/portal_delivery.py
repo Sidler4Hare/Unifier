@@ -7,55 +7,38 @@ from contextlib import ExitStack
 import hashlib
 import os
 from pathlib import Path
-import re
 import shutil
 import stat
 import tempfile
 import threading
-from urllib.parse import unquote_to_bytes, urlsplit
 import uuid
 
 from unifier.host_share_paths import open_host_share_path
 from unifier.host_share_policy import HostSharePolicy
+from unifier.file_access import AccessPolicy, AccessError, decide_selection
+from unifier.file_access import local_path, mapped_path
+from unifier.file_access_store import AccessStore, GrantLedger, reclaim_directory
 
 
-class DeliveryError(ValueError):
-    pass
-
-
-def local_path(uri):
-    if not isinstance(uri, str) or len(uri) > 32768 or re.search(r'%(?![0-9a-fA-F]{2})', uri):
-        raise DeliveryError('invalid local file URI')
-    parsed = urlsplit(uri)
-    if parsed.scheme != 'file' or parsed.netloc not in ('', 'localhost') or parsed.query or parsed.fragment:
-        raise DeliveryError('only local file selections can be delivered')
-    text = unquote_to_bytes(parsed.path).decode('utf-8', 'strict')
-    if (not text.startswith('/') or text.startswith('//') or
-            any(c in text for c in '\0\n\r') or any(p in ('', '.', '..') for p in text.split('/')[1:])):
-        raise DeliveryError('file path must be canonical and absolute')
-    return Path(text)
-
-
-def mapped_path(path, shares, *, writable=False):
-    matches = [(Path(guest) / path.relative_to(host), rw)
-               for host, guest, rw in shares if path.is_relative_to(host)]
-    if len(matches) > 1:
-        raise DeliveryError('ambiguous selected-file mapping')
-    if not matches:
-        return None
-    if writable and not matches[0][1]:
-        raise DeliveryError('selection needs a writable shared directory')
-    return matches[0][0]
+DeliveryError = AccessError
 
 
 def identity(info):
     return (info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_ctime_ns)
 
 
+class DeliveredPaths(list):
+    """Private broker result; the transport serializes only its list of URIs."""
+    def __init__(self, paths, grant_id):
+        super().__init__(paths)
+        self.grant_id = grant_id
+
+
 class SelectionStore:
     """Lease-scoped snapshots; every batch is all-or-nothing and bounded."""
     def __init__(self, directory, guest_directory, shares=(), *, emit=None,
-                 max_file_bytes=512*1024**2, max_session_bytes=1024**3):
+                 max_file_bytes=512*1024**2, max_session_bytes=1024**3,
+                 access_root=None, environment_binding=None, lease_id=None):
         self.directory = Path(tempfile.mkdtemp(prefix='selected-', dir=directory))
         self.guest = Path(guest_directory) / self.directory.name
         self.root_fd = os.open(self.directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
@@ -69,6 +52,20 @@ class SelectionStore:
         self.grants = {}
         self.cancelled = threading.Event()
         self.lock = threading.Lock()
+        self.closed = False
+        self.access_store = AccessStore(access_root) if access_root is not None else None
+        # Standalone offline callers own their enclosing temporary directory.
+        # Production always supplies the management root outside guest mounts.
+        ledger_directory = (self.access_store.directory / 'leases' if self.access_store else
+                            Path(directory).parent / '.unifier-access-fixture')
+        try:
+            self.ledger = GrantLedger(ledger_directory, lease_id or uuid.uuid4().hex,
+                                     environment_binding, self.directory,
+                                     (self.root_identity.st_dev, self.root_identity.st_ino))
+        except BaseException:
+            os.close(self.root_fd)
+            self.directory.rmdir()
+            raise
 
     def _check_root(self):
         observed = self.directory.lstat()
@@ -79,21 +76,24 @@ class SelectionStore:
         stopped = lambda: self.cancelled.is_set() or (cancelled is not None and cancelled.is_set())
         if (not isinstance(uris, (list, tuple)) or not 1 <= len(uris) <= 256
                 or (not multiple and len(uris) != 1)):
-            raise DeliveryError('invalid selection count')
+            raise DeliveryError('ACCESS_REQUEST_INVALID', 'invalid selection count')
         if method not in ('OpenFile', 'SaveFile', 'SaveFiles'):
-            raise DeliveryError('unsupported file chooser method')
+            raise DeliveryError('ACCESS_PURPOSE_INVALID', 'unsupported file chooser method')
         with self.lock, ExitStack() as stack:
-            if stopped() or self.batches >= 128:
-                raise DeliveryError('selection lease closed or request budget exhausted')
+            if stopped():
+                raise DeliveryError('ACCESS_CANCELLED', 'selection lease closed')
             self._check_root()
+            policy = self.access_store.policy() if self.access_store else AccessPolicy()
             selected = []
+            decisions = []
             required = 0
             for uri in uris:
                 source = local_path(uri)
+                decision = decide_selection(policy, source, self.shares, method=method,
+                                            directory=directory, writable=writable)
+                decisions.append(decision.as_dict())
                 writing = writable or method != 'OpenFile'
-                mapped = mapped_path(source, self.shares, writable=writing)
-                if mapped is None and (writing or directory):
-                    raise DeliveryError('write, save and directory selections require an existing shared directory')
+                mapped = None if decision.guest_path is None else Path(decision.guest_path)
                 if method != 'OpenFile' and not source.exists():
                     # Only static writable mappings may return new save paths.
                     stack.enter_context(open_host_share_path(
@@ -103,6 +103,7 @@ class SelectionStore:
                 fd = stack.enter_context(open_host_share_path(
                     HostSharePolicy((str(source.parent),), writable=writing), str(source), write=writing))
                 info = os.fstat(fd)
+                decisions[-1]['source_identity'] = list(identity(info))
                 if directory != stat.S_ISDIR(info.st_mode):
                     raise DeliveryError('selection has the wrong file type')
                 if mapped is None:
@@ -116,11 +117,20 @@ class SelectionStore:
             if required and disk.free - required < max(5*1024**3, disk.total//10):
                 raise DeliveryError('insufficient disk reserve for selected files')
             token = uuid.uuid4().hex
-            os.mkdir(token, 0o700, dir_fd=self.root_fd)
+            self.ledger.reserve(token, size=required, objects=sum(d['backend'] == 'snapshot' for d in decisions),
+                                byte_limit=self.max_session_bytes, object_limit=128, decisions=decisions)
+            try:
+                os.mkdir(token, 0o700, dir_fd=self.root_fd)
+            except BaseException:
+                self.ledger.transition(token, 'failed')
+                raise
             batch = self.directory / token
             batch_fd = os.open(token, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=self.root_fd)
+            batch_info = os.fstat(batch_fd)
+            batch_identity = [batch_info.st_dev, batch_info.st_ino]
             result, entries = [], []
             try:
+                self.ledger.transition(token, 'preparing', batch_identity=batch_identity)
                 for index, (source, mapped, anchor, info) in enumerate(selected):
                     if stopped():
                         raise DeliveryError('selection lease closed')
@@ -171,28 +181,86 @@ class SelectionStore:
                 self._check_root()
                 if stopped():
                     raise DeliveryError('selection request cancelled')
+                if self.access_store and self.access_store.policy().revision != policy.revision:
+                    raise DeliveryError('ACCESS_POLICY_STALE', 'policy changed during delivery; select again')
                 self.emit(event='selection-prepared', token=token, files=entries, bytes=required)
-                self.grants[tuple(result)] = (token, required)
+                # Persist before handing a URI to the transport. A send failure
+                # will revoke this exact grant through the same ledger.
+                self.ledger.transition(token, 'ready', entries=entries, uris=result)
+                self.grants[token] = required
                 self.used += required
                 self.batches += 1
-                return result
+                return DeliveredPaths(result, token)
             except BaseException:
-                shutil.rmtree(batch)
+                self.ledger.transition(token, 'revoking')
+                try:
+                    reclaim_directory(self.root_fd, self.directory, token, batch_identity)
+                except (OSError, AccessError):
+                    self.ledger.transition(token, 'needs-recovery')
+                    raise
+                self.ledger.transition(token, 'released')
                 raise
             finally:
                 os.close(batch_fd)
 
+    def ready(self, uris):
+        token = getattr(uris, 'grant_id', None)
+        grant = self.ledger.read()['grants'].get(token)
+        return bool(grant and grant['state'] == 'ready' and grant.get('uris') == list(uris))
+
+    def _remove_grant(self, token, grant):
+        self._check_root()
+        expected = grant.get('batch_identity')
+        if not isinstance(expected, list) or len(expected) != 2:
+            raise DeliveryError('ACCESS_RECOVERY_REQUIRED', 'batch identity was not recorded')
+        reclaim_directory(self.root_fd, self.directory, token, expected, missing_ok=False)
+        self.ledger.transition(token, 'released')
+        self.grants.pop(token, None)
+
     def revoke(self, uris):
         with self.lock:
-            grant = self.grants.pop(tuple(uris), None)
-            if grant:
-                token, size = grant
-                shutil.rmtree(self.directory / token, ignore_errors=True)
-                self.used -= size
+            token = getattr(uris, 'grant_id', None)
+            grant = self.ledger.read()['grants'].get(token)
+            if not grant or grant['state'] in ('released', 'failed'):
+                return
+            self.ledger.transition(token, 'revoking')
+            try:
+                self._remove_grant(token, grant)
+            except (OSError, AccessError):
+                self.ledger.transition(token, 'needs-recovery')
+                raise
+            self.used, _ = self.ledger.usage()
+
+    def reconcile_revocations(self):
+        """The existing bridge services revocation without another daemon."""
+        if not self.lock.acquire(blocking=False):
+            return False
+        try:
+            self._check_root()
+            for token, grant in self.ledger.read()['grants'].items():
+                if grant['state'] != 'revoking':
+                    continue
+                try:
+                    self._remove_grant(token, grant)
+                except (OSError, AccessError):
+                    self.ledger.transition(token, 'needs-recovery')
+            self.used, _ = self.ledger.usage()
+            return True
+        finally:
+            self.lock.release()
 
     def close(self):
         self.cancelled.set()
         with self.lock:
+            if self.closed:
+                return
             self._check_root()
+            parent_fd = os.open(self.directory.parent, os.O_DIRECTORY | os.O_NOFOLLOW)
+            try:
+                reclaim_directory(parent_fd, self.directory.parent, self.directory.name,
+                                  [self.root_identity.st_dev, self.root_identity.st_ino])
+            finally:
+                os.close(parent_fd)
+            self.ledger.release_all()
             os.close(self.root_fd)
-            shutil.rmtree(self.directory)
+            self.closed = True

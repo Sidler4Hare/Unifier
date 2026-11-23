@@ -13,11 +13,11 @@ import json
 import os
 from pathlib import Path
 import stat
-import uuid
 from zoneinfo import ZoneInfo
 
 from unifier.atomic_io import atomic_replace
 from unifier.errors import UnifierError
+from unifier.record_ids import validate_uuid
 
 
 SCHEMA_VERSION = 1
@@ -49,9 +49,6 @@ STATES = {
 TERMINAL_STATES = {
     "DONE", "SOURCE_CLEANUP_PENDING", "CONFLICT", "NEEDS_RECONCILIATION",
 }
-PENDING_STATES = {
-    "INTENT_DURABLE", "STAGING", "TARGET_PUBLISHED", "REGISTRY_COMMITTED",
-} | CLEANUP_STATES
 CAPABILITIES = {
     "regular_file_copy": True,
     "move_copies_then_retains_source": True,
@@ -107,15 +104,7 @@ def _now() -> str:
 
 
 def _canonical_uuid(value, label: str) -> str:
-    if not isinstance(value, str):
-        raise UnifierError(f"{label} must be a string")
-    try:
-        parsed = uuid.UUID(value)
-    except (ValueError, AttributeError) as exc:
-        raise UnifierError(f"{label} is not a UUID: {value!r}") from exc
-    if str(parsed) != value:
-        raise UnifierError(f"{label} must be the canonical lowercase UUID form")
-    return value
+    return validate_uuid(value, label)
 
 
 def _validate_relative(relative_path: str, label: str) -> list[str]:

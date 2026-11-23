@@ -1,7 +1,0 @@
-专用目录 SELinux 标签 / Private directory SELinux label: /home/omg/文档/多兼容linux机/.lab/agents/cli-installation-20261029/private-label-live/containers/debian13/files (:z; managed directory only)
-Preparing distributions: Debian 13
-debian13: locked image sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483 is present; reusing it.
-debian13: image ready sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483.
-debian13: creating unique environment debian13 (network=pasta, desktop=false).
-debian13: ready (container stopped).
-Initialization complete: 1 distribution(s) enabled, 1 container(s) retained.

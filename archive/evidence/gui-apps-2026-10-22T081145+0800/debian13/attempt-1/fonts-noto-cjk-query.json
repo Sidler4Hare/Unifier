@@ -1,7 +1,0 @@
-{
-  "environment_id": "gui-debian13",
-  "package": "fonts-noto-cjk",
-  "present": true,
-  "exit_code": 0,
-  "detail": "fonts-noto-cjk\t1:20240730+repack1-1"
-}

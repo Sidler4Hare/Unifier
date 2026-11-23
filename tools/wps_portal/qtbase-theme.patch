@@ -1,0 +1,201 @@
+--- a/qxdgdesktopportaltheme.cpp
++++ b/qxdgdesktopportaltheme.cpp
+@@ -43 +43,3 @@
+-#include <private/qguiapplication_p.h>
++#include <QtCore/qvariant.h>
++#include <QtGui/qicon.h>
++#include <QtGui/qpixmap.h>
+@@ -46 +47,0 @@
+-#include <qpa/qplatformintegration.h>
+@@ -70,21 +71 @@
+-    QStringList themeNames;
+-    themeNames += QGuiApplicationPrivate::platform_integration->themeNames();
+-    // 1) Look for a theme plugin.
+-    for (const QString &themeName : qAsConst(themeNames)) {
+-        d->baseTheme = QPlatformThemeFactory::create(themeName, nullptr);
+-        if (d->baseTheme)
+-            break;
+-    }
+-
+-    // 2) If no theme plugin was found ask the platform integration to
+-    // create a theme
+-    if (!d->baseTheme) {
+-        for (const QString &themeName : qAsConst(themeNames)) {
+-            d->baseTheme = QGuiApplicationPrivate::platform_integration->createPlatformTheme(themeName);
+-            if (d->baseTheme)
+-                break;
+-        }
+-        // No error message; not having a theme plugin is allowed.
+-    }
+-
+-    // 3) Fall back on the built-in "null" platform theme.
++    d->baseTheme = QPlatformThemeFactory::create(QStringLiteral("gtk3"), nullptr);
+--- a/qxdgdesktopportalfiledialog.cpp
++++ b/qxdgdesktopportalfiledialog.cpp
+@@ -59,0 +60,10 @@
++static void tracePicker(const char *event, const QString &value = {})
++{
++    const auto path = qgetenv("UNIFIER_WPS_PICKER_TRACE");
++    if (path.isEmpty())
++        return;
++    QFile file(QFile::decodeName(path));
++    if (file.open(QIODevice::WriteOnly | QIODevice::Append))
++        file.write(QByteArray(event) + ": " + value.toUtf8() + '\n');
++}
++
+@@ -99,0 +110,47 @@
++}
++
++
++static void appendNameFilters(const QString &entry,
++                              QXdgDesktopPortalFileDialog::FilterList &filters)
++{
++    // The KSO build can supply several Label (*.ext) groups in one entry.
++    static const QRegularExpression groups(QStringLiteral(R"(\(([^()]*)\))"));
++    static const QRegularExpression space(QStringLiteral(R"([\s;]+)"));
++    static const QRegularExpression glob(QStringLiteral(R"(^[^\s()/\\]*[?*][^\s()/\\]*$)"));
++    int start = 0;
++    auto matches = groups.globalMatch(entry);
++    while (matches.hasNext()) {
++        const auto match = matches.next();
++        const auto patterns = match.captured(1).split(space, QString::SkipEmptyParts);
++        QXdgDesktopPortalFileDialog::FilterConditionList conditions;
++        for (const auto &pattern : patterns) {
++            if (glob.match(pattern).hasMatch())
++                conditions << QXdgDesktopPortalFileDialog::FilterCondition{
++                    QXdgDesktopPortalFileDialog::GlobalPattern, pattern};
++        }
++        if (conditions.isEmpty() || conditions.size() != patterns.size())
++            continue;
++        const auto label = entry.mid(start, match.capturedStart() - start).trimmed();
++        if (!label.isEmpty()) {
++            QXdgDesktopPortalFileDialog::Filter filter;
++            filter.name = label;
++            filter.original = entry.mid(start, match.capturedEnd() - start).trimmed();
++            filter.filterConditions = conditions;
++            filters << filter;
++        }
++        start = match.capturedEnd();
++    }
++}
++
++static bool sameFilter(const QXdgDesktopPortalFileDialog::Filter &first,
++                       const QXdgDesktopPortalFileDialog::Filter &second)
++{
++    if (first.name != second.name || first.filterConditions.size() != second.filterConditions.size())
++        return false;
++    for (int i = 0; i < first.filterConditions.size(); ++i) {
++        const auto &a = first.filterConditions.at(i);
++        const auto &b = second.filterConditions.at(i);
++        if (a.type != b.type || a.pattern != b.pattern)
++            return false;
++    }
++    return true;
+@@ -116,0 +174,2 @@
++    QXdgDesktopPortalFileDialog::FilterList advertisedFilters;
++    QString chosenFilter;
+@@ -162,0 +222,5 @@
++    if (d->chosenFilter.isEmpty())
++        d->chosenFilter = options()->initiallySelectedNameFilter().trimmed();
++    tracePicker(d->saveFile ? "show-save" : "show-open",
++                options()->nameFilters().join(QStringLiteral(" | ")));
++    tracePicker("initial", d->chosenFilter);
+@@ -168 +232 @@
+-    Q_D(const QXdgDesktopPortalFileDialog);
++    Q_D(QXdgDesktopPortalFileDialog);
+@@ -220,23 +284,12 @@
+-    } else if (!d->nameFilters.isEmpty()) {
+-        for (const QString &filter : d->nameFilters) {
+-            // Do parsing:
+-            // Supported format is ("Images (*.png *.jpg)")
+-            QRegularExpression regexp(QPlatformFileDialogHelper::filterRegExp);
+-            QRegularExpressionMatch match = regexp.match(filter);
+-            if (match.hasMatch()) {
+-                QString userVisibleName = match.captured(1);
+-                QStringList filterStrings = match.captured(2).split(QLatin1Char(' '), QString::SkipEmptyParts);
+-
+-                FilterConditionList filterConditions;
+-                for (const QString &filterString : filterStrings) {
+-                    FilterCondition filterCondition;
+-                    filterCondition.type = GlobalPattern;
+-                    filterCondition.pattern = filterString;
+-                    filterConditions << filterCondition;
+-                }
+-
+-                Filter filter;
+-                filter.name = userVisibleName;
+-                filter.filterConditions = filterConditions;
+-
+-                filterList << filter;
++    } else {
++        for (const auto &filter : qAsConst(d->nameFilters))
++            appendNameFilters(filter, filterList);
++    }
++
++    d->advertisedFilters = filterList;
++    if (!filterList.isEmpty()) {
++        options.insert(QLatin1String("filters"), QVariant::fromValue(filterList));
++        for (const auto &filter : qAsConst(filterList)) {
++            if (!d->chosenFilter.isEmpty() && filter.original == d->chosenFilter) {
++                options.insert(QLatin1String("current_filter"), QVariant::fromValue(filter));
++                break;
+@@ -246,3 +298,0 @@
+-
+-    if (!filterList.isEmpty())
+-        options.insert(QLatin1String("filters"), QVariant::fromValue(filterList));
+@@ -339,0 +390,2 @@
++    tracePicker("selectNameFilter", filter);
++    d->chosenFilter = filter.trimmed();
+@@ -349,2 +401,3 @@
+-    // TODO
+-    return QString();
++    Q_D(const QXdgDesktopPortalFileDialog);
++    tracePicker("selectedNameFilter", d->chosenFilter);
++    return d->chosenFilter;
+@@ -398,6 +451 @@
+-    if (!response) {
+-        if (results.contains(QLatin1String("uris")))
+-            d->selectedFiles = results.value(QLatin1String("uris")).toStringList();
+-
+-        Q_EMIT accept();
+-    } else {
++    if (response != 0) {
+@@ -405 +453,31 @@
+-    }
++        return;
++    }
++
++    const auto uris = results.value(QLatin1String("uris")).toStringList();
++    if (uris.isEmpty()) {
++        Q_EMIT reject();
++        return;
++    }
++    const auto selection = results.value(QLatin1String("current_filter"));
++    bool validFilter = false;
++    if (selection.isValid()) {
++        const auto chosen = qdbus_cast<Filter>(selection);
++        for (const auto &filter : qAsConst(d->advertisedFilters)) {
++            if (sameFilter(filter, chosen)) {
++                d->chosenFilter = filter.original;
++                validFilter = true;
++                break;
++            }
++        }
++    }
++    if (d->saveFile && !d->nameFilters.isEmpty() && !validFilter) {
++        Q_EMIT reject();
++        return;
++    }
++    d->selectedFiles = uris;
++    tracePicker("accepted-filter", d->chosenFilter);
++    if (qEnvironmentVariableIsSet("UNIFIER_WPS_PICKER_EMIT_FILTER") && validFilter) {
++        tracePicker("filterSelected", d->chosenFilter);
++        Q_EMIT filterSelected(d->chosenFilter);
++    }
++    Q_EMIT accept();
+--- a/qxdgdesktopportalfiledialog_p.h
++++ b/qxdgdesktopportalfiledialog_p.h
+@@ -68 +68,2 @@
+-        FilterConditionList filterConditions;; // E.g. [(0, '*.ico'), (1, 'image/png')] or [(0, '*.txt')]
++        QString original;
++        FilterConditionList filterConditions; // E.g. [(0, '*.ico'), (1, 'image/png')] or [(0, '*.txt')]

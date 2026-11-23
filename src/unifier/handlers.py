@@ -13,6 +13,7 @@ import re
 import uuid
 
 from unifier.errors import UnifierError
+from unifier.record_ids import validate_uuid
 from unifier.identity import validate_binding
 from unifier.json_records import JsonRecordCollection
 from unifier.projects import INTENTS
@@ -28,15 +29,7 @@ FILE_TOKEN = "{file}"
 
 
 def _canonical_uuid(value, label: str) -> str:
-    if not isinstance(value, str):
-        raise UnifierError(f"handler {label} must be a string")
-    try:
-        parsed = uuid.UUID(value)
-    except (ValueError, AttributeError) as exc:
-        raise UnifierError(f"handler {label} is not a UUID: {value!r}") from exc
-    if str(parsed) != value:
-        raise UnifierError(f"handler {label} must be the canonical lowercase UUID form")
-    return value
+    return validate_uuid(value, f"handler {label}")
 
 
 def _validate_alias(alias) -> str | None:
@@ -74,6 +67,10 @@ def execution_fingerprint(launch: dict) -> str:
         "mounts": launch.get("mounts") or [],
         "package_origin": launch.get("package_origin"),
     }
+    # Preserve existing wait-policy authorizations byte-for-byte, while an
+    # explicit lifetime change must invalidate previously exported handlers.
+    if launch.get('exit_policy', 'wait') != 'wait':
+        payload['exit_policy'] = launch['exit_policy']
     encoded = json.dumps(
         payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
     return hashlib.sha256(encoded).hexdigest()

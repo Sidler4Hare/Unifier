@@ -28,7 +28,10 @@ import tempfile
 import time
 import uuid
 
+from unifier import __version__
+from unifier.desktop_launch import integration_collection, validate_launcher
 from unifier.errors import UnifierError
+from unifier.record_ids import validate_uuid
 from unifier.file_routes import project_session_scope
 from unifier.identity import binding_for, validate_binding
 from unifier.json_records import JsonRecordCollection, fsync_directory
@@ -44,7 +47,6 @@ SESSION_STATES = {
     "planned", "starting", "running", "exited", "failed", "interrupted",
     "unresolved", "retired",
 }
-ENV_KEY_RE = None
 DENIED_EXACT = {
     "PATH", "SHELL", "ENV", "BASH_ENV", "CDPATH", "PYTHONPATH", "PYTHONHOME",
     "PERL5LIB", "RUBYLIB", "NODE_PATH", "PWD", "OLDPWD", "IFS",
@@ -59,15 +61,7 @@ SESSION_USER_RE = re.compile(r"(0|[1-9][0-9]*):(0|[1-9][0-9]*)\Z")
 
 
 def _canonical_uuid(value, label: str) -> str:
-    if not isinstance(value, str):
-        raise UnifierError(f"session {label} must be a string")
-    try:
-        parsed = uuid.UUID(value)
-    except (ValueError, AttributeError) as exc:
-        raise UnifierError(f"session {label} is not a UUID: {value!r}") from exc
-    if str(parsed) != value:
-        raise UnifierError(f"session {label} must be canonical lowercase UUID form")
-    return value
+    return validate_uuid(value, f"session {label}", form="canonical lowercase UUID form")
 
 
 def _scope_fingerprint(scope: dict) -> str:
@@ -328,6 +322,14 @@ class ProjectSessions:
             raise UnifierError(
                 "environment container instance changed; create a new project session")
         scope = project_session_scope(environment, root["locator"], cwd)
+        from unifier.file_access import require_registered_permission
+        from unifier.file_access_store import AccessStore
+        purpose = 'read' if project['access_policy'] == 'read-only' or root['access_policy'] == 'read-only' else 'edit'
+        require_registered_permission(project, purpose)
+        require_registered_permission(root, purpose)
+        policy = AccessStore(self.root).policy()
+        policy.require(root['locator'], purpose, directory=True)
+        policy.require(cwd, purpose, directory=True)
         read_only_policy = (project["access_policy"] == "read-only"
                             or root["access_policy"] == "read-only")
         if read_only_policy:
@@ -482,12 +484,9 @@ class ProjectSessions:
         integration_uuid = record.get("integration_uuid")
         if integration_uuid is None:
             return
-        # Import lazily: DesktopIntegrationManager itself uses ProjectSessions.
-        from unifier.desktop_integrations import DesktopIntegrationManager
-        manager = DesktopIntegrationManager(self.root, self.service)
-        manager.validate_launcher(
-            integration_uuid, project_uuid=record["project_uuid"],
-            app_id=None)
+        validate_launcher(
+            integration_collection(self.root), self.projects.show, self.service,
+            integration_uuid, project_uuid=record["project_uuid"])
 
     def _validate_session(self, record: dict) -> dict:
         validate_session_record(record)
@@ -752,6 +751,7 @@ class ProjectSessions:
             record = self.store.update(
                 session_uuid, state="running", lease_token=token,
                 worker_pid=os.getpid(), worker_stamp=process_stamp(os.getpid()),
+                worker_version=__version__,
                 updated_at=self.service.clock())
 
             def spawned(process):
@@ -958,6 +958,7 @@ class ProjectSessions:
         if self._guest_from_record(record) is not None and guest_state != "gone":
             guest_state = self._guest_state(record)
         view = dict(record)
+        view.setdefault("worker_version", None)
         view["worker_live"] = worker_live
         view["child_live"] = child_live
         view["guest_state"] = guest_state

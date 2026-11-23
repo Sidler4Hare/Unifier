@@ -22,3 +22,7 @@ artifacts/test-policy-20261104/** -whitespace
 artifacts/wps-native-container-ab-20261103T222720+0800/** -whitespace
 artifacts/release-v0.0.4-20261108T122119+0800/** -whitespace
 artifacts/release-v0.0.4-20261108T123341+0800/** -whitespace
+
+# Preserve the tested unified diff and the frozen hardware proposal verbatim.
+fixtures/hardware/mesa-r600-mpeg2-matrix.patch -whitespace
+artifacts/v008-hardware-start-20261115T175824+0800-gmxic3fb/gpu-fixture-proposal.md -whitespace

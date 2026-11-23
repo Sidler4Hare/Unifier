@@ -1,3 +1,0 @@
-deps-debian: apt-get update
-deps-debian: apt-get install -y figlet
-deps-debian: install completed txne0abfcfa636f

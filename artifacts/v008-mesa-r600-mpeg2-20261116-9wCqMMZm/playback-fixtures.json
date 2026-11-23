@@ -1,0 +1,84 @@
+{
+  "inputs": {
+    "motion-default": {
+      "sha256": "034d2a482ff06336102fc784d541ad8692bebccf379859959951b69a266cd532",
+      "software_sha256": "57829266dbaa8a2203864f73457b6157ca833abcccde5a2524b102171bd1c77d",
+      "frame_types": [
+        "I",
+        "B",
+        "B",
+        "P",
+        "B",
+        "B",
+        "P",
+        "B",
+        "B",
+        "P",
+        "B",
+        "B",
+        "I",
+        "B",
+        "B",
+        "P"
+      ],
+      "non_intra_matrix_signaled": false,
+      "alternate_scan": false
+    },
+    "motion-custom-inter": {
+      "sha256": "c0a7020c0ef9309ef4231fa713504ae1a88ebf87db24d0a4ae82613bc4be805d",
+      "software_sha256": "8788a336ceadd05f8339d3ff99c11653427fb5da8018c9414455a186f1ebaee3",
+      "frame_types": [
+        "I",
+        "B",
+        "B",
+        "P",
+        "B",
+        "B",
+        "P",
+        "B",
+        "B",
+        "P",
+        "B",
+        "B",
+        "I",
+        "B",
+        "B",
+        "P"
+      ],
+      "non_intra_matrix_signaled": true,
+      "alternate_scan": false
+    },
+    "motion-custom-inter-alt": {
+      "sha256": "4ac70414e106099238bf443e5180db7d42a202025a9ae1cd623044079f760b51",
+      "software_sha256": "8788a336ceadd05f8339d3ff99c11653427fb5da8018c9414455a186f1ebaee3",
+      "frame_types": [
+        "I",
+        "B",
+        "B",
+        "P",
+        "B",
+        "B",
+        "P",
+        "B",
+        "B",
+        "P",
+        "B",
+        "B",
+        "I",
+        "B",
+        "B",
+        "P"
+      ],
+      "non_intra_matrix_signaled": true,
+      "alternate_scan": true
+    },
+    "original": {
+      "sha256": "d7a2a7aa40d6ec988c1081c2620f4cd9ad58aae2099edd821a81ff74b80aacdb",
+      "software_sha256": "a9b1d7631e7ba0b43da8c9ccc6a5be72745acb74d3c18a5084f0da26bce25b71",
+      "frame_types": [
+        "I"
+      ]
+    }
+  },
+  "encoder": "ffmpeg version 8.1.3 Copyright (c) 2000-2026 the FFmpeg developers"
+}

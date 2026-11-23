@@ -1,3 +1,0 @@
-ControlGroup=/user.slice/user-1000.slice/user@1000.service/unifier.slice/unifier-tests.slice
-MemoryCurrent=9375744
-TasksCurrent=0

@@ -19,7 +19,8 @@ class DeliveryBridgeRecovery(unittest.TestCase):
         temporary = self.enterContext(tempfile.TemporaryDirectory())
         self.directory = Path(temporary) / '.lab/desktop/fixture'
         self.directory.mkdir(parents=True)
-        self.record = {'id': 'fixture', 'desktop': {'portal_proxy': {
+        self.record = {'id': 'fixture', 'environment_uuid': 'f74ef424-7093-458b-a7de-ff32fa82563c',
+                       'generation': 1, 'runtime': {'container_id': 'a' * 64}, 'desktop': {'portal_proxy': {
             'directory': str(self.directory), 'container': '/run/multilinux-portal'}}}
         self.selected = self.directory / 'selected-old'
         self.selected.mkdir()
@@ -63,9 +64,14 @@ class DeliveryBridgeRecovery(unittest.TestCase):
         new_directory = cwd / 'selected-new'
         new_directory.mkdir()
         info = new_directory.stat()
-        stdout.write((json.dumps({'event': 'ready', 'selection_directory': str(new_directory),
-                                  'selection_identity': [info.st_dev, info.st_ino]}) + '\n').encode())
-        stdout.flush()
+        from unifier.file_access_store import AccessStore, GrantLedger
+        lease = command[command.index('--lease-id') + 1]
+        binding = json.loads(command[command.index('--environment-binding') + 1])
+        GrantLedger(AccessStore(self.directory.parent.parent.parent).directory / 'leases',
+                    lease, binding, new_directory, [info.st_dev, info.st_ino])
+        ready = {'protocol_version': 2, 'pid': 33, 'stamp': 133, 'lease_id': lease,
+                 'selection_directory': str(new_directory), 'selection_identity': [info.st_dev, info.st_ino]}
+        os.write(int(command[command.index('--ready-fd') + 1]), (json.dumps(ready) + '\n').encode())
         return SimpleNamespace(pid=33, poll=lambda: None)
 
     def test_reclaims_old_snapshot_before_spawning_replacement(self):
@@ -96,6 +102,19 @@ class DeliveryBridgeRecovery(unittest.TestCase):
         self.delivery['selection_identity'][1] += 1
         self.assert_cleanup_rejected('snapshot directory identity changed')
         self.assertTrue(self.selected.is_dir())
+
+    def test_old_live_bridge_is_not_upgraded_by_stopping_its_apps(self):
+        self.stamps[22] = 122
+        with patch('unifier.on_demand._bridge_alive', return_value=True):
+            self.assert_cleanup_rejected('older protocol')
+
+    def test_invalid_identity_is_refused_before_starting_any_proxy(self):
+        del self.record['environment_uuid']
+        del self.record['generation']
+        with self.assertRaisesRegex(UnifierError, 'versioned identity'):
+            start_bridge(self.record, file_delivery=True)
+        self.spawn.assert_not_called()
+        self.kill.assert_not_called()
 
     def test_symlink_is_not_followed(self):
         moved = self.selected.rename(self.directory / 'selected-unrelated')

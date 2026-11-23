@@ -29,6 +29,8 @@ from unifier.packages import (
     update_commands,
 )
 from unifier.runtime import (
+    APPLICATION_PYTHON_CHECK,
+    APPLICATION_PYTHON_MISSING,
     ROLE_ENVIRONMENT,
     LABEL_ENV,
     LABEL_PROJECT,
@@ -128,6 +130,15 @@ class PackageBoxes(FakeRuntime):
 
     def _answer(self, info, argv):
         env_id = info.env_id
+        if argv == ["/bin/sh", "-c", APPLICATION_PYTHON_CHECK]:
+            package = "python" if self.identities[env_id]["ID"] == "arch" else "python3"
+            available = package in self.installed.get(env_id, set())
+            return ExecResult(0, "" if available else APPLICATION_PYTHON_MISSING + "\n", "")
+        if argv[0:2] == ["sh", "-c"] and argv[3:4] == ["unifier-package-journal"]:
+            return ExecResult(0, "clean\n", "")
+        if argv == ["sh", "-c", "test ! -e /var/lib/pacman/db.lck && "
+                    "test ! -L /var/lib/pacman/db.lck"]:
+            return ExecResult(int(getattr(self, "pacman_locked", False)), "", "")
         if argv in (["dpkg", "--audit"], ["rpm", "--verifydb"], ["pacman", "-Dk"]):
             return ExecResult(0, "", "")
         if argv[:2] in (["dpkg-query", "-L"], ["rpm", "-ql"], ["pacman", "-Ql"]):
@@ -163,7 +174,7 @@ class PackageBoxes(FakeRuntime):
         if argv[:2] == ["pacman", "-Sy"]:
             return ExecResult(1, "", "partial upgrade is not a valid transaction")
         if argv[:3] == ["apt-get", "install", "-y"]:
-            return self._add(env_id, argv[3:])
+            return self._add(env_id, [item for item in argv[3:] if item != "--no-install-recommends"])
         if argv[:3] == ["apt-get", "remove", "-y"]:
             return self._remove(env_id, argv[3:])
         if argv in (["apt-get", "update"], ["apt-get", "upgrade", "-y"], ["dnf", "upgrade", "-y"]):
@@ -181,8 +192,11 @@ class PackageBoxes(FakeRuntime):
             return self._add(env_id, argv[3:])
         if _is_inventory(argv):
             return ExecResult(0, self._inventory(env_id, argv), "")
-        if argv[:3] == ["dpkg-query", "-W", "-f=${Package}\t${Version}\n"] and len(argv) == 4:
-            return self._query(env_id, argv[3], "tab")
+        if argv[:3] == ["dpkg-query", "-W", "-f=${Package}\t${Version}\t${db:Status-Status}\n"] and len(argv) == 4:
+            result = self._query(env_id, argv[3], "tab")
+            if result.returncode == 0:
+                return ExecResult(0, result.stdout.rstrip("\n") + "\tinstalled\n", "")
+            return result
         if argv[:2] == ["rpm", "-q"]:
             return self._query(env_id, argv[-1], "tab")
         if argv[:2] == ["pacman", "-Q"] and len(argv) == 3:
@@ -459,6 +473,45 @@ class PackageTransactions(unittest.TestCase):
             self.assertFalse(service.store.exists("deb"))
             self.assertEqual(service.show_transaction(installed["id"])["phase"], "completed")
 
+    def test_debian_removal_accepts_config_files_without_purging(self):
+        class ResidualDpkg(PackageBoxes):
+            residual = False
+
+            def _remove(self, env_id, names):
+                result = super()._remove(env_id, names)
+                self.residual = result.returncode == 0 and names == ["wps-office"]
+                return result
+
+            def _inventory(self, env_id, argv):
+                inventory = super()._inventory(env_id, argv)
+                if self.residual and env_id == "deb" and argv[0] == "dpkg-query":
+                    return inventory + "wps-office\t1\n"
+                return inventory
+
+            def _answer(self, info, argv):
+                if (self.residual and info.env_id == "deb" and len(argv) == 4
+                        and argv[:2] == ["dpkg-query", "-W"] and argv[-1] == "wps-office"):
+                    return ExecResult(0, "wps-office\t1\tconfig-files\n", "")
+                return super()._answer(info, argv)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            service, runtime = package_service(Path(temporary), runtime=ResidualDpkg())
+            make_env(service, runtime, "debian13", "deb")
+            installed = service.install_packages("deb", ["wps-office"])
+            self.assertEqual(installed["phase"], "completed")
+            self.assertTrue(service.query_package("deb", "wps-office")["present"])
+
+            txn = service.remove_packages("deb", ["wps-office"])
+            self.assertEqual(txn["phase"], "completed")
+            self.assertFalse(txn["verification"]["packages"]["wps-office"])
+            self.assertEqual([step["argv"] for step in txn["native"]],
+                             [["apt-get", "remove", "-y", "wps-office"]])
+            answer = service.query_package("deb", "wps-office")
+            self.assertFalse(answer["present"])
+            self.assertEqual(answer["exit_code"], 0)
+            self.assertIn("config-files", answer["detail"])
+            self.assertEqual(service.inspect("deb")["runtime_state"], "stopped")
+
     def test_fedora_install_uses_dnf(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -547,28 +600,29 @@ class PackageTransactions(unittest.TestCase):
                 service.install_local("deb", str(foreign))
             self.assertEqual(len(service.transactions_for("deb")), 1)
 
-    def test_host_entry_change_fails_verification_without_removing_the_package(self):
+    def test_host_entry_change_is_audited_without_misreporting_the_package(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             service, runtime = package_service(root, observer=FlipHost())
             make_env(service, runtime, "debian13", "deb")
             txn = service.install_packages("deb", ["hello"], use_argv=["hello"])
-            self.assertEqual(txn["phase"], "failed")
-            self.assertEqual(txn["failure_phase"], "verification")
+            self.assertEqual(txn["phase"], "completed")
+            self.assertIsNone(txn["failure_phase"])
+            self.assertEqual(txn['isolation_observation']['status'], 'changed')
             self.assertEqual(txn["host_entries"]["added"], ["b.desktop"])
             self.assertEqual(service.inspect("deb")["content_revision"], 2)
             self.assertTrue(service.query_package("deb", "hello")["present"])
             inventory = (root / service.inspect("deb")["package_inventory_path"]).read_text()
             self.assertTrue(inventory_has(inventory, "hello"))
 
-    def test_unavailable_host_observer_fails_verification(self):
+    def test_unavailable_host_observer_remains_explicit_in_audit(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             service, runtime = package_service(root, observer=BlindHost())
             make_env(service, runtime, "debian13", "deb")
             txn = service.install_packages("deb", ["hello"], use_argv=["hello"])
-            self.assertEqual(txn["failure_phase"], "verification")
-            self.assertIn("host package observer unavailable", txn["verification"]["isolation"])
+            self.assertIsNone(txn["failure_phase"])
+            self.assertIn("host package observer unavailable", txn['isolation_observation']['problems'])
             self.assertTrue(service.query_package("deb", "hello")["present"])
 
 

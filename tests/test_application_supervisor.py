@@ -11,7 +11,7 @@ import time
 import unittest
 import uuid
 
-from unifier.application_supervisor import observe, process, signal_exact
+from unifier.application_supervisor import observe, process, run, signal_exact
 from unifier.runtime import parse_guest_ready
 
 SCRIPT = Path(__file__).resolve().parents[1] / 'src/unifier/application_supervisor.py'
@@ -39,11 +39,12 @@ class ApplicationSupervisor(unittest.TestCase):
                 child.terminate()
             child.communicate(timeout=15)
 
-    def launch(self, argv):
+    def launch(self, argv, *, exit_policy='wait'):
         token = uuid.uuid4().hex
         read_fd, write_fd = os.pipe()
         try:
-            child = subprocess.Popen([sys.executable, str(SCRIPT), 'run', token,
+            mode = 'run-stop-children' if exit_policy == 'stop-children' else 'run'
+            child = subprocess.Popen([sys.executable, str(SCRIPT), mode, token,
                 str(self.root), str(write_fd), *argv], pass_fds=(write_fd,),
                 stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                 start_new_session=True)
@@ -88,6 +89,66 @@ class ApplicationSupervisor(unittest.TestCase):
         out, err = child.communicate(timeout=5)
         self.assertEqual(child.returncode, 0, err)
         self.assertEqual(observe(str(self.root), token)['state'], 'exited')
+
+    def test_foreground_policy_waits_for_main_then_gracefully_reaps_its_helpers_only(self):
+        peer = self.launch([sys.executable, '-c', DAEMON, str(self.root/'peer'), str(self.root/'peer-end')])
+        self.wait_file(self.root/'peer')
+        code = '''import os,signal,sys,time
+from pathlib import Path
+p=Path(sys.argv[1])
+if os.fork():
+ while not (p/'close').exists(): time.sleep(.01)
+ os._exit(7)
+os.setsid()
+if os.fork(): os._exit(0)
+def end(*_):
+ (p/'term').touch()
+ raise SystemExit(0)
+signal.signal(signal.SIGTERM,end)
+(p/'ready').touch()
+while True: time.sleep(.05)
+'''
+        token, _guest, child = self.launch([sys.executable, '-c', code, str(self.root)], exit_policy='stop-children')
+        self.wait_file(self.root/'ready')
+        with self.assertRaises(subprocess.TimeoutExpired):
+            child.wait(timeout=.15)
+        self.assertFalse((self.root/'term').exists())
+        (self.root/'close').touch()
+        _out, err = child.communicate(timeout=5)
+        self.assertEqual(child.returncode, 7, err)
+        self.assertTrue((self.root/'term').exists())
+        value = observe(str(self.root), token)
+        self.assertEqual((value['state'], value['main_exit_code'], value['cleanup_reason']),
+                         ('exited', 7, 'main-exit'))
+        self.assertTrue(value['all_children_reaped'])
+        self.assertFalse(value['cleanup_escalated'])
+        self.assertEqual(observe(str(self.root), peer[0])['state'], 'running')
+        (self.root/'peer-end').touch(); peer[2].communicate(timeout=5)
+
+    def test_forced_helper_cleanup_cannot_report_normal_success(self):
+        code = '''import os,signal,sys,time
+from pathlib import Path
+marker=Path(sys.argv[1])
+if os.fork():
+ while not marker.exists(): time.sleep(.01)
+ os._exit(0)
+os.setsid()
+signal.signal(signal.SIGTERM, signal.SIG_IGN)
+marker.touch()
+while True: time.sleep(.05)
+'''
+        token, _guest, child = self.launch([sys.executable, '-c', code, str(self.root/'ready')], exit_policy='stop-children')
+        _out, err = child.communicate(timeout=15)
+        self.assertEqual(child.returncode, 125, err)
+        value = observe(str(self.root), token)
+        self.assertEqual(value['main_exit_code'], 0)
+        self.assertTrue(value['cleanup_escalated'])
+        self.assertTrue(value['all_children_reaped'])
+
+    def test_invalid_exit_policy_is_rejected_before_any_execution(self):
+        with self.assertRaisesRegex(ValueError, 'exit policy'):
+            run(str(self.root), 'a'*32, -1, ['/does-not-run'], exit_policy='unknown')
+        self.assertEqual(list(self.root.iterdir()), [])
 
     def test_two_application_trees_do_not_share_termination(self):
         first = self.launch([sys.executable, '-c', DAEMON, str(self.root/'a'), str(self.root/'end-a')])

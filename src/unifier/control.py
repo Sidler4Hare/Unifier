@@ -115,6 +115,10 @@ class FileControl:
         # more specific child root (which may have a stricter policy). Refuse
         # and require the caller to resolve against the child root explicitly.
         absolute = os.path.join(locator, relative_path)
+        from unifier.file_access import require_registered_permission
+        from unifier.file_access_store import AccessStore
+        require_registered_permission(record, 'read')
+        AccessStore(self.registry.root).policy().require(absolute, 'read')
         matched, _relative = self.registry.match(absolute)
         if matched is not None and matched["root_uuid"] != record["root_uuid"]:
             raise UnifierError(
@@ -230,7 +234,7 @@ class Control:
     def add_root(self, path: str, *, source_view_uuid: str | None = None,
                  **options) -> dict:
         if source_view_uuid is not None:
-            from unifier.views import ViewRegistry, is_mounted
+            from unifier.view_state import ViewRegistry, is_mounted
             view = ViewRegistry(self.root).one(source_view_uuid)
             if view.get("readonly") is not True:
                 raise UnifierError(

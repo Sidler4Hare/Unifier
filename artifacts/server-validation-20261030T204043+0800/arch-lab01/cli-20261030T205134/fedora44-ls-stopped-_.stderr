@@ -1,2 +1,0 @@
-fedora44: container is stopped; listing / through a read-only view
-fedora44: opening a short-lived read-only view acd090ff-1d8c-43be-889b-17f72ed5a10e; only this view is released afterwards.

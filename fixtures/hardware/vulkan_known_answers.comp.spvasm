@@ -1,0 +1,49 @@
+               OpCapability Shader
+               OpMemoryModel Logical GLSL450
+               OpEntryPoint GLCompute %main "main" %gid
+               OpExecutionMode %main LocalSize 16 1 1
+               OpDecorate %gid BuiltIn GlobalInvocationId
+               OpDecorate %ints ArrayStride 4
+               OpDecorate %floats ArrayStride 4
+               OpDecorate %data_type Block
+               OpMemberDecorate %data_type 0 Offset 0
+               OpMemberDecorate %data_type 1 Offset 64
+               OpDecorate %data DescriptorSet 0
+               OpDecorate %data Binding 0
+       %void = OpTypeVoid
+         %fn = OpTypeFunction %void
+       %uint = OpTypeInt 32 0
+      %float = OpTypeFloat 32
+      %uvec3 = OpTypeVector %uint 3
+    %in_uvec = OpTypePointer Input %uvec3
+        %gid = OpVariable %in_uvec Input
+       %u16 = OpConstant %uint 16
+       %u13 = OpConstant %uint 13
+       %u29 = OpConstant %uint 29
+        %u0 = OpConstant %uint 0
+        %u1 = OpConstant %uint 1
+        %f1 = OpConstant %float 1.5
+        %f2 = OpConstant %float 2
+       %ints = OpTypeArray %uint %u16
+     %floats = OpTypeArray %float %u16
+  %data_type = OpTypeStruct %ints %floats
+   %data_ptr = OpTypePointer StorageBuffer %data_type
+      %u_ptr = OpTypePointer StorageBuffer %uint
+      %f_ptr = OpTypePointer StorageBuffer %float
+       %data = OpVariable %data_ptr StorageBuffer
+       %main = OpFunction %void None %fn
+      %entry = OpLabel
+       %coord = OpLoad %uvec3 %gid
+           %i = OpCompositeExtract %uint %coord 0
+          %up = OpAccessChain %u_ptr %data %u0 %i
+          %fp = OpAccessChain %f_ptr %data %u1 %i
+           %u = OpLoad %uint %up
+           %f = OpLoad %float %fp
+          %um = OpIMul %uint %u %u13
+          %fm = OpFMul %float %f %f1
+          %uo = OpIAdd %uint %um %u29
+          %fo = OpFSub %float %fm %f2
+               OpStore %up %uo
+               OpStore %fp %fo
+               OpReturn
+               OpFunctionEnd

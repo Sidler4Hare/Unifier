@@ -1,5 +1,0 @@
-{
-  "protocol": "read-then-replace-after-host",
-  "stale": "容器读到的原文\n",
-  "final_inode": 3052247
-}

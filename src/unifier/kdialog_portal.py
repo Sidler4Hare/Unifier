@@ -56,9 +56,13 @@ def guest_paths(uris, shares, request):
         if (parsed.scheme != "file" or parsed.netloc not in ("", "localhost")
                 or parsed.query or parsed.fragment or re.search(r"%(?![0-9a-fA-F]{2})", parsed.path)):
             raise ValueError("only local files from shared directories can be selected")
-        host = absolute_path(unquote_to_bytes(parsed.path).decode("utf-8"))
-        mapped, writable = translated_path(host, shares)
-        guest = Path(mapped)
+        # The common host broker already returned a guest URI. Translating it
+        # again would deny snapshots and could route a valid path elsewhere.
+        guest = Path(absolute_path(unquote_to_bytes(parsed.path).decode("utf-8")))
+        matches = [(absolute_path(root), writable) for _host, root, writable in shares
+                   if guest.is_relative_to(absolute_path(root))]
+        depth = max((len(root.parts) for root, _ in matches), default=0)
+        writable = bool(matches) and all(value for root, value in matches if len(root.parts) == depth)
         if guest.resolve(strict=request.mode != "save") != guest:
             raise ValueError("the selected path resolves through a symbolic link")
         if request.mode == "save":
@@ -158,6 +162,8 @@ def select(connection, Gio, GLib, request, shares):
 
 def main(argv, *, command="kdialog"):
     try:
+        if os.environ.get('UNIFIER_FILE_ACCESS_PROTOCOL') != '2':
+            raise ValueError('file chooser requires the unified file access protocol')
         request = (parse_zenity_args if command == "zenity" else parse_args)(argv)
         import gi
 

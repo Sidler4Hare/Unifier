@@ -1,6 +1,0 @@
-test_running_idle_and_stopped_states_are_sampled (tests.test_resources_integration.ResourceSampling.test_running_idle_and_stopped_states_are_sampled) ... ok
-
-----------------------------------------------------------------------
-Ran 1 test in 22.776s
-
-OK

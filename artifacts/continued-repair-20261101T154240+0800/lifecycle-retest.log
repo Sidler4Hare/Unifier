@@ -1,6 +1,0 @@
-test_admitted_environments_execute_in_their_own_roots (test_env_integration.PodmanLifecycle.test_admitted_environments_execute_in_their_own_roots) ... ok
-
-----------------------------------------------------------------------
-Ran 1 test in 16.681s
-
-OK

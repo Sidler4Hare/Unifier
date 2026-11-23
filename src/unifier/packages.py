@@ -12,12 +12,19 @@ from pathlib import Path
 import re
 import subprocess
 
+from unifier.catalog import PREPARED
 from unifier.errors import UnifierError
 
 
 PACKAGE_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9._+-]{0,127}\Z")
-TARGETS = ("debian13", "fedora44", "arch")
+TARGETS = tuple(PREPARED)
 INCOMING_DIR = "/tmp/ml-incoming"
+DPKG_PACKAGE_STATUS_FORMAT = "-f=${Package}\t${Version}\t${db:Status-Status}\n"
+_DPKG_ABSENT = {"not-installed", "config-files"}
+_DPKG_STATES = _DPKG_ABSENT | {
+    "installed", "half-installed", "unpacked", "half-configured",
+    "triggers-awaited", "triggers-pending",
+}
 
 # Official Arch images strip the local signing key. The first writable
 # transaction initializes the keyring and keeps signature checks on.
@@ -138,6 +145,8 @@ class PackageDriver:
     suffixes: tuple[str, ...] = ()
     needs_keyring = False
     tracks_package_set = False
+    application_python_package = "python3"
+    application_font_package: str
 
     def native_env(self) -> dict[str, str]:
         return {"LC_ALL": "C.UTF-8"}
@@ -151,11 +160,15 @@ class PackageDriver:
     def remove(self, packages: list[str]) -> list[tuple[list[str], int]]:
         raise NotImplementedError
 
-    def local(self, container_path: str) -> list[tuple[list[str], int]]:
+    def local(self, container_path: str, *, dependencies=()) -> list[tuple[list[str], int]]:
         raise NotImplementedError
 
     def query(self, name: str) -> list[str]:
         raise NotImplementedError
+
+    def query_result(self, exit_code: int, stdout: str, stderr: str, *,
+                     require_installed: bool = False) -> tuple[bool, str]:
+        return exit_code == 0, (stdout or stderr).strip()
 
     def inventory(self) -> list[str]:
         raise NotImplementedError
@@ -170,6 +183,7 @@ class PackageDriver:
 class AptDriver(PackageDriver):
     name = "apt"
     suffixes = (".deb",)
+    application_font_package = "fonts-dejavu-core"
 
     def native_env(self) -> dict[str, str]:
         return {
@@ -178,11 +192,18 @@ class AptDriver(PackageDriver):
             "APT_LISTCHANGES_FRONTEND": "none",
         }
 
-    def install(self, packages: list[str]) -> list[tuple[list[str], int]]:
-        return [
-            (["apt-get", "update"], TIMEOUT_APT_UPDATE),
-            (["apt-get", "install", "-y", *packages], TIMEOUT_APT_CHANGE),
-        ]
+    def _prepare_install(self, minimal_dependencies):
+        steps = [(["apt-get", "update"], TIMEOUT_APT_UPDATE)]
+        if minimal_dependencies:
+            steps.append((["apt-get", "install", "-y", "--no-install-recommends",
+                           *minimal_dependencies], TIMEOUT_APT_CHANGE))
+        return steps
+
+    def install(self, packages: list[str], *, minimal_dependencies=()) -> list[tuple[list[str], int]]:
+        steps = self._prepare_install(minimal_dependencies)
+        if packages:
+            steps.append((["apt-get", "install", "-y", *packages], TIMEOUT_APT_CHANGE))
+        return steps
 
     def update(self) -> list[tuple[list[str], int]]:
         return [
@@ -193,14 +214,35 @@ class AptDriver(PackageDriver):
     def remove(self, packages: list[str]) -> list[tuple[list[str], int]]:
         return [(["apt-get", "remove", "-y", *packages], TIMEOUT_APT_CHANGE)]
 
-    def local(self, container_path: str) -> list[tuple[list[str], int]]:
-        return [
-            (["apt-get", "update"], TIMEOUT_APT_UPDATE),
-            (["apt-get", "install", "-y", container_path], TIMEOUT_APT_CHANGE),
-        ]
+    def local(self, container_path: str, *, dependencies=(), prerequisites=(),
+              minimal_dependencies=()) -> list[tuple[list[str], int]]:
+        steps = self._prepare_install(minimal_dependencies)
+        if prerequisites:
+            steps.append((["apt-get", "install", "-y", *prerequisites], TIMEOUT_APT_CHANGE))
+        steps.append((["apt-get", "install", "-y", *dependencies, container_path], TIMEOUT_APT_CHANGE))
+        return steps
 
     def query(self, name: str) -> list[str]:
-        return ["dpkg-query", "-W", "-f=${Package}\t${Version}\n", name]
+        return ["dpkg-query", "-W", DPKG_PACKAGE_STATUS_FORMAT, name]
+
+    def query_result(self, exit_code: int, stdout: str, stderr: str, *,
+                     require_installed: bool = False) -> tuple[bool, str]:
+        if exit_code != 0:
+            return super().query_result(exit_code, stdout, stderr)
+        present = False
+        details = []
+        for line in stdout.splitlines():
+            fields = line.split("\t")
+            if len(fields) != 3 or not fields[0] or fields[2] not in _DPKG_STATES:
+                raise UnifierError("dpkg-query returned an invalid package status")
+            name, version, state = fields
+            eligible = state == "installed" if require_installed else state not in _DPKG_ABSENT
+            present |= eligible
+            detail = f"{name}\t{version}"
+            details.append(detail if state == "installed" else f"{detail} ({state})")
+        if not details:
+            raise UnifierError("dpkg-query did not return a package status")
+        return present, "\n".join(details)
 
     def inventory(self) -> list[str]:
         return ["dpkg-query", "-W", "-f=${Package}\t${Version}\n"]
@@ -209,6 +251,7 @@ class AptDriver(PackageDriver):
 class DnfDriver(PackageDriver):
     name = "dnf"
     suffixes = (".rpm",)
+    application_font_package = "dejavu-sans-fonts"
 
     def install(self, packages: list[str]) -> list[tuple[list[str], int]]:
         return [(["dnf", "install", "-y", *packages], TIMEOUT_DNF)]
@@ -219,8 +262,8 @@ class DnfDriver(PackageDriver):
     def remove(self, packages: list[str]) -> list[tuple[list[str], int]]:
         return [(["dnf", "remove", "-y", *packages], TIMEOUT_DNF)]
 
-    def local(self, container_path: str) -> list[tuple[list[str], int]]:
-        return [(["dnf", "install", "-y", container_path], TIMEOUT_DNF)]
+    def local(self, container_path: str, *, dependencies=()) -> list[tuple[list[str], int]]:
+        return [(["dnf", "install", "-y", *dependencies, container_path], TIMEOUT_DNF)]
 
     def query(self, name: str) -> list[str]:
         return ["rpm", "-q", "--qf", "%{NAME}\t%{VERSION}-%{RELEASE}.%{ARCH}\n", name]
@@ -237,6 +280,8 @@ class PacmanDriver(PackageDriver):
     suffixes = (".pkg.tar.zst", ".pkg.tar.xz", ".pkg.tar.gz")
     needs_keyring = True
     tracks_package_set = True
+    application_python_package = "python"
+    application_font_package = "ttf-dejavu"
 
     def install(self, packages: list[str]) -> list[tuple[list[str], int]]:
         # `pacman -Sy <package>` is a partial upgrade and is not produced here.
@@ -248,12 +293,10 @@ class PacmanDriver(PackageDriver):
     def remove(self, packages: list[str]) -> list[tuple[list[str], int]]:
         return [(["pacman", "-R", "--noconfirm", *packages], TIMEOUT_PACMAN_REMOVE)]
 
-    def local(self, container_path: str) -> list[tuple[list[str], int]]:
+    def local(self, container_path: str, *, dependencies=()) -> list[tuple[list[str], int]]:
         # A full sync runs before -U, so the local file is not applied on a stale database.
-        return [
-            (["pacman", "-Syu", "--noconfirm"], TIMEOUT_PACMAN_SYNC),
-            (["pacman", "-U", "--noconfirm", container_path], TIMEOUT_PACMAN_SYNC),
-        ]
+        sync = self.install(list(dependencies)) if dependencies else self.update()
+        return [*sync, (["pacman", "-U", "--noconfirm", container_path], TIMEOUT_PACMAN_SYNC)]
 
     def query(self, name: str) -> list[str]:
         return ["pacman", "-Q", name]
@@ -333,15 +376,6 @@ def update_commands(target: str) -> list[tuple[list[str], int]]:
 
 def remove_commands(target: str, packages: list[str]) -> list[tuple[list[str], int]]:
     return driver_for(target).remove(packages)
-
-
-def local_commands(target: str, container_path: str) -> list[tuple[list[str], int]]:
-    """Install one file already copied into the environment."""
-    return driver_for(target).local(container_path)
-
-
-def arch_keyring_commands(*, populate: bool) -> list[tuple[list[str], int]]:
-    return DRIVERS["pacman"].bootstrap(populate=populate)
 
 
 def query_argv(target: str, name: str) -> list[str]:
@@ -561,11 +595,6 @@ class HostObserver:
         if directory.is_dir():
             names = sorted(path.name for path in directory.glob("*.desktop") if path.is_file())
         return {"directory": str(directory), "names": names}
-
-
-def _require_target(target: str) -> None:
-    if target not in TARGETS:
-        raise UnifierError(f"no package adapter for {target}")
 
 
 def _run_host(argv: list[str]):

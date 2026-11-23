@@ -8,15 +8,8 @@ decide between Fedora and a later rpm family by itself.
 import hashlib
 from pathlib import Path
 
-from unifier.catalog import describe
+from unifier.catalog import PREPARED, describe
 from unifier.errors import UnifierError
-
-
-PREPARED_FORMATS = {
-    "deb": ("debian13",),
-    "rpm": ("fedora44",),
-    "arch": ("arch",),
-}
 
 
 def route_package(raw, targets=None):
@@ -61,7 +54,8 @@ def _format_name(name: str, magic: bytes) -> str:
 
 def _candidates(format_name: str, targets) -> list[str]:
     if targets is None:
-        return list(PREPARED_FORMATS[format_name])
+        return [name for name, spec in PREPARED.items()
+                if spec["package_format"] == format_name]
     found = []
     for name, raw in targets.items():
         if describe(name, raw)["package_format"] == format_name:

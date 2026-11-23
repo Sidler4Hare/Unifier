@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src")]
@@ -91,6 +92,7 @@ class OfferPolicyTests(unittest.TestCase):
             self.assertIn("application/vnd.debian.binary-package;", entry)
             self.assertNotIn("application/x-rpm", entry)
             self.assertIn("Terminal=true", entry)
+            self.assertIn(" offer --keep-open %f", entry)
             self.assertTrue((mime / "packages" / "unifier-archpkg.xml").is_file())
             remove_registration(root / "state", desktop, mime)
             self.assertIn("org.kde.ark.desktop", (desktop / "mimeapps.list").read_text(encoding="utf-8"))
@@ -125,6 +127,42 @@ class OfferPolicyTests(unittest.TestCase):
             self.assertEqual(asked, [])
             self.assertEqual(seen["mime"], "application/x-rpm")
             self.assertIn("host distribution", out.getvalue())
+
+    def test_desktop_installer_keeps_the_result_on_success_and_failure(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            package = Path(temporary) / "example.deb"
+            package.write_bytes(b"!<arch>\n")
+            route = {"path": str(package), "format": "deb", "candidates": ["debian13"]}
+            for code, message in ((0, "Installation complete."), (6, "exit code 6")):
+                with self.subTest(code=code):
+                    out, err = StringIO(), StringIO()
+                    prompts = []
+
+                    def ask(prompt):
+                        prompts.append(prompt)
+                        if prompt:
+                            self.assertIn(message, out.getvalue())
+                        return "y"
+
+                    ctx = build_context(Path(temporary) / "home", stdin_isatty=True,
+                                        input_fn=ask, out=out, err=err,
+                                        environ={"LC_ALL": "C"}, locale_files=())
+                    with patch("unifier.shortcuts.route_package", return_value=route), patch(
+                            "unifier.shortcuts.cmd_install", return_value=code) as install:
+                        actual = cmd_offer(ctx, ["--keep-open", str(package)], facts=facts("fedora"))
+                        install.assert_called_once_with(ctx, [str(package)])
+                    self.assertEqual(actual, code)
+                    self.assertEqual(prompts, ["", "Press Enter to close the installer."])
+
+    def test_standard_offer_and_noninteractive_yes_do_not_wait(self):
+        from unifier.shortcuts import _install_from_offer
+
+        for keep_open, tty in ((False, True), (True, False)):
+            ctx = build_context("/tmp/unifier-offer-root", stdin_isatty=tty,
+                                input_fn=lambda _: self.fail("unexpected input"))
+            with patch("unifier.shortcuts.cmd_install", return_value=4):
+                self.assertEqual(_install_from_offer(ctx, "/tmp/example.deb",
+                                                     keep_open=keep_open), 4)
 
 
 if __name__ == "__main__":

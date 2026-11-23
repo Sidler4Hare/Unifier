@@ -1,6 +1,0 @@
-{
-  "same_device": true,
-  "refused": true,
-  "reason": "path crosses a mount boundary inside the data root; refusing it",
-  "control_sha256": "8c72e1601f9a640d2a432d675fc9954e26ed87ae91f1dc274edfb69e9fb515c1"
-}
