@@ -20,7 +20,7 @@ class ReleaseDocumentation(unittest.TestCase):
     def test_current_release_links_resolve_in_staged_source_and_bundles(self):
         root = Path(__file__).resolve().parents[1]
         documents = (
-            'README.md', 'docs/当前状态.md', 'docs/v0.0.6.md',
+            'README.md', 'README.zh-CN.md', 'docs/当前状态.md', 'docs/v0.0.6.md',
             'docs/v0.0.7.md', 'docs/三目标包管理收口-20261112.md',
         )
         for name in documents:
@@ -29,7 +29,8 @@ class ReleaseDocumentation(unittest.TestCase):
                 if '://' in target:
                     continue
                 with self.subTest(document=name, target=target):
-                    path = (document.parent / target).resolve()
+                    relative = target.partition('#')[0]
+                    path = (document.parent / relative).resolve() if relative else document
                     self.assertTrue(path.is_relative_to(root) and path.is_file())
 
 
@@ -42,7 +43,7 @@ class ReleaseProvenance(unittest.TestCase):
         self.root.mkdir()
         for name in ('src', 'tools', 'tests', 'config', 'fixtures', 'bin', 'docs', '设计'):
             (self.root/name).mkdir()
-        for name in ('README.md', 'HANDOFF.md', 'AGENTS.md', '.gitignore', '.gitattributes'):
+        for name in build_release.SOURCE_FILES:
             (self.root/name).write_text('fixture\n')
         (self.root/'bin/tool').write_text('hello\n')
         self.addCleanup(patch.stopall)
@@ -65,6 +66,8 @@ class ReleaseProvenance(unittest.TestCase):
         with tarfile.open(a['path']) as archive:
             archive.extractall(self.work/'unpacked', filter='data')
         extracted = self.work/'unpacked/unifier-1.2.3.dev0'
+        self.assertEqual((extracted/'README.zh-CN.md').read_bytes(),
+                         (self.root/'README.zh-CN.md').read_bytes())
         with contextlib.redirect_stdout(io.StringIO()):
             verify_bundle(extracted)
         (extracted/'bin/tool').chmod(0o755)

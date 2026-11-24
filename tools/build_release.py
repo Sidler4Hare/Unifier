@@ -23,7 +23,7 @@ from unifier import __version__
 
 
 SOURCE_DIRS = ("src", "tools", "tests", "config", "fixtures", "bin", "docs", "设计")
-SOURCE_FILES = ("README.md", "HANDOFF.md", "AGENTS.md", ".gitignore", ".gitattributes")
+SOURCE_FILES = ("README.md", "README.zh-CN.md", "HANDOFF.md", "AGENTS.md", ".gitignore", ".gitattributes")
 WPS_DESTINATION = "src/unifier/wps_portal_assets"
 WPS_SOURCE_VERSION = "0.0.8b1+render.1.portal.2.install.1.media.1.desktop.1"
 WPS_SOURCE_MANIFEST_SHA256 = "b66a51299aa3dbbf63e99a6f71148b928af4156f457aaf6745da74902507187c"
