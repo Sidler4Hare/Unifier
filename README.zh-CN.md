@@ -63,12 +63,6 @@ unifier run --target debian13 hello
 
 先正常退出由 Unifier 管理的应用，把新版本解压到独立目录，再在该目录执行 `python3 tools/install_unifier.py --upgrade`。保留旧版本目录和脚本输出的回退链接。切换前核对写死安装路径的桌面入口和软件包文件关联。原环境和应用登记继续使用同一个 `UNIFIER_HOME`。[升级与回退步骤](docs/v0.0.8.md#安装与升级)
 
-## 发布验证
-
-v0.0.8 发行包的离线回归有 1,250 项通过、10 项条件跳过。本发行系列已有 FreeCAD 保存重开、Writer DOCX 编辑重开、只读 FUSE、Debian 包安装与卸载，以及 Intel Iris Xe 图形与 H.264 硬件加速的实机验证。
-
-Writer 版式、正式包的腾讯会议媒体流程，以及部分服务器和硬件组合仍待复验。[验收范围与边界](docs/v0.0.8.md#验收与边界)
-
 ## 相关文档
 
 - [软件包安装与依赖诊断](docs/自动依赖与原生安装交互.md)

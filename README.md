@@ -63,12 +63,6 @@ To install a local package, use `unifier install ./application.deb`. For graphic
 
 Close Unifier-managed applications, extract the new release to a separate directory, and run `python3 tools/install_unifier.py --upgrade` there. Keep the previous directory and the rollback link printed by the installer. Before switching, check any desktop launchers or package-file associations that point to a specific installation directory. Use the same `UNIFIER_HOME` for your existing environments and application registrations. [Upgrade and rollback steps (简体中文)](docs/v0.0.8.md#安装与升级)
 
-## Release validation
-
-The v0.0.8 release archive passed 1,250 offline tests, with 10 conditional skips. Verified workflows in the release series include FreeCAD save and reopen, Writer DOCX editing and reopening, read-only FUSE access, Debian package installation and removal, and Intel Iris Xe graphics and H.264 acceleration.
-
-Writer layout, Tencent Meeting media with the final package, and some server and hardware combinations still need validation. [Validation scope (简体中文)](docs/v0.0.8.md#验收与边界)
-
 ## Documentation
 
 - [Package installation and dependency diagnostics (简体中文)](docs/自动依赖与原生安装交互.md)
